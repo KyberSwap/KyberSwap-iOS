@@ -266,7 +266,7 @@ class KSwapViewModel {
 
   var minRate: BigInt? {
     guard let estRate = self.estRate else { return nil }
-    return estRate * BigInt(100.0 - self.minRatePercent) / BigInt(100.0)
+    return estRate * BigInt(10000.0 - self.minRatePercent * 100.0) / BigInt(10000.0)
   }
 
   var slippageRateText: String? {
