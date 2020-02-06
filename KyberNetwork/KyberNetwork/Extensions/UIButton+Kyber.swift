@@ -63,18 +63,14 @@ extension UIButton {
       return
     }
     let icon = token.icon.isEmpty ? token.symbol.lowercased() : token.icon
-    if let image = UIImage(named: icon.lowercased()) {
-      self.setImage(image, for: .normal)
-      self.layoutIfNeeded()
-    } else {
-      let placeHolderImg = UIImage(named: "default_token")
-      self.setImage(
-        with: token.iconURL,
-        placeHolder: placeHolderImg,
-        size: size,
-        state: state
-      )
-    }
+    let image = UIImage(named: icon.lowercased())
+    let placeHolderImg = image ?? UIImage(named: "default_token")
+    self.setImage(
+      with: token.iconURL,
+      placeHolder: placeHolderImg,
+      size: size,
+      state: state
+    )
   }
 
   func centerVertically(padding: CGFloat = 6.0) {
