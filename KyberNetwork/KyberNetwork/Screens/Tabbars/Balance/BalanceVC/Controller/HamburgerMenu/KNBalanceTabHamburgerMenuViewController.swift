@@ -105,6 +105,7 @@ class KNBalanceTabHamburgerMenuViewController: KNBaseViewController {
 
   @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
   fileprivate var screenEdgePanRecognizer: UIScreenEdgePanGestureRecognizer?
+  fileprivate var longPressTimer: Timer?
 
   fileprivate var viewModel: KNBalanceTabHamburgerMenuViewModel
   weak var delegate: KNBalanceTabHamburgerMenuViewControllerDelegate?
@@ -300,16 +301,26 @@ class KNBalanceTabHamburgerMenuViewController: KNBaseViewController {
   }
 
   @objc func handleLongPressedWalletTableView(_ sender: UILongPressGestureRecognizer) {
-    if sender.state == .recognized {
-      let touch = sender.location(in: self.walletListTableView)
-      guard let indexPath = self.walletListTableView.indexPathForRow(at: touch) else { return }
-      if indexPath.row >= self.viewModel.wallets.count { return }
-      let wallet = self.viewModel.wallet(at: indexPath.row)
-      UIPasteboard.general.string = wallet.address
+    if sender.state == .began {
+        longPressTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            let touch = sender.location(in: strongSelf.walletListTableView)
+            guard let indexPath = strongSelf.walletListTableView.indexPathForRow(at: touch) else { return }
+            if indexPath.row >= strongSelf.viewModel.wallets.count { return }
+            let wallet = strongSelf.viewModel.wallet(at: indexPath.row)
+            UIPasteboard.general.string = wallet.address
 
-      self.showMessageWithInterval(
-        message: NSLocalizedString("address.copied", value: "Address copied", comment: "")
-      )
+            strongSelf.showMessageWithInterval(
+              message: NSLocalizedString("address.copied", value: "Address copied", comment: "")
+            )
+            strongSelf.longPressTimer?.invalidate()
+            strongSelf.longPressTimer = nil
+        })
+    }
+    if sender.state == .ended {
+        if longPressTimer != nil {
+            longPressTimer?.fire()
+        }
     }
   }
 
