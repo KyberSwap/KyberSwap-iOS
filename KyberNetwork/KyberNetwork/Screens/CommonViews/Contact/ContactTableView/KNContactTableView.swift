@@ -70,7 +70,7 @@ class KNContactTableView: XibLoaderView {
 
   @objc func handleLongPressedContactTableView(_ sender: UILongPressGestureRecognizer) {
     if sender.state == .began {
-        longPressTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+        longPressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
             guard let strongSelf = self else { return }
             let touch = sender.location(in: strongSelf.tableView)
             guard let indexPath = strongSelf.tableView.indexPathForRow(at: touch) else { return }

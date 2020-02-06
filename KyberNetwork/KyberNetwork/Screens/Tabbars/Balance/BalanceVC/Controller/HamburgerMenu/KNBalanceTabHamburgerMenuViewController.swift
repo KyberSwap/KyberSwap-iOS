@@ -302,7 +302,7 @@ class KNBalanceTabHamburgerMenuViewController: KNBaseViewController {
 
   @objc func handleLongPressedWalletTableView(_ sender: UILongPressGestureRecognizer) {
     if sender.state == .began {
-        longPressTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+        longPressTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { [weak self] _ in
             guard let strongSelf = self else { return }
             let touch = sender.location(in: strongSelf.walletListTableView)
             guard let indexPath = strongSelf.walletListTableView.indexPathForRow(at: touch) else { return }
