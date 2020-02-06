@@ -24,6 +24,7 @@ class KNContactTableView: XibLoaderView {
   fileprivate var isFull: Bool = false
 
   weak var delegate: KNContactTableViewDelegate?
+  fileprivate var longPressTimer: Timer?
 
   deinit {
     self.removeNotificationObserve()
@@ -68,13 +69,23 @@ class KNContactTableView: XibLoaderView {
   }
 
   @objc func handleLongPressedContactTableView(_ sender: UILongPressGestureRecognizer) {
-    if sender.state == .recognized {
-      let touch = sender.location(in: self.tableView)
-      guard let indexPath = self.tableView.indexPathForRow(at: touch) else { return }
-      if indexPath.row >= self.contacts.count { return }
-      let contact = self.contacts[indexPath.row]
-      UIPasteboard.general.string = contact.address
-      self.delegate?.contactTableView(self.tableView, run: .copiedAddress)
+    if sender.state == .began {
+        longPressTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            let touch = sender.location(in: strongSelf.tableView)
+            guard let indexPath = strongSelf.tableView.indexPathForRow(at: touch) else { return }
+            if indexPath.row >= strongSelf.contacts.count { return }
+            let contact = strongSelf.contacts[indexPath.row]
+            UIPasteboard.general.string = contact.address
+            strongSelf.delegate?.contactTableView(strongSelf.tableView, run: .copiedAddress)
+            strongSelf.longPressTimer?.invalidate()
+            strongSelf.longPressTimer = nil
+        })
+    }
+    if sender.state == .ended {
+        if longPressTimer != nil {
+            longPressTimer?.fire()
+        }
     }
   }
 

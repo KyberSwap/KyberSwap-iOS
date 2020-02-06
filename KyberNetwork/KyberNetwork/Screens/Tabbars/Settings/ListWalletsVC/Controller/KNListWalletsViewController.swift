@@ -44,6 +44,7 @@ class KNListWalletsViewController: KNBaseViewController {
   @IBOutlet weak var navTitleLabel: UILabel!
   @IBOutlet weak var walletTableView: UITableView!
   @IBOutlet weak var bottomPaddingConstraintForTableView: NSLayoutConstraint!
+  fileprivate var longPressTimer: Timer?
 
   init(viewModel: KNListWalletsViewModel) {
     self.viewModel = viewModel
@@ -97,16 +98,26 @@ class KNListWalletsViewController: KNBaseViewController {
   }
 
   @objc func handleLongPressedWalletTableView(_ sender: UILongPressGestureRecognizer) {
-    if sender.state == .recognized {
-      let touch = sender.location(in: self.walletTableView)
-      guard let indexPath = self.walletTableView.indexPathForRow(at: touch) else { return }
-      if indexPath.row >= self.viewModel.listWallets.count { return }
-      let wallet = self.viewModel.wallet(at: indexPath.row)
-      UIPasteboard.general.string = wallet.address
+    if sender.state == .began {
+        longPressTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            let touch = sender.location(in: strongSelf.walletTableView)
+            guard let indexPath = strongSelf.walletTableView.indexPathForRow(at: touch) else { return }
+            if indexPath.row >= strongSelf.viewModel.listWallets.count { return }
+            let wallet = strongSelf.viewModel.wallet(at: indexPath.row)
+            UIPasteboard.general.string = wallet.address
 
-      self.showMessageWithInterval(
-        message: NSLocalizedString("address.copied", value: "Address copied", comment: "")
-      )
+            strongSelf.showMessageWithInterval(
+              message: NSLocalizedString("address.copied", value: "Address copied", comment: "")
+            )
+            strongSelf.longPressTimer?.invalidate()
+            strongSelf.longPressTimer = nil
+        })
+    }
+    if sender.state == .ended {
+        if longPressTimer != nil {
+            longPressTimer?.fire()
+        }
     }
   }
 
