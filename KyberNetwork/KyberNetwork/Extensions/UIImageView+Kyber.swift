@@ -42,16 +42,12 @@ extension UIImageView {
       return
     }
     let icon = token.icon.isEmpty ? token.symbol.lowercased() : token.icon
-    if let image = UIImage(named: icon.lowercased()) {
-      self.image = image
-      self.layoutIfNeeded()
-    } else {
-      let placeHolderImg = UIImage(named: "default_token")
-      self.setImage(
-        with: token.iconURL,
-        placeholder: placeHolderImg,
-        size: size
-      )
-    }
+    let image = UIImage(named: icon.lowercased())
+    let placeHolderImg = image ?? UIImage(named: "default_token")
+    self.setImage(
+      with: token.iconURL,
+      placeholder: placeHolderImg,
+      size: size
+    )
   }
 }
