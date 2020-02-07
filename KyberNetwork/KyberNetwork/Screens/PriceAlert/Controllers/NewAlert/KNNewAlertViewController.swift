@@ -187,21 +187,7 @@ class KNNewAlertViewController: KNBaseViewController {
       self.viewModel.updateCurrencyType(.usd)
     }
     UIView.animate(withDuration: 0.16) {
-      let placeHolder = UIImage(named: "default_token")
-      let url = "https://raw.githubusercontent.com/KyberNetwork/KyberNetwork.github.io/master/DesignAssets/tokens/iOS/\(self.viewModel.token.lowercased()).png"
-      if let image = UIImage(named: self.viewModel.token.lowercased()) {
-        self.tokenButton.setImage(
-          image,
-          for: .normal
-        )
-      } else {
-        self.tokenButton.setImage(
-          with: url,
-          placeHolder: placeHolder,
-          size: CGSize(width: 36.0, height: 36.0),
-          state: .normal
-        )
-      }
+      self.tokenButton.setTokenImage(for: self.viewModel.token, size: CGSize(width: 36.0, height: 36.0))
       self.percentageChange.isHidden = self.viewModel.isPercentageHidden || (self.alertPriceTextField.text ?? "").isEmpty
       self.percentageChange.setImage(self.viewModel.percentageImage, for: .normal)
       self.percentageChange.setTitle(self.viewModel.percentageChangeDisplay, for: .normal)

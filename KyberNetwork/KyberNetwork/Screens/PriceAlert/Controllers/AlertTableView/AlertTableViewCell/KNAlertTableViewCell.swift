@@ -17,20 +17,7 @@ class KNAlertTableViewCell: UITableViewCell {
   }
 
   func updateCell(with alert: KNAlertObject, index: Int) {
-    let placeHolder = UIImage(named: alert.token.lowercased())
-    let url = "https://raw.githubusercontent.com/KyberNetwork/KyberNetwork.github.io/master/DesignAssets/tokens/iOS/\(alert.token.lowercased()).png"
-    if let image = placeHolder {
-      let newImage: UIImage? = alert.state == .active ? image : image.noir
-      self.tokenIcon.image = newImage
-    } else {
-      let defaultImage: UIImage? = alert.state == .active ? UIImage(named: "default_token") : UIImage(named: "default_token")?.noir
-      self.tokenIcon.setImage(
-        with: url,
-        placeholder: defaultImage,
-        size: CGSize(width: 36.0, height: 36.0),
-        applyNoir: alert.state != .active
-      )
-    }
+    tokenIcon.setTokenImage(with: alert, size: CGSize(width: 36.0, height: 36.0), applyNoir: alert.state != .active)
     self.pairLabel.attributedText = {
       let attributedString = NSMutableAttributedString()
       let pair = "\(alert.token)/\(alert.currency)"

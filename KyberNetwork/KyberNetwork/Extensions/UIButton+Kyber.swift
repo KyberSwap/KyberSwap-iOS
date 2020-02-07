@@ -73,6 +73,14 @@ extension UIButton {
     )
   }
 
+  func setTokenImage(for token: String, size: CGSize? = nil) {
+     let url = "https://raw.githubusercontent.com/KyberNetwork/KyberNetwork.github.io/master/DesignAssets/tokens/iOS/\(token.lowercased()).png"
+     let assetImage = UIImage(named: token.lowercased())
+     let defaultImage = UIImage(named: "default_token")!
+     let placeholder = assetImage ?? defaultImage
+     setImage(with: url, placeHolder: placeholder, size: size)
+  }
+
   func centerVertically(padding: CGFloat = 6.0) {
     guard
       let imageViewSize = self.imageView?.frame.size,

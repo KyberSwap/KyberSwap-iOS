@@ -17,16 +17,7 @@ class KNSearchTokenTableViewCell: UITableViewCell {
   }
 
   func updateCell(with token: TokenObject, balance: Balance?) {
-    if !token.isSupported {
-      // if token is not supported, always use
-      self.iconImageView.image = UIImage(named: "default_token")
-    } else if let image = UIImage(named: token.icon.lowercased()) {
-      self.iconImageView.image = image
-    } else {
-      self.iconImageView.setImage(
-        with: token.iconURL,
-        placeholder: UIImage(named: "default_token"))
-    }
+    iconImageView.setTokenImage(token: token, size: iconImageView.frame.size)
     self.tokenSymbolLabel.text = "\(token.symbol.prefix(8))"
     self.tokenSymbolLabel.addLetterSpacing()
     self.tokenNameLabel.text = token.name

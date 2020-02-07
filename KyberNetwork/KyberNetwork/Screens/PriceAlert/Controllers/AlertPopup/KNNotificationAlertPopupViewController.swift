@@ -36,18 +36,7 @@ class KNNotificationAlertPopupViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.containerView.rounded(radius: 4.0)
-
-    if let image = UIImage(named: self.alert.token.lowercased()) {
-      self.tokenImageView.image = image.resizeImage(to: CGSize(width: 36.0, height: 36.0))
-    } else {
-     let url =  "https://raw.githubusercontent.com/KyberNetwork/KyberNetwork.github.io/master/DesignAssets/tokens/iOS/\(self.alert.token.lowercased()).png"
-      let defaultImage = UIImage(named: "default_token")
-      self.tokenImageView.setImage(
-        with: url,
-        placeholder: defaultImage,
-        size: CGSize(width: 36.0, height: 36.0)
-      )
-    }
+    tokenImageView.setTokenImage(with: alert, size: CGSize(width: 36.0, height: 36.0))
     self.pairTextLabel.text = "\(self.alert.token)/\(self.alert.currency)"
     self.priceLabel.text = {
       let number = BigInt(self.alert.price * pow(10.0, 18.0))

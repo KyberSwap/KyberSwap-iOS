@@ -43,11 +43,19 @@ extension UIImageView {
     }
     let icon = token.icon.isEmpty ? token.symbol.lowercased() : token.icon
     let image = UIImage(named: icon.lowercased())
-    let placeHolderImg = image ?? UIImage(named: "default_token")
+    let placeHolderImg = image ?? UIImage(named: "default_token")!
     self.setImage(
       with: token.iconURL,
       placeholder: placeHolderImg,
       size: size
     )
+  }
+
+  func setTokenImage(with alert: KNAlertObject, size: CGSize? = nil, applyNoir: Bool = false) {
+     let url = "https://raw.githubusercontent.com/KyberNetwork/KyberNetwork.github.io/master/DesignAssets/tokens/iOS/\(alert.token.lowercased()).png"
+     let assetImage = UIImage(named: alert.token.lowercased())
+     let defaultImage = UIImage(named: "default_token")!
+     let placeholder = assetImage ?? defaultImage
+     setImage(with: url, placeholder: placeholder, size: size, applyNoir: applyNoir)
   }
 }
