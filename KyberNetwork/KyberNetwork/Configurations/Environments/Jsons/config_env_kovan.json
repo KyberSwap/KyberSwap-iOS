@@ -6,7 +6,7 @@
              "type": "cached"
              },
              {
-             "endPoint" : "https://kovan.infura.io/v3/7c000d80b38c40729e5677b42e9fd5e7",
+             "endPoint" : "https://kovan.infura.io/v3/",
              "type": "prune"
              }
              ],

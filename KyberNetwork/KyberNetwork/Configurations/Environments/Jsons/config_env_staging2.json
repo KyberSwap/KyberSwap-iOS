@@ -6,11 +6,11 @@
         "type": "cached"
       },
       {
-        "endPoint": "https://mainnet.infura.io/v3/1b9c2fe6f5fa424cb1304b67fee3e71e",
+        "endPoint": "https://mainnet.infura.io/v3/",
         "type": "prune"
       },
       {
-        "endPoint": "https://eth-mainnet.alchemyapi.io/jsonrpc/mDdZDw4H-9Hsl28A_fgFolv5Fh9IzYUt",
+        "endPoint": "https://eth-mainnet.alchemyapi.io/jsonrpc/",
         "type": "prune"
       },
       {

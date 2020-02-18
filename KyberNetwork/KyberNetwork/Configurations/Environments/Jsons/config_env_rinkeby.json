@@ -2,11 +2,11 @@
   "connections": {
     "http": [
       {
-        "endPoint": "https://rinkeby.infura.io/v3/1b9c2fe6f5fa424cb1304b67fee3e71e",
+        "endPoint": "https://rinkeby.infura.io/v3/",
         "type": "prune"
       }
     ],
-    "ws": "wss://rinkeby.infura.io/ws/7c000d80b38c40729e5677b42e9fd5e7"
+    "ws": "wss://rinkeby.infura.io/ws/"
   },
   "api_usd": "https://api.coinmarketcap.com",
   "api_tokens": "https://rinkeby-api.kyber.network/internal/currencies",

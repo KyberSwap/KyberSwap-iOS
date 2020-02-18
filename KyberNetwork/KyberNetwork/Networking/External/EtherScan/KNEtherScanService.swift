@@ -2,7 +2,7 @@
 
 import Moya
 
-let apiKey = "7V3E6JSF7941JCB6448FNRI3FSH9HI7HYH"
+let apiKey = KNSecret.etherscanAPIKey
 
 enum KNEtherScanService {
   case getListTransactions(address: String, startBlock: Int)

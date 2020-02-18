@@ -26,18 +26,18 @@ struct KNCustomRPC {
     if let connections: JSONDictionary = dictionary["connections"] as? JSONDictionary,
       let https: [JSONDictionary] = connections["http"] as? [JSONDictionary] {
       let endpointJSON: JSONDictionary = https.count > 1 ? https[1] : https[0]
-      endpoint = endpointJSON["endPoint"] as? String ?? ""
+      endpoint = (endpointJSON["endPoint"] as? String ?? "") + KNSecret.infuraKey
       endpointKyber = https[0]["endpoint"] as? String ?? endpoint
       endpointAlchemy = {
         if https.count > 2 {
-          return https[2]["endPoint"] as? String ?? endpoint
+          return (https[2]["endPoint"] as? String ?? endpoint) + KNSecret.alchemyKey
         }
         return endpoint
       }()
     } else {
-      endpoint = dictionary["endpoint"] as? String ?? ""
-      endpointKyber = endpoint
-      endpointAlchemy = endpoint
+      endpoint = (dictionary["endpoint"] as? String ?? "") + KNSecret.infuraKey
+      endpointKyber = endpoint + KNSecret.infuraKey
+      endpointAlchemy = endpoint + KNSecret.infuraKey
     }
     self.networkAddress = dictionary["network"] as? String ?? ""
     self.authorizedAddress = dictionary["authorize_contract"] as? String ?? ""
