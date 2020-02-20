@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +16,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNCreateLimitOrderViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNCreateLimitOrderViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="cancelOrdersCollectionView" destination="YGz-GV-5be" id="XgE-9Q-rbI"/>
                 <outlet property="cancelOrdersCollectionViewHeightConstraint" destination="Aab-bl-0ku" id="cpp-VR-Ugc"/>
@@ -33,6 +31,7 @@
                 <outlet property="fromTokenButton" destination="xbC-9c-6K8" id="Z5d-4B-ORW"/>
                 <outlet property="fromTokenInfoButton" destination="mBz-Qj-uup" id="TSl-Uy-c4m"/>
                 <outlet property="hasPendingTxView" destination="T1C-7P-suw" id="ZzF-pj-dLu"/>
+                <outlet property="hasUnreadNotification" destination="XBU-Sp-0zh" id="Tuc-bq-Uh4"/>
                 <outlet property="headerContainerView" destination="eqO-O8-aqZ" id="3wV-2Y-Vrl"/>
                 <outlet property="iunderstandButton" destination="Oh9-nZ-RvU" id="Wcg-Sp-WHn"/>
                 <outlet property="limitOrderTextLabel" destination="fu2-is-Uye" id="dxW-hw-bZm"/>
@@ -84,6 +83,14 @@
                         <constraint firstAttribute="height" constant="160" id="X7Z-Oe-vhW"/>
                     </constraints>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBU-Sp-0zh">
+                    <rect key="frame" x="344" y="40" width="6" height="6"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="6" id="C2u-we-EOd"/>
+                        <constraint firstAttribute="width" constant="6" id="WeB-nV-Vxm"/>
+                    </constraints>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mQJ-X7-oJy">
                     <rect key="frame" x="362" y="30" width="48" height="48"/>
                     <constraints>
@@ -93,6 +100,17 @@
                     <state key="normal" image="menu_white_icon"/>
                     <connections>
                         <action selector="hamburgerMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="O1M-QT-Kdm"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YB-qV-HLP">
+                    <rect key="frame" x="314" y="30" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="4CN-QF-jnm"/>
+                        <constraint firstAttribute="width" constant="48" id="B4W-YW-wd8"/>
+                    </constraints>
+                    <state key="normal" image="notification_menu_icon"/>
+                    <connections>
+                        <action selector="notificationMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="gmD-Jn-7Jl"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Limit Order" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fu2-is-Uye">
@@ -265,7 +283,7 @@
                             <rect key="frame" x="12" y="71" width="390" height="74"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vvB-eg-WPu">
-                                    <rect key="frame" x="0.0" y="0.0" width="124.5" height="74"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="125.5" height="74"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate of" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTA-cN-AJI">
                                             <rect key="frame" x="16" y="16" width="58.5" height="20"/>
@@ -274,7 +292,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KNC ➞ ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qqg-VL-FZK">
-                                            <rect key="frame" x="16" y="40" width="92.5" height="20"/>
+                                            <rect key="frame" x="16" y="40" width="93.5" height="20"/>
                                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="16"/>
                                             <color key="textColor" red="0.1647058824" green="0.1647058824" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -290,7 +308,7 @@
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.000" textAlignment="right" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pdC-wx-r8M">
-                                    <rect key="frame" x="140.5" y="16" width="233.5" height="42"/>
+                                    <rect key="frame" x="141.5" y="16" width="232.5" height="42"/>
                                     <color key="tintColor" red="1" green="0.69019607839999997" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="24"/>
@@ -641,17 +659,21 @@
             <constraints>
                 <constraint firstItem="aJ0-BY-cWi" firstAttribute="top" secondItem="JFm-au-vdC" secondAttribute="bottom" constant="24" id="0Nj-yo-ql9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aJ0-BY-cWi" secondAttribute="bottom" id="0bZ-T2-xTX"/>
+                <constraint firstItem="5YB-qV-HLP" firstAttribute="centerY" secondItem="XBU-Sp-0zh" secondAttribute="bottom" constant="8" id="0n4-El-XRP"/>
                 <constraint firstItem="u02-H8-lcK" firstAttribute="leading" secondItem="fu2-is-Uye" secondAttribute="trailing" constant="8" id="0oq-ue-Hgf"/>
                 <constraint firstItem="eqO-O8-aqZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8cR-d2-nZN"/>
                 <constraint firstItem="aJ0-BY-cWi" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Bgj-qF-hTt"/>
+                <constraint firstItem="mQJ-X7-oJy" firstAttribute="leading" secondItem="5YB-qV-HLP" secondAttribute="trailing" id="Fqc-DK-HoT"/>
+                <constraint firstItem="XBU-Sp-0zh" firstAttribute="leading" secondItem="5YB-qV-HLP" secondAttribute="centerX" constant="6" id="HKw-pT-bDn"/>
                 <constraint firstItem="u02-H8-lcK" firstAttribute="centerY" secondItem="fu2-is-Uye" secondAttribute="centerY" id="JpX-yz-tXm"/>
+                <constraint firstItem="mQJ-X7-oJy" firstAttribute="top" secondItem="5YB-qV-HLP" secondAttribute="top" id="Muy-ez-SEa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aJ0-BY-cWi" secondAttribute="trailing" id="PCN-SE-XqE"/>
+                <constraint firstItem="5YB-qV-HLP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u02-H8-lcK" secondAttribute="trailing" constant="5" id="QUH-ha-th9"/>
                 <constraint firstItem="JFm-au-vdC" firstAttribute="top" secondItem="eqO-O8-aqZ" secondAttribute="bottom" constant="-74" id="SRR-lT-6Wr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mQJ-X7-oJy" secondAttribute="trailing" constant="4" id="Tgc-Yw-Jve"/>
                 <constraint firstItem="T1C-7P-suw" firstAttribute="centerY" secondItem="mQJ-X7-oJy" secondAttribute="centerY" constant="10" id="Ubk-kK-1mQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JFm-au-vdC" secondAttribute="trailing" constant="12" id="VFp-Je-7Cv"/>
                 <constraint firstItem="JFm-au-vdC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="WQi-58-TTz"/>
-                <constraint firstItem="mQJ-X7-oJy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="u02-H8-lcK" secondAttribute="trailing" constant="8" id="XnY-bw-hQJ"/>
                 <constraint firstItem="aJ0-BY-cWi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ggq-KR-SXj"/>
                 <constraint firstItem="fu2-is-Uye" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="ida-vG-nWN"/>
                 <constraint firstItem="fu2-is-Uye" firstAttribute="centerY" secondItem="mQJ-X7-oJy" secondAttribute="centerY" id="mTj-VY-ZEb"/>
@@ -679,6 +701,7 @@
         <image name="info_blue_icon" width="19" height="18"/>
         <image name="knc" width="36" height="36"/>
         <image name="menu_white_icon" width="18" height="10"/>
+        <image name="notification_menu_icon" width="13" height="15"/>
         <image name="swap_vertical_icon" width="32" height="32"/>
     </resources>
 </document>

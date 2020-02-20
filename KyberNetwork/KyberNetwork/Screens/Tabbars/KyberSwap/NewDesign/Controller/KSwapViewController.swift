@@ -77,7 +77,7 @@ class KSwapViewController: KNBaseViewController {
 
   @IBOutlet weak var thirdSuggestButton: UIButton!
   @IBOutlet weak var thirdSuggestType: UIButton!
-
+  @IBOutlet weak var hasUnreadNotification: UIView!
   fileprivate var estRateTimer: Timer?
   fileprivate var estGasLimitTimer: Timer?
   fileprivate var getUserCapTimer: Timer?
@@ -205,12 +205,14 @@ class KSwapViewController: KNBaseViewController {
 
   fileprivate func setupUI() {
     self.bottomPaddingConstraintForScrollView.constant = self.bottomPaddingSafeArea()
+    hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
     self.walletNameLabel.text = self.viewModel.walletNameString
     self.setupTokensView()
     self.setupHamburgerMenu()
     self.setupAdvancedSettingsView()
     self.setupContinueButton()
     self.setupSwapSuggestionView()
+    notificationDidUpdate(nil)
   }
 
   fileprivate func setupTokensView() {
@@ -556,6 +558,10 @@ class KSwapViewController: KNBaseViewController {
     self.delegate?.kSwapViewController(self, run: event)
   }
 
+  @IBAction func notificationMenuButtonPressed(_ sender: UIButton) {
+    delegate?.kSwapViewController(self, run: .selectNotifications)
+  }
+
   fileprivate func updateEstimatedGasLimit() {
     let event = KSwapViewEvent.estimateGas(
       from: self.viewModel.from,
@@ -709,6 +715,18 @@ class KSwapViewController: KNBaseViewController {
       }
     }
   }
+
+  @objc func notificationDidUpdate(_ sender: Any?) {
+    let numUnread: Int = {
+      if IEOUserStorage.shared.user == nil { return 0 }
+      return KNNotificationCoordinator.shared.numberUnread
+    }()
+    self.update(notificationsCount: numUnread)
+  }
+
+  func update(notificationsCount: Int) {
+    hasUnreadNotification.isHidden = notificationsCount == 0
+  }
 }
 
 // MARK: Update UIs
@@ -802,11 +820,22 @@ extension KSwapViewController {
       name: name,
       object: nil
     )
+
+    let nameUpdateListNotificationKey = Notification.Name(kUpdateListNotificationsKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.notificationDidUpdate(_:)),
+      name: nameUpdateListNotificationKey,
+      object: nil
+    )
   }
 
   fileprivate func removeObserveNotification() {
     let name = Notification.Name(kProdCachedRateFailedToLoadNotiKey)
     NotificationCenter.default.removeObserver(self, name: name, object: nil)
+    
+    let nameUpdateListNotificationKey = Notification.Name(kUpdateListNotificationsKey)
+    NotificationCenter.default.removeObserver(self, name: nameUpdateListNotificationKey, object: nil)
   }
 }
 

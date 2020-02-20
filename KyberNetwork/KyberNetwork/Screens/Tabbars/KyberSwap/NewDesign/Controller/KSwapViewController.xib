@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +16,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KSwapViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KSwapViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="advancedSettingsView" destination="16U-yR-n8d" id="rg9-Zc-Zey"/>
                 <outlet property="balanceLabel" destination="fk0-fr-Th3" id="gYr-4c-t3e"/>
@@ -35,6 +33,7 @@
                 <outlet property="fromAmountTextField" destination="FRx-Np-XK9" id="YoV-GF-962"/>
                 <outlet property="fromTokenButton" destination="pNB-lE-CZa" id="d0p-eq-DlN"/>
                 <outlet property="hasPendingTxView" destination="fZ2-x6-Tfq" id="9Q5-HQ-HgX"/>
+                <outlet property="hasUnreadNotification" destination="lc6-Yt-bDS" id="vgb-CZ-BSd"/>
                 <outlet property="headerContainerView" destination="vbp-fJ-pmC" id="1nh-Jl-Pr7"/>
                 <outlet property="heightConstraintForAdvacedSettingsView" destination="wBz-ex-E7d" id="rJI-1Q-yr8"/>
                 <outlet property="loadingRateIndicator" destination="cHn-lC-3yv" id="sm3-sy-m0v"/>
@@ -93,19 +92,42 @@
                                 <constraint firstAttribute="height" constant="10" id="lBS-OQ-aPV"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cxr-LK-IyJ">
+                            <rect key="frame" x="275" y="30" width="48" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="Cal-eI-3CM"/>
+                                <constraint firstAttribute="width" constant="48" id="ukn-gj-RwD"/>
+                            </constraints>
+                            <state key="normal" image="notification_menu_icon"/>
+                            <connections>
+                                <action selector="notificationMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="gNi-99-pzg"/>
+                            </connections>
+                        </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lc6-Yt-bDS">
+                            <rect key="frame" x="305" y="40" width="6" height="6"/>
+                            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="6" id="JYO-sb-2MX"/>
+                                <constraint firstAttribute="height" constant="6" id="XbD-i9-uD2"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.92941176470588238" green="0.6705882352941176" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="uHO-nX-aqo" firstAttribute="top" secondItem="Cxr-LK-IyJ" secondAttribute="top" id="F1f-E1-bJg"/>
+                        <constraint firstItem="lc6-Yt-bDS" firstAttribute="leading" secondItem="Cxr-LK-IyJ" secondAttribute="centerX" constant="6" id="F5s-uz-cc0"/>
                         <constraint firstItem="13x-JS-xwV" firstAttribute="leading" secondItem="V4f-Nd-lmp" secondAttribute="trailing" constant="8" id="Fpr-l5-YXv"/>
                         <constraint firstItem="fZ2-x6-Tfq" firstAttribute="centerX" secondItem="uHO-nX-aqo" secondAttribute="centerX" constant="10" id="IFF-bg-p2R"/>
-                        <constraint firstItem="uHO-nX-aqo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="13x-JS-xwV" secondAttribute="trailing" constant="8" id="atu-jN-a42"/>
+                        <constraint firstItem="Cxr-LK-IyJ" firstAttribute="centerY" secondItem="lc6-Yt-bDS" secondAttribute="bottom" constant="8" id="XXE-S5-ftM"/>
                         <constraint firstItem="V4f-Nd-lmp" firstAttribute="centerY" secondItem="uHO-nX-aqo" secondAttribute="centerY" id="bWN-9s-RTz"/>
+                        <constraint firstItem="Cxr-LK-IyJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="13x-JS-xwV" secondAttribute="trailing" constant="5" id="dkU-HG-TC9"/>
                         <constraint firstItem="V4f-Nd-lmp" firstAttribute="leading" secondItem="vbp-fJ-pmC" secondAttribute="leading" constant="20" id="fYU-h9-MtD"/>
                         <constraint firstAttribute="height" constant="160" id="ftb-Ys-LFW"/>
                         <constraint firstItem="uHO-nX-aqo" firstAttribute="top" secondItem="vbp-fJ-pmC" secondAttribute="top" constant="30" id="l1E-KV-VoA"/>
                         <constraint firstItem="13x-JS-xwV" firstAttribute="centerY" secondItem="V4f-Nd-lmp" secondAttribute="centerY" id="qix-vD-Ukh"/>
                         <constraint firstItem="fZ2-x6-Tfq" firstAttribute="centerY" secondItem="uHO-nX-aqo" secondAttribute="centerY" constant="10" id="swI-jq-QEh"/>
                         <constraint firstAttribute="trailing" secondItem="uHO-nX-aqo" secondAttribute="trailing" constant="4" id="x2U-M2-R8F"/>
+                        <constraint firstItem="uHO-nX-aqo" firstAttribute="leading" secondItem="Cxr-LK-IyJ" secondAttribute="trailing" id="xBP-7h-Amd"/>
                     </constraints>
                 </view>
                 <view alpha="0.95999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="69i-TU-qqK">
@@ -226,7 +248,7 @@
                                 <action selector="continueButtonPressed:" destination="-1" eventType="touchUpInside" id="5vp-Na-2UH"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-yR-n8d" customClass="KAdvancedSettingsView" customModule="KyberNetwork" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="16U-yR-n8d" customClass="KAdvancedSettingsView" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="75" width="375" height="128"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -463,6 +485,7 @@
         <image name="info_blue_icon" width="19" height="18"/>
         <image name="knc" width="36" height="36"/>
         <image name="menu_white_icon" width="18" height="10"/>
+        <image name="notification_menu_icon" width="13" height="15"/>
         <image name="promoted_icon" width="12" height="12"/>
         <image name="swap_vertical_icon" width="32" height="32"/>
         <image name="trending_icon" width="9" height="12"/>
