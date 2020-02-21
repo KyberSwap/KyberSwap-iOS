@@ -803,16 +803,25 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
       self.updateEstimatedGasLimit(from: from, to: to, amount: amount)
     case .confirmSwap(let transaction):
       self.navigationController.displayLoading(text: "Sending...".toBeLocalised(), animated: true)
-      self.checkUserCapIfNeeded(exchange: transaction) { [weak self] error in
-        if let errorMessage = error {
-          self?.navigationController.hideLoading()
-          self?.navigationController.showErrorTopBannerMessage(
+      sendGetPreScreeningWalletRequest { [weak self] (result) in
+        guard let `self` = self else { return }
+        var message: String?
+        if case .success(let resp) = result,
+          let json = try? resp.mapJSON() as? JSONDictionary ?? [:] {
+          if let status = json["eligible"] as? Bool {
+            print("eligible status : \(status)")
+            message = json["message"] as? String
+          }
+        }
+        if let errorMessage = message {
+          self.navigationController.hideLoading()
+          self.navigationController.showErrorTopBannerMessage(
             with: NSLocalizedString("error", value: "Error", comment: ""),
             message: errorMessage,
             time: 2.0
           )
         } else {
-          self?.sendExchangeTransaction(transaction)
+          self.sendExchangeTransaction(transaction)
         }
       }
     }
@@ -835,49 +844,6 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
         self?.convertVC?.updateEstimateGasLimit(estimate)
       }
     }
-  }
-
-  // temporary no need to check cap for the transaction
-  fileprivate func checkUserCapIfNeeded(exchange: KNDraftExchangeTransaction, completion: @escaping (String?) -> Void) {
-    if exchange.from.isETH && exchange.to.isWETH {
-      completion(nil)
-      return
-    }
-    if exchange.from.isWETH && exchange.to.isETH {
-      completion(nil)
-      return
-    }
-    self.sendGetUserTradeCapRequest(completion: { result in
-      if case .success(let resp) = result,
-        let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
-        let cap = json["cap"] as? Double {
-        let rich = json["rich"] as? Bool ?? false
-        if rich {
-          let errorMessage = NSLocalizedString(
-            "Sorry, you have already reached your daily limit. Please wait for few hours or complete your profile verification to swap more.",
-            value: "Sorry, you have already reached your daily limit. Please wait for few hours or complete your profile verification to swap more.",
-            comment: ""
-          )
-          completion(errorMessage)
-          return
-        } else {
-          if Double(exchange.amount) > cap {
-            let display = BigInt(cap).shortString(decimals: 18, maxFractionDigits: 4)
-            let text = NSLocalizedString(
-              "Sorry, we are unable to handle such a big amount. Please reduce the amount to less than %@ and try again.",
-              value: "Sorry, we are unable to handle such a big amount. Please reduce the amount to less than %@ and try again.",
-              comment: ""
-            )
-            let errorMessage = String(
-              format: text,
-              "\(display) ETH")
-            completion(errorMessage)
-            return
-          }
-        }
-      }
-      completion(nil)
-    })
   }
 
   fileprivate func sendExchangeTransaction(_ exchage: KNDraftExchangeTransaction) {
@@ -938,26 +904,13 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
     }
   }
 
-  fileprivate func sendGetUserTradeCapRequest(completion: @escaping (Result<Moya.Response, MoyaError>) -> Void) {
+  fileprivate func sendGetPreScreeningWalletRequest(completion: @escaping (Result<Moya.Response, MoyaError>) -> Void) {
     let address = self.session.wallet.address.description
-    if let accessToken = IEOUserStorage.shared.user?.accessToken {
-      // New user trade cap
-      DispatchQueue.global(qos: .background).async {
-        let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
-        provider.request(.getUserTradeCap(authToken: accessToken, address: address)) { result in
-          DispatchQueue.main.async {
-            completion(result)
-          }
-        }
-      }
-    } else {
-      // Fallback to normal get user cap
-      DispatchQueue.global(qos: .background).async {
-        let provider = MoyaProvider<KNTrackerService>()
-        provider.request(.getUserCap(address: address.lowercased())) { result in
-          DispatchQueue.main.async {
-            completion(result)
-          }
+    DispatchQueue.global(qos: .background).async {
+      let provider = MoyaProvider<UserInfoService>()
+      provider.request(.getPreScreeningWallet(address: address)) { result in
+        DispatchQueue.main.async {
+          completion(result)
         }
       }
     }

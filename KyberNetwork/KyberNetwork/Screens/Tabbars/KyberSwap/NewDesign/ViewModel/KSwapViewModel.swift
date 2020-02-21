@@ -23,7 +23,6 @@ class KSwapViewModel {
   fileprivate(set) var amountTo: String = ""
   fileprivate(set) var isFocusingFromAmount: Bool = true
 
-  fileprivate(set) var userCapInWei: BigInt = BigInt(2).power(255)
   fileprivate(set) var estRate: BigInt?
   fileprivate(set) var slippageRate: BigInt?
   fileprivate(set) var minRatePercent: Double = 3.0
@@ -305,24 +304,8 @@ class KSwapViewModel {
     return true
   }
 
-  var isCapEnough: Bool {
-    if self.from.isETH && self.to.isWETH { return true }
-    if self.from.isWETH && self.to.isETH { return true }
-    let ethAmount: BigInt = {
-      if self.from.isETH || self.from.isWETH { return self.amountFromBigInt }
-      if self.to.isETH || self.to.isWETH { return self.amountToBigInt }
-      let ethRate: BigInt = {
-        let cacheRate = KNRateCoordinator.shared.ethRate(for: self.from)
-        return cacheRate?.rate ?? BigInt(0)
-      }()
-      return ethRate * self.amountFromBigInt / BigInt(10).power(self.from.decimals)
-    }()
-    return self.userCapInWei >= ethAmount
-  }
-
   var isAmountTooBig: Bool {
     if !self.isBalanceEnough { return true }
-    if !self.isCapEnough { return true }
     return false
   }
 
@@ -392,7 +375,6 @@ class KSwapViewModel {
     self.estRate = nil
     self.slippageRate = nil
     self.estimateGasLimit = KNGasConfiguration.calculateDefaultGasLimit(from: self.from, to: self.to)
-    self.userCapInWei = BigInt(2).power(255)
     self.updateProdCachedRate()
     self.swapSuggestion = nil
     self.updateRelatedOrders()
@@ -524,9 +506,5 @@ class KSwapViewModel {
         self.estimateGasLimit = gasLimit
       }
     }
-  }
-
-  func updateUserCapInWei(cap: BigInt) {
-    self.userCapInWei = cap
   }
 }
