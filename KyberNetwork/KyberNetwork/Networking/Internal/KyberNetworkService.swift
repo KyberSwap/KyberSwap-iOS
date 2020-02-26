@@ -208,7 +208,7 @@ extension UserInfoService: TargetType {
 
   var method: Moya.Method {
     switch self {
-    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet, .getUserTradeCap: return .get
+    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet: return .get
     case .removeAnAlert, .deleteAllTriggerdAlerts: return .delete
     case .addPushToken, .updateAlert: return .patch
     case .markAsRead: return .put
