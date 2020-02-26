@@ -126,6 +126,7 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
     case .searchToken(let selectedToken):
       self.openSearchToken(selectedToken: selectedToken)
     case .send(let transaction, let ens):
+      controller.displayLoading()
       sendGetPreScreeningWalletRequest { [weak self] (result) in
         controller.hideLoading()
         guard let `self` = self else { return }
