@@ -813,8 +813,8 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
             if status == false { message = json["message"] as? String }
           }
         }
+        self.navigationController.hideLoading()
         if let errorMessage = message {
-          self.navigationController.hideLoading()
           self.navigationController.showErrorTopBannerMessage(
             with: NSLocalizedString("error", value: "Error", comment: ""),
             message: errorMessage,
