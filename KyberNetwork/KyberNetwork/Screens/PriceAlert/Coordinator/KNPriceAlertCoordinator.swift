@@ -154,6 +154,36 @@ class KNPriceAlertCoordinator: NSObject {
     }
   }
 
+  func removeAllTriggeredAlerts(accessToken: String, completion: @escaping (String, String?) -> Void) {
+    DispatchQueue.global(qos: .background).async {
+      self.provider.request(.deleteAllTriggerdAlerts(accessToken: accessToken)) { [weak self] result in
+        guard let _ = self else { return }
+        DispatchQueue.main.async {
+          switch result {
+          case .success(let data):
+            do {
+              let _ = try data.filterSuccessfulStatusCodes()
+              let json = try data.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+              let success = json["success"] as? Bool ?? true
+              if success {
+                KNAlertStorage.shared.deleteAllTriggerd()
+                self?.startLoadingListPriceAlerts(nil)
+                completion("", nil)
+              } else {
+                let message = json["message"] as? String ?? NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
+                completion("", message)
+              }
+            } catch {
+              completion("", NSLocalizedString("can.not.decode.data", value: "Can not decode data", comment: ""))
+            }
+          case .failure(let error):
+            completion("", error.prettyError)
+          }
+        }
+      }
+    }
+  }
+
   func loadLeaderBoardData(accessToken: String, completion: @escaping (JSONDictionary, String?) -> Void) {
     DispatchQueue.global(qos: .background).async {
       self.provider.request(.getLeaderBoardData(accessToken: accessToken)) { [weak self] result in

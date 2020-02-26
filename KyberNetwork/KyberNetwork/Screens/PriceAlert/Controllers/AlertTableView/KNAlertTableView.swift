@@ -7,6 +7,7 @@ enum KNAlertTableViewEvent {
   case delete(alert: KNAlertObject)
   case edit(alert: KNAlertObject)
   case update(height: CGFloat)
+  case deleteAll
 }
 
 protocol KNAlertTableViewDelegate: class {
@@ -156,12 +157,18 @@ extension KNAlertTableView: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     if !self.isFull { return nil }
-    let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: kAlertHeaderTableViewID) as! KNListAlertHeaderView
+    let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: kAlertHeaderTableViewID) as! KNListAlertHeaderView //Note: add new button section view
     let backgroundView = UIView(frame: view.bounds)
     backgroundView.backgroundColor = UIColor(red: 239, green: 239, blue: 239)
     view.backgroundView = backgroundView
     if self.activeAlerts.isEmpty || section == 1 {
       view.updateText(NSLocalizedString("Triggered", comment: "").uppercased())
+      view.updateDeleteButtonText {
+        self.delegate?.alertTableView(
+          tableView,
+          run: .deleteAll
+        )
+      }
     } else {
       view.updateText(NSLocalizedString("Active", comment: "").uppercased())
     }

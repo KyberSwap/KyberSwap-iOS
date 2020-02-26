@@ -89,4 +89,14 @@ class KNAlertStorage {
     try! self.realm.commitWrite()
     KNNotificationUtil.postNotification(for: kUpdateListAlertsNotificationKey)
   }
+
+  func deleteAllTriggerd() {
+    if self.realm == nil { return }
+    self.realm.beginWrite()
+    let alerts = self.alerts.filter({ return $0.state != .active })
+    alerts.forEach({ $0.removeRewardData() })
+    self.realm.delete(alerts)
+    try! self.realm.commitWrite()
+    KNNotificationUtil.postNotification(for: kUpdateListAlertsNotificationKey)
+  }
 }

@@ -658,3 +658,6 @@
 "Yes" = "Yes";
 "No" = "No";
 "%@ (Gas Price) * %@ (Gas Limit)" = "%@ (Gas Price) * %@ (Gas Limit)";
+"delete all" = "delete all";
+"Delete all triggered alerts successfully" = "Delete all triggered alerts successfully";
+"Do you want to delete all triggered alerts?" = "Do you want to delete all triggered alerts?";

@@ -162,6 +162,7 @@ enum UserInfoService {
   case getNotification(accessToken: String?, pageIndex: Int)
   case markAsRead(accessToken: String?, ids: [Int])
   case getPreScreeningWallet(address: String)
+  case deleteAllTriggerdAlerts(accessToken: String)
 }
 
 extension UserInfoService: MoyaCacheable {
@@ -198,6 +199,8 @@ extension UserInfoService: TargetType {
       return URL(string: "\(baseString)/api/notifications/mark_as_read")!
     case .getPreScreeningWallet(let address):
       return URL(string: "\(baseString)/api/wallet/screening?wallet=\(address)")!
+    case .deleteAllTriggerdAlerts:
+      return URL(string: "\(baseString)/api/alerts/delete_triggered")!
     }
   }
 
@@ -205,8 +208,8 @@ extension UserInfoService: TargetType {
 
   var method: Moya.Method {
     switch self {
-    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet: return .get
-    case .removeAnAlert: return .delete
+    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet, .getUserTradeCap: return .get
+    case .removeAnAlert, .deleteAllTriggerdAlerts: return .delete
     case .addPushToken, .updateAlert: return .patch
     case .markAsRead: return .put
     default: return .post
@@ -238,7 +241,7 @@ extension UserInfoService: TargetType {
       print(json)
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
-    case .getListAlerts, .removeAnAlert, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification:
+    case .getListAlerts, .removeAnAlert, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .deleteAllTriggerdAlerts:
       return .requestPlain
     case .getPreScreeningWallet:
       return .requestPlain
@@ -290,6 +293,8 @@ extension UserInfoService: TargetType {
       if let token = accessToken { json["Authorization"] = token }
     case .getPreScreeningWallet:
       break
+    case .deleteAllTriggerdAlerts(let accessToken):
+      json["Authorization"] = accessToken
     }
     return json
   }

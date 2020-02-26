@@ -352,6 +352,8 @@ extension KNProfileHomeViewController: KNAlertTableViewDelegate {
       self.delegate?.profileHomeViewController(self, run: .editAlert(alert: alert))
     case .select(let alert):
       self.delegate?.profileHomeViewController(self, run: .editAlert(alert: alert))
+    case .deleteAll:
+      break
     }
   }
 
