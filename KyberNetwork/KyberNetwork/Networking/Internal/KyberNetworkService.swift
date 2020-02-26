@@ -289,7 +289,7 @@ extension UserInfoService: TargetType {
     case .markAsRead(let accessToken, _):
       if let token = accessToken { json["Authorization"] = token }
     case .getPreScreeningWallet:
-      return nil
+      break
     }
     return json
   }

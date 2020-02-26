@@ -490,8 +490,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         if case .success(let resp) = result,
           let json = try? resp.mapJSON() as? JSONDictionary ?? [:] {
           if let status = json["eligible"] as? Bool {
-            print("eligible status : \(status)")
-            errorMessage = json["message"] as? String
+            if isDebug { print("eligible status : \(status)") }
+            if status == false { errorMessage = json["message"] as? String }
           }
         }
         group.leave()

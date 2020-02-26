@@ -809,8 +809,8 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
         if case .success(let resp) = result,
           let json = try? resp.mapJSON() as? JSONDictionary ?? [:] {
           if let status = json["eligible"] as? Bool {
-            print("eligible status : \(status)")
-            message = json["message"] as? String
+            if isDebug { print("eligible status : \(status)") }
+            if status == false { message = json["message"] as? String }
           }
         }
         if let errorMessage = message {
