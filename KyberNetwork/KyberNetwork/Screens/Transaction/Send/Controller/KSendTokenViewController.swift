@@ -280,11 +280,11 @@ class KSendTokenViewController: KNBaseViewController {
     } else {
       KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_token", customAttributes: ["action": "send_not_in_contact"])
     }
+    displayLoading()
     let event = KSendTokenViewEvent.send(
       transaction: self.viewModel.unconfirmTransaction,
       ens: self.viewModel.isUsingEns ? self.viewModel.addressString : nil
     )
-    sendButton.isEnabled = false
     self.delegate?.kSendTokenViewController(self, run: event)
   }
 
