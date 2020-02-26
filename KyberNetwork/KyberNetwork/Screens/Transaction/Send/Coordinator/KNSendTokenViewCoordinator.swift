@@ -126,11 +126,43 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
     case .searchToken(let selectedToken):
       self.openSearchToken(selectedToken: selectedToken)
     case .send(let transaction, let ens):
-      self.send(transaction: transaction, ens: ens)
+      sendGetPreScreeningWalletRequest { [weak self] (result) in
+        controller.sendButton.isEnabled = true
+        guard let `self` = self else { return }
+        var message: String?
+        if case .success(let resp) = result,
+          let json = try? resp.mapJSON() as? JSONDictionary ?? [:] {
+          if let status = json["eligible"] as? Bool {
+            if isDebug { print("eligible status : \(status)") }
+            if status == false { message = json["message"] as? String }
+          }
+        }
+        if let errorMessage = message {
+          self.navigationController.showErrorTopBannerMessage(
+            with: NSLocalizedString("error", value: "Error", comment: ""),
+            message: errorMessage,
+            time: 2.0
+          )
+        } else {
+          self.send(transaction: transaction, ens: ens)
+        }
+      }
     case .addContact(let address, let ens):
       self.openNewContact(address: address, ens: ens)
     case .contactSelectMore:
       self.openListContactsView()
+    }
+  }
+
+  fileprivate func sendGetPreScreeningWalletRequest(completion: @escaping (Result<Moya.Response, MoyaError>) -> Void) {
+    let address = self.session.wallet.address.description
+    DispatchQueue.global(qos: .background).async {
+      let provider = MoyaProvider<UserInfoService>()
+      provider.request(.getPreScreeningWallet(address: address)) { result in
+        DispatchQueue.main.async {
+          completion(result)
+        }
+      }
     }
   }
 
@@ -217,26 +249,7 @@ extension KNSendTokenViewCoordinator: KNSearchTokenViewControllerDelegate {
 extension KNSendTokenViewCoordinator: KConfirmSendViewControllerDelegate {
   func kConfirmSendViewController(_ controller: KConfirmSendViewController, run event: KConfirmViewEvent) {
     if case .confirm(let type) = event, case .transfer(let transaction) = type {
-      sendGetPreScreeningWalletRequest { [weak self] (result) in
-        guard let `self` = self else { return }
-        var message: String?
-        if case .success(let resp) = result,
-          let json = try? resp.mapJSON() as? JSONDictionary ?? [:] {
-          if let status = json["eligible"] as? Bool {
-            if isDebug { print("eligible status : \(status)") }
-            if status == false { message = json["message"] as? String }
-          }
-        }
-        if let errorMessage = message {
-          self.navigationController.showErrorTopBannerMessage(
-            with: NSLocalizedString("error", value: "Error", comment: ""),
-            message: errorMessage,
-            time: 2.0
-          )
-        } else {
-          self.didConfirmTransfer(transaction)
-        }
-      }
+      self.didConfirmTransfer(transaction)
     } else {
       self.navigationController.popViewController(animated: true) {
         self.confirmVC = nil
@@ -284,18 +297,6 @@ extension KNSendTokenViewCoordinator {
     self.transactionStatusVC?.modalTransitionStyle = .crossDissolve
     self.transactionStatusVC?.delegate = self
     self.navigationController.present(self.transactionStatusVC!, animated: true, completion: nil)
-  }
-
-  fileprivate func sendGetPreScreeningWalletRequest(completion: @escaping (Result<Moya.Response, MoyaError>) -> Void) {
-    let address = self.session.wallet.address.description
-    DispatchQueue.global(qos: .background).async {
-      let provider = MoyaProvider<UserInfoService>()
-      provider.request(.getPreScreeningWallet(address: address)) { result in
-        DispatchQueue.main.async {
-          completion(result)
-        }
-      }
-    }
   }
 }
 

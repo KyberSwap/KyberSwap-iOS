@@ -284,6 +284,7 @@ class KSendTokenViewController: KNBaseViewController {
       transaction: self.viewModel.unconfirmTransaction,
       ens: self.viewModel.isUsingEns ? self.viewModel.addressString : nil
     )
+    sendButton.isEnabled = false
     self.delegate?.kSendTokenViewController(self, run: event)
   }
 
