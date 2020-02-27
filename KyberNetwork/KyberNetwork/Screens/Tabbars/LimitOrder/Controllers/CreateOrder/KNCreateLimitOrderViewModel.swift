@@ -299,11 +299,27 @@ class KNCreateLimitOrderViewModel {
     return "1 \(self.toSymbol) = \(rateText) \(self.fromSymbol)"
   }
 
+  var resertTargetExchangeRateString: String? {
+    guard !targetRateBigInt.isZero else {
+      return nil
+    }
+    let revertRate = BigInt(10).power(self.from.decimals) * BigInt(10).power(self.to.decimals) / targetRateBigInt
+    let rateText = revertRate.displayRate(decimals: self.from.decimals)
+    return "1 \(self.toSymbol) = \(rateText) \(self.fromSymbol)"
+  }
+
   var displayCurrentExchangeRate: String {
     if self.isShowingRevertRate, let revertRateString = self.revertCurrentExchangeRateString {
       return "\(self.exchangeRateText)\n\(revertRateString)"
     }
     return self.exchangeRateText
+  }
+
+  var displayTargetExchangeRate: String {
+    if self.isShowingRevertRate, let revertRateString = resertTargetExchangeRateString {
+      return revertRateString
+    }
+    return ""
   }
 
   var estimatedRateDouble: Double {

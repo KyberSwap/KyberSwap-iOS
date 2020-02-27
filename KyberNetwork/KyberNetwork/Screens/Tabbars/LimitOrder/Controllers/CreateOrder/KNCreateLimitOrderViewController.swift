@@ -94,6 +94,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
   @IBOutlet weak var scrollViewBottomPaddingConstraints: NSLayoutConstraint!
 
   @IBOutlet weak var relatedOrderCollectionView: UICollectionView!
+  @IBOutlet weak var targetReverseRateLabel: UILabel!
 
   lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
     let viewModel = KNBalanceTabHamburgerMenuViewModel(
@@ -617,6 +618,7 @@ extension KNCreateLimitOrderViewController {
   fileprivate func updateCurrentMarketRateUI() {
     self.currentRateLabel.text = "\(self.viewModel.displayCurrentExchangeRate)"
     self.compareMarketRateLabel.attributedText = self.viewModel.displayRateCompareAttributedString
+    self.targetReverseRateLabel.text = viewModel.displayTargetExchangeRate
   }
 
   // Update fee when source amount changed
