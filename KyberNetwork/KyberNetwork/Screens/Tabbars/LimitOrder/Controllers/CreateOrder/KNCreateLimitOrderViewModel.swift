@@ -299,7 +299,7 @@ class KNCreateLimitOrderViewModel {
     return "1 \(self.toSymbol) = \(rateText) \(self.fromSymbol)"
   }
 
-  var resertTargetExchangeRateString: String? {
+  var revertTargetExchangeRateString: String? {
     guard !targetRateBigInt.isZero else {
       return nil
     }
@@ -316,7 +316,7 @@ class KNCreateLimitOrderViewModel {
   }
 
   var displayTargetExchangeRate: String {
-    if self.isShowingRevertRate, let revertRateString = resertTargetExchangeRateString {
+    if self.isShowingRevertRate, let revertRateString = revertTargetExchangeRateString {
       return revertRateString
     }
     return ""
