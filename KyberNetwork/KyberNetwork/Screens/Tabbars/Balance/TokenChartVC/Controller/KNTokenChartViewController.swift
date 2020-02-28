@@ -75,6 +75,7 @@ class KNTokenChartViewModel {
   var data: [KNChartObject] = []
   var balance: Balance = Balance(value: BigInt())
   var volume24h: String = "---"
+  let currencyType: KWalletCurrencyType = KNAppTracker.getCurrencyType()
 
   init(token: TokenObject) {
     self.token = token
@@ -88,13 +89,15 @@ class KNTokenChartViewModel {
     guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: self.token) else {
       return NSMutableAttributedString()
     }
+    let rateNow = currencyType == .eth ? trackerRate.rateETHNow : trackerRate.rateUSDNow
     let rateString: String = {
-      let rate = BigInt(trackerRate.rateETHNow * Double(EthereumUnit.ether.rawValue))
+      let rate = BigInt(rateNow * Double(EthereumUnit.ether.rawValue))
       return rate.displayRate(decimals: 18)
     }()
+    let change24h = currencyType == .eth ? trackerRate.changeETH24h : trackerRate.changeUSD24h
     let change24hString: String = {
       if self.type == .day {
-        let string = NumberFormatterUtil.shared.displayPercentage(from: fabs(trackerRate.changeETH24h))
+        let string = NumberFormatterUtil.shared.displayPercentage(from: fabs(change24h))
         return "\(string)%"
       }
       if let firstData = self.data.first, let lastData = self.data.last {
@@ -107,8 +110,8 @@ class KNTokenChartViewModel {
     }()
     let changeColor: UIColor = {
       if self.type == .day {
-        if trackerRate.changeETH24h == 0.0 { return UIColor.Kyber.grayChateau }
-        return trackerRate.changeETH24h > 0 ? UIColor.Kyber.shamrock : UIColor.Kyber.strawberry
+        if change24h == 0.0 { return UIColor.Kyber.grayChateau }
+        return change24h > 0 ? UIColor.Kyber.shamrock : UIColor.Kyber.strawberry
       }
       if let firstData = self.data.first, let lastData = self.data.last, firstData.close != 0, lastData.close != 0 {
         let change = (lastData.close - firstData.close) / firstData.close * 100.0
@@ -137,10 +140,11 @@ class KNTokenChartViewModel {
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
       NSAttributedStringKey.kern: 0.0,
     ]
+    let currencyTypeString = currencyType == .eth ? "ETH" : "USD"
     let attributedString = NSMutableAttributedString()
-    attributedString.append(NSAttributedString(string: "ETH \(rateString) ", attributes: rateAttributes))
+    attributedString.append(NSAttributedString(string: "\(currencyTypeString) \(rateString) ", attributes: rateAttributes))
     attributedString.append(NSAttributedString(string: "\(change24hString)", attributes: changeAttributes))
-    attributedString.append(NSAttributedString(string: "\n24h ETH Vol: ", attributes: volume24hTextAttributes))
+    attributedString.append(NSAttributedString(string: "\n24h \(currencyTypeString) Vol: ", attributes: volume24hTextAttributes))
     attributedString.append(NSAttributedString(string: "\(self.volume24h)", attributes: volume24hValueAttributes))
 
     return attributedString
@@ -293,9 +297,10 @@ class KNTokenChartViewModel {
             do {
               let _ = try resp.filterSuccessfulStatusCodes()
               let json = try resp.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+              let volumeKey = self.currencyType == .eth ? "eth_24h_volume" : "usd_24h_volume"
               if let jsonArr = json["data"] as? [JSONDictionary],
                 let info = jsonArr.first(where: { return $0["base_symbol"] as? String ?? "" == symbol }),
-                let volume24h = info["eth_24h_volume"] as? Double {
+                let volume24h = info[volumeKey] as? Double {
                 self.volume24h = BigInt(volume24h * pow(10.0, 18.0)).string(
                   decimals: 18,
                   minFractionDigits: 6,
@@ -325,9 +330,16 @@ class KNTokenChartViewModel {
       }
       return fromTime
     }()
+    var symbol = token.symbol
+    switch currencyType {
+    case .usd:
+      symbol += "_USDC"
+    case .eth:
+      symbol += "_ETH"
+    }
     let provider = MoyaProvider<KNTrackerService>()
     let service = KNTrackerService.getChartHistory(
-      symbol: token.symbol,
+      symbol: symbol,
       resolution: type.resolution,
       from: from,
       to: to,
@@ -407,7 +419,7 @@ class KNTokenChartViewController: KNBaseViewController {
 
   fileprivate var dataTipView: EasyTipView!
   fileprivate var sourceTipView: UIView!
-  fileprivate func tipView(with value: Double, at index: Int) -> EasyTipView {
+  fileprivate func tipView(with value: Double, at index: Int, for type: KWalletCurrencyType) -> EasyTipView {
     let formatter: DateFormatter = {
       let formatter = DateFormatter()
       formatter.dateFormat = "HH:mm dd MMM yyyy"
@@ -423,7 +435,8 @@ class KNTokenChartViewController: KNBaseViewController {
       return formatter
     }()
     let rate = numberFormatter.string(from: NSNumber(value: value)) ?? "0"
-    return EasyTipView(text: "\(timeText): \(timeString)\n\(priceText): ETH \(rate.displayRate())")
+    let currencyType = type == .eth ? "ETH" : "USD"
+    return EasyTipView(text: "\(timeText): \(timeString)\n\(priceText): \(currencyType) \(rate.displayRate())")
   }
 
   init(viewModel: KNTokenChartViewModel) {
@@ -739,7 +752,7 @@ extension KNTokenChartViewController: ChartDelegate {
           self.sourceTipView.backgroundColor = UIColor.clear
         }
         self.view.addSubview(self.sourceTipView)
-        self.dataTipView = self.tipView(with: value, at: id)
+        self.dataTipView = self.tipView(with: value, at: id, for: viewModel.currencyType)
         self.dataTipView.show(animated: false, forView: self.sourceTipView, withinSuperview: self.view)
         self.view.layoutIfNeeded()
       }
