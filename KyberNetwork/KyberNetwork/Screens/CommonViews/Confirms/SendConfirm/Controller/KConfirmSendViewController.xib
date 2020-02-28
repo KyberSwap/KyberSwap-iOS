@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +19,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KConfirmSendViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KConfirmSendViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="amountToSendTextLabel" destination="8Y8-Ij-obY" id="wv6-9b-N5g"/>
                 <outlet property="cancelButton" destination="diw-ba-bzt" id="XaM-Nd-abM"/>
@@ -31,6 +29,7 @@
                 <outlet property="feeETHLabel" destination="KsS-2N-J67" id="Ka8-Rs-gr9"/>
                 <outlet property="feeUSDLabel" destination="jHX-M3-Kta" id="ysc-NB-plR"/>
                 <outlet property="firstSeparatorView" destination="rZg-Gu-XDk" id="vAw-N6-530"/>
+                <outlet property="gasPriceTextLabel" destination="yFZ-vD-6hu" id="PoY-9q-QRp"/>
                 <outlet property="headerContainerView" destination="gcb-Nk-Gww" id="8Xm-Qw-gXE"/>
                 <outlet property="secondSeparatorView" destination="hiL-ld-ucq" id="Mh7-YR-38p"/>
                 <outlet property="sendAddressLabel" destination="wsV-RK-NrS" id="f2h-Io-K39"/>
@@ -124,7 +123,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiL-ld-ucq">
-                    <rect key="frame" x="40" y="442" width="295" height="6"/>
+                    <rect key="frame" x="40" y="458" width="295" height="6"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="6" id="5tD-QB-HF2"/>
@@ -149,7 +148,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKs-uB-fHq">
-                    <rect key="frame" x="20" y="480" width="335" height="45"/>
+                    <rect key="frame" x="20" y="496" width="335" height="45"/>
                     <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="Vgi-Sq-pnJ"/>
@@ -163,7 +162,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diw-ba-bzt">
-                    <rect key="frame" x="20" y="533" width="335" height="45"/>
+                    <rect key="frame" x="20" y="549" width="335" height="45"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="GEM-TB-xAT"/>
@@ -176,6 +175,12 @@
                         <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="MNr-NX-OZW"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 (Gas price) * 449,605 (Gas limit)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yFZ-vD-6hu">
+                    <rect key="frame" x="131" y="433" width="204" height="15"/>
+                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                    <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
@@ -190,11 +195,11 @@
                 <constraint firstItem="8Y8-Ij-obY" firstAttribute="top" secondItem="rZg-Gu-XDk" secondAttribute="bottom" constant="12" id="A8z-yA-TZ7"/>
                 <constraint firstItem="Rgo-Jm-drU" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="APC-fa-nIV"/>
                 <constraint firstItem="glf-Jz-f5I" firstAttribute="top" secondItem="Rgo-Jm-drU" secondAttribute="bottom" constant="20" id="At9-36-3Hq"/>
+                <constraint firstItem="jHX-M3-Kta" firstAttribute="trailing" secondItem="yFZ-vD-6hu" secondAttribute="trailing" id="Bx0-yT-ZCh"/>
                 <constraint firstItem="8Y8-Ij-obY" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="COU-z4-nRh"/>
                 <constraint firstAttribute="trailing" secondItem="gcb-Nk-Gww" secondAttribute="trailing" id="Dfx-7p-2EH"/>
                 <constraint firstItem="glf-Jz-f5I" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Fku-iT-oSj"/>
                 <constraint firstItem="6bT-vz-8ub" firstAttribute="top" secondItem="8Y8-Ij-obY" secondAttribute="bottom" constant="24" id="IdD-2Z-yiE"/>
-                <constraint firstItem="hiL-ld-ucq" firstAttribute="top" secondItem="jHX-M3-Kta" secondAttribute="bottom" constant="10" id="Mqn-QV-Gpq"/>
                 <constraint firstItem="jHX-M3-Kta" firstAttribute="top" secondItem="KsS-2N-J67" secondAttribute="bottom" constant="1" id="OrV-os-KKS"/>
                 <constraint firstItem="Rgo-Jm-drU" firstAttribute="top" secondItem="gcb-Nk-Gww" secondAttribute="bottom" constant="16" id="P3I-Xs-XZ6"/>
                 <constraint firstItem="6bT-vz-8ub" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="S3L-TG-ucb"/>
@@ -203,12 +208,14 @@
                 <constraint firstItem="UKs-uB-fHq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="c4z-Yo-K4Q"/>
                 <constraint firstItem="hiL-ld-ucq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="cUL-W5-BgG"/>
                 <constraint firstItem="795-i2-XIw" firstAttribute="top" secondItem="H6P-E7-ol5" secondAttribute="bottom" constant="24" id="ccg-5f-XAr"/>
+                <constraint firstItem="hiL-ld-ucq" firstAttribute="top" secondItem="yFZ-vD-6hu" secondAttribute="bottom" constant="10" id="cw3-Qs-U4p"/>
                 <constraint firstItem="rZg-Gu-XDk" firstAttribute="top" secondItem="wsV-RK-NrS" secondAttribute="bottom" constant="10" id="dKa-dU-cME"/>
                 <constraint firstItem="795-i2-XIw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="ejQ-6q-BlJ"/>
                 <constraint firstItem="diw-ba-bzt" firstAttribute="trailing" secondItem="UKs-uB-fHq" secondAttribute="trailing" id="fle-2Z-dha"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="glf-Jz-f5I" secondAttribute="trailing" constant="20" id="lgQ-IX-b6N"/>
                 <constraint firstItem="wsV-RK-NrS" firstAttribute="top" secondItem="glf-Jz-f5I" secondAttribute="bottom" constant="10" id="nHm-9h-sHZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KsS-2N-J67" secondAttribute="trailing" constant="40" id="nt3-x6-98l"/>
+                <constraint firstItem="yFZ-vD-6hu" firstAttribute="top" secondItem="jHX-M3-Kta" secondAttribute="bottom" constant="1" id="p1j-Rd-umA"/>
                 <constraint firstItem="H6P-E7-ol5" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="pd5-mY-6GN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UKs-uB-fHq" secondAttribute="trailing" constant="20" id="rWC-Zh-tYc"/>
                 <constraint firstItem="diw-ba-bzt" firstAttribute="top" secondItem="UKs-uB-fHq" secondAttribute="bottom" constant="8" id="sU7-T4-QFl"/>
@@ -220,6 +227,7 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="8l7-y1-21W" appends="YES" id="MLy-YT-XPj"/>
             </connections>
+            <point key="canvasLocation" x="132" y="154"/>
         </view>
         <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="8l7-y1-21W">
             <rectEdge key="edges" left="YES"/>

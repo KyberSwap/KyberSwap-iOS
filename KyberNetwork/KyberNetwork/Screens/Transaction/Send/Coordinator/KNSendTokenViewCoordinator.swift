@@ -3,6 +3,9 @@
 import UIKit
 import BigInt
 import TrustKeystore
+import Result
+import Moya
+import APIKit
 
 class KNSendTokenViewCoordinator: Coordinator {
 
@@ -123,11 +126,44 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
     case .searchToken(let selectedToken):
       self.openSearchToken(selectedToken: selectedToken)
     case .send(let transaction, let ens):
-      self.send(transaction: transaction, ens: ens)
+      controller.displayLoading()
+      sendGetPreScreeningWalletRequest { [weak self] (result) in
+        controller.hideLoading()
+        guard let `self` = self else { return }
+        var message: String?
+        if case .success(let resp) = result,
+          let json = try? resp.mapJSON() as? JSONDictionary ?? [:] {
+          if let status = json["eligible"] as? Bool {
+            if isDebug { print("eligible status : \(status)") }
+            if status == false { message = json["message"] as? String }
+          }
+        }
+        if let errorMessage = message {
+          self.navigationController.showErrorTopBannerMessage(
+            with: NSLocalizedString("error", value: "Error", comment: ""),
+            message: errorMessage,
+            time: 2.0
+          )
+        } else {
+          self.send(transaction: transaction, ens: ens)
+        }
+      }
     case .addContact(let address, let ens):
       self.openNewContact(address: address, ens: ens)
     case .contactSelectMore:
       self.openListContactsView()
+    }
+  }
+
+  fileprivate func sendGetPreScreeningWalletRequest(completion: @escaping (Result<Moya.Response, MoyaError>) -> Void) {
+    let address = self.session.wallet.address.description
+    DispatchQueue.global(qos: .background).async {
+      let provider = MoyaProvider<UserInfoService>()
+      provider.request(.getPreScreeningWallet(address: address)) { result in
+        DispatchQueue.main.async {
+          completion(result)
+        }
+      }
     }
   }
 

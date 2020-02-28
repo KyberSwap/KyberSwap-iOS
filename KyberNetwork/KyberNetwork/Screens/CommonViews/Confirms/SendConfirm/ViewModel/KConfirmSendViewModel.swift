@@ -85,4 +85,15 @@ struct KConfirmSendViewModel {
     }()
     return "~ \(feeUSD) USD"
   }
+  var transactionGasPriceString: String {
+    let gasPrice: BigInt = self.transaction.gasPrice ?? KNGasCoordinator.shared.fastKNGas
+    let gasLimit: BigInt = self.transaction.gasLimit ?? KNGasConfiguration.exchangeTokensGasLimitDefault
+    let gasPriceText = gasPrice.shortString(
+      units: .gwei,
+      maxFractionDigits: 1
+    )
+    let gasLimitText = EtherNumberFormatter.short.string(from: gasLimit, decimals: 0)
+    let labelText = String(format: NSLocalizedString("%@ (Gas Price) * %@ (Gas Limit)", comment: ""), gasPriceText, gasLimitText)
+    return labelText
+  }
 }

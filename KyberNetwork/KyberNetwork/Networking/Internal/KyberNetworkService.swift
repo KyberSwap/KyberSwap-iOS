@@ -1,6 +1,6 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
-//swiftlint:disable file_length
+
 import Moya
 import CryptoSwift
 import BigInt
@@ -74,7 +74,7 @@ extension KyberNetworkService: TargetType {
   var headers: [String: String]? {
     return [
       "content-type": "application/json",
-      "client": Bundle.main.bundleIdentifier ?? "",
+      "client": "com.kyberswap.ios.new",
       "client-build": Bundle.main.buildNumber ?? "",
     ]
   }
@@ -83,7 +83,6 @@ extension KyberNetworkService: TargetType {
 enum KNTrackerService {
   case getChartHistory(symbol: String, resolution: String, from: Int64, to: Int64, rateType: String)
   case getRates
-  case getUserCap(address: String)
   case swapSuggestion(address: String, tokens: JSONDictionary)
   case getGasLimit(src: String, dest: String, amount: Double)
   case getSourceAmount(src: String, dest: String, amount: Double)
@@ -94,8 +93,6 @@ extension KNTrackerService: TargetType {
   var baseURL: URL {
     let baseURLString = KNEnvironment.internalTrackerEndpoint
     switch self {
-    case .getUserCap(let address):
-      return URL(string: "\(KNEnvironment.default.cachedUserCapURL)\(address)")!
     case .getChartHistory(let symbol, let resolution, let from, let to, let rateType):
       let url = "\(KNSecret.getChartHistory)?symbol=\(symbol)&resolution=\(resolution)&from=\(from)&to=\(to)&rateType=\(rateType)"
       return URL(string: baseURLString + url)!
@@ -145,7 +142,7 @@ extension KNTrackerService: TargetType {
   var headers: [String: String]? {
     return [
       "content-type": "application/json",
-      "client": Bundle.main.bundleIdentifier ?? "",
+      "client": "com.kyberswap.ios.new",
       "client-build": Bundle.main.buildNumber ?? "",
     ]
   }
@@ -161,10 +158,11 @@ enum UserInfoService {
   case setAlertMethods(accessToken: String, email: [JSONDictionary], telegram: [JSONDictionary])
   case getLeaderBoardData(accessToken: String)
   case getLatestCampaignResult(accessToken: String)
-  case getUserTradeCap(authToken: String, address: String)
   case sendTxHash(authToken: String, txHash: String)
   case getNotification(accessToken: String?, pageIndex: Int)
   case markAsRead(accessToken: String?, ids: [Int])
+  case getPreScreeningWallet(address: String)
+  case deleteAllTriggerdAlerts(accessToken: String)
 }
 
 extension UserInfoService: MoyaCacheable {
@@ -193,14 +191,16 @@ extension UserInfoService: TargetType {
       return URL(string: "\(baseString)/api/alerts/ranks")!
     case .getLatestCampaignResult:
       return URL(string: "\(baseString)/api/alerts/campaign_prizes")!
-    case .getUserTradeCap(_, let address):
-      return URL(string: "\(baseString)\(KNSecret.getUserTradeCapURL)?address=\(address)")!
     case .sendTxHash:
       return URL(string: "\(baseString)\(KNSecret.sendTxHashURL)")!
     case .getNotification(_, let pageIndex):
       return URL(string: "\(baseString)/api/notifications?page_index=\(pageIndex)&page_size=10")!
     case .markAsRead:
       return URL(string: "\(baseString)/api/notifications/mark_as_read")!
+    case .getPreScreeningWallet(let address):
+      return URL(string: "\(baseString)/api/wallet/screening?wallet=\(address)")!
+    case .deleteAllTriggerdAlerts:
+      return URL(string: "\(baseString)/api/alerts/delete_triggered")!
     }
   }
 
@@ -208,8 +208,8 @@ extension UserInfoService: TargetType {
 
   var method: Moya.Method {
     switch self {
-    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getUserTradeCap, .getNotification: return .get
-    case .removeAnAlert: return .delete
+    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet: return .get
+    case .removeAnAlert, .deleteAllTriggerdAlerts: return .delete
     case .addPushToken, .updateAlert: return .patch
     case .markAsRead: return .put
     default: return .post
@@ -241,9 +241,9 @@ extension UserInfoService: TargetType {
       print(json)
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
-    case .getListAlerts, .removeAnAlert, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification:
+    case .getListAlerts, .removeAnAlert, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .deleteAllTriggerdAlerts:
       return .requestPlain
-    case .getUserTradeCap:
+    case .getPreScreeningWallet:
       return .requestPlain
     case .sendTxHash(_, let txHash):
       let json: JSONDictionary = [
@@ -263,7 +263,7 @@ extension UserInfoService: TargetType {
   var headers: [String: String]? {
     var json: [String: String] = [
       "content-type": "application/json",
-      "client": Bundle.main.bundleIdentifier ?? "",
+      "client": "com.kyberswap.ios.new",
       "client-build": Bundle.main.buildNumber ?? "",
     ]
     switch self {
@@ -285,14 +285,16 @@ extension UserInfoService: TargetType {
       json["Authorization"] = accessToken
     case .getLatestCampaignResult(let accessToken):
       json["Authorization"] = accessToken
-    case .getUserTradeCap(let accessToken, _):
-      json["Authorization"] = accessToken
     case .sendTxHash(let accessToken, _):
       json["Authorization"] = accessToken
     case .getNotification(let accessToken, _):
       if let token = accessToken { json["Authorization"] = token }
     case .markAsRead(let accessToken, _):
       if let token = accessToken { json["Authorization"] = token }
+    case .getPreScreeningWallet:
+      break
+    case .deleteAllTriggerdAlerts(let accessToken):
+      json["Authorization"] = accessToken
     }
     return json
   }
@@ -372,7 +374,7 @@ extension LimitOrderService: TargetType {
   var headers: [String: String]? {
     var json: [String: String] = [
       "content-type": "application/json",
-      "client": Bundle.main.bundleIdentifier ?? "",
+      "client": "com.kyberswap.ios.new",
       "client-build": Bundle.main.buildNumber ?? "",
     ]
     switch self {
@@ -535,7 +537,7 @@ extension NativeSignInUpService: TargetType {
     if case .updatePassword(_, _, _, let authenToken) = self {
       return [
         "content-type": "application/json",
-        "client": Bundle.main.bundleIdentifier ?? "",
+        "client": "com.kyberswap.ios.new",
         "client-build": Bundle.main.buildNumber ?? "",
         "Authorization": authenToken,
       ]
@@ -543,7 +545,7 @@ extension NativeSignInUpService: TargetType {
     if case .getUserInfo(let authenToken) = self {
       return [
         "content-type": "application/json",
-        "client": Bundle.main.bundleIdentifier ?? "",
+        "client": "com.kyberswap.ios.new",
         "client-build": Bundle.main.buildNumber ?? "",
         "Authorization": authenToken,
       ]
@@ -551,20 +553,20 @@ extension NativeSignInUpService: TargetType {
     if case .transferConsent(let authenToken, _) = self {
       return [
         "content-type": "application/json",
-        "client": Bundle.main.bundleIdentifier ?? "",
+        "client": "com.kyberswap.ios.new",
         "client-build": Bundle.main.buildNumber ?? "",
         "Authorization": authenToken,
       ]
     }
     return [
       "content-type": "application/json",
-      "client": Bundle.main.bundleIdentifier ?? "",
+      "client": "com.kyberswap.ios.new",
       "client-build": Bundle.main.buildNumber ?? "",
     ]
   }
 }
 
-enum ProfileKYCService {
+enum ProfileService {
   case personalInfo(
     accessToken: String,
     firstName: String, middleName: String, lastName: String,
@@ -596,12 +598,12 @@ enum ProfileKYCService {
   }
 }
 
-extension ProfileKYCService: MoyaCacheable {
+extension ProfileService: MoyaCacheable {
   var cachePolicy: MoyaCacheablePolicy { return .reloadIgnoringLocalAndRemoteCacheData }
   var httpShouldHandleCookies: Bool { return false }
 }
 
-extension ProfileKYCService: TargetType {
+extension ProfileService: TargetType {
   var baseURL: URL {
     let baseString = KNAppTracker.getKyberProfileBaseString()
     if case .promoCode(let promoCode, let nonce) = self {
@@ -690,7 +692,7 @@ extension ProfileKYCService: TargetType {
   var headers: [String: String]? {
     var json: [String: String] = [
       "content-type": "application/json",
-      "client": Bundle.main.bundleIdentifier ?? "",
+      "client": "com.kyberswap.ios.new",
       "client-build": Bundle.main.buildNumber ?? "",
     ]
     switch self {
@@ -717,7 +719,7 @@ extension ProfileKYCService: TargetType {
       return [
         "Content-Type": "application/x-www-form-urlencoded",
         "signed": hash,
-        "client": Bundle.main.bundleIdentifier ?? "",
+        "client": "com.kyberswap.ios.new",
         "client-build": Bundle.main.buildNumber ?? "",
       ]
     }

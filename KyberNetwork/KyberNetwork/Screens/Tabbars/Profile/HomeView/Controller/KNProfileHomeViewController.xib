@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNProfileHomeViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNProfileHomeViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="bottomPaddingConstraintForSignedInView" destination="9Oa-YN-ifD" id="AWh-gx-SAb"/>
                 <outlet property="dontHaveAnAccountButton" destination="Cb8-Ek-yja" id="Ji7-Lq-5Eu"/>
@@ -30,7 +30,6 @@
                 <outlet property="listPriceAlertsContainerViewHeightConstraint" destination="Spz-we-JZD" id="euV-ck-zxv"/>
                 <outlet property="logOutButton" destination="2pd-lu-Yff" id="aZu-a3-iZh"/>
                 <outlet property="moreAlertsButton" destination="UsS-bN-sSf" id="Vdi-Lm-7WV"/>
-                <outlet property="myProfileTextLabel" destination="IKe-v2-0WJ" id="pgc-I8-2aq"/>
                 <outlet property="navTitleLabel" destination="BLX-sM-X5k" id="eqx-Co-SWd"/>
                 <outlet property="noPriceAlertContainerView" destination="j6h-vu-mnA" id="eix-kd-d6F"/>
                 <outlet property="noPriceAlertMessageLabel" destination="63D-Qe-n4r" id="JlO-jj-1DD"/>
@@ -38,7 +37,6 @@
                 <outlet property="notSignInView" destination="wVn-be-kf6" id="GJs-ND-mvW"/>
                 <outlet property="orTextLabel" destination="9Ch-LT-4TB" id="fv5-rg-BdB"/>
                 <outlet property="passwordTextField" destination="BTo-af-uiK" id="fbj-lj-0Wp"/>
-                <outlet property="pdpaUpdateButton" destination="PLb-aA-FSx" id="fbG-dR-th4"/>
                 <outlet property="priceAlertContainerView" destination="sd9-ld-opX" id="ulP-jk-zBo"/>
                 <outlet property="priceAlertContainerViewHeightConstraint" destination="wZS-9A-Wfv" id="RiI-4u-RlE"/>
                 <outlet property="priceAlertTableView" destination="sz1-gK-2Gl" id="1z6-fr-PnQ"/>
@@ -51,16 +49,8 @@
                 <outlet property="socialContainerView" destination="xrR-bz-pSi" id="wwZ-Ha-y8L"/>
                 <outlet property="userEmailLabel" destination="kTw-hp-avF" id="QEB-Fh-fsg"/>
                 <outlet property="userImageView" destination="YjR-XA-Zz1" id="9qS-TR-RLz"/>
-                <outlet property="userKYCActionButton" destination="JdJ-Un-hJO" id="JFh-X5-Q5g"/>
-                <outlet property="userKYCActionHeightConstraint" destination="4i3-JJ-HgE" id="brP-y6-q6g"/>
-                <outlet property="userKYCStatusContainerView" destination="irh-yy-yJC" id="kMR-iZ-MZk"/>
-                <outlet property="userKYCStatusDescLabel" destination="abv-p2-ZKS" id="p5f-Tj-jxd"/>
-                <outlet property="userKYCStatusLabel" destination="Vv0-Qj-VoP" id="jks-vi-kSR"/>
                 <outlet property="userNameLabel" destination="zCQ-Oq-5yC" id="eav-yM-z46"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outletCollection property="userKYCStatusPaddingConstraints" destination="QyD-1u-XO2" collectionClass="NSMutableArray" id="qvW-bb-y6A"/>
-                <outletCollection property="userKYCStatusPaddingConstraints" destination="ygb-9r-uVC" collectionClass="NSMutableArray" id="glr-eu-gsZ"/>
-                <outletCollection property="userKYCStatusPaddingConstraints" destination="wIv-hx-WHN" collectionClass="NSMutableArray" id="NC2-J1-U1n"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -345,83 +335,8 @@
                                         <constraint firstAttribute="trailing" secondItem="kTw-hp-avF" secondAttribute="trailing" constant="18" id="xPF-Tz-6bt"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9vH-0R-pjN">
-                                    <rect key="frame" x="0.0" y="92" width="375" height="60"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MY PROFILE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKe-v2-0WJ">
-                                            <rect key="frame" x="25" y="21.5" width="89.5" height="17.5"/>
-                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
-                                            <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unverified  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vv0-Qj-VoP">
-                                            <rect key="frame" x="292.5" y="22" width="58.5" height="16"/>
-                                            <color key="backgroundColor" red="0.60392156862745094" green="0.6705882352941176" blue="0.70588235294117641" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="16" id="qrg-qp-cUc"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="10"/>
-                                            <color key="textColor" red="0.85490196078431369" green="0.95294117647058818" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="0.89411764705882346" green="0.90588235294117647" blue="0.98431372549019602" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="Vv0-Qj-VoP" firstAttribute="centerY" secondItem="IKe-v2-0WJ" secondAttribute="centerY" id="4J0-Q4-aH9"/>
-                                        <constraint firstAttribute="trailing" secondItem="Vv0-Qj-VoP" secondAttribute="trailing" constant="24" id="4YC-5k-kMH"/>
-                                        <constraint firstAttribute="height" constant="60" id="Mcr-9T-jox"/>
-                                        <constraint firstItem="IKe-v2-0WJ" firstAttribute="centerY" secondItem="9vH-0R-pjN" secondAttribute="centerY" id="ibF-vE-nbG"/>
-                                        <constraint firstItem="IKe-v2-0WJ" firstAttribute="leading" secondItem="9vH-0R-pjN" secondAttribute="leading" constant="25" id="xsf-8P-3aJ"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="irh-yy-yJC">
-                                    <rect key="frame" x="0.0" y="152" width="375" height="158.5"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abv-p2-ZKS">
-                                            <rect key="frame" x="22" y="24" width="331" height="34.5"/>
-                                            <string key="text">Complete Your Profile Verification
-Increase KyberSwap's trade limits</string>
-                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
-                                            <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JdJ-Un-hJO">
-                                            <rect key="frame" x="123.5" y="82.5" width="128" height="44"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="4i3-JJ-HgE"/>
-                                                <constraint firstAttribute="width" constant="128" id="UW0-j8-2gr"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
-                                            <state key="normal" title="Verify">
-                                                <color key="titleColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="userKYCActionButtonPressed:" destination="-1" eventType="touchUpInside" id="WNk-Fx-nsa"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="JdJ-Un-hJO" firstAttribute="centerX" secondItem="irh-yy-yJC" secondAttribute="centerX" id="DLe-I5-UF7"/>
-                                        <constraint firstItem="abv-p2-ZKS" firstAttribute="top" secondItem="irh-yy-yJC" secondAttribute="top" constant="24" id="QyD-1u-XO2"/>
-                                        <constraint firstAttribute="trailing" secondItem="abv-p2-ZKS" secondAttribute="trailing" constant="22" id="gIj-mt-KLo"/>
-                                        <constraint firstAttribute="bottom" secondItem="JdJ-Un-hJO" secondAttribute="bottom" constant="32" id="wIv-hx-WHN"/>
-                                        <constraint firstItem="JdJ-Un-hJO" firstAttribute="top" secondItem="abv-p2-ZKS" secondAttribute="bottom" constant="24" id="ygb-9r-uVC"/>
-                                        <constraint firstItem="abv-p2-ZKS" firstAttribute="leading" secondItem="irh-yy-yJC" secondAttribute="leading" constant="22" id="ysJ-2c-tZo"/>
-                                    </constraints>
-                                </view>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLb-aA-FSx">
-                                    <rect key="frame" x="26" y="278" width="123" height="27"/>
-                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
-                                    <state key="normal" title="About PGPA update">
-                                        <color key="titleColor" red="0.078431372549019607" green="0.098039215686274508" blue="0.15294117647058825" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="pdpaUpdateButtonPressed:" destination="-1" eventType="touchUpInside" id="3S7-sP-REh"/>
-                                    </connections>
-                                </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sd9-ld-opX">
-                                    <rect key="frame" x="0.0" y="311.5" width="375" height="228"/>
+                                    <rect key="frame" x="0.0" y="92" width="375" height="228"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K55-bp-vNB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -486,7 +401,7 @@ Increase KyberSwap's trade limits</string>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Qp-bp-feV">
                                             <rect key="frame" x="0.0" y="60" width="375" height="168"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sz1-gK-2Gl" customClass="KNAlertTableView" customModule="KyberNetwork" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sz1-gK-2Gl" customClass="KNAlertTableView" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
@@ -535,21 +450,13 @@ Increase KyberSwap's trade limits</string>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstItem="9vH-0R-pjN" firstAttribute="leading" secondItem="bg6-Uo-kRt" secondAttribute="leading" id="99y-2k-Syg"/>
-                                <constraint firstItem="K55-bp-vNB" firstAttribute="top" secondItem="PLb-aA-FSx" secondAttribute="bottom" constant="6.5" id="9ln-lg-Bbx"/>
-                                <constraint firstItem="PLb-aA-FSx" firstAttribute="leading" secondItem="bg6-Uo-kRt" secondAttribute="leading" constant="26" id="ADD-KX-ZeI"/>
                                 <constraint firstAttribute="trailing" secondItem="vCa-T9-DFD" secondAttribute="trailing" id="IIV-Ic-AOM"/>
-                                <constraint firstItem="irh-yy-yJC" firstAttribute="top" secondItem="9vH-0R-pjN" secondAttribute="bottom" id="P6D-P6-ODH"/>
-                                <constraint firstItem="irh-yy-yJC" firstAttribute="leading" secondItem="bg6-Uo-kRt" secondAttribute="leading" id="Rc4-fN-W9v"/>
                                 <constraint firstAttribute="bottom" secondItem="sd9-ld-opX" secondAttribute="bottom" constant="32" id="X8s-TU-uEd"/>
-                                <constraint firstAttribute="trailing" secondItem="9vH-0R-pjN" secondAttribute="trailing" id="ZVF-tF-ynN"/>
-                                <constraint firstItem="sd9-ld-opX" firstAttribute="top" secondItem="irh-yy-yJC" secondAttribute="bottom" constant="1" id="bYC-Qf-ScY"/>
                                 <constraint firstItem="vCa-T9-DFD" firstAttribute="leading" secondItem="bg6-Uo-kRt" secondAttribute="leading" id="dpe-nz-VfX"/>
-                                <constraint firstItem="9vH-0R-pjN" firstAttribute="top" secondItem="vCa-T9-DFD" secondAttribute="bottom" id="fxg-n3-zdC"/>
                                 <constraint firstAttribute="trailing" secondItem="sd9-ld-opX" secondAttribute="trailing" id="gTw-Do-7f4"/>
-                                <constraint firstAttribute="trailing" secondItem="irh-yy-yJC" secondAttribute="trailing" id="hII-Iy-4hu"/>
                                 <constraint firstItem="vCa-T9-DFD" firstAttribute="top" secondItem="bg6-Uo-kRt" secondAttribute="top" id="mCu-85-M7v"/>
                                 <constraint firstItem="vCa-T9-DFD" firstAttribute="centerX" secondItem="bg6-Uo-kRt" secondAttribute="centerX" id="oaQ-iW-ipe"/>
+                                <constraint firstItem="sd9-ld-opX" firstAttribute="top" secondItem="vCa-T9-DFD" secondAttribute="bottom" id="ulE-XQ-zPG"/>
                                 <constraint firstItem="sd9-ld-opX" firstAttribute="leading" secondItem="bg6-Uo-kRt" secondAttribute="leading" id="vjZ-FM-hXT"/>
                             </constraints>
                         </scrollView>

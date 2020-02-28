@@ -397,8 +397,6 @@
 "you.have.successfully.imported.your.kybercode" = "You have successfully imported your wallet. Please move all assets to your wallet by %@";
 "blocked" = "Blocked";
 "profile.is.blocked" = "Your Profile is blocked";
-"kyc.submit.wallet.warning.message" = "We understand that you have submitted the wallet address as part of the verification process. As such, we regret to inform you that the submitted wallet address cannot be deleted or changed from your profile.";
-"kyc.submit.wallet.warning.message.personal.info" = "You can only delete/edit your wallets here. Once your profile is submitted for review, you won't be able to do so.";
 "invalid password" = "Invalid Password";
 "can.not.transfer.this.token" = "Can not transfer this token";
 
@@ -659,3 +657,7 @@
 "Go back" = "Go back";
 "Yes" = "Yes";
 "No" = "No";
+"%@ (Gas Price) * %@ (Gas Limit)" = "%@ (Gas Price) * %@ (Gas Limit)";
+"delete all" = "delete all";
+"Delete all triggered alerts successfully" = "Delete all triggered alerts successfully";
+"Do you want to delete all triggered alerts?" = "Do you want to delete all triggered alerts?";

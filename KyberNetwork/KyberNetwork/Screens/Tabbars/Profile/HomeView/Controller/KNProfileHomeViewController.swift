@@ -6,7 +6,6 @@ import TrustCore
 
 enum KNProfileHomeViewEvent {
   case logOut
-  case openVerification
   case addPriceAlert
   case managePriceAlerts
   case editAlert(alert: KNAlertObject)
@@ -64,22 +63,12 @@ class KNProfileHomeViewController: KNBaseViewController {
   @IBOutlet weak var signInButton: UIButton!
 
   @IBOutlet weak var socialContainerView: UIView!
-
-  @IBOutlet weak var signInHeaderView: UIView!
-  @IBOutlet weak var myProfileTextLabel: UILabel!
-  @IBOutlet weak var signedInView: UIView!
-  @IBOutlet weak var logOutButton: UIButton!
   @IBOutlet weak var userImageView: UIImageView!
   @IBOutlet weak var userNameLabel: UILabel!
   @IBOutlet weak var userEmailLabel: UILabel!
-  @IBOutlet weak var userKYCStatusLabel: UILabel!
-
-  @IBOutlet weak var userKYCStatusContainerView: UIView!
-  @IBOutlet weak var userKYCStatusDescLabel: UILabel!
-  @IBOutlet weak var userKYCActionButton: UIButton!
-  @IBOutlet var userKYCStatusPaddingConstraints: [NSLayoutConstraint]!
-  @IBOutlet weak var userKYCActionHeightConstraint: NSLayoutConstraint!
-
+  @IBOutlet weak var signInHeaderView: UIView!
+  @IBOutlet weak var signedInView: UIView!
+  @IBOutlet weak var logOutButton: UIButton!
   @IBOutlet weak var priceAlertContainerView: UIView!
   @IBOutlet weak var priceAlertsTextLabel: UILabel!
   @IBOutlet weak var noPriceAlertContainerView: UIView!
@@ -87,7 +76,6 @@ class KNProfileHomeViewController: KNBaseViewController {
   @IBOutlet weak var listPriceAlertsContainerView: UIView!
   @IBOutlet weak var priceAlertTableView: KNAlertTableView!
   @IBOutlet weak var moreAlertsButton: UIButton!
-  @IBOutlet weak var pdpaUpdateButton: UIButton!
   @IBOutlet weak var priceAlertContainerViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var listPriceAlertsContainerViewHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var priceAlertTableViewHeightConstraint: NSLayoutConstraint!
@@ -181,39 +169,13 @@ class KNProfileHomeViewController: KNBaseViewController {
     self.signInHeaderView.applyGradient(with: UIColor.Kyber.headerColors)
     self.bottomPaddingConstraintForSignedInView.constant = self.bottomPaddingSafeArea()
     self.signedInView.isHidden = !self.viewModel.isUserSignedIn
-    self.myProfileTextLabel.text = NSLocalizedString("my.profile", value: "My Profile", comment: "")
-    self.myProfileTextLabel.addLetterSpacing()
     self.logOutButton.setTitle(NSLocalizedString("log.out", value: "Log Out", comment: ""), for: .normal)
     self.logOutButton.addTextSpacing()
-    let descText: String = NSLocalizedString(
-      "complete.your.profile.verfication.increase.trade.limits",
-      value: "Complete Your Profile Verification\nIncrease KyberSwap's trade limits",
-      comment: ""
-    )
-    self.updateKYCStatusDescLabel(with: descText)
-
     self.userImageView.rounded(
       color: UIColor.Kyber.border,
       width: 0.5,
       radius: self.userImageView.frame.height / 2.0
     )
-
-    self.userKYCActionButton.rounded(
-      color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: KNAppStyleType.current.buttonRadius(for: self.userKYCActionButton.frame.height)
-    )
-    self.userKYCStatusLabel.rounded(radius: 2.0)
-
-    let attributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
-      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
-      NSAttributedStringKey.underlineStyle: 1,
-    ]
-    let attributedString = NSAttributedString(string: "About PDPA update".toBeLocalised(), attributes: attributes)
-    self.pdpaUpdateButton.setAttributedTitle(attributedString, for: .normal)
-
-    self.pdpaUpdateButton.isHidden = true
     self.setupPriceAlertsView()
     self.updateUIUserDidSignedIn()
     self.view.layoutSubviews()
@@ -250,23 +212,6 @@ class KNProfileHomeViewController: KNBaseViewController {
     self.view.layoutIfNeeded()
   }
 
-  fileprivate func updateKYCStatusDescLabel(with string: String) {
-    self.userKYCStatusDescLabel.attributedText = {
-      let attributedString = NSMutableAttributedString()
-      attributedString.append(NSAttributedString(string: string))
-      if let index = string.firstIndex(of: "\n") {
-        let attributes: [NSAttributedStringKey: Any] = [
-          NSAttributedStringKey.foregroundColor: UIColor.Kyber.mirage,
-          NSAttributedStringKey.kern: 0.0,
-          ]
-        let range = NSRange(location: 0, length: index.encodedOffset)
-        attributedString.addAttributes(attributes, range: range)
-      }
-      return attributedString
-    }()
-    self.view.layoutIfNeeded()
-  }
-
   fileprivate func updateUIUserDidSignedIn() {
     guard let user = self.viewModel.currentUser else { return }
     let url: String = {
@@ -277,6 +222,10 @@ class KNProfileHomeViewController: KNBaseViewController {
     self.passwordTextField.text = ""
     self.signInHeaderView.removeSublayer(at: 0)
     self.signInHeaderView.applyGradient(with: UIColor.Kyber.headerColors)
+    self.priceAlertTableView.updateView(
+      with: KNAlertStorage.shared.alerts,
+      isFull: false
+    )
     self.userImageView.setImage(
       with: url,
       placeholder: UIImage(named: "account"),
@@ -286,77 +235,6 @@ class KNProfileHomeViewController: KNBaseViewController {
     self.userNameLabel.addLetterSpacing()
     self.userEmailLabel.text = user.contactID
     self.userEmailLabel.addLetterSpacing()
-    let status: String = {
-      switch user.kycStatus.lowercased() {
-      case "draft", "none": return "Unverified"
-      case "pending": return "Pending"
-      case "approved": return "Approved"
-      case "rejected": return "Rejected"
-      case "blocked": return "Blocked"
-      default: return "Unknown"
-      }
-    }()
-    self.userKYCStatusLabel.text = "\(NSLocalizedString(status.lowercased(), value: status, comment: ""))  "
-    self.userKYCStatusLabel.addLetterSpacing()
-
-    let actionTitle: String = status == "Rejected" ? NSLocalizedString("edit", value: "Edit", comment: "") : NSLocalizedString("verify", value: "Verify", comment: "")
-    self.userKYCActionButton.setTitle(actionTitle, for: .normal)
-    // hide button if it is blocked
-    self.userKYCActionButton.isHidden = status == "Blocked"
-
-    if status == "Approved" {
-      self.userKYCStatusLabel.backgroundColor = UIColor.Kyber.shamrock
-    } else if status == "Pending" {
-      self.userKYCStatusLabel.backgroundColor = UIColor.Kyber.merigold
-    } else if status == "Rejected" {
-      self.userKYCStatusLabel.backgroundColor = UIColor.Kyber.strawberry
-    } else if status == "Blocked" {
-      self.userKYCStatusLabel.backgroundColor = UIColor.Kyber.mirage
-    } else {
-      self.userKYCStatusLabel.backgroundColor = UIColor(red: 154, green: 171, blue: 180)
-    }
-    let isSingapore: Bool = {
-      if user.kycDetails?.nationality.lowercased() ?? "" == "singaporean" { return true }
-      if user.kycDetails?.country.lowercased() ?? "" == "singapore" { return true }
-      if user.kycDetails?.taxResidencyCountry.lowercased() ?? "" == "singapore" { return true }
-      return false
-    }()
-    // only show if kyc details has country or nationality is singapore
-    self.pdpaUpdateButton.isHidden = !isSingapore
-    self.userKYCStatusLabel.addLetterSpacing()
-    let descText: String = {
-      if status == "Approved" || status == "Pending" { return "" }
-      if status == "Rejected" || status == "Blocked" {
-        let reason = user.kycDetails?.rejectedReason ?? ""
-        let title: String = {
-          if status == "Rejected" {
-            return NSLocalizedString("profile.is.rejected", value: "Your Profile is rejected", comment: "")
-          }
-          return NSLocalizedString("profile.is.blocked", value: "Your Profile is blocked", comment: "")
-        }()
-        return "\(title)\n\(reason)"
-      }
-      return NSLocalizedString(
-        "complete.your.profile.verfication.increase.trade.limits",
-        value: "Complete Your Profile Verification\nIncrease KyberSwap's trade limits",
-        comment: ""
-      )
-    }()
-    self.updateKYCStatusDescLabel(with: descText)
-
-    if status == "Approved" || status == "Pending" {
-      self.userKYCStatusPaddingConstraints.forEach({ $0.constant = isSingapore ? 12.0 : 0.0 })
-      self.userKYCActionHeightConstraint.constant = 0.0
-      self.userKYCStatusContainerView.isHidden = true
-    } else {
-      self.userKYCStatusPaddingConstraints.forEach({ $0.constant = isSingapore ? 32.0 : 24.0 })
-      self.userKYCActionHeightConstraint.constant = self.userKYCActionButton.isHidden ? 0.0 : 44.0
-      self.userKYCStatusContainerView.isHidden = false
-    }
-    self.priceAlertTableView.updateView(
-      with: KNAlertStorage.shared.alerts,
-      isFull: false
-    )
   }
 
   @IBAction func forgotButtonPressed(_ sender: Any) {
@@ -387,14 +265,6 @@ class KNProfileHomeViewController: KNBaseViewController {
     self.passwordTextField.isSecureTextEntry = self.signInViewModel.isSecureText
     let image = !self.signInViewModel.isSecureText ? UIImage(named: "hide_secure_text") : UIImage(named: "show_secure_text")
     self.secureTextButton.setImage(image, for: .normal)
-  }
-
-  @IBAction func pdpaUpdateButtonPressed(_ sender: Any) {
-    let popup = KNPDPAUpdateInfoPopUp()
-    popup.loadViewIfNeeded()
-    popup.modalPresentationStyle = .overFullScreen
-    popup.modalTransitionStyle = .crossDissolve
-    self.present(popup, animated: true, completion: nil)
   }
 
   @IBAction func signInButtonPressed(_ sender: Any) {
@@ -428,11 +298,6 @@ class KNProfileHomeViewController: KNBaseViewController {
   @IBAction func logOutButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "sign_out_button_pressed"])
     self.delegate?.profileHomeViewController(self, run: .logOut)
-  }
-
-  @IBAction func userKYCActionButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "verify_pressed_\(self.userKYCActionButton.titleLabel?.text ?? "")"])
-    self.delegate?.profileHomeViewController(self, run: .openVerification)
   }
 
   @IBAction func addPriceAlertButtonPressed(_ sender: Any) {
@@ -487,6 +352,8 @@ extension KNProfileHomeViewController: KNAlertTableViewDelegate {
       self.delegate?.profileHomeViewController(self, run: .editAlert(alert: alert))
     case .select(let alert):
       self.delegate?.profileHomeViewController(self, run: .editAlert(alert: alert))
+    case .deleteAll:
+      break
     }
   }
 

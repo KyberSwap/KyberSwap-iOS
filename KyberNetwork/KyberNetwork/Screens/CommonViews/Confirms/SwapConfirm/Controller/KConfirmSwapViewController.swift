@@ -28,7 +28,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
   @IBOutlet weak var transactionFeeETHLabel: UILabel!
   @IBOutlet weak var transactionFeeUSDLabel: UILabel!
-
+  @IBOutlet weak var transactionGasPriceLabel: UILabel!
   @IBOutlet weak var warningETHBalImageView: UIImageView!
   @IBOutlet weak var warningETHBalanceLabel: UILabel!
 
@@ -99,6 +99,8 @@ class KConfirmSwapViewController: KNBaseViewController {
     self.transactionFeeETHLabel.addLetterSpacing()
     self.transactionFeeUSDLabel.text = self.viewModel.feeUSDString
     self.transactionFeeUSDLabel.addLetterSpacing()
+    transactionGasPriceLabel.text = viewModel.transactionGasPriceString
+    transactionGasPriceLabel.addLetterSpacing()
 
     self.secondSeparatorView.dashLine(width: 1.0, color: UIColor.Kyber.dashLine)
 

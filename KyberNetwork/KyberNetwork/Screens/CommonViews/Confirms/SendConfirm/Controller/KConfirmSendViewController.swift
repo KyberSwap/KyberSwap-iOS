@@ -34,7 +34,7 @@ class KConfirmSendViewController: KNBaseViewController {
 
   @IBOutlet weak var amountToSendTextLabel: UILabel!
   @IBOutlet weak var transactionFeeTextLabel: UILabel!
-
+  @IBOutlet weak var gasPriceTextLabel: UILabel!
   fileprivate let viewModel: KConfirmSendViewModel
   weak var delegate: KConfirmSendViewControllerDelegate?
 
@@ -87,6 +87,8 @@ class KConfirmSendViewController: KNBaseViewController {
     self.feeETHLabel.addLetterSpacing()
     self.feeUSDLabel.text = self.viewModel.transactionFeeUSDString
     self.feeUSDLabel.addLetterSpacing()
+    gasPriceTextLabel.text = viewModel.transactionGasPriceString
+    gasPriceTextLabel.addLetterSpacing()
 
     self.confirmButton.rounded(radius: style.buttonRadius(for: self.confirmButton.frame.height))
     self.confirmButton.setTitle(

@@ -12,7 +12,6 @@ enum KSwapViewEvent {
   case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, showError: Bool)
   case estimateComparedRate(from: TokenObject, to: TokenObject) // compare to show warning
   case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt)
-  case getUserCapInWei
   case setGasPrice(gasPrice: BigInt, gasLimit: BigInt)
   case validateRate(data: KNDraftExchangeTransaction)
   case swap(data: KNDraftExchangeTransaction)
@@ -80,7 +79,6 @@ class KSwapViewController: KNBaseViewController {
   @IBOutlet weak var hasUnreadNotification: UIView!
   fileprivate var estRateTimer: Timer?
   fileprivate var estGasLimitTimer: Timer?
-  fileprivate var getUserCapTimer: Timer?
 
   lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
     let viewModel = KNBalanceTabHamburgerMenuViewModel(
@@ -171,16 +169,6 @@ class KSwapViewController: KNBaseViewController {
       repeats: true,
       block: { [weak self] _ in
         self?.updateEstimatedGasLimit()
-      }
-    )
-
-    self.getUserCapTimer?.invalidate()
-    self.updateUserCapInWei()
-    self.getUserCapTimer = Timer.scheduledTimer(
-      withTimeInterval: KNLoadingInterval.getUserTradeCapInterval,
-      repeats: true,
-      block: { [weak self] _ in
-      self?.updateUserCapInWei()
       }
     )
 
@@ -571,15 +559,6 @@ class KSwapViewController: KNBaseViewController {
     )
     self.delegate?.kSwapViewController(self, run: event)
   }
-
-  fileprivate func updateUserCapInWei() {
-    if (self.viewModel.from.isETH && self.viewModel.to.isWETH)
-      || (self.viewModel.from.isWETH && self.viewModel.to.isETH) {
-      return
-    }
-    self.delegate?.kSwapViewController(self, run: .getUserCapInWei)
-  }
-
   /*
    Return true if data is invalid and a warning message is shown,
    false otherwise
@@ -627,24 +606,6 @@ class KSwapViewController: KNBaseViewController {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
         message: NSLocalizedString("amount.too.small.to.perform.swap", value: "Amount too small to perform swap, minimum equivalent to 0.001 ETH", comment: "")
-      )
-      return true
-    }
-    guard self.viewModel.isCapEnough else {
-      let cap = self.viewModel.userCapInWei.shortString(decimals: 18, maxFractionDigits: 4)
-      let text = NSLocalizedString(
-        "Sorry, we are unable to handle such a big amount. Please reduce the amount to less than %@ and try again.",
-        value: "Sorry, we are unable to handle such a big amount. Please reduce the amount to less than %@ and try again.",
-        comment: ""
-      )
-      let errorMessage = String(
-        format: text,
-        "\(cap) ETH"
-      )
-      self.showWarningTopBannerMessage(
-        with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
-        message: errorMessage,
-        time: 2.0
       )
       return true
     }
@@ -944,23 +905,6 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasLimit
     )
-  }
-
-  /*
-   Update user cap in wei
-   */
-
-  func coordinatorUpdateUserCapInWei(cap: BigInt) {
-    self.viewModel.updateUserCapInWei(cap: cap)
-    if !self.fromAmountTextField.isEditing && self.viewModel.isFocusingFromAmount {
-      self.fromAmountTextField.textColor = self.viewModel.amountTextFieldColor
-      self.toAmountTextField.textColor = UIColor.Kyber.mirage
-    }
-    if !self.toAmountTextField.isEditing && !self.viewModel.isFocusingFromAmount {
-      self.toAmountTextField.textColor = self.viewModel.amountTextFieldColor
-      self.fromAmountTextField.textColor = UIColor.Kyber.mirage
-    }
-    self.view.layoutIfNeeded()
   }
   /*
    Update selected token

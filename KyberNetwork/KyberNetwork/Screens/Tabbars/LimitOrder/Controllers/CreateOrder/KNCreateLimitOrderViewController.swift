@@ -95,6 +95,8 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
 
   @IBOutlet weak var relatedOrderCollectionView: UICollectionView!
   @IBOutlet weak var hasUnreadNotification: UIView!
+  @IBOutlet weak var targetReverseRateLabel: UILabel!
+
   lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
     let viewModel = KNBalanceTabHamburgerMenuViewModel(
       walletObjects: KNWalletStorage.shared.wallets,
@@ -281,7 +283,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
         maxFractionDigits: min(8, self.viewModel.to.decimals)
       ).removeGroupSeparator()
       self.targetRateTextField.text = rateString
-      self.viewModel.updateTargetRate(rateString)
+      self.updateTargetRateUI(rateString)
       self.viewModel.updateFocusTextField(2)
     }
     // Update hamburger menu
@@ -380,7 +382,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
         maxFractionDigits: min(8, self.viewModel.to.decimals)
       ).removeGroupSeparator()
       self.targetRateTextField.text = rateString
-      self.viewModel.updateTargetRate(rateString)
+      self.updateTargetRateUI(rateString)
     }
 
     self.listOrdersDidUpdate(nil)
@@ -531,7 +533,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
     guard let rate = self.viewModel.rateFromNode else { return }
     let rateDisplay = rate.displayRate(decimals: self.viewModel.to.decimals).removeGroupSeparator()
     self.targetRateTextField.text = rateDisplay
-    self.viewModel.updateTargetRate(rateDisplay)
+    self.updateTargetRateUI(rateDisplay)
     self.viewModel.updateFocusTextField(2)
     self.updateViewAmountDidChange()
   }
@@ -639,6 +641,11 @@ extension KNCreateLimitOrderViewController {
     }
     self.sourceBalanceValueLabel.text = self.viewModel.balanceText
     self.view.layoutIfNeeded()
+  }
+
+  fileprivate func updateTargetRateUI(_ text: String) {
+    viewModel.updateTargetRate(text)
+    targetReverseRateLabel.text = viewModel.displayTargetExchangeRate
   }
 
   // Update current martket rate with rate from node or cached
@@ -958,7 +965,7 @@ extension KNCreateLimitOrderViewController {
     self.targetRateTextField.text = ""
     self.viewModel.updateAmount("", isSource: true)
     self.viewModel.updateAmount("", isSource: false)
-    self.viewModel.updateTargetRate("")
+    self.updateTargetRateUI("")
     self.updateTokensView()
     self.hamburgerMenu.update(
       walletObjects: KNWalletStorage.shared.wallets,
@@ -973,7 +980,7 @@ extension KNCreateLimitOrderViewController {
         maxFractionDigits: min(8, self.viewModel.to.decimals)
       ).removeGroupSeparator()
       self.targetRateTextField.text = rateString
-      self.viewModel.updateTargetRate(rateString)
+      self.updateTargetRateUI(rateString)
     }
     self.updateViewAmountDidChange()
     self.noCancelButtonPressed(nil)
@@ -1081,7 +1088,7 @@ extension KNCreateLimitOrderViewController {
         maxFractionDigits: min(8, self.viewModel.to.decimals)
       ).removeGroupSeparator()
       self.targetRateTextField.text = rateString
-      self.viewModel.updateTargetRate(rateString)
+      self.updateTargetRateUI(rateString)
       self.viewModel.updateFocusTextField(2)
     }
     self.updateViewAmountDidChange()
@@ -1107,7 +1114,7 @@ extension KNCreateLimitOrderViewController {
     // Reset exchange amount
     self.viewModel.updateAmount("", isSource: true)
     self.viewModel.updateAmount("", isSource: false)
-    self.viewModel.updateTargetRate("")
+    self.updateTargetRateUI("")
     self.toAmountTextField.text = ""
     self.fromAmountTextField.text = ""
     self.targetRateTextField.text = ""
@@ -1193,7 +1200,7 @@ extension KNCreateLimitOrderViewController: UITextFieldDelegate {
     if textField == self.fromAmountTextField || textField == self.toAmountTextField {
       self.viewModel.updateAmount("", isSource: textField == self.fromAmountTextField)
     } else if textField == self.targetRateTextField {
-      self.viewModel.updateTargetRate("")
+      self.updateTargetRateUI("")
     }
     self.updateViewAmountDidChange()
     self.updateEstimateRateFromNetwork(showWarning: true)
@@ -1232,7 +1239,7 @@ extension KNCreateLimitOrderViewController: UITextFieldDelegate {
     } else if textField == self.toAmountTextField {
       self.viewModel.updateAmount(text, isSource: false)
     } else if textField == self.targetRateTextField {
-      self.viewModel.updateTargetRate(text)
+      self.updateTargetRateUI(text)
     }
 
     self.updateViewAmountDidChange()
@@ -1276,7 +1283,7 @@ extension KNCreateLimitOrderViewController: UITextFieldDelegate {
       let targetRate = self.viewModel.estimateTargetRateBigInt
       let rateDisplay = targetRate.isZero ? "" : targetRate.displayRate(decimals: self.viewModel.to.decimals).removeGroupSeparator()
       self.targetRateTextField.text = rateDisplay
-      self.viewModel.updateTargetRate(rateDisplay)
+      self.updateTargetRateUI(rateDisplay)
     } else {
       // Focusing to and target text field
       let amountFrom = self.viewModel.estimateAmountFromBigInt

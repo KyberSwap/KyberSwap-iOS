@@ -397,8 +397,6 @@
 "you.have.successfully.imported.your.kybercode" = "您已成功导入钱包。请通过%@将所有资产移至钱包";
 "blocked" = "封了";
 "profile.is.blocked" = "您的资料已被封";
-"kyc.submit.wallet.warning.message" = "据我们了解, 作为验证过程的一部分, 您已提交了钱包地址。因此, 我们很遗憾地通知您, 提交的钱包地址无法从您的个人资料中删除或更改。";
-"kyc.submit.wallet.warning.message.personal.info" = "您只能在此处编辑钱包。一旦您的个人资料提交审查, 您将无法修改。";
 "invalid password" = "无效的密码";
 "can.not.transfer.this.token" = "无法转移此令牌";
 "new" = "新";
@@ -661,3 +659,7 @@
 "Go back" = "回到上一步";
 "Yes" = "Yes";
 "No" = "No";
+"%@ (Gas Price) * %@ (Gas Limit)" = "%@ (燃料价格) * %@ (燃料限制)";
+"delete all" = "全部删除";
+"Delete all triggered alerts successfully" = "成功删除所有触发的警报。";
+"Do you want to delete all triggered alerts?" = "是否要删除所有触发的警报？";

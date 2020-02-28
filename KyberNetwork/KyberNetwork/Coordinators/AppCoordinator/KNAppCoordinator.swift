@@ -92,6 +92,12 @@ class KNAppCoordinator: NSObject, Coordinator {
     // For security, should always have passcode protection when user has imported wallets
     if let wallet = self.keystore.recentlyUsedWallet ?? self.keystore.wallets.first,
       KNPasscodeUtil.shared.currentPasscode() != nil {
+      if case .real(let account) = wallet.type {
+        // Check case if password for account is not exist, cancel start new session
+        guard let _ =  keystore.getPassword(for: account) else {
+           return
+        }
+      }
       self.startNewSession(with: wallet)
     }
   }

@@ -54,10 +54,6 @@ class IEOUserStorage {
 
   func delete(objects: [IEOUser]) {
     if self.realm == nil { return }
-    objects.forEach {
-      $0.removeKYCStep()
-      IEOUserStorage.shared.deleteKYCDetails(for: $0.userID)
-    }
     self.realm.beginWrite()
     self.realm.delete(objects)
     try! self.realm.commitWrite()
@@ -79,35 +75,5 @@ class IEOUserStorage {
     // Remove all other users
     let removedUsers = self.objects.filter({ return !$0.isSignedIn })
     self.delete(objects: removedUsers)
-  }
-}
-
-// For UserKYCDetailsInfo
-extension IEOUserStorage {
-  var kycDetailObjects: [UserKYCDetailsInfo] {
-    if self.realm == nil { return [] }
-    if self.realm.objects(UserKYCDetailsInfo.self).isInvalidated { return [] }
-    return self.realm.objects(UserKYCDetailsInfo.self)
-      .filter { return $0.userID != -1 }
-  }
-
-  func getKYCDetails(for userID: Int) -> UserKYCDetailsInfo? {
-    return self.kycDetailObjects.first(where: { $0.userID == userID })
-  }
-
-  func deleteKYCDetails(for userID: Int) {
-    if self.realm == nil { return }
-    if let object = self.getKYCDetails(for: userID) {
-      self.realm.beginWrite()
-      self.realm.delete(object)
-      try! self.realm.commitWrite()
-    }
-  }
-
-  func updateKYCDetails(object: UserKYCDetailsInfo) {
-    if self.realm == nil { return }
-    self.realm.beginWrite()
-    self.realm.add(object, update: .modified)
-    try! self.realm.commitWrite()
   }
 }

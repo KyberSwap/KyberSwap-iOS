@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,7 +16,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNPromoSwapConfirmViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNPromoSwapConfirmViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="bottomPaddingCancelButtonConstraint" destination="nOk-qo-Y5d" id="2Kk-j7-tUu"/>
                 <outlet property="cancelButton" destination="fei-mH-Sde" id="A17-k4-AMz"/>
@@ -38,6 +36,7 @@
                 <outlet property="transactionFeeInUSDLabel" destination="jWY-Pi-rHK" id="2K5-hz-rNH"/>
                 <outlet property="transactionFeeTextLabel" destination="g0c-RM-zeC" id="vvR-yw-ODJ"/>
                 <outlet property="transactionFeeValueLabel" destination="sbt-lK-HxK" id="YJg-g1-Z22"/>
+                <outlet property="transactionGasPriceLabel" destination="2rG-zR-ibT" id="Yco-cv-1rH"/>
                 <outlet property="transferFundsIcon" destination="X45-sp-HI0" id="myF-nQ-H1y"/>
                 <outlet property="transferFundsMessageLabel" destination="sNF-dM-eSJ" id="kJp-w6-mcK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -107,7 +106,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hga-VI-kTC">
-                            <rect key="frame" x="20" y="467" width="333" height="45"/>
+                            <rect key="frame" x="20" y="482" width="333" height="45"/>
                             <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="ye2-sT-d8f"/>
@@ -121,7 +120,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fei-mH-Sde">
-                            <rect key="frame" x="20" y="520" width="333" height="45"/>
+                            <rect key="frame" x="20" y="535" width="333" height="45"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="AMW-KH-TSM"/>
@@ -224,6 +223,12 @@
                             <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 (Gas price) * 449,605 (Gas limit)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rG-zR-ibT">
+                            <rect key="frame" x="137" y="444" width="204" height="15"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                            <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <constraints>
                         <constraint firstItem="wsZ-Sn-vEd" firstAttribute="leading" secondItem="r5j-Nd-zyY" secondAttribute="leading" constant="32" id="0ED-Ek-GlI"/>
@@ -242,7 +247,7 @@
                         <constraint firstItem="wsZ-Sn-vEd" firstAttribute="top" secondItem="r5j-Nd-zyY" secondAttribute="top" constant="32" id="DSr-8j-251"/>
                         <constraint firstItem="bfi-fX-c7q" firstAttribute="leading" secondItem="r5j-Nd-zyY" secondAttribute="leading" constant="32" id="Fgs-Za-MeE"/>
                         <constraint firstItem="sNF-dM-eSJ" firstAttribute="leading" secondItem="X45-sp-HI0" secondAttribute="trailing" constant="8" id="Hk4-LK-K3O"/>
-                        <constraint firstItem="Hga-VI-kTC" firstAttribute="top" secondItem="g0c-RM-zeC" secondAttribute="bottom" constant="40" id="JTO-3G-isI"/>
+                        <constraint firstItem="Hga-VI-kTC" firstAttribute="top" secondItem="g0c-RM-zeC" secondAttribute="bottom" constant="55" id="JTO-3G-isI"/>
                         <constraint firstItem="fei-mH-Sde" firstAttribute="top" secondItem="Hga-VI-kTC" secondAttribute="bottom" constant="8" id="Kvz-tm-ZvI"/>
                         <constraint firstItem="9Dd-y9-hoc" firstAttribute="leading" secondItem="r5j-Nd-zyY" secondAttribute="leading" constant="32" id="Lce-rH-LtQ"/>
                         <constraint firstItem="GFx-ey-RdW" firstAttribute="centerX" secondItem="it2-dF-LJ5" secondAttribute="centerX" id="NKQ-zE-u6j"/>
@@ -261,6 +266,7 @@
                         <constraint firstItem="it2-dF-LJ5" firstAttribute="centerX" secondItem="TLy-zh-fsJ" secondAttribute="centerX" id="dux-MQ-dj6"/>
                         <constraint firstAttribute="trailing" secondItem="hzB-js-d3k" secondAttribute="trailing" constant="32" id="ew6-qQ-wdH"/>
                         <constraint firstItem="TLy-zh-fsJ" firstAttribute="leading" secondItem="r5j-Nd-zyY" secondAttribute="leading" constant="122" id="h1e-eh-1N1"/>
+                        <constraint firstItem="2rG-zR-ibT" firstAttribute="top" secondItem="jWY-Pi-rHK" secondAttribute="bottom" constant="1" id="hFm-Zc-oN0"/>
                         <constraint firstItem="jWY-Pi-rHK" firstAttribute="top" secondItem="sbt-lK-HxK" secondAttribute="bottom" constant="1" id="hwB-eJ-pSN"/>
                         <constraint firstItem="EQT-OP-JSN" firstAttribute="leading" secondItem="nxb-9C-k8p" secondAttribute="trailing" constant="20" id="jWl-6p-Vbq"/>
                         <constraint firstItem="iQS-Zh-2bl" firstAttribute="leading" secondItem="r5j-Nd-zyY" secondAttribute="leading" constant="32" id="jcG-Zz-g7m"/>
@@ -268,6 +274,7 @@
                         <constraint firstItem="sbt-lK-HxK" firstAttribute="centerY" secondItem="g0c-RM-zeC" secondAttribute="centerY" id="lqg-WQ-ngN"/>
                         <constraint firstAttribute="bottom" secondItem="fei-mH-Sde" secondAttribute="bottom" constant="32" id="nOk-qo-Y5d"/>
                         <constraint firstItem="fei-mH-Sde" firstAttribute="leading" secondItem="Hga-VI-kTC" secondAttribute="leading" id="o4w-ub-Zqp"/>
+                        <constraint firstItem="jWY-Pi-rHK" firstAttribute="trailing" secondItem="2rG-zR-ibT" secondAttribute="trailing" id="pSz-U7-cfj"/>
                         <constraint firstItem="y8Y-mg-bDx" firstAttribute="top" secondItem="it2-dF-LJ5" secondAttribute="bottom" constant="26" id="sPx-Te-3Pq"/>
                         <constraint firstItem="EQT-OP-JSN" firstAttribute="centerY" secondItem="nxb-9C-k8p" secondAttribute="centerY" id="tEI-ci-GQe"/>
                         <constraint firstItem="Hga-VI-kTC" firstAttribute="leading" secondItem="r5j-Nd-zyY" secondAttribute="leading" constant="20" id="uqE-7r-VpB"/>

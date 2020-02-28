@@ -41,14 +41,10 @@ class KNPromoCodeCoordinator: Coordinator {
 }
 
 extension KNPromoCodeCoordinator: KNPromoCodeViewControllerDelegate {
-  func promoCodeViewControllerDidClose() {
-    self.stop()
-  }
-
   func promoCodeViewController(_ controller: KNPromoCodeViewController, promoCode: String, name: String) {
     let nonce: UInt = UInt(round(Date().timeIntervalSince1970 * 1000.0))
     self.rootViewController.displayLoading()
-    let provider = MoyaProvider<ProfileKYCService>(plugins: [MoyaCacheablePlugin()])
+    let provider = MoyaProvider<ProfileService>(plugins: [MoyaCacheablePlugin()])
     DispatchQueue.global(qos: .background).async {
       provider.request(.promoCode(promoCode: promoCode, nonce: nonce), completion: { [weak self] result in
         guard let `self` = self else { return }
@@ -120,6 +116,9 @@ extension KNPromoCodeCoordinator: KNPromoCodeViewControllerDelegate {
         }
       })
     }
+  }
+  func promoCodeViewControllerDidClose() {
+    self.stop()
   }
 
   fileprivate func didSuccessUnlockPromoCode(wallet: Wallet, name: String, expiredDate: TimeInterval, destinationToken: String, destAddress: String?) {

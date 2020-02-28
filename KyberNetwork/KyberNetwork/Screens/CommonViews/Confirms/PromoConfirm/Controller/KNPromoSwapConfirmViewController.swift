@@ -36,7 +36,7 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
   @IBOutlet weak var confirmButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var bottomPaddingCancelButtonConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var transactionGasPriceLabel: UILabel!
   fileprivate let viewModel: KNPromoSwapConfirmViewModel
 
   fileprivate var isConfirmed: Bool = false
@@ -123,6 +123,7 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
     self.transactionFeeTextLabel.addLetterSpacing()
     self.transactionFeeValueLabel.text = self.viewModel.feeETHString
     self.transactionFeeInUSDLabel.text = self.viewModel.feeUSDString
+    transactionGasPriceLabel.text = viewModel.transactionGasPriceString
 
     self.confirmButton.setTitle(NSLocalizedString("confirm", value: "Confirm", comment: ""), for: .normal)
     self.confirmButton.rounded(radius: KNAppStyleType.current.buttonRadius(for: self.confirmButton.frame.height))

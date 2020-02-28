@@ -397,8 +397,6 @@
 "you.have.successfully.imported.your.kybercode" = "Bạn đã nhập ví thành công. Xin vui lòng chuyển tất cả tiền qua ví của bạn trước %@";
 "blocked" = "Bị chặn";
 "profile.is.blocked" = "Hồ sơ của bạn bị chặn";
-"kyc.submit.wallet.warning.message" = "Chúng tôi hiểu rằng bạn đã gửi địa chỉ ví trong quá trình xác minh. Vì vậy, chúng tôi rất tiếc phải thông báo cho bạn rằng địa chỉ ví đã gửi không thể bị xóa hoặc thay đổi khỏi hồ sơ của bạn.";
-"kyc.submit.wallet.warning.message.personal.info" = "Bạn chỉ có thể xóa/chỉnh sửa ví của bạn ở đây. Khi hồ sơ của bạn được gửi để xem xét, bạn sẽ không thể thay đổi.";
 "invalid password" = "Mật khẩu không hợp lệ";
 "can.not.transfer.this.token" = "Không thể chuyển token này";
 
@@ -663,3 +661,7 @@
 "Go back" = "Quay lại";
 "Yes" = "Đồng ý";
 "No" = "Không";
+"%@ (Gas Price) * %@ (Gas Limit)" = "%@ (Giá Gas) * %@ (Giới hạn Gas)";
+"delete all" = "xoá tất cả";
+"Delete all triggered alerts successfully" = "Xóa thành công tất cả thông báo";
+"Do you want to delete all triggered alerts?" = "Bạn có muốn xóa tất cả thông báo?";

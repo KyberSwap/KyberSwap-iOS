@@ -27,7 +27,6 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
     return controller
   }()
 
-  fileprivate var kycCoordinator: KYCCoordinator?
   fileprivate var manageAlertCoordinator: KNManageAlertCoordinator?
 
   fileprivate var loadUserInfoTimer: Timer?
@@ -78,13 +77,9 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
     // Remove notification observer
     self.accessTokenExpireTimer?.invalidate()
     self.accessTokenExpireTimer = nil
-
     self.loadUserInfoTimer?.invalidate()
     self.loadUserInfoTimer = nil
-
     self.navigationController.popToRootViewController(animated: false)
-
-    self.kycCoordinator = nil
     self.manageAlertCoordinator = nil
     self.newAlertController = nil
     self.loadUserInfoTimer?.invalidate()
@@ -337,8 +332,6 @@ extension KNProfileHomeCoordinator: KNProfileHomeViewControllerDelegate {
     switch event {
     case .logOut:
       self.handleUserSignOut()
-    case .openVerification:
-      self.openVerificationView()
     case .managePriceAlerts:
       if let topVC = self.navigationController.topViewController, topVC is KNManageAlertsViewController { return }
       self.manageAlertCoordinator = KNManageAlertCoordinator(navigationController: self.navigationController)
@@ -379,109 +372,6 @@ extension KNProfileHomeCoordinator: KNProfileHomeViewControllerDelegate {
     )
     alertController.addAction(UIAlertAction(title: NSLocalizedString("ok", value: "OK", comment: ""), style: .cancel, handler: nil))
     self.navigationController.present(alertController, animated: true, completion: nil)
-  }
-
-  fileprivate func openVerificationView() {
-    if let topVC = self.navigationController.topViewController, topVC is KYCFlowViewController { return }
-    guard let user = IEOUserStorage.shared.user else { return }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "open_verification_view_\(user.kycStatus.lowercased())"])
-    if user.kycStatus.lowercased() == "blocked" { return }
-    if let date = self.lastUpdatedUserInfo, Date().timeIntervalSince(date) <= 2.0, user.kycStatus.lowercased() != "rejected" {
-      if user.kycStatus.lowercased() == "approved" || user.kycStatus.lowercased() == "pending" { return }
-      // draft or none, just open the verification
-      self.kycCoordinator = KYCCoordinator(navigationController: self.navigationController, user: user)
-      self.kycCoordinator?.delegate = self
-      self.kycCoordinator?.start()
-      return
-    }
-    self.navigationController.displayLoading(text: "\(NSLocalizedString("checking", value: "Checking", comment: ""))...", animated: true)
-    self.getUserInfo(
-      accessToken: user.accessToken,
-      refreshToken: user.refreshToken,
-      expireTime: user.expireTime,
-      hasUser: true,
-      showError: true) { [weak self] success in
-        guard let `self` = self, let user = IEOUserStorage.shared.user else { return }
-        if success {
-          self.rootViewController.coordinatorUserDidSignInSuccessfully()
-          let status = user.kycStatus.lowercased()
-          if status == "approved" || status == "pending" || status == "blocked" { return }
-          if status == "rejected" {
-            self.sendResubmitRequest(for: user)
-          } else {
-            self.kycCoordinator = KYCCoordinator(navigationController: self.navigationController, user: user)
-            self.kycCoordinator?.delegate = self
-            self.kycCoordinator?.start()
-          }
-        }
-    }
-  }
-
-  fileprivate func sendResubmitRequest(for user: IEOUser) {
-    self.navigationController.displayLoading()
-    let accessToken = user.accessToken
-    DispatchQueue.global(qos: .background).async {
-      let provider = MoyaProvider<ProfileKYCService>(plugins: [MoyaCacheablePlugin()])
-      provider.request(.resubmitKYC(accessToken: accessToken)) { [weak self] result in
-        guard let `self` = self else { return }
-        DispatchQueue.main.async {
-          self.navigationController.hideLoading()
-          switch result {
-          case .success(let resp):
-            var json: JSONDictionary = [:]
-            do {
-              _ = try resp.filterSuccessfulStatusCodes()
-              json = try resp.mapJSON() as? JSONDictionary ?? [:]
-            } catch {} // ignore catch error
-            let success = json["success"] as? Bool ?? false
-            let reason = json["reason"] as? String ?? NSLocalizedString("unknown.reason", value: "Unknown reason", comment: "")
-            if success {
-              self.kycCoordinator = KYCCoordinator(navigationController: self.navigationController, user: user, isResubmit: true)
-              self.kycCoordinator?.delegate = self
-              self.kycCoordinator?.start()
-            } else {
-              self.navigationController.showWarningTopBannerMessage(
-                with: NSLocalizedString("error", value: "Error", comment: ""),
-                message: reason,
-                time: 1.5
-              )
-            }
-          case .failure:
-            self.navigationController.showWarningTopBannerMessage(
-              with: NSLocalizedString("error", value: "Error", comment: ""),
-              message: NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
-            )
-          }
-        }
-      }
-    }
-  }
-}
-
-extension KNProfileHomeCoordinator: KYCCoordinatorDelegate {
-  func kycCoordinatorDidSubmitData() {
-    self.kycCoordinator = nil
-    guard let user = IEOUserStorage.shared.user else { return }
-    self.navigationController.displayLoading(
-      text: NSLocalizedString("updating.data", value: "Updating data", comment: ""),
-      animated: true
-    )
-    self.getUserInfo(
-      accessToken: user.accessToken,
-      refreshToken: user.refreshToken,
-      expireTime: user.expireTime,
-      hasUser: true,
-      showError: true,
-      completion: { success in
-        if success {
-          self.rootViewController.coordinatorUserDidSignInSuccessfully()
-        }
-      }
-    )
-  }
-
-  func kycCoordinatorDidBack() {
-//    self.kycCoordinator = nil
   }
 }
 
