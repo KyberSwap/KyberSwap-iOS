@@ -623,7 +623,6 @@ extension KNCreateLimitOrderViewController {
   fileprivate func updateCurrentMarketRateUI() {
     self.currentRateLabel.text = "\(self.viewModel.displayCurrentExchangeRate)"
     self.compareMarketRateLabel.attributedText = self.viewModel.displayRateCompareAttributedString
-    self.targetReverseRateLabel.text = viewModel.displayTargetExchangeRate
   }
 
   // Update fee when source amount changed
