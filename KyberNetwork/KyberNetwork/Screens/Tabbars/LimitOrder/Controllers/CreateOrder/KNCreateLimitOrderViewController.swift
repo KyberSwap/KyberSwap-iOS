@@ -316,7 +316,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
     self.cancelOrdersCollectionView.dataSource = self
 
     self.checkAddressEligible(nil)
-    notificationDidUpdate(nil)
+    self.notificationDidUpdate(nil)
   }
 
   @IBAction func fromTokenButtonPressed(_ sender: Any) {
@@ -602,7 +602,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
   }
 
   func update(notificationsCount: Int) {
-    hasUnreadNotification.isHidden = notificationsCount == 0
+    self.hasUnreadNotification.isHidden = notificationsCount == 0
   }
 }
 

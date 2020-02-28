@@ -200,7 +200,7 @@ class KSwapViewController: KNBaseViewController {
     self.setupAdvancedSettingsView()
     self.setupContinueButton()
     self.setupSwapSuggestionView()
-    notificationDidUpdate(nil)
+    self.notificationDidUpdate(nil)
   }
 
   fileprivate func setupTokensView() {
@@ -547,7 +547,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func notificationMenuButtonPressed(_ sender: UIButton) {
-    delegate?.kSwapViewController(self, run: .selectNotifications)
+    self.delegate?.kSwapViewController(self, run: .selectNotifications)
   }
 
   fileprivate func updateEstimatedGasLimit() {
@@ -686,7 +686,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   func update(notificationsCount: Int) {
-    hasUnreadNotification.isHidden = notificationsCount == 0
+    self.hasUnreadNotification.isHidden = notificationsCount == 0
   }
 }
 

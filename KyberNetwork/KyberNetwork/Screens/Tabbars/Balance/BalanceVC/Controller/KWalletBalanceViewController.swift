@@ -127,8 +127,8 @@ class KWalletBalanceViewController: KNBaseViewController {
   // MARK: Set up UIs
   fileprivate func setupUI() {
     self.bottomPaddingConstraintForTableView.constant = self.bottomPaddingSafeArea()
-    hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
-    notificationDidUpdate(nil)
+    self.hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
+    self.notificationDidUpdate(nil)
     self.setupHamburgerMenu()
     self.setupWalletBalanceHeaderView()
     self.setupDisplayDataType()
@@ -329,7 +329,7 @@ class KWalletBalanceViewController: KNBaseViewController {
   }
 
   func update(notificationsCount: Int) {
-    hasUnreadNotification.isHidden = notificationsCount == 0
+    self.hasUnreadNotification.isHidden = notificationsCount == 0
   }
 }
 
