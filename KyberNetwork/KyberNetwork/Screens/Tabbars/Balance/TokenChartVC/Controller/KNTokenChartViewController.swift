@@ -4,7 +4,6 @@ import UIKit
 import Moya
 import Result
 import BigInt
-import SwiftChart
 import EasyTipView
 import Charts
 
@@ -430,7 +429,6 @@ class KNTokenChartViewController: KNBaseViewController {
     return preferences
   }()
 
-  fileprivate var dataTipView: EasyTipView!
   fileprivate var sourceTipView: UIView!
   fileprivate func tipView(with value: Double, at index: Int, for type: KWalletCurrencyType) -> EasyTipView {
     let formatter: DateFormatter = {
@@ -617,7 +615,6 @@ class KNTokenChartViewController: KNBaseViewController {
         radius: 4.0
       )
     }
-    if self.dataTipView != nil { self.dataTipView.dismiss() }
     self.reloadViewDataDidUpdate()
     self.startTimer()
   }
@@ -710,7 +707,6 @@ class KNTokenChartViewController: KNBaseViewController {
       self.noDataLabel.isHidden = false
       self.noDataLabel.addLetterSpacing()
       self.chartView.isHidden = true
-      if self.dataTipView != nil { self.dataTipView.dismiss() }
     } else {
       self.touchPriceLabel.isHidden = true
       self.noDataLabel.isHidden = true
@@ -736,35 +732,6 @@ class KNTokenChartViewController: KNBaseViewController {
       self.totalValueLabel.addLetterSpacing()
       self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
       self.totalUSDValueLabel.addLetterSpacing()
-    }
-  }
-}
-
-extension KNTokenChartViewController: ChartDelegate {
-  func didFinishTouchingChart(_ chart: Chart) {
-  }
-
-  func didEndTouchingChart(_ chart: Chart) {
-  }
-
-  func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
-    for (seriesId, dataId) in indexes.enumerated() {
-      if let id = dataId, let value = chart.valueForSeries(seriesId, atIndex: id) {
-        let minMaxValues = self.viewModel.yDoubleLables
-        let topPadding = chart.frame.height * CGFloat((minMaxValues[0] == minMaxValues[1] ? 0.0 : (minMaxValues[1] - value) / (minMaxValues[1] - minMaxValues[0])))
-        if self.dataTipView != nil { self.dataTipView.dismiss() }
-        if self.sourceTipView != nil {
-          self.sourceTipView.frame = CGRect(x: left, y: chart.frame.minY + topPadding, width: 1, height: 1)
-          self.sourceTipView.removeFromSuperview()
-        } else {
-          self.sourceTipView = UIView(frame: CGRect(x: left, y: chart.frame.minY + topPadding, width: 1, height: 1))
-          self.sourceTipView.backgroundColor = UIColor.clear
-        }
-        self.view.addSubview(self.sourceTipView)
-        self.dataTipView = self.tipView(with: value, at: id, for: viewModel.currencyType)
-        self.dataTipView.show(animated: false, forView: self.sourceTipView, withinSuperview: self.view)
-        self.view.layoutIfNeeded()
-      }
     }
   }
 }
