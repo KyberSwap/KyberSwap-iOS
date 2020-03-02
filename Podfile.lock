@@ -4,6 +4,9 @@ PODS:
     - Result (~> 3.0)
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
+  - Charts (3.4.0):
+    - Charts/Core (= 3.4.0)
+  - Charts/Core (3.4.0)
   - CryptoSwift (0.10.0)
   - EasyTipView (2.0.1)
   - Eureka (4.1.1)
@@ -163,6 +166,7 @@ PODS:
 DEPENDENCIES:
   - APIKit (~> 3.2.1)
   - BigInt (~> 3.1.0)
+  - Charts
   - CryptoSwift (~> 0.10.0)
   - EasyTipView (~> 2.0.1)
   - Eureka (~> 4.1.1)
@@ -196,10 +200,11 @@ DEPENDENCIES:
   - WalletConnect (from `https://github.com/trustwallet/wallet-connect-swift`, branch `master`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - APIKit
     - BigInt
+    - Charts
     - CryptoSwift
     - EasyTipView
     - Eureka
@@ -262,6 +267,7 @@ SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   APIKit: a39ff72ac44efc15513fd1b98800f63c525be61b
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
+  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   EasyTipView: 1515544456d6e943240012e9be5d25d1bb766603
   Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
@@ -309,8 +315,8 @@ SPEC CHECKSUMS:
   TrustKeystore: ba8a33ccd7b6a46dfe25f209253d6ba13da6655c
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
-  WalletConnect: 20ca9cb4372f9b15cc67a416b751d0fe8ab2fe89
+  WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: 7951c9b0ea00011e2b234942067d5ab87be99b22
+PODFILE CHECKSUM: 2e97acdf659f501c89c3ab9c5730caa6efb5c957
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

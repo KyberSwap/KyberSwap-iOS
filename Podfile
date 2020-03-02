@@ -41,6 +41,7 @@ target 'KyberNetwork' do
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/RemoteConfig'
+  pod 'Charts'
 
   target 'KyberNetworkTests' do
     inherit! :search_paths

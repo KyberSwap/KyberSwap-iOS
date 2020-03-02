@@ -6,6 +6,7 @@ import Result
 import BigInt
 import SwiftChart
 import EasyTipView
+import Charts
 
 enum KNTokenChartType: Int {
   case day = 0
@@ -238,20 +239,32 @@ class KNTokenChartViewModel {
     }
   }
 
-  var displayDataSeries: ChartSeries {
+  var displayChartData: CandleChartData {
     if let object = self.data.first {
       self.data = self.data.filter({ return $0.time >= self.type.fromTime(for: object.time) })
     }
     guard let first = self.data.first else {
-      return ChartSeries(data: [(x: 0, y: 0)])
+      return CandleChartData(dataSet: nil)
     }
-    let data = self.data.map {
-      return (x: Double($0.time - first.time) / (15.0 * 60.0), y: $0.close)
+    let candleStickEntries = self.data.map { (element) -> CandleChartDataEntry in
+      let xAxis = Double(element.time - first.time) / (15.0 * 60.0)
+      return CandleChartDataEntry(x: xAxis, shadowH: element.high, shadowL: element.low, open: element.open, close: element.close)
     }
-    let series = ChartSeries(data: data)
-    series.color = UIColor.Kyber.blueGreen
-    series.area = true
-    return series
+    let set1 = CandleChartDataSet(entries: candleStickEntries, label: "Data Set")
+    set1.axisDependency = .left
+    set1.setColor(UIColor(white: 80/255, alpha: 1))
+    set1.drawIconsEnabled = false
+    set1.shadowColor = .darkGray
+    set1.shadowWidth = 0.7
+    set1.decreasingColor = .red
+    set1.decreasingFilled = true
+    set1.increasingColor = UIColor(red: 122/255, green: 242/255, blue: 84/255, alpha: 1)
+    set1.increasingFilled = false
+    set1.neutralColor = .blue
+    set1.drawValuesEnabled = false
+
+    let candleStickData = CandleChartData(dataSet: set1)
+    return candleStickData
   }
 
   var xDoubleLabels: [Double] {
@@ -388,7 +401,6 @@ class KNTokenChartViewController: KNBaseViewController {
   @IBOutlet weak var totalValueLabel: UILabel!
   @IBOutlet weak var totalUSDValueLabel: UILabel!
 
-  @IBOutlet weak var priceChart: Chart!
   @IBOutlet weak var noDataLabel: UILabel!
   @IBOutlet weak var iconImageView: UIImageView!
   @IBOutlet weak var addAlertButton: UIButton!
@@ -406,6 +418,7 @@ class KNTokenChartViewController: KNBaseViewController {
   fileprivate var timer: Timer?
   @IBOutlet weak var touchPriceLabel: UILabel!
   @IBOutlet weak var leftPaddingForTouchPriceLabelConstraint: NSLayoutConstraint!
+  @IBOutlet weak var chartView: CandleStickChartView!
 
   lazy var preferences: EasyTipView.Preferences = {
     var preferences = EasyTipView.Preferences()
@@ -502,13 +515,22 @@ class KNTokenChartViewController: KNBaseViewController {
     self.totalUSDValueLabel.addLetterSpacing()
 
     self.touchPriceLabel.isHidden = true
-
-    self.priceChart.delegate = self
     self.noDataLabel.isHidden = false
 
-    self.priceChart.isHidden = true
-    self.priceChart.labelColor = UIColor.Kyber.mirage
-    self.priceChart.labelFont = UIFont.Kyber.medium(with: 12)
+    self.chartView.delegate = self
+    self.chartView.chartDescription?.enabled = false
+    self.chartView.dragEnabled = true
+    self.chartView.setScaleEnabled(true)
+    self.chartView.maxVisibleCount = 200
+    self.chartView.pinchZoomEnabled = true
+    self.chartView.legend.enabled = false
+    self.chartView.rightAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
+    self.chartView.rightAxis.spaceTop = 0.3
+    self.chartView.rightAxis.spaceBottom = 0.3
+    self.chartView.rightAxis.axisMinimum = 0
+    self.chartView.leftAxis.enabled = false
+    self.chartView.xAxis.labelPosition = .bottom
+    self.chartView.xAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
 
     self.sendButton.rounded(
       color: UIColor.Kyber.border,
@@ -688,27 +710,14 @@ class KNTokenChartViewController: KNBaseViewController {
       self.noDataLabel.text = NSLocalizedString("no.data.for.this.token", value: "There is no data for this token", comment: "")
       self.noDataLabel.isHidden = false
       self.noDataLabel.addLetterSpacing()
-      self.priceChart.isHidden = true
+      self.chartView.isHidden = true
       if self.dataTipView != nil { self.dataTipView.dismiss() }
     } else {
       self.noDataLabel.isHidden = true
-      self.priceChart.isHidden = false
-      self.priceChart.removeAllSeries()
-      self.priceChart.series = [self.viewModel.displayDataSeries]
-      self.priceChart.yLabels = self.viewModel.yDoubleLables
-      let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = min(9, self.viewModel.token.decimals)
-        formatter.minimumFractionDigits = 2
-        formatter.minimumIntegerDigits = 1
-        return formatter
-      }()
-      self.priceChart.yLabelsFormatter = { (_, value) in
-        let rate = numberFormatter.string(from: NSNumber(value: value)) ?? ""
-        return rate.displayRate()
-      }
-      self.priceChart.xLabels = []
-      self.priceChart.setNeedsDisplay()
+      self.chartView.data = nil
+      self.chartView.isHidden = false
+      self.chartView.data = self.viewModel.displayChartData
+      self.chartView.setNeedsLayout()
     }
     self.view.layoutIfNeeded()
   }
@@ -757,5 +766,25 @@ extension KNTokenChartViewController: ChartDelegate {
         self.view.layoutIfNeeded()
       }
     }
+  }
+}
+
+extension KNTokenChartViewController: ChartViewDelegate {
+  func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    NSLog("chartValueSelected");
+    //TODO: binding selected value to label
+    
+  }
+  
+  func chartValueNothingSelected(_ chartView: ChartViewBase) {
+    NSLog("chartValueNothingSelected");
+  }
+  
+  func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat) {
+    
+  }
+  
+  func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
+    
   }
 }

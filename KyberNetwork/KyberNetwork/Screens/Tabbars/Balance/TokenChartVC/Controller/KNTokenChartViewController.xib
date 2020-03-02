@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,12 +19,13 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNTokenChartViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNTokenChartViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="addAlertButton" destination="Er6-dx-2Ju" id="bYQ-Kg-zQo"/>
                 <outlet property="balanceLabel" destination="k0O-wv-xoq" id="UmI-6n-C0N"/>
                 <outlet property="bottomPaddingConstraintForButton" destination="pNs-iY-lVl" id="24G-pM-LUd"/>
                 <outlet property="buyButton" destination="NQJ-aQ-heZ" id="uJF-gm-Fex"/>
+                <outlet property="chartView" destination="knF-lf-3jZ" id="B4v-Ch-8fR"/>
                 <outlet property="dataTypeButtonContainerView" destination="YuN-fc-RDP" id="p15-Ad-le1"/>
                 <outlet property="ethRateLabel" destination="owX-jT-QfB" id="SXa-xc-Kvw"/>
                 <outlet property="headerContainerView" destination="RuW-OO-mGF" id="a9k-8M-Ntb"/>
@@ -35,7 +34,6 @@
                 <outlet property="nameLabel" destination="pby-cn-L8Z" id="rRk-DT-eho"/>
                 <outlet property="navigationLabel" destination="aSm-QQ-Xz3" id="qhK-Wi-z8D"/>
                 <outlet property="noDataLabel" destination="xrb-V8-l4x" id="vNG-cc-hrJ"/>
-                <outlet property="priceChart" destination="knF-lf-3jZ" id="pxG-jj-BAH"/>
                 <outlet property="sellButton" destination="sgq-DE-FKK" id="Jun-MX-yxm"/>
                 <outlet property="sendButton" destination="I4W-41-swn" id="8EW-4O-SXf"/>
                 <outlet property="symbolLabel" destination="GMK-AO-Eyx" id="LTr-lK-oLH"/>
@@ -173,7 +171,7 @@
                         <constraint firstItem="5IT-4G-EOV" firstAttribute="leading" secondItem="ae8-Ja-7n8" secondAttribute="trailing" constant="16" id="wpR-uQ-Pke"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="knF-lf-3jZ" customClass="Chart" customModule="SwiftChart">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="knF-lf-3jZ" customClass="CandleStickChartView" customModule="Charts">
                     <rect key="frame" x="0.0" y="289" width="375" height="301"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
@@ -245,13 +243,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KNC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GMK-AO-Eyx">
-                    <rect key="frame" x="76" y="112" width="54.5" height="30"/>
+                    <rect key="frame" x="76" y="112" width="54.5" height="29.5"/>
                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="24"/>
                     <color key="textColor" red="0.1843137255" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KyberNetwork" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pby-cn-L8Z">
-                    <rect key="frame" x="76" y="142" width="88" height="15"/>
+                    <rect key="frame" x="76" y="141.5" width="88" height="15"/>
                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                     <color key="textColor" red="0.54509803921568623" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
