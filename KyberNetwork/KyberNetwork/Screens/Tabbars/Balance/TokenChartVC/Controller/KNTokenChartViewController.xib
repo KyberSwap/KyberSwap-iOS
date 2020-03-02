@@ -181,8 +181,8 @@
                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vds-sy-BKi">
-                    <rect key="frame" x="10" y="270" width="25.5" height="14"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vds-sy-BKi">
+                    <rect key="frame" x="10" y="270" width="355" height="14"/>
                     <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -288,6 +288,7 @@
                 <constraint firstItem="I4W-41-swn" firstAttribute="top" secondItem="sgq-DE-FKK" secondAttribute="top" id="AjJ-pJ-1eH"/>
                 <constraint firstItem="I4W-41-swn" firstAttribute="height" secondItem="sgq-DE-FKK" secondAttribute="height" id="BW1-ze-v3i"/>
                 <constraint firstItem="owX-jT-QfB" firstAttribute="top" secondItem="Dov-H8-AEE" secondAttribute="bottom" constant="24" id="BcM-0s-6DD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vds-sy-BKi" secondAttribute="trailing" constant="10" id="EMr-R2-J9h"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xrb-V8-l4x" secondAttribute="trailing" constant="20" id="FWA-VD-Djg"/>
                 <constraint firstItem="NQJ-aQ-heZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="Fo8-3T-dNw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="k0O-wv-xoq" secondAttribute="trailing" constant="16" id="GbV-Ue-kTB"/>

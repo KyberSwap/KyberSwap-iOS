@@ -256,10 +256,10 @@ class KNTokenChartViewModel {
     set1.drawIconsEnabled = false
     set1.shadowColor = .darkGray
     set1.shadowWidth = 0.7
-    set1.decreasingColor = .red
+    set1.decreasingColor = UIColor.Kyber.red
     set1.decreasingFilled = true
-    set1.increasingColor = UIColor(red: 122/255, green: 242/255, blue: 84/255, alpha: 1)
-    set1.increasingFilled = false
+    set1.increasingColor = UIColor.Kyber.green
+    set1.increasingFilled = true
     set1.neutralColor = .blue
     set1.drawValuesEnabled = false
 
@@ -514,7 +514,6 @@ class KNTokenChartViewController: KNBaseViewController {
     self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
     self.totalUSDValueLabel.addLetterSpacing()
 
-    self.touchPriceLabel.isHidden = true
     self.noDataLabel.isHidden = false
 
     self.chartView.delegate = self
@@ -713,6 +712,7 @@ class KNTokenChartViewController: KNBaseViewController {
       self.chartView.isHidden = true
       if self.dataTipView != nil { self.dataTipView.dismiss() }
     } else {
+      self.touchPriceLabel.isHidden = true
       self.noDataLabel.isHidden = true
       self.chartView.data = nil
       self.chartView.isHidden = false
@@ -771,20 +771,17 @@ extension KNTokenChartViewController: ChartDelegate {
 
 extension KNTokenChartViewController: ChartViewDelegate {
   func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-    NSLog("chartValueSelected");
-    //TODO: binding selected value to label
-    
-  }
-  
-  func chartValueNothingSelected(_ chartView: ChartViewBase) {
-    NSLog("chartValueNothingSelected");
-  }
-  
-  func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat) {
-    
-  }
-  
-  func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat) {
-    
+    guard let candleStickEntry = entry as? CandleChartDataEntry else {
+      return
+    }
+    if self.touchPriceLabel.isHidden {
+      self.touchPriceLabel.isHidden = false
+    }
+    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    let open = formatter.string(from: NSNumber(value: candleStickEntry.open)) ?? ""
+    let high = formatter.string(from: NSNumber(value: candleStickEntry.high)) ?? ""
+    let close = formatter.string(from: NSNumber(value: candleStickEntry.close)) ?? ""
+    let low = formatter.string(from: NSNumber(value: candleStickEntry.low)) ?? ""
+    self.touchPriceLabel.text = "Open : \(open) High : \(high) Close : \(close) Low : \(low)"
   }
 }
