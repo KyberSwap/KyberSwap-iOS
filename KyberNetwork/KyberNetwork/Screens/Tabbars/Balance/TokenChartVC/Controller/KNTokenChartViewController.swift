@@ -516,6 +516,7 @@ class KNTokenChartViewController: KNBaseViewController {
 
     self.chartView.delegate = self
     self.chartView.chartDescription?.enabled = false
+    self.chartView.autoScaleMinMaxEnabled = true
     self.chartView.dragEnabled = true
     self.chartView.setScaleEnabled(true)
     self.chartView.maxVisibleCount = 200
@@ -710,9 +711,10 @@ class KNTokenChartViewController: KNBaseViewController {
     } else {
       self.touchPriceLabel.isHidden = true
       self.noDataLabel.isHidden = true
-      self.chartView.data = nil
+      self.chartView.clear()
       self.chartView.isHidden = false
       self.chartView.data = self.viewModel.displayChartData
+      self.chartView.zoomAndCenterViewAnimated(scaleX: 1, scaleY: 1, xValue: 1, yValue: 1, axis: .right, duration: 1)
       self.chartView.setNeedsLayout()
     }
     self.view.layoutIfNeeded()
