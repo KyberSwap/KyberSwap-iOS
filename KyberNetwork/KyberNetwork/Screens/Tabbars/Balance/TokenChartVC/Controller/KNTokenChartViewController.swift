@@ -54,6 +54,24 @@ enum KNTokenChartType: Int {
     let date = Date(timeIntervalSince1970: time)
     return self.dateFormatter.string(from: date)
   }
+
+  var scaleFactor: (CGFloat, CGFloat) {
+    switch self {
+    case .day: return (6.0, 1.0)
+    case .week: return (9.0, 1.0)
+    case .month: return (9.0, 2.0)
+    case .year:  return (9.0, 1.0)
+    case .all: return (9.0, 1.0)
+    }
+  }
+
+  var scaleUnit: Double {
+    switch self {
+    case .day: return 15 * 60
+    case .week, .month: return 60 * 60
+    case .year, .all: return 24 * 60 * 60
+    }
+  }
 }
 
 enum KNTokenChartViewEvent {
@@ -246,7 +264,7 @@ class KNTokenChartViewModel {
       return CandleChartData(dataSet: nil)
     }
     let candleStickEntries = self.data.map { (element) -> CandleChartDataEntry in
-      let xAxis = Double(element.time - first.time) / (15.0 * 60.0)
+      let xAxis = Double(element.time - first.time) / type.scaleUnit
       return CandleChartDataEntry(x: xAxis, shadowH: element.high, shadowL: element.low, open: element.open, close: element.close)
     }
     let set1 = CandleChartDataSet(entries: candleStickEntries, label: "Data Set")
@@ -270,7 +288,7 @@ class KNTokenChartViewModel {
     guard let first = self.data.first else {
       return []
     }
-    let data = self.data.map { return Double($0.time - first.time) / (15.0 * 60.0) }
+    let data = self.data.map { return Double($0.time - first.time) / type.scaleUnit }
     return data
   }
 
@@ -726,7 +744,7 @@ class KNTokenChartViewController: KNBaseViewController {
       self.updateChartXAxisFormater(for: self.viewModel.type, data: self.viewModel.data)
       self.chartView.isHidden = false
       self.chartView.data = self.viewModel.displayChartData
-      self.chartView.zoomAndCenterViewAnimated(scaleX: 1, scaleY: 1, xValue: 1, yValue: 1, axis: .right, duration: 1)
+      self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.type.scaleFactor.0, scaleY: self.viewModel.type.scaleFactor.1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
       self.chartView.setNeedsLayout()
     }
     self.view.layoutIfNeeded()
@@ -766,11 +784,9 @@ extension KNTokenChartViewController: ChartViewDelegate {
     let high = formatter.string(from: NSNumber(value: candleStickEntry.high)) ?? ""
     let close = formatter.string(from: NSNumber(value: candleStickEntry.close)) ?? ""
     let low = formatter.string(from: NSNumber(value: candleStickEntry.low)) ?? ""
-    let timeStamp = candleStickEntry.x * (15.0 * 60.0) + Double(first.time)
+    let timeStamp = candleStickEntry.x * self.viewModel.type.scaleUnit + Double(first.time)
     let date = Date(timeIntervalSince1970: timeStamp)
     let dateString = DateFormatterUtil.shared.chartViewDateFormatter.string(from: date)
     self.touchPriceLabel.text = "\(dateString) O : \(open) H : \(high) C : \(close) L : \(low)"
   }
 }
-
-
