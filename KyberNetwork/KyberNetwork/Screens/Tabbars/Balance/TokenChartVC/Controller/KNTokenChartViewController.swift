@@ -57,9 +57,9 @@ enum KNTokenChartType: Int {
 
   var scaleFactor: (CGFloat, CGFloat) {
     switch self {
-    case .day: return (6.0, 1.0)
+    case .day: return (3.0, 1.0)
     case .week: return (9.0, 1.0)
-    case .month: return (9.0, 2.0)
+    case .month: return (9.0, 1.0)
     case .year:  return (9.0, 1.0)
     case .all: return (9.0, 1.0)
     }
