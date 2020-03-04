@@ -545,6 +545,7 @@
 		8B67BA07556BB623E015CA60 /* Pods_KyberNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A95682795E696525B3A48A /* Pods_KyberNetwork.framework */; };
 		938288E2ED2CF2CECDBAEA28 /* Pods_KyberNetworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
+		C315AD5E240F845200620096 /* CustomAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C315AD5D240F845200620096 /* CustomAxisValueFormatter.swift */; };
 		C60BB88C239596D5006FE37D /* KNGetResolverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BB88B239596D5006FE37D /* KNGetResolverRequest.swift */; };
 		C60BB88E23959794006FE37D /* KNGetAddressFromResolverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BB88D23959794006FE37D /* KNGetAddressFromResolverRequest.swift */; };
 		C626BEDC238D870F00C96410 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C626BEDB238D870E00C96410 /* AdSupport.framework */; };
@@ -1165,6 +1166,7 @@
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
+		C315AD5D240F845200620096 /* CustomAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAxisValueFormatter.swift; sourceTree = "<group>"; };
 		C60BB88B239596D5006FE37D /* KNGetResolverRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNGetResolverRequest.swift; sourceTree = "<group>"; };
 		C60BB88D23959794006FE37D /* KNGetAddressFromResolverRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNGetAddressFromResolverRequest.swift; sourceTree = "<group>"; };
 		C626BEDB238D870E00C96410 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
@@ -1372,6 +1374,7 @@
 				251ABCA420578E630069687F /* KNNotificationUtil.swift */,
 				2546C6D4221167460076E52B /* KNCrashlyticsUtil.swift */,
 				2543D863223A0E8D0085F40E /* NumberFormatterUtil.swift */,
+				C315AD5D240F845200620096 /* CustomAxisValueFormatter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -4563,6 +4566,7 @@
 				25CE6F7220723F7C00A3A2F9 /* KNAppTracker.swift in Sources */,
 				255F6F2620BBC9C000EF808F /* UIImage+Kyber.swift in Sources */,
 				291795051F95F60100539A30 /* Web3RequestType.swift in Sources */,
+				C315AD5E240F845200620096 /* CustomAxisValueFormatter.swift in Sources */,
 				253F50E221E5B40E0068813D /* KNPromoCodeCoordinator.swift in Sources */,
 				29C80D511FB67A110037B1E0 /* ArrayResponse.swift in Sources */,
 				257A377E205B7BFA00E86794 /* UINavigationController+Kyber.swift in Sources */,

@@ -42,4 +42,10 @@ class DateFormatterUtil {
     dateFormatter.dateFormat = "dd MMM yyyy"
     return dateFormatter
   }()
+
+  lazy var chartViewDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    return formatter
+  }()
 }

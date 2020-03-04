@@ -522,13 +522,14 @@ class KNTokenChartViewController: KNBaseViewController {
     self.chartView.maxVisibleCount = 200
     self.chartView.pinchZoomEnabled = true
     self.chartView.legend.enabled = false
-    self.chartView.rightAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
+    self.chartView.rightAxis.labelFont = UIFont.Kyber.light(with: 10)
     self.chartView.rightAxis.spaceTop = 0.3
     self.chartView.rightAxis.spaceBottom = 0.3
     self.chartView.rightAxis.axisMinimum = 0
     self.chartView.leftAxis.enabled = false
     self.chartView.xAxis.labelPosition = .bottom
-    self.chartView.xAxis.labelFont = UIFont(name: "HelveticaNeue-Light", size: 10)!
+    self.chartView.xAxis.labelFont = UIFont.Kyber.light(with: 10)
+    self.chartView.xAxis.valueFormatter = CustomAxisValueFormatter(.day)
 
     self.sendButton.rounded(
       color: UIColor.Kyber.border,
@@ -683,6 +684,16 @@ class KNTokenChartViewController: KNBaseViewController {
     }
   }
 
+  fileprivate func updateChartXAxisFormater(for type: KNTokenChartType, data: [KNChartObject]) {
+    guard let formatter = self.chartView.xAxis.valueFormatter as? CustomAxisValueFormatter else {
+      return
+    }
+    guard let first = self.viewModel.data.first else {
+      return
+    }
+    formatter.update(type: type, origin: first)
+  }
+
   fileprivate func startTimer() {
     self.stopTimer()
     // Immediately call fetch data
@@ -712,6 +723,7 @@ class KNTokenChartViewController: KNBaseViewController {
       self.touchPriceLabel.isHidden = true
       self.noDataLabel.isHidden = true
       self.chartView.clear()
+      self.updateChartXAxisFormater(for: self.viewModel.type, data: self.viewModel.data)
       self.chartView.isHidden = false
       self.chartView.data = self.viewModel.displayChartData
       self.chartView.zoomAndCenterViewAnimated(scaleX: 1, scaleY: 1, xValue: 1, yValue: 1, axis: .right, duration: 1)
@@ -743,6 +755,9 @@ extension KNTokenChartViewController: ChartViewDelegate {
     guard let candleStickEntry = entry as? CandleChartDataEntry else {
       return
     }
+    guard let first = self.viewModel.data.first else {
+      return
+    }
     if self.touchPriceLabel.isHidden {
       self.touchPriceLabel.isHidden = false
     }
@@ -751,6 +766,11 @@ extension KNTokenChartViewController: ChartViewDelegate {
     let high = formatter.string(from: NSNumber(value: candleStickEntry.high)) ?? ""
     let close = formatter.string(from: NSNumber(value: candleStickEntry.close)) ?? ""
     let low = formatter.string(from: NSNumber(value: candleStickEntry.low)) ?? ""
-    self.touchPriceLabel.text = "Open : \(open) High : \(high) Close : \(close) Low : \(low)"
+    let timeStamp = candleStickEntry.x * (15.0 * 60.0) + Double(first.time)
+    let date = Date(timeIntervalSince1970: timeStamp)
+    let dateString = DateFormatterUtil.shared.chartViewDateFormatter.string(from: date)
+    self.touchPriceLabel.text = "\(dateString) O : \(open) H : \(high) C : \(close) L : \(low)"
   }
 }
+
+
