@@ -256,6 +256,13 @@ class KNRateHelper {
     } else {
       return rate.string(decimals: decimals, minFractionDigits: min(decimals, 4), maxFractionDigits: min(decimals, 4))
     }
+    var isZeroNumber = false
+    if let range = string.range(of: separator)?.lowerBound {
+      let numberString = string[..<range]
+      if Int(numberString) == 0 {
+        isZeroNumber = true
+      }
+    }
     var start = false
     var cnt = 0
     var separatorIndex = 0
@@ -265,6 +272,13 @@ class KNRateHelper {
         separatorIndex = id
         start = true
       } else if start {
+        if !isZeroNumber && (id - separatorIndex) == 6 {
+          return rate.string(
+            decimals: decimals,
+            minFractionDigits: 6,
+            maxFractionDigits: 6
+          )
+        }
         if cnt > 0 || string[index] != "0" { cnt += 1 }
         if cnt == 4 {
           return rate.string(
