@@ -97,7 +97,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YuN-fc-RDP">
-                    <rect key="frame" x="0.0" y="241" width="375" height="24"/>
+                    <rect key="frame" x="0.0" y="235" width="375" height="24"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VnK-d4-84q">
                             <rect key="frame" x="16" y="-1.5" width="56" height="27"/>
@@ -181,8 +181,8 @@
                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vds-sy-BKi">
-                    <rect key="frame" x="10" y="270" width="355" height="14"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vds-sy-BKi">
+                    <rect key="frame" x="10" y="274.5" width="355" height="14.5"/>
                     <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="12"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -296,13 +296,13 @@
                 <constraint firstItem="RuW-OO-mGF" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="K54-v1-WQd"/>
                 <constraint firstItem="k0O-wv-xoq" firstAttribute="top" secondItem="GMK-AO-Eyx" secondAttribute="top" constant="-4" id="KCD-ah-W0a"/>
                 <constraint firstItem="Dov-H8-AEE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="NPV-3Z-3K0"/>
-                <constraint firstItem="knF-lf-3jZ" firstAttribute="top" secondItem="vds-sy-BKi" secondAttribute="bottom" constant="5" id="PWi-bn-TqG"/>
+                <constraint firstItem="knF-lf-3jZ" firstAttribute="top" secondItem="vds-sy-BKi" secondAttribute="bottom" id="PWi-bn-TqG"/>
                 <constraint firstItem="xrb-V8-l4x" firstAttribute="centerY" secondItem="knF-lf-3jZ" secondAttribute="centerY" id="Qpq-qz-YjM"/>
                 <constraint firstItem="sgq-DE-FKK" firstAttribute="height" secondItem="NQJ-aQ-heZ" secondAttribute="height" id="TAe-Ci-Hc7"/>
                 <constraint firstItem="knF-lf-3jZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TMu-RU-HAT"/>
                 <constraint firstItem="RuW-OO-mGF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="TQB-Jj-BiN"/>
                 <constraint firstItem="bWB-8X-gxV" firstAttribute="trailing" secondItem="BTD-sf-mkQ" secondAttribute="trailing" id="VIj-5r-QgD"/>
-                <constraint firstItem="knF-lf-3jZ" firstAttribute="top" secondItem="YuN-fc-RDP" secondAttribute="bottom" constant="24" id="WEs-M1-hTB"/>
+                <constraint firstItem="knF-lf-3jZ" firstAttribute="top" secondItem="YuN-fc-RDP" secondAttribute="bottom" constant="30" id="WEs-M1-hTB"/>
                 <constraint firstItem="sgq-DE-FKK" firstAttribute="width" secondItem="NQJ-aQ-heZ" secondAttribute="width" id="Wva-iz-uR8"/>
                 <constraint firstItem="GMK-AO-Eyx" firstAttribute="top" secondItem="Dov-H8-AEE" secondAttribute="top" constant="4" id="ZD7-qb-4zC"/>
                 <constraint firstItem="Dov-H8-AEE" firstAttribute="top" secondItem="RuW-OO-mGF" secondAttribute="bottom" constant="24" id="bZp-UB-PBD"/>
