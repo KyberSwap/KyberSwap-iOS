@@ -273,10 +273,11 @@ class KNRateHelper {
         start = true
       } else if start {
         if !isZeroNumber && (id - separatorIndex) == 6 {
+          let fractionDigit = cnt == 0 ? 4 : 6
           return rate.string(
             decimals: decimals,
-            minFractionDigits: 6,
-            maxFractionDigits: 6
+            minFractionDigits: fractionDigit,
+            maxFractionDigits: fractionDigit
           )
         }
         if cnt > 0 || string[index] != "0" { cnt += 1 }
