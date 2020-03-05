@@ -55,16 +55,6 @@ enum KNTokenChartType: Int {
     return self.dateFormatter.string(from: date)
   }
 
-  var scaleFactor: (CGFloat, CGFloat) {
-    switch self {
-    case .day: return (3.0, 1.0)
-    case .week: return (9.0, 1.0)
-    case .month: return (9.0, 1.0)
-    case .year:  return (9.0, 1.0)
-    case .all: return (9.0, 1.0)
-    }
-  }
-
   var scaleUnit: Double {
     switch self {
     case .day: return 15 * 60
@@ -254,6 +244,13 @@ class KNTokenChartViewModel {
       // no data between from and to time to display
       self.data = []
     }
+  }
+
+  var scaleXFactor: CGFloat {
+    //Test on device see that with 96 element and scale x = 3 is look good so use this value to calculate the scale factor base on number of element
+    let unitScale = 96
+    let totalCount = self.data.count
+    return CGFloat(totalCount * 3 / unitScale)
   }
 
   var displayChartData: CandleChartData {
@@ -744,7 +741,7 @@ class KNTokenChartViewController: KNBaseViewController {
       self.updateChartXAxisFormater(for: self.viewModel.type, data: self.viewModel.data)
       self.chartView.isHidden = false
       self.chartView.data = self.viewModel.displayChartData
-      self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.type.scaleFactor.0, scaleY: self.viewModel.type.scaleFactor.1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
+      self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.scaleXFactor, scaleY: 1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
       self.chartView.setNeedsLayout()
     }
     self.view.layoutIfNeeded()
