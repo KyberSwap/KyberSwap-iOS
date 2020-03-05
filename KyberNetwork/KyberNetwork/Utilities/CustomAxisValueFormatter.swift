@@ -1,9 +1,4 @@
-//
-//  CustomAxisValueFormatter.swift
-//  KyberNetwork
-//
-//  Created by Ta Minh Quan on 3/4/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import Foundation
 import Charts
@@ -40,11 +35,11 @@ class CustomAxisValueFormatter: NSObject, IAxisValueFormatter {
     case .day:
       output = "\(hour):\(minutes)"
     case .week:
-      output = "\(hour) \(dateFormatter.string(from: date))"
+      output = "\(hour):\(minutes) \(dateFormatter.string(from: date))"
     case .month:
-      output = "\(day)/\(month)"
+      output = "\(hour):\(minutes) \(day)-\(month)"
     case .year, .all:
-      output = "\(day)/\(month)/\(year)"
+      output = "\(day)-\(month)-\(year)"
     }
     return output
   }

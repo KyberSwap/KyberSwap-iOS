@@ -799,6 +799,10 @@ class KNTokenChartViewController: KNBaseViewController {
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
     ]
+    let infoTextAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.orange,
+    ]
     let downAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.red,
@@ -810,13 +814,13 @@ class KNTokenChartViewController: KNBaseViewController {
     let valueAttribute = changeEntry > 0 ? upAttributes : downAttributes
     attributedText.append(NSAttributedString(string: dateString, attributes: titleAttributes))
     attributedText.append(NSAttributedString(string: " O ", attributes: titleAttributes))
-    attributedText.append(NSAttributedString(string: open, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: open, attributes: infoTextAttributes))
     attributedText.append(NSAttributedString(string: " H ", attributes: titleAttributes))
-    attributedText.append(NSAttributedString(string: high, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: high, attributes: infoTextAttributes))
     attributedText.append(NSAttributedString(string: " L ", attributes: titleAttributes))
-    attributedText.append(NSAttributedString(string: low, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: low, attributes: infoTextAttributes))
     attributedText.append(NSAttributedString(string: " C ", attributes: titleAttributes))
-    attributedText.append(NSAttributedString(string: close, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: close, attributes: infoTextAttributes))
     attributedText.append(NSAttributedString(string: "\nChange ", attributes: titleAttributes))
     attributedText.append(NSAttributedString(string: "\(change) (\(percent)%)", attributes: valueAttribute))
     return attributedText
