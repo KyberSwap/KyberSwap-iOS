@@ -741,6 +741,7 @@ class KNTokenChartViewController: KNBaseViewController {
       self.updateChartXAxisFormater(for: self.viewModel.type, data: self.viewModel.data)
       self.chartView.isHidden = false
       self.chartView.data = self.viewModel.displayChartData
+      self.updateChartInfoLabel()
       self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.scaleXFactor, scaleY: 1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
       self.chartView.setNeedsLayout()
     }
@@ -753,6 +754,19 @@ class KNTokenChartViewController: KNBaseViewController {
     self.totalUSDValueLabel.addLetterSpacing()
   }
 
+  fileprivate func updateChartInfoLabel() {
+    guard let last = self.viewModel.data.last else {
+      return
+    }
+    let detailText = self.buildTextForData(openNumber: last.open,
+                                           highNumber: last.high,
+                                           lowNumber: last.low,
+                                           closeNumber: last.close,
+                                           timeStampNumber: Double(last.time))
+    self.touchPriceLabel.attributedText = detailText
+    self.touchPriceLabel.isHidden = false
+  }
+
   func coordinatorUpdateBalance(balance: [String: Balance]) {
     if let bal = balance[self.viewModel.token.contract] {
       self.viewModel.updateBalance(bal)
@@ -763,6 +777,50 @@ class KNTokenChartViewController: KNBaseViewController {
       self.totalUSDValueLabel.addLetterSpacing()
     }
   }
+
+  fileprivate func buildTextForData(openNumber: Double, highNumber: Double, lowNumber: Double, closeNumber: Double, timeStampNumber: Double) -> NSAttributedString {
+    guard let first = self.viewModel.data.first else {
+      return NSAttributedString()
+    }
+    let attributedText = NSMutableAttributedString()
+    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    let open = formatter.string(from: NSNumber(value: openNumber)) ?? ""
+    let high = formatter.string(from: NSNumber(value: highNumber)) ?? ""
+    let close = formatter.string(from: NSNumber(value: closeNumber)) ?? ""
+    let low = formatter.string(from: NSNumber(value: lowNumber)) ?? ""
+    let timeStamp = timeStampNumber * self.viewModel.type.scaleUnit + Double(first.time)
+    let date = Date(timeIntervalSince1970: timeStamp)
+    let dateString = DateFormatterUtil.shared.chartViewDateFormatter.string(from: date)
+    let changeEntry = closeNumber - openNumber
+    let change = formatter.string(from: NSNumber(value: changeEntry)) ?? ""
+    let percentEntry = changeEntry / openNumber * 100.0
+    let percent = formatter.string(from: NSNumber(value: percentEntry)) ?? ""
+    let titleAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
+    ]
+    let downAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.red,
+    ]
+    let upAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.green,
+    ]
+    let valueAttribute = changeEntry > 0 ? upAttributes : downAttributes
+    attributedText.append(NSAttributedString(string: dateString, attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: " O ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: open, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: " H ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: high, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: " L ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: low, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: " C ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: close, attributes: valueAttribute))
+    attributedText.append(NSAttributedString(string: "\nChange ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: "\(change) (\(percent)%)", attributes: valueAttribute))
+    return attributedText
+  }
 }
 
 extension KNTokenChartViewController: ChartViewDelegate {
@@ -770,52 +828,14 @@ extension KNTokenChartViewController: ChartViewDelegate {
     guard let candleStickEntry = entry as? CandleChartDataEntry else {
       return
     }
-    guard let first = self.viewModel.data.first else {
-      return
-    }
     if self.touchPriceLabel.isHidden {
       self.touchPriceLabel.isHidden = false
     }
-    let detailText: NSAttributedString = {
-      let attributedText = NSMutableAttributedString()
-      let formatter = NumberFormatterUtil.shared.doubleFormatter
-      let open = formatter.string(from: NSNumber(value: candleStickEntry.open)) ?? ""
-      let high = formatter.string(from: NSNumber(value: candleStickEntry.high)) ?? ""
-      let close = formatter.string(from: NSNumber(value: candleStickEntry.close)) ?? ""
-      let low = formatter.string(from: NSNumber(value: candleStickEntry.low)) ?? ""
-      let timeStamp = candleStickEntry.x * self.viewModel.type.scaleUnit + Double(first.time)
-      let date = Date(timeIntervalSince1970: timeStamp)
-      let dateString = DateFormatterUtil.shared.chartViewDateFormatter.string(from: date)
-      let changeEntry = candleStickEntry.close - candleStickEntry.open
-      let change = formatter.string(from: NSNumber(value: changeEntry)) ?? ""
-      let percentEntry = changeEntry / candleStickEntry.open * 100.0
-      let percent = formatter.string(from: NSNumber(value: percentEntry)) ?? ""
-      let titleAttributes: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
-        NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
-      ]
-      let downAttributes: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
-        NSAttributedStringKey.foregroundColor: UIColor.Kyber.red,
-      ]
-      let upAttributes: [NSAttributedStringKey: Any] = [
-        NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
-        NSAttributedStringKey.foregroundColor: UIColor.Kyber.green,
-      ]
-      let valueAttribute = changeEntry > 0 ? upAttributes : downAttributes
-      attributedText.append(NSAttributedString(string: dateString, attributes: titleAttributes))
-      attributedText.append(NSAttributedString(string: " O ", attributes: titleAttributes))
-      attributedText.append(NSAttributedString(string: open, attributes: valueAttribute))
-      attributedText.append(NSAttributedString(string: " H ", attributes: titleAttributes))
-      attributedText.append(NSAttributedString(string: high, attributes: valueAttribute))
-      attributedText.append(NSAttributedString(string: " L ", attributes: titleAttributes))
-      attributedText.append(NSAttributedString(string: low, attributes: valueAttribute))
-      attributedText.append(NSAttributedString(string: " C ", attributes: titleAttributes))
-      attributedText.append(NSAttributedString(string: close, attributes: valueAttribute))
-      attributedText.append(NSAttributedString(string: "\nChange ", attributes: titleAttributes))
-      attributedText.append(NSAttributedString(string: "\(change) (\(percent)%)", attributes: valueAttribute))
-      return attributedText
-    }()
+    let detailText = self.buildTextForData(openNumber: candleStickEntry.open,
+                                           highNumber: candleStickEntry.high,
+                                           lowNumber: candleStickEntry.low,
+                                           closeNumber: candleStickEntry.close,
+                                           timeStampNumber: candleStickEntry.x)
     self.touchPriceLabel.attributedText = detailText
   }
 }
