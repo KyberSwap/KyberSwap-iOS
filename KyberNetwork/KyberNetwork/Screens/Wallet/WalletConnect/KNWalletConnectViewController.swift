@@ -363,7 +363,7 @@ class KNWalletConnectViewController: KNBaseViewController {
     return nil
   }
 
-  fileprivate func addTransactionToPendingListIfNeeded(json: JSONDictionary, hash: String, nonce: Int) {
+  fileprivate func addTransactionToPendingListIfNeeded(json: JSONDictionary, hash: String, nonce: Int, type: TransactionType = .normal) {
     let data = (json["data"] as? String ?? "").drop0x
     let value = (json["value"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
     let gasLimit: String = {
@@ -408,7 +408,8 @@ class KNWalletConnectViewController: KNBaseViewController {
         nonce: "\(nonce)",
         date: Date(),
         localizedOperations: [localised],
-        state: .pending
+        state: .pending,
+        type: type
       )
       self.knSession.addNewPendingTransaction(tx)
     } else if data.starts(with: kTradeWithHintPrefix) {
@@ -452,7 +453,8 @@ class KNWalletConnectViewController: KNBaseViewController {
         nonce: "\(nonce)",
         date: Date(),
         localizedOperations: [localObject],
-        state: .pending
+        state: .pending,
+        type: type
       )
       self.knSession.addNewPendingTransaction(tx)
     }

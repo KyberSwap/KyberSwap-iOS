@@ -660,6 +660,22 @@
 "Yes" = "Yes";
 "No" = "No";
 "%@ (Gas Price) * %@ (Gas Limit)" = "%@ (燃料价格) * %@ (燃料限制)";
+"speed up" = "加快速度";
+"your.gas.must.be.10.percent.higher" = "您的燃料价格必须比当前燃料价格高10％";
+"Can not speed up the transaction" = "无法加快交易";
+"Can not cancel the transaction" = "无法取消交易";
+"Current fee" = "当前费用";
+"New fee" = "新的费用";
+"sumitting.does.not.guarantee" = "提交取消交易的请求并不能保证您的原始交易将被取消。如果请求成功，您将被收取上述交易费用。";
+
+"Cancellation Gas Fee" = "取消燃料费用";
+"Attempt to Cancel?" = "你想要取消吗?";
+"Select.higher.tx.fee.to.accelerate" = "选择较高的燃料价格以加快交易处理";
+"Customize Gas" = "自定义燃料费用";
+"Your speedup transaction might be lost" = "您的加速交易可能会丢失";
+"Your cancel transaction might be lost" = "您的取消交易可能会丢失";
+"Your transaction has been cancelled successfully" = "您的交易已成功取消";
+"Your transaction has been speeded up successfully" = "Your transaction has been speeded up successfully";
 "delete all" = "全部删除";
 "Delete all triggered alerts successfully" = "成功删除所有触发的警报。";
 "Do you want to delete all triggered alerts?" = "是否要删除所有触发的警报？";

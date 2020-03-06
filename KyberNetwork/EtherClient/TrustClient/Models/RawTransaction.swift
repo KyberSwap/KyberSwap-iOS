@@ -38,7 +38,7 @@ struct RawTransaction: Decodable {
 }
 
 extension Transaction {
-    static func from(transaction: RawTransaction) -> Transaction? {
+    static func from(transaction: RawTransaction, type: TransactionType = .normal) -> Transaction? {
         guard
             let from = Address(string: transaction.from) else {
                 return .none
@@ -62,7 +62,8 @@ extension Transaction {
             nonce: String(transaction.nonce),
             date: NSDate(timeIntervalSince1970: TimeInterval(transaction.timeStamp) ?? 0) as Date,
             localizedOperations: LocalizedOperationObject.from(operations: transaction.operations),
-            state: state
+            state: state,
+            type: type
         )
     }
 }

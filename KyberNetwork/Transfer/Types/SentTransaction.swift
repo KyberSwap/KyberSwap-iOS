@@ -10,7 +10,7 @@ struct SentTransaction {
 }
 
 extension SentTransaction {
-    static func from(from: Address, transaction: SentTransaction) -> Transaction {
+  static func from(from: Address, transaction: SentTransaction, type: TransactionType = .normal) -> Transaction {
         return Transaction(
             id: transaction.id,
             blockNumber: 0,
@@ -23,7 +23,8 @@ extension SentTransaction {
             nonce: String(transaction.original.nonce),
             date: Date(),
             localizedOperations: [],
-            state: .pending
+            state: .pending,
+            type: type
         )
     }
 }

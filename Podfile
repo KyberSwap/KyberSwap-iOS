@@ -41,6 +41,7 @@ target 'KyberNetwork' do
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
   pod 'Firebase/RemoteConfig'
+  pod 'SwipeCellKit'
   pod 'Charts'
 
   target 'KyberNetworkTests' do

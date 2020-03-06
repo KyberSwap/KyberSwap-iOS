@@ -125,7 +125,11 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       self.titleIconImageView.image = UIImage(named: "tx_success_icon")
       self.titleLabel.text = "Done!".toBeLocalised()
       self.subTitleLabel.text = {
-        if self.transaction.isTransfer {
+        if transaction.type == .cancel {
+          return "Your transaction has been cancelled successfully".toBeLocalised()
+        } else if transaction.type == .speedup {
+          return "Your transaction has been speeded up successfully".toBeLocalised()
+        } else if self.transaction.isTransfer {
           return "Transferred successfully".toBeLocalised()
         }
         return "Swapped successfully".toBeLocalised()
@@ -149,7 +153,16 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       self.titleIconImageView.image = UIImage(named: "tx_failed_icon")
       self.titleLabel.text = "Failed!".toBeLocalised()
       if self.transaction.state == .error {
-        self.subTitleLabel.text = "Your transaction might be lost, dropped or replaced. Please check Etherscan for more information".toBeLocalised()
+        var errorTitle = ""
+        switch transaction.type {
+        case .cancel:
+          errorTitle = "Your cancel transaction might be lost".toBeLocalised()
+        case .speedup:
+          errorTitle = "Your speedup transaction might be lost".toBeLocalised()
+        default:
+          errorTitle = "Your transaction might be lost, dropped or replaced. Please check Etherscan for more information".toBeLocalised()
+        }
+        self.subTitleLabel.text = errorTitle
       } else {
         self.subTitleLabel.text = "Transaction error".toBeLocalised()
       }
@@ -159,14 +172,17 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       self.loadingImageView.isHidden = true
 
       self.swapButton.isHidden = true
-      self.transferButton.isHidden = false
-      self.transferButton.setTitle(NSLocalizedString("try.again", comment: ""), for: .normal)
-      self.transferCenterXConstraint.constant = 0
-
+      if transaction.type == .normal {
+        self.transferButton.isHidden = false
+        self.transferButton.setTitle(NSLocalizedString("try.again", comment: ""), for: .normal)
+        self.transferCenterXConstraint.constant = 0
+        self.actionButtonHeightConstraints.forEach({ $0.constant = 45.0 })
+        self.bottomPaddingBroadcastConstraint.constant = 120
+      } else {
+        self.transferButton.isHidden = true
+        self.bottomPaddingBroadcastConstraint.constant = 20
+      }
       self.rateValueLabel.isHidden = true
-
-      self.actionButtonHeightConstraints.forEach({ $0.constant = 45.0 })
-      self.bottomPaddingBroadcastConstraint.constant = 120
       self.view.layoutSubviews()
     }
   }

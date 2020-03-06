@@ -112,6 +112,53 @@ class KNExternalProvider {
     }
   }
 
+  func speedUpTransferTransaction(transaction: UnconfirmedTransaction, completion: @escaping (Result<String, AnyError>) -> Void) {
+    self.requestDataForTokenTransfer(transaction, completion: { [weak self] dataResult in
+      guard let `self` = self else { return }
+      switch dataResult {
+      case .success(let data):
+        self.signTransactionData(from: transaction, nonce: Int(transaction.nonce!), data: data, completion: { signResult in
+          switch signResult {
+          case .success(let signData):
+            KNGeneralProvider.shared.sendSignedTransactionData(signData, completion: { result in
+              completion(result)
+            })
+          case .failure(let error):
+            completion(.failure(error))
+          }
+        })
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    })
+  }
+
+  func speedUpSwapTransaction(
+    for token: TokenObject,
+    amount: BigInt,
+    nonce: Int,
+    data: Data,
+    gasPrice: BigInt,
+    gasLimit: BigInt,
+    completion: @escaping (Result<String, AnyError>) -> Void) {
+    self.signTransactionData(
+      for: token,
+      amount: amount,
+      nonce: nonce,
+      data: data,
+      gasPrice: gasPrice,
+      gasLimit: gasLimit) { (signResult) in
+        switch signResult {
+        case .success(let signData):
+          KNGeneralProvider.shared.sendSignedTransactionData(signData, completion: { result in
+            completion(result)
+          })
+        case .failure(let error):
+          completion(.failure(error))
+        }
+    }
+  }
+
   func exchange(exchange: KNDraftExchangeTransaction, completion: @escaping (Result<String, AnyError>) -> Void) {
     self.getTransactionCount { [weak self] txCountResult in
       guard let `self` = self else { return }
@@ -155,22 +202,7 @@ class KNExternalProvider {
     }
 
     // Parse data from hex string
-    let dataParse: Data? = {
-      let string = (txData["data"] as? String ?? "").drop0x
-      if string.isEmpty { return Data() }
-      var data = Data(capacity: string.count / 2)
-
-      let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
-      regex.enumerateMatches(in: string, range: NSRange(string.startIndex..., in: string)) { match, _, _ in
-        let byteString = (string as NSString).substring(with: match!.range)
-        let num = UInt8(byteString, radix: 16)!
-        data.append(num)
-      }
-
-      guard !data.isEmpty else { return nil }
-
-      return data
-    }()
+    let dataParse: Data? = (txData["data"] as? String ?? "").dataFromHex()
     guard let data = dataParse else {
       completion(.success(nil))
       return
@@ -242,14 +274,14 @@ class KNExternalProvider {
     }
   }
 
-  func getTransactionByHash(_ hash: String, completion: @escaping (SessionTaskError?) -> Void) {
+  func getTransactionByHash(_ hash: String, completion: @escaping (PendingTransaction?, SessionTaskError?) -> Void) {
     let request = GetTransactionRequest(hash: hash)
     Session.send(EtherServiceRequest(batch: BatchFactory().create(request))) { result in
       switch result {
-      case .success:
-        completion(nil)
+      case .success(let response):
+        completion(response, nil)
       case .failure(let error):
-        completion(error)
+        completion(nil, error)
       }
     }
   }
@@ -444,6 +476,20 @@ class KNExternalProvider {
       data: data,
       gasPrice: exchange.gasPrice ?? KNGasConfiguration.gasPriceDefault,
       gasLimit: exchange.gasLimit ?? KNGasConfiguration.exchangeTokensGasLimitDefault,
+      chainID: KNEnvironment.default.chainID
+    )
+    self.signTransactionData(from: signTransaction, completion: completion)
+  }
+
+  private func signTransactionData(for token: TokenObject, amount: BigInt, nonce: Int, data: Data, gasPrice: BigInt, gasLimit: BigInt, completion: @escaping (Result<Data, AnyError>) -> Void) {
+    let signTransaction: SignTransaction = SignTransaction(
+      value: token.isETH ? amount : BigInt(0),
+      account: self.account,
+      to: self.networkAddress,
+      nonce: nonce,
+      data: data,
+      gasPrice: gasPrice,
+      gasLimit: gasLimit,
       chainID: KNEnvironment.default.chainID
     )
     self.signTransactionData(from: signTransaction, completion: completion)

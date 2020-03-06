@@ -259,21 +259,43 @@ extension KNAppCoordinator {
       return
     }
     guard let trans = transaction else {
-      if let info = sender.userInfo as? JSONDictionary, let isLost = info["is_lost"] as? Bool, isLost {
+      if let info = sender.userInfo as? JSONDictionary {
         let txHash = sender.object as? String ?? ""
         let updateBalance = self.balanceTabCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
         let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
         let updateLO = self.limitOrderCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
         let updateSettings = self.settingsCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
         if !(updateBalance || updateExchange || updateLO || updateSettings) {
+          var popupMessage = "Your transaction might be lost, dropped or replaced. Please check Etherscan for more information".toBeLocalised()
+          if let isLost = info["is_lost"] as? TransactionType {
+            switch isLost {
+            case .cancel:
+              popupMessage = "Your cancel transaction might be lost".toBeLocalised()
+            case .speedup:
+              popupMessage = "Your speedup transaction might be lost".toBeLocalised()
+            default:
+              popupMessage = "Your transaction might be lost, dropped or replaced. Please check Etherscan for more information".toBeLocalised()
+            }
+          } else if let isCancel = info["is_cancel"] as? TransactionType {
+            switch isCancel {
+            case .cancel:
+              popupMessage = "Can not cancel the transaction".toBeLocalised()
+            case .speedup:
+              popupMessage = "Can not speed up the transaction".toBeLocalised()
+            default:
+              popupMessage = ""
+            }
+          }
+
           self.navigationController.showErrorTopBannerMessage(
             with: NSLocalizedString("failed", value: "Failed", comment: ""),
-            message: "Your transaction might be lost, dropped or replaced. Please check Etherscan for more information".toBeLocalised(),
+            message: popupMessage,
             time: -1
           )
         }
         KNCrashlyticsUtil.logCustomEvent(withName: "transaction_update_failed", customAttributes: ["info": "lost_dropped_replaced"])
       }
+
       let transactions = self.session.transactionStorage.kyberPendingTransactions
       self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
       self.balanceTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
@@ -288,9 +310,10 @@ extension KNAppCoordinator {
       // just sent
     } else if trans.state == .completed {
       if !(updateBalance || updateExchange || updateLO || updateSettings) {
+        let message = trans.type == .cancel ? "Your transaction has been cancelled successfully".toBeLocalised() : trans.getDetails()
         self.navigationController.showSuccessTopBannerMessage(
           with: NSLocalizedString("success", value: "Success", comment: ""),
-          message: trans.getDetails(),
+          message: message,
           time: -1
         )
       }

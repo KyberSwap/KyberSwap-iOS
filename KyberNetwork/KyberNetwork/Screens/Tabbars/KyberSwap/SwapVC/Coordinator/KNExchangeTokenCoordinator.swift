@@ -184,6 +184,7 @@ extension KNExchangeTokenCoordinator {
   func appCoordinatorGasPriceCachedDidUpdate() {
     self.rootViewController.coordinatorUpdateGasPriceCached()
     self.sendTokenCoordinator?.coordinatorGasPriceCachedDidUpdate()
+    self.historyCoordinator?.coordinatorGasPriceCachedDidUpdate()
   }
 
   func appCoordinatorTokensTransactionsDidUpdate() {
@@ -199,6 +200,7 @@ extension KNExchangeTokenCoordinator {
   }
 
   func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
+    if self.historyCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) == true { return true }
     if let trans = self.transactionStatusVC?.transaction, trans.id == txID {
       self.transactionStatusVC?.updateView(with: tx)
       return true

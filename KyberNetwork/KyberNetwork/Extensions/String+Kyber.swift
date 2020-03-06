@@ -125,4 +125,21 @@ extension String {
 
       return ceil(boundingBox.width)
   }
+
+  func dataFromHex() -> Data? {
+    let string = self.drop0x
+    if string.isEmpty { return Data() }
+    var data = Data(capacity: string.count / 2)
+
+    let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+    regex.enumerateMatches(in: string, range: NSRange(string.startIndex..., in: string)) { match, _, _ in
+      let byteString = (string as NSString).substring(with: match!.range)
+      let num = UInt8(byteString, radix: 16)!
+      data.append(num)
+    }
+
+    guard !data.isEmpty else { return nil }
+
+    return data
+  }
 }

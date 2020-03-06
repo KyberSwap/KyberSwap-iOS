@@ -395,7 +395,7 @@ extension KNTransactionCoordinator {
       if error == nil { return }
       guard let `self` = self else { return }
       if transaction.isInvalidated { return }
-      self.externalProvider.getTransactionByHash(transaction.id, completion: { [weak self] sessionError in
+      self.externalProvider.getTransactionByHash(transaction.id, completion: { [weak self] _, sessionError in
         guard let `self` = self else { return }
         guard let trans = self.transactionStorage.getKyberTransaction(forPrimaryKey: transaction.id) else { return }
         if trans.state != .pending {
@@ -423,14 +423,12 @@ extension KNTransactionCoordinator {
             default: break
             }
           }
-        } else {
-          // tx can be dropped or replaced
-          if transaction.date.addingTimeInterval(600) < Date() {
-            let minedTxs = self.transactionStorage.transferNonePendingObjects
-            if let tx = minedTxs.first(where: { $0.from.lowercased() == self.wallet.address.description.lowercased() }), let nonce = Int(tx.nonce), let txNonce = Int(transaction.nonce) {
-              if nonce >= txNonce && tx.id.lowercased() != transaction.id.lowercased() {
-                self.removeTransactionHasBeenLost(transaction)
-              }
+        }
+        if transaction.date.addingTimeInterval(60) < Date() {
+          let minedTxs = self.transactionStorage.transferNonePendingObjects
+          if let tx = minedTxs.first(where: { $0.from.lowercased() == self.wallet.address.description.lowercased() }), let nonce = Int(tx.nonce), let txNonce = Int(transaction.nonce) {
+            if nonce >= txNonce && tx.id.lowercased() != transaction.id.lowercased() {
+              self.removeTransactionHasBeenLost(transaction)
             }
           }
         }
@@ -466,11 +464,13 @@ extension KNTransactionCoordinator {
   fileprivate func removeTransactionHasBeenLost(_ transaction: KNTransaction) {
     guard let trans = self.transactionStorage.getKyberTransaction(forPrimaryKey: transaction.id), trans.state == .pending else { return }
     let id = trans.id
+    let type = trans.type
+    let userInfo: [String: TransactionType] = [Constants.transactionIsLost: type]
     self.transactionStorage.delete([trans])
     KNNotificationUtil.postNotification(
       for: kTransactionDidUpdateNotificationKey,
       object: id,
-      userInfo: ["is_lost": true]
+      userInfo: userInfo
     )
   }
 
@@ -481,7 +481,7 @@ extension KNTransactionCoordinator {
 }
 
 extension UnconfirmedTransaction {
-  func toTransaction(wallet: Wallet, hash: String, nounce: Int) -> Transaction {
+  func toTransaction(wallet: Wallet, hash: String, nounce: Int, type: TransactionType = .normal) -> Transaction {
     let token: TokenObject = self.transferType.tokenObject()
 
     let localObject = LocalizedOperationObject(
@@ -506,7 +506,8 @@ extension UnconfirmedTransaction {
       nonce: "\(nounce)",
       date: Date(),
       localizedOperations: [localObject],
-      state: .pending
+      state: .pending,
+      type: type
     )
   }
 }

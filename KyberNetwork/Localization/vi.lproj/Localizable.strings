@@ -662,6 +662,22 @@
 "Yes" = "Đồng ý";
 "No" = "Không";
 "%@ (Gas Price) * %@ (Gas Limit)" = "%@ (Giá Gas) * %@ (Giới hạn Gas)";
+"speed up" = "Tăng tốc";
+"your.gas.must.be.10.percent.higher" = "Phí gas phải lớn hơn 10% so với phí gas hiện tại";
+"Can not speed up the transaction" = "Không thể tăng tốc giao dịch này";
+"Can not cancel the transaction" = "Không thể hủy giảo dịch này";
+"Current fee" = "Phí hiện tại";
+"New fee" = "Phí mới";
+"sumitting.does.not.guarantee" = "Thực hiện lệnh này không đảm bảo giao dịch ban đầu của bạn sẽ được hủy. Nếu việc hủy giao dịch thành công, bạn sẽ phải trả phí gas nêu trên.";
+
+"Cancellation Gas Fee" = "Hủy bỏ phí gas";
+"Attempt to Cancel?" = "Quyết định hủy bỏ?";
+"Customize Gas" = "Tùy chọn phí gas";
+"Select.higher.tx.fee.to.accelerate" = "Chọn phí gas cao hơn để tăng tốc giao dịch";
+"Your cancel transaction might be lost" = "Giao dịch bạn hủy có thể bị thất bại";
+"Your speedup transaction might be lost" = "Giao dịch bạn tăng tốc có thể bị thất bại";
+"Your transaction has been cancelled successfully" = "Bạn đã hủy bỏ giao dịch thành công";
+"Your transaction has been speeded up successfully" = "Bạn đã tăng tốc giao dịch thành công";
 "delete all" = "xoá tất cả";
 "Delete all triggered alerts successfully" = "Xóa thành công tất cả thông báo";
 "Do you want to delete all triggered alerts?" = "Bạn có muốn xóa tất cả thông báo?";

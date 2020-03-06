@@ -26,6 +26,7 @@ class KNTransaction: Object {
   @objc dynamic var nonce: String = ""
   @objc dynamic var date = Date()
   @objc dynamic var internalState: Int = TransactionState.completed.rawValue
+  @objc dynamic var internalType: Int = TransactionType.normal.rawValue
   var localizedOperations = List<LocalizedOperationObject>()
 
   convenience init(
@@ -40,7 +41,8 @@ class KNTransaction: Object {
     nonce: String,
     date: Date,
     localizedOperations: [LocalizedOperationObject],
-    state: TransactionState
+    state: TransactionState,
+    type: TransactionType
     ) {
 
     self.init()
@@ -55,6 +57,7 @@ class KNTransaction: Object {
     self.nonce = nonce
     self.date = date
     self.internalState = state.rawValue
+    self.internalType = type.rawValue
 
     let list = List<LocalizedOperationObject>()
     localizedOperations.forEach { element in
@@ -70,6 +73,9 @@ class KNTransaction: Object {
 
   var state: TransactionState {
     return TransactionState(int: self.internalState)
+  }
+  var type: TransactionType {
+    return TransactionType(int: self.internalType)
   }
 }
 
@@ -125,7 +131,8 @@ extension KNTransaction {
       nonce: transaction.nonce,
       date: transaction.date,
       localizedOperations: operations,
-      state: transaction.state
+      state: transaction.state,
+      type: transaction.type
     )
   }
 
@@ -146,7 +153,8 @@ extension KNTransaction {
       nonce: self.nonce,
       date: self.date,
       localizedOperations: operations,
-      state: self.state
+      state: self.state,
+      type: self.type
     )
   }
 
@@ -286,6 +294,12 @@ extension TransactionsStorage {
     transaction.internalState = state.rawValue
     try! realm.commitWrite()
     return transaction
+  }
+
+  func deleteKyberTransaction(forPrimaryKey: String) -> Bool {
+    guard let transaction = getKyberTransaction(forPrimaryKey: forPrimaryKey), transaction.isInvalidated == false else { return false }
+    delete([transaction])
+    return true
   }
 
   func deleteAllKyberTransactions() {

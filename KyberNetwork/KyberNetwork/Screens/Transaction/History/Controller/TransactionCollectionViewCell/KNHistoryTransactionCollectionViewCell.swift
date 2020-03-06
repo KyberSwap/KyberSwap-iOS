@@ -1,6 +1,7 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
+import SwipeCellKit
 
 protocol KNHistoryTransactionCollectionViewCellDelegate: class {
   func historyTransactionCollectionViewCell(_ cell: KNHistoryTransactionCollectionViewCell, openDetails transaction: Transaction)
@@ -116,12 +117,12 @@ struct KNHistoryTransactionCollectionViewModel {
   }
 }
 
-class KNHistoryTransactionCollectionViewCell: UICollectionViewCell {
+class KNHistoryTransactionCollectionViewCell: SwipeCollectionViewCell {
 
   static let cellID: String = "kHistoryTransactionCellID"
   static let height: CGFloat = 60.0
 
-  weak var delegate: KNHistoryTransactionCollectionViewCellDelegate?
+  weak var actionDelegate: KNHistoryTransactionCollectionViewCellDelegate?
   fileprivate var viewModel: KNHistoryTransactionCollectionViewModel!
 
   @IBOutlet weak var transactionAmountLabel: UILabel!

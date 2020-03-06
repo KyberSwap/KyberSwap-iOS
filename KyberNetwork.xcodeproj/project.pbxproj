@@ -545,6 +545,11 @@
 		8B67BA07556BB623E015CA60 /* Pods_KyberNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A95682795E696525B3A48A /* Pods_KyberNetwork.framework */; };
 		938288E2ED2CF2CECDBAEA28 /* Pods_KyberNetworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
+		C31F152923F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31F152723F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift */; };
+		C31F152A23F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C31F152823F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib */; };
+		C31F152C23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31F152B23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift */; };
+		C33CCB2D23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33CCB2B23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.swift */; };
+		C33CCB2E23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = C33CCB2C23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.xib */; };
 		C315AD5E240F845200620096 /* CustomAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C315AD5D240F845200620096 /* CustomAxisValueFormatter.swift */; };
 		C60BB88C239596D5006FE37D /* KNGetResolverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BB88B239596D5006FE37D /* KNGetResolverRequest.swift */; };
 		C60BB88E23959794006FE37D /* KNGetAddressFromResolverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BB88D23959794006FE37D /* KNGetAddressFromResolverRequest.swift */; };
@@ -572,7 +577,6 @@
 		CCA4FE361FD4282400749AE4 /* DeviceChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA4FE351FD4282400749AE4 /* DeviceChecker.swift */; };
 		CCA4FE381FD428B300749AE4 /* JailbreakChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA4FE371FD428B300749AE4 /* JailbreakChecker.swift */; };
 		CCA4FE3A1FD42B4100749AE4 /* FakeJailbreakChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCA4FE391FD42B4100749AE4 /* FakeJailbreakChecker.swift */; };
-		D9F052FDC5B72E024DD05F0D /* Pods_TrustTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -673,7 +677,6 @@
 		25369F0A20F88A87007231FE /* KNWelcomeScreenCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNWelcomeScreenCollectionViewCell.xib; sourceTree = "<group>"; };
 		25369F0F20F88C3E007231FE /* KNWelcomeScreenCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNWelcomeScreenCollectionView.swift; sourceTree = "<group>"; };
 		25369F1120F88C52007231FE /* KNWelcomeScreenCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNWelcomeScreenCollectionView.xib; sourceTree = "<group>"; };
-		2537431D20ECEA5E002C29FC /* KNSecret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KNSecret.swift; sourceTree = "<group>"; };
 		25377B0C22842AC70012178F /* KNLimitOrderTabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNLimitOrderTabCoordinator.swift; sourceTree = "<group>"; };
 		25377B0F22842BB30012178F /* KNCreateLimitOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNCreateLimitOrderViewController.swift; sourceTree = "<group>"; };
 		25377B1022842BB30012178F /* KNCreateLimitOrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNCreateLimitOrderViewController.xib; sourceTree = "<group>"; };
@@ -1166,6 +1169,11 @@
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
+		C31F152723F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpCustomGasSelectViewController.swift; sourceTree = "<group>"; };
+		C31F152823F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeedUpCustomGasSelectViewController.xib; sourceTree = "<group>"; };
+		C31F152B23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpCustomGasSelectViewModel.swift; sourceTree = "<group>"; };
+		C33CCB2B23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNConfirmCancelTransactionPopUp.swift; sourceTree = "<group>"; };
+		C33CCB2C23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNConfirmCancelTransactionPopUp.xib; sourceTree = "<group>"; };
 		C315AD5D240F845200620096 /* CustomAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAxisValueFormatter.swift; sourceTree = "<group>"; };
 		C60BB88B239596D5006FE37D /* KNGetResolverRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNGetResolverRequest.swift; sourceTree = "<group>"; };
 		C60BB88D23959794006FE37D /* KNGetAddressFromResolverRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNGetAddressFromResolverRequest.swift; sourceTree = "<group>"; };
@@ -1618,6 +1626,7 @@
 		2542604B21218EBC0015ECC7 /* Popups */ = {
 			isa = PBXGroup;
 			children = (
+				C33CCB2A23F40F8000F54B81 /* ConfirmCancelTransaction */,
 				C680C11E2382953600A621CB /* ForceUpdateNewVersion */,
 				C680C11B2382753E00A621CB /* AppStoreRating */,
 				C68AA273237A6BC100B9EC35 /* TransactionStatus */,
@@ -2098,6 +2107,7 @@
 		25682B6E20EE0421009738C4 /* Transaction */ = {
 			isa = PBXGroup;
 			children = (
+				C31F152423F538D9006CCACE /* Speedup */,
 				25BE32972090967100D760FB /* History */,
 				25D3259C20C06D51008BB235 /* Send */,
 				25682B7120EE0685009738C4 /* Details */,
@@ -3872,6 +3882,41 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C31F152423F538D9006CCACE /* Speedup */ = {
+			isa = PBXGroup;
+			children = (
+				C31F152623F545E6006CCACE /* ViewModel */,
+				C31F152523F538F0006CCACE /* Controller */,
+			);
+			path = Speedup;
+			sourceTree = "<group>";
+		};
+		C31F152523F538F0006CCACE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C31F152723F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift */,
+				C31F152823F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C31F152623F545E6006CCACE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C31F152B23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C33CCB2A23F40F8000F54B81 /* ConfirmCancelTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				C33CCB2B23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.swift */,
+				C33CCB2C23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.xib */,
+			);
+			path = ConfirmCancelTransaction;
+			sourceTree = "<group>";
+		};
 		C680C11B2382753E00A621CB /* AppStoreRating */ = {
 			isa = PBXGroup;
 			children = (
@@ -4136,6 +4181,7 @@
 				254EAB2A221D9EFD00C0EDC8 /* KyberNetwork.entitlements in Resources */,
 				C6B4CA2A23CC50190049C843 /* KNTransferConsentViewController.xib in Resources */,
 				2582332122549420007D5480 /* KNPromoSwapConfirmViewController.xib in Resources */,
+				C31F152A23F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib in Resources */,
 				25696F6920BE9EB6002CC53F /* KNSearchTokenViewController.xib in Resources */,
 				256E61EE20B3C0830084CA3F /* KNBalanceTabHamburgerMenuViewController.xib in Resources */,
 				25929C5520DA5C760045CFA3 /* SF-Pro-Display-RegularItalic.otf in Resources */,
@@ -4150,6 +4196,7 @@
 				256367902119B20B0034BA47 /* KGOInAppSignInViewController.xib in Resources */,
 				254BB330211BEC8200B8E75D /* KWalletBalanceViewController.xib in Resources */,
 				2545C8FD2223F6F400CA99C5 /* KNAlertTableViewCell.xib in Resources */,
+				C33CCB2E23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.xib in Resources */,
 				25696F5F20BE6B4E002CC53F /* KNSetGasPriceViewController.xib in Resources */,
 				C64A7A4A23DA05C100BB7654 /* COMODO ECC Domain Validation Secure Server CA 2.cer in Resources */,
 				25FF9182225CE4A600946414 /* KNConfirmSignUpViewController.xib in Resources */,
@@ -4458,6 +4505,7 @@
 				"${BUILT_PRODUCTS_DIR}/StatefulViewController/StatefulViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftChart/SwiftChart.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TrezorCrypto/TrezorCrypto.framework",
 				"${BUILT_PRODUCTS_DIR}/TrustCore/TrustCore.framework",
 				"${BUILT_PRODUCTS_DIR}/TrustKeystore/TrustKeystore.framework",
@@ -4502,6 +4550,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StatefulViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftChart.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrezorCrypto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustKeystore.framework",
@@ -4548,6 +4597,7 @@
 				2561454B20C64B1900FB00CF /* KNContactTableView.swift in Sources */,
 				25C40CAB2295582C0090003C /* KNFilterLimitOrderViewController.swift in Sources */,
 				C680C1202382958700A621CB /* KNVersionControlManager.swift in Sources */,
+				C31F152C23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift in Sources */,
 				C680C11D2382755900A621CB /* KNAppstoreRatingManager.swift in Sources */,
 				25117D3E2248D68300B5C495 /* KNAlertLeaderBoardViewController.swift in Sources */,
 				25EE4A7220C54D1000E2282F /* KNAppCoordinator+Delegation.swift in Sources */,
@@ -4714,6 +4764,7 @@
 				257B84B620750F1D003DD40E /* KNHistoryTransaction.swift in Sources */,
 				25CDE82122290D9200AD0363 /* KNNotificationMethodsViewController.swift in Sources */,
 				257A377A205B013E00E86794 /* String+Kyber.swift in Sources */,
+				C33CCB2D23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.swift in Sources */,
 				254CD0E02148F1420079EA7A /* KNProfileHomeViewController.swift in Sources */,
 				25369F1020F88C3E007231FE /* KNWelcomeScreenCollectionView.swift in Sources */,
 				2963A2881FC401490095447D /* LocalizedOperation.swift in Sources */,
@@ -4764,6 +4815,7 @@
 				2545C8EA2223EEAF00CA99C5 /* KNAlertObject.swift in Sources */,
 				254BB358211D9F1400B8E75D /* KConfirmSendViewController.swift in Sources */,
 				2537D8DE22D2FF80000D3E91 /* KNLimitOrderDetailsPopUp.swift in Sources */,
+				C31F152923F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift in Sources */,
 				254A70192296ADC700890B8F /* KNConvertSuggestionViewController.swift in Sources */,
 				25CC0AB02059191C0009D0D5 /* KNInternalProvider.swift in Sources */,
 				2542604F21218EF40015ECC7 /* KMinAcceptableRatePopupViewController.swift in Sources */,

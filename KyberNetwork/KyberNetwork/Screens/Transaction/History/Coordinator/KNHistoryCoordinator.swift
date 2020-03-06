@@ -2,6 +2,8 @@
 
 import UIKit
 import SafariServices
+import BigInt
+import TrustCore
 
 protocol KNHistoryCoordinatorDelegate: class {
   func historyCoordinatorDidClose()
@@ -19,6 +21,7 @@ class KNHistoryCoordinator: Coordinator {
 
   var coordinators: [Coordinator] = []
   weak var delegate: KNHistoryCoordinatorDelegate?
+  fileprivate var transactionStatusVC: KNTransactionStatusPopUp?
 
   lazy var rootViewController: KNHistoryViewController = {
     let viewModel = KNHistoryViewModel(
@@ -41,6 +44,8 @@ class KNHistoryCoordinator: Coordinator {
       currentWallet: self.currentWallet
     )
   }()
+
+  var speedUpViewController: SpeedUpCustomGasSelectViewController?
 
   init(
     navigationController: UINavigationController,
@@ -194,6 +199,45 @@ class KNHistoryCoordinator: Coordinator {
     )
     self.txDetailsCoordinator.updatePendingTransactions(transactions, currentWallet: self.currentWallet)
   }
+
+  func coordinatorGasPriceCachedDidUpdate() {
+    speedUpViewController?.updateGasPriceUIs()
+  }
+
+  func coordinatorDidUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
+    if let txHash = self.transactionStatusVC?.transaction.id, txHash == txID {
+      self.transactionStatusVC?.updateView(with: tx)
+      return true
+    }
+    return false
+  }
+
+  fileprivate func openTransactionCancelConfirmPopUpFor(transaction: Transaction) {
+    let viewModel = KNConfirmCancelTransactionViewModel(transaction: transaction)
+    let confirmPopup = KNConfirmCancelTransactionPopUp(viewModel: viewModel)
+    confirmPopup.delegate = self
+    confirmPopup.modalPresentationStyle = .overFullScreen
+    confirmPopup.modalTransitionStyle = .crossDissolve
+    self.navigationController.present(confirmPopup, animated: true, completion: nil)
+  }
+
+  fileprivate func openTransactionSpeedUpViewController(transaction: Transaction) {
+    let viewModel = SpeedUpCustomGasSelectViewModel(transaction: transaction)
+    let controller = SpeedUpCustomGasSelectViewController(viewModel: viewModel)
+    controller.loadViewIfNeeded()
+    controller.delegate = self
+    navigationController.pushViewController(controller, animated: true)
+    speedUpViewController = controller
+  }
+
+  fileprivate func openTransactionStatusPopUp(transaction: Transaction) {
+    let trans = KNTransaction.from(transaction: transaction)
+    self.transactionStatusVC = KNTransactionStatusPopUp(transaction: trans)
+    self.transactionStatusVC?.modalPresentationStyle = .overFullScreen
+    self.transactionStatusVC?.modalTransitionStyle = .crossDissolve
+    self.transactionStatusVC?.delegate = self
+    self.navigationController.present(self.transactionStatusVC!, animated: true, completion: nil)
+  }
 }
 
 extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
@@ -207,12 +251,175 @@ extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
       self.txDetailsCoordinator.start()
     case .dismiss:
       self.stop()
+    case .cancelTransaction(let transaction):
+        sendCancelTransactionFor(transaction)
+    case .speedUpTransaction(let transaction):
+        sendSpeedUpTransactionFor(transaction)
     }
   }
 
   fileprivate func openEtherScanForTransaction(with hash: String) {
     if let etherScanEndpoint = KNEnvironment.default.knCustomRPC?.etherScanEndpoint, let url = URL(string: "\(etherScanEndpoint)tx/\(hash)") {
       self.rootViewController.openSafari(with: url)
+    }
+  }
+
+  fileprivate func sendCancelTransactionFor(_ transaction: Transaction) {
+    self.openTransactionCancelConfirmPopUpFor(transaction: transaction)
+  }
+
+  fileprivate func sendSpeedUpTransactionFor(_ transaction: Transaction) {
+    self.openTransactionSpeedUpViewController(transaction: transaction)
+  }
+
+  fileprivate func didConfirmTransfer(_ transaction: Transaction) {
+    guard let unconfirmTx = transaction.makeCancelTransaction() else {
+      return
+    }
+    self.session.externalProvider.speedUpTransferTransaction(transaction: unconfirmTx, completion: { [weak self] sendResult in
+      guard let `self` = self else { return }
+      switch sendResult {
+      case .success(let txHash):
+        let tx: Transaction = unconfirmTx.toTransaction(
+          wallet: self.session.wallet,
+          hash: txHash,
+          nounce: self.session.externalProvider.minTxCount - 1,
+          type: .cancel
+        )
+        self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, completion: {
+          self.openTransactionStatusPopUp(transaction: tx)
+        })
+      case .failure:
+        KNNotificationUtil.postNotification(
+          for: kTransactionDidUpdateNotificationKey,
+          object: [Constants.transactionIsCancel: TransactionType.cancel],
+          userInfo: nil
+        )
+      }
+    })
+  }
+}
+
+extension KNHistoryCoordinator: KNConfirmCancelTransactionPopUpDelegate {
+  func didConfirmCancelTransactionPopup(_ controller: KNConfirmCancelTransactionPopUp, transaction: Transaction) {
+    self.didConfirmTransfer(transaction)
+  }
+}
+
+extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
+  func speedUpCustomGasSelectViewController(_ controller: SpeedUpCustomGasSelectViewController, run event: SpeedUpCustomGasSelectViewEvent) {
+    switch event {
+    case .back:
+      self.navigationController.popViewController(animated: true)
+    case .done(let transaction, let newValue):
+      self.didSpeedUpTransactionFor(transaction: transaction, newGasPrice: newValue)
+      self.navigationController.popViewController(animated: true)
+    case .invaild:
+      self.navigationController.showErrorTopBannerMessage(
+        with: NSLocalizedString("error", value: "Error", comment: ""),
+        message: "your.gas.must.be.10.percent.higher".toBeLocalised(),
+        time: 1.5
+      )
+    }
+    speedUpViewController = nil
+  }
+
+  func didSpeedUpTransactionFor(transaction: Transaction, newGasPrice: BigInt) {
+    let tokenObjects: [TokenObject] = self.session.tokenStorage.tokens //All available token
+    if let localizedOperation = transaction.localizedOperations.first {
+      switch localizedOperation.type {
+      case "transfer":
+        if let speedUpTx = transaction.makeSpeedUpTransaction(availableTokens: tokenObjects, gasPrice: newGasPrice) {
+          sendSpeedUpForTransferTransaction(transaction: speedUpTx, original: transaction)
+        }
+      case "exchange":
+        sendSpeedUpSwapTransactionFor(transaction: transaction, availableTokens: tokenObjects, newPrice: newGasPrice)
+      default:
+        break
+      }
+    }
+  }
+
+  fileprivate func sendSpeedUpForTransferTransaction(transaction: UnconfirmedTransaction, original: Transaction) {
+    self.session.externalProvider.speedUpTransferTransaction(transaction: transaction, completion: { [weak self] sendResult in
+      guard let `self` = self else { return }
+      switch sendResult {
+      case .success(let txHash):
+        let tx: Transaction = transaction.toTransaction(
+          wallet: self.session.wallet,
+          hash: txHash,
+          nounce: Int(original.nonce)!,
+          type: .speedup
+        )
+        self.session.updatePendingTransactionWithHash(hashTx: original.id, ultiTransaction: tx, completion: {
+          self.openTransactionStatusPopUp(transaction: tx)
+        })
+      case .failure:
+        KNNotificationUtil.postNotification(
+          for: kTransactionDidUpdateNotificationKey,
+          object: [Constants.transactionIsCancel: TransactionType.speedup],
+          userInfo: nil
+        )
+      }
+    })
+  }
+
+  fileprivate func sendSpeedUpSwapTransactionFor(transaction: Transaction, availableTokens: [TokenObject], newPrice: BigInt) {
+    guard let nouce = Int(transaction.nonce) else { return }
+    guard let localizedOperation = transaction.localizedOperations.first else { return }
+    guard let filteredToken = availableTokens.first(where: { (token) -> Bool in
+      return token.symbol == localizedOperation.symbol
+    }) else { return }
+    let amount: BigInt = {
+      return transaction.value.amountBigInt(decimals: localizedOperation.decimals) ?? BigInt(0)
+    }()
+    let gasLimit: BigInt = {
+      return transaction.gasUsed.amountBigInt(units: .wei) ?? BigInt(0)
+    }()
+    session.externalProvider.getTransactionByHash(transaction.id) { [weak self] (pendingTx, _) in
+      guard let `self` = self else { return }
+      if let fetchedTx = pendingTx {
+        if !fetchedTx.input.isEmpty {
+          self.session
+            .externalProvider
+            .speedUpSwapTransaction(
+              for: filteredToken,
+              amount: amount,
+              nonce: nouce,
+              data: fetchedTx.input,
+              gasPrice: newPrice,
+              gasLimit: gasLimit
+            ) { sendResult in
+              switch sendResult {
+              case .success(let txHash):
+                let tx = transaction.convertToSpeedUpTransaction(newHash: txHash, newGasPrice: newPrice.displayRate(decimals: 0).removeGroupSeparator())
+                self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, completion: {
+                  self.openTransactionStatusPopUp(transaction: tx)
+                })
+              case .failure:
+                KNNotificationUtil.postNotification(
+                  for: kTransactionDidUpdateNotificationKey,
+                  object: [Constants.transactionIsCancel: TransactionType.speedup],
+                  userInfo: nil
+                )
+              }
+          }
+        }
+      }
+    }
+  }
+}
+
+extension KNHistoryCoordinator: KNTransactionStatusPopUpDelegate {
+  func transactionStatusPopUp(_ controller: KNTransactionStatusPopUp, action: KNTransactionStatusPopUpEvent) {
+    self.transactionStatusVC = nil
+    if action == .swap {
+      KNNotificationUtil.postNotification(for: kOpenExchangeTokenViewKey)
+    }
+    if action == .dismiss {
+      if #available(iOS 10.3, *) {
+        KNAppstoreRatingManager.requestReviewIfAppropriate()
+      }
     }
   }
 }

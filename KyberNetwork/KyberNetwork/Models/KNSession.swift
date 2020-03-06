@@ -148,6 +148,13 @@ class KNSession {
     )
   }
 
+  func updatePendingTransactionWithHash(hashTx: String, ultiTransaction: Transaction, completion: @escaping () -> Void = {}) {
+    if transactionStorage.deleteKyberTransaction(forPrimaryKey: hashTx) {
+      self.addNewPendingTransaction(ultiTransaction)
+      completion()
+    }
+  }
+
   static func resumeInternalSession() {
     KNRateCoordinator.shared.resume()
     KNGasCoordinator.shared.resume()

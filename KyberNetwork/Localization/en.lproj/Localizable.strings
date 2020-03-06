@@ -658,6 +658,22 @@
 "Yes" = "Yes";
 "No" = "No";
 "%@ (Gas Price) * %@ (Gas Limit)" = "%@ (Gas Price) * %@ (Gas Limit)";
+"speed up" = "Speed Up";
+"your.gas.must.be.10.percent.higher" = "Your gas price must be 10% higher than the current gas price";
+"Can not speed up the transaction" = "Can not speed up the transaction";
+"Can not cancel the transaction" = "Can not cancel the transaction";
+"Current fee" = "Current fee";
+"New fee" = "New fee";
+"sumitting.does.not.guarantee" = "Submitting this attempt does not guarantee your original transaction will be cancelled. If the cancellation attempt is successful, you will be charged the transaction fee above.";
+
+"Cancellation Gas Fee" = "Cancellation Gas Fee";
+"Attempt to Cancel?" = "Attempt to Cancel?";
+"Customize Gas" = "Customize Gas";
+"Select.higher.tx.fee.to.accelerate" = "Select a higher gas fee to accelerate the processing of your transaction";
+"Your cancel transaction might be lost" = "Your cancel transaction might be lost";
+"Your speedup transaction might be lost" = "Your speedup transaction might be lost";
+"Your transaction has been cancelled successfully" = "Your transaction has been cancelled successfully";
+"Your transaction has been speeded up successfully" = "Your transaction has been speeded up successfully";
 "delete all" = "delete all";
 "Delete all triggered alerts successfully" = "Delete all triggered alerts successfully";
 "Do you want to delete all triggered alerts?" = "Do you want to delete all triggered alerts?";

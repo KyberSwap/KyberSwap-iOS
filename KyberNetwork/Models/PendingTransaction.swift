@@ -15,6 +15,7 @@ struct PendingTransaction: Decodable {
     let hash: String
     let value: String
     let nonce: String
+    let input: Data
 }
 
 extension PendingTransaction {
@@ -28,6 +29,8 @@ extension PendingTransaction {
         let nonce = transaction["nonce"] as? String ?? "0"
         let from = transaction["from"] as? String ?? ""
         let to = transaction["to"] as? String ?? ""
+        let transactionInput = transaction["input"] as? String ?? ""
+        let input = transactionInput.dataFromHex() ?? Data()
         return PendingTransaction(
             blockHash: blockHash,
             blockNumber: BigInt(blockNumber.drop0x, radix: 16)?.description ?? "",
@@ -37,14 +40,16 @@ extension PendingTransaction {
             gasPrice: BigInt(gasPrice.drop0x, radix: 16)?.description ?? "",
             hash: hash,
             value: BigInt(value.drop0x, radix: 16)?.description ?? "",
-            nonce: BigInt(nonce.drop0x, radix: 16)?.description ?? ""
+            nonce: BigInt(nonce.drop0x, radix: 16)?.description ?? "",
+            input: input
         )
     }
 }
 
 extension Transaction {
     static func from(
-        transaction: PendingTransaction
+        transaction: PendingTransaction,
+        type: TransactionType = .normal
     ) -> Transaction? {
         guard
             let from = Address(string: transaction.from) else {
@@ -63,7 +68,8 @@ extension Transaction {
             nonce: transaction.nonce,
             date: Date(),
             localizedOperations: [],
-            state: .pending
+            state: .pending,
+            type: type
         )
     }
 }

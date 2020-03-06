@@ -3,6 +3,7 @@
 import Foundation
 import RealmSwift
 import BigInt
+import TrustCore
 
 class Transaction: Object {
     @objc dynamic var id: String = ""
@@ -16,6 +17,7 @@ class Transaction: Object {
     @objc dynamic var nonce: String = ""
     @objc dynamic var date = Date()
     @objc dynamic var internalState: Int = TransactionState.completed.rawValue
+    @objc dynamic var internalType: Int = TransactionType.normal.rawValue
     var localizedOperations = List<LocalizedOperationObject>()
     @objc dynamic var compoundKey: String = ""
 
@@ -31,7 +33,8 @@ class Transaction: Object {
         nonce: String,
         date: Date,
         localizedOperations: [LocalizedOperationObject],
-        state: TransactionState
+        state: TransactionState,
+        type: TransactionType
     ) {
 
         self.init()
@@ -46,6 +49,7 @@ class Transaction: Object {
         self.nonce = nonce
         self.date = date
         self.internalState = state.rawValue
+        self.internalType = type.rawValue
 
         let list = List<LocalizedOperationObject>()
         localizedOperations.forEach { element in
@@ -76,6 +80,10 @@ class Transaction: Object {
         return TransactionState(int: self.internalState)
     }
 
+  var type: TransactionType {
+    return TransactionType(int: self.internalType)
+  }
+
   func clone() -> Transaction {
     return Transaction(
       id: self.id,
@@ -89,14 +97,33 @@ class Transaction: Object {
       nonce: self.nonce,
       date: self.date,
       localizedOperations: Array(self.localizedOperations).map({ return $0.clone() }),
-      state: self.state
+      state: self.state,
+      type: self.type
+    )
+  }
+
+  func convertToSpeedUpTransaction(newHash: String, newGasPrice: String) -> Transaction {
+    return Transaction(
+      id: newHash,
+      blockNumber: self.blockNumber,
+      from: self.from,
+      to: self.to,
+      value: self.value,
+      gas: self.gas,
+      gasPrice: newGasPrice,
+      gasUsed: self.gasUsed,
+      nonce: self.nonce,
+      date: self.date,
+      localizedOperations: Array(self.localizedOperations).map({ return $0.clone() }),
+      state: self.state,
+      type: .speedup
     )
   }
 }
 
 extension Transaction {
   // get transaction from json for wallet connect
-  static func getTransactionFromJsonWalletConnect(json: JSONDictionary, hash: String, nonce: Int) -> Transaction {
+  static func getTransactionFromJsonWalletConnect(json: JSONDictionary, hash: String, nonce: Int, type: TransactionType = .normal) -> Transaction {
     let value = (json["value"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
     let gasLimit = (json["gasLimit"] as? String ?? "").fullBigInt(decimals: 0)?.string(decimals: 0, minFractionDigits: 0, maxFractionDigits: 0) ?? ""
     let gasPrice = (json["gasPrice"] as? String ?? "").fullBigInt(decimals: 0)?.string(decimals: 0, minFractionDigits: 0, maxFractionDigits: 0) ?? ""
@@ -124,7 +151,8 @@ extension Transaction {
       nonce: "\(nonce)",
       date: Date(),
       localizedOperations: [localised],
-      state: .pending
+      state: .pending,
+      type: type
     )
   }
 }
@@ -194,7 +222,7 @@ extension Transaction {
 }
 
 extension Transaction {
-  static func swapTransation(sendTx: Transaction, receiveTx: Transaction, curWallet: String, addressToSymbol: [String: String]) -> Transaction? {
+  static func swapTransation(sendTx: Transaction, receiveTx: Transaction, curWallet: String, addressToSymbol: [String: String], type: TransactionType = .normal) -> Transaction? {
     if sendTx.id != receiveTx.id { return nil }
     if sendTx.from.lowercased() != curWallet.lowercased() && receiveTx.from.lowercased() != curWallet.lowercased() { return nil }
     if sendTx.from.lowercased() != curWallet.lowercased() {
@@ -230,7 +258,8 @@ extension Transaction {
       nonce: sendTx.nonce,
       date: sendTx.date,
       localizedOperations: [localObject],
-      state: .completed
+      state: .completed,
+      type: type
     )
   }
 
@@ -343,5 +372,57 @@ extension Transaction {
   var feeBigInt: BigInt? {
     guard let gasPrice = self.gasPrice.fullBigInt(units: .wei), let gasLimit = self.gasUsed.fullBigInt(units: .wei) ?? self.gas.fullBigInt(units: .wei) else { return nil }
     return gasPrice * gasLimit
+  }
+}
+
+extension Transaction {
+  func makeCancelTransaction() -> UnconfirmedTransaction? {
+    guard let address = Address(string: self.from) else {
+      return nil
+    }
+    guard let currentGasPrice = Double(self.gasPrice)  else {
+      return nil
+    }
+    let gasPrice = max(BigInt(currentGasPrice * 1.2), KNGasConfiguration.gasPriceMax)
+    let nouce = BigInt(self.nonce)
+    let unconfirmTx = UnconfirmedTransaction(
+      transferType: .ether(destination: address),
+      value: BigInt(0),
+      to: address,
+      data: nil,
+      gasLimit: KNGasConfiguration.transferETHGasLimitDefault,
+      gasPrice: gasPrice,
+      nonce: nouce
+    )
+    return unconfirmTx
+  }
+
+  func makeSpeedUpTransaction(availableTokens: [TokenObject], gasPrice: BigInt) -> UnconfirmedTransaction? {
+    guard let localizedOperation = self.localizedOperations.first else { return nil }
+    guard let filteredToken = availableTokens.first(where: { (token) -> Bool in
+      return token.symbol == localizedOperation.symbol
+    }) else { return nil }
+    let transferType: TransferType = {
+      if filteredToken.isETH {
+        return TransferType.ether(destination: Address(string: self.to))
+      }
+      return TransferType.token(filteredToken)
+    }()
+    let amount: BigInt = {
+      return self.value.amountBigInt(decimals: localizedOperation.decimals) ?? BigInt(0)
+    }()
+    let gasLimit: BigInt = {
+      return self.gasUsed.amountBigInt(units: .wei) ?? BigInt(0)
+    }()
+    let nonce = BigInt(self.nonce)
+    return UnconfirmedTransaction(
+      transferType: transferType,
+      value: amount,
+      to: Address(string: self.to),
+      data: nil,
+      gasLimit: gasLimit,
+      gasPrice: gasPrice,
+      nonce: nonce
+    )
   }
 }

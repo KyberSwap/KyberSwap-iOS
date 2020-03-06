@@ -89,7 +89,7 @@ extension KNDraftExchangeTransaction {
     )
   }
 
-  func toTransaction(hash: String, fromAddr: Address, toAddr: Address, nounce: Int) -> Transaction {
+  func toTransaction(hash: String, fromAddr: Address, toAddr: Address, nounce: Int, type: TransactionType = .normal) -> Transaction {
     // temporary: local object contains from and to tokens + expected rate
     let expectedAmount: String = {
       return self.expectedReceive.fullString(decimals: self.to.decimals)
@@ -116,7 +116,8 @@ extension KNDraftExchangeTransaction {
       nonce: "\(nounce)",
       date: Date(),
       localizedOperations: [localObject],
-      state: .pending
+      state: .pending,
+      type: type
     )
   }
 }

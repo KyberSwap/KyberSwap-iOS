@@ -146,6 +146,7 @@ PODS:
   - SwiftMessages (5.0.1):
     - SwiftMessages/App (= 5.0.1)
   - SwiftMessages/App (5.0.1)
+  - SwipeCellKit (2.7.1)
   - TrezorCrypto (0.0.9)
   - TrustCore (0.0.7):
     - BigInt
@@ -194,6 +195,7 @@ DEPENDENCIES:
   - SwiftChart (~> 1.0.1)
   - SwiftLint (~> 0.29.4)
   - SwiftMessages (~> 5.0.1)
+  - SwipeCellKit
   - TrustCore (~> 0.0.7)
   - TrustKeystore (~> 0.4.2)
   - TwitterKit (~> 3.4.2)
@@ -247,6 +249,7 @@ SPEC REPOS:
     - SwiftChart
     - SwiftLint
     - SwiftMessages
+    - SwipeCellKit
     - TrezorCrypto
     - TrustCore
     - TrustKeystore
@@ -310,6 +313,7 @@ SPEC CHECKSUMS:
   SwiftChart: ba767a678d568a5ee22d419e146a0582865e1aff
   SwiftLint: 73f2ecfd0f6d812c8cb9a73c00fe809bc2504585
   SwiftMessages: 32ce3cfc8388b41aae56ff4853cc752a20101147
+  SwipeCellKit: 3972254a826da74609926daf59b08d6c72e619ea
   TrezorCrypto: bfeea47a052dca2c77d4a39e1e183865e52de14d
   TrustCore: 688df9a241008cf9cfa3842ec8ef28777a8b7534
   TrustKeystore: ba8a33ccd7b6a46dfe25f209253d6ba13da6655c

@@ -109,7 +109,7 @@ extension KNTokenTransaction {
 }
 
 extension KNTokenTransaction {
-  func toTransaction() -> Transaction {
+  func toTransaction(type: TransactionType = .normal) -> Transaction {
     let amountString: String = {
       let number = EtherNumberFormatter.full.number(from: self.value, decimals: 0)
       let decimals: Int = Int(self.tokenDecimal) ?? 18
@@ -138,7 +138,8 @@ extension KNTokenTransaction {
       nonce: nonce,
       date: date,
       localizedOperations: [localObject],
-      state: .completed
+      state: .completed,
+      type: type
     )
   }
 }

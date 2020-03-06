@@ -98,7 +98,8 @@ extension KNTransactionReceipt {
       nonce: transaction.nonce,
       date: transaction.date,
       localizedOperations: localObjects,
-      state: self.status == "1" ? .completed : .failed
+      state: self.status == "1" ? .completed : .failed,
+      type: transaction.type
     )
     return newTransaction
   }
