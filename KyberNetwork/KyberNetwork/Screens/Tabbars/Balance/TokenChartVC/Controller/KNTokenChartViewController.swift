@@ -758,11 +758,15 @@ class KNTokenChartViewController: KNBaseViewController {
     guard let last = self.viewModel.data.last else {
       return
     }
+    guard let first = self.viewModel.data.first else {
+      return
+    }
+    let time = Double(last.time - first.time) / self.viewModel.type.scaleUnit
     let detailText = self.buildTextForData(openNumber: last.open,
                                            highNumber: last.high,
                                            lowNumber: last.low,
                                            closeNumber: last.close,
-                                           timeStampNumber: Double(last.time))
+                                           timeStampNumber: time)
     self.touchPriceLabel.attributedText = detailText
     self.touchPriceLabel.isHidden = false
   }
@@ -795,6 +799,10 @@ class KNTokenChartViewController: KNBaseViewController {
     let change = formatter.string(from: NSNumber(value: changeEntry)) ?? ""
     let percentEntry = changeEntry / openNumber * 100.0
     let percent = formatter.string(from: NSNumber(value: percentEntry)) ?? ""
+    let dateAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
+    ]
     let titleAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
@@ -812,7 +820,6 @@ class KNTokenChartViewController: KNBaseViewController {
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.green,
     ]
     let valueAttribute = changeEntry > 0 ? upAttributes : downAttributes
-    attributedText.append(NSAttributedString(string: dateString, attributes: titleAttributes))
     attributedText.append(NSAttributedString(string: " O ", attributes: titleAttributes))
     attributedText.append(NSAttributedString(string: open, attributes: infoTextAttributes))
     attributedText.append(NSAttributedString(string: " H ", attributes: titleAttributes))
@@ -821,7 +828,8 @@ class KNTokenChartViewController: KNBaseViewController {
     attributedText.append(NSAttributedString(string: low, attributes: infoTextAttributes))
     attributedText.append(NSAttributedString(string: " C ", attributes: titleAttributes))
     attributedText.append(NSAttributedString(string: close, attributes: infoTextAttributes))
-    attributedText.append(NSAttributedString(string: "\nChange ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: "\n\(dateString)", attributes: dateAttributes))
+    attributedText.append(NSAttributedString(string: " \("Change".toBeLocalised()) ", attributes: titleAttributes))
     attributedText.append(NSAttributedString(string: "\(change) (\(percent)%)", attributes: valueAttribute))
     return attributedText
   }
