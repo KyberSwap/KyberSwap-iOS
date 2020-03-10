@@ -538,9 +538,6 @@ class KNTokenChartViewController: KNBaseViewController {
     self.chartView.pinchZoomEnabled = true
     self.chartView.legend.enabled = false
     self.chartView.rightAxis.labelFont = UIFont.Kyber.light(with: 10)
-    self.chartView.rightAxis.spaceTop = 0.3
-    self.chartView.rightAxis.spaceBottom = 0.3
-    self.chartView.rightAxis.axisMinimum = 0
     self.chartView.leftAxis.enabled = false
     self.chartView.xAxis.labelPosition = .bottom
     self.chartView.xAxis.labelFont = UIFont.Kyber.light(with: 10)
