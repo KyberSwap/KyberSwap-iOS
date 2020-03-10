@@ -679,3 +679,4 @@
 "delete all" = "全部删除";
 "Delete all triggered alerts successfully" = "成功删除所有触发的警报。";
 "Do you want to delete all triggered alerts?" = "是否要删除所有触发的警报？";
+"Failed to delete alerts, please try again later" = "Failed to delete alerts, please try again later";
