@@ -148,11 +148,40 @@ class KNSession {
     )
   }
 
-  func updatePendingTransactionWithHash(hashTx: String, ultiTransaction: Transaction, completion: @escaping () -> Void = {}) {
-    if transactionStorage.deleteKyberTransaction(forPrimaryKey: hashTx) {
+  func updatePendingTransactionWithHash(hashTx: String,
+                                        ultiTransaction: Transaction,
+                                        state: TransactionState = .cancelling,
+                                        completion: @escaping () -> Void = {}) {
+    if transactionStorage.updateKyberTransaction(forPrimaryKey: hashTx, state: state) {
       self.addNewPendingTransaction(ultiTransaction)
       completion()
     }
+  }
+
+  func updateFailureTransaction(type: TransactionType) -> Bool {
+    var hashTx = ""
+    switch type {
+    case .speedup:
+      hashTx = transactionStorage.kyberSpeedUpProcessingTransactions.first?.id ?? ""
+    case .cancel:
+      hashTx = transactionStorage.kyberCancelProcessingTransactions.first?.id ?? ""
+    default:
+      return false
+    }
+    guard !hashTx.isEmpty else {
+      return false
+    }
+    if isDebug { print("[Debug] call update original tx \(hashTx)") }
+    if transactionStorage.updateKyberTransaction(forPrimaryKey: hashTx, state: .pending) {
+      guard let transaction = transactionStorage.getKyberTransaction(forPrimaryKey: hashTx), transaction.isInvalidated == false else { return false }
+      self.transacionCoordinator?.updatePendingTransaction(transaction)
+      KNNotificationUtil.postNotification(
+        for: kTransactionDidUpdateNotificationKey,
+        object: transaction.id,
+        userInfo: nil
+      )
+    }
+    return true
   }
 
   static func resumeInternalSession() {

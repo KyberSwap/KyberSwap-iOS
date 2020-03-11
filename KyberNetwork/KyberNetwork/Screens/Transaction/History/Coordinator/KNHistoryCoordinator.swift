@@ -330,10 +330,10 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
       switch localizedOperation.type {
       case "transfer":
         if let speedUpTx = transaction.makeSpeedUpTransaction(availableTokens: tokenObjects, gasPrice: newGasPrice) {
-          sendSpeedUpForTransferTransaction(transaction: speedUpTx, original: transaction)
+          self.sendSpeedUpForTransferTransaction(transaction: speedUpTx, original: transaction)
         }
       case "exchange":
-        sendSpeedUpSwapTransactionFor(transaction: transaction, availableTokens: tokenObjects, newPrice: newGasPrice)
+        self.sendSpeedUpSwapTransactionFor(transaction: transaction, availableTokens: tokenObjects, newPrice: newGasPrice)
       default:
         break
       }
@@ -351,7 +351,7 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
           nounce: Int(original.nonce)!,
           type: .speedup
         )
-        self.session.updatePendingTransactionWithHash(hashTx: original.id, ultiTransaction: tx, completion: {
+        self.session.updatePendingTransactionWithHash(hashTx: original.id, ultiTransaction: tx, state: .speedingUp, completion: {
           self.openTransactionStatusPopUp(transaction: tx)
         })
       case .failure:
@@ -393,7 +393,7 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
               switch sendResult {
               case .success(let txHash):
                 let tx = transaction.convertToSpeedUpTransaction(newHash: txHash, newGasPrice: newPrice.displayRate(decimals: 0).removeGroupSeparator())
-                self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, completion: {
+                self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, state: .speedingUp, completion: {
                   self.openTransactionStatusPopUp(transaction: tx)
                 })
               case .failure:

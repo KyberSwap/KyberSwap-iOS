@@ -7,6 +7,8 @@ enum TransactionState: Int {
     case pending
     case error
     case failed
+    case cancelling
+    case speedingUp
     case unknown
 
     init(int: Int) {
