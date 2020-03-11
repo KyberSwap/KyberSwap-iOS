@@ -678,3 +678,4 @@
 "Delete all triggered alerts successfully" = "Delete all triggered alerts successfully";
 "Do you want to delete all triggered alerts?" = "Do you want to delete all triggered alerts?";
 "Change" = "Change";
+"Failed to delete alerts, please try again later" = "Failed to delete alerts, please try again later";

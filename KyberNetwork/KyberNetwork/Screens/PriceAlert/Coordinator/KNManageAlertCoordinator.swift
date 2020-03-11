@@ -145,7 +145,7 @@ extension KNManageAlertCoordinator: KNManageAlertsViewControllerDelegate {
         )
         self.navigationController.showErrorTopBannerMessage(
           with: NSLocalizedString("error", value: "Error", comment: ""),
-          message: error,
+          message: "Failed to delete alerts, please try again later".toBeLocalised(),
           time: 1.5
         )
       } else {

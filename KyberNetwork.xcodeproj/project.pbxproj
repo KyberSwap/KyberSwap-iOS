@@ -164,8 +164,6 @@
 		2561455520C696C800FB00CF /* KNTokenChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2561455320C696C800FB00CF /* KNTokenChartViewController.xib */; };
 		2561455920C6AB5600FB00CF /* KNTokenChartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2561455820C6AB5600FB00CF /* KNTokenChartCoordinator.swift */; };
 		2561455B20C795AF00FB00CF /* KNChartObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2561455A20C795AF00FB00CF /* KNChartObject.swift */; };
-		2563678F2119B20B0034BA47 /* KGOInAppSignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2563678D2119B20B0034BA47 /* KGOInAppSignInViewController.swift */; };
-		256367902119B20B0034BA47 /* KGOInAppSignInViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2563678E2119B20B0034BA47 /* KGOInAppSignInViewController.xib */; };
 		2567B3F1216B10060006D963 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 2567B3EF216B10060006D963 /* index.html */; };
 		2567B3F2216B10060006D963 /* web3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 2567B3F0216B10060006D963 /* web3.min.js */; };
 		25682ABE229FC3C7004AB452 /* KNApproveTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25682ABC229FC3C7004AB452 /* KNApproveTokenViewController.swift */; };
@@ -768,8 +766,6 @@
 		2561455320C696C800FB00CF /* KNTokenChartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNTokenChartViewController.xib; sourceTree = "<group>"; };
 		2561455820C6AB5600FB00CF /* KNTokenChartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNTokenChartCoordinator.swift; sourceTree = "<group>"; };
 		2561455A20C795AF00FB00CF /* KNChartObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNChartObject.swift; sourceTree = "<group>"; };
-		2563678D2119B20B0034BA47 /* KGOInAppSignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KGOInAppSignInViewController.swift; sourceTree = "<group>"; };
-		2563678E2119B20B0034BA47 /* KGOInAppSignInViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KGOInAppSignInViewController.xib; sourceTree = "<group>"; };
 		2567B3EB216AE0C90006D963 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		2567B3EF216B10060006D963 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		2567B3F0216B10060006D963 /* web3.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = web3.min.js; sourceTree = "<group>"; };
@@ -2038,15 +2034,6 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
-		2563678C2119B1EF0034BA47 /* InAppSignIn */ = {
-			isa = PBXGroup;
-			children = (
-				2563678D2119B20B0034BA47 /* KGOInAppSignInViewController.swift */,
-				2563678E2119B20B0034BA47 /* KGOInAppSignInViewController.xib */,
-			);
-			path = InAppSignIn;
-			sourceTree = "<group>";
-		};
 		2567B3EE216B10060006D963 /* html */ = {
 			isa = PBXGroup;
 			children = (
@@ -2700,7 +2687,6 @@
 		25A293FB20CE7B06008C6759 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				2563678C2119B1EF0034BA47 /* InAppSignIn */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -4193,7 +4179,6 @@
 				25073D2B211AF20D00833C92 /* Montserrat-ExtraBold.ttf in Resources */,
 				25929C8E20DA5CC10045CFA3 /* SFCompactText-RegularItalic.otf in Resources */,
 				255C98902122E22A0087B3E2 /* KSendTokenViewController.xib in Resources */,
-				256367902119B20B0034BA47 /* KGOInAppSignInViewController.xib in Resources */,
 				254BB330211BEC8200B8E75D /* KWalletBalanceViewController.xib in Resources */,
 				2545C8FD2223F6F400CA99C5 /* KNAlertTableViewCell.xib in Resources */,
 				C33CCB2E23F4100000F54B81 /* KNConfirmCancelTransactionPopUp.xib in Resources */,
@@ -4718,7 +4703,6 @@
 				291795011F95F5E200539A30 /* GetBalance.swift in Sources */,
 				2528B40C228D5A14003EEA32 /* KNManageOrdersViewController.swift in Sources */,
 				25EE4A6D20C54AD200E2282F /* KNAppCoordinator+InSession.swift in Sources */,
-				2563678F2119B20B0034BA47 /* KGOInAppSignInViewController.swift in Sources */,
 				2995739F1FA1F294006F17FD /* QRURLParser.swift in Sources */,
 				7721A6BE202A5677004DB16C /* DecryptError.swift in Sources */,
 				61FC5ECF1FCFBAE500CCB12A /* EtherNumberFormatter.swift in Sources */,

@@ -16,7 +16,6 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
 
   fileprivate(set) var accessTokenExpireTimer: Timer?
 
-  fileprivate(set) var webViewSignInVC: KGOInAppSignInViewController?
   fileprivate var newAlertController: KNNewAlertViewController?
 
   lazy var rootViewController: KNProfileHomeViewController = {

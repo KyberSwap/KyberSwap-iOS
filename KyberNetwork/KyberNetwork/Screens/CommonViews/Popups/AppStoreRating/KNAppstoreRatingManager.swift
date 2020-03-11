@@ -9,6 +9,7 @@ enum KNAppstoreRatingManager {
 
   @available(iOS 10.3, *)
   static func requestReviewIfAppropriate() {
+    /* Temp disable because we don't have app on AppStore
     let numberActions = UserDefaults.standard.integer(forKey: kNumberImportActionsKey) + 1
     UserDefaults.standard.set(numberActions, forKey: kNumberImportActionsKey)
     UserDefaults.standard.synchronize()
@@ -37,5 +38,6 @@ enum KNAppstoreRatingManager {
         UserDefaults.standard.synchronize()
       }
     }
+    */
   }
 }

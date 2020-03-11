@@ -270,6 +270,14 @@ extension TransactionsStorage {
     return self.kyberTransactions.filter { return $0.state != .pending || $0.state != .unknown }
   }
 
+  var kyberCancelProcessingTransactions: [KNTransaction] {
+    return self.kyberTransactions.filter { return $0.state == .cancelling }
+  }
+
+  var kyberSpeedUpProcessingTransactions: [KNTransaction] {
+    return self.kyberTransactions.filter { return $0.state == .speedingUp }
+  }
+
   func getKyberTransaction(forPrimaryKey: String) -> KNTransaction? {
     return realm.object(ofType: KNTransaction.self, forPrimaryKey: forPrimaryKey)
   }
@@ -299,6 +307,12 @@ extension TransactionsStorage {
   func deleteKyberTransaction(forPrimaryKey: String) -> Bool {
     guard let transaction = getKyberTransaction(forPrimaryKey: forPrimaryKey), transaction.isInvalidated == false else { return false }
     delete([transaction])
+    return true
+  }
+  
+  func updateKyberTransaction(forPrimaryKey: String, state: TransactionState) -> Bool {
+    guard let transaction = getKyberTransaction(forPrimaryKey: forPrimaryKey), transaction.isInvalidated == false else { return false }
+    update(state: state, for: transaction)
     return true
   }
 

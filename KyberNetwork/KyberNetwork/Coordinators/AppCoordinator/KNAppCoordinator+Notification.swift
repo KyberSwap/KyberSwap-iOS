@@ -271,8 +271,10 @@ extension KNAppCoordinator {
             switch isLost {
             case .cancel:
               popupMessage = "Your cancel transaction might be lost".toBeLocalised()
+              if self.session.updateFailureTransaction(type: .cancel) { return }
             case .speedup:
               popupMessage = "Your speedup transaction might be lost".toBeLocalised()
+              if self.session.updateFailureTransaction(type: .speedup) { return }
             default:
               popupMessage = "Your transaction might be lost, dropped or replaced. Please check Etherscan for more information".toBeLocalised()
             }
