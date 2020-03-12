@@ -739,7 +739,11 @@ class KNTokenChartViewController: KNBaseViewController {
       self.chartView.isHidden = false
       self.chartView.data = self.viewModel.displayChartData
       self.updateChartInfoLabel()
-      self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.scaleXFactor, scaleY: 1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
+      if self.viewModel.type == .day || self.viewModel.type == .week {
+        self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.scaleXFactor, scaleY: 1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
+      } else {
+        self.chartView.zoomAndCenterViewAnimated(scaleX: 1, scaleY: 1, xValue: 1, yValue: 1, axis: .right, duration: 1)
+      }
       self.chartView.setNeedsLayout()
     }
     self.view.layoutIfNeeded()
