@@ -248,5 +248,9 @@
 	<true/>
 	<key>com.apple.security.get-task-allow</key>
 	<true/>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<false/>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<false/>
 </dict>
 </plist>
