@@ -735,9 +735,11 @@ class KNTokenChartViewController: KNBaseViewController {
       self.touchPriceLabel.isHidden = true
       self.noDataLabel.isHidden = true
       self.chartView.clear()
+      self.chartView.rightAxis.removeAllLimitLines()
       self.updateChartXAxisFormater(for: self.viewModel.type, data: self.viewModel.data)
       self.chartView.isHidden = false
       self.chartView.data = self.viewModel.displayChartData
+      self.addChartLimitLines()
       self.updateChartInfoLabel()
       if self.viewModel.type == .day || self.viewModel.type == .week {
         self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.scaleXFactor, scaleY: 1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
@@ -747,6 +749,34 @@ class KNTokenChartViewController: KNBaseViewController {
       self.chartView.setNeedsLayout()
     }
     self.view.layoutIfNeeded()
+  }
+
+  func addChartLimitLines() {
+    let maxHigh = self.viewModel.data.map { $0.high }.max()
+    let minLow = self.viewModel.data.map { $0.low }.min()
+    guard let lower = minLow, let upper = maxHigh else {
+      return
+    }
+    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    let displayUpper = formatter.string(from: NSNumber(value: upper)) ?? ""
+    let ll1 = ChartLimitLine(limit: upper, label: "\u{2192}\(displayUpper)")
+    ll1.lineColor = UIColor.Kyber.orangeDarker
+    ll1.valueTextColor = UIColor.Kyber.orangeDarker
+    ll1.lineWidth = 1
+    ll1.lineDashLengths = [5, 5]
+    ll1.labelPosition = .topRight
+    ll1.valueFont = UIFont.Kyber.semiBold(with: 9)
+
+    let displayLower = formatter.string(from: NSNumber(value: lower)) ?? ""
+    let ll2 = ChartLimitLine(limit: lower, label: "\u{2192}\(displayLower)")
+    ll2.lineColor = UIColor.Kyber.orangeDarker
+    ll2.valueTextColor = UIColor.Kyber.orangeDarker
+    ll2.lineWidth = 1
+    ll2.lineDashLengths = [5, 5]
+    ll2.labelPosition = .bottomRight
+    ll2.valueFont = UIFont.Kyber.semiBold(with: 9)
+    self.chartView.rightAxis.addLimitLine(ll1)
+    self.chartView.rightAxis.addLimitLine(ll2)
   }
 
   func coordinatorUpdateRate() {
