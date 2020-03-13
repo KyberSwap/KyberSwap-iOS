@@ -4,11 +4,12 @@ import Foundation
 
 class KNNotificationSettingViewModel {
   var isSeeMore: Bool = false
-  private(set) var tokens: [String] = []
+  private(set) var tokens: [String]
   private(set) var supportedTokens: [String]
-  
-  init(tokens: [String]) {
+
+  init(tokens: [String], selected: [String]) {
     self.supportedTokens = tokens
+    self.tokens = selected
   }
 
   func selectTokenSymbol(_ symbol: String) {

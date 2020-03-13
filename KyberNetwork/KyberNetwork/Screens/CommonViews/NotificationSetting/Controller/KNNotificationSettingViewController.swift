@@ -87,6 +87,10 @@ class KNNotificationSettingViewController: KNBaseViewController {
     self.updateUI()
   }
 
+  @IBAction func toggleSubcribeTokenSwitch(_ sender: UISwitch) {
+    let state = sender.isOn
+  }
+
   @IBAction func resetButtonPressed(_ sender: Any) {
     
   }

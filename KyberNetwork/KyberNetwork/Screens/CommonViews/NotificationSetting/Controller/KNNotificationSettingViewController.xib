@@ -150,6 +150,9 @@
                                 <constraint firstAttribute="height" constant="24" id="7GE-IK-YGA"/>
                                 <constraint firstAttribute="width" constant="56" id="Z9G-Cp-zCu"/>
                             </constraints>
+                            <connections>
+                                <action selector="toggleSubcribeTokenSwitch:" destination="-1" eventType="valueChanged" id="4ZB-nE-BXO"/>
+                            </connections>
                         </switch>
                     </subviews>
                     <constraints>

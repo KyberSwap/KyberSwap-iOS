@@ -755,16 +755,47 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
   }
 
   fileprivate func openNotificationSettingScreen() {
-    let tokenSymbols: [String] = {
-      return self.tokens.sorted(by: {
-        if $0.isSupported && !$1.isSupported { return true }
-        if !$0.isSupported && $1.isSupported { return false }
-        return $0.value > $1.value
-      }).map({ return $0.symbol })
-    }()
-    let viewModel = KNNotificationSettingViewModel(tokens: tokenSymbols)
-    let viewController = KNNotificationSettingViewController(viewModel: viewModel)
-    self.navigationController.pushViewController(viewController, animated: true)
+    guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
+      self.navigationController.showTopBannerView(
+        with: "Sign in required".toBeLocalised(),
+        message: "You must sign in to use subscription token feature".toBeLocalised(),
+        time: 1.5
+      )
+      return
+    }
+    let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
+    self.navigationController.displayLoading()
+    provider.request(.getListSubscriptionTokens(accessToken: accessToken)) { (result) in
+      self.navigationController.hideLoading()
+      switch result {
+      case .success(let response):
+        do {
+          _ = try response.filterSuccessfulStatusCodes()
+          let json = try response.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+          let success = json["success"] as? Bool ?? false
+          let data = json["data"] as? [[String: String]] ?? []
+          if success {
+            let symbols = data.map { $0["symbol"] ?? "" }
+            let tokenSymbols: [String] = {
+              return self.tokens.sorted(by: {
+                if $0.isSupported && !$1.isSupported { return true }
+                if !$0.isSupported && $1.isSupported { return false }
+                return $0.value > $1.value
+              }).map({ return $0.symbol })
+            }()
+            let viewModel = KNNotificationSettingViewModel(tokens: tokenSymbols, selected: symbols)
+            let viewController = KNNotificationSettingViewController(viewModel: viewModel)
+            self.navigationController.pushViewController(viewController, animated: true)
+          } else {
+            self.navigationController.showTopBannerView(with: "Error", message: "Something went wrong, please try again", time: 1.5)
+          }
+        } catch {
+          self.navigationController.showTopBannerView(with: "Error", message: "Something went wrong, please try again", time: 1.5)
+        }
+      case .failure:
+        self.navigationController.showTopBannerView(with: "Error", message: "Something went wrong, please try again", time: 1.5)
+      }
+    }
   }
 
   fileprivate func updateCurrentWallet(_ wallet: KNWalletObject) {
