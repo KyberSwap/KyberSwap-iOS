@@ -754,6 +754,19 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     self.delegate?.exchangeTokenCoordinatorDidSelectAddWallet()
   }
 
+  fileprivate func openNotificationSettingScreen() {
+    let tokenSymbols: [String] = {
+      return self.tokens.sorted(by: {
+        if $0.isSupported && !$1.isSupported { return true }
+        if !$0.isSupported && $1.isSupported { return false }
+        return $0.value > $1.value
+      }).map({ return $0.symbol })
+    }()
+    let viewModel = KNNotificationSettingViewModel(tokens: tokenSymbols)
+    let viewController = KNNotificationSettingViewController(viewModel: viewModel)
+    self.navigationController.pushViewController(viewController, animated: true)
+  }
+
   fileprivate func updateCurrentWallet(_ wallet: KNWalletObject) {
     self.delegate?.exchangeTokenCoordinatorDidSelectWallet(wallet)
   }
@@ -851,6 +864,8 @@ extension KNExchangeTokenCoordinator: KNListNotificationViewControllerDelegate {
     case .openManageOrder:
       if IEOUserStorage.shared.user == nil { return }
       self.delegate?.exchangeTokenCoordinatorOpenManageOrder()
+    case .openSetting:
+      self.openNotificationSettingScreen()
     }
   }
 }

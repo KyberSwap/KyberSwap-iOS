@@ -543,6 +543,9 @@
 		8B67BA07556BB623E015CA60 /* Pods_KyberNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A95682795E696525B3A48A /* Pods_KyberNetwork.framework */; };
 		938288E2ED2CF2CECDBAEA28 /* Pods_KyberNetworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
+		C31B1DC2241A375E000A0C0A /* KNNotificationSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31B1DC0241A375D000A0C0A /* KNNotificationSettingViewController.swift */; };
+		C31B1DC3241A375E000A0C0A /* KNNotificationSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C31B1DC1241A375D000A0C0A /* KNNotificationSettingViewController.xib */; };
+		C31B1DC6241B33E3000A0C0A /* KNNotificationSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31B1DC5241B33E3000A0C0A /* KNNotificationSettingViewModel.swift */; };
 		C31F152923F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31F152723F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift */; };
 		C31F152A23F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C31F152823F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib */; };
 		C31F152C23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31F152B23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift */; };
@@ -1164,6 +1167,9 @@
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
+		C31B1DC0241A375D000A0C0A /* KNNotificationSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotificationSettingViewController.swift; sourceTree = "<group>"; };
+		C31B1DC1241A375D000A0C0A /* KNNotificationSettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNNotificationSettingViewController.xib; sourceTree = "<group>"; };
+		C31B1DC5241B33E3000A0C0A /* KNNotificationSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotificationSettingViewModel.swift; sourceTree = "<group>"; };
 		C31F152723F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpCustomGasSelectViewController.swift; sourceTree = "<group>"; };
 		C31F152823F549F6006CCACE /* SpeedUpCustomGasSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpeedUpCustomGasSelectViewController.xib; sourceTree = "<group>"; };
 		C31F152B23F54A21006CCACE /* SpeedUpCustomGasSelectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedUpCustomGasSelectViewModel.swift; sourceTree = "<group>"; };
@@ -2167,6 +2173,7 @@
 		25696F4720BD0ED5002CC53F /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				C31B1DBE241A3692000A0C0A /* NotificationSetting */,
 				C6B4CA2623CC47C40049C843 /* TransferConsent */,
 				C6AA667723A761860050C610 /* Notifications */,
 				258BF6A5230689EF00988EDD /* AllowCamera */,
@@ -3865,6 +3872,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C31B1DBE241A3692000A0C0A /* NotificationSetting */ = {
+			isa = PBXGroup;
+			children = (
+				C31B1DC4241B33CB000A0C0A /* ViewModel */,
+				C31B1DBF241A3729000A0C0A /* Controller */,
+			);
+			path = NotificationSetting;
+			sourceTree = "<group>";
+		};
+		C31B1DBF241A3729000A0C0A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C31B1DC0241A375D000A0C0A /* KNNotificationSettingViewController.swift */,
+				C31B1DC1241A375D000A0C0A /* KNNotificationSettingViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C31B1DC4241B33CB000A0C0A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C31B1DC5241B33E3000A0C0A /* KNNotificationSettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		C31F152423F538D9006CCACE /* Speedup */ = {
 			isa = PBXGroup;
 			children = (
@@ -4268,6 +4301,7 @@
 				25C45AE720AEB4A700CDA1FF /* KNEnterWalletNameViewController.xib in Resources */,
 				25929C9420DA5CC10045CFA3 /* SFCompactText-MediumItalic.otf in Resources */,
 				25073D1F211AF20D00833C92 /* Montserrat-Black.ttf in Resources */,
+				C31B1DC3241A375E000A0C0A /* KNNotificationSettingViewController.xib in Resources */,
 				25929C6920DA5C760045CFA3 /* SF-Pro-Display-HeavyItalic.otf in Resources */,
 				251E22672271CBF40038679C /* KNTransactionFilterViewController.xib in Resources */,
 				25929C5A20DA5C760045CFA3 /* SF-Pro-Display-Ultralight.otf in Resources */,
@@ -4637,6 +4671,7 @@
 				254A88BA229BDC5300AA6BBA /* KNLimitOrderTokenTableViewCell.swift in Sources */,
 				C6AA667D23A764620050C610 /* KNNotificationStorage.swift in Sources */,
 				25BA01CE20BFEBA700053863 /* KNTransactionStatusView.swift in Sources */,
+				C31B1DC2241A375E000A0C0A /* KNNotificationSettingViewController.swift in Sources */,
 				25A6AEBC20A96CEA00DCDA88 /* KNBalanceTabCoordinator.swift in Sources */,
 				2546C6D7221185640076E52B /* TransactionItemState.swift in Sources */,
 				25F96F7B215373DB00D7F927 /* KNDocumentPhotoInfoPopUp.swift in Sources */,
@@ -4689,6 +4724,7 @@
 				25F9C7672213D0D20001064D /* UIColor.swift in Sources */,
 				25CC0AAE205918900009D0D5 /* KyberNetworkService.swift in Sources */,
 				25E9E1F1208DE40F00A9090D /* KNEstimateGasLimitRequest.swift in Sources */,
+				C31B1DC6241B33E3000A0C0A /* KNNotificationSettingViewModel.swift in Sources */,
 				2545C8F12223F3AB00CA99C5 /* KNManageAlertCoordinator.swift in Sources */,
 				258711EA2227DA9900B5906C /* KNNotificationAlertPopupViewController.swift in Sources */,
 				29C70C7C201990540072E454 /* SendTransaction.swift in Sources */,

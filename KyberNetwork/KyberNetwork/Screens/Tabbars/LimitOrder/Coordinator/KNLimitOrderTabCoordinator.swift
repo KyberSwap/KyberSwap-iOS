@@ -619,6 +619,19 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
   fileprivate func openAddWalletView() {
     self.delegate?.limitOrderTabCoordinatorDidSelectAddWallet()
   }
+  
+  fileprivate func openNotificationSettingScreen() {
+    let tokenSymbols: [String] = {
+      return self.tokens.sorted(by: {
+        if $0.isSupported && !$1.isSupported { return true }
+        if !$0.isSupported && $1.isSupported { return false }
+        return $0.value > $1.value
+      }).map({ return $0.symbol })
+    }()
+    let viewModel = KNNotificationSettingViewModel(tokens: tokenSymbols)
+    let viewController = KNNotificationSettingViewController(viewModel: viewModel)
+    self.navigationController.pushViewController(viewController, animated: true)
+  }
 
   fileprivate func updateCurrentWallet(_ wallet: KNWalletObject) {
     self.delegate?.limitOrderTabCoordinatorDidSelectWallet(wallet)
@@ -952,6 +965,8 @@ extension KNLimitOrderTabCoordinator: KNListNotificationViewControllerDelegate {
       self.navigationController.popToRootViewController(animated: true) {
         self.appCoordinatorOpenManageOrder()
       }
+    case .openSetting:
+      self.openNotificationSettingScreen()
     }
   }
 }

@@ -292,6 +292,19 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     self.tokenChartCoordinator?.delegate = self
     self.tokenChartCoordinator?.start()
   }
+  
+  fileprivate func openNotificationSettingScreen() {
+    let tokenSymbols: [String] = {
+      return KNSupportedTokenStorage.shared.supportedTokens.sorted(by: {
+        if $0.isSupported && !$1.isSupported { return true }
+        if !$0.isSupported && $1.isSupported { return false }
+        return $0.value > $1.value
+      }).map({ return $0.symbol })
+    }()
+    let viewModel = KNNotificationSettingViewModel(tokens: tokenSymbols)
+    let viewController = KNNotificationSettingViewController(viewModel: viewModel)
+    self.navigationController.pushViewController(viewController, animated: true)
+  }
 
   func hamburgerMenu(select walletObject: KNWalletObject) {
     self.delegate?.balanceTabCoordinatorDidSelect(walletObject: walletObject)
@@ -415,6 +428,8 @@ extension KNBalanceTabCoordinator: KNListNotificationViewControllerDelegate {
     case .openManageOrder:
       if IEOUserStorage.shared.user == nil { return }
       self.delegate?.balanceTabCoordinatorOpenManageOrder()
+    case .openSetting:
+      self.openNotificationSettingScreen()
     }
   }
 }

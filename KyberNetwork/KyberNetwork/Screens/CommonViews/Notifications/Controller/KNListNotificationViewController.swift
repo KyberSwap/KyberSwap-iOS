@@ -5,6 +5,7 @@ import UIKit
 enum KNListNotificationViewEvent {
   case openSwap(from: String, to: String)
   case openManageOrder
+  case openSetting
 }
 
 protocol KNListNotificationViewControllerDelegate: class {
@@ -27,6 +28,7 @@ class KNListNotificationViewController: KNBaseViewController {
 
   @IBOutlet weak var emptyStateContainerView: UIView!
   @IBOutlet weak var noNotificationsTextLabel: UILabel!
+  @IBOutlet weak var settingButton: UIButton!
 
   fileprivate let viewModel = KNListNotificationViewModel()
 
@@ -138,6 +140,11 @@ class KNListNotificationViewController: KNBaseViewController {
       }
     }
   }
+  
+  @IBAction func settingButtonPressed(_ sender: Any) {
+    self.delegate?.listNotificationViewController(self, run: .openSetting)
+  }
+  
 }
 
 extension KNListNotificationViewController: UITableViewDelegate {
