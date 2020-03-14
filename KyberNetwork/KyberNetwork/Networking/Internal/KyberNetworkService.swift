@@ -209,7 +209,7 @@ extension UserInfoService: TargetType {
     case .togglePriceNotification:
       return URL(string: "\(baseString)/api/users/toggle_price_noti")!
     case .updateListSubscriptionTokens:
-      return URL(string: "\(baseString)/api/users/toggle_price_noti")!
+      return URL(string: "\(baseString)/api/users/subscription_tokens")!
     }
   }
 
@@ -267,11 +267,11 @@ extension UserInfoService: TargetType {
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
     case .togglePriceNotification(_, let state):
-      let json = ["price_noti" : state]
+      let json = ["price_noti": state]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
     case .updateListSubscriptionTokens(_, let symbols):
-      let json = ["list_token_symbol" : symbols]
+      let json = ["list_token_symbol": symbols]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
     }
