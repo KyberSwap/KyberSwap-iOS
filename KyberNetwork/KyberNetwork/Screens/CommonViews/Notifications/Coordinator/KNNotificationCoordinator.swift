@@ -108,4 +108,67 @@ class KNNotificationCoordinator: NSObject {
       }
     }
   }
+
+  func toggleSubscriptionTokens(state: Bool, completion: @escaping (String?) -> Void) {
+    guard IEOUserStorage.shared.user != nil, let accessToken = IEOUserStorage.shared.user?.accessToken else {
+      completion("You must sign in to use subscription token feature".toBeLocalised())
+      return
+    }
+    DispatchQueue.global(qos: .background).async {
+      self.provider.request(.togglePriceNotification(accessToken: accessToken, state: state)) { (result) in
+        DispatchQueue.main.async {
+          switch result {
+          case .success(let data):
+            do {
+              let _ = try data.filterSuccessfulStatusCodes()
+              let json = try data.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+              let success = json["success"] as? Bool ?? false
+              if success {
+                UserDefaults.standard.set(state, forKey: kSubcriptionTokenEnable)
+                completion(nil)
+              } else {
+                let message = json["message"] as? String ?? NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
+                completion(message)
+              }
+            } catch {
+              completion(NSLocalizedString("can.not.decode.data", value: "Can not decode data", comment: ""))
+            }
+          case .failure(let error):
+            completion(error.prettyError)
+          }
+        }
+      }
+    }
+  }
+
+  func updateListSubscriptionTokens(symbols: [String], completion: @escaping (String?) -> Void) {
+    guard IEOUserStorage.shared.user != nil, let accessToken = IEOUserStorage.shared.user?.accessToken else {
+      completion("You must sign in to use subscription token feature".toBeLocalised())
+      return
+    }
+    DispatchQueue.global(qos: .background).async {
+      self.provider.request(.updateListSubscriptionTokens(accessToken: accessToken, symbols: symbols)) { (result) in
+        DispatchQueue.main.async {
+          switch result {
+          case .success(let data):
+            do {
+              let _ = try data.filterSuccessfulStatusCodes()
+              let json = try data.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+              let success = json["success"] as? Bool ?? false
+              if success {
+                completion(nil)
+              } else {
+                let message = json["message"] as? String ?? NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
+                completion(message)
+              }
+            } catch {
+              completion(NSLocalizedString("can.not.decode.data", value: "Can not decode data", comment: ""))
+            }
+          case .failure(let error):
+            completion(error.prettyError)
+          }
+        }
+      }
+    }
+  }
 }

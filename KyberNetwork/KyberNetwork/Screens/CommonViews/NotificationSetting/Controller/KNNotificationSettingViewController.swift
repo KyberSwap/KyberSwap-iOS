@@ -59,6 +59,9 @@ class KNNotificationSettingViewController: KNBaseViewController {
     self.tokensTableView.dataSource = self
     self.tokensTableView.reloadData()
     self.tokensTableView.allowsSelection = false
+    if let switchEnable = UserDefaults.standard.object(forKey: kSubcriptionTokenEnable) as? Bool {
+      self.subcribeTokenSwitch.isOn = switchEnable
+    }
   }
 
   override func viewDidLayoutSubviews() {
@@ -89,14 +92,39 @@ class KNNotificationSettingViewController: KNBaseViewController {
 
   @IBAction func toggleSubcribeTokenSwitch(_ sender: UISwitch) {
     let state = sender.isOn
+    self.displayLoading()
+    KNNotificationCoordinator.shared.toggleSubscriptionTokens(state: state) { (message) in
+      self.hideLoading()
+      if let errorMessage = message {
+        sender.isOn = !state
+        self.showTopBannerView(
+          with: "error".toBeLocalised(),
+          message: errorMessage,
+          time: 1.5
+        )
+      }
+    }
   }
 
   @IBAction func resetButtonPressed(_ sender: Any) {
-    
+    self.viewModel.resetTokens()
+    self.updateUI()
   }
-  
-  @IBAction func applyButtonPressed(_ sender: Any) {
 
+  @IBAction func applyButtonPressed(_ sender: Any) {
+    self.displayLoading()
+    KNNotificationCoordinator.shared.updateListSubscriptionTokens(symbols: self.viewModel.tokens) { (message) in
+      self.hideLoading()
+      if let errorMessage = message {
+        self.showTopBannerView(
+          with: "error".toBeLocalised(),
+          message: errorMessage,
+          time: 1.5
+        )
+      } else {
+        self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
+      }
+    }
   }
 }
 

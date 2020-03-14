@@ -165,6 +165,7 @@ enum UserInfoService {
   case deleteAllTriggerdAlerts(accessToken: String)
   case getListSubscriptionTokens(accessToken: String)
   case togglePriceNotification(accessToken: String, state: Bool)
+  case updateListSubscriptionTokens(accessToken: String, symbols: [String])
 }
 
 extension UserInfoService: MoyaCacheable {
@@ -206,6 +207,8 @@ extension UserInfoService: TargetType {
     case .getListSubscriptionTokens:
       return URL(string: "\(baseString)/api/users/subscription_tokens")!
     case .togglePriceNotification:
+      return URL(string: "\(baseString)/api/users/toggle_price_noti")!
+    case .updateListSubscriptionTokens:
       return URL(string: "\(baseString)/api/users/toggle_price_noti")!
     }
   }
@@ -267,6 +270,10 @@ extension UserInfoService: TargetType {
       let json = ["price_noti" : state]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
+    case .updateListSubscriptionTokens(_, let symbols):
+      let json = ["list_token_symbol" : symbols]
+      let data = try! JSONSerialization.data(withJSONObject: json, options: [])
+      return .requestData(data)
     }
   }
   var sampleData: Data { return Data() }
@@ -308,6 +315,8 @@ extension UserInfoService: TargetType {
     case .getListSubscriptionTokens(let accessToken):
       json["Authorization"] = accessToken
     case .togglePriceNotification(let accessToken, _):
+      json["Authorization"] = accessToken
+    case .updateListSubscriptionTokens(let accessToken, _):
       json["Authorization"] = accessToken
     }
     return json

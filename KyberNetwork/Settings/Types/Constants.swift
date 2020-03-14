@@ -2,6 +2,8 @@
 
 import Foundation
 
+let kSubcriptionTokenEnable = "kSubcriptionTokenEnable"
+
 public struct Constants {
     public static let keychainKeyPrefix = "com.kyberswap.ios"
     public static let transactionIsLost = "is_lost"

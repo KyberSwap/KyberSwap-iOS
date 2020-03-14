@@ -140,11 +140,10 @@ class KNListNotificationViewController: KNBaseViewController {
       }
     }
   }
-  
+
   @IBAction func settingButtonPressed(_ sender: Any) {
     self.delegate?.listNotificationViewController(self, run: .openSetting)
   }
-  
 }
 
 extension KNListNotificationViewController: UITableViewDelegate {

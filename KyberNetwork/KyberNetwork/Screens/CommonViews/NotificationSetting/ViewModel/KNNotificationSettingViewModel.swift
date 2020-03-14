@@ -6,10 +6,12 @@ class KNNotificationSettingViewModel {
   var isSeeMore: Bool = false
   private(set) var tokens: [String]
   private(set) var supportedTokens: [String]
+  private let original: [String]
 
   init(tokens: [String], selected: [String]) {
     self.supportedTokens = tokens
     self.tokens = selected
+    self.original = selected
   }
 
   func selectTokenSymbol(_ symbol: String) {
@@ -34,5 +36,10 @@ class KNNotificationSettingViewModel {
 
   func updateTokens(_ tokens: [String]) {
     self.tokens = tokens
+  }
+
+  func resetTokens() {
+    self.tokens = self.original
+    self.isSeeMore = false
   }
 }
