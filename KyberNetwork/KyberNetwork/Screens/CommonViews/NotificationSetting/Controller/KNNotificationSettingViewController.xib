@@ -31,6 +31,12 @@
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="separatorViews" destination="vjh-AQ-EFq" collectionClass="NSMutableArray" id="Oue-Mg-fiD"/>
                 <outletCollection property="separatorViews" destination="NqI-um-GCr" collectionClass="NSMutableArray" id="QGm-vZ-eOt"/>
+                <outletCollection property="formViews" destination="yK3-Iv-sqi" collectionClass="NSMutableArray" id="YC5-jV-8ma"/>
+                <outletCollection property="formViews" destination="Fkd-Gu-ReX" collectionClass="NSMutableArray" id="rpZ-ED-hcl"/>
+                <outletCollection property="formViews" destination="9kR-iE-yU9" collectionClass="NSMutableArray" id="Fqv-Hh-95Y"/>
+                <outletCollection property="formViews" destination="NqI-um-GCr" collectionClass="NSMutableArray" id="Jp3-Uw-1tF"/>
+                <outletCollection property="formViews" destination="SqL-lS-Q1c" collectionClass="NSMutableArray" id="yGf-81-Cnb"/>
+                <outletCollection property="formViews" destination="KSe-iy-AIW" collectionClass="NSMutableArray" id="vPb-XY-qij"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

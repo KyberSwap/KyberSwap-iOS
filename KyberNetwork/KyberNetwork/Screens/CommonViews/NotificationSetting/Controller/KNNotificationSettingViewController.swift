@@ -16,6 +16,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
   @IBOutlet weak var tokenTextLabel: UILabel!
   @IBOutlet weak var enableSubcribeTokenTextLabel: UILabel!
   @IBOutlet weak var subcribeTokenSwitch: UISwitch!
+  @IBOutlet var formViews: [UIView]!
 
   init(viewModel: KNNotificationSettingViewModel) {
     self.viewModel = viewModel
@@ -56,6 +57,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
     self.tokensTableView.allowsSelection = false
     if let switchEnable = UserDefaults.standard.object(forKey: kSubcriptionTokenEnable) as? Bool {
       self.subcribeTokenSwitch.isOn = switchEnable
+      self.hideFormViews(!switchEnable)
     }
   }
 
@@ -82,6 +84,12 @@ class KNNotificationSettingViewController: KNBaseViewController {
     self.tokensTableView.reloadData()
   }
 
+  fileprivate func hideFormViews(_ hidden: Bool) {
+    for view in self.formViews {
+      view.isHidden = hidden
+    }
+  }
+
   @IBAction func backButtonPressed(_ sender: Any) {
     self.navigationController?.popViewController(animated: true)
   }
@@ -99,6 +107,8 @@ class KNNotificationSettingViewController: KNBaseViewController {
       if let errorMessage = message {
         sender.isOn = !state
         self.showErrorTopBannerMessage(message: errorMessage)
+      } else {
+        self.hideFormViews(!state)
       }
     }
   }
