@@ -678,3 +678,5 @@
 "Delete all triggered alerts successfully" = "Delete all triggered alerts successfully";
 "Do you want to delete all triggered alerts?" = "Do you want to delete all triggered alerts?";
 "Failed to delete alerts, please try again later" = "Failed to delete alerts, please try again later";
+"Updated subscription tokens" = "Updated subscription tokens";
+"You must sign in to use subscription token feature" = "You must sign in to use subscription token feature";

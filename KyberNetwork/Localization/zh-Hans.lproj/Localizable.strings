@@ -680,3 +680,5 @@
 "Delete all triggered alerts successfully" = "成功删除所有触发的警报。";
 "Do you want to delete all triggered alerts?" = "是否要删除所有触发的警报？";
 "Failed to delete alerts, please try again later" = "Failed to delete alerts, please try again later";
+"Updated subscription tokens" = "Updated subscription tokens";
+"You must sign in to use subscription token feature" = "You must sign in to use subscription token feature";

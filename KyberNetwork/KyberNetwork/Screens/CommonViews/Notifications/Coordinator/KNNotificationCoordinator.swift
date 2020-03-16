@@ -171,4 +171,38 @@ class KNNotificationCoordinator: NSObject {
       }
     }
   }
+
+  func getListSubcriptionTokens(completion: @escaping (String?, [String]?) -> Void) {
+    guard IEOUserStorage.shared.user != nil, let accessToken = IEOUserStorage.shared.user?.accessToken else {
+      completion("You must sign in to use subscription token feature".toBeLocalised(), nil)
+      return
+    }
+
+    DispatchQueue.global(qos: .background).async {
+      self.provider.request(.getListSubscriptionTokens(accessToken: accessToken)) { (result) in
+        DispatchQueue.main.async {
+          switch result {
+          case .success(let response):
+            do {
+              _ = try response.filterSuccessfulStatusCodes()
+              let json = try response.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+              let success = json["success"] as? Bool ?? false
+              let data = json["data"] as? [[String: String]] ?? []
+              if success {
+                let symbols = data.map { $0["symbol"] ?? "" }
+                completion(nil, symbols)
+              } else {
+                let message = json["message"] as? String ?? NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
+                completion(message, nil)
+              }
+            } catch {
+              completion(NSLocalizedString("can.not.decode.data", value: "Can not decode data", comment: ""), nil)
+            }
+          case .failure(let error):
+            completion(error.prettyError, nil)
+          }
+        }
+      }
+    }
+  }
 }

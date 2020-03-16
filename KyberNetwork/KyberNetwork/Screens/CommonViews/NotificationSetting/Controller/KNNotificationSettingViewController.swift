@@ -1,9 +1,4 @@
-//
-//  KNNotificationSettingViewController.swift
-//  KyberNetwork
-//
-//  Created by Ta Minh Quan on 3/12/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
 
@@ -74,6 +69,12 @@ class KNNotificationSettingViewController: KNBaseViewController {
   }
 
   fileprivate func updateUI() {
+    let btnTitle: String = self.viewModel.isSeeMore ? NSLocalizedString("see.less", value: "See less", comment: "") : NSLocalizedString("see.more", value: "See more", comment: "")
+    self.tokensViewActionButton.setTitle(
+      btnTitle,
+      for: .normal
+    )
+
     self.tokensTableViewHeightConstraint.constant = {
       let numberRows = self.viewModel.isSeeMore ? (self.viewModel.supportedTokens.count + 3) / 4 : 3
       return CGFloat(numberRows) * self.tokensTableView.rowHeight
@@ -97,11 +98,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
       self.hideLoading()
       if let errorMessage = message {
         sender.isOn = !state
-        self.showTopBannerView(
-          with: "error".toBeLocalised(),
-          message: errorMessage,
-          time: 1.5
-        )
+        self.showErrorTopBannerMessage(message: errorMessage)
       }
     }
   }
@@ -116,11 +113,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
     KNNotificationCoordinator.shared.updateListSubscriptionTokens(symbols: self.viewModel.tokens) { (message) in
       self.hideLoading()
       if let errorMessage = message {
-        self.showTopBannerView(
-          with: "error".toBeLocalised(),
-          message: errorMessage,
-          time: 1.5
-        )
+        self.showErrorTopBannerMessage(message: errorMessage)
       } else {
         self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
       }
