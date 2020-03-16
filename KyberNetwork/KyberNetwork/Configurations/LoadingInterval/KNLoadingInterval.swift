@@ -5,6 +5,7 @@ import Foundation
 class KNLoadingInterval {
 
   static let defaultLoadingInterval: TimeInterval = 10.0
+  static let defaultLoadingMaxGasPrice: TimeInterval = 10.0 * 60.0
   static let cacheRateLoadingInterval: TimeInterval = 30.0
   static let loadingBalance: TimeInterval = 15.0
   static let loadingCoinTickerInterval: TimeInterval = 60.0
