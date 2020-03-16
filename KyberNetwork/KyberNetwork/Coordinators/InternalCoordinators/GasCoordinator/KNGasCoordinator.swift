@@ -26,11 +26,7 @@ class KNGasCoordinator {
   var lowKNGas: BigInt = KNGasConfiguration.gasPriceMin
   var fastKNGas: BigInt = KNGasConfiguration.gasPriceMax
   var superFastKNGas: BigInt {
-    if fastKNGas < EtherNumberFormatter.full.number(from: "10", units: UnitConfiguration.gasPriceUnit)! {
-      return KNGasConfiguration.gasPriceMax // 20 gwei
-    }
-    let maxGas = EtherNumberFormatter.full.number(from: "100", units: UnitConfiguration.gasPriceUnit)!
-    return min(fastKNGas * BigInt(2), maxGas)
+    return min(fastKNGas * BigInt(2), self.maxKNGas)
   }
 
   var maxKNGas: BigInt = KNGasConfiguration.gasPriceMax
