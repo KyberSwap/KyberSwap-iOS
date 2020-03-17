@@ -42,6 +42,7 @@ target 'KyberNetwork' do
   pod 'Firebase/Analytics'
   pod 'Firebase/RemoteConfig'
   pod 'SwipeCellKit'
+  pod 'Charts'
 
   target 'KyberNetworkTests' do
     inherit! :search_paths

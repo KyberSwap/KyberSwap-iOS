@@ -27,28 +27,40 @@ class KNGasCoordinator {
   var fastKNGas: BigInt = KNGasConfiguration.gasPriceMax
   var superFastKNGas: BigInt {
     if fastKNGas < EtherNumberFormatter.full.number(from: "10", units: UnitConfiguration.gasPriceUnit)! {
-      return KNGasConfiguration.gasPriceMax // 20 gwei
+      return EtherNumberFormatter.full.number(from: "20", units: UnitConfiguration.gasPriceUnit)! // Min fask gas
     }
-    let maxGas = EtherNumberFormatter.full.number(from: "100", units: UnitConfiguration.gasPriceUnit)!
-    return min(fastKNGas * BigInt(2), maxGas)
+    return min(fastKNGas * BigInt(2), self.maxKNGas)
   }
 
   var maxKNGas: BigInt = KNGasConfiguration.gasPriceMax
 
   fileprivate var knGasPriceFetchTimer: Timer?
   fileprivate var isLoadingGasPrice: Bool = false
+  fileprivate var knMaxGasPriceFetchTimer: Timer?
+  fileprivate var isLoadingMaxGasPrice: Bool = false
 
   init() {}
 
   func resume() {
     knGasPriceFetchTimer?.invalidate()
+    knMaxGasPriceFetchTimer?.invalidate()
     isLoadingGasPrice = false
+    isLoadingMaxGasPrice = false
     fetchKNGasPrice(nil)
+    fetchKNMaxGasPrice(nil)
 
     knGasPriceFetchTimer = Timer.scheduledTimer(
       timeInterval: KNLoadingInterval.defaultLoadingInterval,
       target: self,
       selector: #selector(fetchKNGasPrice(_:)),
+      userInfo: nil,
+      repeats: true
+    )
+
+    knMaxGasPriceFetchTimer = Timer.scheduledTimer(
+      timeInterval: KNLoadingInterval.defaultLoadingMaxGasPrice,
+      target: self,
+      selector: #selector(fetchKNMaxGasPrice(_:)),
       userInfo: nil,
       repeats: true
     )
@@ -58,6 +70,9 @@ class KNGasCoordinator {
     knGasPriceFetchTimer?.invalidate()
     knGasPriceFetchTimer = nil
     isLoadingGasPrice = true
+    knMaxGasPriceFetchTimer?.invalidate()
+    knGasPriceFetchTimer = nil
+    isLoadingMaxGasPrice = true
   }
 
   @objc func fetchKNGasPrice(_ sender: Timer?) {
@@ -76,16 +91,41 @@ class KNGasCoordinator {
     }
   }
 
+  @objc func fetchKNMaxGasPrice(_ sender: Timer?) {
+    if isLoadingMaxGasPrice { return }
+    isLoadingMaxGasPrice = true
+    DispatchQueue.global(qos: .background).async {
+      KNInternalProvider.shared.getKNCachedMaxGasPrice { [weak self] (result) in
+        guard let `self` = self else { return }
+        DispatchQueue.main.async {
+          self.isLoadingMaxGasPrice = false
+          if case .success(let data) = result {
+            self.updateMaxGasPrice(dataJSON: data)
+          }
+        }
+      }
+    }
+  }
+
   fileprivate func updateGasPrice(dataJSON: JSONDictionary) throws {
     guard let data = dataJSON["data"] as? JSONDictionary else { return }
     let stringDefault: String = data["default"] as? String ?? ""
-    self.defaultKNGas = stringDefault.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.defaultKNGas
+    let updateKNGas = stringDefault.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.defaultKNGas
+    self.defaultKNGas = min(updateKNGas, self.maxKNGas)
     let stringLow: String = data["low"] as? String ?? ""
-    self.lowKNGas = stringLow.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.lowKNGas
+    let updateLowKNGas = stringLow.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.lowKNGas
+    self.lowKNGas = min(updateLowKNGas, self.maxKNGas)
     let stringStandard: String = data["standard"] as? String ?? ""
-    self.standardKNGas = stringStandard.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.standardKNGas
+    let updateStandardKNGas = stringStandard.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.standardKNGas
+    self.standardKNGas = min(updateStandardKNGas, self.maxKNGas)
     let stringFast: String = data["fast"] as? String ?? ""
-    self.fastKNGas = stringFast.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.fastKNGas
+    let updateFastKNGas = stringFast.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.fastKNGas
+    self.fastKNGas = min(updateFastKNGas, self.maxKNGas)
     KNNotificationUtil.postNotification(for: kGasPriceDidUpdateNotificationKey)
+  }
+
+  fileprivate func updateMaxGasPrice(dataJSON: JSONDictionary) {
+    guard let data = dataJSON["data"] as? String else { return }
+    self.maxKNGas = data.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? KNGasConfiguration.gasPriceMax
   }
 }

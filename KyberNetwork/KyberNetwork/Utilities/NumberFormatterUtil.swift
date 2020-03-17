@@ -38,6 +38,14 @@ class NumberFormatterUtil {
     return formatter
   }()
 
+  lazy var doubleFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = NumberFormatter.Style.decimal
+    formatter.roundingMode = NumberFormatter.RoundingMode.halfUp
+    formatter.maximumFractionDigits = 4
+    return formatter
+  }()
+
   func displayPercentage(from number: Double) -> String {
     return self.percentageFormatter.string(from: NSNumber(value: number)) ?? "0.00"
   }

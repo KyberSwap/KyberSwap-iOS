@@ -4,8 +4,8 @@ import UIKit
 import Moya
 import Result
 import BigInt
-import SwiftChart
 import EasyTipView
+import Charts
 
 enum KNTokenChartType: Int {
   case day = 0
@@ -53,6 +53,14 @@ enum KNTokenChartType: Int {
   func label(for time: Double) -> String {
     let date = Date(timeIntervalSince1970: time)
     return self.dateFormatter.string(from: date)
+  }
+
+  var scaleUnit: Double {
+    switch self {
+    case .day: return 15 * 60
+    case .week, .month: return 60 * 60
+    case .year, .all: return 24 * 60 * 60
+    }
   }
 }
 
@@ -238,27 +246,46 @@ class KNTokenChartViewModel {
     }
   }
 
-  var displayDataSeries: ChartSeries {
+  var scaleXFactor: CGFloat {
+    //Test on device see that with 96 element and scale x = 3 is look good so use this value to calculate the scale factor base on number of element
+    let unitScale = 96
+    let totalCount = self.data.count
+    return CGFloat(totalCount * 3 / unitScale)
+  }
+
+  var displayChartData: CandleChartData {
     if let object = self.data.first {
       self.data = self.data.filter({ return $0.time >= self.type.fromTime(for: object.time) })
     }
     guard let first = self.data.first else {
-      return ChartSeries(data: [(x: 0, y: 0)])
+      return CandleChartData(dataSet: nil)
     }
-    let data = self.data.map {
-      return (x: Double($0.time - first.time) / (15.0 * 60.0), y: $0.close)
+    let candleStickEntries = self.data.map { (element) -> CandleChartDataEntry in
+      let xAxis = Double(element.time - first.time) / type.scaleUnit
+      return CandleChartDataEntry(x: xAxis, shadowH: element.high, shadowL: element.low, open: element.open, close: element.close)
     }
-    let series = ChartSeries(data: data)
-    series.color = UIColor.Kyber.blueGreen
-    series.area = true
-    return series
+    let set1 = CandleChartDataSet(entries: candleStickEntries, label: "Data Set")
+    set1.axisDependency = .left
+    set1.setColor(UIColor(white: 80/255, alpha: 1))
+    set1.drawIconsEnabled = false
+    set1.shadowColor = .darkGray
+    set1.shadowWidth = 0.7
+    set1.decreasingColor = UIColor.Kyber.red
+    set1.decreasingFilled = true
+    set1.increasingColor = UIColor.Kyber.green
+    set1.increasingFilled = true
+    set1.neutralColor = .blue
+    set1.drawValuesEnabled = false
+
+    let candleStickData = CandleChartData(dataSet: set1)
+    return candleStickData
   }
 
   var xDoubleLabels: [Double] {
     guard let first = self.data.first else {
       return []
     }
-    let data = self.data.map { return Double($0.time - first.time) / (15.0 * 60.0) }
+    let data = self.data.map { return Double($0.time - first.time) / type.scaleUnit }
     return data
   }
 
@@ -388,7 +415,6 @@ class KNTokenChartViewController: KNBaseViewController {
   @IBOutlet weak var totalValueLabel: UILabel!
   @IBOutlet weak var totalUSDValueLabel: UILabel!
 
-  @IBOutlet weak var priceChart: Chart!
   @IBOutlet weak var noDataLabel: UILabel!
   @IBOutlet weak var iconImageView: UIImageView!
   @IBOutlet weak var addAlertButton: UIButton!
@@ -406,6 +432,7 @@ class KNTokenChartViewController: KNBaseViewController {
   fileprivate var timer: Timer?
   @IBOutlet weak var touchPriceLabel: UILabel!
   @IBOutlet weak var leftPaddingForTouchPriceLabelConstraint: NSLayoutConstraint!
+  @IBOutlet weak var chartView: CandleStickChartView!
 
   lazy var preferences: EasyTipView.Preferences = {
     var preferences = EasyTipView.Preferences()
@@ -417,7 +444,6 @@ class KNTokenChartViewController: KNBaseViewController {
     return preferences
   }()
 
-  fileprivate var dataTipView: EasyTipView!
   fileprivate var sourceTipView: UIView!
   fileprivate func tipView(with value: Double, at index: Int, for type: KWalletCurrencyType) -> EasyTipView {
     let formatter: DateFormatter = {
@@ -501,14 +527,21 @@ class KNTokenChartViewController: KNBaseViewController {
     self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
     self.totalUSDValueLabel.addLetterSpacing()
 
-    self.touchPriceLabel.isHidden = true
-
-    self.priceChart.delegate = self
     self.noDataLabel.isHidden = false
 
-    self.priceChart.isHidden = true
-    self.priceChart.labelColor = UIColor.Kyber.mirage
-    self.priceChart.labelFont = UIFont.Kyber.medium(with: 12)
+    self.chartView.delegate = self
+    self.chartView.chartDescription?.enabled = false
+    self.chartView.autoScaleMinMaxEnabled = true
+    self.chartView.dragEnabled = true
+    self.chartView.setScaleEnabled(true)
+    self.chartView.maxVisibleCount = 200
+    self.chartView.pinchZoomEnabled = true
+    self.chartView.legend.enabled = false
+    self.chartView.rightAxis.labelFont = UIFont.Kyber.light(with: 10)
+    self.chartView.leftAxis.enabled = false
+    self.chartView.xAxis.labelPosition = .bottom
+    self.chartView.xAxis.labelFont = UIFont.Kyber.light(with: 10)
+    self.chartView.xAxis.valueFormatter = CustomAxisValueFormatter(.day)
 
     self.sendButton.rounded(
       color: UIColor.Kyber.border,
@@ -596,7 +629,6 @@ class KNTokenChartViewController: KNBaseViewController {
         radius: 4.0
       )
     }
-    if self.dataTipView != nil { self.dataTipView.dismiss() }
     self.reloadViewDataDidUpdate()
     self.startTimer()
   }
@@ -664,6 +696,16 @@ class KNTokenChartViewController: KNBaseViewController {
     }
   }
 
+  fileprivate func updateChartXAxisFormater(for type: KNTokenChartType, data: [KNChartObject]) {
+    guard let formatter = self.chartView.xAxis.valueFormatter as? CustomAxisValueFormatter else {
+      return
+    }
+    guard let first = self.viewModel.data.first else {
+      return
+    }
+    formatter.update(type: type, origin: first)
+  }
+
   fileprivate func startTimer() {
     self.stopTimer()
     // Immediately call fetch data
@@ -688,35 +730,76 @@ class KNTokenChartViewController: KNBaseViewController {
       self.noDataLabel.text = NSLocalizedString("no.data.for.this.token", value: "There is no data for this token", comment: "")
       self.noDataLabel.isHidden = false
       self.noDataLabel.addLetterSpacing()
-      self.priceChart.isHidden = true
-      if self.dataTipView != nil { self.dataTipView.dismiss() }
+      self.chartView.isHidden = true
     } else {
+      self.touchPriceLabel.isHidden = true
       self.noDataLabel.isHidden = true
-      self.priceChart.isHidden = false
-      self.priceChart.removeAllSeries()
-      self.priceChart.series = [self.viewModel.displayDataSeries]
-      self.priceChart.yLabels = self.viewModel.yDoubleLables
-      let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = min(9, self.viewModel.token.decimals)
-        formatter.minimumFractionDigits = 2
-        formatter.minimumIntegerDigits = 1
-        return formatter
-      }()
-      self.priceChart.yLabelsFormatter = { (_, value) in
-        let rate = numberFormatter.string(from: NSNumber(value: value)) ?? ""
-        return rate.displayRate()
+      self.chartView.clear()
+      self.chartView.rightAxis.removeAllLimitLines()
+      self.updateChartXAxisFormater(for: self.viewModel.type, data: self.viewModel.data)
+      self.chartView.isHidden = false
+      self.chartView.data = self.viewModel.displayChartData
+      self.addChartLimitLines()
+      self.updateChartInfoLabel()
+      if self.viewModel.type == .day || self.viewModel.type == .week {
+        self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.scaleXFactor, scaleY: 1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
+      } else {
+        self.chartView.zoomAndCenterViewAnimated(scaleX: 1, scaleY: 1, xValue: 1, yValue: 1, axis: .right, duration: 1)
       }
-      self.priceChart.xLabels = []
-      self.priceChart.setNeedsDisplay()
+      self.chartView.setNeedsLayout()
     }
     self.view.layoutIfNeeded()
+  }
+
+  func addChartLimitLines() {
+    let maxHigh = self.viewModel.data.map { $0.high }.max()
+    let minLow = self.viewModel.data.map { $0.low }.min()
+    guard let lower = minLow, let upper = maxHigh else {
+      return
+    }
+    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    let displayUpper = formatter.string(from: NSNumber(value: upper)) ?? ""
+    let ll1 = ChartLimitLine(limit: upper, label: "\u{2192}\(displayUpper)")
+    ll1.lineColor = UIColor.Kyber.orangeDarker
+    ll1.valueTextColor = UIColor.Kyber.orangeDarker
+    ll1.lineWidth = 1
+    ll1.lineDashLengths = [5, 5]
+    ll1.labelPosition = .topRight
+    ll1.valueFont = UIFont.Kyber.semiBold(with: 9)
+
+    let displayLower = formatter.string(from: NSNumber(value: lower)) ?? ""
+    let ll2 = ChartLimitLine(limit: lower, label: "\u{2192}\(displayLower)")
+    ll2.lineColor = UIColor.Kyber.orangeDarker
+    ll2.valueTextColor = UIColor.Kyber.orangeDarker
+    ll2.lineWidth = 1
+    ll2.lineDashLengths = [5, 5]
+    ll2.labelPosition = .bottomRight
+    ll2.valueFont = UIFont.Kyber.semiBold(with: 9)
+    self.chartView.rightAxis.addLimitLine(ll1)
+    self.chartView.rightAxis.addLimitLine(ll2)
   }
 
   func coordinatorUpdateRate() {
     self.ethRateLabel.attributedText = self.viewModel.rateAttributedString
     self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
     self.totalUSDValueLabel.addLetterSpacing()
+  }
+
+  fileprivate func updateChartInfoLabel() {
+    guard let last = self.viewModel.data.last else {
+      return
+    }
+    guard let first = self.viewModel.data.first else {
+      return
+    }
+    let time = Double(last.time - first.time) / self.viewModel.type.scaleUnit
+    let detailText = self.buildTextForData(openNumber: last.open,
+                                           highNumber: last.high,
+                                           lowNumber: last.low,
+                                           closeNumber: last.close,
+                                           timeStampNumber: time)
+    self.touchPriceLabel.attributedText = detailText
+    self.touchPriceLabel.isHidden = false
   }
 
   func coordinatorUpdateBalance(balance: [String: Balance]) {
@@ -729,33 +812,73 @@ class KNTokenChartViewController: KNBaseViewController {
       self.totalUSDValueLabel.addLetterSpacing()
     }
   }
+
+  fileprivate func buildTextForData(openNumber: Double, highNumber: Double, lowNumber: Double, closeNumber: Double, timeStampNumber: Double) -> NSAttributedString {
+    guard let first = self.viewModel.data.first else {
+      return NSAttributedString()
+    }
+    let attributedText = NSMutableAttributedString()
+    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    let open = formatter.string(from: NSNumber(value: openNumber)) ?? ""
+    let high = formatter.string(from: NSNumber(value: highNumber)) ?? ""
+    let close = formatter.string(from: NSNumber(value: closeNumber)) ?? ""
+    let low = formatter.string(from: NSNumber(value: lowNumber)) ?? ""
+    let timeStamp = timeStampNumber * self.viewModel.type.scaleUnit + Double(first.time)
+    let date = Date(timeIntervalSince1970: timeStamp)
+    let dateString = DateFormatterUtil.shared.chartViewDateFormatter.string(from: date)
+    let changeEntry = closeNumber - openNumber
+    let change = formatter.string(from: NSNumber(value: changeEntry)) ?? ""
+    let percentEntry = changeEntry / openNumber * 100.0
+    let percent = formatter.string(from: NSNumber(value: percentEntry)) ?? ""
+    let dateAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
+    ]
+    let titleAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
+    ]
+    let infoTextAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.orange,
+    ]
+    let downAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.red,
+    ]
+    let upAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 11),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.green,
+    ]
+    let valueAttribute = changeEntry > 0 ? upAttributes : downAttributes
+    attributedText.append(NSAttributedString(string: " O ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: open, attributes: infoTextAttributes))
+    attributedText.append(NSAttributedString(string: " H ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: high, attributes: infoTextAttributes))
+    attributedText.append(NSAttributedString(string: " L ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: low, attributes: infoTextAttributes))
+    attributedText.append(NSAttributedString(string: " C ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: close, attributes: infoTextAttributes))
+    attributedText.append(NSAttributedString(string: "\n\(dateString)", attributes: dateAttributes))
+    attributedText.append(NSAttributedString(string: " \("Change".toBeLocalised()) ", attributes: titleAttributes))
+    attributedText.append(NSAttributedString(string: "\(change) (\(percent)%)", attributes: valueAttribute))
+    return attributedText
+  }
 }
 
-extension KNTokenChartViewController: ChartDelegate {
-  func didFinishTouchingChart(_ chart: Chart) {
-  }
-
-  func didEndTouchingChart(_ chart: Chart) {
-  }
-
-  func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
-    for (seriesId, dataId) in indexes.enumerated() {
-      if let id = dataId, let value = chart.valueForSeries(seriesId, atIndex: id) {
-        let minMaxValues = self.viewModel.yDoubleLables
-        let topPadding = chart.frame.height * CGFloat((minMaxValues[0] == minMaxValues[1] ? 0.0 : (minMaxValues[1] - value) / (minMaxValues[1] - minMaxValues[0])))
-        if self.dataTipView != nil { self.dataTipView.dismiss() }
-        if self.sourceTipView != nil {
-          self.sourceTipView.frame = CGRect(x: left, y: chart.frame.minY + topPadding, width: 1, height: 1)
-          self.sourceTipView.removeFromSuperview()
-        } else {
-          self.sourceTipView = UIView(frame: CGRect(x: left, y: chart.frame.minY + topPadding, width: 1, height: 1))
-          self.sourceTipView.backgroundColor = UIColor.clear
-        }
-        self.view.addSubview(self.sourceTipView)
-        self.dataTipView = self.tipView(with: value, at: id, for: viewModel.currencyType)
-        self.dataTipView.show(animated: false, forView: self.sourceTipView, withinSuperview: self.view)
-        self.view.layoutIfNeeded()
-      }
+extension KNTokenChartViewController: ChartViewDelegate {
+  func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+    guard let candleStickEntry = entry as? CandleChartDataEntry else {
+      return
     }
+    if self.touchPriceLabel.isHidden {
+      self.touchPriceLabel.isHidden = false
+    }
+    let detailText = self.buildTextForData(openNumber: candleStickEntry.open,
+                                           highNumber: candleStickEntry.high,
+                                           lowNumber: candleStickEntry.low,
+                                           closeNumber: candleStickEntry.close,
+                                           timeStampNumber: candleStickEntry.x)
+    self.touchPriceLabel.attributedText = detailText
   }
 }
