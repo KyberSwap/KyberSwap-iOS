@@ -763,6 +763,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       } else if let symbols = result {
         let viewModel = KNNotificationSettingViewModel(tokens: symbols.0, selected: symbols.1)
         let viewController = KNNotificationSettingViewController(viewModel: viewModel)
+        viewController.delegate = self
         self.navigationController.pushViewController(viewController, animated: true)
       }
     }
@@ -867,6 +868,14 @@ extension KNExchangeTokenCoordinator: KNListNotificationViewControllerDelegate {
       self.delegate?.exchangeTokenCoordinatorOpenManageOrder()
     case .openSetting:
       self.openNotificationSettingScreen()
+    }
+  }
+}
+
+extension KNExchangeTokenCoordinator: KNNotificationSettingViewControllerDelegate {
+  func notificationSettingViewControllerDidApply(_ controller: KNNotificationSettingViewController) {
+    self.navigationController.popViewController(animated: true) {
+      self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
     }
   }
 }

@@ -1,6 +1,9 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
+protocol KNNotificationSettingViewControllerDelegate: class {
+  func notificationSettingViewControllerDidApply(_ controller: KNNotificationSettingViewController)
+}
 
 class KNNotificationSettingViewController: KNBaseViewController {
   fileprivate var viewModel: KNNotificationSettingViewModel
@@ -18,6 +21,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
   @IBOutlet weak var subcribeTokenSwitch: UISwitch!
   @IBOutlet var formViews: [UIView]!
   @IBOutlet weak var tokensViewActionButtonHeight: NSLayoutConstraint!
+  weak var delegate: KNNotificationSettingViewControllerDelegate?
 
   init(viewModel: KNNotificationSettingViewModel) {
     self.viewModel = viewModel
@@ -110,7 +114,8 @@ class KNNotificationSettingViewController: KNBaseViewController {
   @IBAction func toggleSubcribeTokenSwitch(_ sender: UISwitch) {
     let state = sender.isOn
     self.displayLoading()
-    KNNotificationCoordinator.shared.toggleSubscriptionTokens(state: state) { (message) in
+    KNNotificationCoordinator.shared.toggleSubscriptionTokens(state: state) { [weak self] (message) in
+      guard let `self` = self else { return }
       self.hideLoading()
       if let errorMessage = message {
         sender.isOn = !state
@@ -128,12 +133,13 @@ class KNNotificationSettingViewController: KNBaseViewController {
 
   @IBAction func applyButtonPressed(_ sender: Any) {
     self.displayLoading()
-    KNNotificationCoordinator.shared.updateListSubscriptionTokens(symbols: self.viewModel.tokens) { (message) in
+    KNNotificationCoordinator.shared.updateListSubscriptionTokens(symbols: self.viewModel.tokens) { [weak self] (message) in
+      guard let `self` = self else { return }
       self.hideLoading()
       if let errorMessage = message {
         self.showErrorTopBannerMessage(message: errorMessage)
       } else {
-        self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
+        self.delegate?.notificationSettingViewControllerDidApply(self)
       }
     }
   }

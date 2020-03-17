@@ -303,6 +303,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       } else if let symbols = result {
         let viewModel = KNNotificationSettingViewModel(tokens: symbols.0, selected: symbols.1)
         let viewController = KNNotificationSettingViewController(viewModel: viewModel)
+        viewController.delegate = self
         self.navigationController.pushViewController(viewController, animated: true)
       }
     }
@@ -432,6 +433,14 @@ extension KNBalanceTabCoordinator: KNListNotificationViewControllerDelegate {
       self.delegate?.balanceTabCoordinatorOpenManageOrder()
     case .openSetting:
       self.openNotificationSettingScreen()
+    }
+  }
+}
+
+extension KNBalanceTabCoordinator: KNNotificationSettingViewControllerDelegate {
+  func notificationSettingViewControllerDidApply(_ controller: KNNotificationSettingViewController) {
+    self.navigationController.popViewController(animated: true) {
+      self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
     }
   }
 }
