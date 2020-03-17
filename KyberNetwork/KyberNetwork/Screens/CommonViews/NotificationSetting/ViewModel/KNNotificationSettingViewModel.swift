@@ -12,6 +12,9 @@ class KNNotificationSettingViewModel {
     self.supportedTokens = tokens
     self.tokens = selected
     self.original = selected
+    if self.supportedTokens.count <= 12 {
+      self.isSeeMore = true
+    }
   }
 
   func selectTokenSymbol(_ symbol: String) {

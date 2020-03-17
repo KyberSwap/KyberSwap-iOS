@@ -301,14 +301,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       if let errorMessage = message {
         self.navigationController.showErrorTopBannerMessage(message: errorMessage)
       } else if let symbols = result {
-        let tokenSymbols: [String] = {
-          return KNSupportedTokenStorage.shared.supportedTokens.sorted(by: {
-            if $0.isSupported && !$1.isSupported { return true }
-            if !$0.isSupported && $1.isSupported { return false }
-            return $0.value > $1.value
-          }).map({ return $0.symbol })
-        }()
-        let viewModel = KNNotificationSettingViewModel(tokens: tokenSymbols, selected: symbols)
+        let viewModel = KNNotificationSettingViewModel(tokens: symbols.0, selected: symbols.1)
         let viewController = KNNotificationSettingViewController(viewModel: viewModel)
         self.navigationController.pushViewController(viewController, animated: true)
       }

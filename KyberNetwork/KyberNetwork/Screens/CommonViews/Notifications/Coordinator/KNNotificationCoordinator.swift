@@ -172,7 +172,7 @@ class KNNotificationCoordinator: NSObject {
     }
   }
 
-  func getListSubcriptionTokens(completion: @escaping (String?, [String]?) -> Void) {
+  func getListSubcriptionTokens(completion: @escaping (String?, ([String], [String])?) -> Void) {
     guard IEOUserStorage.shared.user != nil, let accessToken = IEOUserStorage.shared.user?.accessToken else {
       completion("You must sign in to use subscription token feature".toBeLocalised(), nil)
       return
@@ -187,10 +187,17 @@ class KNNotificationCoordinator: NSObject {
               _ = try response.filterSuccessfulStatusCodes()
               let json = try response.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
               let success = json["success"] as? Bool ?? false
-              let data = json["data"] as? [[String: String]] ?? []
+              let data = json["data"] as? [[String: Any]] ?? []
               if success {
-                let symbols = data.map { $0["symbol"] ?? "" }
-                completion(nil, symbols)
+                var selected: [String] = []
+                let symbols = data.map { (item) -> String in
+                  guard let sym = item["symbol"] as? String else { return "" }
+                  if let isSubcribed = item["subscribed"] as? NSNumber, isSubcribed.boolValue == true {
+                    selected.append(sym)
+                  }
+                  return sym
+                }
+                completion(nil, (symbols, selected))
               } else {
                 let message = json["message"] as? String ?? NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
                 completion(message, nil)

@@ -17,6 +17,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
   @IBOutlet weak var enableSubcribeTokenTextLabel: UILabel!
   @IBOutlet weak var subcribeTokenSwitch: UISwitch!
   @IBOutlet var formViews: [UIView]!
+  @IBOutlet weak var tokensViewActionButtonHeight: NSLayoutConstraint!
 
   init(viewModel: KNNotificationSettingViewModel) {
     self.viewModel = viewModel
@@ -59,6 +60,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
       self.subcribeTokenSwitch.isOn = switchEnable
       self.hideFormViews(!switchEnable)
     }
+    self.updateUI()
   }
 
   override func viewDidLayoutSubviews() {
@@ -76,8 +78,13 @@ class KNNotificationSettingViewController: KNBaseViewController {
       btnTitle,
       for: .normal
     )
-
+    let shouldShowSeeMoreButton = self.viewModel.supportedTokens.count <= 12
+    self.tokensViewActionButton.isHidden = shouldShowSeeMoreButton
+    self.tokensViewActionButtonHeight.constant = shouldShowSeeMoreButton ? 0 : 36
     self.tokensTableViewHeightConstraint.constant = {
+      if shouldShowSeeMoreButton {
+        return CGFloat((self.viewModel.supportedTokens.count + 3) / 4) * self.tokensTableView.rowHeight
+      }
       let numberRows = self.viewModel.isSeeMore ? (self.viewModel.supportedTokens.count + 3) / 4 : 3
       return CGFloat(numberRows) * self.tokensTableView.rowHeight
     }()
@@ -88,6 +95,7 @@ class KNNotificationSettingViewController: KNBaseViewController {
     for view in self.formViews {
       view.isHidden = hidden
     }
+    self.tokensViewActionButton.isHidden = self.viewModel.supportedTokens.count <= 12
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
@@ -141,7 +149,9 @@ extension KNNotificationSettingViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    return UIView()
+    let view = UIView()
+    view.isUserInteractionEnabled = false
+    return view
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -28,6 +28,7 @@
                 <outlet property="tokensTableView" destination="Fkd-Gu-ReX" id="i6P-Sr-4oj"/>
                 <outlet property="tokensTableViewHeightConstraint" destination="11e-IW-Rcp" id="zbF-Dy-wwj"/>
                 <outlet property="tokensViewActionButton" destination="9kR-iE-yU9" id="D4N-Fc-nmO"/>
+                <outlet property="tokensViewActionButtonHeight" destination="o22-pR-Ahy" id="Aad-y5-tWy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="separatorViews" destination="vjh-AQ-EFq" collectionClass="NSMutableArray" id="Oue-Mg-fiD"/>
                 <outletCollection property="separatorViews" destination="NqI-um-GCr" collectionClass="NSMutableArray" id="QGm-vZ-eOt"/>
