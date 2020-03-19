@@ -36,11 +36,13 @@ target 'KyberNetwork' do
 
   pod 'FBSDKLoginKit/Swift'
   pod 'FBSDKLoginKit/Swift'
-  pod 'GoogleSignIn', '~> 4.4.0'
-  pod 'TwitterKit', '~> 3.4.2'
-  pod 'Firebase/Core'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/RemoteConfig'
+  pod 'GoogleSignIn', '~> 5.0.2'
+  pod 'TwitterKit5'
+  pod 'Starscream', '~> 3.1'
+  pod 'Firebase', '~> 6.20.0'
+  pod 'FirebaseCore', '~> 6.6'
+  pod 'FirebaseAnalytics', '~> 6.3'
+  pod 'FirebaseRemoteConfig', '~> 4.4'
   pod 'SwipeCellKit'
   pod 'Charts'
 

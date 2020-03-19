@@ -154,12 +154,12 @@ extension KNProfileHomeCoordinator {
 }
 
 // MARK: Handle Google authentication
-extension KNProfileHomeCoordinator: GIDSignInDelegate, GIDSignInUIDelegate {
+extension KNProfileHomeCoordinator: GIDSignInDelegate {
   fileprivate func authenticateGoogle() {
     GIDSignIn.sharedInstance()?.signOut() // TOMO: Remove
     GIDSignIn.sharedInstance()?.clientID = KNEnvironment.default.googleSignInClientID
     GIDSignIn.sharedInstance()?.delegate = self
-    GIDSignIn.sharedInstance()?.uiDelegate = self
+    GIDSignIn.sharedInstance()?.presentingViewController = self.navigationController
     GIDSignIn.sharedInstance()?.signIn()
   }
 
