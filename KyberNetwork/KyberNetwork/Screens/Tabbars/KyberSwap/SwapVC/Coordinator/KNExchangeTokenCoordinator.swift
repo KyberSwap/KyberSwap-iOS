@@ -761,7 +761,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       if let errorMessage = message {
         self.navigationController.showErrorTopBannerMessage(message: errorMessage)
       } else if let symbols = result {
-        let viewModel = KNNotificationSettingViewModel(tokens: symbols.0, selected: symbols.1)
+        let viewModel = KNNotificationSettingViewModel(tokens: symbols.0, selected: symbols.1, notiStatus: symbols.2)
         let viewController = KNNotificationSettingViewController(viewModel: viewModel)
         viewController.delegate = self
         self.navigationController.pushViewController(viewController, animated: true)

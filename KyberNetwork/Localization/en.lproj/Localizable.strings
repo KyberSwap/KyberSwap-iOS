@@ -681,3 +681,5 @@
 "Failed to delete alerts, please try again later" = "Failed to delete alerts, please try again later";
 "Updated subscription tokens" = "Updated subscription tokens";
 "You must sign in to use subscription token feature" = "You must sign in to use subscription token feature";
+"Price Trending Notification" = "Price Trending Notification";
+"Notification Setting" = "Notification Setting";

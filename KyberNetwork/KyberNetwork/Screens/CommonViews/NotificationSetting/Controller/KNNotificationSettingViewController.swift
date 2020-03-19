@@ -60,10 +60,8 @@ class KNNotificationSettingViewController: KNBaseViewController {
     self.tokensTableView.dataSource = self
     self.tokensTableView.reloadData()
     self.tokensTableView.allowsSelection = false
-    if let switchEnable = UserDefaults.standard.object(forKey: kSubcriptionTokenEnable) as? Bool {
-      self.subcribeTokenSwitch.isOn = switchEnable
-      self.hideFormViews(!switchEnable)
-    }
+    self.subcribeTokenSwitch.isOn = self.viewModel.notiStatus
+    self.hideFormViews(!self.viewModel.notiStatus)
     self.updateUI()
   }
 

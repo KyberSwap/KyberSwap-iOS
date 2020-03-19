@@ -685,3 +685,5 @@
 "Failed to delete alerts, please try again later" = "Lỗi khi xoá các thông báo, vui lòng thử lại sau";
 "Updated subscription tokens" = "Đã cập nhật token";
 "You must sign in to use subscription token feature" = "Bạn phải đăng nhập để sử dụng tính năng theo dõi token";
+"Price Trending Notification" = "Thông báo về thay đổi tỷ giá";
+"Notification Setting" = "Cài đặt thông báo";

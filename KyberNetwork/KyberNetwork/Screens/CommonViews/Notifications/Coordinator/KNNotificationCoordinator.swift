@@ -124,7 +124,6 @@ class KNNotificationCoordinator: NSObject {
               let json = try data.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
               let success = json["success"] as? Bool ?? false
               if success {
-                UserDefaults.standard.set(state, forKey: kSubcriptionTokenEnable)
                 completion(nil)
               } else {
                 let message = json["message"] as? String ?? NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
@@ -172,7 +171,7 @@ class KNNotificationCoordinator: NSObject {
     }
   }
 
-  func getListSubcriptionTokens(completion: @escaping (String?, ([String], [String])?) -> Void) {
+  func getListSubcriptionTokens(completion: @escaping (String?, ([String], [String], Bool)?) -> Void) {
     guard IEOUserStorage.shared.user != nil, let accessToken = IEOUserStorage.shared.user?.accessToken else {
       completion("You must sign in to use subscription token feature".toBeLocalised(), nil)
       return
@@ -188,6 +187,7 @@ class KNNotificationCoordinator: NSObject {
               let json = try response.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
               let success = json["success"] as? Bool ?? false
               let data = json["data"] as? [[String: Any]] ?? []
+              let notiStatus = json["price_noti"] as? Bool ?? false
               if success {
                 var selected: [String] = []
                 let symbols = data.map { (item) -> String in
@@ -197,7 +197,7 @@ class KNNotificationCoordinator: NSObject {
                   }
                   return sym
                 }
-                completion(nil, (symbols, selected))
+                completion(nil, (symbols, selected, notiStatus))
               } else {
                 let message = json["message"] as? String ?? NSLocalizedString("some.thing.went.wrong.please.try.again", value: "Something went wrong. Please try again", comment: "")
                 completion(message, nil)

@@ -4,17 +4,19 @@ import Foundation
 
 class KNNotificationSettingViewModel {
   var isSeeMore: Bool = false
+  var notiStatus: Bool
   private(set) var tokens: [String]
   private(set) var supportedTokens: [String]
   private let original: [String]
 
-  init(tokens: [String], selected: [String]) {
+  init(tokens: [String], selected: [String], notiStatus: Bool) {
     self.supportedTokens = tokens
     self.tokens = selected
     self.original = selected
     if self.supportedTokens.count <= 12 {
       self.isSeeMore = true
     }
+    self.notiStatus = notiStatus
   }
 
   func selectTokenSymbol(_ symbol: String) {

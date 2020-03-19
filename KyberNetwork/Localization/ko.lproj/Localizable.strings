@@ -685,3 +685,5 @@
 "Failed to delete alerts, please try again later" = "Failed to delete alerts, please try again later";
 "Updated subscription tokens" = "Updated subscription tokens";
 "You must sign in to use subscription token feature" = "You must sign in to use subscription token feature";
+"Price Trending Notification" = "가격 현황 알림";
+"Notification Setting" = "알림 설정";
