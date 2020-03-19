@@ -97,14 +97,16 @@ PODS:
   - GoogleUtilities/UserDefaults (5.5.0):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.2.1)
-  - IQKeyboardManager (6.2.1)
+  - IQKeyboardManager (6.5.5)
   - JavaScriptKit (1.0.0):
     - Result (~> 3.1)
   - JdenticonSwift (0.0.1)
   - JSONRPCKit (3.0.0):
     - Result (~> 3.2.0)
   - KeychainSwift (13.0.0)
-  - Kingfisher (4.10.1)
+  - Kingfisher (5.13.0):
+    - Kingfisher/Core (= 5.13.0)
+  - Kingfisher/Core (5.13.0)
   - Lokalise (0.8.1)
   - MBProgressHUD (1.1.0)
   - Moya (10.0.2):
@@ -176,12 +178,12 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/RemoteConfig
   - GoogleSignIn (~> 4.4.0)
-  - IQKeyboardManager (~> 6.2.1)
+  - IQKeyboardManager (~> 6.5)
   - JavaScriptKit (~> 1.0.0)
   - JdenticonSwift (~> 0.0.1)
   - JSONRPCKit (~> 3.0.0)
   - KeychainSwift (~> 13.0.0)
-  - Kingfisher (~> 4.10.1)
+  - Kingfisher (~> 5.13)
   - Lokalise (~> 0.8.1)
   - MBProgressHUD (~> 1.1.0)
   - Moya (~> 10.0.1)
@@ -287,12 +289,12 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: ff31605b7d66400dcec09bed5861689aebadda4d
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
-  IQKeyboardManager: 964638372b4a61892cc74fdfa6fd26de8c9464a2
+  IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   JavaScriptKit: 9ff565209e6efe21bcb9c6d6ca3e863a67a8ecf7
   JdenticonSwift: bc532f2761566eb29f26b085e5f72de25bc065ce
   JSONRPCKit: 50e0dc5e7f873e87f81562feb8836b7d1974da6d
   KeychainSwift: 23d6c16cbc33f20fafa30c3d783241b4b87d998c
-  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
   Lokalise: d81f4ccce8cd2c1589bf73bb39fab7781d4f7cbc
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
@@ -321,6 +323,6 @@ SPEC CHECKSUMS:
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
   WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: 2e97acdf659f501c89c3ab9c5730caa6efb5c957
+PODFILE CHECKSUM: b28c084af3d89fbc97356468070385635e7c3017
 
 COCOAPODS: 1.8.4
