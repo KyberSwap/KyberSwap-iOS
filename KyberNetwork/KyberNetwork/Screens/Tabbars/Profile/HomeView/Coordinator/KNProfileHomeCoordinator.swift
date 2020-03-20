@@ -256,7 +256,7 @@ extension KNProfileHomeCoordinator {
         if !hasUser { self?.timerLoadUserInfo() }
         self?.rootViewController.coordinatorUserDidSignInSuccessfully()
         self?.lastUpdatedUserInfo = Date()
-        if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.updateUserSignedInPushTokenWithRetry() }
+        if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.updateOneSignalPlayerIDWithRetry() }
         completion(true)
       // Already have user
       case .failure:

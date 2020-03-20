@@ -224,12 +224,12 @@ class KNAppTracker {
     userDefaults.synchronize()
   }
 
-  static func hasSentPushTokenRequest(userID: String) -> Bool {
+  static func hasSentPlayerIdUpdateRequest(userID: String) -> Bool {
     let key = "\(KNEnvironment.default.displayName)_\(kHasSentPushTokenKey)_\(userID)"
     return userDefaults.object(forKey: key) as? Bool ?? false
   }
 
-  static func updateHasSentPushTokenRequest(userID: String, hasSent: Bool) {
+  static func updateHasSentPlayerIdUpdateRequest(userID: String, hasSent: Bool) {
     let key = "\(KNEnvironment.default.displayName)_\(kHasSentPushTokenKey)_\(userID)"
     if hasSent {
       userDefaults.set(true, forKey: key)

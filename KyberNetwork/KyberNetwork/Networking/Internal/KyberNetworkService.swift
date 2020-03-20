@@ -163,6 +163,7 @@ enum UserInfoService {
   case markAsRead(accessToken: String?, ids: [Int])
   case getPreScreeningWallet(address: String)
   case deleteAllTriggerdAlerts(accessToken: String)
+  case updateUserPlayerId(accessToken: String, playerId: String)
 }
 
 extension UserInfoService: MoyaCacheable {
@@ -201,6 +202,8 @@ extension UserInfoService: TargetType {
       return URL(string: "\(baseString)/api/wallet/screening?wallet=\(address)")!
     case .deleteAllTriggerdAlerts:
       return URL(string: "\(baseString)/api/alerts/delete_triggered")!
+    case .updateUserPlayerId:
+    return URL(string: "\(baseString)/api/users/player_id")!
     }
   }
 
@@ -257,6 +260,12 @@ extension UserInfoService: TargetType {
       ]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
+    case .updateUserPlayerId(_, let playerId):
+    let json: JSONDictionary = [
+      "player_id": playerId,
+    ]
+    let data = try! JSONSerialization.data(withJSONObject: json, options: [])
+    return .requestData(data)
     }
   }
   var sampleData: Data { return Data() }
@@ -294,6 +303,8 @@ extension UserInfoService: TargetType {
     case .getPreScreeningWallet:
       break
     case .deleteAllTriggerdAlerts(let accessToken):
+      json["Authorization"] = accessToken
+    case .updateUserPlayerId(let accessToken, _):
       json["Authorization"] = accessToken
     }
     return json
