@@ -173,6 +173,12 @@ extension KNProfileHomeCoordinator {
   }
 
   func signUserOut() {
+    if let userID = IEOUserStorage.shared.user?.userID {
+      KNAppTracker.updateHasSentPlayerIdUpdateRequest(
+        userID: "\(userID)",
+        hasSent: false
+      )
+    }
     // log user out of facebook
     if AccessToken.current != nil { LoginManager().logOut() }
     // logout google
