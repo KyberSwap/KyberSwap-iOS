@@ -3,6 +3,7 @@
 import UIKit
 import Result
 import Moya
+import OneSignal
 
 class KNPriceAlertCoordinator: NSObject {
 
@@ -228,18 +229,19 @@ class KNPriceAlertCoordinator: NSObject {
     }
   }
 
-  func updateUserSignedInPushTokenWithRetry() {
-    guard let accessToken = IEOUserStorage.shared.user?.accessToken, let pushToken = KNAppTracker.getPushNotificationToken(), let userID = IEOUserStorage.shared.user?.userID else { return }
-    if KNAppTracker.hasSentPushTokenRequest(userID: "\(userID)") { return }
+  func updateOneSignalPlayerIDWithRetry() {
+    let status: OSPermissionSubscriptionState = OneSignal.getPermissionSubscriptionState()
+    guard let accessToken = IEOUserStorage.shared.user?.accessToken, let playerID = status.subscriptionStatus.userId, let userID = IEOUserStorage.shared.user?.userID else { return }
+    if KNAppTracker.hasSentPlayerIdUpdateRequest(userID: "\(userID)") { return }
     DispatchQueue.global(qos: .background).async {
-      self.provider.request(.addPushToken(accessToken: accessToken, pushToken: pushToken)) { [weak self] result in
+      self.provider.request(.updateUserPlayerId(accessToken: accessToken, playerId: playerID)) { [weak self] result in
         DispatchQueue.main.async {
           if case .failure = result {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
-              self?.updateUserSignedInPushTokenWithRetry()
+              self?.updateOneSignalPlayerIDWithRetry()
             })
           } else {
-            KNAppTracker.updateHasSentPushTokenRequest(
+            KNAppTracker.updateHasSentPlayerIdUpdateRequest(
               userID: "\(userID)",
               hasSent: true
             )

@@ -173,6 +173,12 @@ extension KNProfileHomeCoordinator {
   }
 
   func signUserOut() {
+    if let userID = IEOUserStorage.shared.user?.userID {
+      KNAppTracker.updateHasSentPlayerIdUpdateRequest(
+        userID: "\(userID)",
+        hasSent: false
+      )
+    }
     // log user out of facebook
     if AccessToken.current != nil { LoginManager().logOut() }
     // logout google
@@ -256,7 +262,7 @@ extension KNProfileHomeCoordinator {
         if !hasUser { self?.timerLoadUserInfo() }
         self?.rootViewController.coordinatorUserDidSignInSuccessfully()
         self?.lastUpdatedUserInfo = Date()
-        if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.updateUserSignedInPushTokenWithRetry() }
+        if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.updateOneSignalPlayerIDWithRetry() }
         completion(true)
       // Already have user
       case .failure:
@@ -317,7 +323,7 @@ extension KNProfileHomeCoordinator {
       self?.lastUpdatedUserInfo = nil
 
       // remove user's data
-      IEOUserStorage.shared.signedOut()
+      self?.handleUserSignOut()
       if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.pause() }
 
       self?.navigationController.popToRootViewController(animated: true)

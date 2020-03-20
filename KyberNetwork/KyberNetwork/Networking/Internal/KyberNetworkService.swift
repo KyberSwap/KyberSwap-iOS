@@ -166,6 +166,7 @@ enum UserInfoService {
   case getListSubscriptionTokens(accessToken: String)
   case togglePriceNotification(accessToken: String, state: Bool)
   case updateListSubscriptionTokens(accessToken: String, symbols: [String])
+  case updateUserPlayerId(accessToken: String, playerId: String)
 }
 
 extension UserInfoService: MoyaCacheable {
@@ -210,6 +211,8 @@ extension UserInfoService: TargetType {
       return URL(string: "\(baseString)/api/users/toggle_price_noti")!
     case .updateListSubscriptionTokens:
       return URL(string: "\(baseString)/api/users/subscription_tokens")!
+    case .updateUserPlayerId:
+    return URL(string: "\(baseString)/api/users/player_id")!
     }
   }
 
@@ -274,6 +277,12 @@ extension UserInfoService: TargetType {
       let json = ["list_token_symbol": symbols]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
+    case .updateUserPlayerId(_, let playerId):
+    let json: JSONDictionary = [
+      "player_id": playerId,
+    ]
+    let data = try! JSONSerialization.data(withJSONObject: json, options: [])
+    return .requestData(data)
     }
   }
   var sampleData: Data { return Data() }
@@ -317,6 +326,8 @@ extension UserInfoService: TargetType {
     case .togglePriceNotification(let accessToken, _):
       json["Authorization"] = accessToken
     case .updateListSubscriptionTokens(let accessToken, _):
+      json["Authorization"] = accessToken
+    case .updateUserPlayerId(let accessToken, _):
       json["Authorization"] = accessToken
     }
     return json
