@@ -323,7 +323,7 @@ extension KNProfileHomeCoordinator {
       self?.lastUpdatedUserInfo = nil
 
       // remove user's data
-      IEOUserStorage.shared.signedOut()
+      self?.handleUserSignOut()
       if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.pause() }
 
       self?.navigationController.popToRootViewController(animated: true)
