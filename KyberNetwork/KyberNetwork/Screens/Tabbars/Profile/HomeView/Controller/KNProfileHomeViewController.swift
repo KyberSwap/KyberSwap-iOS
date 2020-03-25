@@ -145,7 +145,7 @@ class KNProfileHomeViewController: KNBaseViewController {
     self.notSignInNavTitle.text = NSLocalizedString("sign.in", value: "Sign In", comment: "")
     self.orTextLabel.text = "Or sign in with".toBeLocalised()
     self.signInButton.setTitle(NSLocalizedString("sign.in", value: "Sign In", comment: ""), for: .normal)
-    self.signInButton.rounded(radius: KNAppStyleType.current.buttonRadius(for: self.signInButton.frame.height))
+    self.signInButton.rounded(radius: KNAppStyleType.current.buttonRadius())
     self.emailTextField.placeholder = "Email Address".toBeLocalised()
     self.passwordTextField.placeholder = "Password".toBeLocalised()
     self.forgotPassButton.setTitle("Forgot Password?".toBeLocalised(), for: .normal)
@@ -154,7 +154,7 @@ class KNProfileHomeViewController: KNBaseViewController {
     let image = !self.signInViewModel.isSecureText ? UIImage(named: "hide_secure_text") : UIImage(named: "show_secure_text")
     self.secureTextButton.setImage(image, for: .normal)
     self.signInButton.rounded(
-      radius: self.appStyle.buttonRadius(for: self.signInButton.frame.height)
+      radius: self.appStyle.buttonRadius()
     )
     self.signInButton.setTitle(
       NSLocalizedString("sign.in", value: "Sign In", comment: ""),

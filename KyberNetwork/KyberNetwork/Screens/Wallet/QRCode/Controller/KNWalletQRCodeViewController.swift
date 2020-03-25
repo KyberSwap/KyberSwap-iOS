@@ -60,12 +60,12 @@ class KNWalletQRCodeViewController: KNBaseViewController {
   }
 
   fileprivate func setupButtons() {
-    self.copyWalletButton.rounded(radius: self.style.buttonRadius(for: self.copyWalletButton.frame.height))
+    self.copyWalletButton.rounded(radius: self.style.buttonRadius())
     self.copyWalletButton.backgroundColor = style.walletFlowHeaderColor
     self.shareButton.rounded(
       color: UIColor.Kyber.border,
       width: 1.0,
-      radius: self.style.buttonRadius(for: self.shareButton.frame.height)
+      radius: self.style.buttonRadius()
     )
     self.copyWalletButton.setTitle(
       NSLocalizedString("copy", value: "Copy", comment: ""),

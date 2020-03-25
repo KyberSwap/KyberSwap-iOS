@@ -90,7 +90,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
     self.transferButton.applyGradient()
 
     self.swapButton.setTitle(NSLocalizedString("swap", comment: ""), for: .normal)
-    self.swapButton.rounded(radius: self.transferButton.frame.height / 2.0)
+    self.swapButton.rounded()
     self.swapButton.applyGradient()
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.userDidTapOutsideToDismiss(_:)))

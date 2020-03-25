@@ -75,7 +75,7 @@ class KNApproveTokenViewController: KNBaseViewController {
     self.feeLabel.text = NSLocalizedString("fee", value: "Fee", comment: "") + ": \(self.fee.displayRate(decimals: 18)) ETH"
     self.separatorView.backgroundColor = .clear
     self.separatorView.dashLine(width: 1.0, color: UIColor.Kyber.dashLine)
-    self.approveButton.rounded(radius: self.approveButton.frame.height / 2.0)
+    self.approveButton.rounded()
     self.approveButton.applyGradient()
   }
 

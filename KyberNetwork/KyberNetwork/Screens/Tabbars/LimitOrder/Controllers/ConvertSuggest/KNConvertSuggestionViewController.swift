@@ -72,7 +72,7 @@ class KNConvertSuggestionViewController: KNBaseViewController {
     )
 
     self.convertButton.applyGradient()
-    self.convertButton.rounded(radius: self.convertButton.frame.height / 2.0)
+    self.convertButton.rounded()
     self.convertButton.setTitle("Convert".toBeLocalised(), for: .normal)
     self.cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal)
   }

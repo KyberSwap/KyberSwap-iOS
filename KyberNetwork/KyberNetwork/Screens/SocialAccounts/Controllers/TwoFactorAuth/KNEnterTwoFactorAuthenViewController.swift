@@ -24,7 +24,7 @@ class KNEnterTwoFactorAuthenViewController: KNBaseViewController {
     self.containerView.rounded(radius: 5.0)
     self.twoFactorTextLabel.text = "Two Factor Authentication (2FA)".toBeLocalised()
 
-    self.continueButton.rounded(radius: KNAppStyleType.current.buttonRadius(for: self.continueButton.frame.height))
+    self.continueButton.rounded()
     self.continueButton.setTitle(NSLocalizedString("continue", value: "Continue", comment: ""), for: .normal)
     self.cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal)
     self.continueButton.applyGradient()

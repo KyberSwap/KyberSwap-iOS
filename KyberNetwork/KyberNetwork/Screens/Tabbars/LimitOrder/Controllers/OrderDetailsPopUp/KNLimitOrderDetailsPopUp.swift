@@ -51,14 +51,13 @@ class KNLimitOrderDetailsPopUp: KNBaseViewController {
     )
     self.closeButton.rounded(
       color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: self.closeButton.frame.height / 2.0
+      width: 1.0
     )
     self.detailsButton.setTitle(
       NSLocalizedString("details", value: "Details", comment: ""),
       for: .normal
     )
-    self.detailsButton.rounded(radius: self.detailsButton.frame.height / 2.0)
+    self.detailsButton.rounded()
     self.detailsButton.applyGradient()
 
     let srcTokenSymbol = order.srcTokenSymbol

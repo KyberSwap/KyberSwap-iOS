@@ -83,7 +83,7 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     self.slowGasPriceLabel.addGestureRecognizer(tapSlow)
     self.currentFeeLabel.text = self.viewModel.currentTransactionFeeETHString
     let style = KNAppStyleType.current
-    let radius = style.buttonRadius(for: self.doneButton.frame.height)
+    let radius = style.buttonRadius()
     self.doneButton.rounded(radius: radius)
     self.doneButton.applyGradient()
   }
@@ -102,26 +102,22 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
 
     self.superFastGasPriceButton.rounded(
       color: self.viewModel.selectedType == .superFast ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .superFast ? selectedWidth : normalWidth,
-      radius: self.superFastGasPriceButton.frame.height / 2.0
+      width: self.viewModel.selectedType == .superFast ? selectedWidth : normalWidth
     )
 
     self.fastGasPriceButton.rounded(
       color: self.viewModel.selectedType == .fast ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .fast ? selectedWidth : normalWidth,
-      radius: self.fastGasPriceButton.frame.height / 2.0
+      width: self.viewModel.selectedType == .fast ? selectedWidth : normalWidth
     )
 
     self.regularGasPriceButton.rounded(
       color: self.viewModel.selectedType == .medium ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .medium ? selectedWidth : normalWidth,
-      radius: self.regularGasPriceButton.frame.height / 2.0
+      width: self.viewModel.selectedType == .medium ? selectedWidth : normalWidth
     )
 
     self.slowGasPriceButton.rounded(
       color: self.viewModel.selectedType == .slow ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .slow ? selectedWidth : normalWidth,
-      radius: self.slowGasPriceButton.frame.height / 2.0
+      width: self.viewModel.selectedType == .slow ? selectedWidth : normalWidth
     )
     self.newFeeLabel.text = self.viewModel.getNewTransactionFeeETHString()
   }

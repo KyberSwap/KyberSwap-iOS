@@ -28,7 +28,7 @@ class KNShowBackUpDataViewController: KNBaseViewController {
     super.viewDidLoad()
     self.navTitleLabel.text = NSLocalizedString("backup.your.wallet", value: "Backup Your Wallet", comment: "")
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
-    self.saveButton.rounded(radius: 4.0)
+    self.saveButton.rounded()
     self.saveButton.applyGradient(with: UIColor.Kyber.buttonColors)
     self.saveButton.setTitle(NSLocalizedString("save", value: "Save", comment: ""), for: .normal)
     self.warningMessageLabel.text = NSLocalizedString("export.at.your.own.risk", value: "Export at your own risk!", comment: "")

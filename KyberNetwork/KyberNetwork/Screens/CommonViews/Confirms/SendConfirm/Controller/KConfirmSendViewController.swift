@@ -90,7 +90,7 @@ class KConfirmSendViewController: KNBaseViewController {
     gasPriceTextLabel.text = viewModel.transactionGasPriceString
     gasPriceTextLabel.addLetterSpacing()
 
-    self.confirmButton.rounded(radius: style.buttonRadius(for: self.confirmButton.frame.height))
+    self.confirmButton.rounded(radius: style.buttonRadius())
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal

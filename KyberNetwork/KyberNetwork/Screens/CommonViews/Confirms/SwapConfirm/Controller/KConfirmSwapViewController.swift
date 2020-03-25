@@ -104,7 +104,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
     self.secondSeparatorView.dashLine(width: 1.0, color: UIColor.Kyber.dashLine)
 
-    self.confirmButton.rounded(radius: style.buttonRadius(for: self.confirmButton.frame.height))
+    self.confirmButton.rounded(radius: style.buttonRadius())
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal

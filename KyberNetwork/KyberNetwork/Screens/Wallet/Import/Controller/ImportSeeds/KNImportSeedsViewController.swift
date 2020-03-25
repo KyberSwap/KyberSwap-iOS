@@ -31,7 +31,7 @@ class KNImportSeedsViewController: KNBaseViewController {
     self.recoverSeedsLabel.text = NSLocalizedString("recover.with.seeds", value: "Recover with seeds", comment: "")
     self.recoverSeedsLabel.addLetterSpacing()
     let style = KNAppStyleType.current
-    self.nextButton.rounded(radius: style.buttonRadius(for: self.nextButton.frame.height))
+    self.nextButton.rounded(radius: style.buttonRadius())
     self.nextButton.setBackgroundColor(
       style.importWalletButtonDisabledColor,
       forState: .disabled

@@ -74,7 +74,7 @@ class KNCreatePasswordViewController: KNBaseViewController {
 
     self.doneButton.setTitle("Done".toBeLocalised(), for: .normal)
 
-    self.doneButton.rounded(color: .clear, width: 0, radius: KNAppStyleType.current.buttonRadius(for: self.doneButton.frame.height))
+    self.doneButton.rounded(color: .clear, width: 0, radius: KNAppStyleType.current.buttonRadius())
     self.doneButton.applyGradient(with: UIColor.Kyber.buttonColors)
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOutSideToDismiss(_:)))

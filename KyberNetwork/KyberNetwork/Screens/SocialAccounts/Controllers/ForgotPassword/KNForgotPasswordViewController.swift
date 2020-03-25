@@ -19,7 +19,7 @@ class KNForgotPasswordViewController: KNBaseViewController {
     self.resetPasswordTextLabel.text = "Reset Password".toBeLocalised()
     self.subtitleTextLabel.text = "Enter your email address below and we'll get you on track".toBeLocalised()
     self.emailTextField.placeholder = "Email Address".toBeLocalised()
-    self.sendButton.rounded(radius: KNAppStyleType.current.buttonRadius(for: self.sendButton.frame.height))
+    self.sendButton.rounded(radius: KNAppStyleType.current.buttonRadius())
     self.sendButton.setTitle(NSLocalizedString("continue", value: "Continue", comment: ""), for: .normal)
     self.cancelButton.setTitle(NSLocalizedString("cancel", comment: ""), for: .normal)
     self.sendButton.applyGradient()

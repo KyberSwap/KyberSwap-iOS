@@ -162,8 +162,8 @@ enum KNAppStyleType: String {
     return UIColor.Kyber.lightSeaGreen
   }
 
-  func buttonRadius(for height: CGFloat) -> CGFloat {
-    return height / 2.0
+  func buttonRadius() -> CGFloat {
+    return 5.0
   }
 
   func buttonTitle(with name: String) -> String {

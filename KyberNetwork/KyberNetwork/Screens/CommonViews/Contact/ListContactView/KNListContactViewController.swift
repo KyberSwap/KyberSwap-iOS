@@ -46,7 +46,7 @@ class KNListContactViewController: KNBaseViewController {
     self.contactTableView.isHidden = contacts.isEmpty
     self.emptyStateView.isHidden = !contacts.isEmpty
     self.contactEmptyLabel.text = NSLocalizedString("your.contact.is.empty", value: "Your contact is empty", comment: "")
-    self.addContactButton.rounded(radius: style.buttonRadius(for: self.addContactButton.frame.height))
+    self.addContactButton.rounded(radius: style.buttonRadius())
     self.addContactButton.applyGradient()
     self.addContactButton.setTitle(
       NSLocalizedString("add.contact", value: "Add Contact", comment: ""),
