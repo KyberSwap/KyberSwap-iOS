@@ -102,22 +102,26 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
 
     self.superFastGasPriceButton.rounded(
       color: self.viewModel.selectedType == .superFast ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .superFast ? selectedWidth : normalWidth
+      width: self.viewModel.selectedType == .superFast ? selectedWidth : normalWidth,
+      radius: self.superFastGasPriceButton.frame.height / 2.0
     )
 
     self.fastGasPriceButton.rounded(
       color: self.viewModel.selectedType == .fast ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .fast ? selectedWidth : normalWidth
+      width: self.viewModel.selectedType == .fast ? selectedWidth : normalWidth,
+      radius: self.fastGasPriceButton.frame.height / 2.0
     )
 
     self.regularGasPriceButton.rounded(
       color: self.viewModel.selectedType == .medium ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .medium ? selectedWidth : normalWidth
+      width: self.viewModel.selectedType == .medium ? selectedWidth : normalWidth,
+      radius: self.regularGasPriceButton.frame.height / 2.0
     )
 
     self.slowGasPriceButton.rounded(
       color: self.viewModel.selectedType == .slow ? selectedColor : normalColor,
-      width: self.viewModel.selectedType == .slow ? selectedWidth : normalWidth
+      width: self.viewModel.selectedType == .slow ? selectedWidth : normalWidth,
+      radius: self.slowGasPriceButton.frame.height / 2.0
     )
     self.newFeeLabel.text = self.viewModel.getNewTransactionFeeETHString()
   }
