@@ -29,6 +29,10 @@ let kProdCachedRateFailedToLoadNotiKey = "kProdCachedRateFailedToLoadNotiKey"
 
 let kCoinTickersDidUpdateNotificationKey = "kCoinTickerDataDidUpdateNotificationKey"
 
+// Market
+let kMarketSuccessToLoadNotiKey = "kMarketSuccessToLoadNotiKey"
+let kMarketFailedToLoadNotiKey = "kMarketFailedToLoadNotiKey"
+
 // Gas Price
 let kGasPriceDidUpdateNotificationKey = "kGasPriceDidUpdateNotificationKey"
 

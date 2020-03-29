@@ -343,6 +343,7 @@ enum LimitOrderService {
   case checkEligibleAddress(accessToken: String, address: String)
   case getRelatedOrders(accessToken: String, address: String, src: String, dest: String, rate: Double)
   case pendingBalance(accessToken: String, address: String)
+  case getMarkets
 }
 
 extension LimitOrderService: MoyaCacheable {
@@ -370,6 +371,10 @@ extension LimitOrderService: TargetType {
       return URL(string: "\(baseString)/api/orders/related_orders?user_addr=\(address)&src=\(src)&dst=\(dest)&min_rate=\(rate)")!
     case .pendingBalance(_, let address):
       return URL(string: "\(baseString)/api/orders/pending_balances?user_addr=\(address)")!
+    case .getMarkets:
+      let base = KNEnvironment.default.cachedSourceAmountRateURL
+      return URL(string: base + "/pairs/market")!
+    
     }
   }
 
@@ -377,7 +382,7 @@ extension LimitOrderService: TargetType {
 
   var method: Moya.Method {
     switch self {
-    case .getOrders, .getFee, .getNonce, .checkEligibleAddress, .getRelatedOrders, .pendingBalance: return .get
+    case .getOrders, .getFee, .getNonce, .checkEligibleAddress, .getRelatedOrders, .pendingBalance, .getMarkets: return .get
     case .cancelOrder: return .put
     case .createOrder: return .post
     }
@@ -385,7 +390,7 @@ extension LimitOrderService: TargetType {
 
   var task: Task {
     switch self {
-    case .getOrders, .cancelOrder, .getNonce, .checkEligibleAddress, .pendingBalance, .getFee, .getRelatedOrders:
+    case .getOrders, .cancelOrder, .getNonce, .checkEligibleAddress, .pendingBalance, .getFee, .getRelatedOrders, .getMarkets:
       return .requestPlain
     case .createOrder(_, let order, let signedData):
       let json: JSONDictionary = [
@@ -428,6 +433,8 @@ extension LimitOrderService: TargetType {
       json["Authorization"] = accessToken
     case .getFee(let accessToken, _, _, _, _, _):
       if let accessToken = accessToken { json["Authorization"] = accessToken }
+    case .getMarkets:
+      break
     }
     return json
   }

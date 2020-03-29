@@ -160,7 +160,7 @@ class KNRateCoordinator {
     }
   }
 
-  @objc func fetchCacheRate(_ sender: Any?) {
+  @objc func fetchCacheRate(_ sender: Any?) { //Note: fetch cache rate
     let group = DispatchGroup()
     group.enter()
     KNInternalProvider.shared.getKNExchangeTokenRate { [weak self] result in
@@ -202,6 +202,17 @@ class KNRateCoordinator {
         KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
       } else {
         KNNotificationUtil.postNotification(for: kProdCachedRateFailedToLoadNotiKey)
+      }
+    }
+    
+    //Note: load market
+    KNLimitOrderServerCoordinator.shared.getMarket { [weak self] result in
+      guard let `self` = self else { return }
+      if case .success(let rates) = result {
+        //TODO: save cache market
+        KNNotificationUtil.postNotification(for: kMarketSuccessToLoadNotiKey)
+      } else {
+        KNNotificationUtil.postNotification(for: kMarketFailedToLoadNotiKey)
       }
     }
   }

@@ -243,4 +243,26 @@ class KNLimitOrderServerCoordinator {
       }
     }
   }
+  
+  func getMarket(completion: @escaping ((Result<[JSONDictionary], AnyError>) -> Void)) {
+    DispatchQueue.global(qos: .background).async {
+      self.provider.request(.getMarkets) { [weak self] result in
+        guard let _ = self else { return }
+        DispatchQueue.main.async {
+          switch result {
+          case .success(let data):
+            do {
+              let _ = try data.filterSuccessfulStatusCodes()
+              let json = try data.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+              completion(.success(json["data"] as? [JSONDictionary] ?? []))
+            } catch let error {
+              completion(.failure(AnyError(error)))
+            }
+          case .failure(let error):
+            completion(.failure(AnyError(error)))
+          }
+        }
+      }
+    }
+  }
 }
