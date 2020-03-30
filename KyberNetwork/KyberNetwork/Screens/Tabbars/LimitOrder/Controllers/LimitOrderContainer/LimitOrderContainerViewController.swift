@@ -15,10 +15,25 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var pagerIndicatorCenterXContraint: NSLayoutConstraint!
 
   private var pageController: UIPageViewController!
-  private var pages: [UIViewController] = [KNBuyKNCViewController(), KNSellKNCViewController()]
-
+  private var pages: [UIViewController]
+  
+  init(wallet: Wallet) {
+    let buyViewModel = KNBuyKNCViewModel(wallet: wallet)
+    self.pages = [KNBuyKNCViewController(viewModel: buyViewModel), KNSellKNCViewController()]
+    super.init(nibName: LimitOrderContainerViewController.className, bundle: nil)
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     self.setupPageController()
   }
 

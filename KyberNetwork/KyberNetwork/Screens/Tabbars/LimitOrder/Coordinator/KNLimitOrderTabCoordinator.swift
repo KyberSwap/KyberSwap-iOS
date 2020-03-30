@@ -54,7 +54,7 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
 //      to: to,
 //      supportedTokens: tokens
 //    )
-    let controller = LimitOrderContainerViewController()
+    let controller = LimitOrderContainerViewController(wallet: self.session.wallet)
     controller.loadViewIfNeeded()
 //    controller.delegate = self
     return controller

@@ -20,6 +20,7 @@ class KNRateCoordinator {
 
   fileprivate var cacheTokenETHRates: [String: KNRate] = [:] // Rate token to ETH
   fileprivate var cachedProdTokenRates: [String: KNRate] = [:] // Prod cached rate to compare when swapping
+  var cachedMarket: [KNMarket] = []
   fileprivate var cacheRateTimer: Timer?
 
   fileprivate var cachedUSDRates: [String: KNRate] = [:] // Rate token to USD
@@ -209,12 +210,22 @@ class KNRateCoordinator {
     KNLimitOrderServerCoordinator.shared.getMarket { [weak self] result in
       guard let `self` = self else { return }
       if case .success(let rates) = result {
-        //TODO: save cache market
+        self.cachedMarket = rates.map { KNMarket(dict: $0) }
         KNNotificationUtil.postNotification(for: kMarketSuccessToLoadNotiKey)
       } else {
         KNNotificationUtil.postNotification(for: kMarketFailedToLoadNotiKey)
       }
     }
+  }
+  
+  func getMarketWith(name: String) -> KNMarket? {
+    guard !self.cachedMarket.isEmpty else {
+      return nil
+    }
+    let market = self.cachedMarket.first { (market) -> Bool in
+      return market.pair == name
+    }
+    return market
   }
 
   fileprivate func updateTrackerRateWithCachedRates(isUSD: Bool, isNotify: Bool = true) {

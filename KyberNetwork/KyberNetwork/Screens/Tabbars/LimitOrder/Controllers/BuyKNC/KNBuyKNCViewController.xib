@@ -24,6 +24,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNBuyKNCViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="amountField" destination="uWt-k2-VQa" id="HIs-aa-FaI"/>
+                <outlet property="beforeDiscountFeeLabel" destination="sBz-ns-jKw" id="cXO-v0-OOU"/>
+                <outlet property="feeLabel" destination="w93-ly-3v6" id="45x-RM-Fg5"/>
+                <outlet property="marketNameLabel" destination="Qcj-1g-JFS" id="w3p-h3-l2I"/>
+                <outlet property="priceField" destination="u6a-j7-MXP" id="Be1-kC-nOS"/>
+                <outlet property="tokenAvailableLabel" destination="Ls4-gj-7NW" id="edR-mW-Y5q"/>
+                <outlet property="totalAmountLabel" destination="2kx-gk-05m" id="QRE-2U-pUz"/>
+                <outlet property="totalPriceLabel" destination="GuS-5c-PLg" id="q7k-BX-cSy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
