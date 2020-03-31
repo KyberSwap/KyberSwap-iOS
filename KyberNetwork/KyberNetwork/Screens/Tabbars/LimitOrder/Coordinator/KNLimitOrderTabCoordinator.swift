@@ -54,7 +54,11 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
 //      to: to,
 //      supportedTokens: tokens
 //    )
+    
+    
     let controller = LimitOrderContainerViewController(wallet: self.session.wallet)
+    
+    
     controller.loadViewIfNeeded()
 //    controller.delegate = self
     return controller
@@ -127,7 +131,7 @@ extension KNLimitOrderTabCoordinator {
   }
 
   func appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, otherTokensBalance: [String: Balance]) {
-//    self.rootViewController.coordinatorUpdateTokenBalance(otherTokensBalance)
+    self.rootViewController.coordinatorUpdateTokenBalance(otherTokensBalance)
     otherTokensBalance.forEach { self.balances[$0.key] = $0.value }
     self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: self.balances)
     self.searchTokensViewController?.updateBalances(otherTokensBalance)
@@ -138,7 +142,7 @@ extension KNLimitOrderTabCoordinator {
     if let eth = self.tokens.first(where: { $0.isETH }) {
       self.balances[eth.contract] = ethBalance
       self.searchTokensViewController?.updateBalances([eth.contract: ethBalance])
-//      self.rootViewController.coordinatorUpdateTokenBalance([eth.contract: ethBalance])
+      self.rootViewController.coordinatorUpdateTokenBalance([eth.contract: ethBalance])
     }
     self.sendTokenCoordinator?.coordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
     self.convertVC?.updateETHBalance(ethBalance.value)

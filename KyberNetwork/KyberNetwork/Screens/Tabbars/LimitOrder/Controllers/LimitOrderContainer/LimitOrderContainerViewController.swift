@@ -15,11 +15,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var pagerIndicatorCenterXContraint: NSLayoutConstraint!
 
   private var pageController: UIPageViewController!
-  private var pages: [UIViewController]
+  private var pages: [KNBuyKNCViewController]
   
   init(wallet: Wallet) {
     let buyViewModel = KNBuyKNCViewModel(wallet: wallet)
-    self.pages = [KNBuyKNCViewController(viewModel: buyViewModel), KNSellKNCViewController()]
+    let sellViewModel = KNBuyKNCViewModel(wallet: wallet)
+    self.pages = [KNBuyKNCViewController(viewModel: buyViewModel), KNBuyKNCViewController(viewModel: sellViewModel)]
     super.init(nibName: LimitOrderContainerViewController.className, bundle: nil)
   }
   
@@ -70,6 +71,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
     UIView.animate(withDuration: 0.3, delay: delay, animations: {
       self.view.layoutIfNeeded()
     })
+  }
+  
+  func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
+    for vc in self.pages {
+      vc.coordinatorUpdateTokenBalance(balances)
+    }
   }
 }
 

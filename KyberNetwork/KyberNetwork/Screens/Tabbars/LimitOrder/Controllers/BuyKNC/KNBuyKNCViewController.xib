@@ -26,6 +26,7 @@
             <connections>
                 <outlet property="amountField" destination="uWt-k2-VQa" id="HIs-aa-FaI"/>
                 <outlet property="beforeDiscountFeeLabel" destination="sBz-ns-jKw" id="cXO-v0-OOU"/>
+                <outlet property="comparePriceLabel" destination="6E7-fa-WNi" id="UMm-3l-sqL"/>
                 <outlet property="feeLabel" destination="w93-ly-3v6" id="45x-RM-Fg5"/>
                 <outlet property="marketNameLabel" destination="Qcj-1g-JFS" id="w3p-h3-l2I"/>
                 <outlet property="priceField" destination="u6a-j7-MXP" id="Be1-kC-nOS"/>
@@ -82,6 +83,9 @@
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="psT-0x-7HM"/>
+                                    </connections>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="akA-2Z-PbE">
                                     <rect key="frame" x="291" y="14" width="34" height="20"/>
@@ -135,6 +139,9 @@
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="BSM-tR-xMx"/>
+                                    </connections>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KNC" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ljB-ID-F8A">
                                     <rect key="frame" x="288.5" y="14" width="36.5" height="20"/>
