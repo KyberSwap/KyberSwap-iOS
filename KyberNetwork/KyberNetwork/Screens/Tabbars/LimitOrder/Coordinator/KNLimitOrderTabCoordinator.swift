@@ -57,10 +57,10 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
     
     
     let controller = LimitOrderContainerViewController(wallet: self.session.wallet)
-    
+    controller.delegate = self
     
     controller.loadViewIfNeeded()
-//    controller.delegate = self
+    
     return controller
   }()
 
@@ -212,7 +212,7 @@ extension KNLimitOrderTabCoordinator {
 }
 
 extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
-  func kCreateLimitOrderViewController(_ controller: KNCreateLimitOrderViewController, run event: KNCreateLimitOrderViewEvent) {
+  func kCreateLimitOrderViewController(_ controller: KNCreateLimitOrderViewController?, run event: KNCreateLimitOrderViewEvent) {
     switch event {
     case .searchToken(let from, let to, let isSource, let pendingBalances):
       self.openSearchToken(from: from, to: to, isSource: isSource, pendingBalances: pendingBalances)
@@ -389,13 +389,13 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
         switch result {
         case .success(let data):
           if data.4 == nil {
-//            self?.rootViewController.coordinatorUpdateEstimateFee(
-//              data.0,
-//              discount: data.1,
-//              feeBeforeDiscount: data.2,
-//              transferFee: data.3
-//            )
-//            completion?(data.0, data.1, data.2, data.3, nil)
+            self?.rootViewController.coordinatorUpdateEstimateFee(
+              data.0,
+              discount: data.1,
+              feeBeforeDiscount: data.2,
+              transferFee: data.3
+            )
+            completion?(data.0, data.1, data.2, data.3, nil)
           } else {
             completion?(nil, nil, nil, nil, data.4)
           }

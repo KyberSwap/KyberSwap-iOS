@@ -6,6 +6,15 @@
 //
 
 import UIKit
+import BigInt
+
+enum LimitOrderContainerViewEvent {
+  case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, showWarning: Bool)
+}
+
+protocol LimitOrderContainerViewControllerDelegate: class {
+  func kLimitOrderContainerViewController(_ controller: LimitOrderContainerViewController, run event: LimitOrderContainerViewEvent)
+}
 
 class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var pagerIndicator: UIView!
@@ -13,6 +22,8 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var buyKncButton: UIButton!
   @IBOutlet weak var sellKncButton: UIButton!
   @IBOutlet weak var pagerIndicatorCenterXContraint: NSLayoutConstraint!
+  
+  weak var delegate: KNCreateLimitOrderViewControllerDelegate? //Note: delete later
 
   private var pageController: UIPageViewController!
   private var pages: [KNBuyKNCViewController]
@@ -21,6 +32,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
     let buyViewModel = KNBuyKNCViewModel(wallet: wallet)
     let sellViewModel = KNBuyKNCViewModel(wallet: wallet)
     self.pages = [KNBuyKNCViewController(viewModel: buyViewModel), KNBuyKNCViewController(viewModel: sellViewModel)]
+    
     super.init(nibName: LimitOrderContainerViewController.className, bundle: nil)
   }
   
@@ -30,7 +42,9 @@ class LimitOrderContainerViewController: KNBaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    for vc in self.pages {
+      vc.delegate = self.delegate
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +90,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
   func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
     for vc in self.pages {
       vc.coordinatorUpdateTokenBalance(balances)
+    }
+  }
+  
+  func coordinatorUpdateEstimateFee(_ fee: Double, discount: Double, feeBeforeDiscount: Double, transferFee: Double) {
+    for vc in self.pages {
+      vc.coordinatorUpdateEstimateFee(fee, discount: discount, feeBeforeDiscount: feeBeforeDiscount, transferFee: transferFee)
     }
   }
 }
