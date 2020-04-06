@@ -28,7 +28,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
   private var pages: [KNBuyKNCViewController]
   init(wallet: Wallet) {
     let buyViewModel = KNBuyKNCViewModel(wallet: wallet)
-    let sellViewModel = KNBuyKNCViewModel(wallet: wallet)
+    let sellViewModel = KNBuyKNCViewModel(wallet: wallet, isBuy: false)
     self.pages = [KNBuyKNCViewController(viewModel: buyViewModel), KNBuyKNCViewController(viewModel: sellViewModel)]
     super.init(nibName: LimitOrderContainerViewController.className, bundle: nil)
   }

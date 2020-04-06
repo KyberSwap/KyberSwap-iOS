@@ -24,31 +24,38 @@ class KNBuyKNCViewModel {
   var discountPercentage: Double = 0 // example: 40 -> 40%
   var feeBeforeDiscount: Double = 0 // same as fee percentage
   var transferFeePercent: Double = 0
-  
-  
-  init(wallet: Wallet) {
+  let isBuy: Bool
+
+  init(wallet: Wallet, isBuy: Bool = true) {
+    self.isBuy = isBuy
     self.wallet = wallet
     let addr = wallet.address.description
     self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: addr) ?? KNWalletObject(address: addr)
-    self.from = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
-    self.to = KNSupportedTokenStorage.shared.kncToken
+    if isBuy {
+      self.from = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
+      self.to = KNSupportedTokenStorage.shared.kncToken
+    } else {
+      self.to = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
+      self.from = KNSupportedTokenStorage.shared.kncToken
+    }
   }
-  
+
   var walletNameString: String {
     let addr = self.walletObject.address.lowercased()
     return "|  \(addr.prefix(10))...\(addr.suffix(8))"
   }
-  
+
   var targetPriceFromMarket: String {
     let formatter = NumberFormatterUtil.shared.doubleFormatter
-    return formatter.string(from: NSNumber(value: self.market?.buyPrice ?? 0)) ?? ""
+    let marketPrice = self.isBuy ? self.market?.buyPrice : self.market?.sellPrice
+    return formatter.string(from: NSNumber(value: marketPrice ?? 0)) ?? ""
   }
-  
+
   func updateMarket(name: String = "ETH_KNC") {
     self.market = KNRateCoordinator.shared.getMarketWith(name: name)
   }
-  
-  func updateBalance(_ balances: [String: Balance])  {
+
+  func updateBalance(_ balances: [String: Balance]) {
     balances.forEach { (key, value) in
       self.balances[key] = value
     }
@@ -59,11 +66,11 @@ class KNBuyKNCViewModel {
       self.balance = bal
     }
   }
-  
+
   func updateTargetPrice(_ price: String) {
     self.targetPrice = price
   }
-  
+
   var availableBalance: BigInt {
     let balance: BigInt = {
       if self.from.isWETH {
@@ -80,7 +87,7 @@ class KNBuyKNCViewModel {
     availableAmount = max(availableAmount, BigInt(0))
     return availableAmount
   }
-  
+
   var balanceText: String {
     let bal: BigInt = self.availableBalance
     let string = bal.string(
@@ -139,23 +146,27 @@ class KNBuyKNCViewModel {
   func updateAmountTo(_ amount: String) {
     self.amountTo = amount
   }
-  
+
   var isShowingDiscount: Bool {
     let discountVal = self.totalAmountDouble * self.feeBeforeDiscount * (self.discountPercentage / 100.0)
     return discountVal >= 0.000001
   }
-  
+
   var fromSymbol: String {
     return self.from.isETH || self.from.isWETH ? "ETH*" : self.from.symbol
   }
   
+  var toSymBol: String {
+    return self.to.isETH || self.to.isWETH ? "ETH*" : self.to.symbol
+  }
+
   lazy var feeNoteHighlightedAttributes: [NSAttributedStringKey: Any] = {
     return [
       NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor(red: 90, green: 94, blue: 103),
     ]
   }()
-  
+
   lazy var feeNoteNormalAttributes: [NSAttributedStringKey: Any] = {
     return [
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
@@ -163,7 +174,7 @@ class KNBuyKNCViewModel {
       NSAttributedStringKey.strikethroughStyle: NSUnderlineStyle.styleSingle.rawValue,
     ]
   }()
-  
+
   var displayFeeString: String {
     let feeDouble = self.totalAmountDouble * (self.feePercentage + transferFeePercent)
     let feeDisplay = NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)
@@ -173,7 +184,7 @@ class KNBuyKNCViewModel {
     let percentage = NumberFormatterUtil.shared.displayPercentage(from: (self.feePercentage + self.transferFeePercent) * 100.0)
     return "\(string) (\(percentage)%)"
   }
-  
+
   var displayFeeBeforeDiscountString: String {
     let feeDouble = self.totalAmountDouble * (self.feePercentage + transferFeePercent)
     let feeDisplay = NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)
@@ -186,7 +197,7 @@ class KNBuyKNCViewModel {
     attributedString.append(NSAttributedString(string: self.displayFeeBeforeDiscountString, attributes: self.feeNoteNormalAttributes))
     return attributedString
   }
-  
+
   var displayDiscountPercentageString: String {
     let discount = NumberFormatterUtil.shared.displayPercentage(from: self.discountPercentage)
     return "\(discount)% OFF"
@@ -195,29 +206,29 @@ class KNBuyKNCViewModel {
   var amountFromBigInt: BigInt {
     return EtherNumberFormatter.full.number(from: self.amountFrom.removeGroupSeparator(), decimals: self.from.decimals) ?? BigInt(0)
   }
-  
+
   var targetPriceBigInt: BigInt {
     return self.targetPrice.removeGroupSeparator().amountBigInt(decimals: self.to.decimals) ?? BigInt(0)
   }
-  
+
   var estimateAmountToBigInt: BigInt {
     let rate = self.targetPriceBigInt
     if rate.isZero { return BigInt(0) }
     return self.amountFromBigInt * rate / BigInt(10).power(self.from.decimals)
   }
-  
+
   var amountToBigInt: BigInt {
     return self.amountTo.removeGroupSeparator().amountBigInt(decimals: self.to.decimals) ?? BigInt(0)
   }
-  
+
   var amountToDouble: Double {
     return self.amountTo.doubleValue
   }
-  
+
   var estimateAmountToDouble: Double {
     return self.amountFrom.doubleValue / self.targetPrice.doubleValue
   }
-  
+
   var estimateAmountToString: String {
     let formatter = NumberFormatterUtil.shared.doubleFormatter
     return formatter.string(from: NSNumber(value: self.estimateAmountToDouble)) ?? ""

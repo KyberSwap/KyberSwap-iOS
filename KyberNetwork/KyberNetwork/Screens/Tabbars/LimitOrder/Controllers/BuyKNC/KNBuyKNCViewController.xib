@@ -26,15 +26,19 @@
             <connections>
                 <outlet property="amountField" destination="uWt-k2-VQa" id="HIs-aa-FaI"/>
                 <outlet property="beforeDiscountFeeLabel" destination="sBz-ns-jKw" id="cXO-v0-OOU"/>
+                <outlet property="buySellButton" destination="uAl-Dw-MWf" id="Vc6-b0-JhI"/>
                 <outlet property="comparePriceLabel" destination="6E7-fa-WNi" id="UMm-3l-sqL"/>
                 <outlet property="discountPecentLabel" destination="BM7-kR-srb" id="jDN-Xk-eAC"/>
                 <outlet property="discountPercentContainerView" destination="Q3x-cw-BJl" id="4Fy-gd-MOB"/>
                 <outlet property="feeLabel" destination="w93-ly-3v6" id="45x-RM-Fg5"/>
                 <outlet property="marketNameLabel" destination="Qcj-1g-JFS" id="w3p-h3-l2I"/>
                 <outlet property="priceField" destination="u6a-j7-MXP" id="Be1-kC-nOS"/>
+                <outlet property="toSymLabel" destination="ljB-ID-F8A" id="ao9-1c-dym"/>
                 <outlet property="tokenAvailableLabel" destination="Ls4-gj-7NW" id="edR-mW-Y5q"/>
                 <outlet property="totalField" destination="Thu-V5-suv" id="x3K-Eq-4vv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="fromSymLabels" destination="akA-2Z-PbE" collectionClass="NSMutableArray" id="wWR-MJ-OEO"/>
+                <outletCollection property="fromSymLabels" destination="x3S-cu-pQH" collectionClass="NSMutableArray" id="IyJ-oC-vPw"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

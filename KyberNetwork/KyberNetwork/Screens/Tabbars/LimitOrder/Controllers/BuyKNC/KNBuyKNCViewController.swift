@@ -19,6 +19,10 @@ class KNBuyKNCViewController: KNBaseViewController {
   @IBOutlet weak var discountPecentLabel: UILabel!
   @IBOutlet weak var discountPercentContainerView: UIView!
   @IBOutlet weak var totalField: UITextField!
+  @IBOutlet weak var buySellButton: UIButton!
+  @IBOutlet var fromSymLabels: [UILabel]!
+  @IBOutlet weak var toSymLabel: UILabel!
+
   fileprivate var updateFeeTimer: Timer?
 
   weak var delegate: KNCreateLimitOrderViewControllerDelegate?
@@ -68,6 +72,16 @@ class KNBuyKNCViewController: KNBaseViewController {
     self.priceField.text = self.viewModel.targetPriceFromMarket
     self.viewModel.updateTargetPrice(self.viewModel.targetPriceFromMarket)
     self.tokenAvailableLabel.text = self.viewModel.balanceText
+    self.toSymLabel.text = self.viewModel.toSymBol
+    for label in self.fromSymLabels {
+      label.text = self.viewModel.fromSymbol
+    }
+    if self.viewModel.isBuy {
+      self.buySellButton.setTitle("\("Buy".toBeLocalised()) \(self.viewModel.toSymBol)", for: .normal)
+    } else {
+      self.buySellButton.setTitle("\("Sell".toBeLocalised()) \(self.viewModel.fromSymbol)", for: .normal)
+      self.buySellButton.backgroundColor = UIColor.Kyber.red
+    }
   }
 
   fileprivate func updateFeeNotesUI() {
