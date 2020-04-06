@@ -22,31 +22,28 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var buyKncButton: UIButton!
   @IBOutlet weak var sellKncButton: UIButton!
   @IBOutlet weak var pagerIndicatorCenterXContraint: NSLayoutConstraint!
-  
   weak var delegate: KNCreateLimitOrderViewControllerDelegate? //Note: delete later
 
   private var pageController: UIPageViewController!
   private var pages: [KNBuyKNCViewController]
-  
   init(wallet: Wallet) {
     let buyViewModel = KNBuyKNCViewModel(wallet: wallet)
     let sellViewModel = KNBuyKNCViewModel(wallet: wallet)
     self.pages = [KNBuyKNCViewController(viewModel: buyViewModel), KNBuyKNCViewController(viewModel: sellViewModel)]
-    
     super.init(nibName: LimitOrderContainerViewController.className, bundle: nil)
   }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     for vc in self.pages {
       vc.delegate = self.delegate
     }
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.setupPageController()
@@ -86,13 +83,13 @@ class LimitOrderContainerViewController: KNBaseViewController {
       self.view.layoutIfNeeded()
     })
   }
-  
+
   func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
     for vc in self.pages {
       vc.coordinatorUpdateTokenBalance(balances)
     }
   }
-  
+
   func coordinatorUpdateEstimateFee(_ fee: Double, discount: Double, feeBeforeDiscount: Double, transferFee: Double) {
     for vc in self.pages {
       vc.coordinatorUpdateEstimateFee(fee, discount: discount, feeBeforeDiscount: feeBeforeDiscount, transferFee: transferFee)

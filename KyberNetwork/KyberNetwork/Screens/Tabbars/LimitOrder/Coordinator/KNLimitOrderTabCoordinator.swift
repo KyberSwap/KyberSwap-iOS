@@ -212,7 +212,7 @@ extension KNLimitOrderTabCoordinator {
 }
 
 extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
-  func kCreateLimitOrderViewController(_ controller: KNCreateLimitOrderViewController?, run event: KNCreateLimitOrderViewEvent) {
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNCreateLimitOrderViewEvent) {
     switch event {
     case .searchToken(let from, let to, let isSource, let pendingBalances):
       self.openSearchToken(from: from, to: to, isSource: isSource, pendingBalances: pendingBalances)
@@ -247,7 +247,7 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
     }
   }
 
-  func kCreateLimitOrderViewController(_ controller: KNCreateLimitOrderViewController, run event: KNBalanceTabHamburgerMenuViewEvent) {
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNBalanceTabHamburgerMenuViewEvent) {
     switch event {
     case .selectSendToken:
       self.openSendTokenView()

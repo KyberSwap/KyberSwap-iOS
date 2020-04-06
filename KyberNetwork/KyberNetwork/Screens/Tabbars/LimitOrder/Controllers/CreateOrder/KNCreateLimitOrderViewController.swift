@@ -17,8 +17,8 @@ enum KNCreateLimitOrderViewEvent {
 }
 
 protocol KNCreateLimitOrderViewControllerDelegate: class {
-  func kCreateLimitOrderViewController(_ controller: KNCreateLimitOrderViewController, run event: KNCreateLimitOrderViewEvent)
-  func kCreateLimitOrderViewController(_ controller: KNCreateLimitOrderViewController, run event: KNBalanceTabHamburgerMenuViewEvent)
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNCreateLimitOrderViewEvent)
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNBalanceTabHamburgerMenuViewEvent)
 }
 
 class KNCreateLimitOrderViewController: KNBaseViewController {

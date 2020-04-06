@@ -19,6 +19,7 @@ class KNBuyKNCViewModel {
   fileprivate(set) var pendingBalances: JSONDictionary = [:]
   fileprivate(set) var targetPrice: String = ""
   fileprivate(set) var amountFrom: String = ""
+  fileprivate(set) var amountTo: String = ""
   var feePercentage: Double = 0 // example: 0.005 -> 0.5%
   var discountPercentage: Double = 0 // example: 40 -> 40%
   var feeBeforeDiscount: Double = 0 // same as fee percentage
@@ -130,13 +131,17 @@ class KNBuyKNCViewModel {
     }
     return attributedString
   }
-  
-  func updateAmount(_ amount: String) {
+
+  func updateAmountFrom(_ amount: String) {
     self.amountFrom = amount
+  }
+
+  func updateAmountTo(_ amount: String) {
+    self.amountTo = amount
   }
   
   var isShowingDiscount: Bool {
-    let discountVal = self.amountFrom.doubleValue * self.feeBeforeDiscount * (self.discountPercentage / 100.0)
+    let discountVal = self.totalAmountDouble * self.feeBeforeDiscount * (self.discountPercentage / 100.0)
     return discountVal >= 0.000001
   }
   
@@ -160,17 +165,17 @@ class KNBuyKNCViewModel {
   }()
   
   var displayFeeString: String {
-    let feeDouble = self.amountFrom.doubleValue * (self.feePercentage + transferFeePercent)
+    let feeDouble = self.totalAmountDouble * (self.feePercentage + transferFeePercent)
     let feeDisplay = NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)
     let fromSymbol = self.fromSymbol
     let string = "\(feeDisplay.prefix(12)) \(fromSymbol)"
-    if self.isShowingDiscount || self.amountFrom.doubleValue == 0.0 { return string }
+    if self.isShowingDiscount || self.totalAmountDouble == 0.0 { return string }
     let percentage = NumberFormatterUtil.shared.displayPercentage(from: (self.feePercentage + self.transferFeePercent) * 100.0)
     return "\(string) (\(percentage)%)"
   }
   
   var displayFeeBeforeDiscountString: String {
-    let feeDouble = self.amountFrom.doubleValue * (self.feePercentage + transferFeePercent)
+    let feeDouble = self.totalAmountDouble * (self.feePercentage + transferFeePercent)
     let feeDisplay = NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)
     let fromSymbol = self.fromSymbol
     return "\(feeDisplay.prefix(12)) \(fromSymbol)"
@@ -201,4 +206,71 @@ class KNBuyKNCViewModel {
     return self.amountFromBigInt * rate / BigInt(10).power(self.from.decimals)
   }
   
+  var amountToBigInt: BigInt {
+    return self.amountTo.removeGroupSeparator().amountBigInt(decimals: self.to.decimals) ?? BigInt(0)
+  }
+  
+  var amountToDouble: Double {
+    return self.amountTo.doubleValue
+  }
+  
+  var estimateAmountToDouble: Double {
+    return self.amountFrom.doubleValue / self.targetPrice.doubleValue
+  }
+  
+  var estimateAmountToString: String {
+    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    return formatter.string(from: NSNumber(value: self.estimateAmountToDouble)) ?? ""
+  }
+
+  var estimateAmountFromBigInt: BigInt {
+    let rate = self.targetPriceBigInt
+    if rate.isZero { return BigInt(0) }
+    let amountTo = self.amountToBigInt
+    return amountTo * BigInt(10).power(self.from.decimals) / rate
+  }
+
+  var totalCostString: String {
+    let cost = amountFrom.doubleValue * targetPrice.doubleValue
+    return "\(cost) \(self.fromSymbol)"
+  }
+
+  func amountFromWithPercentage(_ percentage: Int) -> BigInt {
+    let amount = self.availableBalance * BigInt(percentage) / BigInt(100)
+    if !(self.from.isETH || self.from.isWETH) { return amount }
+    let fee: BigInt = {
+      if let bal = self.balances[self.eth.contract]?.value, !bal.isZero {
+        return KNGasCoordinator.shared.fastKNGas * BigInt(600_000) // approve + convet if needed
+      }
+      return BigInt(0)
+    }()
+    return min(amount, max(0, self.availableBalance - fee))
+  }
+
+  var allFromTokenBalanceString: String {
+    if !(self.from.isETH || self.from.isWETH) { return self.balanceText.removeGroupSeparator() }
+    let fee: BigInt = {
+      if let bal = self.balances[self.eth.contract]?.value, !bal.isZero {
+        return KNGasCoordinator.shared.fastKNGas * BigInt(600_000) // approve + convet if needed
+      }
+      return BigInt(0)
+    }()
+    let bal: BigInt = max(BigInt(0), self.availableBalance - fee)
+    let string = bal.string(
+      decimals: self.from.decimals,
+      minFractionDigits: 0,
+      maxFractionDigits: min(self.from.decimals, 6)
+    ).removeGroupSeparator()
+    if let value = Double(string), value == 0 { return "0" }
+    return "\(string.prefix(12))"
+  }
+
+  var totalAmountDouble: Double {
+    return self.amountTo.doubleValue * self.targetPrice.doubleValue
+  }
+
+  var totalAmountString: String {
+    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    return formatter.string(from: NSNumber(value: self.totalAmountDouble)) ?? ""
+  }
 }

@@ -15,11 +15,10 @@ class KNBuyKNCViewController: KNBaseViewController {
   @IBOutlet weak var tokenAvailableLabel: UILabel!
   @IBOutlet weak var feeLabel: UILabel!
   @IBOutlet weak var beforeDiscountFeeLabel: UILabel!
-  @IBOutlet weak var totalAmountLabel: UILabel!
-  @IBOutlet weak var totalPriceLabel: UILabel!
   @IBOutlet weak var comparePriceLabel: UILabel!
   @IBOutlet weak var discountPecentLabel: UILabel!
   @IBOutlet weak var discountPercentContainerView: UIView!
+  @IBOutlet weak var totalField: UITextField!
   fileprivate var updateFeeTimer: Timer?
 
   weak var delegate: KNCreateLimitOrderViewControllerDelegate?
@@ -50,7 +49,6 @@ class KNBuyKNCViewController: KNBaseViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    
     self.updateFeeTimer?.invalidate()
     self.updateFeeTimer = Timer.scheduledTimer(
       withTimeInterval: 10.0,
@@ -68,6 +66,7 @@ class KNBuyKNCViewController: KNBaseViewController {
   fileprivate func setupUI() {
     self.viewModel.updateMarket()
     self.priceField.text = self.viewModel.targetPriceFromMarket
+    self.viewModel.updateTargetPrice(self.viewModel.targetPriceFromMarket)
     self.tokenAvailableLabel.text = self.viewModel.balanceText
   }
 
@@ -75,11 +74,9 @@ class KNBuyKNCViewController: KNBaseViewController {
     guard isViewSetup else {
       return
     }
-//    self.feeLabel.attributedText = self.viewModel.feeNoteAttributedString
     self.feeLabel.text = self.viewModel.displayFeeString
     self.beforeDiscountFeeLabel.attributedText = self.viewModel.beforeDiscountAttributeString
     self.beforeDiscountFeeLabel.isHidden = !self.viewModel.isShowingDiscount
-    
     self.discountPercentContainerView.isHidden = !self.viewModel.isShowingDiscount
     self.discountPecentLabel.text = self.viewModel.displayDiscountPercentageString
   }
@@ -90,7 +87,7 @@ class KNBuyKNCViewController: KNBaseViewController {
       self.tokenAvailableLabel.text = self.viewModel.balanceText
     }
   }
-  
+
   func coordinatorUpdateEstimateFee(_ fee: Double, discount: Double, feeBeforeDiscount: Double, transferFee: Double) {
     self.viewModel.feePercentage = fee
     self.viewModel.discountPercentage = discount
@@ -98,7 +95,7 @@ class KNBuyKNCViewController: KNBaseViewController {
     self.viewModel.transferFeePercent = transferFee
     self.updateFeeNotesUI()
   }
-  
+
   fileprivate func updateEstimateRateFromNetwork(showWarning: Bool = false) {
     let amount: BigInt = {
       if self.viewModel.amountFromBigInt.isZero {
@@ -112,7 +109,7 @@ class KNBuyKNCViewController: KNBaseViewController {
       amount: amount,
       showWarning: showWarning
     )
-    self.delegate?.kCreateLimitOrderViewController(nil, run: event)
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
   }
 
   fileprivate func updateEstimateFeeFromServer() {
@@ -120,10 +117,52 @@ class KNBuyKNCViewController: KNBaseViewController {
       address: self.viewModel.walletObject.address,
       src: self.viewModel.from.contract,
       dest: self.viewModel.to.contract,
-      srcAmount: Double(self.viewModel.amountFromBigInt) / pow(10.0, Double(self.viewModel.from.decimals)),
-      destAmount: Double(self.viewModel.estimateAmountToBigInt) / pow(10.0, Double(self.viewModel.to.decimals))
+      srcAmount: self.viewModel.totalAmountDouble,
+      destAmount: self.viewModel.amountToDouble
     )
-    self.delegate?.kCreateLimitOrderViewController(nil, run: event)
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
+  }
+
+  @IBAction func learnMoreButtonTapped(_ sender: UIButton) {
+    let url = "\(KNEnvironment.default.profileURL)/faq#I-have-KNC-in-my-wallet-Do-I-get-any-discount-on-trading-fees"
+    self.navigationController?.openSafari(with: url)
+  }
+
+  @IBAction func quickFillAmountButtonTapped(_ sender: UIButton) {
+    self.updateEstimateFeeFromServer()
+    switch sender.tag {
+    case 1:
+      let amountDisplay = self.viewModel.amountFromWithPercentage(25).string(
+        decimals: self.viewModel.from.decimals,
+        minFractionDigits: 0,
+        maxFractionDigits: min(self.viewModel.from.decimals, 6)
+      ).removeGroupSeparator()
+      self.viewModel.updateAmountFrom(amountDisplay)
+      self.totalField.text = amountDisplay
+      self.amountField.text = self.viewModel.estimateAmountToString
+      self.viewModel.updateAmountTo(self.viewModel.estimateAmountToString)
+      self.updateFeeNotesUI()
+    case 2:
+      let amountDisplay = self.viewModel.amountFromWithPercentage(50).string(
+        decimals: self.viewModel.from.decimals,
+        minFractionDigits: 0,
+        maxFractionDigits: min(self.viewModel.from.decimals, 6)
+      ).removeGroupSeparator()
+      self.viewModel.updateAmountFrom(amountDisplay)
+      self.totalField.text = amountDisplay
+      self.amountField.text = self.viewModel.estimateAmountToString
+      self.viewModel.updateAmountTo(self.viewModel.estimateAmountToString)
+      self.updateFeeNotesUI()
+    case 3:
+      let amountDisplay = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
+      self.viewModel.updateAmountFrom(amountDisplay)
+      self.totalField.text = amountDisplay
+      self.amountField.text = self.viewModel.estimateAmountToString
+      self.viewModel.updateAmountTo(self.viewModel.estimateAmountToString)
+      self.updateFeeNotesUI()
+    default:
+      break
+    }
   }
 }
 
@@ -134,8 +173,9 @@ extension KNBuyKNCViewController: UITextFieldDelegate {
       self.viewModel.updateTargetPrice(text)
       self.comparePriceLabel.attributedText = self.viewModel.displayRateCompareAttributedString
     } else if textField == self.amountField {
-      self.viewModel.updateAmount(text)
+      self.viewModel.updateAmountTo(text)
       self.updateFeeNotesUI()
+      self.totalField.text = self.viewModel.totalAmountString
     }
     return true
   }
