@@ -205,8 +205,7 @@ class KNRateCoordinator {
         KNNotificationUtil.postNotification(for: kProdCachedRateFailedToLoadNotiKey)
       }
     }
-    
-    //Note: load market
+
     KNLimitOrderServerCoordinator.shared.getMarket { [weak self] result in
       guard let `self` = self else { return }
       if case .success(let rates) = result {
@@ -217,7 +216,7 @@ class KNRateCoordinator {
       }
     }
   }
-  
+
   func getMarketWith(name: String) -> KNMarket? {
     guard !self.cachedMarket.isEmpty else {
       return nil

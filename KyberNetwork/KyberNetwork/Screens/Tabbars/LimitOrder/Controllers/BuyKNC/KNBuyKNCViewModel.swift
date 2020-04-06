@@ -155,7 +155,7 @@ class KNBuyKNCViewModel {
   var fromSymbol: String {
     return self.from.isETH || self.from.isWETH ? "ETH*" : self.from.symbol
   }
-  
+
   var toSymBol: String {
     return self.to.isETH || self.to.isWETH ? "ETH*" : self.to.symbol
   }

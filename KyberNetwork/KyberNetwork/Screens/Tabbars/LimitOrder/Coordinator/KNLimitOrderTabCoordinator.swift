@@ -129,6 +129,10 @@ extension KNLimitOrderTabCoordinator {
     self.sendTokenCoordinator?.coordinatorGasPriceCachedDidUpdate()
     self.historyCoordinator?.coordinatorGasPriceCachedDidUpdate()
   }
+  
+  func appCoordinatorMarketCachedDidUpdate() {
+    self.rootViewController.coordinatorMarketCachedDidUpdate()
+  }
 
   func appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, otherTokensBalance: [String: Balance]) {
     self.rootViewController.coordinatorUpdateTokenBalance(otherTokensBalance)

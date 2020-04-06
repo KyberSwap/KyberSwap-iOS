@@ -1,15 +1,9 @@
-//
-//  KNBuyKNCViewController.swift
-//  KyberNetwork
-//
-//  Created by Ta Minh Quan on 3/25/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
 import BigInt
 
 class KNBuyKNCViewController: KNBaseViewController {
-  @IBOutlet weak var marketNameLabel: UIButton!
   @IBOutlet weak var priceField: UITextField!
   @IBOutlet weak var amountField: UITextField!
   @IBOutlet weak var tokenAvailableLabel: UILabel!
@@ -177,6 +171,10 @@ class KNBuyKNCViewController: KNBaseViewController {
     default:
       break
     }
+  }
+  
+  func coordinatorMarketCachedDidUpdate() {
+    self.viewModel.updateMarket()
   }
 }
 

@@ -1,9 +1,4 @@
-//
-//  LimitOrderContainerViewController.swift
-//  KyberNetwork
-//
-//  Created by Ta Minh Quan on 3/25/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
 import BigInt
@@ -22,7 +17,13 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var buyKncButton: UIButton!
   @IBOutlet weak var sellKncButton: UIButton!
   @IBOutlet weak var pagerIndicatorCenterXContraint: NSLayoutConstraint!
-  weak var delegate: KNCreateLimitOrderViewControllerDelegate? //Note: delete later
+  @IBOutlet weak var marketNameButton: UIButton!
+  @IBOutlet weak var marketDetailLabel: UILabel!
+  @IBOutlet weak var marketVolLabel: UILabel!
+  
+  weak var delegate: KNCreateLimitOrderViewControllerDelegate?
+  var currentIndex = 0
+  fileprivate var isViewSetup: Bool = false
 
   private var pageController: UIPageViewController!
   private var pages: [KNBuyKNCViewController]
@@ -46,16 +47,21 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    self.setupPageController()
+    if !self.isViewSetup {
+      self.isViewSetup = true
+      self.setupPageController()
+    }
   }
 
   @IBAction func pagerButtonTapped(_ sender: UIButton) {
     if sender.tag == 1 {
       self.pageController.setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
       self.animatePagerIndicator(index: 1, delay: 0.3)
+      self.currentIndex = 0
     } else {
       self.pageController.setViewControllers([pages.last!], direction: .reverse, animated: true, completion: nil)
       self.animatePagerIndicator(index: 2, delay: 0.3)
+      self.currentIndex = 1
     }
   }
 
@@ -91,22 +97,26 @@ class LimitOrderContainerViewController: KNBaseViewController {
   }
 
   func coordinatorUpdateEstimateFee(_ fee: Double, discount: Double, feeBeforeDiscount: Double, transferFee: Double) {
+    self.pages[self.currentIndex].coordinatorUpdateEstimateFee(fee, discount: discount, feeBeforeDiscount: feeBeforeDiscount, transferFee: transferFee)
+  }
+
+  func coordinatorMarketCachedDidUpdate() {
     for vc in self.pages {
-      vc.coordinatorUpdateEstimateFee(fee, discount: discount, feeBeforeDiscount: feeBeforeDiscount, transferFee: transferFee)
+      vc.coordinatorMarketCachedDidUpdate()
     }
   }
 }
 
 extension LimitOrderContainerViewController: UIPageViewControllerDataSource {
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-    guard viewController.isKind(of: KNSellKNCViewController.self) else {
+    guard viewController == self.pages[1] else {
       return nil
     }
     return self.pages.first!
   }
 
   func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-    guard viewController.isKind(of: KNBuyKNCViewController.self) else {
+    guard viewController == self.pages[0] else {
       return nil
     }
     return self.pages.last!
@@ -120,7 +130,7 @@ extension LimitOrderContainerViewController: UIPageViewControllerDelegate {
 
   func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
     guard let viewController = previousViewControllers.first, completed == true else { return }
-    if viewController.isKind(of: KNSellKNCViewController.self) {
+    if viewController == self.pages[1] {
       self.animatePagerIndicator(index: 1)
     } else if viewController.isKind(of: KNBuyKNCViewController.self) {
       self.animatePagerIndicator(index: 2)
