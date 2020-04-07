@@ -3,14 +3,6 @@
 import UIKit
 import BigInt
 
-enum LimitOrderContainerViewEvent {
-  case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, showWarning: Bool)
-}
-
-protocol LimitOrderContainerViewControllerDelegate: class {
-  func kLimitOrderContainerViewController(_ controller: LimitOrderContainerViewController, run event: LimitOrderContainerViewEvent)
-}
-
 class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var pagerIndicator: UIView!
   @IBOutlet weak var contentContainerView: UIView!
@@ -26,11 +18,11 @@ class LimitOrderContainerViewController: KNBaseViewController {
   fileprivate var isViewSetup: Bool = false
 
   private var pageController: UIPageViewController!
-  private var pages: [KNBuyKNCViewController]
+  private var pages: [KNCreateLimitOrderV2ViewController]
   init(wallet: Wallet) {
-    let buyViewModel = KNBuyKNCViewModel(wallet: wallet)
-    let sellViewModel = KNBuyKNCViewModel(wallet: wallet, isBuy: false)
-    self.pages = [KNBuyKNCViewController(viewModel: buyViewModel), KNBuyKNCViewController(viewModel: sellViewModel)]
+    let buyViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet)
+    let sellViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet, isBuy: false)
+    self.pages = [KNCreateLimitOrderV2ViewController(viewModel: buyViewModel), KNCreateLimitOrderV2ViewController(viewModel: sellViewModel)]
     super.init(nibName: LimitOrderContainerViewController.className, bundle: nil)
   }
 
@@ -132,7 +124,7 @@ extension LimitOrderContainerViewController: UIPageViewControllerDelegate {
     guard let viewController = previousViewControllers.first, completed == true else { return }
     if viewController == self.pages[1] {
       self.animatePagerIndicator(index: 1)
-    } else if viewController.isKind(of: KNBuyKNCViewController.self) {
+    } else if viewController == self.pages[0]{
       self.animatePagerIndicator(index: 2)
     }
   }

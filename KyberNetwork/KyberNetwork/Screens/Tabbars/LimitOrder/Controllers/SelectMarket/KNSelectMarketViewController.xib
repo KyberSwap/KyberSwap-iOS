@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Montserrat-Medium.ttf">
+            <string>Montserrat-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNSelectMarketViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFV-a7-4wd">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Market" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gb-wx-r9C">
+                            <rect key="frame" x="155.5" y="44" width="64.5" height="22"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="18"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3I-ke-Wbw">
+                            <rect key="frame" x="16" y="37" width="46" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="2P3-6O-qen"/>
+                                <constraint firstAttribute="width" constant="46" id="pFj-b5-a5u"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="back_white_icon">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="2Gb-wx-r9C" firstAttribute="centerX" secondItem="XFV-a7-4wd" secondAttribute="centerX" id="2q4-Vy-7QA"/>
+                        <constraint firstAttribute="bottom" secondItem="2Gb-wx-r9C" secondAttribute="bottom" constant="16" id="K9b-IC-L8g"/>
+                        <constraint firstAttribute="height" constant="82" id="KdM-ZY-1DN"/>
+                        <constraint firstItem="i3I-ke-Wbw" firstAttribute="leading" secondItem="XFV-a7-4wd" secondAttribute="leading" constant="16" id="SJF-rq-ngm"/>
+                        <constraint firstItem="i3I-ke-Wbw" firstAttribute="centerY" secondItem="2Gb-wx-r9C" secondAttribute="centerY" id="Yaq-mr-2jN"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="XFV-a7-4wd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Wf3-lp-Sbx"/>
+                <constraint firstItem="XFV-a7-4wd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dzH-be-98A"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XFV-a7-4wd" secondAttribute="trailing" id="e0j-4p-1rx"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.40000000000001" y="112.89355322338831"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="back_white_icon" width="38" height="19"/>
+    </resources>
+</document>

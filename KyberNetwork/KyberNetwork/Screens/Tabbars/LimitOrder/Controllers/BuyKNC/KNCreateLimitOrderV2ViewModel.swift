@@ -3,7 +3,7 @@
 import Foundation
 import BigInt
 
-class KNBuyKNCViewModel {
+class KNCreateLimitOrderV2ViewModel {
   fileprivate(set) var wallet: Wallet
   fileprivate(set) var walletObject: KNWalletObject
   fileprivate(set) var market: KNMarket?
@@ -46,7 +46,7 @@ class KNBuyKNCViewModel {
   }
 
   var targetPriceFromMarket: String {
-    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    let formatter = NumberFormatterUtil.shared.limitOrderFormatter
     let marketPrice = self.isBuy ? self.market?.buyPrice : self.market?.sellPrice
     return formatter.string(from: NSNumber(value: marketPrice ?? 0)) ?? ""
   }
@@ -141,10 +141,20 @@ class KNBuyKNCViewModel {
 
   func updateAmountFrom(_ amount: String) {
     self.amountFrom = amount
+    let toDouble = self.isBuy ? amount.doubleValue / self.targetPrice.doubleValue : amount.doubleValue * self.targetPrice.doubleValue
+    if toDouble > 0 {
+      let formatter = NumberFormatterUtil.shared.limitOrderFormatter
+      self.amountTo = formatter.string(from: NSNumber(value: toDouble)) ?? ""
+    }
   }
 
   func updateAmountTo(_ amount: String) {
     self.amountTo = amount
+    let fromDouble = self.isBuy ? amount.doubleValue * self.targetPrice.doubleValue : amount.doubleValue / self.targetPrice.doubleValue
+    if fromDouble > 0 {
+      let formatter = NumberFormatterUtil.shared.limitOrderFormatter
+      self.amountFrom = formatter.string(from: NSNumber(value: fromDouble)) ?? ""
+    }
   }
 
   var isShowingDiscount: Bool {
@@ -225,22 +235,6 @@ class KNBuyKNCViewModel {
     return self.amountTo.doubleValue
   }
 
-  var estimateAmountToDouble: Double {
-    return self.amountFrom.doubleValue / self.targetPrice.doubleValue
-  }
-
-  var estimateAmountToString: String {
-    let formatter = NumberFormatterUtil.shared.doubleFormatter
-    return formatter.string(from: NSNumber(value: self.estimateAmountToDouble)) ?? ""
-  }
-
-  var estimateAmountFromBigInt: BigInt {
-    let rate = self.targetPriceBigInt
-    if rate.isZero { return BigInt(0) }
-    let amountTo = self.amountToBigInt
-    return amountTo * BigInt(10).power(self.from.decimals) / rate
-  }
-
   var totalCostString: String {
     let cost = amountFrom.doubleValue * targetPrice.doubleValue
     return "\(cost) \(self.fromSymbol)"
@@ -281,7 +275,7 @@ class KNBuyKNCViewModel {
   }
 
   var totalAmountString: String {
-    let formatter = NumberFormatterUtil.shared.doubleFormatter
+    let formatter = NumberFormatterUtil.shared.limitOrderFormatter
     return formatter.string(from: NSNumber(value: self.totalAmountDouble)) ?? ""
   }
 
@@ -309,7 +303,7 @@ class KNBuyKNCViewModel {
     let valueInETH = ethRate * self.amountFromBigInt / BigInt(10).power(self.from.decimals)
     return valueInETH
   }
-  
+
   var isAmountTooSmall: Bool {
     let amount: Double = {
       if KNEnvironment.default == .production { return 0.1 }

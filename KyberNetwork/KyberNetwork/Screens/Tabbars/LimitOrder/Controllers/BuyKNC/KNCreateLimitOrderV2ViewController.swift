@@ -3,7 +3,7 @@
 import UIKit
 import BigInt
 
-class KNBuyKNCViewController: KNBaseViewController {
+class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBOutlet weak var priceField: UITextField!
   @IBOutlet weak var amountField: UITextField!
   @IBOutlet weak var tokenAvailableLabel: UILabel!
@@ -21,12 +21,12 @@ class KNBuyKNCViewController: KNBaseViewController {
 
   weak var delegate: KNCreateLimitOrderViewControllerDelegate?
 
-  private let viewModel: KNBuyKNCViewModel
+  private let viewModel: KNCreateLimitOrderV2ViewModel
   fileprivate var isViewSetup: Bool = false
 
-  init(viewModel: KNBuyKNCViewModel) {
+  init(viewModel: KNCreateLimitOrderV2ViewModel) {
     self.viewModel = viewModel
-    super.init(nibName: KNBuyKNCViewController.className, bundle: nil)
+    super.init(nibName: KNCreateLimitOrderV2ViewController.className, bundle: nil)
   }
 
   required init?(coder: NSCoder) {
@@ -65,10 +65,10 @@ class KNBuyKNCViewController: KNBaseViewController {
     self.viewModel.updateMarket()
     self.priceField.text = self.viewModel.targetPriceFromMarket
     self.viewModel.updateTargetPrice(self.viewModel.targetPriceFromMarket)
-    self.tokenAvailableLabel.text = self.viewModel.balanceText
-    self.toSymLabel.text = self.viewModel.toSymBol
+    self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
+    self.toSymLabel.text = self.viewModel.isBuy ? self.viewModel.toSymBol : self.viewModel.fromSymbol
     for label in self.fromSymLabels {
-      label.text = self.viewModel.fromSymbol
+      label.text = self.viewModel.isBuy ? self.viewModel.fromSymbol : self.viewModel.toSymBol
     }
     if self.viewModel.isBuy {
       self.buySellButton.setTitle("\("Buy".toBeLocalised()) \(self.viewModel.toSymBol)", for: .normal)
@@ -76,6 +76,7 @@ class KNBuyKNCViewController: KNBaseViewController {
       self.buySellButton.setTitle("\("Sell".toBeLocalised()) \(self.viewModel.fromSymbol)", for: .normal)
       self.buySellButton.backgroundColor = UIColor.Kyber.red
     }
+    self.buySellButton.rounded(radius: 5)
   }
 
   fileprivate func updateFeeNotesUI() {
@@ -92,7 +93,7 @@ class KNBuyKNCViewController: KNBaseViewController {
   func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
     self.viewModel.updateBalance(balances)
     if self.isViewSetup {
-      self.tokenAvailableLabel.text = self.viewModel.balanceText
+      self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
     }
   }
 
@@ -102,22 +103,6 @@ class KNBuyKNCViewController: KNBaseViewController {
     self.viewModel.feeBeforeDiscount = feeBeforeDiscount
     self.viewModel.transferFeePercent = transferFee
     self.updateFeeNotesUI()
-  }
-
-  fileprivate func updateEstimateRateFromNetwork(showWarning: Bool = false) {
-    let amount: BigInt = {
-      if self.viewModel.amountFromBigInt.isZero {
-        return BigInt(0.001 * pow(10.0, Double(self.viewModel.from.decimals)))
-      }
-      return self.viewModel.amountFromBigInt
-    }()
-    let event = KNCreateLimitOrderViewEvent.estimateRate(
-      from: self.viewModel.from,
-      to: self.viewModel.to,
-      amount: amount,
-      showWarning: showWarning
-    )
-    self.delegate?.kCreateLimitOrderViewController(self, run: event)
   }
 
   fileprivate func updateEstimateFeeFromServer() {
@@ -138,39 +123,35 @@ class KNBuyKNCViewController: KNBaseViewController {
 
   @IBAction func quickFillAmountButtonTapped(_ sender: UIButton) {
     self.updateEstimateFeeFromServer()
+    var amountDisplay = ""
     switch sender.tag {
     case 1:
-      let amountDisplay = self.viewModel.amountFromWithPercentage(25).string(
+      amountDisplay = self.viewModel.amountFromWithPercentage(25).string(
         decimals: self.viewModel.from.decimals,
         minFractionDigits: 0,
         maxFractionDigits: min(self.viewModel.from.decimals, 6)
       ).removeGroupSeparator()
-      self.viewModel.updateAmountFrom(amountDisplay)
-      self.totalField.text = amountDisplay
-      self.amountField.text = self.viewModel.estimateAmountToString
-      self.viewModel.updateAmountTo(self.viewModel.estimateAmountToString)
-      self.updateFeeNotesUI()
     case 2:
-      let amountDisplay = self.viewModel.amountFromWithPercentage(50).string(
+      amountDisplay = self.viewModel.amountFromWithPercentage(50).string(
         decimals: self.viewModel.from.decimals,
         minFractionDigits: 0,
         maxFractionDigits: min(self.viewModel.from.decimals, 6)
       ).removeGroupSeparator()
-      self.viewModel.updateAmountFrom(amountDisplay)
-      self.totalField.text = amountDisplay
-      self.amountField.text = self.viewModel.estimateAmountToString
-      self.viewModel.updateAmountTo(self.viewModel.estimateAmountToString)
-      self.updateFeeNotesUI()
     case 3:
-      let amountDisplay = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
-      self.viewModel.updateAmountFrom(amountDisplay)
-      self.totalField.text = amountDisplay
-      self.amountField.text = self.viewModel.estimateAmountToString
-      self.viewModel.updateAmountTo(self.viewModel.estimateAmountToString)
-      self.updateFeeNotesUI()
+      amountDisplay = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
     default:
       break
     }
+    if self.viewModel.isBuy {
+      self.viewModel.updateAmountFrom(amountDisplay)
+      self.totalField.text = amountDisplay
+      self.amountField.text = self.viewModel.amountTo
+    } else {
+      self.viewModel.updateAmountFrom(amountDisplay)
+      self.amountField.text = amountDisplay
+      self.totalField.text = self.viewModel.amountTo
+    }
+    self.updateFeeNotesUI()
     _ = self.validateDataIfNeeded()
   }
 
@@ -192,7 +173,6 @@ class KNBuyKNCViewController: KNBaseViewController {
   }
 
   fileprivate func validateDataIfNeeded(isConfirming: Bool = false) -> Bool {
-    
     if !isConfirming && (self.totalField.isEditing || self.amountField.isEditing) { return false }
     guard self.viewModel.from != self.viewModel.to else {
       self.showWarningTopBannerMessage(
@@ -262,7 +242,7 @@ class KNBuyKNCViewController: KNBaseViewController {
     }
     return true
   }
-  
+
   fileprivate func validateUserHasSignedIn() -> Bool {
     if IEOUserStorage.shared.user == nil {
       // user not sign in
@@ -282,21 +262,33 @@ class KNBuyKNCViewController: KNBaseViewController {
     if !self.validateUserHasSignedIn() { return }
     if !self.validateDataIfNeeded(isConfirming: true) { return }
     //TODO: show eth convert weth screen
-    
   }
-  
 }
 
-extension KNBuyKNCViewController: UITextFieldDelegate {
+extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string).cleanStringToNumber()
     if textField == self.priceField {
       self.viewModel.updateTargetPrice(text)
       self.comparePriceLabel.attributedText = self.viewModel.displayRateCompareAttributedString
     } else if textField == self.amountField {
-      self.viewModel.updateAmountTo(text)
+      if self.viewModel.isBuy {
+        self.viewModel.updateAmountTo(text)
+        self.totalField.text = self.viewModel.amountFrom
+      } else {
+        self.viewModel.updateAmountFrom(text)
+        self.totalField.text = self.viewModel.amountTo
+      }
       self.updateFeeNotesUI()
-      self.totalField.text = self.viewModel.totalAmountString
+    } else if textField == self.totalField {
+      if self.viewModel.isBuy {
+        self.viewModel.updateAmountFrom(text)
+        self.amountField.text = self.viewModel.amountTo
+      } else {
+        self.viewModel.updateAmountTo(text)
+        self.amountField.text = self.viewModel.amountFrom
+      }
+      self.updateFeeNotesUI()
     }
     return true
   }
