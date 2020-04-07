@@ -284,4 +284,47 @@ class KNBuyKNCViewModel {
     let formatter = NumberFormatterUtil.shared.doubleFormatter
     return formatter.string(from: NSNumber(value: self.totalAmountDouble)) ?? ""
   }
+
+  var isBalanceEnough: Bool {
+    if self.amountFromBigInt > self.availableBalance { return false }
+    return true
+  }
+
+  var isAmountTooBig: Bool {
+    return !self.isBalanceEnough
+  }
+
+  var equivalentETHAmount: BigInt {
+    if self.amountFromBigInt <= BigInt(0) { return BigInt(0) }
+    if self.from.isETH || self.from.isWETH {
+      return self.amountFromBigInt
+    }
+    if self.to.isETH || self.to.isWETH {
+      return self.amountToBigInt
+    }
+    let ethRate: BigInt = {
+      let cacheRate = KNTrackerRateStorage.shared.trackerRate(for: self.from)
+      return BigInt((cacheRate?.rateETHNow ?? 0.0) * pow(10.0, 18.0))
+    }()
+    let valueInETH = ethRate * self.amountFromBigInt / BigInt(10).power(self.from.decimals)
+    return valueInETH
+  }
+  
+  var isAmountTooSmall: Bool {
+    let amount: Double = {
+      if KNEnvironment.default == .production { return 0.1 }
+      return 0.001
+    }()
+    let minValueInETH = BigInt(amount * Double(EthereumUnit.ether.rawValue))
+    return minValueInETH > self.equivalentETHAmount
+  }
+
+  var isRateTooSmall: Bool {
+    return self.targetPrice.doubleValue == 0.0
+  }
+
+  var isRateTooBig: Bool {
+    let marketPrice = self.targetPriceFromMarket.doubleValue
+    return self.targetPrice.doubleValue > 10 * marketPrice
+  }
 }

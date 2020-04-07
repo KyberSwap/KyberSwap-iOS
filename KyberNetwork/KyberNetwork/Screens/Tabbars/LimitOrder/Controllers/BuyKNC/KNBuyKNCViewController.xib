@@ -268,6 +268,9 @@
                             <state key="normal" title="Buy KNC">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="sumitButtonTapped:" destination="-1" eventType="touchUpInside" id="58R-E2-3HV"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CU-e3-57j">
                             <rect key="frame" x="18" y="427" width="339" height="45"/>

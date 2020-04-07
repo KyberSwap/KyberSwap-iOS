@@ -171,11 +171,120 @@ class KNBuyKNCViewController: KNBaseViewController {
     default:
       break
     }
+    _ = self.validateDataIfNeeded()
   }
-  
+
   func coordinatorMarketCachedDidUpdate() {
     self.viewModel.updateMarket()
   }
+
+  fileprivate func showWarningWalletIsNotSupportedIfNeeded() -> Bool {
+    if KNWalletPromoInfoStorage.shared.getDestinationToken(from: self.viewModel.walletObject.address) != nil {
+      // it is a promo code wallet
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("error", comment: ""),
+        message: "You cannot submit order with promo code. Please use other wallets.".toBeLocalised(),
+        time: 2.0
+      )
+      return true
+    }
+    return false
+  }
+
+  fileprivate func validateDataIfNeeded(isConfirming: Bool = false) -> Bool {
+    
+    if !isConfirming && (self.totalField.isEditing || self.amountField.isEditing) { return false }
+    guard self.viewModel.from != self.viewModel.to else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("unsupported", value: "Unsupported", comment: ""),
+        message: "Source token must be different from dest token".toBeLocalised(),
+        time: 1.5
+      )
+      return false
+    }
+    guard self.viewModel.isBalanceEnough else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
+        message: "Your balance is insufficent for the order. Please check your balance and your pending order".toBeLocalised()
+      )
+      return false
+    }
+    guard !self.viewModel.isAmountTooBig else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
+        message: "Amount is too big. Limit order only support max 10 ETH equivalent order".toBeLocalised(),
+        time: 1.5
+      )
+      return false
+    }
+    guard !(self.viewModel.isAmountTooSmall && !self.viewModel.amountFrom.isEmpty && !self.viewModel.amountTo.isEmpty) else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
+        message: "Amount is too small. Limit order only support min 0.1 ETH equivalent order".toBeLocalised(),
+        time: 1.5
+      )
+      return false
+    }
+    guard !self.viewModel.isRateTooSmall else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
+        message: "Your target rate should be greater than 0".toBeLocalised(),
+        time: 1.5
+      )
+      return false
+    }
+    guard !self.viewModel.isRateTooBig else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
+        message: "Your target rate is too high, should be at most 10 times of current rate".toBeLocalised(),
+        time: 1.5
+      )
+      return false
+    }
+    if isConfirming {
+      if self.viewModel.amountFrom.isEmpty {
+        self.showWarningTopBannerMessage(
+          with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
+          message: "Please enter an amount to continue".toBeLocalised(),
+          time: 1.5
+        )
+        return false
+      }
+      if self.viewModel.amountTo.isEmpty || self.viewModel.targetPrice.isEmpty {
+        self.showWarningTopBannerMessage(
+          with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
+          message: "Please enter your target rate to continue".toBeLocalised(),
+          time: 1.5
+        )
+        return false
+      }
+      if self.showWarningWalletIsNotSupportedIfNeeded() { return false }
+    }
+    return true
+  }
+  
+  fileprivate func validateUserHasSignedIn() -> Bool {
+    if IEOUserStorage.shared.user == nil {
+      // user not sign in
+      self.tabBarController?.selectedIndex = 3
+      KNAppTracker.updateShouldOpenLimitOrderAfterSignedIn(true)
+      self.showWarningTopBannerMessage(
+        with: "Sign in required".toBeLocalised(),
+        message: "You must sign in to use Limit Order feature".toBeLocalised(),
+        time: 1.5
+      )
+      return false
+    }
+    return true
+  }
+
+  @IBAction func sumitButtonTapped(_ sender: UIButton) {
+    if !self.validateUserHasSignedIn() { return }
+    if !self.validateDataIfNeeded(isConfirming: true) { return }
+    //TODO: show eth convert weth screen
+    
+  }
+  
 }
 
 extension KNBuyKNCViewController: UITextFieldDelegate {
@@ -195,6 +304,10 @@ extension KNBuyKNCViewController: UITextFieldDelegate {
   func textFieldDidEndEditing(_ textField: UITextField) {
     if textField == self.amountField {
       self.updateEstimateFeeFromServer()
+    }
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+      _ = self.validateDataIfNeeded()
     }
   }
 }
