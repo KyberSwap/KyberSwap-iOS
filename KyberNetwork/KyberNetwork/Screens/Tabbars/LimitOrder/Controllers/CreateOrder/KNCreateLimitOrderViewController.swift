@@ -14,6 +14,7 @@ enum KNCreateLimitOrderViewEvent {
   case openConvertWETH(address: String, ethBalance: BigInt, amount: BigInt, pendingWETH: Double, order: KNLimitOrder)
   case getRelatedOrders(address: String, src: String, dest: String, minRate: Double)
   case getPendingBalances(address: String)
+  case changeMarket
 }
 
 protocol KNCreateLimitOrderViewControllerDelegate: class {

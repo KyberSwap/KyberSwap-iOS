@@ -12,7 +12,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var marketNameButton: UIButton!
   @IBOutlet weak var marketDetailLabel: UILabel!
   @IBOutlet weak var marketVolLabel: UILabel!
-  
+
   weak var delegate: KNCreateLimitOrderViewControllerDelegate?
   var currentIndex = 0
   fileprivate var isViewSetup: Bool = false
@@ -56,6 +56,11 @@ class LimitOrderContainerViewController: KNBaseViewController {
       self.currentIndex = 1
     }
   }
+  
+  @IBAction func marketButtonTapped(_ sender: UIButton) {
+    self.delegate?.kCreateLimitOrderViewController(self, run: .changeMarket)
+  }
+  
 
   private func setupPageController() {
     self.pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
@@ -124,7 +129,7 @@ extension LimitOrderContainerViewController: UIPageViewControllerDelegate {
     guard let viewController = previousViewControllers.first, completed == true else { return }
     if viewController == self.pages[1] {
       self.animatePagerIndicator(index: 1)
-    } else if viewController == self.pages[0]{
+    } else if viewController == self.pages[0] {
       self.animatePagerIndicator(index: 2)
     }
   }

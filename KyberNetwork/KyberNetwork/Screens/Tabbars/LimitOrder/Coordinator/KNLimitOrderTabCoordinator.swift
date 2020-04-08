@@ -43,6 +43,10 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
   fileprivate var confirmVC: KNConfirmLimitOrderViewController?
   fileprivate var manageOrdersVC: KNManageOrdersViewController?
   fileprivate var convertVC: KNConvertSuggestionViewController?
+  fileprivate lazy var marketsVC: KNSelectMarketViewController = {
+    let viewModel = KNSelectMarketViewModel()
+    return KNSelectMarketViewController(viewModel: viewModel)
+  }()
 
   lazy var rootViewController: LimitOrderContainerViewController = {
 //    let (from, to): (TokenObject, TokenObject) = {
@@ -132,6 +136,7 @@ extension KNLimitOrderTabCoordinator {
   
   func appCoordinatorMarketCachedDidUpdate() {
     self.rootViewController.coordinatorMarketCachedDidUpdate()
+    self.marketsVC.coordinatorMarketCachedDidUpdate()
   }
 
   func appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, otherTokensBalance: [String: Balance]) {
@@ -247,6 +252,8 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
       self.getListRelatedOrders(address: address, src: src, dest: dest, minRate: minRate)
     case .getPendingBalances(let address):
       self.getPendingBalances(address: address)
+    case .changeMarket:
+      self.openSelectMarketScreen()
     default: break
     }
   }
@@ -677,6 +684,10 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
     self.navigationController.pushViewController(self.searchTokensViewController!, animated: true)
     self.searchTokensViewController?.updateBalances(self.balances)
     self.searchTokensViewController?.updatePendingBalances(pendingBalances)
+  }
+  
+  fileprivate func openSelectMarketScreen() {
+    self.navigationController.pushViewController(self.marketsVC, animated: true)
   }
 
   fileprivate func openSendTokenView() {
