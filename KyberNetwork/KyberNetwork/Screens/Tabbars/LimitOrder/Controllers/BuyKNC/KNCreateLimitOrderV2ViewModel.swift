@@ -147,6 +147,10 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateAmountFrom(_ amount: String) {
     self.amountFrom = amount
+    if self.targetPrice.doubleValue == 0.0 {
+      self.amountTo = ""
+      return
+    }
     let toDouble = self.isBuy ? amount.doubleValue / self.targetPrice.doubleValue : amount.doubleValue * self.targetPrice.doubleValue
     if toDouble > 0 {
       let formatter = NumberFormatterUtil.shared.limitOrderFormatter
@@ -156,6 +160,10 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateAmountTo(_ amount: String) {
     self.amountTo = amount
+    if self.targetPrice.doubleValue == 0.0 {
+      self.amountFrom = ""
+      return
+    }
     let fromDouble = self.isBuy ? amount.doubleValue * self.targetPrice.doubleValue : amount.doubleValue / self.targetPrice.doubleValue
     if fromDouble > 0 {
       let formatter = NumberFormatterUtil.shared.limitOrderFormatter
