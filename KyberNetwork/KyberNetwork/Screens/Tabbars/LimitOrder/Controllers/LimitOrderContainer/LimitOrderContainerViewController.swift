@@ -3,6 +3,22 @@
 import UIKit
 import BigInt
 
+enum KNCreateLimitOrderViewEventV2 {
+  case submitOrder(order: KNLimitOrder, confirmData: KNLimitOrderConfirmData?)
+  case manageOrders
+  case estimateFee(address: String, src: String, dest: String, srcAmount: Double, destAmount: Double)
+  case getExpectedNonce(address: String, src: String, dest: String)
+  case openConvertWETH(address: String, ethBalance: BigInt, amount: BigInt, pendingWETH: Double, order: KNLimitOrder)
+  case getRelatedOrders(address: String, src: String, dest: String, minRate: Double)
+  case getPendingBalances(address: String)
+  case changeMarket
+}
+
+protocol LimitOrderContainerViewControllerDelegate: class {
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNCreateLimitOrderViewEventV2)
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNBalanceTabHamburgerMenuViewEvent)
+}
+
 class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var pagerIndicator: UIView!
   @IBOutlet weak var contentContainerView: UIView!
@@ -13,7 +29,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var marketDetailLabel: UILabel!
   @IBOutlet weak var marketVolLabel: UILabel!
 
-  weak var delegate: KNCreateLimitOrderViewControllerDelegate?
+  weak var delegate: LimitOrderContainerViewControllerDelegate?
   var currentIndex = 0
   fileprivate var isViewSetup: Bool = false
 

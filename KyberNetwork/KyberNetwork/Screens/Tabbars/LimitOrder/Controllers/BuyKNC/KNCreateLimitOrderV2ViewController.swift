@@ -19,7 +19,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
 
   fileprivate var updateFeeTimer: Timer?
 
-  weak var delegate: KNCreateLimitOrderViewControllerDelegate?
+  weak var delegate: LimitOrderContainerViewControllerDelegate?
 
   private let viewModel: KNCreateLimitOrderV2ViewModel
   fileprivate var isViewSetup: Bool = false
@@ -106,7 +106,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   fileprivate func updateEstimateFeeFromServer() {
-    let event = KNCreateLimitOrderViewEvent.estimateFee(
+    let event = KNCreateLimitOrderViewEventV2.estimateFee(
       address: self.viewModel.walletObject.address,
       src: self.viewModel.from.contract,
       dest: self.viewModel.to.contract,
@@ -290,9 +290,16 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
         targetRate: self.viewModel.targetPriceBigInt,
         fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
         transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6,
-        nonce: ""
+        nonce: "",
+        isBuy: self.viewModel.isBuy
       )
-      self.delegate?.kCreateLimitOrderViewController(self, run: .submitOrder(order: order))
+      let confirmData = KNLimitOrderConfirmData(
+        price: self.viewModel.targetPrice,
+        amount: self.viewModel.isBuy ? self.viewModel.amountTo : self.viewModel.amountFrom,
+        totalAmount: self.viewModel.isBuy ? self.viewModel.amountFrom : self.viewModel.amountTo,
+        livePrice: self.viewModel.targetPriceFromMarket
+      )
+      self.delegate?.kCreateLimitOrderViewController(self, run: .submitOrder(order: order, confirmData: confirmData))
     }
   }
 
