@@ -20,6 +20,7 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
   var coordinators: [Coordinator] = []
 
   var curOrder: KNLimitOrder?
+  var curConfirmData: KNLimitOrderConfirmData?
   var confirmedOrder: KNLimitOrder?
   var signedData: Data?
 
@@ -210,8 +211,9 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
         srcAmount: srcAmount,
         destAmount: destAmount
       )
-    case .openConvertWETH(let address, let ethBalance, let amount, let pendingWETH, let order):
+    case .openConvertWETH(let address, let ethBalance, let amount, let pendingWETH, let order, let confirmData):
       self.curOrder = order
+      self.curConfirmData = confirmData
       self.openConvertWETHView(
         address: address,
         ethBalance: ethBalance,
@@ -767,7 +769,7 @@ extension KNLimitOrderTabCoordinatorV2: KNConvertSuggestionViewControllerDelegat
         self.session.addNewPendingTransaction(transaction)
         if self.convertVC != nil {
           if let order = self.curOrder {
-            self.checkDataBeforeConfirmOrder(order, confirmData: nil)
+            self.checkDataBeforeConfirmOrder(order, confirmData: self.curConfirmData)
           } else {
             self.navigationController.popViewController(animated: true, completion: {
               self.convertVC = nil

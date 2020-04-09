@@ -333,4 +333,32 @@ class KNCreateLimitOrderV2ViewModel {
     let marketPrice = self.targetPriceFromMarket.doubleValue
     return self.targetPrice.doubleValue > 10 * marketPrice
   }
+
+  var isConvertingETHToWETHNeeded: Bool {
+    if !self.from.isWETH { return false }
+    let balance = self.balance?.value ?? BigInt(0)
+
+    var availableAmount = balance
+    if let pendingAmount = self.pendingBalances[self.from.symbol] as? Double {
+      availableAmount -= BigInt(pendingAmount * pow(10.0, Double(self.from.decimals)))
+    }
+    availableAmount = max(availableAmount, BigInt(0))
+
+    return availableAmount < self.amountFromBigInt
+  }
+
+  var minAmountToConvert: BigInt {
+    if !self.from.isWETH { return BigInt(0) }
+    let balance = self.balance?.value ?? BigInt(0)
+
+    var availableAmount = balance
+    if let pendingAmount = self.pendingBalances[self.from.symbol] as? Double {
+      availableAmount -= BigInt(pendingAmount * pow(10.0, Double(self.from.decimals)))
+    }
+    availableAmount = max(availableAmount, BigInt(0))
+
+    if availableAmount < self.amountFromBigInt { return self.amountFromBigInt - availableAmount }
+    return BigInt(0)
+  }
+
 }

@@ -270,8 +270,48 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     if !self.validateUserHasSignedIn() { return }
     if !self.validateDataIfNeeded(isConfirming: true) { return }
     //TODO: show cancel suggestion if needed
-    //TODO: show eth convert weth screen
+    if showConvertETHToWETHIfNeeded() { return }
     self.submitOrderDidVerifyData()
+  }
+
+  fileprivate func showConvertETHToWETHIfNeeded() -> Bool {
+    if !self.viewModel.isConvertingETHToWETHNeeded { return false }
+    let amount: BigInt = {
+      if !self.viewModel.from.isWETH && self.viewModel.isUseAllBalance { return self.viewModel.availableBalance }
+      return self.viewModel.amountFromBigInt
+    }()
+    if case .real(let account) = self.viewModel.wallet.type {
+      let order = KNLimitOrder(
+        from: self.viewModel.from,
+        to: self.viewModel.to,
+        account: account,
+        sender: self.viewModel.wallet.address,
+        srcAmount: amount,
+        targetRate: self.viewModel.targetPriceBigInt,
+        fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
+        transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6
+        nonce: "",
+        isBuy: self.viewModel.isBuy
+      )
+      let confirmData = KNLimitOrderConfirmData(
+        price: self.viewModel.targetPrice,
+        amount: self.viewModel.isBuy ? self.viewModel.amountTo : self.viewModel.amountFrom,
+        totalAmount: self.viewModel.isBuy ? self.viewModel.amountFrom : self.viewModel.amountTo,
+        livePrice: self.viewModel.targetPriceFromMarket
+      )
+      let event = KNCreateLimitOrderViewEventV2.openConvertWETH(
+        address: self.viewModel.walletObject.address,
+        ethBalance: self.viewModel.balances[self.viewModel.eth.contract]?.value ?? BigInt(0),
+        amount: self.viewModel.minAmountToConvert,
+        pendingWETH: self.viewModel.pendingBalances["WETH"] as? Double ?? 0.0,
+        order: order,
+        confirmData: confirmData
+      )
+      self.delegate?.kCreateLimitOrderViewController(self, run: event)
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order", customAttributes: ["action": "show_convert_eth_weth"])
+      return true
+    }
+    return false
   }
 
   fileprivate func submitOrderDidVerifyData() {

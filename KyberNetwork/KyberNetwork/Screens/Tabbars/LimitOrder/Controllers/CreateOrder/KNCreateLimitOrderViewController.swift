@@ -908,7 +908,7 @@ extension KNCreateLimitOrderViewController {
         fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
         transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6
         nonce: self.viewModel.nonce ?? "",
-        isBuy: false
+        isBuy: false // don't care if it is buy or sell
       )
       let event = KNCreateLimitOrderViewEvent.openConvertWETH(
         address: self.viewModel.walletObject.address,
