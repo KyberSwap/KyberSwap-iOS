@@ -208,7 +208,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     guard !self.viewModel.isRateTooSmall else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
-        message: "Your target rate should be greater than 0".toBeLocalised(),
+        message: "Your target price should be greater than 0".toBeLocalised(),
         time: 1.5
       )
       return false
@@ -216,7 +216,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     guard !self.viewModel.isRateTooBig else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
-        message: "Your target rate is too high, should be at most 10 times of current rate".toBeLocalised(),
+        message: "Your target price is too high, should be at most 10 times of current price".toBeLocalised(),
         time: 1.5
       )
       return false
@@ -233,7 +233,15 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       if self.viewModel.amountTo.isEmpty || self.viewModel.targetPrice.isEmpty {
         self.showWarningTopBannerMessage(
           with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
-          message: "Please enter your target rate to continue".toBeLocalised(),
+          message: "Please enter your target price to continue".toBeLocalised(),
+          time: 1.5
+        )
+        return false
+      }
+      if self.viewModel.targetPriceBigInt == BigInt(0) {
+        self.showWarningTopBannerMessage(
+          with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
+          message: "Please enter a valid target price to continue".toBeLocalised(),
           time: 1.5
         )
         return false
@@ -261,7 +269,35 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBAction func sumitButtonTapped(_ sender: UIButton) {
     if !self.validateUserHasSignedIn() { return }
     if !self.validateDataIfNeeded(isConfirming: true) { return }
+    //TODO: show cancel suggestion if needed
     //TODO: show eth convert weth screen
+    self.submitOrderDidVerifyData()
+  }
+
+  fileprivate func submitOrderDidVerifyData() {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order", customAttributes: ["info": "order_did_verify"])
+    let amount: BigInt = {
+      if !self.viewModel.from.isWETH && self.viewModel.isUseAllBalance { return self.viewModel.availableBalance }
+      return self.viewModel.amountFromBigInt
+    }()
+    if case .real(let account) = self.viewModel.wallet.type {
+      let order = KNLimitOrder(
+        from: self.viewModel.from,
+        to: self.viewModel.to,
+        account: account,
+        sender: self.viewModel.wallet.address,
+        srcAmount: amount,
+        targetRate: self.viewModel.targetPriceBigInt,
+        fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
+        transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6,
+        nonce: ""
+      )
+      self.delegate?.kCreateLimitOrderViewController(self, run: .submitOrder(order: order))
+    }
+  }
+
+  @IBAction func manageOrderButtonPressed(_ sender: Any) {
+    self.delegate?.kCreateLimitOrderViewController(self, run: .manageOrders)
   }
 }
 

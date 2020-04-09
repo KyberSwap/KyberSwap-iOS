@@ -53,6 +53,7 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateMarket(name: String = "ETH_KNC") {
     self.market = KNRateCoordinator.shared.getMarketWith(name: name)
+    // TODO: Update from and to
   }
 
   func updateBalance(_ balances: [String: Balance]) {
@@ -218,6 +219,12 @@ class KNCreateLimitOrderV2ViewModel {
   }
 
   var targetPriceBigInt: BigInt {
+    if isBuy {
+      // reverse of sell
+      if self.targetPrice.doubleValue == 0.0 { return BigInt(0) }
+      return BigInt(pow(10.0, Double(self.from.decimals)) / self.targetPrice.doubleValue)
+    }
+
     return self.targetPrice.removeGroupSeparator().amountBigInt(decimals: self.to.decimals) ?? BigInt(0)
   }
 
