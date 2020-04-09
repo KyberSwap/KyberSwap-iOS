@@ -75,10 +75,10 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
     }()
 
     self.yourPriceTextLabel.text = "Your price".toBeLocalised()
-    self.yourPriceValueLabel.text = self.confirmData.price
+    self.yourPriceValueLabel.text = self.confirmData.price.removeGroupSeparator().fullBigInt(decimals: 18)?.displayRate(decimals: 18)
 
     self.livePriceTextLabel.text = "Live price".toBeLocalised()
-    self.livePriceValueLabel.text = self.confirmData.livePrice
+    self.livePriceValueLabel.text = self.confirmData.livePrice.removeGroupSeparator().fullBigInt(decimals: 18)?.displayRate(decimals: 18)
 
     self.feeTextLabel.text = "Fee".toBeLocalised()
     self.feeValueLabel.text = {
@@ -99,12 +99,19 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
       return "\(self.confirmData.totalAmount) \(self.order.to.symbolLODisplay)"
     }()
     self.totalValueLabel.text = totalAmountString
+
+    let sourceAmount: String = {
+      if self.order.isBuy {
+        return "\(self.confirmData.totalAmount) \(self.order.from.symbolLODisplay)"
+      }
+      return "\(self.confirmData.amount) \(self.order.from.symbolLODisplay)"
+    }()
     let pairString: String = {
       if self.order.isBuy { return "\(self.order.to.symbolLODisplay)/\(self.order.from.symbolLODisplay)" }
       return "\(self.order.from.symbolLODisplay)/\(self.order.to.symbolLODisplay)"
     }()
 
-    self.rateMessageLabel.text = "Limit order are non custodial, which means \(totalAmountString) will remain in your wallet till \(pairString) price reaches \(self.confirmData.price)"
+    self.rateMessageLabel.text = "Limit order are non custodial, which means \(sourceAmount) will remain in your wallet till \(pairString) price reaches \(self.confirmData.price)"
 
     self.confirmButton.applyGradient()
     self.confirmButton.rounded(radius: 5.0)

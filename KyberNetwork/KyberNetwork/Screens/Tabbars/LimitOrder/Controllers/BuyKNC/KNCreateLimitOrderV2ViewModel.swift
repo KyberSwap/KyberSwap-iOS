@@ -70,6 +70,11 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateTargetPrice(_ price: String) {
     self.targetPrice = price
+    if self.isBuy {
+      self.updateAmountTo(self.amountTo)
+    } else {
+      self.updateAmountFrom(self.amountFrom)
+    }
   }
 
   var availableBalance: BigInt {

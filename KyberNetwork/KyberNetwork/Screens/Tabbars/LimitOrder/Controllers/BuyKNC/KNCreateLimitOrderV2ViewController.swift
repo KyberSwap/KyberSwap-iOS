@@ -314,6 +314,7 @@ extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
     if textField == self.priceField {
       self.viewModel.updateTargetPrice(text)
       self.comparePriceLabel.attributedText = self.viewModel.displayRateCompareAttributedString
+      self.totalField.text = self.viewModel.isBuy ? self.viewModel.amountFrom : self.viewModel.amountTo
     } else if textField == self.amountField {
       if self.viewModel.isBuy {
         self.viewModel.updateAmountTo(text)
