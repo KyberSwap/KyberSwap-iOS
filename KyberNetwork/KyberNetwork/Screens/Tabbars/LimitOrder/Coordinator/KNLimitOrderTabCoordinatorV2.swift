@@ -11,15 +11,7 @@ import APIKit
 import QRCodeReaderViewController
 import WalletConnect
 
-protocol KNLimitOrderTabCoordinatorDelegate: class {
-  func limitOrderTabCoordinatorDidSelectWallet(_ wallet: KNWalletObject)
-  func limitOrderTabCoordinatorRemoveWallet(_ wallet: Wallet)
-  func limitOrderTabCoordinatorDidSelectAddWallet()
-  func limitOrderTabCoordinatorDidSelectPromoCode()
-  func limitOrderTabCoordinatorOpenExchange(from: String, to: String)
-}
-
-class KNLimitOrderTabCoordinator: NSObject, Coordinator {
+class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
 
   let navigationController: UINavigationController
   var session: KNSession
@@ -28,6 +20,7 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
   var coordinators: [Coordinator] = []
 
   var curOrder: KNLimitOrder?
+  var curConfirmData: KNLimitOrderConfirmData?
   var confirmedOrder: KNLimitOrder?
   var signedData: Data?
 
@@ -37,10 +30,9 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
   fileprivate var approveTx: [String: TimeInterval] = [:]
 
   fileprivate var historyCoordinator: KNHistoryCoordinator?
-  fileprivate var searchTokensViewController: KNLimitOrderSearchTokenViewController?
   fileprivate var sendTokenCoordinator: KNSendTokenViewCoordinator?
 
-  fileprivate var confirmVC: KNConfirmLimitOrderViewController?
+  fileprivate var confirmVC: PreviewLimitOrderV2ViewController?
   fileprivate var manageOrdersVC: KNManageOrdersViewController?
   fileprivate var convertVC: KNConvertSuggestionViewController?
   fileprivate lazy var marketsVC: KNSelectMarketViewController = {
@@ -48,17 +40,8 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
     return KNSelectMarketViewController(viewModel: viewModel)
   }()
 
-  lazy var rootViewController: KNCreateLimitOrderViewController = {
-    let (from, to): (TokenObject, TokenObject) = {
-      return (KNSupportedTokenStorage.shared.kncToken, KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken)
-    }()
-    let viewModel = KNCreateLimitOrderViewModel(
-      wallet: self.session.wallet,
-      from: from,
-      to: to,
-      supportedTokens: tokens
-    )
-    let controller = KNCreateLimitOrderViewController(viewModel: viewModel)
+  lazy var rootViewController: LimitOrderContainerViewController = {
+    let controller = LimitOrderContainerViewController(wallet: self.session.wallet)
     controller.delegate = self
     controller.loadViewIfNeeded()
     return controller
@@ -84,7 +67,6 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
   func stop() {
     self.navigationController.popToRootViewController(animated: false)
     self.historyCoordinator = nil
-    self.searchTokensViewController = nil
     self.sendTokenCoordinator = nil
     self.confirmVC = nil
     self.manageOrdersVC = nil
@@ -93,7 +75,7 @@ class KNLimitOrderTabCoordinator: NSObject, Coordinator {
 }
 
 // MARK: Update from app coordinator
-extension KNLimitOrderTabCoordinator {
+extension KNLimitOrderTabCoordinatorV2 {
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
     self.session = session
 //    self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
@@ -131,7 +113,7 @@ extension KNLimitOrderTabCoordinator {
   }
 
   func appCoordinatorMarketCachedDidUpdate() {
-//    self.rootViewController.coordinatorMarketCachedDidUpdate()
+    self.rootViewController.coordinatorMarketCachedDidUpdate()
     self.marketsVC.coordinatorMarketCachedDidUpdate()
   }
 
@@ -139,14 +121,12 @@ extension KNLimitOrderTabCoordinator {
     self.rootViewController.coordinatorUpdateTokenBalance(otherTokensBalance)
     otherTokensBalance.forEach { self.balances[$0.key] = $0.value }
     self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: self.balances)
-    self.searchTokensViewController?.updateBalances(otherTokensBalance)
     self.convertVC?.updateWETHBalance(otherTokensBalance)
   }
 
   func appCoordinatorETHBalanceDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, ethBalance: Balance) {
     if let eth = self.tokens.first(where: { $0.isETH }) {
       self.balances[eth.contract] = ethBalance
-      self.searchTokensViewController?.updateBalances([eth.contract: ethBalance])
       self.rootViewController.coordinatorUpdateTokenBalance([eth.contract: ethBalance])
     }
     self.sendTokenCoordinator?.coordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
@@ -166,7 +146,6 @@ extension KNLimitOrderTabCoordinator {
     let supportedTokens = KNSupportedTokenStorage.shared.supportedTokens
     self.tokens = supportedTokens
     self.sendTokenCoordinator?.coordinatorTokenObjectListDidUpdate(tokenObjects)
-    self.searchTokensViewController?.updateListSupportedTokens(supportedTokens)
   }
 
   func appCoordinatorPendingTransactionsDidUpdate(transactions: [KNTransaction]) {
@@ -216,15 +195,11 @@ extension KNLimitOrderTabCoordinator {
   }
 }
 
-extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
-  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNCreateLimitOrderViewEvent) {
+extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegate {
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNCreateLimitOrderViewEventV2) {
     switch event {
-    case .searchToken(let from, let to, let isSource, let pendingBalances):
-      self.openSearchToken(from: from, to: to, isSource: isSource, pendingBalances: pendingBalances)
-    case .estimateRate(let from, let to, let amount, let showWarning):
-      self.updateEstimatedRate(from: from, to: to, amount: amount, showError: showWarning, completion: nil)
-    case .submitOrder(let order, _):
-      self.checkDataBeforeConfirmOrder(order)
+    case .submitOrder(let order, let confirmData):
+      self.checkDataBeforeConfirmOrder(order, confirmData: confirmData)
     case .manageOrders:
       self.appCoordinatorOpenManageOrder()
     case .estimateFee(let address, let src, let dest, let srcAmount, let destAmount):
@@ -236,8 +211,9 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
         srcAmount: srcAmount,
         destAmount: destAmount
       )
-    case .openConvertWETH(let address, let ethBalance, let amount, let pendingWETH, let order):
+    case .openConvertWETH(let address, let ethBalance, let amount, let pendingWETH, let order, let confirmData):
       self.curOrder = order
+      self.curConfirmData = confirmData
       self.openConvertWETHView(
         address: address,
         ethBalance: ethBalance,
@@ -292,8 +268,7 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
     })
   }
 
-  fileprivate func checkDataBeforeConfirmOrder(_ order: KNLimitOrder) {
-
+  fileprivate func checkDataBeforeConfirmOrder(_ order: KNLimitOrder, confirmData: KNLimitOrderConfirmData?) {
     self.navigationController.displayLoading(text: "Checking...".toBeLocalised(), animated: true)
     var feeValue: Int?
     var transferFeeValue: Int?
@@ -366,16 +341,16 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
           nonce: nonceValue ?? order.nonce,
           isBuy: order.isBuy
         )
-        self.openConfirmOrder(newOrder)
+        self.openConfirmOrder(newOrder, confirmData: confirmData)
       }
     }
   }
 
-  fileprivate func openConfirmOrder(_ order: KNLimitOrder) {
-    if let topVC = self.navigationController.topViewController, topVC is KNConfirmLimitOrderViewController { return }
+  fileprivate func openConfirmOrder(_ order: KNLimitOrder, confirmData: KNLimitOrderConfirmData?) {
+    if let topVC = self.navigationController.topViewController, topVC is PreviewLimitOrderV2ViewController { return }
     self.signedData = nil
 
-    self.confirmVC = KNConfirmLimitOrderViewController(order: order)
+    self.confirmVC = PreviewLimitOrderV2ViewController(order: order, confirmData: confirmData!)
     self.confirmVC?.delegate = self
     self.confirmVC?.loadViewIfNeeded()
     self.navigationController.pushViewController(self.confirmVC!, animated: true)
@@ -453,7 +428,6 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
   fileprivate func getPendingBalances(address: String) {
     guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
       // reset pending balance
-      self.searchTokensViewController?.updatePendingBalances([:])
       self.convertVC?.updatePendingWETHBalance(0.0)
 //      self.rootViewController.coordinatorUpdatePendingBalances(address: address, balances: [:])
       return
@@ -463,7 +437,6 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
       switch result {
       case .success(let balances):
         self.convertVC?.updatePendingWETHBalance(balances["WETH"] as? Double ?? 0.0)
-        self.searchTokensViewController?.updatePendingBalances(balances)
 //        self.rootViewController.coordinatorUpdatePendingBalances(address: address, balances: balances)
       case .failure(let error):
         print("--Get Pending Balances-- Error: \(error.prettyError)")
@@ -663,26 +636,9 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
   }
 
   fileprivate func openSearchToken(from: TokenObject, to: TokenObject, isSource: Bool, pendingBalances: JSONDictionary) {
-    if let topVC = self.navigationController.topViewController, topVC is KNLimitOrderSearchTokenViewController { return }
-    self.isSelectingSourceToken = isSource
-    self.tokens = KNSupportedTokenStorage.shared.supportedTokens
-    self.searchTokensViewController = {
-      let viewModel = KNLimitOrderSearchTokenViewModel(
-        isSource: isSource,
-        supportedTokens: self.tokens,
-        address: self.session.wallet.address.description,
-        pendingBalances: pendingBalances
-      )
-      let controller = KNLimitOrderSearchTokenViewController(viewModel: viewModel)
-      controller.loadViewIfNeeded()
-      controller.delegate = self
-      return controller
-    }()
-    self.navigationController.pushViewController(self.searchTokensViewController!, animated: true)
-    self.searchTokensViewController?.updateBalances(self.balances)
-    self.searchTokensViewController?.updatePendingBalances(pendingBalances)
+    // TODO: open select pair
   }
-  
+
   fileprivate func openSelectMarketScreen() {
     self.navigationController.pushViewController(self.marketsVC, animated: true)
   }
@@ -712,107 +668,26 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
       )
     }
   }
-
-  // Call contract to get estimate rate with src, dest, srcAmount
-  fileprivate func updateEstimatedRate(from: TokenObject, to: TokenObject, amount: BigInt, showError: Bool, completion: ((Error?) -> Void)? = nil) {
-    self.getExpectedExchangeRate(from: from, to: to, amount: amount) { [weak self] result in
-      guard let `self` = self else { return }
-      switch result {
-      case .success(let data):
-//        self.rootViewController.coordinatorDidUpdateEstimateRate(
-//          from: from,
-//          to: to,
-//          amount: amount,
-//          rate: data.0,
-//          slippageRate: data.1
-//        )
-        completion?(nil)
-      case .failure(let error):
-        if showError {
-          if case let err as APIKit.SessionTaskError = error.error, case .connectionError = err {
-            self.navigationController.showErrorTopBannerMessage(
-              with: NSLocalizedString("error", value: "Error", comment: ""),
-              message: NSLocalizedString("please.check.your.internet.connection", value: "Please check your internet connection", comment: ""),
-              time: 1.5
-            )
-          } else {
-            self.navigationController.showErrorTopBannerMessage(
-              with: NSLocalizedString("error", value: "Error", comment: ""),
-              message: NSLocalizedString("can.not.update.exchange.rate", comment: "Can not update exchange rate"),
-              time: 1.5
-            )
-          }
-//          self.rootViewController.coordinatorDidUpdateEstimateRate(
-//            from: from,
-//            to: to,
-//            amount: amount,
-//            rate: BigInt(0),
-//            slippageRate: BigInt(0)
-//          )
-        }
-        completion?(error)
-      }
-    }
-  }
-
-  fileprivate func getExpectedExchangeRate(from: TokenObject, to: TokenObject, amount: BigInt, completion: ((Result<(BigInt, BigInt), AnyError>) -> Void)? = nil) {
-    if from == to {
-      let rate = BigInt(10).power(from.decimals)
-      let slippageRate = rate * BigInt(97) / BigInt(100)
-      completion?(.success((rate, slippageRate)))
-      return
-    }
-    self.session.externalProvider.getExpectedRate(
-      from: from,
-      to: to,
-      amount: amount) { (result) in
-        var estRate: BigInt = BigInt(0)
-        var slippageRate: BigInt = BigInt(0)
-        switch result {
-        case .success(let data):
-          estRate = data.0
-          slippageRate = data.1
-          estRate /= BigInt(10).power(18 - to.decimals)
-          slippageRate /= BigInt(10).power(18 - to.decimals)
-          completion?(.success((estRate, slippageRate)))
-        case .failure(let error):
-          completion?(.failure(error))
-        }
-    }
-  }
 }
 
-extension KNLimitOrderTabCoordinator: KNHistoryCoordinatorDelegate {
+extension KNLimitOrderTabCoordinatorV2: KNHistoryCoordinatorDelegate {
   func historyCoordinatorDidClose() {
     //    self.historyCoordinator = nil
   }
 }
 
-// MARK: Search token
-extension KNLimitOrderTabCoordinator: KNLimitOrderSearchTokenViewControllerDelegate {
-  func limitOrderSearchTokenViewController(_ controller: KNLimitOrderSearchTokenViewController, run event: KNLimitOrderSearchTokenEvent) {
+extension KNLimitOrderTabCoordinatorV2: KNManageOrdersViewControllerDelegate {
+}
+
+extension KNLimitOrderTabCoordinatorV2: PreviewLimitOrderV2ViewControllerDelegate {
+  func previewLimitOrderV2ViewControllerDidBack() {
     self.navigationController.popToRootViewController(animated: true) {
-      self.searchTokensViewController = nil
-      if case .select(let token) = event {
-//        self.rootViewController.coordinatorUpdateSelectedToken(
-//          token,
-//          isSource: self.isSelectingSourceToken
-//        )
-      }
+      self.confirmVC = nil
+      self.convertVC = nil
     }
   }
-}
 
-extension KNLimitOrderTabCoordinator: KNManageOrdersViewControllerDelegate {
-}
-
-extension KNLimitOrderTabCoordinator: KNConfirmLimitOrderViewControllerDelegate {
-  func confirmLimitOrderViewControllerDidBack() {
-    self.confirmVC = nil
-    self.convertVC = nil
-  }
-
-  func confirmLimitOrderViewController(_ controller: KNConfirmLimitOrderViewController, order: KNLimitOrder) {
+  func previewLimitOrderV2ViewController(_ controller: PreviewLimitOrderV2ViewController, order: KNLimitOrder) {
     self.signAndSendOrder(order) { [weak self] isSuccess in
       guard let `self` = self else { return }
       if isSuccess, self.confirmVC != nil {
@@ -828,7 +703,7 @@ extension KNLimitOrderTabCoordinator: KNConfirmLimitOrderViewControllerDelegate 
   }
 }
 
-extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate {
+extension KNLimitOrderTabCoordinatorV2: KNConvertSuggestionViewControllerDelegate {
   func convertSuggestionViewController(_ controller: KNConvertSuggestionViewController, run event: KNConvertSuggestionViewEvent) {
     switch event {
     case .estimateGasLimit(let from, let to, let amount):
@@ -894,7 +769,7 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
         self.session.addNewPendingTransaction(transaction)
         if self.convertVC != nil {
           if let order = self.curOrder {
-            self.checkDataBeforeConfirmOrder(order)
+            self.checkDataBeforeConfirmOrder(order, confirmData: self.curConfirmData)
           } else {
             self.navigationController.popViewController(animated: true, completion: {
               self.convertVC = nil
@@ -949,7 +824,7 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
   }
 }
 
-extension KNLimitOrderTabCoordinator: QRCodeReaderDelegate {
+extension KNLimitOrderTabCoordinatorV2: QRCodeReaderDelegate {
   func readerDidCancel(_ reader: QRCodeReaderViewController!) {
     reader.dismiss(animated: true, completion: nil)
   }
@@ -973,7 +848,7 @@ extension KNLimitOrderTabCoordinator: QRCodeReaderDelegate {
   }
 }
 
-extension KNLimitOrderTabCoordinator: KNListNotificationViewControllerDelegate {
+extension KNLimitOrderTabCoordinatorV2: KNListNotificationViewControllerDelegate {
   func listNotificationViewController(_ controller: KNListNotificationViewController, run event: KNListNotificationViewEvent) {
     switch event {
     case .openSwap(let from, let to):
@@ -989,7 +864,7 @@ extension KNLimitOrderTabCoordinator: KNListNotificationViewControllerDelegate {
   }
 }
 
-extension KNLimitOrderTabCoordinator: KNNotificationSettingViewControllerDelegate {
+extension KNLimitOrderTabCoordinatorV2: KNNotificationSettingViewControllerDelegate {
   func notificationSettingViewControllerDidApply(_ controller: KNNotificationSettingViewController) {
     self.navigationController.popViewController(animated: true) {
       self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())

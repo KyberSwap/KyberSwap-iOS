@@ -53,6 +53,7 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateMarket(name: String = "ETH_KNC") {
     self.market = KNRateCoordinator.shared.getMarketWith(name: name)
+    // TODO: Update from and to
   }
 
   func updateBalance(_ balances: [String: Balance]) {
@@ -69,6 +70,11 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateTargetPrice(_ price: String) {
     self.targetPrice = price
+    if self.isBuy {
+      self.updateAmountTo(self.amountTo)
+    } else {
+      self.updateAmountFrom(self.amountFrom)
+    }
   }
 
   var availableBalance: BigInt {
@@ -141,6 +147,10 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateAmountFrom(_ amount: String) {
     self.amountFrom = amount
+    if self.targetPrice.doubleValue == 0.0 {
+      self.amountTo = ""
+      return
+    }
     let toDouble = self.isBuy ? amount.doubleValue / self.targetPrice.doubleValue : amount.doubleValue * self.targetPrice.doubleValue
     if toDouble > 0 {
       let formatter = NumberFormatterUtil.shared.limitOrderFormatter
@@ -150,6 +160,10 @@ class KNCreateLimitOrderV2ViewModel {
 
   func updateAmountTo(_ amount: String) {
     self.amountTo = amount
+    if self.targetPrice.doubleValue == 0.0 {
+      self.amountFrom = ""
+      return
+    }
     let fromDouble = self.isBuy ? amount.doubleValue * self.targetPrice.doubleValue : amount.doubleValue / self.targetPrice.doubleValue
     if fromDouble > 0 {
       let formatter = NumberFormatterUtil.shared.limitOrderFormatter
@@ -218,6 +232,12 @@ class KNCreateLimitOrderV2ViewModel {
   }
 
   var targetPriceBigInt: BigInt {
+    if isBuy {
+      // reverse of sell
+      if self.targetPrice.doubleValue == 0.0 { return BigInt(0) }
+      return BigInt(pow(10.0, Double(self.from.decimals)) / self.targetPrice.doubleValue)
+    }
+
     return self.targetPrice.removeGroupSeparator().amountBigInt(decimals: self.to.decimals) ?? BigInt(0)
   }
 
@@ -321,4 +341,32 @@ class KNCreateLimitOrderV2ViewModel {
     let marketPrice = self.targetPriceFromMarket.doubleValue
     return self.targetPrice.doubleValue > 10 * marketPrice
   }
+
+  var isConvertingETHToWETHNeeded: Bool {
+    if !self.from.isWETH { return false }
+    let balance = self.balance?.value ?? BigInt(0)
+
+    var availableAmount = balance
+    if let pendingAmount = self.pendingBalances[self.from.symbol] as? Double {
+      availableAmount -= BigInt(pendingAmount * pow(10.0, Double(self.from.decimals)))
+    }
+    availableAmount = max(availableAmount, BigInt(0))
+
+    return availableAmount < self.amountFromBigInt
+  }
+
+  var minAmountToConvert: BigInt {
+    if !self.from.isWETH { return BigInt(0) }
+    let balance = self.balance?.value ?? BigInt(0)
+
+    var availableAmount = balance
+    if let pendingAmount = self.pendingBalances[self.from.symbol] as? Double {
+      availableAmount -= BigInt(pendingAmount * pow(10.0, Double(self.from.decimals)))
+    }
+    availableAmount = max(availableAmount, BigInt(0))
+
+    if availableAmount < self.amountFromBigInt { return self.amountFromBigInt - availableAmount }
+    return BigInt(0)
+  }
+
 }

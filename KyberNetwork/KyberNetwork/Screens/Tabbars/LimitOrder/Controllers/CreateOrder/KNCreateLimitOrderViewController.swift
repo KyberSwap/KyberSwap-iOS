@@ -7,7 +7,7 @@ import BigInt
 enum KNCreateLimitOrderViewEvent {
   case searchToken(from: TokenObject, to: TokenObject, isSource: Bool, pendingBalances: JSONDictionary)
   case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, showWarning: Bool)
-  case submitOrder(order: KNLimitOrder)
+  case submitOrder(order: KNLimitOrder, confirmData: KNLimitOrderConfirmData?)
   case manageOrders
   case estimateFee(address: String, src: String, dest: String, srcAmount: Double, destAmount: Double)
   case getExpectedNonce(address: String, src: String, dest: String)
@@ -466,9 +466,10 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
         targetRate: self.viewModel.targetRateBigInt,
         fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
         transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6,
-        nonce: self.viewModel.nonce ?? ""
+        nonce: self.viewModel.nonce ?? "",
+        isBuy: false
       )
-      self.delegate?.kCreateLimitOrderViewController(self, run: .submitOrder(order: order))
+      self.delegate?.kCreateLimitOrderViewController(self, run: .submitOrder(order: order, confirmData: nil))
     }
   }
 
@@ -906,7 +907,8 @@ extension KNCreateLimitOrderViewController {
         targetRate: self.viewModel.targetRateBigInt,
         fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
         transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6
-        nonce: self.viewModel.nonce ?? ""
+        nonce: self.viewModel.nonce ?? "",
+        isBuy: false // don't care if it is buy or sell
       )
       let event = KNCreateLimitOrderViewEvent.openConvertWETH(
         address: self.viewModel.walletObject.address,

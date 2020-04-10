@@ -8,7 +8,7 @@ struct KNMarket {
   let change: Double
   let sellPrice: Double
   let buyPrice: Double
-  
+
   init(dict: [String: String]) {
     self.pair = dict["pair"] ?? ""
     self.volume = dict["volume"]?.doubleValue ?? 0.0

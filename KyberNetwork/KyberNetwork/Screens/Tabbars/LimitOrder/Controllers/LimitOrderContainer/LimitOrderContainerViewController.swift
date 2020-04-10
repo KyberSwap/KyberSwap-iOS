@@ -3,6 +3,22 @@
 import UIKit
 import BigInt
 
+enum KNCreateLimitOrderViewEventV2 {
+  case submitOrder(order: KNLimitOrder, confirmData: KNLimitOrderConfirmData?)
+  case manageOrders
+  case estimateFee(address: String, src: String, dest: String, srcAmount: Double, destAmount: Double)
+  case getExpectedNonce(address: String, src: String, dest: String)
+  case openConvertWETH(address: String, ethBalance: BigInt, amount: BigInt, pendingWETH: Double, order: KNLimitOrder, confirmData: KNLimitOrderConfirmData)
+  case getRelatedOrders(address: String, src: String, dest: String, minRate: Double)
+  case getPendingBalances(address: String)
+  case changeMarket
+}
+
+protocol LimitOrderContainerViewControllerDelegate: class {
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNCreateLimitOrderViewEventV2)
+  func kCreateLimitOrderViewController(_ controller: KNBaseViewController, run event: KNBalanceTabHamburgerMenuViewEvent)
+}
+
 class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var pagerIndicator: UIView!
   @IBOutlet weak var contentContainerView: UIView!
@@ -13,7 +29,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var marketDetailLabel: UILabel!
   @IBOutlet weak var marketVolLabel: UILabel!
 
-  weak var delegate: KNCreateLimitOrderViewControllerDelegate?
+  weak var delegate: LimitOrderContainerViewControllerDelegate?
   var currentIndex = 0
   fileprivate var isViewSetup: Bool = false
 
@@ -22,7 +38,10 @@ class LimitOrderContainerViewController: KNBaseViewController {
   init(wallet: Wallet) {
     let buyViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet)
     let sellViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet, isBuy: false)
-    self.pages = [KNCreateLimitOrderV2ViewController(viewModel: buyViewModel), KNCreateLimitOrderV2ViewController(viewModel: sellViewModel)]
+    self.pages = [
+      KNCreateLimitOrderV2ViewController(viewModel: buyViewModel),
+      KNCreateLimitOrderV2ViewController(viewModel: sellViewModel),
+    ]
     super.init(nibName: LimitOrderContainerViewController.className, bundle: nil)
   }
 
@@ -47,30 +66,29 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   @IBAction func pagerButtonTapped(_ sender: UIButton) {
     if sender.tag == 1 {
-      self.pageController.setViewControllers([pages.first!], direction: .forward, animated: true, completion: nil)
+      self.pageController.setViewControllers([pages.first!], direction: .reverse, animated: true, completion: nil)
       self.animatePagerIndicator(index: 1, delay: 0.3)
       self.currentIndex = 0
     } else {
-      self.pageController.setViewControllers([pages.last!], direction: .reverse, animated: true, completion: nil)
+      self.pageController.setViewControllers([pages.last!], direction: .forward, animated: true, completion: nil)
       self.animatePagerIndicator(index: 2, delay: 0.3)
       self.currentIndex = 1
     }
   }
-  
+
   @IBAction func marketButtonTapped(_ sender: UIButton) {
     self.delegate?.kCreateLimitOrderViewController(self, run: .changeMarket)
   }
-  
 
   private func setupPageController() {
     self.pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    self.pageController.dataSource = self
     self.pageController.delegate = self
     self.pageController.view.backgroundColor = .clear
-    self.pageController.view.frame = CGRect(x: 0,
-                                            y: 0,
-                                            width: self.contentContainerView.frame.width,
-                                            height: self.contentContainerView.frame.height
+    self.pageController.view.frame = CGRect(
+      x: 0,
+      y: 0,
+      width: self.contentContainerView.frame.width,
+      height: self.contentContainerView.frame.height
     )
     self.addChildViewController(self.pageController)
     self.contentContainerView.addSubview(self.pageController.view)
@@ -101,22 +119,6 @@ class LimitOrderContainerViewController: KNBaseViewController {
     for vc in self.pages {
       vc.coordinatorMarketCachedDidUpdate()
     }
-  }
-}
-
-extension LimitOrderContainerViewController: UIPageViewControllerDataSource {
-  func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-    guard viewController == self.pages[1] else {
-      return nil
-    }
-    return self.pages.first!
-  }
-
-  func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-    guard viewController == self.pages[0] else {
-      return nil
-    }
-    return self.pages.last!
   }
 }
 
