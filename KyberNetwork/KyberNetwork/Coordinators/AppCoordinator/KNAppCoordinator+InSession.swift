@@ -40,7 +40,7 @@ extension KNAppCoordinator {
     self.exchangeCoordinator?.start()
 
     self.limitOrderCoordinator = {
-      let coordinator = KNLimitOrderTabCoordinator(
+      let coordinator = KNLimitOrderTabCoordinatorV2(
         session: self.session
       )
       coordinator.delegate = self
