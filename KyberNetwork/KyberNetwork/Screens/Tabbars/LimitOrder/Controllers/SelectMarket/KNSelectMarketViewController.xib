@@ -21,8 +21,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNSelectMarketViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="change24hButton" destination="hGT-iU-hOG" id="Cyi-Qx-8IP"/>
+                <outlet property="daiMarketButton" destination="3mp-5R-5LM" id="kFg-7B-2og"/>
+                <outlet property="ethMarketButton" destination="srD-ch-i7b" id="lnD-Fs-CaU"/>
+                <outlet property="pairButton" destination="fEO-73-hRs" id="fOy-RY-qID"/>
+                <outlet property="priceButton" destination="Wvl-nL-8P0" id="kpq-aN-kFC"/>
                 <outlet property="tableView" destination="DRd-aB-bqd" id="XOm-s9-xQH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="volumeButton" destination="IbR-Ip-l3P" id="AcN-L0-jRG"/>
+                <outlet property="wbtcMarketButton" destination="OuF-Uz-RCI" id="tKg-2d-ILh"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -34,13 +41,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Market" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gb-wx-r9C">
-                            <rect key="frame" x="155.5" y="44" width="64.5" height="22"/>
+                            <rect key="frame" x="159.5" y="45" width="56.5" height="21"/>
                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3I-ke-Wbw">
-                            <rect key="frame" x="16" y="37" width="46" height="36"/>
+                            <rect key="frame" x="16" y="37.5" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="2P3-6O-qen"/>
                                 <constraint firstAttribute="width" constant="46" id="pFj-b5-a5u"/>
@@ -89,8 +96,11 @@
                                     <state key="normal" title="DAI" image="arrow_down_grey">
                                         <color key="titleColor" red="0.3529411764705882" green="0.36862745098039218" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="marketTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="pnT-iP-syx"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srD-ch-i7b">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srD-ch-i7b">
                                     <rect key="frame" x="78" y="0.0" width="68" height="33"/>
                                     <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -101,8 +111,11 @@
                                     <state key="normal" title="ETH*">
                                         <color key="titleColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="marketTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="ACq-jt-VFJ"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OuF-Uz-RCI">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OuF-Uz-RCI">
                                     <rect key="frame" x="156" y="0.0" width="68" height="33"/>
                                     <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
@@ -113,6 +126,9 @@
                                     <state key="normal" title="WBTC">
                                         <color key="titleColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="marketTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="8OD-gZ-NFW"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
@@ -156,34 +172,43 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aJA-7v-v8l">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEO-73-hRs">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEO-73-hRs">
                                     <rect key="frame" x="0.0" y="0.0" width="86.5" height="42"/>
                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
                                     <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="PAIR">
                                         <color key="titleColor" red="0.30588235294117649" green="0.31372549019607843" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="aS7-ga-5PA"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvl-nL-8P0">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvl-nL-8P0">
                                     <rect key="frame" x="96.5" y="0.0" width="86" height="42"/>
                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
                                     <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="PRICE">
                                         <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="IUK-6n-NuD"/>
+                                    </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbR-Ip-l3P">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbR-Ip-l3P">
                                     <rect key="frame" x="192.5" y="0.0" width="86.5" height="42"/>
                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
                                     <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="VOLUME">
                                         <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="9RP-KM-w2P"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8C-qs-nfA">
                                     <rect key="frame" x="289" y="0.0" width="86" height="42"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGT-iU-hOG">
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGT-iU-hOG">
                                             <rect key="frame" x="0.0" y="0.0" width="55" height="42"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
@@ -191,6 +216,9 @@
                                             <state key="normal" title="24H">
                                                 <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="b02-BY-diB"/>
+                                            </connections>
                                         </button>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unselected_fav_icon" translatesAutoresizingMaskIntoConstraints="NO" id="4mz-lI-Ror">
                                             <rect key="frame" x="62" y="14.5" width="14" height="13"/>

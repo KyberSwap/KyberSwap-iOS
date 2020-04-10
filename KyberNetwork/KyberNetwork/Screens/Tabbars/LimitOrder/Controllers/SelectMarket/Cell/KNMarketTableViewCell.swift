@@ -13,9 +13,9 @@ struct KNMarketCellViewModel {
   let price: String
   let volume: String
   let change24h: NSAttributedString
-  
+
   init(market: KNMarket) {
-    self.pairName = market.pair
+    self.pairName = market.pair.replacingOccurrences(of: "_", with: "/")
     let formatter = NumberFormatterUtil.shared.doubleFormatter
     self.price = formatter.string(from: NSNumber(value: market.sellPrice)) ?? ""
     self.volume = formatter.string(from: NSNumber(value: market.volume)) ?? ""
@@ -29,6 +29,19 @@ struct KNMarketCellViewModel {
       NSAttributedStringKey.foregroundColor: UIColor(red: 250, green: 101, blue: 102),
     ]
     self.change24h = NSAttributedString(string: "\(fabs(market.change))", attributes: market.change > 0 ? upAttributes : downAttributes)
+  }
+  
+  static func compareViewModel(left: KNMarketCellViewModel, right: KNMarketCellViewModel, type: MarketSortType) -> Bool {
+    switch type {
+    case .pair(let asc):
+      return asc ? left.pairName > right.pairName : left.pairName < right.pairName
+    case .price(let asc):
+      return asc ? left.price > right.price : left.price > right.price
+    case .volume(let asc):
+      return asc ? left.volume > right.volume : left.volume > right.volume
+    case .change(let asc):
+      return asc ? left.change24h.string > right.change24h.string : left.change24h.string < right.change24h.string
+    }
   }
 }
 
