@@ -35,7 +35,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   private var pageController: UIPageViewController!
   private var pages: [KNCreateLimitOrderV2ViewController]
-  private var currentMarket: KNMarket!
+  private var currentMarket: KNMarket?
 
   init(wallet: Wallet) {
     let buyViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet)
@@ -63,8 +63,10 @@ class LimitOrderContainerViewController: KNBaseViewController {
     if !self.isViewSetup {
       self.isViewSetup = true
       self.setupPageController()
-      self.currentMarket = KNRateCoordinator.shared.getMarketWith(name: "ETH_KNC")!
-      self.setupUI(market: self.currentMarket)
+      self.currentMarket = KNRateCoordinator.shared.getMarketWith(name: "ETH_KNC")
+      if let market = self.currentMarket {
+        self.setupUI(market: market)
+      }
     }
   }
 
