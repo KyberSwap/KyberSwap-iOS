@@ -61,8 +61,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     super.viewDidDisappear(animated)
   }
 
-  fileprivate func setupUI() {
-    self.viewModel.updateMarket()
+  fileprivate func bindMarketData() {
     self.priceField.text = self.viewModel.targetPriceFromMarket
     self.viewModel.updateTargetPrice(self.viewModel.targetPriceFromMarket)
     self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
@@ -76,7 +75,20 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       self.buySellButton.setTitle("\("Sell".toBeLocalised()) \(self.viewModel.fromSymbol)", for: .normal)
       self.buySellButton.backgroundColor = UIColor.Kyber.red
     }
+  }
+  
+  fileprivate func setupUI() {
+    self.viewModel.updateMarket()
+    self.bindMarketData()
     self.buySellButton.rounded(radius: 5)
+  }
+
+  func coordinatorUpdateMarket(market: KNMarket) {
+    self.viewModel.updatePair(name: market.pair)
+    guard isViewSetup else {
+      return
+    }
+    self.bindMarketData()
   }
 
   fileprivate func updateFeeNotesUI() {

@@ -35,6 +35,8 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   private var pageController: UIPageViewController!
   private var pages: [KNCreateLimitOrderV2ViewController]
+  private var currentMarket: KNMarket!
+
   init(wallet: Wallet) {
     let buyViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet)
     let sellViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet, isBuy: false)
@@ -61,6 +63,8 @@ class LimitOrderContainerViewController: KNBaseViewController {
     if !self.isViewSetup {
       self.isViewSetup = true
       self.setupPageController()
+      self.currentMarket = KNRateCoordinator.shared.getMarketWith(name: "ETH_KNC")!
+      self.setupUI(market: self.currentMarket)
     }
   }
 
@@ -78,6 +82,34 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   @IBAction func marketButtonTapped(_ sender: UIButton) {
     self.delegate?.kCreateLimitOrderViewController(self, run: .changeMarket)
+  }
+
+  fileprivate func setupUI(market: KNMarket) {
+    let pair = market.pair.components(separatedBy: "_")
+    self.marketNameButton.setTitle(market.pair.replacingOccurrences(of: "_", with: "/"), for: .normal)
+    let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
+      NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
+    ]
+    let upAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
+      NSAttributedStringKey.foregroundColor: UIColor(red: 49, green: 203, blue: 158),
+    ]
+
+    let downAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
+      NSAttributedStringKey.foregroundColor: UIColor(red: 250, green: 101, blue: 102),
+    ]
+    let detailText = NSMutableAttributedString()
+    let formatter = NumberFormatterUtil.shared.limitOrderFormatter
+    let buySellText = NSAttributedString(string: "\(formatter.string(from: NSNumber(value: market.buyPrice)) ?? "") ~ \(formatter.string(from: NSNumber(value: market.sellPrice)) ?? "")", attributes: displayTypeNormalAttributes)
+    let changeAttribute = market.change > 0 ? upAttributes : downAttributes
+    let changeText = NSAttributedString(string: " \(formatter.string(from: NSNumber(value: fabs(market.change))) ?? "")%", attributes: changeAttribute)
+    detailText.append(buySellText)
+    detailText.append(changeText)
+    self.marketDetailLabel.attributedText = detailText
+
+    self.marketVolLabel.text = "Vol \(formatter.string(from: NSNumber(value: fabs(market.volume))) ?? "") \(pair.last ?? "")"
   }
 
   private func setupPageController() {
@@ -118,6 +150,14 @@ class LimitOrderContainerViewController: KNBaseViewController {
   func coordinatorMarketCachedDidUpdate() {
     for vc in self.pages {
       vc.coordinatorMarketCachedDidUpdate()
+    }
+  }
+
+  func coordinatorUpdateMarket(market: KNMarket) {
+    self.currentMarket = market
+    self.setupUI(market: market)
+    for vc in self.pages {
+      vc.coordinatorUpdateMarket(market: market)
     }
   }
 }

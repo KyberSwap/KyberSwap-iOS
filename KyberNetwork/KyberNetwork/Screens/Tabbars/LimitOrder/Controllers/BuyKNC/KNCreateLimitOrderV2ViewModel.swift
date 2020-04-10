@@ -25,6 +25,7 @@ class KNCreateLimitOrderV2ViewModel {
   var feeBeforeDiscount: Double = 0 // same as fee percentage
   var transferFeePercent: Double = 0
   let isBuy: Bool
+  var currentPair: String
 
   init(wallet: Wallet, isBuy: Bool = true) {
     self.isBuy = isBuy
@@ -38,6 +39,7 @@ class KNCreateLimitOrderV2ViewModel {
       self.to = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
       self.from = KNSupportedTokenStorage.shared.kncToken
     }
+    self.currentPair = "ETH_KNC"
   }
 
   var walletNameString: String {
@@ -51,9 +53,46 @@ class KNCreateLimitOrderV2ViewModel {
     return formatter.string(from: NSNumber(value: marketPrice ?? 0)) ?? ""
   }
 
-  func updateMarket(name: String = "ETH_KNC") {
-    self.market = KNRateCoordinator.shared.getMarketWith(name: name)
-    // TODO: Update from and to
+  func updatePair(name: String) {
+    let pair = name.components(separatedBy: "_")
+    guard let left = pair.first, let right = pair.last, !left.isEmpty, !right.isEmpty else { return }
+    self.currentPair = name
+    self.updateMarket()
+    self.amountTo = ""
+    self.amountFrom = ""
+    self.updateTargetPrice(self.targetPriceFromMarket)
+    let allTokens = KNSupportedTokenStorage.shared.supportedTokens
+    var leftToken: TokenObject?
+    var rightToken: TokenObject?
+
+    if left == "ETH" || left == "WETH" {
+      leftToken = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
+    } else {
+      leftToken = allTokens.first(where: { (token) -> Bool in
+        return token.symbol == left
+      })
+    }
+
+    if right == "ETH" || left == "WETH" {
+      rightToken = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
+    } else {
+      rightToken = allTokens.first(where: { (token) -> Bool in
+        return token.symbol == right
+      })
+    }
+    if leftToken != nil && rightToken != nil {
+      if self.isBuy {
+        self.from = leftToken!
+        self.to = rightToken!
+      } else {
+        self.from = rightToken!
+        self.to = leftToken!
+      }
+    }
+  }
+
+  func updateMarket() {
+    self.market = KNRateCoordinator.shared.getMarketWith(name: self.currentPair)
   }
 
   func updateBalance(_ balances: [String: Balance]) {

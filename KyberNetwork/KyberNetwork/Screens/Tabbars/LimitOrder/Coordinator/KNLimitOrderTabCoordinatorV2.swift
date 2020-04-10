@@ -37,7 +37,9 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
   fileprivate var convertVC: KNConvertSuggestionViewController?
   fileprivate lazy var marketsVC: KNSelectMarketViewController = {
     let viewModel = KNSelectMarketViewModel()
-    return KNSelectMarketViewController(viewModel: viewModel)
+    let viewController = KNSelectMarketViewController(viewModel: viewModel)
+    viewController.delegate = self
+    return viewController
   }()
 
   lazy var rootViewController: LimitOrderContainerViewController = {
@@ -869,5 +871,12 @@ extension KNLimitOrderTabCoordinatorV2: KNNotificationSettingViewControllerDeleg
     self.navigationController.popViewController(animated: true) {
       self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
     }
+  }
+}
+
+extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
+  func selectMarketViewControllerDidSelectMarket(_ controller: KNSelectMarketViewController, market: KNMarket) {
+    self.navigationController.popViewController(animated: true)
+    self.rootViewController.coordinatorUpdateMarket(market: market)
   }
 }
