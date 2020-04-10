@@ -74,7 +74,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.updateMarketTypeButtonUI()
     self.tableView.reloadData()
   }
-  
+
   @IBAction func sortButtonTapped(_ sender: UIButton) {
     switch sender.tag {
     case 1:
@@ -252,8 +252,18 @@ extension KNSelectMarketViewController: UITableViewDataSource {
       withIdentifier: KNMarketTableViewCell.kCellID,
       for: indexPath
     ) as! KNMarketTableViewCell
+    cell.delegate = self
     let viewModel = self.viewModel.displayCellViewModels[indexPath.row]
     cell.updateViewModel(viewModel)
     return cell
+  }
+}
+
+extension KNSelectMarketViewController: KNMarketTableViewCellDelegate {
+  func marketTableViewCellDidSelectFavorite(_ cell: KNMarketTableViewCell, isFav: Bool) {
+    let message = isFav ? NSLocalizedString("Successfully added to your favorites", comment: "") : NSLocalizedString("Removed from your favorites", comment: "")
+    self.showTopBannerView(with: "", message: message, time: 1.0)
+    self.viewModel.updateMarketFromCoordinator()
+    self.tableView.reloadData()
   }
 }

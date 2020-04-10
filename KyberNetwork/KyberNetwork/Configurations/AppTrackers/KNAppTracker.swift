@@ -41,6 +41,8 @@ class KNAppTracker {
 
   static let kFavouriteTokensKey: String = "kFavouriteTokensKey"
 
+  static let kFavouriteMarketsKey: String = "kFavouriteMarketsKey"
+
   static let kTutorialCancelOpenOrderKey: String = "kTutorialCancelOpenOrderKey"
   static let kWonderWhyOrdersAreNotFilled: String = "kWonderWhyOrdersAreNotFilled"
 
@@ -311,6 +313,27 @@ class KNAppTracker {
     }
     userDefaults.set(addresses, forKey: key)
     userDefaults.synchronize()
+  }
+  
+  static func getListFavouriteMarkets() -> [String] {
+    let key = "\(KNEnvironment.default.displayName)-\(kFavouriteMarketsKey)"
+    return userDefaults.object(forKey: key) as? [String] ?? []
+  }
+  
+  static func updateFavouriteMarket(_ pair: String, add: Bool) {
+    let key = "\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey)"
+    var pairs = userDefaults.object(forKey: key) as? [String] ?? []
+    if add {
+      if !pairs.contains(pair.uppercased()) { pairs.append(pair) }
+    } else if let id = pairs.index(of: pair.uppercased()) {
+      pairs.remove(at: id)
+    }
+    userDefaults.set(pairs, forKey: key)
+    userDefaults.synchronize()
+  }
+  
+  static func isMarketFavourite(_ pair: String) -> Bool {
+    return self.getListFavouriteTokens().contains(pair.uppercased())
   }
 
   static func updateCancelOpenOrderTutorial(isRemove: Bool = false) {

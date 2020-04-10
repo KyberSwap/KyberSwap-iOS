@@ -76,7 +76,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       self.buySellButton.backgroundColor = UIColor.Kyber.red
     }
   }
-  
+
   fileprivate func setupUI() {
     self.viewModel.updateMarket()
     self.bindMarketData()

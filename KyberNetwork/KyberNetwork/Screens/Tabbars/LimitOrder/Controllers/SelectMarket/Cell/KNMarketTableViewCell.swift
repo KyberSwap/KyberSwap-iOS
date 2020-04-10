@@ -13,6 +13,7 @@ struct KNMarketCellViewModel {
   let price: String
   let volume: String
   let change24h: NSAttributedString
+  let isFav: Bool
 
   init(market: KNMarket) {
     self.pairName = market.pair.replacingOccurrences(of: "_", with: "/")
@@ -29,20 +30,25 @@ struct KNMarketCellViewModel {
       NSAttributedStringKey.foregroundColor: UIColor(red: 250, green: 101, blue: 102),
     ]
     self.change24h = NSAttributedString(string: "\(fabs(market.change))", attributes: market.change > 0 ? upAttributes : downAttributes)
+    self.isFav = KNAppTracker.isMarketFavourite(market.pair)
   }
-  
+
   static func compareViewModel(left: KNMarketCellViewModel, right: KNMarketCellViewModel, type: MarketSortType) -> Bool {
     switch type {
     case .pair(let asc):
-      return asc ? left.pairName > right.pairName : left.pairName < right.pairName
+      return asc ? left.pairName < right.pairName : left.pairName > right.pairName
     case .price(let asc):
-      return asc ? left.price > right.price : left.price > right.price
+      return asc ? left.price < right.price : left.price > right.price
     case .volume(let asc):
-      return asc ? left.volume > right.volume : left.volume > right.volume
+      return asc ? left.volume < right.volume : left.volume > right.volume
     case .change(let asc):
-      return asc ? left.change24h.string > right.change24h.string : left.change24h.string < right.change24h.string
+      return asc ? left.change24h.string < right.change24h.string : left.change24h.string > right.change24h.string
     }
   }
+}
+
+protocol KNMarketTableViewCellDelegate: class {
+  func marketTableViewCellDidSelectFavorite(_ cell: KNMarketTableViewCell, isFav: Bool)
 }
 
 class KNMarketTableViewCell: UITableViewCell {
@@ -53,16 +59,29 @@ class KNMarketTableViewCell: UITableViewCell {
   @IBOutlet weak var priceLabel: UILabel!
   @IBOutlet weak var volumeLabel: UILabel!
   @IBOutlet weak var changeButton: UIButton!
+  @IBOutlet weak var favoriteButton: UIButton!
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
+  var viewModel: KNMarketCellViewModel!
+  weak var delegate: KNMarketTableViewCellDelegate?
   
   func updateViewModel(_ viewModel: KNMarketCellViewModel) {
+    self.viewModel = viewModel
     self.pairNameLabel.text = viewModel.pairName
     self.priceLabel.text = viewModel.price
     self.volumeLabel.text = viewModel.volume
     self.changeButton.setAttributedTitle(viewModel.change24h, for: .normal)
+    let favImg = viewModel.isFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
+    self.favoriteButton.setImage(favImg, for: .normal)
   }
+  
+  @IBAction func favouriteButtonTapped(_ sender: UIButton) {
+    let updateFav = !self.viewModel.isFav
+    let pair = self.viewModel.pairName.replacingOccurrences(of: "/", with: "_")
+    KNAppTracker.updateFavouriteMarket(pair, add: updateFav)
+    let favImg = updateFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
+    self.favoriteButton.setImage(favImg, for: .normal)
+    self.delegate?.marketTableViewCellDidSelectFavorite(self , isFav: updateFav)
+  }
+  
+  
 }
