@@ -21,6 +21,40 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var volumeButton: UIButton!
   @IBOutlet weak var change24hButton: UIButton!
 
+  lazy var pickerView: UIPickerView = {
+    let pickerView = UIPickerView(frame: CGRect.zero)
+    pickerView.showsSelectionIndicator = true
+    pickerView.dataSource = self
+    pickerView.delegate = self
+    return pickerView
+  }()
+  lazy var toolBar: UIToolbar = {
+    let frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44)
+    let toolBar = UIToolbar(frame: frame)
+    toolBar.barStyle = .default
+    let doneBtn = UIBarButtonItem(
+      barButtonSystemItem: .done,
+      target: self,
+      action: #selector(self.dataPickerDonePressed(_:))
+    )
+    let flexibleSpaceBtn = UIBarButtonItem(
+      barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
+      target: nil,
+      action: nil
+    )
+    doneBtn.tintColor = UIColor.Kyber.dark
+    let cancelBtn = UIBarButtonItem(
+      barButtonSystemItem: .cancel,
+      target: self,
+      action: #selector(self.dataPickerCancelPressed(_:))
+    )
+    cancelBtn.tintColor = UIColor.Kyber.dark
+    toolBar.setItems([cancelBtn, flexibleSpaceBtn, doneBtn], animated: false)
+    return toolBar
+  }()
+  fileprivate var fakeTextField: UITextField = UITextField(frame: CGRect.zero)
+  let pickerViewData = ["SAI", "DAI", "TUSD", "USDC", "USDT"]
+
   fileprivate let viewModel: KNSelectMarketViewModel
   weak var delegate: KNSelectMarketViewControllerDelegate?
 
@@ -41,7 +75,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     super.viewDidLoad()
     self.setupMarketTableView()
     self.updateSortButtonTitle()
-    self.updateMarketTypeButtonUI()
+    self.view.addSubview(self.fakeTextField)
   }
 
   fileprivate func setupMarketTableView() {
@@ -60,10 +94,18 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.viewModel.updateMarketFromCoordinator()
   }
 
+  fileprivate func presentPickerView() {
+    self.fakeTextField.inputView = self.pickerView
+    self.fakeTextField.inputAccessoryView = self.toolBar
+    self.pickerView.reloadAllComponents()
+    //TODO: remember previous choice
+    self.fakeTextField.becomeFirstResponder()
+  }
+
   @IBAction func marketTypeButtonTapped(_ sender: UIButton) {
     switch sender.tag {
     case 1:
-      self.viewModel.marketType = .dai
+      self.presentPickerView()
     case 2:
       self.viewModel.marketType = .eth
     case 3:
@@ -71,7 +113,6 @@ class KNSelectMarketViewController: KNBaseViewController {
     default:
       break
     }
-    self.updateMarketTypeButtonUI()
     self.tableView.reloadData()
   }
 
@@ -108,24 +149,6 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.tableView.reloadData()
   }
 
-  fileprivate func updateMarketTypeButtonUI() {
-    let arrowImg = UIImage(named: "arrow_down_grey")
-    switch self.viewModel.marketType {
-    case .dai:
-      self.daiMarketButton.setImage(arrowImg, for: .normal)
-      self.ethMarketButton.setImage(nil, for: .normal)
-      self.wbtcMarketButton.setImage(nil, for: .normal)
-    case .eth:
-      self.daiMarketButton.setImage(nil, for: .normal)
-      self.ethMarketButton.setImage(arrowImg, for: .normal)
-      self.wbtcMarketButton.setImage(nil, for: .normal)
-    case .wbtc:
-      self.daiMarketButton.setImage(nil, for: .normal)
-      self.ethMarketButton.setImage(nil, for: .normal)
-      self.wbtcMarketButton.setImage(arrowImg, for: .normal)
-    }
-  }
-
   fileprivate func updateSortButtonTitle() {
     let arrowUpAttributedString: NSAttributedString = {
       let attributes: [NSAttributedStringKey: Any] = [
@@ -149,41 +172,30 @@ class KNSelectMarketViewController: KNBaseViewController {
     switch self.viewModel.sortType {
     case .pair(let asc):
       let sortingCharacter = asc ? arrowDownAttributedString : arrowUpAttributedString
-      let attributeTitle = NSMutableAttributedString(string: "pair".toBeLocalised().uppercased(),
-                                                     attributes: displayTypeNormalAttributes
-      )
+      let attributeTitle = NSMutableAttributedString(string: "pair".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes)
       attributeTitle.append(sortingCharacter)
       self.pairButton.setAttributedTitle(attributeTitle, for: .normal)
-      self.priceButton.setAttributedTitle(NSAttributedString(string: "price".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.priceButton.setAttributedTitle(NSAttributedString(string: "price".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes), for: .normal)
+      self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                           for: .normal
       )
-      self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
-      )
-      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                              for: .normal
       )
     case .price(let asc):
       let sortingCharacter = asc ? arrowDownAttributedString : arrowUpAttributedString
-      let attributeTitle = NSMutableAttributedString(string: "price".toBeLocalised().uppercased(),
-                                                     attributes: displayTypeNormalAttributes
+      let attributeTitle = NSMutableAttributedString(string: "price".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes
       )
       attributeTitle.append(sortingCharacter)
-      self.pairButton.setAttributedTitle(NSAttributedString(string: "pair".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.pairButton.setAttributedTitle(NSAttributedString(string: "pair".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                         for: .normal
       )
       self.priceButton.setAttributedTitle(attributeTitle, for: .normal)
-      self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                           for: .normal
       )
-      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                              for: .normal
       )
     case .volume(let asc):
       let sortingCharacter = asc ? arrowDownAttributedString : arrowUpAttributedString
@@ -191,39 +203,44 @@ class KNSelectMarketViewController: KNBaseViewController {
                                                      attributes: displayTypeNormalAttributes
       )
       attributeTitle.append(sortingCharacter)
-      self.pairButton.setAttributedTitle(NSAttributedString(string: "pair".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.pairButton.setAttributedTitle(NSAttributedString(string: "pair".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                         for: .normal
       )
-      self.priceButton.setAttributedTitle(NSAttributedString(string: "price".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
+      self.priceButton.setAttributedTitle(NSAttributedString(string: "price".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
                                           for: .normal
       )
       self.volumeButton.setAttributedTitle(attributeTitle, for: .normal)
-      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                              for: .normal
       )
     case .change(let asc):
       let sortingCharacter = asc ? arrowDownAttributedString : arrowUpAttributedString
-      let attributeTitle = NSMutableAttributedString(string: "24h".toBeLocalised().uppercased(),
-                                                     attributes: displayTypeNormalAttributes
+      let attributeTitle = NSMutableAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes
       )
       attributeTitle.append(sortingCharacter)
-      self.pairButton.setAttributedTitle(NSAttributedString(string: "pair".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
+      self.pairButton.setAttributedTitle(NSAttributedString(string: "pair".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                         for: .normal
+      )
+      self.priceButton.setAttributedTitle(NSAttributedString(string: "price".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
                                           for: .normal
       )
-      self.priceButton.setAttributedTitle(NSAttributedString(string: "price".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
-      )
-      self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(),
-                                                             attributes: displayTypeNormalAttributes),
-                                          for: .normal
+      self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+                                           for: .normal
       )
       self.change24hButton.setAttributedTitle(attributeTitle, for: .normal)
     }
+  }
+
+  @objc func dataPickerDonePressed(_ sender: Any) {
+    self.fakeTextField.resignFirstResponder()
+    guard let selected = self.viewModel.pickerViewSelectedValue else { return }
+    self.viewModel.marketType = selected
+    self.daiMarketButton.setTitle(selected.rawValue, for: .normal)
+    self.tableView.reloadData()
+  }
+
+  @objc func dataPickerCancelPressed(_ sender: Any) {
+    self.fakeTextField.resignFirstResponder()
   }
 }
 
@@ -265,5 +282,51 @@ extension KNSelectMarketViewController: KNMarketTableViewCellDelegate {
     self.showTopBannerView(with: "", message: message, time: 1.0)
     self.viewModel.updateMarketFromCoordinator()
     self.tableView.reloadData()
+  }
+}
+
+extension KNSelectMarketViewController: UIPickerViewDelegate {
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    switch row {
+    case 0:
+      self.viewModel.pickerViewSelectedValue = .sai
+    case 1:
+      self.viewModel.pickerViewSelectedValue = .dai
+    case 2:
+      self.viewModel.pickerViewSelectedValue = .tusd
+    case 3:
+      self.viewModel.pickerViewSelectedValue = .usdc
+    case 4:
+      self.viewModel.pickerViewSelectedValue = .usdt
+    default:
+      break
+    }
+  }
+}
+
+extension KNSelectMarketViewController: UIPickerViewDataSource {
+  func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    return 1
+  }
+
+  func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    return self.pickerViewData.count
+  }
+
+  func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+    return 32
+  }
+
+  func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+    let attributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.dark,
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 14),
+    ]
+
+    let localisedString = self.pickerViewData[row]
+    return NSAttributedString(
+      string: localisedString,
+      attributes: attributes
+    )
   }
 }

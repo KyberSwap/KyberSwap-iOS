@@ -41,13 +41,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Market" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gb-wx-r9C">
-                            <rect key="frame" x="159.5" y="45" width="56.5" height="21"/>
+                            <rect key="frame" x="155.5" y="44" width="64.5" height="22"/>
                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3I-ke-Wbw">
-                            <rect key="frame" x="16" y="37.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="37" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="2P3-6O-qen"/>
                                 <constraint firstAttribute="width" constant="46" id="pFj-b5-a5u"/>
@@ -92,7 +92,7 @@
                                         <constraint firstAttribute="height" constant="33" id="54F-Zc-qya"/>
                                         <constraint firstAttribute="width" constant="68" id="KWI-d8-ZBJ"/>
                                     </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-19" maxY="0.0"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-9" maxY="0.0"/>
                                     <state key="normal" title="DAI" image="arrow_down_grey">
                                         <color key="titleColor" red="0.3529411764705882" green="0.36862745098039218" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>

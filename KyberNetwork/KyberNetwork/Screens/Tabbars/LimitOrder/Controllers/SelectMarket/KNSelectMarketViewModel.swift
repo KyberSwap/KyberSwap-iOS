@@ -11,6 +11,10 @@ enum MarketType: String {
   case dai = "DAI"
   case eth = "ETH"
   case wbtc = "WBTC"
+  case sai = "SAI"
+  case tusd = "TUSD"
+  case usdc = "USDC"
+  case usdt = "USDT"
 }
 
 enum MarketSortType {
@@ -35,6 +39,7 @@ class KNSelectMarketViewModel {
     }
   }
   var displayCellViewModels: [KNMarketCellViewModel]
+  var pickerViewSelectedValue: MarketType?
 
   init() {
     self.markets = KNRateCoordinator.shared.cachedMarket
