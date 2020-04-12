@@ -29,7 +29,19 @@ struct KNMarketCellViewModel {
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
       NSAttributedStringKey.foregroundColor: UIColor(red: 250, green: 101, blue: 102),
     ]
-    self.change24h = NSAttributedString(string: "\(fabs(market.change))", attributes: market.change > 0 ? upAttributes : downAttributes)
+    let zeroAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.grayChateau,
+    ]
+    var attributes: [NSAttributedStringKey: Any] = [:]
+    if market.change == 0 {
+      attributes = zeroAttributes
+    } else if market.change > 0 {
+      attributes = upAttributes
+    } else {
+      attributes = downAttributes
+    }
+    self.change24h = NSAttributedString(string: "\(fabs(market.change))", attributes: attributes)
     self.isFav = KNAppTracker.isMarketFavourite(market.pair)
   }
 

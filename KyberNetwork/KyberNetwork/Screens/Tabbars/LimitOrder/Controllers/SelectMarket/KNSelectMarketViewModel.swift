@@ -35,7 +35,7 @@ class KNSelectMarketViewModel {
       self.updateDisplayDataSource()
     }
   }
-  var sortType: MarketSortType = .pair(asc: true) {
+  var sortType: MarketSortType = .price(asc: true) {
     didSet {
       if !self.isFav {
         self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
@@ -57,7 +57,7 @@ class KNSelectMarketViewModel {
     self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
     let filterd = self.cellViewModels.filter { $0.pairName.contains(MarketType.dai.rawValue) }
     let sorted = filterd.sorted { (left, right) -> Bool in
-      return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .pair(asc: true))
+      return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: true))
     }
     self.displayCellViewModels = sorted
   }

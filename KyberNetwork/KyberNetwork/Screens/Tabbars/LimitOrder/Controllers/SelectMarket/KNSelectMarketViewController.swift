@@ -21,6 +21,8 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var volumeButton: UIButton!
   @IBOutlet weak var change24hButton: UIButton!
   @IBOutlet weak var favouriteButton: UIButton!
+  @IBOutlet weak var headerContainerView: UIView!
+  @IBOutlet weak var headerTitle: UILabel!
 
   lazy var pickerView: UIPickerView = {
     let pickerView = UIPickerView(frame: CGRect.zero)
@@ -77,6 +79,14 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.setupMarketTableView()
     self.updateSortButtonTitle()
     self.view.addSubview(self.fakeTextField)
+    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
+    self.headerTitle.text = "Market".toBeLocalised()
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.headerContainerView.removeSublayer(at: 0)
+    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
 
   fileprivate func setupMarketTableView() {

@@ -25,6 +25,8 @@
                 <outlet property="daiMarketButton" destination="3mp-5R-5LM" id="kFg-7B-2og"/>
                 <outlet property="ethMarketButton" destination="srD-ch-i7b" id="lnD-Fs-CaU"/>
                 <outlet property="favouriteButton" destination="VLi-bo-vzq" id="dZj-7V-qNq"/>
+                <outlet property="headerContainerView" destination="XFV-a7-4wd" id="mMf-UA-0vT"/>
+                <outlet property="headerTitle" destination="2Gb-wx-r9C" id="5tS-Ot-QbH"/>
                 <outlet property="pairButton" destination="fEO-73-hRs" id="fOy-RY-qID"/>
                 <outlet property="priceButton" destination="Wvl-nL-8P0" id="kpq-aN-kFC"/>
                 <outlet property="tableView" destination="DRd-aB-bqd" id="XOm-s9-xQH"/>
