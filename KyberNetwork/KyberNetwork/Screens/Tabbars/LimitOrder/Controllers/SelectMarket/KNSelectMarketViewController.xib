@@ -176,32 +176,53 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aJA-7v-v8l">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
                             <subviews>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEO-73-hRs">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7Y-em-p8d">
                                     <rect key="frame" x="0.0" y="0.0" width="86.5" height="42"/>
-                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
-                                    <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="PAIR">
-                                        <color key="titleColor" red="0.30588235294117649" green="0.31372549019607843" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="aS7-ga-5PA"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvl-nL-8P0">
+                                    <subviews>
+                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fEO-73-hRs">
+                                            <rect key="frame" x="16" y="0.0" width="70.5" height="42"/>
+                                            <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
+                                            <state key="normal" title="PAIR">
+                                                <color key="titleColor" red="0.30588235294117649" green="0.31372549019607843" blue="0.38823529411764707" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="aS7-ga-5PA"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="fEO-73-hRs" firstAttribute="top" secondItem="c7Y-em-p8d" secondAttribute="top" id="HIJ-pZ-q1M"/>
+                                        <constraint firstItem="fEO-73-hRs" firstAttribute="leading" secondItem="c7Y-em-p8d" secondAttribute="leading" constant="16" id="Stq-yv-qjX"/>
+                                        <constraint firstAttribute="trailing" secondItem="fEO-73-hRs" secondAttribute="trailing" id="l2E-iS-Jqe"/>
+                                        <constraint firstAttribute="bottom" secondItem="fEO-73-hRs" secondAttribute="bottom" id="mIz-fc-kF6"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ihd-Iz-dWd">
                                     <rect key="frame" x="96.5" y="0.0" width="86" height="42"/>
-                                    <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
-                                    <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="PRICE">
-                                        <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="IUK-6n-NuD"/>
-                                    </connections>
-                                </button>
+                                    <subviews>
+                                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wvl-nL-8P0">
+                                            <rect key="frame" x="16" y="0.0" width="70" height="42"/>
+                                            <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
+                                            <state key="normal" title="PRICE">
+                                                <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="sortButtonTapped:" destination="-1" eventType="touchUpInside" id="IUK-6n-NuD"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="Wvl-nL-8P0" firstAttribute="top" secondItem="Ihd-Iz-dWd" secondAttribute="top" id="KlX-T0-ztg"/>
+                                        <constraint firstAttribute="bottom" secondItem="Wvl-nL-8P0" secondAttribute="bottom" id="PBi-ZL-XqC"/>
+                                        <constraint firstAttribute="trailing" secondItem="Wvl-nL-8P0" secondAttribute="trailing" id="VwA-fr-0M4"/>
+                                        <constraint firstItem="Wvl-nL-8P0" firstAttribute="leading" secondItem="Ihd-Iz-dWd" secondAttribute="leading" constant="16" id="vQ8-tV-x0P"/>
+                                    </constraints>
+                                </view>
                                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbR-Ip-l3P">
                                     <rect key="frame" x="192.5" y="0.0" width="86.5" height="42"/>
                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
-                                    <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="VOLUME">
                                         <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
@@ -216,7 +237,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="55" height="42"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
-                                            <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" title="24H">
                                                 <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>

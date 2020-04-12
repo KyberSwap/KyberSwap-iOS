@@ -286,6 +286,10 @@ extension KNSelectMarketViewController: UITableViewDataSource {
     return self.viewModel.displayCellViewModels.count
   }
 
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 36.0
+  }
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(
       withIdentifier: KNMarketTableViewCell.kCellID,

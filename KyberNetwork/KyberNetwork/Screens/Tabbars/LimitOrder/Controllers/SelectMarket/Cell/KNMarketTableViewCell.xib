@@ -15,7 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="KNMarketTableViewCell" rowHeight="44" id="KGk-i7-Jjw" customClass="KNMarketTableViewCell" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="KNMarketTableViewCell" rowHeight="36" id="KGk-i7-Jjw" customClass="KNMarketTableViewCell" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -25,20 +25,45 @@
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="L3h-ay-sgL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9q-cv-GHr">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sng-M6-2AL">
                                 <rect key="frame" x="0.0" y="0.0" width="72.5" height="44"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7o-Zx-hKI">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="P9q-cv-GHr">
+                                        <rect key="frame" x="16" y="0.0" width="56.5" height="44"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="P9q-cv-GHr" firstAttribute="top" secondItem="Sng-M6-2AL" secondAttribute="top" id="0Gu-RW-Wye"/>
+                                    <constraint firstAttribute="bottom" secondItem="P9q-cv-GHr" secondAttribute="bottom" id="9x4-KT-SQC"/>
+                                    <constraint firstAttribute="trailing" secondItem="P9q-cv-GHr" secondAttribute="trailing" id="Rrz-DY-3f1"/>
+                                    <constraint firstItem="P9q-cv-GHr" firstAttribute="leading" secondItem="Sng-M6-2AL" secondAttribute="leading" constant="16" id="UP8-R3-VoF"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APy-fJ-lXr">
                                 <rect key="frame" x="82.5" y="0.0" width="72.5" height="44"/>
-                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7o-Zx-hKI">
+                                        <rect key="frame" x="16" y="0.0" width="56.5" height="44"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="H7o-Zx-hKI" firstAttribute="top" secondItem="APy-fJ-lXr" secondAttribute="top" id="5j3-5u-Lyj"/>
+                                    <constraint firstItem="H7o-Zx-hKI" firstAttribute="leading" secondItem="APy-fJ-lXr" secondAttribute="leading" constant="16" id="Rd8-ZD-bOF"/>
+                                    <constraint firstAttribute="trailing" secondItem="H7o-Zx-hKI" secondAttribute="trailing" id="pEA-MN-89n"/>
+                                    <constraint firstAttribute="bottom" secondItem="H7o-Zx-hKI" secondAttribute="bottom" id="vmk-w3-kqV"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZJE-aW-Yaw">
                                 <rect key="frame" x="165" y="0.0" width="72.5" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -58,15 +83,16 @@
                                             <action selector="favouriteButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jKO-Do-RZd"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwr-c2-mKI">
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwr-c2-mKI">
                                         <rect key="frame" x="0.0" y="0.0" width="35.5" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                                         <state key="normal" title="1.2%">
                                             <color key="titleColor" red="0.19215686269999999" green="0.79607843140000001" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="sbf-E5-yUs" firstAttribute="centerY" secondItem="KGa-R3-ecV" secondAttribute="centerY" id="1Qa-gV-Ioe"/>
                                     <constraint firstItem="Lwr-c2-mKI" firstAttribute="leading" secondItem="KGa-R3-ecV" secondAttribute="leading" id="5sh-VY-ab4"/>
