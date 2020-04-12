@@ -60,10 +60,10 @@ class KNMarketTableViewCell: UITableViewCell {
   @IBOutlet weak var volumeLabel: UILabel!
   @IBOutlet weak var changeButton: UIButton!
   @IBOutlet weak var favoriteButton: UIButton!
-  
+
   var viewModel: KNMarketCellViewModel!
   weak var delegate: KNMarketTableViewCellDelegate?
-  
+
   func updateViewModel(_ viewModel: KNMarketCellViewModel) {
     self.viewModel = viewModel
     self.pairNameLabel.text = viewModel.pairName
@@ -73,15 +73,13 @@ class KNMarketTableViewCell: UITableViewCell {
     let favImg = viewModel.isFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
     self.favoriteButton.setImage(favImg, for: .normal)
   }
-  
+
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
     let updateFav = !self.viewModel.isFav
     let pair = self.viewModel.pairName.replacingOccurrences(of: "/", with: "_")
     KNAppTracker.updateFavouriteMarket(pair, add: updateFav)
     let favImg = updateFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
     self.favoriteButton.setImage(favImg, for: .normal)
-    self.delegate?.marketTableViewCellDidSelectFavorite(self , isFav: updateFav)
+    self.delegate?.marketTableViewCellDidSelectFavorite(self, isFav: updateFav)
   }
-  
-  
 }

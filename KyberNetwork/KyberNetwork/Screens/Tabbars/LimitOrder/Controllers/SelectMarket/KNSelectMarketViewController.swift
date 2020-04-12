@@ -20,6 +20,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var priceButton: UIButton!
   @IBOutlet weak var volumeButton: UIButton!
   @IBOutlet weak var change24hButton: UIButton!
+  @IBOutlet weak var favouriteButton: UIButton!
 
   lazy var pickerView: UIPickerView = {
     let pickerView = UIPickerView(frame: CGRect.zero)
@@ -95,10 +96,17 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   fileprivate func presentPickerView() {
+    if let index = self.pickerViewData.firstIndex(where: { $0 == self.daiMarketButton.currentTitle }) {
+      let type = MarketType(rawValue: self.pickerViewData[index])
+      self.viewModel.pickerViewSelectedValue = type
+      self.pickerView.selectRow(index, inComponent: 0, animated: false)
+    } else {
+      self.viewModel.pickerViewSelectedValue = .dai
+      self.pickerView.selectRow(1, inComponent: 0, animated: false)
+    }
     self.fakeTextField.inputView = self.pickerView
     self.fakeTextField.inputAccessoryView = self.toolBar
     self.pickerView.reloadAllComponents()
-    //TODO: remember previous choice
     self.fakeTextField.becomeFirstResponder()
   }
 
@@ -237,10 +245,24 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.viewModel.marketType = selected
     self.daiMarketButton.setTitle(selected.rawValue, for: .normal)
     self.tableView.reloadData()
+    self.viewModel.pickerViewSelectedValue = nil
   }
 
   @objc func dataPickerCancelPressed(_ sender: Any) {
     self.fakeTextField.resignFirstResponder()
+    self.viewModel.pickerViewSelectedValue = nil
+  }
+
+  @IBAction func favouriteButtonTapped(_ sender: UIButton) {
+    self.viewModel.isFav = !self.viewModel.isFav
+    let icon = self.viewModel.isFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
+    self.favouriteButton.setImage(icon, for: .normal)
+    if self.viewModel.isFav {
+      self.viewModel.generateFavouriteData()
+    } else {
+      self.viewModel.updateMarketFromCoordinator()
+    }
+    self.tableView.reloadData()
   }
 }
 

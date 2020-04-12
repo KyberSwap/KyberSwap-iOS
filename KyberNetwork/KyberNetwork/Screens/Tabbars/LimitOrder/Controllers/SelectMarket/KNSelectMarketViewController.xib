@@ -24,6 +24,7 @@
                 <outlet property="change24hButton" destination="hGT-iU-hOG" id="Cyi-Qx-8IP"/>
                 <outlet property="daiMarketButton" destination="3mp-5R-5LM" id="kFg-7B-2og"/>
                 <outlet property="ethMarketButton" destination="srD-ch-i7b" id="lnD-Fs-CaU"/>
+                <outlet property="favouriteButton" destination="VLi-bo-vzq" id="dZj-7V-qNq"/>
                 <outlet property="pairButton" destination="fEO-73-hRs" id="fOy-RY-qID"/>
                 <outlet property="priceButton" destination="Wvl-nL-8P0" id="kpq-aN-kFC"/>
                 <outlet property="tableView" destination="DRd-aB-bqd" id="XOm-s9-xQH"/>
@@ -80,7 +81,10 @@
                                 <constraint firstAttribute="height" constant="33" id="A0Q-tj-Jyb"/>
                                 <constraint firstAttribute="width" constant="32" id="a6M-0q-GYZ"/>
                             </constraints>
-                            <state key="normal" image="selected_fav_icon"/>
+                            <state key="normal" image="unselected_fav_icon"/>
+                            <connections>
+                                <action selector="favouriteButtonTapped:" destination="-1" eventType="touchUpInside" id="5RT-m9-GBd"/>
+                            </connections>
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qeT-0Q-Mps">
                             <rect key="frame" x="58" y="9.5" width="224" height="33"/>
@@ -275,7 +279,6 @@
         <image name="arrow_down_grey" width="8" height="6"/>
         <image name="back_white_icon" width="38" height="19"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="selected_fav_icon" width="14" height="13"/>
         <image name="unselected_fav_icon" width="14" height="13"/>
     </resources>
 </document>

@@ -29,17 +29,23 @@ class KNSelectMarketViewModel {
   fileprivate var cellViewModels: [KNMarketCellViewModel]
   var marketType: MarketType = .dai {
     didSet {
-      self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
+      if !self.isFav {
+        self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
+      }
       self.updateDisplayDataSource()
     }
   }
   var sortType: MarketSortType = .pair(asc: true) {
     didSet {
+      if !self.isFav {
+        self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
+      }
       self.updateDisplayDataSource()
     }
   }
   var displayCellViewModels: [KNMarketCellViewModel]
   var pickerViewSelectedValue: MarketType?
+  var isFav: Bool = false
 
   init() {
     self.markets = KNRateCoordinator.shared.cachedMarket
@@ -61,7 +67,9 @@ class KNSelectMarketViewModel {
 
   func updateMarketFromCoordinator() {
     self.markets = KNRateCoordinator.shared.cachedMarket
-    self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
+    if !self.isFav {
+      self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
+    }
     self.updateDisplayDataSource()
   }
 
@@ -71,5 +79,15 @@ class KNSelectMarketViewModel {
       return item.pair == searchKey
     }
     return market
+  }
+
+  func generateFavouriteData() {
+    let favored = KNAppTracker.getListFavouriteTokens()
+    let filterKeys = favored.map { $0.replacingOccurrences(of: "_", with: "/") }
+    let favoredCellVM = self.cellViewModels.filter { (vm) -> Bool in
+      return filterKeys.contains(vm.pairName)
+    }
+    self.cellViewModels = favoredCellVM
+    self.updateDisplayDataSource()
   }
 }
