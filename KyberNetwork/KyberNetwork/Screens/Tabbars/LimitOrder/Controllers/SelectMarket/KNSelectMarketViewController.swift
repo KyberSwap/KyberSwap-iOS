@@ -356,3 +356,20 @@ extension KNSelectMarketViewController: UIPickerViewDataSource {
     )
   }
 }
+
+extension KNSelectMarketViewController: UITextFieldDelegate {
+  func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    textField.text = ""
+    self.viewModel.searchText = ""
+    self.tableView.reloadData()
+    return true
+  }
+
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string).replacingOccurrences(of: " ", with: "")
+    textField.text = text
+    self.viewModel.searchText = text
+    self.tableView.reloadData()
+    return false
+  }
+}
