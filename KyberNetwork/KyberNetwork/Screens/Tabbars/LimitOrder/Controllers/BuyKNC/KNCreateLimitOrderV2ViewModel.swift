@@ -408,4 +408,9 @@ class KNCreateLimitOrderV2ViewModel {
     return BigInt(0)
   }
 
+  func updatePendingBalances(_ balances: JSONDictionary, address: String) {
+    if address.lowercased() == self.walletObject.address.lowercased() {
+      self.pendingBalances = balances
+    }
+  }
 }

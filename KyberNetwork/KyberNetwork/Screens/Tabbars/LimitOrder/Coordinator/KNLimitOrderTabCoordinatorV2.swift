@@ -431,7 +431,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
     guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
       // reset pending balance
       self.convertVC?.updatePendingWETHBalance(0.0)
-//      self.rootViewController.coordinatorUpdatePendingBalances(address: address, balances: [:])
+      self.rootViewController.coordinatorUpdatePendingBalances(address: address, balances: [:])
       return
     }
     KNLimitOrderServerCoordinator.shared.getPendingBalances(accessToken: accessToken, address: address) { [weak self] result in
@@ -439,7 +439,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       switch result {
       case .success(let balances):
         self.convertVC?.updatePendingWETHBalance(balances["WETH"] as? Double ?? 0.0)
-//        self.rootViewController.coordinatorUpdatePendingBalances(address: address, balances: balances)
+        self.rootViewController.coordinatorUpdatePendingBalances(address: address, balances: balances)
       case .failure(let error):
         print("--Get Pending Balances-- Error: \(error.prettyError)")
       }

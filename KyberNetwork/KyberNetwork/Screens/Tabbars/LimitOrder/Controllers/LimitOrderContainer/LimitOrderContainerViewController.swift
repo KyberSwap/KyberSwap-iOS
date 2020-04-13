@@ -162,6 +162,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
       vc.coordinatorUpdateMarket(market: market)
     }
   }
+  
+  func coordinatorUpdatePendingBalances(address: String, balances: JSONDictionary) {
+    for vc in self.pages {
+      vc.coordinatorUpdatePendingBalances(address: address, balances: balances)
+    }
+  }
 }
 
 extension LimitOrderContainerViewController: UIPageViewControllerDelegate {

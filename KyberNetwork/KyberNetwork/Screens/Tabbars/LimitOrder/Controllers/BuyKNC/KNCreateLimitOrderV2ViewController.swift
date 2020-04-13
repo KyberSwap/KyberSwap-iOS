@@ -47,12 +47,14 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    self.updatePendingBalancesFromServer()
     self.updateFeeTimer?.invalidate()
     self.updateFeeTimer = Timer.scheduledTimer(
       withTimeInterval: 10.0,
       repeats: true,
       block: { [weak self] _ in
         self?.updateEstimateFeeFromServer()
+        self?.updatePendingBalancesFromServer()
       }
     )
   }
@@ -357,6 +359,22 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
 
   @IBAction func manageOrderButtonPressed(_ sender: Any) {
     self.delegate?.kCreateLimitOrderViewController(self, run: .manageOrders)
+  }
+
+  fileprivate func updatePendingBalancesFromServer() {
+    let event = KNCreateLimitOrderViewEventV2.getPendingBalances(
+      address: self.viewModel.walletObject.address.lowercased()
+    )
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
+  }
+
+  func coordinatorUpdatePendingBalances(address: String, balances: JSONDictionary) {
+    self.viewModel.updatePendingBalances(balances, address: address)
+    guard self.isViewSetup else {
+      return
+    }
+    self.tokenAvailableLabel.text = self.viewModel.balanceText
+    self.view.layoutIfNeeded()
   }
 }
 
