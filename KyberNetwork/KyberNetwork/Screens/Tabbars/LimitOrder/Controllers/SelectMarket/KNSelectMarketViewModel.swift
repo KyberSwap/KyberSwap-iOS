@@ -7,16 +7,6 @@
 
 import Foundation
 
-enum MarketType: String {
-  case dai = "DAI"
-  case eth = "ETH"
-  case wbtc = "WBTC"
-  case sai = "SAI"
-  case tusd = "TUSD"
-  case usdc = "USDC"
-  case usdt = "USDT"
-}
-
 enum MarketSortType {
   case pair(asc: Bool)
   case price(asc: Bool)
@@ -27,7 +17,7 @@ enum MarketSortType {
 class KNSelectMarketViewModel {
   fileprivate var markets: [KNMarket]
   fileprivate var cellViewModels: [KNMarketCellViewModel]
-  var marketType: MarketType = .eth {
+  var marketType: String = "ETH" {
     didSet {
       self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
       self.updateDisplayDataSource()
@@ -40,7 +30,7 @@ class KNSelectMarketViewModel {
     }
   }
   var displayCellViewModels: [KNMarketCellViewModel]
-  var pickerViewSelectedValue: MarketType?
+  var pickerViewSelectedValue: String?
   var isFav: Bool = false {
     didSet {
       self.updateDisplayDataSource()
@@ -61,7 +51,7 @@ class KNSelectMarketViewModel {
   init() {
     self.markets = KNRateCoordinator.shared.cachedMarket
     self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
-    let filterd = self.cellViewModels.filter { $0.pairName.contains(MarketType.eth.rawValue) }
+    let filterd = self.cellViewModels.filter { $0.pairName.contains("ETH") }
     let sorted = filterd.sorted { (left, right) -> Bool in
       return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: true))
     }
@@ -75,7 +65,7 @@ class KNSelectMarketViewModel {
     if self.isFav {
       filterd = self.cellViewModels.filter { $0.isFav == true }
     } else {
-      filterd = self.cellViewModels.filter { $0.pairName.contains(self.marketType.rawValue) }
+      filterd = self.cellViewModels.filter { $0.pairName.contains(self.marketType) }
     }
     if !self.searchText.isEmpty {
       filterd = filterd.filter { $0.pairName.contains(self.searchText.uppercased()) }

@@ -125,11 +125,11 @@ class KNSelectMarketViewController: KNBaseViewController {
 
   fileprivate func presentPickerView() {
     if let index = self.viewModel.pickerViewData.firstIndex(where: { $0 == self.daiMarketButton.currentTitle }) {
-      let type = MarketType(rawValue: self.viewModel.pickerViewData[index])
+      let type = self.viewModel.pickerViewData[index]
       self.viewModel.pickerViewSelectedValue = type
       self.pickerView.selectRow(index, inComponent: 0, animated: false)
     } else {
-      self.viewModel.pickerViewSelectedValue = .dai
+      self.viewModel.pickerViewSelectedValue = "DAI"
       self.pickerView.selectRow(1, inComponent: 0, animated: false)
     }
     self.fakeTextField.inputView = self.pickerView
@@ -145,17 +145,14 @@ class KNSelectMarketViewController: KNBaseViewController {
     switch sender.tag {
     case 1:
       if self.viewModel.pickerViewData.count == 1, let sym = self.viewModel.pickerViewData.first {
-        guard let type = MarketType(rawValue: sym) else {
-          return
-        }
-        self.viewModel.marketType = type
+        self.viewModel.marketType = sym
       } else {
         self.presentPickerView()
       }
     case 2:
-      self.viewModel.marketType = .eth
+      self.viewModel.marketType = "ETH"
     case 3:
-      self.viewModel.marketType = .wbtc
+      self.viewModel.marketType = "WBTC"
     default:
       break
     }
@@ -283,7 +280,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.fakeTextField.resignFirstResponder()
     guard let selected = self.viewModel.pickerViewSelectedValue else { return }
     self.viewModel.marketType = selected
-    self.daiMarketButton.setTitle(selected.rawValue, for: .normal)
+    self.daiMarketButton.setTitle(selected, for: .normal)
     self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
     self.viewModel.pickerViewSelectedValue = nil
@@ -353,11 +350,7 @@ extension KNSelectMarketViewController: KNMarketTableViewCellDelegate {
 extension KNSelectMarketViewController: UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     let sym = self.viewModel.pickerViewData[row]
-    guard let type = MarketType(rawValue: sym) else {
-      return
-    }
-
-    self.viewModel.pickerViewSelectedValue = type
+    self.viewModel.pickerViewSelectedValue = sym
   }
 }
 
