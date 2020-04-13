@@ -493,7 +493,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
             switch result {
             case .success(let resp):
               if let _ = resp.0, self.confirmVC != nil {
-//                self.rootViewController.coordinatorDoneSubmittingOrder()
+                self.rootViewController.coordinatorDoneSubmittingOrder()
                 KNAppTracker.logFirstTimeLimitOrderIfNeeded()
                 completion?(true)
               } else {

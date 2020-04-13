@@ -60,7 +60,7 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
 
     self.navTitleLabel.text = "Preview Order".toBeLocalised()
     self.titleTextLabel.text = {
-      if self.order.isBuy {
+      if self.order.isBuy == true {
         return "Buy \(self.order.to.symbolLODisplay) with \(self.order.from.symbolLODisplay)".uppercased()
       }
       return "Sell \(self.order.from.symbolLODisplay) to \(self.order.to.symbolLODisplay)".uppercased()
@@ -68,7 +68,7 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
 
     self.quantityTextLabel.text = "Quantity".toBeLocalised()
     self.quantityValueLabel.text = {
-      if self.order.isBuy {
+      if self.order.isBuy == true {
         return "\(self.confirmData.amount.prefix(12)) \(self.order.to.symbolLODisplay)"
       }
       return "\(self.confirmData.amount.prefix(12)) \(self.order.from.symbolLODisplay)"
@@ -93,7 +93,7 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
 
     self.totalTextLabel.text = "Total".toBeLocalised()
     let totalAmountString: String = {
-      if self.order.isBuy {
+      if self.order.isBuy == true {
         return "\(self.confirmData.totalAmount.prefix(12)) \(self.order.from.symbolLODisplay)"
       }
       return "\(self.confirmData.totalAmount.prefix(12)) \(self.order.to.symbolLODisplay)"
@@ -101,13 +101,13 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
     self.totalValueLabel.text = totalAmountString
 
     let sourceAmount: String = {
-      if self.order.isBuy {
+      if self.order.isBuy == true {
         return "\(self.confirmData.totalAmount.prefix(12)) \(self.order.from.symbolLODisplay)"
       }
       return "\(self.confirmData.amount.prefix(12)) \(self.order.from.symbolLODisplay)"
     }()
     let pairString: String = {
-      if self.order.isBuy { return "\(self.order.to.symbolLODisplay)/\(self.order.from.symbolLODisplay)" }
+      if self.order.isBuy == true { return "\(self.order.to.symbolLODisplay)/\(self.order.from.symbolLODisplay)" }
       return "\(self.order.from.symbolLODisplay)/\(self.order.to.symbolLODisplay)"
     }()
 
