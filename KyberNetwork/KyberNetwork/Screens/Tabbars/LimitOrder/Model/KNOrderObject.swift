@@ -39,7 +39,7 @@ class KNOrderObject: NSObject {
     fee: Double,
     nonce: String,
     sender: String,
-    sideTrade:String?,
+    sideTrade: String?,
     createdDate: TimeInterval = Date().timeIntervalSince1970,
     filledDate: TimeInterval = 0.0,
     messages: String,
@@ -164,10 +164,12 @@ class KNOrderObject: NSObject {
   }
 
   var srcTokenSymbol: String {
+    if self.sourceToken == "ETH" || self.sourceToken == "WETH" { return "ETH*" }
     return self.sourceToken
   }
 
   var destTokenSymbol: String {
+    if self.destToken == "ETH" || self.destToken == "WETH" { return "ETH*" }
     return self.destToken
   }
 
