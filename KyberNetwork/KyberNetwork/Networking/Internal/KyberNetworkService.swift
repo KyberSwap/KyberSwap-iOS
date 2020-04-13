@@ -1,6 +1,6 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
-
+//swiftlint:disable file_length
 import Moya
 import CryptoSwift
 import BigInt
@@ -374,7 +374,6 @@ extension LimitOrderService: TargetType {
     case .getMarkets:
       let base = KNEnvironment.default.cachedSourceAmountRateURL
       return URL(string: base + "/pairs/market")!
-    
     }
   }
 

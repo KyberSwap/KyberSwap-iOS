@@ -59,63 +59,54 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
       NSLocalizedString("no", value: "No", comment: ""),
       for: .normal
     )
-    self.cancelButton.rounded(
-      color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: self.cancelButton.frame.height / 2.0
-    )
+    self.cancelButton.rounded(color: UIColor.Kyber.border, width: 1.0, radius: 5.0)
     self.confirmButton.setTitle(
       NSLocalizedString("yes", value: "Yes", comment: ""),
       for: .normal
     )
-    self.confirmButton.rounded(radius: self.confirmButton.frame.height / 2.0)
+    self.confirmButton.rounded(radius: 5.0)
     self.confirmButton.applyGradient()
 
     let srcTokenSymbol = order.srcTokenSymbol
     let destTokenSymbol = order.destTokenSymbol
-    let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
     let destAmount = self.order.sourceAmount * order.targetPrice
 
-    if let sideTrade = self.order.sideTrade {
-      self.priceTextLabel.text = "Price".toBeLocalised().uppercased()
-      self.priceTextLabel.isHidden = false
-      self.priceValueLabel.isHidden = false
-      self.fromTextLabel.text = "Total".toBeLocalised().uppercased()
-      self.toTextLabel.text = "Amount".toBeLocalised().uppercased()
-      if sideTrade == "sell" {
-        self.pairValueLabel.text = "Sell \(srcTokenSymbol)".toBeLocalised()
-        self.priceValueLabel.text = {
-          let price = BigInt(self.order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
-          return "\(price) \(destTokenSymbol)"
-        }()
-        // Sell sourceAmount to destAmount
-        // Amount: sourceAmount
-        // Total: destAmount
-        // src is total, dest is amount
-        self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmount)) \(destTokenSymbol)"
-        self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
-      } else {
-        self.pairValueLabel.text = "Buy \(destTokenSymbol)".toBeLocalised()
-        self.priceValueLabel.text = {
-          let price = BigInt(pow(10.0, 18.0)/self.order.targetPrice).displayRate(decimals: 18)
-          return "\(price) \(srcTokenSymbol)"
-        }()
-        // Buy destAmount token from sourceAmount
-        // Amount: destAmount
-        // Total: sourceAmount
-        // src is total, dest is amount
-        self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
-        self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmount)) \(destTokenSymbol)"
-      }
+    let sideTrade = self.order.sideTrade ?? "sell"
+
+    self.priceTextLabel.text = "Price".toBeLocalised().uppercased()
+    self.priceTextLabel.isHidden = false
+    self.priceValueLabel.isHidden = false
+    self.fromTextLabel.text = "Total".toBeLocalised().uppercased()
+    self.toTextLabel.text = "Amount".toBeLocalised().uppercased()
+    if sideTrade == "sell" {
+      self.pairValueLabel.text = "Sell \(srcTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(self.order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+        return "\(price) \(destTokenSymbol)"
+      }()
+      // Sell sourceAmount to destAmount
+      // Amount: sourceAmount
+      // Total: destAmount
+      // src is total, dest is amount
+      self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmount)) \(destTokenSymbol)"
+      self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
     } else {
-      self.priceTextLabel.isHidden = true
-      self.priceValueLabel.isHidden = true
-      self.fromTextLabel.text = NSLocalizedString("From", value: "From", comment: "").uppercased()
-      self.toTextLabel.text = NSLocalizedString("To", value: "To", comment: "").uppercased()
-      self.pairValueLabel.text = "\(srcTokenSymbol)  ➞  \(destTokenSymbol) >= \(rate)"
-      let actualSrcAmount = self.order.sourceAmount * (1.0 - self.order.fee)
-      self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: order.sourceAmount)) \(srcTokenSymbol)"
-      self.destValueLabel.text = ">= \(NumberFormatterUtil.shared.displayLimitOrderValue(from: actualSrcAmount * order.targetPrice)) \(destTokenSymbol)"
+      self.pairValueLabel.text = "Buy \(destTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(pow(10.0, 18.0)/self.order.targetPrice).displayRate(decimals: 18)
+        return "\(price) \(srcTokenSymbol)"
+      }()
+      // Buy destAmount token from sourceAmount
+      // Amount: destAmount
+      // Total: sourceAmount
+      // src is total, dest is amount
+      self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
+      self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmount)) \(destTokenSymbol)"
+    }
+    // only change pair label if version 1
+    if self.order.sideTrade == nil {
+      let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+      self.pairValueLabel.text = "\(srcTokenSymbol)/\(destTokenSymbol) >= \(rate)"
     }
 
     self.dateValueLabel.text = DateFormatterUtil.shared.limitOrderFormatter.string(from: order.dateToDisplay)
