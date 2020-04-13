@@ -22,6 +22,7 @@ class KNOrderObject: NSObject {
   var fee: Double = 0.0
   var nonce: String = ""
   var sender: String = ""
+  var sideTrade: String?
   var createdDate: TimeInterval = 0.0
   var filledDate: TimeInterval = 0.0
   var messages: String = ""
@@ -38,6 +39,7 @@ class KNOrderObject: NSObject {
     fee: Double,
     nonce: String,
     sender: String,
+    sideTrade: String?,
     createdDate: TimeInterval = Date().timeIntervalSince1970,
     filledDate: TimeInterval = 0.0,
     messages: String,
@@ -54,6 +56,7 @@ class KNOrderObject: NSObject {
     self.fee = fee
     self.nonce = nonce
     self.sender = sender
+    self.sideTrade = sideTrade
     self.createdDate = createdDate
     self.filledDate = filledDate
     self.messages = messages
@@ -82,6 +85,7 @@ class KNOrderObject: NSObject {
       if status == "invalidated" { return 4 }
       return 5
     }()
+    self.sideTrade = json["side_trade"] as? String
     self.createdDate = json["created_at"] as? Double ?? 0.0
     self.filledDate = json["updated_at"] as? Double ?? 0.0
     self.txHash = json["tx_hash"] as? String
@@ -132,6 +136,9 @@ class KNOrderObject: NSObject {
         return 5
       }()
     }
+    if let idx = fields.index(of: "side_trade") {
+      self.sideTrade = data[idx] as? String
+    }
     if let idx = fields.index(of: "msg") {
       self.messages = data[idx] as? String ?? ""
     }
@@ -157,10 +164,12 @@ class KNOrderObject: NSObject {
   }
 
   var srcTokenSymbol: String {
+    if self.sourceToken == "ETH" || self.sourceToken == "WETH" { return "ETH*" }
     return self.sourceToken
   }
 
   var destTokenSymbol: String {
+    if self.destToken == "ETH" || self.destToken == "WETH" { return "ETH*" }
     return self.destToken
   }
 
@@ -179,6 +188,7 @@ class KNOrderObject: NSObject {
       fee: self.fee,
       nonce: self.nonce,
       sender: self.sender,
+      sideTrade: self.sideTrade,
       createdDate: self.createdDate,
       filledDate: self.filledDate,
       messages: self.messages,

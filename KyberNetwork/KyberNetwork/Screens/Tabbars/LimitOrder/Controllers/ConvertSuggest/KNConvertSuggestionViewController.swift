@@ -63,12 +63,12 @@ class KNConvertSuggestionViewController: KNBaseViewController {
     self.wethContainerView.rounded(
       color: UIColor.Kyber.border,
       width: 1.0,
-      radius: 5.0
+      radius: 3.0
     )
     self.amountContainerView.rounded(
       color: UIColor.Kyber.border,
       width: 1.0,
-      radius: 5.0
+      radius: 3.0
     )
 
     self.convertButton.applyGradient()

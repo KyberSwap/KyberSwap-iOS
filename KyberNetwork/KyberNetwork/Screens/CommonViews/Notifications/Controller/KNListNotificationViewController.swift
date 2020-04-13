@@ -258,6 +258,7 @@ extension KNListNotificationViewController: UITableViewDelegate {
       fee: fee + transferFee,
       nonce: "",
       sender: sender,
+      sideTrade: data["side_trade"] as? String,
       createdDate: createdDate,
       filledDate: updatedDate,
       messages: "",

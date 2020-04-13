@@ -15,7 +15,7 @@ struct KNLimitOrder {
   let fee: Int
   let transferFee: Int
   let nonce: String
-  let isBuy: Bool
+  let isBuy: Bool?
 }
 
 // use this to reduce rounding error

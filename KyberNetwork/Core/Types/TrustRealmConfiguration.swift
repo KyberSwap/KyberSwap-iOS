@@ -17,13 +17,21 @@ struct RealmConfiguration {
     static func configuration(for address: String, chainID: Int = KNEnvironment.default.chainID) -> Realm.Configuration {
       var config = Realm.Configuration()
       config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("\(address.lowercased())-\(chainID).realm")
-      config.schemaVersion = 1
+      config.schemaVersion = 2
       config.migrationBlock = { migration, oldVersion in
-        migration.enumerateObjects(ofType: "Transaction") { (_, new) in
-          new?["internalType"] = TransactionType.normal.rawValue
-        }
-        migration.enumerateObjects(ofType: "KNTransaction") { (_, new) in
-          new?["internalType"] = TransactionType.normal.rawValue
+        switch oldVersion {
+        case 0:
+            migration.enumerateObjects(ofType: "Transaction") { (_, new) in
+              new?["internalType"] = TransactionType.normal.rawValue
+            }
+            migration.enumerateObjects(ofType: "KNTransaction") { (_, new) in
+              new?["internalType"] = TransactionType.normal.rawValue
+            }
+        case 1:
+          migration.enumerateObjects(ofType: "KNOrderObject") { (_, new) in
+            new?["side_trade"] = nil
+          }
+        default: break
         }
       }
       return config
@@ -34,11 +42,19 @@ struct RealmConfiguration {
       config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("kybernetworkwallet-global-\(chainID).realm")
       config.schemaVersion = 1
       config.migrationBlock = { migration, oldVersion in
-        migration.enumerateObjects(ofType: "Transaction") { (_, new) in
-          new?["internalType"] = TransactionType.normal.rawValue
-        }
-        migration.enumerateObjects(ofType: "KNTransaction") { (_, new) in
-          new?["internalType"] = TransactionType.normal.rawValue
+        switch oldVersion {
+        case 0:
+            migration.enumerateObjects(ofType: "Transaction") { (_, new) in
+              new?["internalType"] = TransactionType.normal.rawValue
+            }
+            migration.enumerateObjects(ofType: "KNTransaction") { (_, new) in
+              new?["internalType"] = TransactionType.normal.rawValue
+            }
+        case 1:
+          migration.enumerateObjects(ofType: "KNOrderObject") { (_, new) in
+            new?["side_trade"] = nil
+          }
+        default: break
         }
       }
       return config
@@ -49,11 +65,19 @@ struct RealmConfiguration {
     config.fileURL = config.fileURL!.deletingLastPathComponent().appendingPathComponent("kybernetworkwallet-kybergo-\(userID)-\(chainID).realm")
     config.schemaVersion = 1
     config.migrationBlock = { migration, oldVersion in
-      migration.enumerateObjects(ofType: "Transaction") { (_, new) in
-        new?["internalType"] = TransactionType.normal.rawValue
-      }
-      migration.enumerateObjects(ofType: "KNTransaction") { (_, new) in
-        new?["internalType"] = TransactionType.normal.rawValue
+      switch oldVersion {
+      case 0:
+          migration.enumerateObjects(ofType: "Transaction") { (_, new) in
+            new?["internalType"] = TransactionType.normal.rawValue
+          }
+          migration.enumerateObjects(ofType: "KNTransaction") { (_, new) in
+            new?["internalType"] = TransactionType.normal.rawValue
+          }
+      case 1:
+        migration.enumerateObjects(ofType: "KNOrderObject") { (_, new) in
+          new?["side_trade"] = nil
+        }
+      default: break
       }
     }
     return config

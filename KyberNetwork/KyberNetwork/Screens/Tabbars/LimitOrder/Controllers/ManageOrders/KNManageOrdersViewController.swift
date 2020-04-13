@@ -405,19 +405,9 @@ extension KNManageOrdersViewController: UICollectionViewDelegateFlowLayout {
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let order: KNOrderObject = {
-      let orders = self.viewModel.displaySections[self.viewModel.displayHeaders[indexPath.section]] ?? []
-      return orders[indexPath.row]
-    }()
-    let height: CGFloat = {
-      if order.state == .filled && order.extraAmount > 0 {
-        return KNLimitOrderCollectionViewCell.kLimitOrderCellFilledHeight
-      }
-      return KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight
-    }()
     return CGSize(
       width: collectionView.frame.width,
-      height: height
+      height: KNLimitOrderCollectionViewCell.kLimitOrderCellHeight
     )
   }
 

@@ -182,6 +182,8 @@ extension KNLimitOrderTabCoordinatorV2 {
   }
 
   func appCoordinatorOpenManageOrder() {
+    // TODO: Show message if user has not logged in yet
+    if IEOUserStorage.shared.user == nil { return }
     self.navigationController.popToRootViewController(animated: true) {
       if self.manageOrdersVC == nil {
         self.manageOrdersVC = KNManageOrdersViewController(
@@ -493,7 +495,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
             switch result {
             case .success(let resp):
               if let _ = resp.0, self.confirmVC != nil {
-//                self.rootViewController.coordinatorDoneSubmittingOrder()
+                self.rootViewController.coordinatorDoneSubmittingOrder()
                 KNAppTracker.logFirstTimeLimitOrderIfNeeded()
                 completion?(true)
               } else {
@@ -856,6 +858,7 @@ extension KNLimitOrderTabCoordinatorV2: KNListNotificationViewControllerDelegate
     case .openSwap(let from, let to):
       self.delegate?.limitOrderTabCoordinatorOpenExchange(from: from, to: to)
     case .openManageOrder:
+      // TODO: Show message if user has not logged in yet
       if IEOUserStorage.shared.user == nil { return }
       self.navigationController.popToRootViewController(animated: true) {
         self.appCoordinatorOpenManageOrder()
