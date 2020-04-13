@@ -24,6 +24,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var headerTitle: UILabel!
   @IBOutlet weak var noDataView: UIView!
+  @IBOutlet var marketTypeButtons: [UIButton]!
 
   lazy var pickerView: UIPickerView = {
     let pickerView = UIPickerView(frame: CGRect.zero)
@@ -85,6 +86,11 @@ class KNSelectMarketViewController: KNBaseViewController {
       self.daiMarketButton.setImage(nil, for: .normal)
     }
     self.daiMarketButton.setTitle(self.viewModel.pickerViewData.first, for: .normal)
+    self.marketTypeButtons.forEach { (button) in
+      button.rounded(radius: 5)
+      button.layer.borderColor = UIColor.Kyber.orange.cgColor
+    }
+    self.setSelectButton(self.ethMarketButton)
   }
 
   override func viewDidLayoutSubviews() {
@@ -104,6 +110,13 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.tableView.rowHeight = KNBalanceTokenTableViewCell.kCellHeight
     self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
+  }
+
+  fileprivate func setSelectButton(_ sender: UIButton?) {
+    self.marketTypeButtons.forEach { (button) in
+      button.layer.borderWidth = 0
+    }
+    sender?.layer.borderWidth = 2.0
   }
 
   func coordinatorMarketCachedDidUpdate() {
@@ -126,6 +139,9 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   @IBAction func marketTypeButtonTapped(_ sender: UIButton) {
+    self.viewModel.isFav = false
+    self.favouriteButton.setImage(UIImage(named: "unselected_fav_icon"), for: .normal)
+    self.setSelectButton(sender)
     switch sender.tag {
     case 1:
       if self.viewModel.pickerViewData.count == 1, let sym = self.viewModel.pickerViewData.first {
@@ -279,14 +295,10 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
+    self.setSelectButton(nil)
     self.viewModel.isFav = !self.viewModel.isFav
     let icon = self.viewModel.isFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
     self.favouriteButton.setImage(icon, for: .normal)
-    if self.viewModel.isFav {
-      self.viewModel.generateFavouriteData()
-    } else {
-      self.viewModel.updateMarketFromCoordinator()
-    }
     self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
   }

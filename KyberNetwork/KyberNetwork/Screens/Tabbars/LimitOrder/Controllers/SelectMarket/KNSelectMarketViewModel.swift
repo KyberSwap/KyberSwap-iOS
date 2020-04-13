@@ -27,25 +27,25 @@ enum MarketSortType {
 class KNSelectMarketViewModel {
   fileprivate var markets: [KNMarket]
   fileprivate var cellViewModels: [KNMarketCellViewModel]
-  var marketType: MarketType = .dai {
+  var marketType: MarketType = .eth {
     didSet {
-      if !self.isFav {
-        self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
-      }
+      self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
       self.updateDisplayDataSource()
     }
   }
   var sortType: MarketSortType = .price(asc: true) {
     didSet {
-      if !self.isFav {
-        self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
-      }
+      self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
       self.updateDisplayDataSource()
     }
   }
   var displayCellViewModels: [KNMarketCellViewModel]
   var pickerViewSelectedValue: MarketType?
-  var isFav: Bool = false
+  var isFav: Bool = false {
+    didSet {
+      self.updateDisplayDataSource()
+    }
+  }
   var searchText: String = "" {
     didSet {
       self.updateDisplayDataSource()
@@ -61,7 +61,7 @@ class KNSelectMarketViewModel {
   init() {
     self.markets = KNRateCoordinator.shared.cachedMarket
     self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
-    let filterd = self.cellViewModels.filter { $0.pairName.contains(MarketType.dai.rawValue) }
+    let filterd = self.cellViewModels.filter { $0.pairName.contains(MarketType.eth.rawValue) }
     let sorted = filterd.sorted { (left, right) -> Bool in
       return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: true))
     }
@@ -71,8 +71,15 @@ class KNSelectMarketViewModel {
   }
 
   fileprivate func updateDisplayDataSource() {
-    let filterOption = self.searchText.isEmpty ? self.marketType.rawValue : self.searchText.uppercased()
-    let filterd = self.cellViewModels.filter { $0.pairName.contains(filterOption) }
+    var filterd: [KNMarketCellViewModel] = []
+    if self.isFav {
+      filterd = self.cellViewModels.filter { $0.isFav == true }
+    } else {
+      filterd = self.cellViewModels.filter { $0.pairName.contains(self.marketType.rawValue) }
+    }
+    if !self.searchText.isEmpty {
+      filterd = filterd.filter { $0.pairName.contains(self.searchText.uppercased()) }
+    }
     let sorted = filterd.sorted { (left, right) -> Bool in
       return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: self.sortType)
     }
@@ -81,9 +88,7 @@ class KNSelectMarketViewModel {
 
   func updateMarketFromCoordinator() {
     self.markets = KNRateCoordinator.shared.cachedMarket
-    if !self.isFav {
-      self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
-    }
+    self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
     self.updateDisplayDataSource()
   }
 
@@ -93,15 +98,5 @@ class KNSelectMarketViewModel {
       return item.pair == searchKey
     }
     return market
-  }
-
-  func generateFavouriteData() {
-    let favored = KNAppTracker.getListFavouriteTokens()
-    let filterKeys = favored.map { $0.replacingOccurrences(of: "_", with: "/") }
-    let favoredCellVM = self.cellViewModels.filter { (vm) -> Bool in
-        return filterKeys.contains(vm.pairName)
-    }
-    self.cellViewModels = favoredCellVM
-    self.updateDisplayDataSource()
   }
 }
