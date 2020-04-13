@@ -27,6 +27,7 @@
                 <outlet property="favouriteButton" destination="VLi-bo-vzq" id="dZj-7V-qNq"/>
                 <outlet property="headerContainerView" destination="XFV-a7-4wd" id="mMf-UA-0vT"/>
                 <outlet property="headerTitle" destination="2Gb-wx-r9C" id="5tS-Ot-QbH"/>
+                <outlet property="noDataView" destination="zhc-vo-6EH" id="omH-Ko-OOY"/>
                 <outlet property="pairButton" destination="fEO-73-hRs" id="fOy-RY-qID"/>
                 <outlet property="priceButton" destination="Wvl-nL-8P0" id="kpq-aN-kFC"/>
                 <outlet property="tableView" destination="DRd-aB-bqd" id="XOm-s9-xQH"/>
@@ -279,6 +280,22 @@
                     <rect key="frame" x="0.0" y="176" width="375" height="491"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zhc-vo-6EH">
+                    <rect key="frame" x="0.0" y="176" width="375" height="491"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No markets found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ti-yf-1Dj">
+                            <rect key="frame" x="105" y="150" width="165.5" height="22"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="18"/>
+                            <color key="textColor" red="0.67450980390000004" green="0.70196078429999997" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="1ti-yf-1Dj" firstAttribute="centerX" secondItem="zhc-vo-6EH" secondAttribute="centerX" id="q2n-Ao-ltb"/>
+                        <constraint firstItem="1ti-yf-1Dj" firstAttribute="top" secondItem="zhc-vo-6EH" secondAttribute="top" constant="150" id="tqc-uL-qVg"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
@@ -288,9 +305,13 @@
                 <constraint firstItem="GwV-tS-fLU" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Q6y-9l-aTl"/>
                 <constraint firstItem="XFV-a7-4wd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Wf3-lp-Sbx"/>
                 <constraint firstItem="DRd-aB-bqd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="X7i-22-wmI"/>
+                <constraint firstItem="zhc-vo-6EH" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Xq0-sG-Vmp"/>
+                <constraint firstItem="zhc-vo-6EH" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Yu0-aG-fzn"/>
                 <constraint firstItem="uGC-Lr-y1b" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Zrz-1J-yq1"/>
                 <constraint firstItem="XFV-a7-4wd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dzH-be-98A"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XFV-a7-4wd" secondAttribute="trailing" id="e0j-4p-1rx"/>
+                <constraint firstItem="zhc-vo-6EH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="hEM-xq-4rA"/>
+                <constraint firstItem="zhc-vo-6EH" firstAttribute="top" secondItem="uGC-Lr-y1b" secondAttribute="bottom" id="hwl-sc-XCq"/>
                 <constraint firstItem="DRd-aB-bqd" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="kDP-ew-OGr"/>
                 <constraint firstItem="GwV-tS-fLU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oCw-nB-QSh"/>
                 <constraint firstItem="GwV-tS-fLU" firstAttribute="top" secondItem="XFV-a7-4wd" secondAttribute="bottom" id="oUa-Qi-lvv"/>

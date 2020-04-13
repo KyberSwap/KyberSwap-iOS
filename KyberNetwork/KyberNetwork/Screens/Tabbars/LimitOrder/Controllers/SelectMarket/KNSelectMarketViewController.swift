@@ -23,6 +23,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var favouriteButton: UIButton!
   @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var headerTitle: UILabel!
+  @IBOutlet weak var noDataView: UIView!
 
   lazy var pickerView: UIPickerView = {
     let pickerView = UIPickerView(frame: CGRect.zero)
@@ -56,7 +57,6 @@ class KNSelectMarketViewController: KNBaseViewController {
     return toolBar
   }()
   fileprivate var fakeTextField: UITextField = UITextField(frame: CGRect.zero)
-  let pickerViewData = ["SAI", "DAI", "TUSD", "USDC", "USDT"]
 
   fileprivate let viewModel: KNSelectMarketViewModel
   weak var delegate: KNSelectMarketViewControllerDelegate?
@@ -81,6 +81,10 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.view.addSubview(self.fakeTextField)
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.headerTitle.text = "Market".toBeLocalised()
+    if self.viewModel.pickerViewData.count == 1 {
+      self.daiMarketButton.setImage(nil, for: .normal)
+    }
+    self.daiMarketButton.setTitle(self.viewModel.pickerViewData.first, for: .normal)
   }
 
   override func viewDidLayoutSubviews() {
@@ -98,6 +102,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.tableView.delegate = self
     self.tableView.dataSource = self
     self.tableView.rowHeight = KNBalanceTokenTableViewCell.kCellHeight
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
   }
 
@@ -106,8 +111,8 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   fileprivate func presentPickerView() {
-    if let index = self.pickerViewData.firstIndex(where: { $0 == self.daiMarketButton.currentTitle }) {
-      let type = MarketType(rawValue: self.pickerViewData[index])
+    if let index = self.viewModel.pickerViewData.firstIndex(where: { $0 == self.daiMarketButton.currentTitle }) {
+      let type = MarketType(rawValue: self.viewModel.pickerViewData[index])
       self.viewModel.pickerViewSelectedValue = type
       self.pickerView.selectRow(index, inComponent: 0, animated: false)
     } else {
@@ -123,7 +128,14 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBAction func marketTypeButtonTapped(_ sender: UIButton) {
     switch sender.tag {
     case 1:
-      self.presentPickerView()
+      if self.viewModel.pickerViewData.count == 1, let sym = self.viewModel.pickerViewData.first {
+        guard let type = MarketType(rawValue: sym) else {
+          return
+        }
+        self.viewModel.marketType = type
+      } else {
+        self.presentPickerView()
+      }
     case 2:
       self.viewModel.marketType = .eth
     case 3:
@@ -131,6 +143,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     default:
       break
     }
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
   }
 
@@ -164,6 +177,7 @@ class KNSelectMarketViewController: KNBaseViewController {
       break
     }
     self.updateSortButtonTitle()
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
   }
 
@@ -254,6 +268,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     guard let selected = self.viewModel.pickerViewSelectedValue else { return }
     self.viewModel.marketType = selected
     self.daiMarketButton.setTitle(selected.rawValue, for: .normal)
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
     self.viewModel.pickerViewSelectedValue = nil
   }
@@ -272,6 +287,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     } else {
       self.viewModel.updateMarketFromCoordinator()
     }
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
   }
 }
@@ -317,26 +333,19 @@ extension KNSelectMarketViewController: KNMarketTableViewCellDelegate {
     let message = isFav ? NSLocalizedString("Successfully added to your favorites", comment: "") : NSLocalizedString("Removed from your favorites", comment: "")
     self.showTopBannerView(with: "", message: message, time: 1.0)
     self.viewModel.updateMarketFromCoordinator()
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
   }
 }
 
 extension KNSelectMarketViewController: UIPickerViewDelegate {
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    switch row {
-    case 0:
-      self.viewModel.pickerViewSelectedValue = .sai
-    case 1:
-      self.viewModel.pickerViewSelectedValue = .dai
-    case 2:
-      self.viewModel.pickerViewSelectedValue = .tusd
-    case 3:
-      self.viewModel.pickerViewSelectedValue = .usdc
-    case 4:
-      self.viewModel.pickerViewSelectedValue = .usdt
-    default:
-      break
+    let sym = self.viewModel.pickerViewData[row]
+    guard let type = MarketType(rawValue: sym) else {
+      return
     }
+
+    self.viewModel.pickerViewSelectedValue = type
   }
 }
 
@@ -346,7 +355,7 @@ extension KNSelectMarketViewController: UIPickerViewDataSource {
   }
 
   func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-    return self.pickerViewData.count
+    return self.viewModel.pickerViewData.count
   }
 
   func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -359,7 +368,7 @@ extension KNSelectMarketViewController: UIPickerViewDataSource {
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 14),
     ]
 
-    let localisedString = self.pickerViewData[row]
+    let localisedString = self.viewModel.pickerViewData[row]
     return NSAttributedString(
       string: localisedString,
       attributes: attributes
@@ -371,6 +380,7 @@ extension KNSelectMarketViewController: UITextFieldDelegate {
   func textFieldShouldClear(_ textField: UITextField) -> Bool {
     textField.text = ""
     self.viewModel.searchText = ""
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
     return true
   }
@@ -379,6 +389,7 @@ extension KNSelectMarketViewController: UITextFieldDelegate {
     let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string).replacingOccurrences(of: " ", with: "")
     textField.text = text
     self.viewModel.searchText = text
+    self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
     return false
   }

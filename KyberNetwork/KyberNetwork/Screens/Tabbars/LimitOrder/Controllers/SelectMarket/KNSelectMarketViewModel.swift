@@ -52,6 +52,12 @@ class KNSelectMarketViewModel {
     }
   }
 
+  var showNoDataView: Bool {
+    return self.displayCellViewModels.isEmpty
+  }
+
+  var pickerViewData: [String]
+
   init() {
     self.markets = KNRateCoordinator.shared.cachedMarket
     self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
@@ -60,6 +66,8 @@ class KNSelectMarketViewModel {
       return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: true))
     }
     self.displayCellViewModels = sorted
+    let quoteTokens = KNSupportedTokenStorage.shared.supportedTokens.filter { $0.extraData?.isQuote == true && !$0.isETH && !$0.isWETH }
+    self.pickerViewData = quoteTokens.map { $0.symbol }.sorted()
   }
 
   fileprivate func updateDisplayDataSource() {
