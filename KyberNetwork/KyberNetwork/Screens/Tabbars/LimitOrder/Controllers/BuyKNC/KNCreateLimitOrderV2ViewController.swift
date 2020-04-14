@@ -3,6 +3,7 @@
 import UIKit
 import BigInt
 
+//swiftlint:disable file_length
 class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBOutlet weak var priceField: UITextField!
   @IBOutlet weak var amountField: UITextField!
@@ -130,6 +131,13 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     if self.isViewSetup {
       self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
     }
+  }
+
+  func coordinatorDoneSubmittingOrder() {
+    // update data new order has been submitted successfully
+    self.updateRelatedOrdersView()
+    self.updateRelatedOrdersFromServer()
+    self.updatePendingBalancesFromServer()
   }
 
   func coordinatorUpdateEstimateFee(_ fee: Double, discount: Double, feeBeforeDiscount: Double, transferFee: Double) {
@@ -598,6 +606,20 @@ extension KNCreateLimitOrderV2ViewController: KNLimitOrderCollectionViewCellDele
   }
 
   fileprivate func openCancelOrder(_ order: KNOrderObject, completion: (() -> Void)?) {
-   //TODO: implement cancel order
+    let cancelOrderVC = KNCancelOrderConfirmPopUp(order: order)
+    cancelOrderVC.loadViewIfNeeded()
+    cancelOrderVC.modalTransitionStyle = .crossDissolve
+    cancelOrderVC.modalPresentationStyle = .overFullScreen
+    cancelOrderVC.delegate = self
+    self.present(cancelOrderVC, animated: true, completion: completion)
+  }
+}
+
+extension KNCreateLimitOrderV2ViewController: KNCancelOrderConfirmPopUpDelegate {
+  func cancelOrderConfirmPopup(_ controller: KNCancelOrderConfirmPopUp, didConfirmCancel order: KNOrderObject) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "cancel_order"])
+    self.updateRelatedOrdersView()
+    self.updateRelatedOrdersFromServer()
+    self.updatePendingBalancesFromServer()
   }
 }
