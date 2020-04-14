@@ -421,7 +421,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   fileprivate func updateRelatedOrdersView() {
     let numberOrders = self.viewModel.relatedOrders.count
     if numberOrders > 0 {
-      let orderCellHeight = KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight // height + bottom padding
+      let orderCellHeight = KNLimitOrderCollectionViewCell.kLimitOrderCellHeight // height + bottom padding
       let headerCellHeight = CGFloat(44.0)
       let numberHeaders = self.viewModel.relatedHeaders.count
       self.relatedOrderContainerViewHeightConstraint.constant = 32.0 + CGFloat(numberOrders) * orderCellHeight + CGFloat(numberHeaders) * headerCellHeight // top padding + collection view height
@@ -559,7 +559,7 @@ extension KNCreateLimitOrderV2ViewController: UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(
       width: collectionView.frame.width,
-      height: KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight
+      height: KNLimitOrderCollectionViewCell.kLimitOrderCellHeight
     )
   }
 
