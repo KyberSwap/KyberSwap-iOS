@@ -41,7 +41,7 @@ struct KNMarketCellViewModel {
     } else {
       attributes = downAttributes
     }
-    self.change24h = NSAttributedString(string: "\(fabs(market.change))", attributes: attributes)
+    self.change24h = NSAttributedString(string: "\(fabs(market.change))%", attributes: attributes)
     self.isFav = KNAppTracker.isMarketFavourite(market.pair)
   }
 
@@ -54,7 +54,7 @@ struct KNMarketCellViewModel {
     case .volume(let asc):
       return asc ? left.volume < right.volume : left.volume > right.volume
     case .change(let asc):
-      return asc ? left.change24h.string < right.change24h.string : left.change24h.string > right.change24h.string
+      return asc ? left.change24h.string.dropLast() < right.change24h.string.dropLast() : left.change24h.string.dropLast() > right.change24h.string.dropLast()
     }
   }
 }

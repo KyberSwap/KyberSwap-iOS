@@ -37,6 +37,7 @@
                 <outletCollection property="marketTypeButtons" destination="3mp-5R-5LM" collectionClass="NSMutableArray" id="daY-6h-0GY"/>
                 <outletCollection property="marketTypeButtons" destination="srD-ch-i7b" collectionClass="NSMutableArray" id="8yj-L9-HTm"/>
                 <outletCollection property="marketTypeButtons" destination="OuF-Uz-RCI" collectionClass="NSMutableArray" id="5Gn-dN-lQX"/>
+                <outletCollection property="marketTypeButtons" destination="VLi-bo-vzq" collectionClass="NSMutableArray" id="38y-eb-CMi"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -242,11 +243,11 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8C-qs-nfA">
                                     <rect key="frame" x="289" y="0.0" width="86" height="42"/>
                                     <subviews>
-                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGT-iU-hOG">
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGT-iU-hOG">
                                             <rect key="frame" x="0.0" y="0.0" width="55" height="42"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
-                                            <state key="normal" title="24H">
+                                            <state key="normal" title="24H%">
                                                 <color key="titleColor" red="0.30588235289999999" green="0.31372549020000001" blue="0.38823529410000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>

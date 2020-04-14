@@ -166,25 +166,25 @@ class KNSelectMarketViewController: KNBaseViewController {
       if case .pair(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .pair(asc: !asc)
       } else {
-        self.viewModel.sortType = .pair(asc: true)
+        self.viewModel.sortType = .pair(asc: false)
       }
     case 2:
       if case .price(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .price(asc: !asc)
       } else {
-        self.viewModel.sortType = .price(asc: true)
+        self.viewModel.sortType = .price(asc: false)
       }
     case 3:
       if case .volume(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .volume(asc: !asc)
       } else {
-        self.viewModel.sortType = .volume(asc: true)
+        self.viewModel.sortType = .volume(asc: false)
       }
     case 4:
       if case .change(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .change(asc: !asc)
       } else {
-        self.viewModel.sortType = .change(asc: true)
+        self.viewModel.sortType = .change(asc: false)
       }
     default:
       break
@@ -292,7 +292,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
-    self.setSelectButton(nil)
+    self.setSelectButton(sender)
     self.viewModel.isFav = !self.viewModel.isFav
     let icon = self.viewModel.isFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
     self.favouriteButton.setImage(icon, for: .normal)

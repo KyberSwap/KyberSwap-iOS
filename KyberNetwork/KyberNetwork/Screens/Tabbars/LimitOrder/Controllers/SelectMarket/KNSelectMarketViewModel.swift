@@ -23,7 +23,7 @@ class KNSelectMarketViewModel {
       self.updateDisplayDataSource()
     }
   }
-  var sortType: MarketSortType = .price(asc: true) {
+  var sortType: MarketSortType = .price(asc: false) {
     didSet {
       self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
       self.updateDisplayDataSource()
@@ -53,7 +53,7 @@ class KNSelectMarketViewModel {
     self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
     let filterd = self.cellViewModels.filter { $0.pairName.contains("ETH") }
     let sorted = filterd.sorted { (left, right) -> Bool in
-      return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: true))
+      return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: false))
     }
     self.displayCellViewModels = sorted
     let quoteTokens = KNSupportedTokenStorage.shared.supportedTokens.filter { $0.extraData?.isQuote == true && !$0.isETH && !$0.isWETH }

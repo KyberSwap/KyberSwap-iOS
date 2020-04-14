@@ -23,8 +23,6 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBOutlet weak var relatedOrderCollectionView: UICollectionView!
   @IBOutlet weak var mainManagerOrderButtonHeightContraint: NSLayoutConstraint!
   @IBOutlet weak var mainManageOrdersButton: UIButton!
-  
-  
 
   fileprivate var updateFeeTimer: Timer?
 
