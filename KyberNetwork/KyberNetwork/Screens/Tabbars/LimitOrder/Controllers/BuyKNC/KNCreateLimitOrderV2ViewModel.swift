@@ -26,6 +26,16 @@ class KNCreateLimitOrderV2ViewModel {
   var transferFeePercent: Double = 0
   let isBuy: Bool
   var currentPair: String
+  fileprivate(set) var relatedOrders: [KNOrderObject] = []
+  fileprivate(set) var cancelSuggestOrders: [KNOrderObject] = []
+  fileprivate(set) var relatedHeaders: [String] = []
+  fileprivate(set) var relatedSections: [String: [KNOrderObject]] = [:]
+  fileprivate(set) var cancelSuggestHeaders: [String] = []
+  fileprivate(set) var cancelSuggestSections: [String: [KNOrderObject]] = [:]
+  fileprivate lazy var dateFormatter: DateFormatter = {
+    return DateFormatterUtil.shared.limitOrderFormatter
+  }()
+  var cancelOrder: KNOrderObject?
 
   init(wallet: Wallet, isBuy: Bool = true) {
     self.isBuy = isBuy
@@ -412,5 +422,51 @@ class KNCreateLimitOrderV2ViewModel {
     if address.lowercased() == self.walletObject.address.lowercased() {
       self.pendingBalances = balances
     }
+  }
+
+  func updateRelatedOrders(_ orders: [KNOrderObject]) {
+    self.relatedOrders = orders
+      .filter({ return $0.state == .open })
+      .sorted(by: { return $0.dateToDisplay > $1.dateToDisplay })
+    self.cancelSuggestOrders = self.relatedOrders.filter({ return $0.targetPrice > self.targetPrice.doubleValue }) //TODO: need to recheck condition
+    self.updateRelatedAndCancelSuggestionData()
+  }
+
+  fileprivate func updateRelatedAndCancelSuggestionData() {
+    self.relatedHeaders = []
+    self.relatedSections = [:]
+    self.relatedOrders.forEach({
+      let date = self.displayDate(for: $0)
+      if !self.relatedHeaders.contains(date) {
+        self.relatedHeaders.append(date)
+      }
+    })
+    self.relatedOrders.forEach { order in
+      let date = self.displayDate(for: order)
+      var orders: [KNOrderObject] = self.relatedSections[date] ?? []
+      orders.append(order)
+      orders = orders.sorted(by: { return $0.dateToDisplay > $1.dateToDisplay })
+      self.relatedSections[date] = orders
+    }
+
+    self.cancelSuggestHeaders = []
+    self.cancelSuggestSections = [:]
+    self.cancelSuggestOrders.forEach({
+      let date = self.displayDate(for: $0)
+      if !self.cancelSuggestHeaders.contains(date) {
+        self.cancelSuggestHeaders.append(date)
+      }
+    })
+    self.cancelSuggestOrders.forEach { order in
+      let date = self.displayDate(for: order)
+      var orders: [KNOrderObject] = self.cancelSuggestSections[date] ?? []
+      orders.append(order)
+      orders = orders.sorted(by: { return $0.dateToDisplay > $1.dateToDisplay })
+      self.cancelSuggestSections[date] = orders
+    }
+  }
+
+  func displayDate(for order: KNOrderObject) -> String {
+    return dateFormatter.string(from: order.dateToDisplay)
   }
 }

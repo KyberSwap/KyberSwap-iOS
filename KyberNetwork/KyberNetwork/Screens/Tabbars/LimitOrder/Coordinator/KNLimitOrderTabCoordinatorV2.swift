@@ -413,17 +413,17 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
 
   fileprivate func getListRelatedOrders(address: String, src: String, dest: String, minRate: Double) {
     guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
-//      self.rootViewController.coordinatorUpdateListRelatedOrders(address: address, src: src, dest: dest, minRate: minRate, orders: [])
+      self.rootViewController.coordinatorUpdateListRelatedOrders(address: address, src: src, dest: dest, minRate: minRate, orders: [])
       return
     }
     KNLimitOrderServerCoordinator.shared.getRelatedOrders(accessToken: accessToken, address: address, src: src, dest: dest, minRate: minRate) { [weak self] result in
       guard let `self` = self else { return }
-//      switch result {
-//      case .success(let orders):
-//        self.rootViewController.coordinatorUpdateListRelatedOrders(address: address, src: src, dest: dest, minRate: minRate, orders: orders)
-//      case .failure(let error):
-//        print("--Get Related Order-- Error: \(error.prettyError)")
-//      }
+      switch result {
+      case .success(let orders):
+        self.rootViewController.coordinatorUpdateListRelatedOrders(address: address, src: src, dest: dest, minRate: minRate, orders: orders)
+      case .failure(let error):
+        print("--Get Related Order-- Error: \(error.prettyError)")
+      }
     }
   }
 

@@ -16,6 +16,15 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBOutlet weak var buySellButton: UIButton!
   @IBOutlet var fromSymLabels: [UILabel]!
   @IBOutlet weak var toSymLabel: UILabel!
+  @IBOutlet weak var relatedOrdersContainerView: UIView!
+  @IBOutlet weak var relatedOrderContainerViewHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var relatedOrderTextLabel: UILabel!
+  @IBOutlet weak var relatedManageOrderButton: UIButton!
+  @IBOutlet weak var relatedOrderCollectionView: UICollectionView!
+  @IBOutlet weak var mainManagerOrderButtonHeightContraint: NSLayoutConstraint!
+  @IBOutlet weak var mainManageOrdersButton: UIButton!
+  
+  
 
   fileprivate var updateFeeTimer: Timer?
 
@@ -48,6 +57,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     self.updatePendingBalancesFromServer()
+    self.updateRelatedOrdersFromServer()
     self.updateFeeTimer?.invalidate()
     self.updateFeeTimer = Timer.scheduledTimer(
       withTimeInterval: 10.0,
@@ -55,6 +65,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       block: { [weak self] _ in
         self?.updateEstimateFeeFromServer()
         self?.updatePendingBalancesFromServer()
+        self?.updateRelatedOrdersFromServer()
       }
     )
   }
@@ -83,6 +94,18 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.viewModel.updateMarket()
     self.bindMarketData()
     self.buySellButton.rounded(radius: 5)
+    let orderCellNib = UINib(nibName: KNLimitOrderCollectionViewCell.className, bundle: nil)
+    self.relatedOrderCollectionView.register(
+      orderCellNib,
+      forCellWithReuseIdentifier: KNLimitOrderCollectionViewCell.cellID
+    )
+    let headerNib = UINib(nibName: KNTransactionCollectionReusableView.className, bundle: nil)
+    self.relatedOrderCollectionView.register(
+      headerNib,
+      forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
+      withReuseIdentifier: KNTransactionCollectionReusableView.kOrderViewID
+    )
+    self.updateRelatedOrdersView()
   }
 
   func coordinatorUpdateMarket(market: KNMarket) {
@@ -376,6 +399,44 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.tokenAvailableLabel.text = self.viewModel.balanceText
     self.view.layoutIfNeeded()
   }
+
+  fileprivate func updateRelatedOrdersFromServer() {
+    let event = KNCreateLimitOrderViewEventV2.getRelatedOrders(
+      address: self.viewModel.walletObject.address.lowercased(),
+      src: self.viewModel.from.contract.lowercased(),
+      dest: self.viewModel.to.contract.lowercased(),
+      minRate: 0.0
+    )
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
+  }
+
+  func coordinatorUpdateListRelatedOrders(address: String, src: String, dest: String, minRate: Double, orders: [KNOrderObject]) {
+    if address.lowercased() == self.viewModel.walletObject.address.lowercased()
+    && src.lowercased() == self.viewModel.from.contract.lowercased()
+      && dest.lowercased() == self.viewModel.to.contract.lowercased() {
+      self.viewModel.updateRelatedOrders(orders)
+      self.updateRelatedOrdersView()
+    }
+  }
+  fileprivate func updateRelatedOrdersView() {
+    let numberOrders = self.viewModel.relatedOrders.count
+    if numberOrders > 0 {
+      let orderCellHeight = KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight // height + bottom padding
+      let headerCellHeight = CGFloat(44.0)
+      let numberHeaders = self.viewModel.relatedHeaders.count
+      self.relatedOrderContainerViewHeightConstraint.constant = 32.0 + CGFloat(numberOrders) * orderCellHeight + CGFloat(numberHeaders) * headerCellHeight // top padding + collection view height
+      self.mainManagerOrderButtonHeightContraint.constant = 0
+      self.mainManageOrdersButton.isHidden = true
+      self.relatedOrdersContainerView.isHidden = false
+      self.relatedOrderCollectionView.reloadData()
+    } else {
+      self.relatedOrdersContainerView.isHidden = true
+      self.relatedOrderCollectionView.reloadData()
+      self.relatedOrderContainerViewHeightConstraint.constant = 0
+      self.mainManagerOrderButtonHeightContraint.constant = 45
+      self.mainManageOrdersButton.isHidden = false
+    }
+  }
 }
 
 extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
@@ -415,5 +476,130 @@ extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
       _ = self.validateDataIfNeeded()
     }
+  }
+}
+
+extension KNCreateLimitOrderV2ViewController: UICollectionViewDelegate {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    collectionView.deselectItem(at: indexPath, animated: true)
+    //TODO: implement cancel order
+  }
+}
+
+extension KNCreateLimitOrderV2ViewController: UICollectionViewDataSource {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return self.viewModel.relatedHeaders.count
+  }
+
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    let date = self.viewModel.relatedHeaders[section]
+    return self.viewModel.relatedSections[date]?.count ?? 0
+  }
+
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(
+    withReuseIdentifier: KNLimitOrderCollectionViewCell.cellID,
+    for: indexPath
+    ) as! KNLimitOrderCollectionViewCell
+    let order: KNOrderObject = {
+      if collectionView == self.relatedOrderCollectionView {
+        let date = self.viewModel.relatedHeaders[indexPath.section]
+        let orders: [KNOrderObject] = self.viewModel.relatedSections[date] ?? []
+        return orders[indexPath.row]
+      }
+      let date = self.viewModel.cancelSuggestHeaders[indexPath.section]
+      let orders: [KNOrderObject] = self.viewModel.cancelSuggestSections[date] ?? []
+      return orders[indexPath.row]
+    }()
+    let isReset: Bool = {
+      if let cancelBtnOrder = self.viewModel.cancelOrder {
+        return cancelBtnOrder.id != order.id
+      }
+      return true
+    }()
+    let color: UIColor = {
+      return indexPath.row % 2 == 0 ? UIColor.white : UIColor(red: 246, green: 247, blue: 250)
+    }()
+    cell.updateCell(
+      with: order,
+      isReset: isReset,
+      hasAction: collectionView == self.relatedOrderCollectionView,
+      bgColor: color
+    )
+    cell.delegate = self
+    return cell
+  }
+
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    switch kind {
+    case UICollectionElementKindSectionHeader:
+      let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: KNTransactionCollectionReusableView.kOrderViewID, for: indexPath) as! KNTransactionCollectionReusableView
+      let headerText: String = {
+        return self.viewModel.relatedHeaders[indexPath.section]
+      }()
+      headerView.updateView(with: headerText)
+      return headerView
+    default:
+      assertionFailure("Unhandling")
+      return UICollectionReusableView()
+    }
+  }
+}
+
+// MARK: Related orders
+extension KNCreateLimitOrderV2ViewController: UICollectionViewDelegateFlowLayout {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0.0
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets.zero
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return CGSize(
+      width: collectionView.frame.width,
+      height: KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight
+    )
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    return CGSize(
+      width: collectionView.frame.width,
+      height: 44
+    )
+  }
+}
+
+extension KNCreateLimitOrderV2ViewController: KNLimitOrderCollectionViewCellDelegate {
+  func limitOrderCollectionViewCell(_ cell: KNLimitOrderCollectionViewCell, cancelPressed order: KNOrderObject) {
+    let date = self.viewModel.displayDate(for: order)
+    guard let section = self.viewModel.relatedHeaders.firstIndex(where: { $0 == date }),
+      let row = self.viewModel.relatedSections[date]?.firstIndex(where: { $0.id == order.id }) else {
+      return // order not exist
+    }
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order", customAttributes: ["action": "open_cancel_order"])
+    self.openCancelOrder(order) {
+      self.viewModel.cancelOrder = nil
+      let indexPath = IndexPath(row: row, section: section)
+      self.relatedOrderCollectionView.reloadItems(at: [indexPath])
+    }
+  }
+
+  func limitOrderCollectionViewCell(_ cell: KNLimitOrderCollectionViewCell, showWarning order: KNOrderObject) {
+    self.showTopBannerView(
+      with: "",
+      message: order.messages,
+      icon: UIImage(named: "warning_icon"),
+      time: 2.5
+    )
+  }
+
+  func limitOrderCollectionViewCell(_ cell: KNLimitOrderCollectionViewCell, showExtraExplain order: KNOrderObject) {
+    // This case won't happend as it is only for filled order with extra amount
+  }
+
+  fileprivate func openCancelOrder(_ order: KNOrderObject, completion: (() -> Void)?) {
+   //TODO: implement cancel order
   }
 }
