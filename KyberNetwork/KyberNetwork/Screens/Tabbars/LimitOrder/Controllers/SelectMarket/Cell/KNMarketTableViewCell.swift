@@ -14,9 +14,17 @@ struct KNMarketCellViewModel {
   let volume: String
   let change24h: NSAttributedString
   let isFav: Bool
+  let source: KNMarket
 
   init(market: KNMarket) {
-    self.pairName = market.pair.replacingOccurrences(of: "_", with: "/")
+    self.source = market
+    var marketPairName = market.pair
+    if marketPairName.contains("WETH") {
+      marketPairName = marketPairName.replacingOccurrences(of: "WETH", with: "ETH*")
+    } else if marketPairName.contains("ETH") {
+      marketPairName = marketPairName.replacingOccurrences(of: "ETH", with: "ETH*")
+    }
+    self.pairName = marketPairName.replacingOccurrences(of: "_", with: "/")
     let formatter = NumberFormatterUtil.shared.doubleFormatter
     self.price = formatter.string(from: NSNumber(value: market.sellPrice)) ?? ""
     self.volume = formatter.string(from: NSNumber(value: market.volume)) ?? ""

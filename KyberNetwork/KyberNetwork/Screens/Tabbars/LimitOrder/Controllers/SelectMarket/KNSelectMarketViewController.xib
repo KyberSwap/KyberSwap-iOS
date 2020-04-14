@@ -30,6 +30,7 @@
                 <outlet property="noDataView" destination="zhc-vo-6EH" id="omH-Ko-OOY"/>
                 <outlet property="pairButton" destination="fEO-73-hRs" id="fOy-RY-qID"/>
                 <outlet property="priceButton" destination="Wvl-nL-8P0" id="kpq-aN-kFC"/>
+                <outlet property="searchField" destination="IsT-Ts-eFb" id="tIh-qT-yCW"/>
                 <outlet property="tableView" destination="DRd-aB-bqd" id="XOm-s9-xQH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="volumeButton" destination="IbR-Ip-l3P" id="AcN-L0-jRG"/>
@@ -155,6 +156,9 @@
                             <state key="normal" image="magnifyingglass" catalog="system">
                                 <color key="titleColor" red="0.1137254902" green="0.18823529410000001" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="searchButtonTapped:" destination="-1" eventType="touchUpInside" id="Xqi-Zx-IJY"/>
+                            </connections>
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IsT-Ts-eFb">
                             <rect key="frame" x="285" y="9.5" width="56" height="33"/>

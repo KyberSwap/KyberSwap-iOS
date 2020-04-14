@@ -81,12 +81,4 @@ class KNSelectMarketViewModel {
     self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
     self.updateDisplayDataSource()
   }
-
-  func getMarketObject(viewModel: KNMarketCellViewModel) -> KNMarket? {
-    let searchKey = viewModel.pairName.replacingOccurrences(of: "/", with: "_")
-    let market = self.markets.first { (item) -> Bool in
-      return item.pair == searchKey
-    }
-    return market
-  }
 }

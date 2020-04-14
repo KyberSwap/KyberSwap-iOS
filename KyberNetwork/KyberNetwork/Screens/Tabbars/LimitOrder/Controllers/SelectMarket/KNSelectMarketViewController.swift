@@ -25,7 +25,8 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var headerTitle: UILabel!
   @IBOutlet weak var noDataView: UIView!
   @IBOutlet var marketTypeButtons: [UIButton]!
-
+  @IBOutlet weak var searchField: UITextField!
+  
   lazy var pickerView: UIPickerView = {
     let pickerView = UIPickerView(frame: CGRect.zero)
     pickerView.showsSelectionIndicator = true
@@ -299,16 +300,17 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
   }
+
+  @IBAction func searchButtonTapped(_ sender: UIButton) {
+    self.searchField.becomeFirstResponder()
+  }
 }
 
 extension KNSelectMarketViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
     let viewModel = self.viewModel.displayCellViewModels[indexPath.row]
-    guard let market = self.viewModel.getMarketObject(viewModel: viewModel) else {
-      return
-    }
-    self.delegate?.selectMarketViewControllerDidSelectMarket(self, market: market)
+    self.delegate?.selectMarketViewControllerDidSelectMarket(self, market: viewModel.source)
   }
 }
 
