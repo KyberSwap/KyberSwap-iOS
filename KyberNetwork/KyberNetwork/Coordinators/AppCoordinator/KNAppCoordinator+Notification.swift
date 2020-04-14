@@ -238,6 +238,7 @@ extension KNAppCoordinator {
     self.settingsCoordinator?.appCoordinatorTokenBalancesDidUpdate(balances: otherTokensBalance)
   }
 
+  //swiftlint:disable function_body_length
   @objc func transactionStateDidUpdate(_ sender: Notification) {
     if self.session == nil { return }
     let transaction: KNTransaction? = {

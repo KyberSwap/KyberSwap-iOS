@@ -467,7 +467,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
         fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
         transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6,
         nonce: self.viewModel.nonce ?? "",
-        isBuy: false
+        isBuy: nil
       )
       self.delegate?.kCreateLimitOrderViewController(self, run: .submitOrder(order: order, confirmData: nil))
     }
@@ -627,7 +627,7 @@ extension KNCreateLimitOrderViewController {
       self.submitButtonBottomPaddingToContainerViewConstraint.isActive = false
       self.submitButtonBottomPaddingToRelatedOrderViewConstraint.isActive = true
       self.submitButtonBottomPaddingToRelatedOrderViewConstraint.constant = 32.0
-      let orderCellHeight = KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight // height + bottom padding
+      let orderCellHeight = KNLimitOrderCollectionViewCell.kLimitOrderCellHeight // height + bottom padding
       let headerCellHeight = CGFloat(44.0)
       let numberHeaders = self.viewModel.relatedHeaders.count
       self.relatedOrderContainerViewHeightConstraint.constant = 32.0 + CGFloat(numberOrders) * orderCellHeight + CGFloat(numberHeaders) * headerCellHeight // top padding + collection view height
@@ -865,7 +865,7 @@ extension KNCreateLimitOrderViewController {
     self.cancelRelatedOrdersView.isHidden = false
     self.cancelOrdersCollectionView.reloadData()
 
-    let orderHeight = KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight
+    let orderHeight = KNLimitOrderCollectionViewCell.kLimitOrderCellHeight
     let headerHeight = CGFloat(44.0)
     let numberHeaders = self.viewModel.cancelSuggestHeaders.count
     let numberOrders = self.viewModel.cancelSuggestOrders.count
@@ -908,7 +908,7 @@ extension KNCreateLimitOrderViewController {
         fee: Int(round(self.viewModel.feePercentage * 1000000)), // fee send to server is multiple with 10^6
         transferFee: Int(round(self.viewModel.transferFeePercent * 1000000)), // fee send to server is multiple with 10^6
         nonce: self.viewModel.nonce ?? "",
-        isBuy: false // don't care if it is buy or sell
+        isBuy: nil
       )
       let event = KNCreateLimitOrderViewEvent.openConvertWETH(
         address: self.viewModel.walletObject.address,
@@ -1336,7 +1336,7 @@ extension KNCreateLimitOrderViewController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(
       width: collectionView.frame.width,
-      height: KNLimitOrderCollectionViewCell.kLimitOrderNormalHeight
+      height: KNLimitOrderCollectionViewCell.kLimitOrderCellHeight
     )
   }
 

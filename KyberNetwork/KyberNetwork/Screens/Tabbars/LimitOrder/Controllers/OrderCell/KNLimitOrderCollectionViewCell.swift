@@ -11,12 +11,10 @@ protocol KNLimitOrderCollectionViewCellDelegate: class {
 
 class KNLimitOrderCollectionViewCell: UICollectionViewCell {
 
-  static let kLimitOrderNormalHeight: CGFloat = 96.0
-  static let kLimitOrderCellFilledHeight: CGFloat = 108.0
+  static let kLimitOrderCellHeight: CGFloat = 128.0
   static let cellID: String = "kLimitOrderCollectionViewCell"
 
   @IBOutlet weak var containerView: UIView!
-  @IBOutlet weak var headerContainerView: UIView!
 
   @IBOutlet weak var pairValueLabel: UILabel!
   @IBOutlet weak var addressLabel: UILabel!
@@ -31,9 +29,14 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
 
   @IBOutlet weak var toTextLabel: UILabel!
   @IBOutlet weak var destValueLabel: UILabel!
+
+  @IBOutlet weak var priceTextLabel: UILabel!
+  @IBOutlet weak var priceValueLabel: UILabel!
+
   @IBOutlet weak var leadingSpaceToContainerViewConstraint: NSLayoutConstraint!
   @IBOutlet weak var trailingSpaceToContainerViewConstraint: NSLayoutConstraint!
 
+  @IBOutlet weak var closeButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
 
   weak var delegate: KNLimitOrderCollectionViewCellDelegate?
@@ -65,29 +68,111 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
     let tapDestAmountGesture = UITapGestureRecognizer(target: self, action: #selector(self.showExtraTokensReceivedPressed(_:)))
     self.destValueLabel.addGestureRecognizer(tapDestAmountGesture)
     self.destValueLabel.isUserInteractionEnabled = true
+    let tapSourceAmountLabel = UITapGestureRecognizer(target: self, action: #selector(self.showExtraTokensReceivedPressed(_:)))
+    self.sourceValueLabel.addGestureRecognizer(tapSourceAmountLabel)
+    self.sourceValueLabel.isUserInteractionEnabled = true
   }
 
+  // swiftlint:disable function_body_length
   func updateCell(with order: KNOrderObject, isReset: Bool, hasAction: Bool = true, bgColor: UIColor) {
     self.containerView.backgroundColor = bgColor
     self.order = order
     self.hasAction = hasAction
 
-    let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+    let destAmountWithoutFee = order.sourceAmount * order.targetPrice
 
     let srcTokenSymbol = order.srcTokenSymbol
     let destTokenSymbol = order.destTokenSymbol
 
-    self.pairValueLabel.text = "\(srcTokenSymbol)  ➞  \(destTokenSymbol) >= \(rate)"
+    let extraAmount: String = "+ \(NumberFormatterUtil.shared.displayLimitOrderValue(from: order.extraAmount)) \(destTokenSymbol)"
+    let actualSrcAmount = self.order.sourceAmount * (1.0 - self.order.fee)
+
+    self.destValueLabel.attributedText = nil
+    self.sourceValueLabel.attributedText = nil
+
+    let sideTrade = self.order.sideTrade ?? "sell"
+
+    self.priceTextLabel.text = "Price".toBeLocalised().uppercased()
+    self.priceTextLabel.isHidden = false
+    self.priceValueLabel.isHidden = false
+    self.fromTextLabel.text = "Total".toBeLocalised().uppercased()
+    self.toTextLabel.text = "Amount".toBeLocalised().uppercased()
+    if sideTrade == "sell" {
+      self.pairValueLabel.text = "Sell \(srcTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(self.order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+        return "\(price) \(destTokenSymbol)"
+      }()
+      // Sell sourceAmount to destAmount
+      // Amount: sourceAmount
+      // Total: destAmount
+      // src is total, dest is amount
+      self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmountWithoutFee)) \(destTokenSymbol)"
+      self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
+      self.destValueLabel.isUserInteractionEnabled = false
+      self.sourceValueLabel.isUserInteractionEnabled = true
+    } else {
+      self.pairValueLabel.text = "Buy \(destTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(pow(10.0, 18.0)/self.order.targetPrice).displayRate(decimals: 18)
+        return "\(price) \(srcTokenSymbol)"
+      }()
+      // Buy destAmount token from sourceAmount
+      // Amount: destAmount
+      // Total: sourceAmount
+      // src is total, dest is amount
+      self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
+      self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmountWithoutFee)) \(destTokenSymbol)"
+      self.destValueLabel.isUserInteractionEnabled = true
+      self.sourceValueLabel.isUserInteractionEnabled = false
+    }
+    // only change pair label if version 1
+    if self.order.sideTrade == nil {
+      let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+      self.pairValueLabel.text = "\(srcTokenSymbol)/\(destTokenSymbol) >= \(rate)"
+    }
+
+    let destAmountStr: String = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: actualSrcAmount * order.targetPrice)) \(destTokenSymbol)"
+
+    if order.state == .filled && order.extraAmount > 0 {
+      let normalAttributes: [NSAttributedStringKey: Any] = [
+        NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
+        NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
+      ]
+      let extraAttributes: [NSAttributedStringKey: Any] = [
+        NSAttributedStringKey.foregroundColor: UIColor(red: 49, green: 203, blue: 158),
+        NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 10),
+      ]
+      if sideTrade == "buy" {
+        self.destValueLabel.text = nil
+        self.destValueLabel.attributedText = {
+          let attributedString = NSMutableAttributedString()
+          attributedString.append(NSAttributedString(string: destAmountStr, attributes: normalAttributes))
+          attributedString.append(NSAttributedString(string: "\n\(extraAmount)", attributes: extraAttributes))
+          return attributedString
+        }()
+      } else {
+        self.sourceValueLabel.text = nil
+        self.sourceValueLabel.attributedText = {
+          let attributedString = NSMutableAttributedString()
+          attributedString.append(NSAttributedString(string: destAmountStr, attributes: normalAttributes))
+          attributedString.append(NSAttributedString(string: "\n\(extraAmount)", attributes: extraAttributes))
+          return attributedString
+        }()
+      }
+    }
 
     self.orderWarningIcon.isHidden = order.messages.isEmpty
     self.addressLabel.text = "\(order.sender.prefix(8))..\(order.sender.suffix(4))"
 
     self.orderStatusLabel.isHidden = false
+    self.closeButton.isHidden = true
     switch order.state {
     case .open:
       self.orderStatusLabel.setTitle("Open".toBeLocalised(), for: .normal)
       self.orderStatusLabel.backgroundColor = UIColor(red: 234, green: 230, blue: 255)
       self.orderStatusLabel.setTitleColor(UIColor(red: 64, green: 50, blue: 148), for: .normal)
+      self.closeButton.isHidden = false
     case .inProgress:
       self.orderStatusLabel.setTitle("In progress".toBeLocalised(), for: .normal)
       self.orderStatusLabel.backgroundColor = UIColor(red: 222, green: 235, blue: 255)
@@ -113,31 +198,6 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
     }()
     self.feeValueLabel.text = "\(feeDisplay) \(srcTokenSymbol)"
 
-    let actualSrcAmount = order.sourceAmount * (1.0 - order.fee)
-    self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: order.sourceAmount)) \(srcTokenSymbol)"
-
-    let destAmount: String = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: actualSrcAmount * order.targetPrice)) \(destTokenSymbol)"
-    let extraAmount: String = "+ \(NumberFormatterUtil.shared.displayLimitOrderValue(from: order.extraAmount)) \(destTokenSymbol)"
-    if order.state == .filled && order.extraAmount > 0 {
-      self.destValueLabel.text = nil
-      self.destValueLabel.attributedText = {
-        let attributedString = NSMutableAttributedString()
-        let normalAttributes: [NSAttributedStringKey: Any] = [
-          NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
-          NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
-        ]
-        let extraAttributes: [NSAttributedStringKey: Any] = [
-          NSAttributedStringKey.foregroundColor: UIColor(red: 49, green: 203, blue: 158),
-          NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 10),
-        ]
-        attributedString.append(NSAttributedString(string: destAmount, attributes: normalAttributes))
-        attributedString.append(NSAttributedString(string: "\n\(extraAmount)", attributes: extraAttributes))
-        return attributedString
-      }()
-    } else {
-      self.destValueLabel.attributedText = nil
-      self.destValueLabel.text = ">= \(destAmount)"
-    }
     if hasAction {
       if order.state != .open {
         self.updateCancelButtonUI(isShowing: false, callFromSuper: true)
@@ -194,5 +254,10 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
   @IBAction func orderWarningButtonPressed(_ sender: Any) {
     if self.order == nil { return }
     self.delegate?.limitOrderCollectionViewCell(self, showWarning: self.order)
+  }
+
+  @IBAction func closeButtonPressed(_ sender: Any) {
+    if self.order == nil { return }
+    self.delegate?.limitOrderCollectionViewCell(self, cancelPressed: self.order)
   }
 }

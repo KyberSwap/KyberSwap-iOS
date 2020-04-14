@@ -314,12 +314,12 @@ class KNAppTracker {
     userDefaults.set(addresses, forKey: key)
     userDefaults.synchronize()
   }
-  
+
   static func getListFavouriteMarkets() -> [String] {
     let key = "\(KNEnvironment.default.displayName)-\(kFavouriteMarketsKey)"
     return userDefaults.object(forKey: key) as? [String] ?? []
   }
-  
+
   static func updateFavouriteMarket(_ pair: String, add: Bool) {
     let key = "\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey)"
     var pairs = userDefaults.object(forKey: key) as? [String] ?? []
@@ -331,7 +331,7 @@ class KNAppTracker {
     userDefaults.set(pairs, forKey: key)
     userDefaults.synchronize()
   }
-  
+
   static func isMarketFavourite(_ pair: String) -> Bool {
     return self.getListFavouriteTokens().contains(pair.uppercased())
   }

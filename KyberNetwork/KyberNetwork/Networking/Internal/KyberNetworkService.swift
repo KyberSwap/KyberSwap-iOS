@@ -1,6 +1,6 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
-
+//swiftlint:disable file_length
 import Moya
 import CryptoSwift
 import BigInt
@@ -374,7 +374,6 @@ extension LimitOrderService: TargetType {
     case .getMarkets:
       let base = KNEnvironment.default.cachedSourceAmountRateURL
       return URL(string: base + "/pairs/market")!
-    
     }
   }
 
@@ -393,7 +392,7 @@ extension LimitOrderService: TargetType {
     case .getOrders, .cancelOrder, .getNonce, .checkEligibleAddress, .pendingBalance, .getFee, .getRelatedOrders, .getMarkets:
       return .requestPlain
     case .createOrder(_, let order, let signedData):
-      let json: JSONDictionary = [
+      var json: JSONDictionary = [
         "user_address": order.sender.description.lowercased(),
         "nonce": order.nonce,
         "src_token": order.from.contract.lowercased(),
@@ -404,6 +403,9 @@ extension LimitOrderService: TargetType {
         "fee": BigInt(order.fee).hexEncoded,
         "signature": signedData.hexEncoded,
       ]
+      if let isBuy = order.isBuy {
+        json["side_trade"] = isBuy ? "buy" : "sell"
+      }
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
     }

@@ -12,7 +12,6 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
   @IBOutlet weak var containerView: UIView!
   @IBOutlet weak var titleTextLabel: UILabel!
 
-  @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var pairValueLabel: UILabel!
   @IBOutlet weak var dateValueLabel: UILabel!
   @IBOutlet weak var addressLabel: UILabel!
@@ -26,6 +25,9 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
 
   @IBOutlet weak var toTextLabel: UILabel!
   @IBOutlet weak var destValueLabel: UILabel!
+
+  @IBOutlet weak var priceTextLabel: UILabel!
+  @IBOutlet weak var priceValueLabel: UILabel!
 
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var confirmButton: UIButton!
@@ -43,38 +45,70 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
+  // swift_lint:disable function_body_length
   override func viewDidLoad() {
     super.viewDidLoad()
 
     self.containerView.rounded(radius: 8.0)
-    self.headerContainerView.rounded(radius: 2.5)
     self.statusValueLabel.rounded(radius: self.statusValueLabel.frame.height / 2.0)
 
     self.titleTextLabel.text = "You are cancelling this order".toBeLocalised()
     self.feeTextLabel.text = "Fee".toBeLocalised().uppercased()
-    self.fromTextLabel.text = NSLocalizedString("From", value: "From", comment: "").uppercased()
-    self.toTextLabel.text = NSLocalizedString("To", value: "To", comment: "").uppercased()
+
     self.cancelButton.setTitle(
       NSLocalizedString("no", value: "No", comment: ""),
       for: .normal
     )
-    self.cancelButton.rounded(
-      color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: self.cancelButton.frame.height / 2.0
-    )
+    self.cancelButton.rounded(color: UIColor.Kyber.border, width: 1.0, radius: 5.0)
     self.confirmButton.setTitle(
       NSLocalizedString("yes", value: "Yes", comment: ""),
       for: .normal
     )
-    self.confirmButton.rounded(radius: self.confirmButton.frame.height / 2.0)
+    self.confirmButton.rounded(radius: 5.0)
     self.confirmButton.applyGradient()
 
     let srcTokenSymbol = order.srcTokenSymbol
     let destTokenSymbol = order.destTokenSymbol
-    let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+    let destAmount = self.order.sourceAmount * order.targetPrice
 
-    self.pairValueLabel.text = "\(srcTokenSymbol)  ➞  \(destTokenSymbol) >= \(rate)"
+    let sideTrade = self.order.sideTrade ?? "sell"
+
+    self.priceTextLabel.text = "Price".toBeLocalised().uppercased()
+    self.priceTextLabel.isHidden = false
+    self.priceValueLabel.isHidden = false
+    self.fromTextLabel.text = "Total".toBeLocalised().uppercased()
+    self.toTextLabel.text = "Amount".toBeLocalised().uppercased()
+    if sideTrade == "sell" {
+      self.pairValueLabel.text = "Sell \(srcTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(self.order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+        return "\(price) \(destTokenSymbol)"
+      }()
+      // Sell sourceAmount to destAmount
+      // Amount: sourceAmount
+      // Total: destAmount
+      // src is total, dest is amount
+      self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmount)) \(destTokenSymbol)"
+      self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
+    } else {
+      self.pairValueLabel.text = "Buy \(destTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(pow(10.0, 18.0)/self.order.targetPrice).displayRate(decimals: 18)
+        return "\(price) \(srcTokenSymbol)"
+      }()
+      // Buy destAmount token from sourceAmount
+      // Amount: destAmount
+      // Total: sourceAmount
+      // src is total, dest is amount
+      self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
+      self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmount)) \(destTokenSymbol)"
+    }
+    // only change pair label if version 1
+    if self.order.sideTrade == nil {
+      let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+      self.pairValueLabel.text = "\(srcTokenSymbol)/\(destTokenSymbol) >= \(rate)"
+    }
+
     self.dateValueLabel.text = DateFormatterUtil.shared.limitOrderFormatter.string(from: order.dateToDisplay)
     self.addressLabel.text = "\(self.order.sender.prefix(8))...\(self.order.sender.suffix(4))"
     switch order.state {
@@ -82,35 +116,16 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
       self.statusValueLabel.setTitle("Open".toBeLocalised(), for: .normal)
       self.statusValueLabel.backgroundColor = UIColor(red: 234, green: 230, blue: 255)
       self.statusValueLabel.setTitleColor(UIColor(red: 64, green: 50, blue: 148), for: .normal)
-    case .inProgress:
-      self.statusValueLabel.setTitle("In progress".toBeLocalised(), for: .normal)
-      self.statusValueLabel.backgroundColor = UIColor(red: 222, green: 235, blue: 255)
-      self.statusValueLabel.setTitleColor(UIColor(red: 0, green: 73, blue: 176), for: .normal)
-    case .filled:
-      self.statusValueLabel.setTitle("Filled".toBeLocalised(), for: .normal)
-      self.statusValueLabel.backgroundColor = UIColor(red: 215, green: 242, blue: 226)
-      self.statusValueLabel.setTitleColor(UIColor(red: 0, green: 102, blue: 68), for: .normal)
-    case .cancelled:
-      self.statusValueLabel.setTitle("Cancelled".toBeLocalised(), for: .normal)
-      self.statusValueLabel.backgroundColor = UIColor(red: 255, green: 235, blue: 229)
-      self.statusValueLabel.setTitleColor(UIColor(red: 191, green: 38, blue: 0), for: .normal)
-    case .invalidated:
-      self.statusValueLabel.setTitle("Invalidated".toBeLocalised(), for: .normal)
-      self.statusValueLabel.backgroundColor = UIColor(red: 247, green: 232, blue: 173)
-      self.statusValueLabel.setTitleColor(UIColor(red: 23, green: 43, blue: 77), for: .normal)
     default:
+      // Something went wrong, only can cancel open order
       self.statusValueLabel.isHidden = true
     }
 
     let feeDisplay: String = {
-      let feeDouble = Double(order.fee) * order.sourceAmount
+      let feeDouble = Double(self.order.fee) * self.order.sourceAmount
       return NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)
     }()
     self.feeValueLabel.text = "\(feeDisplay) \(srcTokenSymbol)"
-
-    let actualSrcAmount = order.sourceAmount * (1.0 - order.fee)
-    self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: order.sourceAmount)) \(srcTokenSymbol)"
-    self.destValueLabel.text = ">= \(NumberFormatterUtil.shared.displayLimitOrderValue(from: actualSrcAmount * order.targetPrice)) \(destTokenSymbol)"
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOutSideToDismiss(_:)))
     self.view.addGestureRecognizer(tapGesture)

@@ -68,12 +68,20 @@ class KNNotification: Object {
 
   var extraData: JSONDictionary? {
     let key = "notifications_\(KNEnvironment.default.displayName)_\(id)_\(userID)"
-    return UserDefaults.standard.object(forKey: key) as? JSONDictionary ?? [:]
+    if let data = UserDefaults.standard.object(forKey: key) as? Data {
+      return NSKeyedUnarchiver.unarchiveObject(with: data) as? JSONDictionary
+    }
+    return nil
   }
 
   func updateExtraData(data: JSONDictionary?) {
     let key = "notifications_\(KNEnvironment.default.displayName)_\(id)_\(userID)"
-    UserDefaults.standard.set(data, forKey: key)
+    if let data = data {
+      let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
+      UserDefaults.standard.set(encodedData, forKey: key)
+    } else {
+      UserDefaults.standard.set(nil, forKey: key)
+    }
     UserDefaults.standard.synchronize()
   }
 

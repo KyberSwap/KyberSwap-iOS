@@ -190,3 +190,18 @@ extension LimitOrderContainerViewController: UIPageViewControllerDelegate {
     }
   }
 }
+
+extension LimitOrderContainerViewController {
+  func coordinatorDoneSubmittingOrder() {
+    self.showSuccessTopBannerMessage(
+      with: NSLocalizedString("success", value: "Success", comment: ""),
+      message: "Your order have been submitted sucessfully to server. You can check the order in your order list.".toBeLocalised(),
+      time: 1.5
+    )
+    // TODO: Update list related orders
+    // self.listOrdersDidUpdate(nil)
+    if #available(iOS 10.3, *) {
+      KNAppstoreRatingManager.requestReviewIfAppropriate()
+    }
+  }
+}
