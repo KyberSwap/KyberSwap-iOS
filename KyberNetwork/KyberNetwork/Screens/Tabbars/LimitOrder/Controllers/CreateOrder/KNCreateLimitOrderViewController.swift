@@ -313,6 +313,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
       forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
       withReuseIdentifier: KNTransactionCollectionReusableView.kOrderViewID
     )
+    
     self.cancelOrdersCollectionView.delegate = self
     self.cancelOrdersCollectionView.dataSource = self
 

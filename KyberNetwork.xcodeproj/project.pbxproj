@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D2831CD94641E5166E3A798 /* Pods_TrustUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */; };
 		2502AC18209475BE007F23CD /* KNListWalletsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502AC16209475BE007F23CD /* KNListWalletsTableViewCell.swift */; };
 		2502AC19209475BE007F23CD /* KNListWalletsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2502AC17209475BE007F23CD /* KNListWalletsTableViewCell.xib */; };
 		2502AC1B20947794007F23CD /* KNWalletObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2502AC1A20947794007F23CD /* KNWalletObject.swift */; };
@@ -558,6 +557,9 @@
 		C356C009243DAE9F007E419B /* KNMarketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C356C007243DAE9F007E419B /* KNMarketTableViewCell.swift */; };
 		C356C00A243DAE9F007E419B /* KNMarketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C356C008243DAE9F007E419B /* KNMarketTableViewCell.xib */; };
 		C356C011243DC6E7007E419B /* KNSelectMarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C356C010243DC6E7007E419B /* KNSelectMarketViewModel.swift */; };
+		C3C4DAAE2445A77D00CA4206 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3C4DAAD2445A77D00CA4206 /* GoogleService-Info.plist */; };
+		C3C4DAB22446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C4DAB02446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift */; };
+		C3C4DAB32446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C4DAB12446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib */; };
 		C3E401D7242B048D00F31372 /* LimitOrderContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E401D5242B048D00F31372 /* LimitOrderContainerViewController.swift */; };
 		C3E401D8242B048D00F31372 /* LimitOrderContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E401D6242B048D00F31372 /* LimitOrderContainerViewController.xib */; };
 		C3E401DE242B458200F31372 /* KNCreateLimitOrderV2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E401DC242B458200F31372 /* KNCreateLimitOrderV2ViewController.swift */; };
@@ -569,7 +571,6 @@
 		C625CF72243F2D6700511A90 /* KNLimitOrderTabCoordinatorV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625CF71243F2D6700511A90 /* KNLimitOrderTabCoordinatorV2.swift */; };
 		C626BEDC238D870F00C96410 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C626BEDB238D870E00C96410 /* AdSupport.framework */; };
 		C626BEDE238D871700C96410 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C626BEDD238D871700C96410 /* iAd.framework */; };
-		C626F14E243E6F550000E942 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C626F14D243E6F540000E942 /* GoogleService-Info.plist */; };
 		C626F150243E6F5E0000E942 /* KNSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C626F14F243E6F5E0000E942 /* KNSecret.swift */; };
 		C65D31E821D4CF27005D0B04 /* UILabel+Kyber.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65D31E721D4CF27005D0B04 /* UILabel+Kyber.swift */; };
 		C65D31EA21D4DCD1005D0B04 /* UITextField+Kyber.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65D31E921D4DCD1005D0B04 /* UITextField+Kyber.swift */; };
@@ -624,7 +625,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E184FBCF2BDE7BF38D41021 /* Pods-KyberNetworkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KyberNetworkUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KyberNetworkUITests/Pods-KyberNetworkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		2502AC16209475BE007F23CD /* KNListWalletsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNListWalletsTableViewCell.swift; sourceTree = "<group>"; };
 		2502AC17209475BE007F23CD /* KNListWalletsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNListWalletsTableViewCell.xib; sourceTree = "<group>"; };
@@ -1198,6 +1198,9 @@
 		C356C008243DAE9F007E419B /* KNMarketTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNMarketTableViewCell.xib; sourceTree = "<group>"; };
 		C356C00D243DB760007E419B /* COMODO ECC Domain Validation Secure Server CA 2.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "COMODO ECC Domain Validation Secure Server CA 2.cer"; sourceTree = "<group>"; };
 		C356C010243DC6E7007E419B /* KNSelectMarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNSelectMarketViewModel.swift; sourceTree = "<group>"; };
+		C3C4DAAD2445A77D00CA4206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C3C4DAB02446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNCancelSuggestOrdersViewController.swift; sourceTree = "<group>"; };
+		C3C4DAB12446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNCancelSuggestOrdersViewController.xib; sourceTree = "<group>"; };
 		C3E401D5242B048D00F31372 /* LimitOrderContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitOrderContainerViewController.swift; sourceTree = "<group>"; };
 		C3E401D6242B048D00F31372 /* LimitOrderContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LimitOrderContainerViewController.xib; sourceTree = "<group>"; };
 		C3E401DC242B458200F31372 /* KNCreateLimitOrderV2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNCreateLimitOrderV2ViewController.swift; sourceTree = "<group>"; };
@@ -1209,7 +1212,6 @@
 		C625CF71243F2D6700511A90 /* KNLimitOrderTabCoordinatorV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNLimitOrderTabCoordinatorV2.swift; sourceTree = "<group>"; };
 		C626BEDB238D870E00C96410 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		C626BEDD238D871700C96410 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		C626F14D243E6F540000E942 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C626F14F243E6F5E0000E942 /* KNSecret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KNSecret.swift; sourceTree = "<group>"; };
 		C65D31E721D4CF27005D0B04 /* UILabel+Kyber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Kyber.swift"; sourceTree = "<group>"; };
 		C65D31E921D4DCD1005D0B04 /* UITextField+Kyber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Kyber.swift"; sourceTree = "<group>"; };
@@ -1260,7 +1262,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D2831CD94641E5166E3A798 /* Pods_TrustUITests.framework in Frameworks */,
 				60450A79718C1E1276FC2E43 /* Pods_KyberNetworkUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1587,6 +1588,7 @@
 		25377B0B22842AAA0012178F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C3C4DAAF2446F98E00CA4206 /* CancelSuggestOrder */,
 				C625CF6C243F21F500511A90 /* PreviewOrderV2 */,
 				C356BFFD243C2DD1007E419B /* SelectMarket */,
 				C3E401DA242B44D600F31372 /* BuyKNC */,
@@ -3372,10 +3374,10 @@
 				2996F14B1F6CA725005C33AE /* Extensions */,
 				257B84AE2074D7B8003DD40E /* Assets.xcassets */,
 				C356C00D243DB760007E419B /* COMODO ECC Domain Validation Secure Server CA 2.cer */,
-				C626F14D243E6F540000E942 /* GoogleService-Info.plist */,
 				2912CCF81F6A830700C6CBE3 /* AppDelegate.swift */,
 				2912CD061F6A830700C6CBE3 /* Info.plist */,
 				29AD8A071F93E1F0008E10E7 /* KyberNetwork.entitlements */,
+				C3C4DAAD2445A77D00CA4206 /* GoogleService-Info.plist */,
 				296106CD1F777E410006164B /* LaunchScreen.storyboard */,
 			);
 			path = KyberNetwork;
@@ -3989,6 +3991,15 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		C3C4DAAF2446F98E00CA4206 /* CancelSuggestOrder */ = {
+			isa = PBXGroup;
+			children = (
+				C3C4DAB02446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift */,
+				C3C4DAB12446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib */,
+			);
+			path = CancelSuggestOrder;
+			sourceTree = "<group>";
+		};
 		C3E401D4242B045100F31372 /* LimitOrderContainer */ = {
 			isa = PBXGroup;
 			children = (
@@ -4132,7 +4143,6 @@
 				250CA1EE225B3FC900DF28A4 /* FacebookLogin.framework */,
 				646C8C822C986358D7388602 /* Pods_Trust.framework */,
 				A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */,
-				0AEE09E815DB68F6634F89AA /* Pods_TrustUITests.framework */,
 				40A95682795E696525B3A48A /* Pods_KyberNetwork.framework */,
 				3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */,
 				DF2D4C0FA288695E7C897F46 /* Pods_KyberNetworkUITests.framework */,
@@ -4355,6 +4365,7 @@
 				25369F0820F88835007231FE /* welcome_screen_data.json in Resources */,
 				25A4B4B421242DE000924351 /* KNCreateWalletViewController.xib in Resources */,
 				25929C5E20DA5C760045CFA3 /* SF-Pro-Text-RegularItalic.otf in Resources */,
+				C3C4DAAE2445A77D00CA4206 /* GoogleService-Info.plist in Resources */,
 				25696F6E20BEAD97002CC53F /* KNSearchTokenTableViewCell.xib in Resources */,
 				25929C9C20DA5CC10045CFA3 /* SFCompactText-HeavyItalic.otf in Resources */,
 				2542605021218EF40015ECC7 /* KMinAcceptableRatePopupViewController.xib in Resources */,
@@ -4396,7 +4407,6 @@
 				25ACC264225E11EF0081D2B9 /* KNListAlertHeaderView.xib in Resources */,
 				25696F5520BD2B72002CC53F /* KNDataDetailsView.xib in Resources */,
 				251ABCB320578F6E0069687F /* config_env_ropsten.json in Resources */,
-				C626F14E243E6F550000E942 /* GoogleService-Info.plist in Resources */,
 				C6AA668C23A77C690050C610 /* KNNotificationTableViewCell.xib in Resources */,
 				25929C6420DA5C760045CFA3 /* SF-Pro-Text-Heavy.otf in Resources */,
 				C3E401DF242B458200F31372 /* KNCreateLimitOrderV2ViewController.xib in Resources */,
@@ -4448,6 +4458,7 @@
 				25682B7520EE06CD009738C4 /* KNTransactionDetailsViewController.xib in Resources */,
 				25929C9220DA5CC10045CFA3 /* SFCompactText-SemiboldItalic.otf in Resources */,
 				25F96F8121537B6400D7F927 /* KNHoldingDocumentInfoPopUp.xib in Resources */,
+				C3C4DAB32446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib in Resources */,
 				25929C5620DA5C760045CFA3 /* SF-Pro-Text-HeavyItalic.otf in Resources */,
 				257C9FC52078A9F800EE0128 /* KNTransactionCollectionReusableView.xib in Resources */,
 				25929C9920DA5CC10045CFA3 /* SFCompactDisplay-Bold.otf in Resources */,
@@ -4586,8 +4597,8 @@
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONRPCKit/JSONRPCKit.framework",
@@ -4729,6 +4740,7 @@
 				253F50E221E5B40E0068813D /* KNPromoCodeCoordinator.swift in Sources */,
 				C3E401D7242B048D00F31372 /* LimitOrderContainerViewController.swift in Sources */,
 				29C80D511FB67A110037B1E0 /* ArrayResponse.swift in Sources */,
+				C3C4DAB22446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift in Sources */,
 				257A377E205B7BFA00E86794 /* UINavigationController+Kyber.swift in Sources */,
 				25F96F8021537B6400D7F927 /* KNHoldingDocumentInfoPopUp.swift in Sources */,
 				C625CF6F243F221D00511A90 /* PreviewLimitOrderV2ViewController.swift in Sources */,

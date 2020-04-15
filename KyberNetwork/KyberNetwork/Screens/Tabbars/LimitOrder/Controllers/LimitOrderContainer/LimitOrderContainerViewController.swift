@@ -12,6 +12,7 @@ enum KNCreateLimitOrderViewEventV2 {
   case getRelatedOrders(address: String, src: String, dest: String, minRate: Double)
   case getPendingBalances(address: String)
   case changeMarket
+  case openCancelSuggestOrder(header: [String], sections: [String: [KNOrderObject]], cancelOrder: KNOrderObject?, parent: UIViewController)
 }
 
 protocol LimitOrderContainerViewControllerDelegate: class {
@@ -172,6 +173,14 @@ class LimitOrderContainerViewController: KNBaseViewController {
   func coordinatorUpdateListRelatedOrders(address: String, src: String, dest: String, minRate: Double, orders: [KNOrderObject]) {
     for vc in self.pages {
       vc.coordinatorUpdateListRelatedOrders(address: address, src: src, dest: dest, minRate: minRate, orders: orders)
+    }
+  }
+
+  func coordinatorUnderstandCheckedInShowCancelSuggestOrder(source: UIViewController) {
+    for vc in self.pages {
+      if vc == source {
+        vc.coordinatorUnderstandCheckedInShowCancelSuggestOrder()
+      }
     }
   }
 }

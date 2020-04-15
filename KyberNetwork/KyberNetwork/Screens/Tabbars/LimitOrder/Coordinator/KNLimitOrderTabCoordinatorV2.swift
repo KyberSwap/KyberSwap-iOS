@@ -230,6 +230,8 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       self.getPendingBalances(address: address)
     case .changeMarket:
       self.openSelectMarketScreen()
+    case .openCancelSuggestOrder(let headers, let sections, let cancelOrder, let parent):
+      self.openCancelSuggestionOrderScreen(header: headers, sections: sections, cancelOrder: cancelOrder, parent: parent)
     default: break
     }
   }
@@ -646,6 +648,12 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
   fileprivate func openSelectMarketScreen() {
     self.navigationController.pushViewController(self.marketsVC, animated: true)
   }
+  
+  fileprivate func openCancelSuggestionOrderScreen(header: [String], sections: [String: [KNOrderObject]], cancelOrder: KNOrderObject?, parent: UIViewController) {
+    let vc = KNCancelSuggestOrdersViewController(header: header, sections: sections, cancelOrder: cancelOrder, parent: parent)
+    vc.delegate = self
+    self.navigationController.pushViewController(vc, animated: true)
+  }
 
   fileprivate func openSendTokenView() {
     if let topVC = self.navigationController.topViewController, topVC is KSendTokenViewController { return }
@@ -881,5 +889,12 @@ extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
   func selectMarketViewControllerDidSelectMarket(_ controller: KNSelectMarketViewController, market: KNMarket) {
     self.navigationController.popViewController(animated: true)
     self.rootViewController.coordinatorUpdateMarket(market: market)
+  }
+}
+
+extension KNLimitOrderTabCoordinatorV2: KNCancelSuggestOrdersViewControllerDelegate {
+  func cancelSuggestOrdersViewControllerDidCheckUnderstand(_ controller: KNCancelSuggestOrdersViewController) {
+    self.navigationController.popToRootViewController(animated: true)
+    self.rootViewController.coordinatorUnderstandCheckedInShowCancelSuggestOrder(source: controller.sourceVC)
   }
 }

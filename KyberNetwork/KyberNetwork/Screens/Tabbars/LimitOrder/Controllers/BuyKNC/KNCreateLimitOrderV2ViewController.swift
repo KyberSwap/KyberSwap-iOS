@@ -304,9 +304,20 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBAction func sumitButtonTapped(_ sender: UIButton) {
     if !self.validateUserHasSignedIn() { return }
     if !self.validateDataIfNeeded(isConfirming: true) { return }
-    //TODO: show cancel suggestion if needed
+    if self.showShouldCancelOtherOrdersIfNeeded() { return }
     if showConvertETHToWETHIfNeeded() { return }
     self.submitOrderDidVerifyData()
+  }
+
+  fileprivate func showShouldCancelOtherOrdersIfNeeded() -> Bool {
+    if self.viewModel.cancelSuggestOrders.isEmpty { return false }
+    let event = KNCreateLimitOrderViewEventV2.openCancelSuggestOrder(header: self.viewModel.cancelSuggestHeaders,
+                                                                     sections: self.viewModel.cancelSuggestSections,
+                                                                     cancelOrder: self.viewModel.cancelOrder,
+                                                                     parent: self
+                                                                     )
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
+    return true
   }
 
   fileprivate func showConvertETHToWETHIfNeeded() -> Bool {
@@ -434,6 +445,11 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       self.mainManagerOrderButtonHeightContraint.constant = 45
       self.mainManageOrdersButton.isHidden = false
     }
+  }
+  
+  func coordinatorUnderstandCheckedInShowCancelSuggestOrder() {
+    if showConvertETHToWETHIfNeeded() { return }
+    self.submitOrderDidVerifyData()
   }
 }
 
