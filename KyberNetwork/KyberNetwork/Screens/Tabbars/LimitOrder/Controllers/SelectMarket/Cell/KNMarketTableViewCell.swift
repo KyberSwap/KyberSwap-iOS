@@ -24,7 +24,8 @@ struct KNMarketCellViewModel {
     } else if marketPairName.contains("ETH") {
       marketPairName = marketPairName.replacingOccurrences(of: "ETH", with: "ETH*")
     }
-    self.pairName = marketPairName.replacingOccurrences(of: "_", with: "/")
+    let pairs = marketPairName.components(separatedBy: "_")
+    self.pairName = "\(pairs.last ?? "")/\(pairs.first ?? "")"
     let formatter = NumberFormatterUtil.shared.doubleFormatter
     self.price = formatter.string(from: NSNumber(value: market.sellPrice)) ?? ""
     self.volume = formatter.string(from: NSNumber(value: market.volume)) ?? ""
@@ -104,7 +105,7 @@ class KNMarketTableViewCell: UITableViewCell {
 
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
     let updateFav = !self.viewModel.isFav
-    let pair = self.viewModel.pairName.replacingOccurrences(of: "/", with: "_")
+    let pair = self.viewModel.source.pair
     KNAppTracker.updateFavouriteMarket(pair, add: updateFav)
     let favImg = updateFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
     self.favoriteButton.setImage(favImg, for: .normal)

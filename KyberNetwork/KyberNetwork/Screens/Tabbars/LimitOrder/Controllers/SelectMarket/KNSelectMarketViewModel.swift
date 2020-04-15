@@ -17,7 +17,7 @@ enum MarketSortType {
 class KNSelectMarketViewModel {
   fileprivate var markets: [KNMarket]
   fileprivate var cellViewModels: [KNMarketCellViewModel]
-  var marketType: String = "ETH" {
+  var marketType: String = "/ETH*" {
     didSet {
       self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
       self.updateDisplayDataSource()
@@ -51,7 +51,7 @@ class KNSelectMarketViewModel {
   init() {
     self.markets = KNRateCoordinator.shared.cachedMarket
     self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
-    let filterd = self.cellViewModels.filter { $0.pairName.contains("ETH") }
+    let filterd = self.cellViewModels.filter { $0.pairName.contains("/ETH*") }
     let sorted = filterd.sorted { (left, right) -> Bool in
       return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: false))
     }
