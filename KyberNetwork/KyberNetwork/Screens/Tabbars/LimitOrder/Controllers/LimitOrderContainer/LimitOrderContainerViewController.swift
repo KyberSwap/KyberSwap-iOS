@@ -32,10 +32,11 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var marketVolLabel: UILabel!
   @IBOutlet weak var hasPendingTxView: UIView!
   @IBOutlet weak var hasUnreadNotification: UIView!
-  
+  @IBOutlet weak var walletNameLabel: UILabel!
+
   fileprivate(set) var wallet: Wallet
   fileprivate(set) var walletObject: KNWalletObject
-  
+
   lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
     let viewModel = KNBalanceTabHamburgerMenuViewModel(
       walletObjects: KNWalletStorage.shared.wallets,
@@ -88,7 +89,9 @@ class LimitOrderContainerViewController: KNBaseViewController {
     }
     self.hasPendingTxView.rounded(radius: self.hasPendingTxView.frame.height / 2.0)
     self.hamburgerMenu.hideMenu(animated: false)
-    hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
+    self.hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
+    self.walletNameLabel.text = self.walletNameString
+    
     let name = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.addObserver(
       self,
@@ -257,6 +260,23 @@ class LimitOrderContainerViewController: KNBaseViewController {
     self.hamburgerMenu.update(transactions: transactions)
     self.hasPendingTxView.isHidden = transactions.isEmpty
     self.view.layoutIfNeeded()
+  }
+
+  func coordinatorUpdateNewSession(wallet: Wallet) {
+    self.walletNameLabel.text = self.walletNameString
+    for vc in self.pages {
+      vc.coordinatorUpdateNewSession(wallet: wallet)
+    }
+  }
+
+  var walletNameString: String {
+    let addr = self.walletObject.address.lowercased()
+    return "|  \(addr.prefix(10))...\(addr.suffix(8))"
+  }
+  
+  func coordinatorUpdateWalletObjects() {
+    self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: self.walletObject.address) ?? self.walletObject
+    self.walletNameLabel.text = self.walletNameString
   }
 }
 

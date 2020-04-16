@@ -33,6 +33,7 @@
                 <outlet property="pagerIndicatorCenterXContraint" destination="g6Y-Fn-eCe" id="Hda-Xj-jWb"/>
                 <outlet property="sellToolBarButton" destination="hUP-qU-dBD" id="63I-Xi-5QO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="walletNameLabel" destination="Rl7-Nt-kKk" id="2zT-JS-Nkv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

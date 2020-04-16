@@ -487,4 +487,27 @@ class KNCreateLimitOrderV2ViewModel {
   func displayDate(for order: KNOrderObject) -> String {
     return dateFormatter.string(from: order.dateToDisplay)
   }
+  
+  func updateWallet(_ wallet: Wallet) {
+    self.wallet = wallet
+    let address = wallet.address.description
+    self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: address) ?? KNWalletObject(address: address)
+    self.updateMarket()
+    self.amountTo = ""
+    self.amountFrom = ""
+    self.updateTargetPrice(self.targetPriceFromMarket)
+    self.isUseAllBalance = false
+    
+    self.feePercentage = 0
+    self.transferFeePercent = 0
+    self.discountPercentage = 0
+
+    self.balances = [:]
+    self.balance = nil
+    
+    self.pendingBalances = [:]
+    self.relatedOrders = []
+    self.relatedHeaders = []
+    self.relatedSections = [:]
+  }
 }

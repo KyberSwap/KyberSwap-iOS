@@ -452,6 +452,15 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     if showConvertETHToWETHIfNeeded() { return }
     self.submitOrderDidVerifyData()
   }
+
+  func coordinatorUpdateNewSession(wallet: Wallet) {
+    self.viewModel.updateWallet(wallet)
+    guard self.isViewSetup else { return }
+    self.priceField.text = self.viewModel.targetPriceFromMarket
+    self.totalField.text = ""
+    self.amountField.text = ""
+    self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
+  }
 }
 
 extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {

@@ -80,7 +80,7 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
 extension KNLimitOrderTabCoordinatorV2 {
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
     self.session = session
-//    self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
+    self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
     if resetRoot {
       self.navigationController.popToRootViewController(animated: false)
     }
@@ -105,7 +105,7 @@ extension KNLimitOrderTabCoordinatorV2 {
   }
 
   func appCoordinatorDidUpdateWalletObjects() {
-//    self.rootViewController.coordinatorUpdateWalletObjects()
+    self.rootViewController.coordinatorUpdateWalletObjects()
     self.historyCoordinator?.appCoordinatorDidUpdateWalletObjects()
   }
 
