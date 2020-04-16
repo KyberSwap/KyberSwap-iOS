@@ -192,6 +192,8 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
     default:
       self.orderStatusLabel.isHidden = true
     }
+    self.closeButton.isHidden = !hasAction
+
     let feeDisplay: String = {
       let feeDouble = order.fee * order.sourceAmount
       return NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)

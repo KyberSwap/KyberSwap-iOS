@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,6 +23,7 @@
             <connections>
                 <outlet property="buyToolBarButton" destination="RDX-xg-C32" id="Uvd-EB-21l"/>
                 <outlet property="contentContainerView" destination="Zub-Ew-Bz8" id="nZD-Qg-MZa"/>
+                <outlet property="headerContainerView" destination="UM9-xL-Rjq" id="ZZZ-VQ-DCe"/>
                 <outlet property="marketDetailLabel" destination="mct-Gm-G3A" id="3vo-CV-sGW"/>
                 <outlet property="marketNameButton" destination="2c9-ao-Wbk" id="uC8-IT-yEl"/>
                 <outlet property="marketVolLabel" destination="4fx-Nt-YCL" id="udO-NE-Bn8"/>

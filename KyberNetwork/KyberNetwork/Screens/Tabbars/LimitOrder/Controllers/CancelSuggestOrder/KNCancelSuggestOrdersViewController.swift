@@ -40,6 +40,12 @@ class KNCancelSuggestOrdersViewController: KNBaseViewController {
     self.setupUI()
   }
 
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.headerContainerView.removeSublayer(at: 0)
+    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
+  }
+
   @IBAction func backButtonTapped(_ sender: UIButton) {
     self.navigationController?.popViewController(animated: true)
   }
@@ -65,6 +71,7 @@ class KNCancelSuggestOrdersViewController: KNBaseViewController {
   }
 
   fileprivate func setupUI() {
+    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     let nib = UINib(nibName: KNLimitOrderCollectionViewCell.className, bundle: nil)
     let headerNib = UINib(nibName: KNTransactionCollectionReusableView.className, bundle: nil)
     self.collectionView.register(nib, forCellWithReuseIdentifier: kCancelOrdersCollectionViewCellID)
@@ -134,13 +141,13 @@ extension KNCancelSuggestOrdersViewController: UICollectionViewDataSource {
     let color: UIColor = {
       return indexPath.row % 2 == 0 ? UIColor.white : UIColor(red: 246, green: 247, blue: 250)
     }()
-    cell.closeButton.isHidden = true
     cell.updateCell(
       with: order,
       isReset: isReset,
       hasAction: false,
       bgColor: color
     )
+    cell.closeButton.isHidden = true
     return cell
   }
 
