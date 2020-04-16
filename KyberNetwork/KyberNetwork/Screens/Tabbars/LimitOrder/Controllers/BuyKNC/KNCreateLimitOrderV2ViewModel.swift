@@ -428,7 +428,7 @@ class KNCreateLimitOrderV2ViewModel {
     self.relatedOrders = orders
       .filter({ return $0.state == .open })
       .sorted(by: { return $0.dateToDisplay > $1.dateToDisplay })
-    self.cancelSuggestOrders = self.relatedOrders.filter({ return $0.targetPrice > self.targetPrice.doubleValue }) //TODO: need to recheck condition
+    self.cancelSuggestOrders = self.relatedOrders.filter({ return $0.targetPrice > (1 / self.targetPrice.doubleValue) })
     self.updateRelatedAndCancelSuggestionData()
   }
 

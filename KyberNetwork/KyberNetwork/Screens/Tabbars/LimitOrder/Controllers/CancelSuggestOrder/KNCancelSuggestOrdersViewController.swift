@@ -139,6 +139,7 @@ extension KNCancelSuggestOrdersViewController: UICollectionViewDataSource {
     let color: UIColor = {
       return indexPath.row % 2 == 0 ? UIColor.white : UIColor(red: 246, green: 247, blue: 250)
     }()
+    cell.closeButton.isHidden = true
     cell.updateCell(
       with: order,
       isReset: isReset,
@@ -146,5 +147,18 @@ extension KNCancelSuggestOrdersViewController: UICollectionViewDataSource {
       bgColor: color
     )
     return cell
+  }
+
+  func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    switch kind {
+    case UICollectionElementKindSectionHeader:
+      let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: KNTransactionCollectionReusableView.kOrderViewID, for: indexPath) as! KNTransactionCollectionReusableView
+      let headerText = self.cancelSuggestHeaders[indexPath.section]
+      headerView.updateView(with: headerText)
+      return headerView
+    default:
+      assertionFailure("Unhandling")
+      return UICollectionReusableView()
+    }
   }
 }
