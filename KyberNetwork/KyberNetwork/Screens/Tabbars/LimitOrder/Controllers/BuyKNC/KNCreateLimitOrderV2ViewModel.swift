@@ -129,6 +129,13 @@ class KNCreateLimitOrderV2ViewModel {
     } else {
       self.updateAmountFrom(self.amountFrom)
     }
+    self.cancelSuggestOrders = self.relatedOrders.filter({
+      if self.isBuy {
+        return $0.targetPrice > (1 / self.targetPrice.doubleValue)
+      }
+      return $0.targetPrice > self.targetPrice.doubleValue
+    })
+    self.updateRelatedAndCancelSuggestionData()
   }
 
   var availableBalance: BigInt {
@@ -393,6 +400,7 @@ class KNCreateLimitOrderV2ViewModel {
 
   var isRateTooBig: Bool {
     let marketPrice = self.targetPriceFromMarket.doubleValue
+    if marketPrice == 0 { return false }
     return self.targetPrice.doubleValue > 10 * marketPrice
   }
 
@@ -433,7 +441,12 @@ class KNCreateLimitOrderV2ViewModel {
     self.relatedOrders = orders
       .filter({ return $0.state == .open })
       .sorted(by: { return $0.dateToDisplay > $1.dateToDisplay })
-    self.cancelSuggestOrders = self.relatedOrders.filter({ return $0.targetPrice > (1 / self.targetPrice.doubleValue) })
+    self.cancelSuggestOrders = self.relatedOrders.filter({
+      if self.isBuy {
+        return $0.targetPrice > (1 / self.targetPrice.doubleValue)
+      }
+      return $0.targetPrice > self.targetPrice.doubleValue
+    })
     self.updateRelatedAndCancelSuggestionData()
   }
 

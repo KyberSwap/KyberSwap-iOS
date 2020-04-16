@@ -311,11 +311,12 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
 
   fileprivate func showShouldCancelOtherOrdersIfNeeded() -> Bool {
     if self.viewModel.cancelSuggestOrders.isEmpty { return false }
-    let event = KNCreateLimitOrderViewEventV2.openCancelSuggestOrder(header: self.viewModel.cancelSuggestHeaders,
-                                                                     sections: self.viewModel.cancelSuggestSections,
-                                                                     cancelOrder: self.viewModel.cancelOrder,
-                                                                     parent: self
-                                                                     )
+    let event = KNCreateLimitOrderViewEventV2.openCancelSuggestOrder(
+      header: self.viewModel.cancelSuggestHeaders,
+      sections: self.viewModel.cancelSuggestSections,
+      cancelOrder: self.viewModel.cancelOrder,
+      parent: self
+    )
     self.delegate?.kCreateLimitOrderViewController(self, run: event)
     return true
   }

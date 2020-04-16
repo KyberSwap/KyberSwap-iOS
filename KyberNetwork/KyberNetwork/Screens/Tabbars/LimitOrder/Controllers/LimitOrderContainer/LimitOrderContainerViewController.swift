@@ -21,6 +21,7 @@ protocol LimitOrderContainerViewControllerDelegate: class {
 }
 
 class LimitOrderContainerViewController: KNBaseViewController {
+  @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var pagerIndicator: UIView!
   @IBOutlet weak var contentContainerView: UIView!
   @IBOutlet weak var buyToolBarButton: UIButton!
@@ -54,6 +55,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     for vc in self.pages {
       vc.delegate = self.delegate
     }
@@ -69,6 +71,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
         self.setupUI(market: market)
       }
     }
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.headerContainerView.removeSublayer(at: 0)
+    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
 
   @IBAction func pagerButtonTapped(_ sender: UIButton) {
