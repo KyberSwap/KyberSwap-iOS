@@ -87,7 +87,7 @@ extension KNLimitOrderTabCoordinatorV2 {
     self.balances = [:]
     self.approveTx = [:]
     let pendingTrans = self.session.transactionStorage.kyberPendingTransactions
-//    self.rootViewController.coordinatorDidUpdatePendingTransactions(pendingTrans)
+    self.rootViewController.coordinatorDidUpdatePendingTransactions(pendingTrans)
     if self.navigationController.viewControllers.first(where: { $0 is KNHistoryViewController }) == nil {
       self.historyCoordinator = nil
       self.historyCoordinator = KNHistoryCoordinator(
@@ -151,7 +151,7 @@ extension KNLimitOrderTabCoordinatorV2 {
   }
 
   func appCoordinatorPendingTransactionsDidUpdate(transactions: [KNTransaction]) {
-//    self.rootViewController.coordinatorDidUpdatePendingTransactions(transactions)
+    self.rootViewController.coordinatorDidUpdatePendingTransactions(transactions)
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate(transactions)
   }
 
@@ -648,7 +648,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
   fileprivate func openSelectMarketScreen() {
     self.navigationController.pushViewController(self.marketsVC, animated: true)
   }
-  
+
   fileprivate func openCancelSuggestionOrderScreen(header: [String], sections: [String: [KNOrderObject]], cancelOrder: KNOrderObject?, parent: UIViewController) {
     let vc = KNCancelSuggestOrdersViewController(header: header, sections: sections, cancelOrder: cancelOrder, parent: parent)
     vc.delegate = self

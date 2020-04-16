@@ -30,6 +30,25 @@ class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var marketNameButton: UIButton!
   @IBOutlet weak var marketDetailLabel: UILabel!
   @IBOutlet weak var marketVolLabel: UILabel!
+  @IBOutlet weak var hasPendingTxView: UIView!
+  @IBOutlet weak var hasUnreadNotification: UIView!
+  
+  fileprivate(set) var wallet: Wallet
+  fileprivate(set) var walletObject: KNWalletObject
+  
+  lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
+    let viewModel = KNBalanceTabHamburgerMenuViewModel(
+      walletObjects: KNWalletStorage.shared.wallets,
+      currentWallet: self.walletObject
+    )
+    let hamburgerVC = KNBalanceTabHamburgerMenuViewController(viewModel: viewModel)
+    hamburgerVC.view.frame = self.view.bounds
+    self.view.addSubview(hamburgerVC.view)
+    self.addChildViewController(hamburgerVC)
+    hamburgerVC.didMove(toParentViewController: self)
+    hamburgerVC.delegate = self
+    return hamburgerVC
+  }()
 
   weak var delegate: LimitOrderContainerViewControllerDelegate?
   var currentIndex = 0
@@ -40,6 +59,9 @@ class LimitOrderContainerViewController: KNBaseViewController {
   private var currentMarket: KNMarket?
 
   init(wallet: Wallet) {
+    self.wallet = wallet
+    let addr = wallet.address.description
+    self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: addr) ?? KNWalletObject(address: addr)
     let buyViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet)
     let sellViewModel = KNCreateLimitOrderV2ViewModel(wallet: wallet, isBuy: false)
     self.pages = [
@@ -53,12 +75,27 @@ class LimitOrderContainerViewController: KNBaseViewController {
     fatalError("init(coder:) has not been implemented")
   }
 
+  deinit {
+    let name = Notification.Name(kUpdateListNotificationsKey)
+    NotificationCenter.default.removeObserver(self, name: name, object: nil)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     for vc in self.pages {
       vc.delegate = self.delegate
     }
+    self.hasPendingTxView.rounded(radius: self.hasPendingTxView.frame.height / 2.0)
+    self.hamburgerMenu.hideMenu(animated: false)
+    hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
+    let name = Notification.Name(kUpdateListNotificationsKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.notificationDidUpdate(_:)),
+      name: name,
+      object: nil
+    )
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +130,30 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   @IBAction func marketButtonTapped(_ sender: UIButton) {
     self.delegate?.kCreateLimitOrderViewController(self, run: .changeMarket)
+  }
+
+  @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
+    self.hamburgerMenu.gestureScreenEdgePanAction(sender)
+  }
+
+  @IBAction func hamburgerMenuButtonPressed(_ sender: Any) {
+    self.hamburgerMenu.openMenu(animated: true)
+  }
+
+  @IBAction func notificationMenuButtonPressed(_ sender: UIButton) {
+    delegate?.kCreateLimitOrderViewController(self, run: .selectNotifications)
+  }
+
+  @objc func notificationDidUpdate(_ sender: Any?) {
+    let numUnread: Int = {
+      if IEOUserStorage.shared.user == nil { return 0 }
+      return KNNotificationCoordinator.shared.numberUnread
+    }()
+    self.update(notificationsCount: numUnread)
+  }
+
+  func update(notificationsCount: Int) {
+    self.hasUnreadNotification.isHidden = notificationsCount == 0
   }
 
   fileprivate func setupUI(market: KNMarket) {
@@ -191,6 +252,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
       vc.coordinatorUnderstandCheckedInShowCancelSuggestOrder()
     }
   }
+
+  func coordinatorDidUpdatePendingTransactions(_ transactions: [KNTransaction]) {
+    self.hamburgerMenu.update(transactions: transactions)
+    self.hasPendingTxView.isHidden = transactions.isEmpty
+    self.view.layoutIfNeeded()
+  }
 }
 
 extension LimitOrderContainerViewController: UIPageViewControllerDelegate {
@@ -220,5 +287,11 @@ extension LimitOrderContainerViewController {
     if #available(iOS 10.3, *) {
       KNAppstoreRatingManager.requestReviewIfAppropriate()
     }
+  }
+}
+
+extension LimitOrderContainerViewController: KNBalanceTabHamburgerMenuViewControllerDelegate {
+  func balanceTabHamburgerMenuViewController(_ controller: KNBalanceTabHamburgerMenuViewController, run event: KNBalanceTabHamburgerMenuViewEvent) {
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
   }
 }
