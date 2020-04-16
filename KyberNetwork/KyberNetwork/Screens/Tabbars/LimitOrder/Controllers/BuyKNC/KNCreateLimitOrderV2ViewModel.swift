@@ -98,6 +98,7 @@ class KNCreateLimitOrderV2ViewModel {
         self.from = rightToken!
         self.to = leftToken!
       }
+      self.updateFromBalance()
     }
   }
 
@@ -105,16 +106,20 @@ class KNCreateLimitOrderV2ViewModel {
     self.market = KNRateCoordinator.shared.getMarketWith(name: self.currentPair)
   }
 
-  func updateBalance(_ balances: [String: Balance]) {
-    balances.forEach { (key, value) in
-      self.balances[key] = value
-    }
-    if let bal = balances[self.from.contract] {
+  func updateFromBalance() {
+    if let bal = self.balances[self.from.contract] {
       if let oldBal = self.balance, oldBal.value != bal.value {
         self.isUseAllBalance = false
       }
       self.balance = bal
     }
+  }
+
+  func updateBalance(_ balances: [String: Balance]) {
+    balances.forEach { (key, value) in
+      self.balances[key] = value
+    }
+    self.updateFromBalance()
   }
 
   func updateTargetPrice(_ price: String) {

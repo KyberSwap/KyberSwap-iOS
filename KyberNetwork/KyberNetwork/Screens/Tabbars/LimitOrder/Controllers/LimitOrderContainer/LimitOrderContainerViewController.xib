@@ -21,14 +21,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LimitOrderContainerViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
-                <outlet property="buyKncButton" destination="RDX-xg-C32" id="dlq-Tj-hjp"/>
+                <outlet property="buyToolBarButton" destination="RDX-xg-C32" id="Uvd-EB-21l"/>
                 <outlet property="contentContainerView" destination="Zub-Ew-Bz8" id="nZD-Qg-MZa"/>
                 <outlet property="marketDetailLabel" destination="mct-Gm-G3A" id="3vo-CV-sGW"/>
                 <outlet property="marketNameButton" destination="2c9-ao-Wbk" id="uC8-IT-yEl"/>
                 <outlet property="marketVolLabel" destination="4fx-Nt-YCL" id="udO-NE-Bn8"/>
                 <outlet property="pagerIndicator" destination="WKi-Pf-KFa" id="GY8-Lz-7jg"/>
                 <outlet property="pagerIndicatorCenterXContraint" destination="g6Y-Fn-eCe" id="Hda-Xj-jWb"/>
-                <outlet property="sellKncButton" destination="hUP-qU-dBD" id="8RJ-1v-JXb"/>
+                <outlet property="sellToolBarButton" destination="hUP-qU-dBD" id="63I-Xi-5QO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

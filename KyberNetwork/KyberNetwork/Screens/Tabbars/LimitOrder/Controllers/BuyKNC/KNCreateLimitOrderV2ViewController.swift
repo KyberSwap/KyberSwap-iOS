@@ -405,7 +405,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     guard self.isViewSetup else {
       return
     }
-    self.tokenAvailableLabel.text = self.viewModel.balanceText
+    self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
     self.view.layoutIfNeeded()
   }
 
@@ -446,7 +446,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       self.mainManageOrdersButton.isHidden = false
     }
   }
-  
+
   func coordinatorUnderstandCheckedInShowCancelSuggestOrder() {
     if showConvertETHToWETHIfNeeded() { return }
     self.submitOrderDidVerifyData()

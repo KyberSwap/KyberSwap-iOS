@@ -1,9 +1,4 @@
-//
-//  KNCancelSuggestOrdersViewController.swift
-//  KyberNetwork
-//
-//  Created by Ta Minh Quan on 4/15/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
 

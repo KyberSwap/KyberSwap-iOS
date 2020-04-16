@@ -23,8 +23,8 @@ protocol LimitOrderContainerViewControllerDelegate: class {
 class LimitOrderContainerViewController: KNBaseViewController {
   @IBOutlet weak var pagerIndicator: UIView!
   @IBOutlet weak var contentContainerView: UIView!
-  @IBOutlet weak var buyKncButton: UIButton!
-  @IBOutlet weak var sellKncButton: UIButton!
+  @IBOutlet weak var buyToolBarButton: UIButton!
+  @IBOutlet weak var sellToolBarButton: UIButton!
   @IBOutlet weak var pagerIndicatorCenterXContraint: NSLayoutConstraint!
   @IBOutlet weak var marketNameButton: UIButton!
   @IBOutlet weak var marketDetailLabel: UILabel!
@@ -89,7 +89,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   fileprivate func setupUI(market: KNMarket) {
     let pair = market.pair.components(separatedBy: "_")
-    self.marketNameButton.setTitle(market.pair.replacingOccurrences(of: "_", with: "/"), for: .normal)
+    self.marketNameButton.setTitle("\(pair.last ?? "")/\(pair.first ?? "")", for: .normal)
     let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
@@ -113,6 +113,8 @@ class LimitOrderContainerViewController: KNBaseViewController {
     self.marketDetailLabel.attributedText = detailText
 
     self.marketVolLabel.text = "Vol \(formatter.string(from: NSNumber(value: fabs(market.volume))) ?? "") \(pair.last ?? "")"
+    self.buyToolBarButton.setTitle("\("Buy".toBeLocalised()) \(pair.last ?? "")", for: .normal)
+    self.sellToolBarButton.setTitle("\("Sell".toBeLocalised()) \(pair.last ?? "")", for: .normal)
   }
 
   private func setupPageController() {
@@ -177,10 +179,8 @@ class LimitOrderContainerViewController: KNBaseViewController {
   }
 
   func coordinatorUnderstandCheckedInShowCancelSuggestOrder(source: UIViewController) {
-    for vc in self.pages {
-      if vc == source {
-        vc.coordinatorUnderstandCheckedInShowCancelSuggestOrder()
-      }
+    for vc in self.pages where vc == source {
+      vc.coordinatorUnderstandCheckedInShowCancelSuggestOrder()
     }
   }
 }
