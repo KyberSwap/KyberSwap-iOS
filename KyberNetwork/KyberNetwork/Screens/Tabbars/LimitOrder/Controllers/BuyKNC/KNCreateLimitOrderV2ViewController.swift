@@ -92,6 +92,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.viewModel.updateMarket()
     self.bindMarketData()
     self.buySellButton.rounded(radius: 5)
+    self.discountPercentContainerView.rounded(radius: 5)
     let orderCellNib = UINib(nibName: KNLimitOrderCollectionViewCell.className, bundle: nil)
     self.relatedOrderCollectionView.register(
       orderCellNib,
@@ -508,7 +509,6 @@ extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
 extension KNCreateLimitOrderV2ViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     collectionView.deselectItem(at: indexPath, animated: true)
-    //TODO: implement cancel order
   }
 }
 
@@ -626,6 +626,19 @@ extension KNCreateLimitOrderV2ViewController: KNLimitOrderCollectionViewCellDele
   }
 
   fileprivate func openCancelOrder(_ order: KNOrderObject, completion: (() -> Void)?) {
-   //TODO: implement cancel order
+   let cancelOrderVC = KNCancelOrderConfirmPopUp(order: order)
+   cancelOrderVC.loadViewIfNeeded()
+   cancelOrderVC.modalTransitionStyle = .crossDissolve
+   cancelOrderVC.modalPresentationStyle = .overFullScreen
+   cancelOrderVC.delegate = self
+   self.present(cancelOrderVC, animated: true, completion: completion)
+  }
+}
+
+extension KNCreateLimitOrderV2ViewController: KNCancelOrderConfirmPopUpDelegate {
+  func cancelOrderConfirmPopup(_ controller: KNCancelOrderConfirmPopUp, didConfirmCancel order: KNOrderObject) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order", customAttributes: ["action": "confirm_cancel"])
+    self.updateRelatedOrdersFromServer()
+    self.updatePendingBalancesFromServer()
   }
 }
