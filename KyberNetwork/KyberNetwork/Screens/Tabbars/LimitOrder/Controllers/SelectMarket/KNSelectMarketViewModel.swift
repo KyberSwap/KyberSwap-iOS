@@ -17,15 +17,13 @@ enum MarketSortType {
 class KNSelectMarketViewModel {
   fileprivate var markets: [KNMarket]
   fileprivate var cellViewModels: [KNMarketCellViewModel]
-  var marketType: String = "ETH" {
+  var marketType: String = "/ETH*" {
     didSet {
-      self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
       self.updateDisplayDataSource()
     }
   }
   var sortType: MarketSortType = .price(asc: false) {
     didSet {
-      self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
       self.updateDisplayDataSource()
     }
   }
@@ -50,8 +48,9 @@ class KNSelectMarketViewModel {
 
   init() {
     self.markets = KNRateCoordinator.shared.cachedMarket
-    self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
-    let filterd = self.cellViewModels.filter { $0.pairName.contains("ETH") }
+    let mapped =  self.markets.map { KNMarketCellViewModel(market: $0) }
+    self.cellViewModels = KNSelectMarketViewModel.filterDuplicateItem(mapped)
+    let filterd = self.cellViewModels.filter { $0.pairName.contains("/ETH*") }
     let sorted = filterd.sorted { (left, right) -> Bool in
       return KNMarketCellViewModel.compareViewModel(left: left, right: right, type: .price(asc: false))
     }
@@ -78,7 +77,13 @@ class KNSelectMarketViewModel {
 
   func updateMarketFromCoordinator() {
     self.markets = KNRateCoordinator.shared.cachedMarket
-    self.cellViewModels =  self.markets.map { KNMarketCellViewModel(market: $0) }
+    let mapped =  self.markets.map { KNMarketCellViewModel(market: $0) }
+    self.cellViewModels = KNSelectMarketViewModel.filterDuplicateItem(mapped)
     self.updateDisplayDataSource()
+  }
+
+  class func filterDuplicateItem(_ source: [KNMarketCellViewModel]) -> [KNMarketCellViewModel] {
+    var bufferDict = [String: Bool]()
+    return source.filter { bufferDict.updateValue(true, forKey: $0.pairName) == nil }
   }
 }

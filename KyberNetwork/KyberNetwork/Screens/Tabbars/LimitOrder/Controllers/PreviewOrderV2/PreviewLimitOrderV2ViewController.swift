@@ -1,9 +1,4 @@
-//
-//  PreviewLimitOrderV2ViewController.swift
-//  KyberNetwork
-//
-//  Created by Le Xuan Manh on 4/9/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
 import BigInt

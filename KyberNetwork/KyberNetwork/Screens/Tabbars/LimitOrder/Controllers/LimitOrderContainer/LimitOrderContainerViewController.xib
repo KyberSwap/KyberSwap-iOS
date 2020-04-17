@@ -21,15 +21,19 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LimitOrderContainerViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
-                <outlet property="buyKncButton" destination="RDX-xg-C32" id="dlq-Tj-hjp"/>
+                <outlet property="buyToolBarButton" destination="RDX-xg-C32" id="Uvd-EB-21l"/>
                 <outlet property="contentContainerView" destination="Zub-Ew-Bz8" id="nZD-Qg-MZa"/>
+                <outlet property="hasPendingTxView" destination="kWX-oU-1II" id="N9f-Dw-4Qd"/>
+                <outlet property="hasUnreadNotification" destination="qoK-VV-N1q" id="jzf-LP-TW4"/>
+                <outlet property="headerContainerView" destination="UM9-xL-Rjq" id="ZZZ-VQ-DCe"/>
                 <outlet property="marketDetailLabel" destination="mct-Gm-G3A" id="3vo-CV-sGW"/>
                 <outlet property="marketNameButton" destination="2c9-ao-Wbk" id="uC8-IT-yEl"/>
                 <outlet property="marketVolLabel" destination="4fx-Nt-YCL" id="udO-NE-Bn8"/>
                 <outlet property="pagerIndicator" destination="WKi-Pf-KFa" id="GY8-Lz-7jg"/>
                 <outlet property="pagerIndicatorCenterXContraint" destination="g6Y-Fn-eCe" id="Hda-Xj-jWb"/>
-                <outlet property="sellKncButton" destination="hUP-qU-dBD" id="8RJ-1v-JXb"/>
+                <outlet property="sellToolBarButton" destination="hUP-qU-dBD" id="63I-Xi-5QO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="walletNameLabel" destination="Rl7-Nt-kKk" id="2zT-JS-Nkv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -47,6 +51,9 @@
                                 <constraint firstAttribute="height" constant="48" id="wZj-7Y-5cA"/>
                             </constraints>
                             <state key="normal" image="menu_white_icon"/>
+                            <connections>
+                                <action selector="hamburgerMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="6bb-Qd-zMh"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KyberSwap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ko-xw-aPS">
                             <rect key="frame" x="20" y="43" width="103" height="22"/>
@@ -75,6 +82,9 @@
                                 <constraint firstAttribute="width" constant="48" id="pZe-LK-osS"/>
                             </constraints>
                             <state key="normal" image="notification_menu_icon"/>
+                            <connections>
+                                <action selector="notificationMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="jaF-7B-cvE"/>
+                            </connections>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qoK-VV-N1q">
                             <rect key="frame" x="344" y="40" width="6" height="6"/>
@@ -201,6 +211,12 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="111.83035714285714"/>
         </view>
+        <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="ftO-mr-foB">
+            <rectEdge key="edges" right="YES"/>
+            <connections>
+                <action selector="screenEdgePanGestureAction:" destination="-1" id="5V2-h7-myq"/>
+            </connections>
+        </screenEdgePanGestureRecognizer>
     </objects>
     <resources>
         <image name="arrow_drop_down_selected" width="10" height="5"/>

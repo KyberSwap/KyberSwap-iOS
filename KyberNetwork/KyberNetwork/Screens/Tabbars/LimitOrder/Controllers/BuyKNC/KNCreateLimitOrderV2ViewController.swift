@@ -93,6 +93,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.viewModel.updateMarket()
     self.bindMarketData()
     self.buySellButton.rounded(radius: 5)
+    self.discountPercentContainerView.rounded(radius: 5)
     let orderCellNib = UINib(nibName: KNLimitOrderCollectionViewCell.className, bundle: nil)
     self.relatedOrderCollectionView.register(
       orderCellNib,
@@ -108,7 +109,9 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   func coordinatorUpdateMarket(market: KNMarket) {
-    self.viewModel.updatePair(name: market.pair)
+    guard self.viewModel.updatePair(name: market.pair) else {
+      return
+    }
     guard isViewSetup else {
       return
     }
@@ -312,9 +315,21 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBAction func sumitButtonTapped(_ sender: UIButton) {
     if !self.validateUserHasSignedIn() { return }
     if !self.validateDataIfNeeded(isConfirming: true) { return }
-    //TODO: show cancel suggestion if needed
+    if self.showShouldCancelOtherOrdersIfNeeded() { return }
     if showConvertETHToWETHIfNeeded() { return }
     self.submitOrderDidVerifyData()
+  }
+
+  fileprivate func showShouldCancelOtherOrdersIfNeeded() -> Bool {
+    if self.viewModel.cancelSuggestOrders.isEmpty { return false }
+    let event = KNCreateLimitOrderViewEventV2.openCancelSuggestOrder(
+      header: self.viewModel.cancelSuggestHeaders,
+      sections: self.viewModel.cancelSuggestSections,
+      cancelOrder: self.viewModel.cancelOrder,
+      parent: self
+    )
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
+    return true
   }
 
   fileprivate func showConvertETHToWETHIfNeeded() -> Bool {
@@ -402,7 +417,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     guard self.isViewSetup else {
       return
     }
-    self.tokenAvailableLabel.text = self.viewModel.balanceText
+    self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
     self.view.layoutIfNeeded()
   }
 
@@ -442,6 +457,28 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       self.mainManagerOrderButtonHeightContraint.constant = 45
       self.mainManageOrdersButton.isHidden = false
     }
+  }
+
+  func coordinatorUnderstandCheckedInShowCancelSuggestOrder() {
+    if showConvertETHToWETHIfNeeded() { return }
+    self.submitOrderDidVerifyData()
+  }
+
+  func coordinatorUpdateNewSession(wallet: Wallet) {
+    self.viewModel.updateWallet(wallet)
+    guard self.isViewSetup else { return }
+    self.priceField.text = self.viewModel.targetPriceFromMarket
+    self.totalField.text = ""
+    self.amountField.text = ""
+    self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
+  }
+  
+  func coordinatorFinishConfirmOrder() {
+    self.viewModel.updateAmountTo("")
+    self.viewModel.updateAmountFrom("")
+    guard self.isViewSetup else { return }
+    self.amountField.text = ""
+    self.totalField.text = ""
   }
 }
 
@@ -488,7 +525,6 @@ extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
 extension KNCreateLimitOrderV2ViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     collectionView.deselectItem(at: indexPath, animated: true)
-    //TODO: implement cancel order
   }
 }
 
@@ -529,7 +565,7 @@ extension KNCreateLimitOrderV2ViewController: UICollectionViewDataSource {
     cell.updateCell(
       with: order,
       isReset: isReset,
-      hasAction: collectionView == self.relatedOrderCollectionView,
+      hasAction: order.state == .open,
       bgColor: color
     )
     cell.delegate = self
@@ -606,19 +642,18 @@ extension KNCreateLimitOrderV2ViewController: KNLimitOrderCollectionViewCellDele
   }
 
   fileprivate func openCancelOrder(_ order: KNOrderObject, completion: (() -> Void)?) {
-    let cancelOrderVC = KNCancelOrderConfirmPopUp(order: order)
-    cancelOrderVC.loadViewIfNeeded()
-    cancelOrderVC.modalTransitionStyle = .crossDissolve
-    cancelOrderVC.modalPresentationStyle = .overFullScreen
-    cancelOrderVC.delegate = self
-    self.present(cancelOrderVC, animated: true, completion: completion)
+   let cancelOrderVC = KNCancelOrderConfirmPopUp(order: order)
+   cancelOrderVC.loadViewIfNeeded()
+   cancelOrderVC.modalTransitionStyle = .crossDissolve
+   cancelOrderVC.modalPresentationStyle = .overFullScreen
+   cancelOrderVC.delegate = self
+   self.present(cancelOrderVC, animated: true, completion: completion)
   }
 }
 
 extension KNCreateLimitOrderV2ViewController: KNCancelOrderConfirmPopUpDelegate {
   func cancelOrderConfirmPopup(_ controller: KNCancelOrderConfirmPopUp, didConfirmCancel order: KNOrderObject) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "cancel_order"])
-    self.updateRelatedOrdersView()
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order", customAttributes: ["action": "confirm_cancel"])
     self.updateRelatedOrdersFromServer()
     self.updatePendingBalancesFromServer()
   }

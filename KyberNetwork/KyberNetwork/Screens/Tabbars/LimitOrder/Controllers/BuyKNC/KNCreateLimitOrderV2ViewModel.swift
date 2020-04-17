@@ -63,9 +63,9 @@ class KNCreateLimitOrderV2ViewModel {
     return formatter.string(from: NSNumber(value: marketPrice ?? 0)) ?? ""
   }
 
-  func updatePair(name: String) {
+  func updatePair(name: String) -> Bool {
     let pair = name.components(separatedBy: "_")
-    guard let left = pair.first, let right = pair.last, !left.isEmpty, !right.isEmpty else { return }
+    guard let left = pair.first, let right = pair.last, !left.isEmpty, !right.isEmpty else { return false }
     self.currentPair = name
     self.updateMarket()
     self.amountTo = ""
@@ -83,7 +83,7 @@ class KNCreateLimitOrderV2ViewModel {
       })
     }
 
-    if right == "ETH" || left == "WETH" {
+    if right == "ETH" || right == "WETH" {
       rightToken = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
     } else {
       rightToken = allTokens.first(where: { (token) -> Bool in
@@ -98,6 +98,10 @@ class KNCreateLimitOrderV2ViewModel {
         self.from = rightToken!
         self.to = leftToken!
       }
+      self.updateFromBalance()
+      return true
+    } else {
+      return false
     }
   }
 
@@ -105,16 +109,20 @@ class KNCreateLimitOrderV2ViewModel {
     self.market = KNRateCoordinator.shared.getMarketWith(name: self.currentPair)
   }
 
-  func updateBalance(_ balances: [String: Balance]) {
-    balances.forEach { (key, value) in
-      self.balances[key] = value
-    }
-    if let bal = balances[self.from.contract] {
+  func updateFromBalance() {
+    if let bal = self.balances[self.from.contract] {
       if let oldBal = self.balance, oldBal.value != bal.value {
         self.isUseAllBalance = false
       }
       self.balance = bal
     }
+  }
+
+  func updateBalance(_ balances: [String: Balance]) {
+    balances.forEach { (key, value) in
+      self.balances[key] = value
+    }
+    self.updateFromBalance()
   }
 
   func updateTargetPrice(_ price: String) {
@@ -124,6 +132,13 @@ class KNCreateLimitOrderV2ViewModel {
     } else {
       self.updateAmountFrom(self.amountFrom)
     }
+    self.cancelSuggestOrders = self.relatedOrders.filter({
+      if self.isBuy {
+        return $0.targetPrice > (1 / self.targetPrice.doubleValue)
+      }
+      return $0.targetPrice > self.targetPrice.doubleValue
+    })
+    self.updateRelatedAndCancelSuggestionData()
   }
 
   var availableBalance: BigInt {
@@ -388,6 +403,7 @@ class KNCreateLimitOrderV2ViewModel {
 
   var isRateTooBig: Bool {
     let marketPrice = self.targetPriceFromMarket.doubleValue
+    if marketPrice == 0 { return false }
     return self.targetPrice.doubleValue > 10 * marketPrice
   }
 
@@ -428,7 +444,12 @@ class KNCreateLimitOrderV2ViewModel {
     self.relatedOrders = orders
       .filter({ return $0.state == .open })
       .sorted(by: { return $0.dateToDisplay > $1.dateToDisplay })
-    self.cancelSuggestOrders = self.relatedOrders.filter({ return $0.targetPrice > self.targetPrice.doubleValue }) //TODO: need to recheck condition
+    self.cancelSuggestOrders = self.relatedOrders.filter({
+      if self.isBuy {
+        return $0.targetPrice > (1 / self.targetPrice.doubleValue)
+      }
+      return $0.targetPrice > self.targetPrice.doubleValue
+    })
     self.updateRelatedAndCancelSuggestionData()
   }
 
@@ -468,5 +489,28 @@ class KNCreateLimitOrderV2ViewModel {
 
   func displayDate(for order: KNOrderObject) -> String {
     return dateFormatter.string(from: order.dateToDisplay)
+  }
+  
+  func updateWallet(_ wallet: Wallet) {
+    self.wallet = wallet
+    let address = wallet.address.description
+    self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: address) ?? KNWalletObject(address: address)
+    self.updateMarket()
+    self.amountTo = ""
+    self.amountFrom = ""
+    self.updateTargetPrice(self.targetPriceFromMarket)
+    self.isUseAllBalance = false
+    
+    self.feePercentage = 0
+    self.transferFeePercent = 0
+    self.discountPercentage = 0
+
+    self.balances = [:]
+    self.balance = nil
+    
+    self.pendingBalances = [:]
+    self.relatedOrders = []
+    self.relatedHeaders = []
+    self.relatedSections = [:]
   }
 }

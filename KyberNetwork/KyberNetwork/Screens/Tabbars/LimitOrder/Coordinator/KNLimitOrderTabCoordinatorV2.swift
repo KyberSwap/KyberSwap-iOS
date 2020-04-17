@@ -80,14 +80,14 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
 extension KNLimitOrderTabCoordinatorV2 {
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
     self.session = session
-//    self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
+    self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
     if resetRoot {
       self.navigationController.popToRootViewController(animated: false)
     }
     self.balances = [:]
     self.approveTx = [:]
     let pendingTrans = self.session.transactionStorage.kyberPendingTransactions
-//    self.rootViewController.coordinatorDidUpdatePendingTransactions(pendingTrans)
+    self.rootViewController.coordinatorDidUpdatePendingTransactions(pendingTrans)
     if self.navigationController.viewControllers.first(where: { $0 is KNHistoryViewController }) == nil {
       self.historyCoordinator = nil
       self.historyCoordinator = KNHistoryCoordinator(
@@ -105,7 +105,7 @@ extension KNLimitOrderTabCoordinatorV2 {
   }
 
   func appCoordinatorDidUpdateWalletObjects() {
-//    self.rootViewController.coordinatorUpdateWalletObjects()
+    self.rootViewController.coordinatorUpdateWalletObjects()
     self.historyCoordinator?.appCoordinatorDidUpdateWalletObjects()
   }
 
@@ -151,7 +151,7 @@ extension KNLimitOrderTabCoordinatorV2 {
   }
 
   func appCoordinatorPendingTransactionsDidUpdate(transactions: [KNTransaction]) {
-//    self.rootViewController.coordinatorDidUpdatePendingTransactions(transactions)
+    self.rootViewController.coordinatorDidUpdatePendingTransactions(transactions)
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate(transactions)
   }
 
@@ -230,6 +230,8 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       self.getPendingBalances(address: address)
     case .changeMarket:
       self.openSelectMarketScreen()
+    case .openCancelSuggestOrder(let headers, let sections, let cancelOrder, let parent):
+      self.openCancelSuggestionOrderScreen(header: headers, sections: sections, cancelOrder: cancelOrder, parent: parent)
     default: break
     }
   }
@@ -647,6 +649,12 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
     self.navigationController.pushViewController(self.marketsVC, animated: true)
   }
 
+  fileprivate func openCancelSuggestionOrderScreen(header: [String], sections: [String: [KNOrderObject]], cancelOrder: KNOrderObject?, parent: UIViewController) {
+    let vc = KNCancelSuggestOrdersViewController(header: header, sections: sections, cancelOrder: cancelOrder, parent: parent)
+    vc.delegate = self
+    self.navigationController.pushViewController(vc, animated: true)
+  }
+
   fileprivate func openSendTokenView() {
     if let topVC = self.navigationController.topViewController, topVC is KSendTokenViewController { return }
     if self.session.transactionStorage.kyberPendingTransactions.isEmpty {
@@ -699,6 +707,7 @@ extension KNLimitOrderTabCoordinatorV2: PreviewLimitOrderV2ViewControllerDelegat
         self.navigationController.popToRootViewController(animated: true, completion: {
           self.confirmVC = nil
           self.convertVC = nil
+          self.rootViewController.coordinatorFinishConfirmOrder()
         })
       } else {
         KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["info": "failed_\(order.from.symbol)_\(order.to.symbol)"])
@@ -881,5 +890,12 @@ extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
   func selectMarketViewControllerDidSelectMarket(_ controller: KNSelectMarketViewController, market: KNMarket) {
     self.navigationController.popViewController(animated: true)
     self.rootViewController.coordinatorUpdateMarket(market: market)
+  }
+}
+
+extension KNLimitOrderTabCoordinatorV2: KNCancelSuggestOrdersViewControllerDelegate {
+  func cancelSuggestOrdersViewControllerDidCheckUnderstand(_ controller: KNCancelSuggestOrdersViewController) {
+    self.navigationController.popToRootViewController(animated: true)
+    self.rootViewController.coordinatorUnderstandCheckedInShowCancelSuggestOrder(source: controller.sourceVC)
   }
 }
