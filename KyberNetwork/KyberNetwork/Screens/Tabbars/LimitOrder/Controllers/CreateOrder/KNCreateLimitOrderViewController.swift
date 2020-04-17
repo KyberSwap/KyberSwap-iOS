@@ -15,6 +15,7 @@ enum KNCreateLimitOrderViewEvent {
   case getRelatedOrders(address: String, src: String, dest: String, minRate: Double)
   case getPendingBalances(address: String)
   case changeMarket
+  case close
 }
 
 protocol KNCreateLimitOrderViewControllerDelegate: class {
@@ -31,7 +32,6 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
   @IBOutlet weak var scrollContainerView: UIScrollView!
   @IBOutlet weak var limitOrderTextLabel: UILabel!
   @IBOutlet weak var walletNameLabel: UILabel!
-  @IBOutlet weak var hasPendingTxView: UIView!
 
   @IBOutlet weak var tokenDateContainerView: UIView!
   @IBOutlet weak var fromTokenButton: UIButton!
@@ -95,22 +95,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
   @IBOutlet weak var scrollViewBottomPaddingConstraints: NSLayoutConstraint!
 
   @IBOutlet weak var relatedOrderCollectionView: UICollectionView!
-  @IBOutlet weak var hasUnreadNotification: UIView!
   @IBOutlet weak var targetReverseRateLabel: UILabel!
-
-  lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
-    let viewModel = KNBalanceTabHamburgerMenuViewModel(
-      walletObjects: KNWalletStorage.shared.wallets,
-      currentWallet: self.viewModel.walletObject
-    )
-    let hamburgerVC = KNBalanceTabHamburgerMenuViewController(viewModel: viewModel)
-    hamburgerVC.view.frame = self.view.bounds
-    self.view.addSubview(hamburgerVC.view)
-    self.addChildViewController(hamburgerVC)
-    hamburgerVC.didMove(toParentViewController: self)
-    hamburgerVC.delegate = self
-    return hamburgerVC
-  }()
 
   lazy var toolBar: KNCustomToolbar = {
     return KNCustomToolbar(
@@ -128,23 +113,12 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  deinit {
-    let name = Notification.Name(kUpdateListNotificationsKey)
-    NotificationCenter.default.removeObserver(self, name: name, object: nil)
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.submitOrderButton.applyGradient()
     self.setupUI()
-    let name = Notification.Name(kUpdateListNotificationsKey)
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(self.notificationDidUpdate(_:)),
-      name: name,
-      object: nil
-    )
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -217,7 +191,6 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
 
   fileprivate func setupUI() {
     self.walletNameLabel.text = self.viewModel.walletNameString
-    hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
     self.separatorView.dashLine(width: 1.0, color: UIColor.Kyber.border)
     self.separatorView.backgroundColor = .clear
     self.submitOrderButton.rounded(radius: self.submitOrderButton.frame.height / 2.0)
@@ -287,9 +260,6 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
       self.updateTargetRateUI(rateString)
       self.viewModel.updateFocusTextField(2)
     }
-    // Update hamburger menu
-    self.hasPendingTxView.rounded(radius: self.hasPendingTxView.frame.height / 2.0)
-    self.hamburgerMenu.hideMenu(animated: false)
 
     let tapCurrentRate = UITapGestureRecognizer(target: self, action: #selector(self.currentRateDidTapped(_:)))
     self.currentRateLabel.addGestureRecognizer(tapCurrentRate)
@@ -313,12 +283,9 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
       forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
       withReuseIdentifier: KNTransactionCollectionReusableView.kOrderViewID
     )
-    
     self.cancelOrdersCollectionView.delegate = self
     self.cancelOrdersCollectionView.dataSource = self
-
     self.checkAddressEligible(nil)
-    self.notificationDidUpdate(nil)
   }
 
   @IBAction func fromTokenButtonPressed(_ sender: Any) {
@@ -391,16 +358,6 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
     self.updateRelatedOrdersFromServer()
 
     self.updateEstimateRateFromNetwork(showWarning: true)
-  }
-
-  @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
-    self.hamburgerMenu.gestureScreenEdgePanAction(sender)
-  }
-
-  @IBAction func hamburgerMenuButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order", customAttributes: ["action": "hamburger_menu_pressed"])
-    self.view.endEditing(true)
-    self.hamburgerMenu.openMenu(animated: true)
   }
 
   @IBAction func firstPercentageButtonPressed(_ sender: Any) {
@@ -592,20 +549,8 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
     self.confirmCancelButton.alpha = self.isUnderStand ? 1.0 : 0.5
   }
 
-  @IBAction func notificationMenuButtonPressed(_ sender: UIButton) {
-    delegate?.kCreateLimitOrderViewController(self, run: .selectNotifications)
-  }
-
-  @objc func notificationDidUpdate(_ sender: Any?) {
-    let numUnread: Int = {
-      if IEOUserStorage.shared.user == nil { return 0 }
-      return KNNotificationCoordinator.shared.numberUnread
-    }()
-    self.update(notificationsCount: numUnread)
-  }
-
-  func update(notificationsCount: Int) {
-    self.hasUnreadNotification.isHidden = notificationsCount == 0
+  @IBAction func closeButtonPressed(_ sender: Any) {
+    self.delegate?.kCreateLimitOrderViewController(self, run: .close)
   }
 }
 
@@ -785,7 +730,7 @@ extension KNCreateLimitOrderViewController {
   }
 
   fileprivate func validateDataIfNeeded(isConfirming: Bool = false) -> Bool {
-    if !isConfirming && !self.isErrorMessageEnabled || !self.hamburgerMenu.view.isHidden { return false }
+    if !isConfirming && !self.isErrorMessageEnabled { return false }
     if !isConfirming && (self.fromAmountTextField.isEditing || self.toAmountTextField.isEditing) { return false }
     guard self.viewModel.from != self.viewModel.to else {
       self.showWarningTopBannerMessage(
@@ -971,11 +916,6 @@ extension KNCreateLimitOrderViewController {
     self.viewModel.updateAmount("", isSource: false)
     self.updateTargetRateUI("")
     self.updateTokensView()
-    self.hamburgerMenu.update(
-      walletObjects: KNWalletStorage.shared.wallets,
-      currentWallet: self.viewModel.walletObject
-    )
-    self.hamburgerMenu.hideMenu(animated: false)
     // auto fill current rate
     if let rate = self.viewModel.rateFromNode ?? self.viewModel.cachedProdRate, !rate.isZero {
       let rateString = rate.string(
@@ -1003,10 +943,6 @@ extension KNCreateLimitOrderViewController {
   func coordinatorUpdateWalletObjects() {
     self.viewModel.updateWalletObject()
     self.walletNameLabel.text = self.viewModel.walletNameString
-    self.hamburgerMenu.update(
-      walletObjects: KNWalletStorage.shared.wallets,
-      currentWallet: self.viewModel.walletObject
-    )
     self.view.layoutIfNeeded()
   }
 
@@ -1140,12 +1076,6 @@ extension KNCreateLimitOrderViewController {
       self.viewModel.updateProdCachedRate(rate)
       self.updateCurrentMarketRateUI()
     }
-  }
-
-  func coordinatorDidUpdatePendingTransactions(_ transactions: [KNTransaction]) {
-    self.hamburgerMenu.update(transactions: transactions)
-    self.hasPendingTxView.isHidden = transactions.isEmpty
-    self.view.layoutIfNeeded()
   }
 
   func coordinatorDoneSubmittingOrder() {

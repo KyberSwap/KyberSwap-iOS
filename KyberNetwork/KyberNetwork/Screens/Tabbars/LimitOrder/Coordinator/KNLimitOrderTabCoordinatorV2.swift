@@ -11,6 +11,14 @@ import APIKit
 import QRCodeReaderViewController
 import WalletConnect
 
+protocol KNLimitOrderTabCoordinatorV2Delegate: class {
+  func limitOrderTabCoordinatorDidSelectWallet(_ wallet: KNWalletObject)
+  func limitOrderTabCoordinatorRemoveWallet(_ wallet: Wallet)
+  func limitOrderTabCoordinatorDidSelectAddWallet()
+  func limitOrderTabCoordinatorDidSelectPromoCode()
+  func limitOrderTabCoordinatorOpenExchange(from: String, to: String)
+}
+
 class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
 
   let navigationController: UINavigationController
@@ -24,13 +32,14 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
   var confirmedOrder: KNLimitOrder?
   var signedData: Data?
 
-  weak var delegate: KNLimitOrderTabCoordinatorDelegate?
+  weak var delegate: KNLimitOrderTabCoordinatorV2Delegate?
 
   fileprivate var balances: [String: Balance] = [:]
   fileprivate var approveTx: [String: TimeInterval] = [:]
 
   fileprivate var historyCoordinator: KNHistoryCoordinator?
   fileprivate var sendTokenCoordinator: KNSendTokenViewCoordinator?
+  fileprivate var limitOrderV1Coordinator: KNLimitOrderTabCoordinator?
 
   fileprivate var confirmVC: PreviewLimitOrderV2ViewController?
   fileprivate var manageOrdersVC: KNManageOrdersViewController?
@@ -102,11 +111,14 @@ extension KNLimitOrderTabCoordinatorV2 {
     self.convertVC?.updateETHBalance(BigInt(0))
     self.convertVC?.updateWETHBalance(self.balances)
     self.convertVC?.updatePendingWETHBalance(0)
+
+    self.limitOrderV1Coordinator?.appCoordinatorDidUpdateNewSession(session)
   }
 
   func appCoordinatorDidUpdateWalletObjects() {
     self.rootViewController.coordinatorUpdateWalletObjects()
     self.historyCoordinator?.appCoordinatorDidUpdateWalletObjects()
+    self.limitOrderV1Coordinator?.appCoordinatorDidUpdateWalletObjects()
   }
 
   func appCoordinatorGasPriceCachedDidUpdate() {
@@ -124,6 +136,11 @@ extension KNLimitOrderTabCoordinatorV2 {
     otherTokensBalance.forEach { self.balances[$0.key] = $0.value }
     self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: self.balances)
     self.convertVC?.updateWETHBalance(otherTokensBalance)
+    self.limitOrderV1Coordinator?.appCoordinatorTokenBalancesDidUpdate(
+      totalBalanceInUSD: totalBalanceInUSD,
+      totalBalanceInETH: totalBalanceInETH,
+      otherTokensBalance: otherTokensBalance
+    )
   }
 
   func appCoordinatorETHBalanceDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, ethBalance: Balance) {
@@ -133,21 +150,30 @@ extension KNLimitOrderTabCoordinatorV2 {
     }
     self.sendTokenCoordinator?.coordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
     self.convertVC?.updateETHBalance(ethBalance.value)
+    self.limitOrderV1Coordinator?.appCoordinatorETHBalanceDidUpdate(
+      totalBalanceInUSD: totalBalanceInUSD,
+      totalBalanceInETH: totalBalanceInETH,
+      ethBalance: ethBalance
+    )
   }
 
   func appCoordinatorUSDRateDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt) {
-//    self.rootViewController.coordinatorTrackerRateDidUpdate()
     self.sendTokenCoordinator?.coordinatorDidUpdateTrackerRate()
+    self.limitOrderV1Coordinator?.appCoordinatorUSDRateDidUpdate(
+      totalBalanceInUSD: totalBalanceInUSD,
+      totalBalanceInETH: totalBalanceInETH
+    )
   }
 
   func appCoordinatorUpdateExchangeTokenRates() {
-//    self.rootViewController.coordinatorUpdateProdCachedRates()
+    self.limitOrderV1Coordinator?.appCoordinatorUpdateExchangeTokenRates()
   }
 
   func appCoordinatorTokenObjectListDidUpdate(_ tokenObjects: [TokenObject]) {
     let supportedTokens = KNSupportedTokenStorage.shared.supportedTokens
     self.tokens = supportedTokens
     self.sendTokenCoordinator?.coordinatorTokenObjectListDidUpdate(tokenObjects)
+    self.limitOrderV1Coordinator?.appCoordinatorTokenObjectListDidUpdate(tokenObjects)
   }
 
   func appCoordinatorPendingTransactionsDidUpdate(transactions: [KNTransaction]) {
@@ -641,10 +667,6 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
     self.historyCoordinator?.start()
   }
 
-  fileprivate func openSearchToken(from: TokenObject, to: TokenObject, isSource: Bool, pendingBalances: JSONDictionary) {
-    // TODO: open select pair
-  }
-
   fileprivate func openSelectMarketScreen() {
     self.navigationController.pushViewController(self.marketsVC, animated: true)
   }
@@ -890,6 +912,25 @@ extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
   func selectMarketViewControllerDidSelectMarket(_ controller: KNSelectMarketViewController, market: KNMarket) {
     self.navigationController.popViewController(animated: true)
     self.rootViewController.coordinatorUpdateMarket(market: market)
+  }
+
+  func selectMarketViewControllerDidSelectLOV1(_ controller: KNSelectMarketViewController) {
+    self.limitOrderV1Coordinator = KNLimitOrderTabCoordinator(
+      navigationController: self.navigationController,
+      session: self.session,
+      balances: self.balances,
+      approveTx: self.approveTx
+    )
+    self.limitOrderV1Coordinator?.delegate = self
+    self.limitOrderV1Coordinator?.start()
+  }
+}
+
+extension KNLimitOrderTabCoordinatorV2: KNLimitOrderTabCoordinatorDelegate {
+  func limitOrderTabCoordinatorDidStop(_ coordinator: KNLimitOrderTabCoordinator) {
+    self.navigationController.popViewController(animated: true) {
+      self.limitOrderV1Coordinator = nil
+    }
   }
 }
 

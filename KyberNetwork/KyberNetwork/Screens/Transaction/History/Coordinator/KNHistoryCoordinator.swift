@@ -378,31 +378,26 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
     }()
     session.externalProvider.getTransactionByHash(transaction.id) { [weak self] (pendingTx, _) in
       guard let `self` = self else { return }
-      if let fetchedTx = pendingTx {
-        if !fetchedTx.input.isEmpty {
-          self.session
-            .externalProvider
-            .speedUpSwapTransaction(
-              for: filteredToken,
-              amount: amount,
-              nonce: nouce,
-              data: fetchedTx.input,
-              gasPrice: newPrice,
-              gasLimit: gasLimit
-            ) { sendResult in
-              switch sendResult {
-              case .success(let txHash):
-                let tx = transaction.convertToSpeedUpTransaction(newHash: txHash, newGasPrice: newPrice.displayRate(decimals: 0).removeGroupSeparator())
-                self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, state: .speedingUp, completion: {
-                  self.openTransactionStatusPopUp(transaction: tx)
-                })
-              case .failure:
-                KNNotificationUtil.postNotification(
-                  for: kTransactionDidUpdateNotificationKey,
-                  object: [Constants.transactionIsCancel: TransactionType.speedup],
-                  userInfo: nil
-                )
-              }
+      if let fetchedTx = pendingTx, !fetchedTx.input.isEmpty {
+        self.session.externalProvider.speedUpSwapTransaction(
+          for: filteredToken,
+          amount: amount,
+          nonce: nouce,
+          data: fetchedTx.input,
+          gasPrice: newPrice,
+          gasLimit: gasLimit) { sendResult in
+          switch sendResult {
+          case .success(let txHash):
+            let tx = transaction.convertToSpeedUpTransaction(newHash: txHash, newGasPrice: newPrice.displayRate(decimals: 0).removeGroupSeparator())
+            self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, state: .speedingUp, completion: {
+              self.openTransactionStatusPopUp(transaction: tx)
+            })
+          case .failure:
+            KNNotificationUtil.postNotification(
+              for: kTransactionDidUpdateNotificationKey,
+              object: [Constants.transactionIsCancel: TransactionType.speedup],
+              userInfo: nil
+            )
           }
         }
       }

@@ -75,7 +75,6 @@ class UserKYCDetailsInfo: Object {
 
   convenience init(userID: Int, dict: JSONDictionary, rejectReason: String) {
     self.init()
-    
   }
 
   override class func primaryKey() -> String? {

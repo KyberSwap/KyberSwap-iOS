@@ -794,7 +794,7 @@ extension KSwapViewController {
   fileprivate func removeObserveNotification() {
     let name = Notification.Name(kProdCachedRateFailedToLoadNotiKey)
     NotificationCenter.default.removeObserver(self, name: name, object: nil)
-    
+
     let nameUpdateListNotificationKey = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.removeObserver(self, name: nameUpdateListNotificationKey, object: nil)
   }

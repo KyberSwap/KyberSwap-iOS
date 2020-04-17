@@ -1,14 +1,10 @@
-//
-//  KNSelectMarketViewController.swift
-//  KyberNetwork
-//
-//  Created by Ta Minh Quan on 4/7/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
 
 protocol KNSelectMarketViewControllerDelegate: class {
   func selectMarketViewControllerDidSelectMarket(_ controller: KNSelectMarketViewController, market: KNMarket)
+  func selectMarketViewControllerDidSelectLOV1(_ controller: KNSelectMarketViewController)
 }
 
 class KNSelectMarketViewController: KNBaseViewController {
@@ -137,6 +133,10 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.fakeTextField.inputAccessoryView = self.toolBar
     self.pickerView.reloadAllComponents()
     self.fakeTextField.becomeFirstResponder()
+  }
+
+  @IBAction func limitOrderV1ButtonPressed(_ sender: Any) {
+    self.delegate?.selectMarketViewControllerDidSelectLOV1(self)
   }
 
   @IBAction func marketTypeButtonTapped(_ sender: UIButton) {

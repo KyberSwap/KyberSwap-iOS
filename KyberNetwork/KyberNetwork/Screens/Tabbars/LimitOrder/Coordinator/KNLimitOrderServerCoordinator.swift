@@ -243,7 +243,7 @@ class KNLimitOrderServerCoordinator {
       }
     }
   }
-  
+
   func getMarket(completion: @escaping ((Result<[[String: String]], AnyError>) -> Void)) {
     DispatchQueue.global(qos: .background).async {
       self.provider.request(.getMarkets) { [weak self] result in

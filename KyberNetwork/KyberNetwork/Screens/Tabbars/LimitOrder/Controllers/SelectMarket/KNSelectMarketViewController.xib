@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -69,14 +69,26 @@
                                 <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="SFK-fg-RKF"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecV-Ph-brF">
+                            <rect key="frame" x="272" y="43.5" width="87" height="27"/>
+                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
+                            <state key="normal" title="Limit Order V1">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="limitOrderV1ButtonPressed:" destination="-1" eventType="touchUpInside" id="iMV-Z0-J6w"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="2Gb-wx-r9C" firstAttribute="centerX" secondItem="XFV-a7-4wd" secondAttribute="centerX" id="2q4-Vy-7QA"/>
+                        <constraint firstAttribute="trailing" secondItem="ecV-Ph-brF" secondAttribute="trailing" constant="16" id="BFu-5n-leN"/>
                         <constraint firstAttribute="bottom" secondItem="2Gb-wx-r9C" secondAttribute="bottom" constant="16" id="K9b-IC-L8g"/>
                         <constraint firstAttribute="height" constant="82" id="KdM-ZY-1DN"/>
                         <constraint firstItem="i3I-ke-Wbw" firstAttribute="leading" secondItem="XFV-a7-4wd" secondAttribute="leading" constant="16" id="SJF-rq-ngm"/>
                         <constraint firstItem="i3I-ke-Wbw" firstAttribute="centerY" secondItem="2Gb-wx-r9C" secondAttribute="centerY" id="Yaq-mr-2jN"/>
+                        <constraint firstItem="ecV-Ph-brF" firstAttribute="centerY" secondItem="2Gb-wx-r9C" secondAttribute="centerY" constant="2" id="uzR-Oe-mSn"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GwV-tS-fLU">
@@ -153,7 +165,7 @@
                                 <constraint firstAttribute="width" constant="24" id="ENX-bK-QL9"/>
                             </constraints>
                             <color key="tintColor" red="0.3529411764705882" green="0.36862745098039218" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" image="magnifyingglass" catalog="system">
+                            <state key="normal" image="search_black_icon">
                                 <color key="titleColor" red="0.1137254902" green="0.18823529410000001" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
@@ -332,7 +344,7 @@
     <resources>
         <image name="arrow_down_grey" width="8" height="6"/>
         <image name="back_white_icon" width="38" height="19"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="search_black_icon" width="15" height="16"/>
         <image name="unselected_fav_icon" width="14" height="13"/>
     </resources>
 </document>

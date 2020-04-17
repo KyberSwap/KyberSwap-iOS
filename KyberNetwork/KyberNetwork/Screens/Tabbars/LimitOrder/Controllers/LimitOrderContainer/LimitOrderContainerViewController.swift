@@ -91,7 +91,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
     self.hamburgerMenu.hideMenu(animated: false)
     self.hasUnreadNotification.rounded(radius: hasUnreadNotification.frame.height / 2)
     self.walletNameLabel.text = self.walletNameString
-    
+
     let name = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.addObserver(
       self,

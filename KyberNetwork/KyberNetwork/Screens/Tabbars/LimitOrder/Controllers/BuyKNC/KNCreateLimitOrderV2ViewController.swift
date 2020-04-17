@@ -3,6 +3,7 @@
 import UIKit
 import BigInt
 
+//swiftlint:disable file_length
 class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBOutlet weak var priceField: UITextField!
   @IBOutlet weak var amountField: UITextField!
@@ -464,7 +465,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.amountField.text = ""
     self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
   }
-  
+
   func coordinatorFinishConfirmOrder() {
     self.viewModel.updateAmountTo("")
     self.viewModel.updateAmountFrom("")

@@ -1,9 +1,4 @@
-//
-//  KNSelectMarketViewModel.swift
-//  KyberNetwork
-//
-//  Created by Ta Minh Quan on 4/8/20.
-//
+// Copyright SIX DAY LLC. All rights reserved.
 
 import Foundation
 
