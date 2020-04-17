@@ -316,6 +316,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
     return leftToken != nil && rightToken != nil
   }
+
+  func coordinatorFinishConfirmOrder() {
+    for vc in self.pages {
+      vc.coordinatorFinishConfirmOrder()
+    }
+  }
 }
 
 extension LimitOrderContainerViewController: UIPageViewControllerDelegate {

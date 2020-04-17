@@ -707,6 +707,7 @@ extension KNLimitOrderTabCoordinatorV2: PreviewLimitOrderV2ViewControllerDelegat
         self.navigationController.popToRootViewController(animated: true, completion: {
           self.confirmVC = nil
           self.convertVC = nil
+          self.rootViewController.coordinatorFinishConfirmOrder()
         })
       } else {
         KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["info": "failed_\(order.from.symbol)_\(order.to.symbol)"])

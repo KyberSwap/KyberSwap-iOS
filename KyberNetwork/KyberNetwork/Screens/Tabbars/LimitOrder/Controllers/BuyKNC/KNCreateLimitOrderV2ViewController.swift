@@ -464,6 +464,14 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.amountField.text = ""
     self.tokenAvailableLabel.text = "\(self.viewModel.balanceText) \(self.viewModel.fromSymbol)"
   }
+  
+  func coordinatorFinishConfirmOrder() {
+    self.viewModel.updateAmountTo("")
+    self.viewModel.updateAmountFrom("")
+    guard self.isViewSetup else { return }
+    self.amountField.text = ""
+    self.totalField.text = ""
+  }
 }
 
 extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
