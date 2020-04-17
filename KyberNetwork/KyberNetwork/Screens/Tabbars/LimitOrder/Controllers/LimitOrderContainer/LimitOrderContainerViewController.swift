@@ -161,7 +161,11 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   fileprivate func setupUI(market: KNMarket) {
     let pair = market.pair.components(separatedBy: "_")
-    self.marketNameButton.setTitle("\(pair.last ?? "")/\(pair.first ?? "")", for: .normal)
+    var sourceTokenSym = pair.first ?? ""
+    if sourceTokenSym == "ETH" || sourceTokenSym == "WETH" {
+      sourceTokenSym = "ETH*"
+    }
+    self.marketNameButton.setTitle("\(pair.last ?? "")/\(sourceTokenSym)", for: .normal)
     let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
@@ -231,6 +235,14 @@ class LimitOrderContainerViewController: KNBaseViewController {
   }
 
   func coordinatorUpdateMarket(market: KNMarket) {
+    guard self.validateMarket(market) else {
+      self.showErrorTopBannerMessage(
+        with: NSLocalizedString("error", value: "Error", comment: ""),
+        message: "Can not find this pair".toBeLocalised(),
+        time: 2.0
+      )
+      return
+    }
     self.currentMarket = market
     self.setupUI(market: market)
     for vc in self.pages {
@@ -273,10 +285,36 @@ class LimitOrderContainerViewController: KNBaseViewController {
     let addr = self.walletObject.address.lowercased()
     return "|  \(addr.prefix(10))...\(addr.suffix(8))"
   }
-  
+
   func coordinatorUpdateWalletObjects() {
     self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: self.walletObject.address) ?? self.walletObject
     self.walletNameLabel.text = self.walletNameString
+  }
+
+  func validateMarket(_ market: KNMarket) -> Bool {
+    var leftToken: TokenObject?
+    var rightToken: TokenObject?
+    let allTokens = KNSupportedTokenStorage.shared.supportedTokens
+    let pair = market.pair.components(separatedBy: "_")
+    let right = pair.first ?? ""
+    let left = pair.last ?? ""
+    if left == "ETH" || left == "WETH" {
+      leftToken = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
+    } else {
+      leftToken = allTokens.first(where: { (token) -> Bool in
+        return token.symbol == left
+      })
+    }
+
+    if right == "ETH" || right == "WETH" {
+      rightToken = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
+    } else {
+      rightToken = allTokens.first(where: { (token) -> Bool in
+        return token.symbol == right
+      })
+    }
+
+    return leftToken != nil && rightToken != nil
   }
 }
 

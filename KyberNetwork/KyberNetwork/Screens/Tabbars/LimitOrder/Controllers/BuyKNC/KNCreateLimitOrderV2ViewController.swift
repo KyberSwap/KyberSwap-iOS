@@ -107,7 +107,9 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   func coordinatorUpdateMarket(market: KNMarket) {
-    self.viewModel.updatePair(name: market.pair)
+    guard self.viewModel.updatePair(name: market.pair) else {
+      return
+    }
     guard isViewSetup else {
       return
     }

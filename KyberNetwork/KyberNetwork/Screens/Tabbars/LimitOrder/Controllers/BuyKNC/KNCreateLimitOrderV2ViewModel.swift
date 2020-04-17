@@ -63,9 +63,9 @@ class KNCreateLimitOrderV2ViewModel {
     return formatter.string(from: NSNumber(value: marketPrice ?? 0)) ?? ""
   }
 
-  func updatePair(name: String) {
+  func updatePair(name: String) -> Bool {
     let pair = name.components(separatedBy: "_")
-    guard let left = pair.first, let right = pair.last, !left.isEmpty, !right.isEmpty else { return }
+    guard let left = pair.first, let right = pair.last, !left.isEmpty, !right.isEmpty else { return false }
     self.currentPair = name
     self.updateMarket()
     self.amountTo = ""
@@ -83,7 +83,7 @@ class KNCreateLimitOrderV2ViewModel {
       })
     }
 
-    if right == "ETH" || left == "WETH" {
+    if right == "ETH" || right == "WETH" {
       rightToken = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
     } else {
       rightToken = allTokens.first(where: { (token) -> Bool in
@@ -99,6 +99,9 @@ class KNCreateLimitOrderV2ViewModel {
         self.to = leftToken!
       }
       self.updateFromBalance()
+      return true
+    } else {
+      return false
     }
   }
 
