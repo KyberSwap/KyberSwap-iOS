@@ -549,7 +549,7 @@ extension KNCreateLimitOrderV2ViewController: UICollectionViewDataSource {
     cell.updateCell(
       with: order,
       isReset: isReset,
-      hasAction: collectionView == self.relatedOrderCollectionView,
+      hasAction: order.state == .open,
       bgColor: color
     )
     cell.delegate = self
