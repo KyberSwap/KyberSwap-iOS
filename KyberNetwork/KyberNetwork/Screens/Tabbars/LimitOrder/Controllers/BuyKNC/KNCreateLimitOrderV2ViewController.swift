@@ -136,6 +136,13 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     }
   }
 
+  func coordinatorDoneSubmittingOrder() {
+    // update data new order has been submitted successfully
+    self.updateRelatedOrdersView()
+    self.updateRelatedOrdersFromServer()
+    self.updatePendingBalancesFromServer()
+  }
+
   func coordinatorUpdateEstimateFee(_ fee: Double, discount: Double, feeBeforeDiscount: Double, transferFee: Double) {
     self.viewModel.feePercentage = fee
     self.viewModel.discountPercentage = discount
