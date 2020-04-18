@@ -2,7 +2,7 @@
 
 import UIKit
 import SwipeCellKit
-//swiftlint:disable empty_count
+
 enum KNHistoryViewEvent {
   case selectTransaction(transaction: Transaction)
   case dismiss

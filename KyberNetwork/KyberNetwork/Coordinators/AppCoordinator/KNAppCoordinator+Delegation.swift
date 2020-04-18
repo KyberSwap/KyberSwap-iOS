@@ -60,7 +60,7 @@ extension KNAppCoordinator: KNExchangeTokenCoordinatorDelegate {
 }
 
 // MARK: Limit Order Coordinator Delegate
-extension KNAppCoordinator: KNLimitOrderTabCoordinatorDelegate {
+extension KNAppCoordinator: KNLimitOrderTabCoordinatorV2Delegate {
   func limitOrderTabCoordinatorDidSelectWallet(_ wallet: KNWalletObject) {
     guard let wallet = self.keystore.wallets.first(where: { $0.address.description.lowercased() == wallet.address.lowercased() }) else { return }
     if let recentWallet = self.keystore.recentlyUsedWallet, recentWallet == wallet { return }
