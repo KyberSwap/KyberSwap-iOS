@@ -133,7 +133,7 @@ class KNTokenChartViewModel {
       return currencyType == .eth ? trackerRate.changeETH24h : trackerRate.changeUSD24h
     }()
     let change24hString: String = {
-      if self.type == .day {
+      if self.type == .day || chartData != nil {
         let string = NumberFormatterUtil.shared.displayPercentage(from: fabs(change24h))
         return "\(string)%"
       }
@@ -146,7 +146,7 @@ class KNTokenChartViewModel {
       return ""
     }()
     let changeColor: UIColor = {
-      if self.type == .day {
+      if self.type == .day || chartData != nil {
         if change24h == 0.0 { return UIColor.Kyber.grayChateau }
         return change24h > 0 ? UIColor.Kyber.shamrock : UIColor.Kyber.strawberry
       }
@@ -190,8 +190,8 @@ class KNTokenChartViewModel {
     let attributedString = NSMutableAttributedString()
     attributedString.append(NSAttributedString(string: "\(rateString) \(currencyTypeString) ", attributes: rateAttributes))
     attributedString.append(NSAttributedString(string: "\(change24hString)", attributes: changeAttributes))
-    attributedString.append(NSAttributedString(string: "\n24h \(currencyTypeString) Vol: ", attributes: volume24hTextAttributes))
-    attributedString.append(NSAttributedString(string: "\(self.volume24h)", attributes: volume24hValueAttributes))
+    attributedString.append(NSAttributedString(string: "\n24h Vol: ", attributes: volume24hTextAttributes))
+    attributedString.append(NSAttributedString(string: "\(self.volume24h) \(currencyTypeString)", attributes: volume24hValueAttributes))
 
     return attributedString
   }
