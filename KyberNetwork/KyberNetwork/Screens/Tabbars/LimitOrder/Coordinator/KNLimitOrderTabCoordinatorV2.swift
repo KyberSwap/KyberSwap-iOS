@@ -40,10 +40,12 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
   fileprivate var historyCoordinator: KNHistoryCoordinator?
   fileprivate var sendTokenCoordinator: KNSendTokenViewCoordinator?
   fileprivate var limitOrderV1Coordinator: KNLimitOrderTabCoordinator?
+  fileprivate var tokenChartCoordinator: KNTokenChartCoordinator?
 
   fileprivate var confirmVC: PreviewLimitOrderV2ViewController?
   fileprivate var manageOrdersVC: KNManageOrdersViewController?
   fileprivate var convertVC: KNConvertSuggestionViewController?
+
   fileprivate lazy var marketsVC: KNSelectMarketViewController = {
     let viewModel = KNSelectMarketViewModel()
     let viewController = KNSelectMarketViewController(viewModel: viewModel)
@@ -124,11 +126,13 @@ extension KNLimitOrderTabCoordinatorV2 {
   func appCoordinatorGasPriceCachedDidUpdate() {
     self.sendTokenCoordinator?.coordinatorGasPriceCachedDidUpdate()
     self.historyCoordinator?.coordinatorGasPriceCachedDidUpdate()
+    self.tokenChartCoordinator?.coordinatorGasPriceCachedDidUpdate()
   }
 
   func appCoordinatorMarketCachedDidUpdate() {
     self.rootViewController.coordinatorMarketCachedDidUpdate()
     self.marketsVC.coordinatorMarketCachedDidUpdate()
+    self.tokenChartCoordinator?.coordinatorDidUpdateMarketData()
   }
 
   func appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, otherTokensBalance: [String: Balance]) {
@@ -141,12 +145,14 @@ extension KNLimitOrderTabCoordinatorV2 {
       totalBalanceInETH: totalBalanceInETH,
       otherTokensBalance: otherTokensBalance
     )
+    self.tokenChartCoordinator?.coordinatorTokenBalancesDidUpdate(balances: otherTokensBalance)
   }
 
   func appCoordinatorETHBalanceDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, ethBalance: Balance) {
     if let eth = self.tokens.first(where: { $0.isETH }) {
       self.balances[eth.contract] = ethBalance
       self.rootViewController.coordinatorUpdateTokenBalance([eth.contract: ethBalance])
+      self.tokenChartCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [eth.contract: ethBalance])
     }
     self.sendTokenCoordinator?.coordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
     self.convertVC?.updateETHBalance(ethBalance.value)
@@ -174,6 +180,7 @@ extension KNLimitOrderTabCoordinatorV2 {
     self.tokens = supportedTokens
     self.sendTokenCoordinator?.coordinatorTokenObjectListDidUpdate(tokenObjects)
     self.limitOrderV1Coordinator?.appCoordinatorTokenObjectListDidUpdate(tokenObjects)
+    self.tokenChartCoordinator?.coordinatorTokenObjectListDidUpdate(tokenObjects)
   }
 
   func appCoordinatorPendingTransactionsDidUpdate(transactions: [KNTransaction]) {
@@ -186,7 +193,9 @@ extension KNLimitOrderTabCoordinatorV2 {
   }
 
   func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
-    return self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) ?? false
+    if self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) == true { return true }
+    if self.tokenChartCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) == true { return true }
+    return false
   }
 
   func appCoordinatorWillTerminate() {
@@ -258,6 +267,8 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       self.openSelectMarketScreen()
     case .openCancelSuggestOrder(let headers, let sections, let cancelOrder, let parent):
       self.openCancelSuggestionOrderScreen(header: headers, sections: sections, cancelOrder: cancelOrder, parent: parent)
+    case .openChartView(let market, let isBuy):
+      self.openChartView(market: market, isBuy: isBuy)
     default: break
     }
   }
@@ -298,6 +309,27 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       self.convertVC?.updateAmountToConvert(amount)
       self.convertVC?.updatePendingWETHBalance(pendingWETH)
     })
+  }
+
+  fileprivate func openChartView(market: KNMarket, isBuy: Bool) {
+    let pairs = market.pair.components(separatedBy: "_")
+    var tokenSymbol = pairs.last?.lowercased() ?? ""
+    if tokenSymbol == "weth" { tokenSymbol = "eth" } // change to eth if it is weth
+
+    guard let token = self.tokens.first(where: { $0.symbol.lowercased() == (pairs.last?.lowercased() ?? "") }) else {
+      // no token found
+      return
+    }
+    let chartData = KNLimitOrderChartData(market: market, isBuy: isBuy)
+    self.tokenChartCoordinator = KNTokenChartCoordinator(
+      navigationController: self.navigationController,
+      session: self.session,
+      balances: self.balances,
+      token: token,
+      chartLOData: chartData
+    )
+    self.tokenChartCoordinator?.delegate = self
+    self.tokenChartCoordinator?.start()
   }
 
   fileprivate func checkDataBeforeConfirmOrder(_ order: KNLimitOrder, confirmData: KNLimitOrderConfirmData?) {
@@ -938,5 +970,25 @@ extension KNLimitOrderTabCoordinatorV2: KNCancelSuggestOrdersViewControllerDeleg
   func cancelSuggestOrdersViewControllerDidCheckUnderstand(_ controller: KNCancelSuggestOrdersViewController) {
     self.navigationController.popToRootViewController(animated: true)
     self.rootViewController.coordinatorUnderstandCheckedInShowCancelSuggestOrder(source: controller.sourceVC)
+  }
+}
+
+extension KNLimitOrderTabCoordinatorV2: KNTokenChartCoordinatorDelegate {
+  func tokenChartCoordinatorShouldBack() {
+    self.navigationController.popToRootViewController(animated: true) {
+      self.tokenChartCoordinator = nil
+    }
+  }
+
+  func tokenChartCoordinator(buy token: TokenObject) {
+    self.navigationController.popToRootViewController(animated: true) {
+      self.rootViewController.coordinatorShouldSelectNewPage(isBuy: true)
+    }
+  }
+
+  func tokenChartCoordinator(sell token: TokenObject) {
+    self.navigationController.popToRootViewController(animated: true) {
+      self.rootViewController.coordinatorShouldSelectNewPage(isBuy: false)
+    }
   }
 }

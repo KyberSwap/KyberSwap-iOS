@@ -391,6 +391,10 @@ extension KNBalanceTabCoordinator: KNTokenChartCoordinatorDelegate {
   func tokenChartCoordinator(buy token: TokenObject) {
     self.delegate?.balanceTabCoordinatorShouldOpenExchange(for: token, isReceived: true)
   }
+
+  func tokenChartCoordinatorShouldBack() {
+    self.navigationController.popToRootViewController(animated: true)
+  }
 }
 
 extension KNBalanceTabCoordinator: KNHistoryCoordinatorDelegate {

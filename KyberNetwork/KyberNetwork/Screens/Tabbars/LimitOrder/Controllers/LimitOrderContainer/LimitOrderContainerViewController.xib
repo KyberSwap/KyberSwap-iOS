@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -183,9 +183,17 @@
                     <color key="textColor" red="0.3529411764705882" green="0.36862745098039218" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZ8-M0-vjN">
+                    <rect key="frame" x="360" y="92" width="36" height="36"/>
+                    <state key="normal" image="market_icon"/>
+                    <connections>
+                        <action selector="chartButtonPressed:" destination="-1" eventType="touchUpInside" id="ec6-do-eL0"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="OZ8-M0-vjN" firstAttribute="top" secondItem="2c9-ao-Wbk" secondAttribute="top" id="22a-hb-fSu"/>
                 <constraint firstItem="Ce9-To-TMZ" firstAttribute="top" secondItem="UM9-xL-Rjq" secondAttribute="bottom" constant="70" id="605-Hq-p9O"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UM9-xL-Rjq" secondAttribute="trailing" id="6Fv-lI-zAM"/>
                 <constraint firstItem="mct-Gm-G3A" firstAttribute="leading" secondItem="2c9-ao-Wbk" secondAttribute="leading" id="6HX-qb-gUz"/>
@@ -204,6 +212,7 @@
                 <constraint firstItem="WKi-Pf-KFa" firstAttribute="centerX" secondItem="Ce9-To-TMZ" secondAttribute="centerX" constant="-103.5" id="g6Y-Fn-eCe"/>
                 <constraint firstItem="UM9-xL-Rjq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="j8Z-be-4tt"/>
                 <constraint firstItem="4fx-Nt-YCL" firstAttribute="leading" secondItem="2c9-ao-Wbk" secondAttribute="leading" id="nM1-2Q-bTT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="OZ8-M0-vjN" secondAttribute="trailing" constant="18" id="nTh-K5-rC8"/>
                 <constraint firstItem="UM9-xL-Rjq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pJ5-8g-9Mb"/>
                 <constraint firstItem="Zub-Ew-Bz8" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="swP-j5-Yuy"/>
                 <constraint firstItem="Ce9-To-TMZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xcG-Ba-fix"/>
@@ -220,6 +229,7 @@
     </objects>
     <resources>
         <image name="arrow_drop_down_selected" width="10" height="5"/>
+        <image name="market_icon" width="36" height="36"/>
         <image name="menu_white_icon" width="18" height="10"/>
         <image name="notification_menu_icon" width="13" height="15"/>
     </resources>
