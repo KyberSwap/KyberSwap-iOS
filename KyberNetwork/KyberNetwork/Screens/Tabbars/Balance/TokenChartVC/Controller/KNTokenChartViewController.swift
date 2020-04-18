@@ -77,34 +77,63 @@ protocol KNTokenChartViewControllerDelegate: class {
   func tokenChartViewController(_ controller: KNTokenChartViewController, run event: KNTokenChartViewEvent)
 }
 
+struct KNLimitOrderChartData {
+  let market: KNMarket
+  let isBuy: Bool
+}
+
 class KNTokenChartViewModel {
   let token: TokenObject
   var type: KNTokenChartType = .day
+  var chartDataLO: KNLimitOrderChartData? // not nil if opening from LO view
   var data: [KNChartObject] = []
   var balance: Balance = Balance(value: BigInt())
   var volume24h: String = "---"
   let currencyType: KWalletCurrencyType = KNAppTracker.getCurrencyType()
 
-  init(token: TokenObject) {
+  init(token: TokenObject, chartDataLO: KNLimitOrderChartData? = nil) {
     self.token = token
     self.data = []
+    self.chartDataLO = chartDataLO
   }
 
-  var navigationTitle: String { return "\(self.token.symbol.prefix(8))" }
+  var navigationTitle: String {
+    if let market = self.chartDataLO?.market {
+      var quoteToken = market.pair.components(separatedBy: "_").first ?? ""
+      if quoteToken == "ETH" || quoteToken == "WETH" { quoteToken = "ETH*" }
+      var tokenSymbol = self.token.symbol
+      if tokenSymbol == "ETH" || tokenSymbol == "WETH" { tokenSymbol = "ETH*" }
+      return "\(tokenSymbol)/\(quoteToken)"
+    }
+    return "\(self.token.symbol.prefix(8))"
+  }
   var isTokenSupported: Bool { return self.token.isSupported }
 
   var rateAttributedString: NSAttributedString {
     guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: self.token) else {
       return NSMutableAttributedString()
     }
-    let rateNow = currencyType == .eth ? trackerRate.rateETHNow : trackerRate.rateUSDNow
+    let chartData = self.chartDataLO
+    let rateNow: Double = {
+      if let data = chartData {
+        // data from LO
+        return data.isBuy ? data.market.buyPrice : data.market.sellPrice
+      }
+      return currencyType == .eth ? trackerRate.rateETHNow : trackerRate.rateUSDNow
+    }()
     let rateString: String = {
       let rate = BigInt(rateNow * Double(EthereumUnit.ether.rawValue))
       return rate.displayRate(decimals: 18)
     }()
-    let change24h = currencyType == .eth ? trackerRate.changeETH24h : trackerRate.changeUSD24h
+    let change24h: Double = {
+      if let market = chartData?.market {
+        // data from LO
+        return market.change
+      }
+      return currencyType == .eth ? trackerRate.changeETH24h : trackerRate.changeUSD24h
+    }()
     let change24hString: String = {
-      if self.type == .day {
+      if self.type == .day || chartData != nil {
         let string = NumberFormatterUtil.shared.displayPercentage(from: fabs(change24h))
         return "\(string)%"
       }
@@ -117,7 +146,7 @@ class KNTokenChartViewModel {
       return ""
     }()
     let changeColor: UIColor = {
-      if self.type == .day {
+      if self.type == .day || chartData != nil {
         if change24h == 0.0 { return UIColor.Kyber.grayChateau }
         return change24h > 0 ? UIColor.Kyber.shamrock : UIColor.Kyber.strawberry
       }
@@ -148,12 +177,21 @@ class KNTokenChartViewModel {
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
       NSAttributedStringKey.kern: 0.0,
     ]
-    let currencyTypeString = currencyType == .eth ? "ETH" : "USD"
+    let currencyTypeString: String = {
+      if let market = chartData?.market {
+        // data from LO
+        let pair = market.pair.components(separatedBy: "_")
+        var quoteToken = pair.first ?? ""
+        if quoteToken == "ETH" || quoteToken == "WETH" { quoteToken = "ETH*" }
+        return quoteToken
+      }
+      return currencyType == .eth ? "ETH" : "USD"
+    }()
     let attributedString = NSMutableAttributedString()
-    attributedString.append(NSAttributedString(string: "\(currencyTypeString) \(rateString) ", attributes: rateAttributes))
+    attributedString.append(NSAttributedString(string: "\(rateString) \(currencyTypeString) ", attributes: rateAttributes))
     attributedString.append(NSAttributedString(string: "\(change24hString)", attributes: changeAttributes))
-    attributedString.append(NSAttributedString(string: "\n24h \(currencyTypeString) Vol: ", attributes: volume24hTextAttributes))
-    attributedString.append(NSAttributedString(string: "\(self.volume24h)", attributes: volume24hValueAttributes))
+    attributedString.append(NSAttributedString(string: "\n24h Vol: ", attributes: volume24hTextAttributes))
+    attributedString.append(NSAttributedString(string: "\(self.volume24h) \(currencyTypeString)", attributes: volume24hValueAttributes))
 
     return attributedString
   }
@@ -225,6 +263,13 @@ class KNTokenChartViewModel {
 
   func updateBalance(_ balance: Balance) {
     self.balance = balance
+  }
+
+  func updateMarket(_ market: KNMarket) {
+    guard let chartData = self.chartDataLO, chartData.market.pair == market.pair else {
+      return
+    }
+    self.chartDataLO = KNLimitOrderChartData(market: market, isBuy: chartData.isBuy)
   }
 
   func updateData(_ newData: JSONDictionary, symbol: String, resolution: String) {
@@ -306,6 +351,15 @@ class KNTokenChartViewModel {
       completion(.success(0))
       return
     }
+
+    if let chartData = self.chartDataLO {
+      // chart from LO, use data from market object
+      let formatter = NumberFormatterUtil.shared.limitOrderFormatter
+      self.volume24h = "\(formatter.string(from: NSNumber(value: fabs(chartData.market.volume))) ?? "---")"
+      completion(.success(chartData.market.volume))
+      return
+    }
+
     let provider = MoyaProvider<KNTrackerService>()
     let symbol = token.symbol
     DispatchQueue.global(qos: .background).async {
@@ -358,11 +412,11 @@ class KNTokenChartViewModel {
       return fromTime
     }()
     var symbol = token.symbol
-    switch currencyType {
-    case .usd:
-      symbol += "_USDC"
-    case .eth:
-      symbol += "_ETH"
+    if let market = self.chartDataLO?.market {
+      let quoteToken = market.pair.components(separatedBy: "_").first?.uppercased() ?? ""
+      symbol += quoteToken == "WETH" ? "_ETH" : "_\(quoteToken)"
+    } else {
+      symbol += self.currencyType == .usd ? "_USDC" : "_ETH"
     }
     let provider = MoyaProvider<KNTrackerService>()
     let service = KNTrackerService.getChartHistory(
@@ -512,9 +566,21 @@ class KNTokenChartViewController: KNBaseViewController {
     )
     self.navigationLabel.text = self.viewModel.navigationTitle
     self.navigationLabel.addLetterSpacing()
-    self.symbolLabel.text = "\(self.viewModel.token.symbol.prefix(8))"
+    self.symbolLabel.text = {
+      if self.viewModel.chartDataLO != nil {
+        // open from LO, change eth or weth to eth*
+        if self.viewModel.token.isETH || self.viewModel.token.isWETH { return "ETH*" }
+      }
+      return "\(self.viewModel.token.symbol.prefix(8))"
+    }()
     self.symbolLabel.addLetterSpacing()
-    self.nameLabel.text = self.viewModel.token.name
+    self.nameLabel.text = {
+      if self.viewModel.chartDataLO != nil {
+        // open from LO, change eth or weth to eth*
+        if self.viewModel.token.isETH || self.viewModel.token.isWETH { return "Ethereum" }
+      }
+      return self.viewModel.token.name
+    }()
     self.nameLabel.addLetterSpacing()
 
     self.ethRateLabel.attributedText = self.viewModel.rateAttributedString
@@ -811,6 +877,11 @@ class KNTokenChartViewController: KNBaseViewController {
       self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
       self.totalUSDValueLabel.addLetterSpacing()
     }
+  }
+
+  func coordinatorUpdateMarketPair(market: KNMarket) {
+    self.viewModel.updateMarket(market)
+    self.ethRateLabel.attributedText = self.viewModel.rateAttributedString
   }
 
   fileprivate func buildTextForData(openNumber: Double, highNumber: Double, lowNumber: Double, closeNumber: Double, timeStampNumber: Double) -> NSAttributedString {
