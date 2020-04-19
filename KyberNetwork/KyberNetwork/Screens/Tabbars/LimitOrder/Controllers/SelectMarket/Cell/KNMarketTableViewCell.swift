@@ -105,10 +105,6 @@ class KNMarketTableViewCell: UITableViewCell {
 
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
     let updateFav = !self.viewModel.isFav
-    let pair = self.viewModel.source.pair
-    KNAppTracker.updateFavouriteMarket(pair, add: updateFav)
-    let favImg = updateFav ? UIImage(named: "selected_fav_icon") : UIImage(named: "unselected_fav_icon")
-    self.favoriteButton.setImage(favImg, for: .normal)
     self.delegate?.marketTableViewCellDidSelectFavorite(self, isFav: updateFav)
   }
 }

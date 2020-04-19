@@ -924,6 +924,73 @@ extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
     self.limitOrderV1Coordinator?.delegate = self
     self.limitOrderV1Coordinator?.start()
   }
+
+  func selectMakertViewController(_ controller: KNSelectMarketViewController, run event: KNSelectMarketEvent) {
+    switch event {
+    case .getListFavouriteMarket:
+      guard let accessToken = IEOUserStorage.shared.user?.accessToken else { return }
+      let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
+      provider.request(.getListFavouriteMarket(accessToken: accessToken)) { (result) in
+        switch result {
+        case .success(let resp):
+          do {
+            _ = try resp.filterSuccessfulStatusCodes()
+            let json = try resp.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+            let success = json["success"] as? Bool ?? false
+            let pairs = json["favorite_pairs"] as? [[String: String]]
+            if let notNilPairs = pairs, success {
+              let markets = notNilPairs.map { "\($0["quote"] ?? "")_\($0["base"] ?? "")" }.map { $0.uppercased() }
+              KNAppTracker.setListFavouriteMarkets(pairs: markets)
+              self.marketsVC.coordinatorUpdatedFavouriteList(true)
+              return
+            } else {
+              self.showErrorTopBannerMessage(message: "Something went wrong, please try again later".toBeLocalised())
+            }
+          } catch {
+            self.showErrorTopBannerMessage(message: "Something went wrong, please try again later".toBeLocalised())
+          }
+        case .failure:
+          self.showErrorTopBannerMessage(message: "Something went wrong, please try again later".toBeLocalised())
+        }
+        self.marketsVC.coordinatorUpdatedFavouriteList(false)
+      }
+    case .updateMarketFavouriteStatus(let base, let quote, let status):
+      guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
+        self.showWarningTopBannerMessage(
+          with: "Sign in required".toBeLocalised(),
+          message: "You must sign in to use Limit Order feature".toBeLocalised(),
+          time: 1.5
+        )
+        return
+      }
+      let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
+      provider.request(.updateMarketFavouriteStatus(accessToken: accessToken, base: base, quote: quote, status: status)) { (result) in
+        switch result {
+        case .success(let resp):
+          do {
+            _ = try resp.filterSuccessfulStatusCodes()
+            let json = try resp.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+            let success = json["success"] as? Bool ?? false
+            if success {
+              let pair = "\(quote)_\(base)"
+              KNAppTracker.updateFavouriteMarket(pair, add: status)
+              self.marketsVC.coordinatorUpdatedFavouriteList(true)
+              let message = status ? NSLocalizedString("Successfully added to your favorites", comment: "") : NSLocalizedString("Removed from your favorites", comment: "")
+              self.showSuccessTopBannerMessage(message: message)
+              return
+            } else {
+              self.showErrorTopBannerMessage(message: "Something went wrong, please try again later".toBeLocalised())
+            }
+          } catch {
+            self.showErrorTopBannerMessage(message: "Something went wrong, please try again later".toBeLocalised())
+          }
+        case .failure:
+          self.showErrorTopBannerMessage(message: "Something went wrong, please try again later".toBeLocalised())
+        }
+        self.marketsVC.coordinatorUpdatedFavouriteList(false)
+      }
+    }
+  }
 }
 
 extension KNLimitOrderTabCoordinatorV2: KNLimitOrderTabCoordinatorDelegate {

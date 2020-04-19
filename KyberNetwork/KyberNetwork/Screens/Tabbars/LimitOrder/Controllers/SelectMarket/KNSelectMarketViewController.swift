@@ -2,9 +2,15 @@
 
 import UIKit
 
+enum KNSelectMarketEvent {
+  case getListFavouriteMarket
+  case updateMarketFavouriteStatus(base: String, quote: String, status: Bool)
+}
+
 protocol KNSelectMarketViewControllerDelegate: class {
   func selectMarketViewControllerDidSelectMarket(_ controller: KNSelectMarketViewController, market: KNMarket)
   func selectMarketViewControllerDidSelectLOV1(_ controller: KNSelectMarketViewController)
+  func selectMakertViewController(_ controller: KNSelectMarketViewController, run event: KNSelectMarketEvent)
 }
 
 class KNSelectMarketViewController: KNBaseViewController {
@@ -88,6 +94,12 @@ class KNSelectMarketViewController: KNBaseViewController {
       button.layer.borderColor = UIColor.Kyber.orange.cgColor
     }
     self.setSelectButton(self.ethMarketButton)
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.displayLoading()
+    self.delegate?.selectMakertViewController(self, run: .getListFavouriteMarket)
   }
 
   override func viewDidLayoutSubviews() {
@@ -305,6 +317,15 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBAction func searchButtonTapped(_ sender: UIButton) {
     self.searchField.becomeFirstResponder()
   }
+
+  func coordinatorUpdatedFavouriteList(_ success: Bool) {
+    self.hideLoading()
+    guard success else {
+      return
+    }
+    self.viewModel.updateMarketFromCoordinator()
+    self.tableView.reloadData()
+  }
 }
 
 extension KNSelectMarketViewController: UITableViewDelegate {
@@ -342,11 +363,11 @@ extension KNSelectMarketViewController: UITableViewDataSource {
 
 extension KNSelectMarketViewController: KNMarketTableViewCellDelegate {
   func marketTableViewCellDidSelectFavorite(_ cell: KNMarketTableViewCell, isFav: Bool) {
-    let message = isFav ? NSLocalizedString("Successfully added to your favorites", comment: "") : NSLocalizedString("Removed from your favorites", comment: "")
-    self.showTopBannerView(with: "", message: message, time: 1.0)
-    self.viewModel.updateMarketFromCoordinator()
-    self.noDataView.isHidden = !self.viewModel.showNoDataView
-    self.tableView.reloadData()
+    self.displayLoading()
+    let tokens = cell.viewModel.source.pair.components(separatedBy: "_")
+    let quote = tokens.first ?? ""
+    let base = tokens.last ?? ""
+    self.delegate?.selectMakertViewController(self, run: .updateMarketFavouriteStatus(base: base, quote: quote, status: isFav))
   }
 }
 
