@@ -160,7 +160,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.openShareWithFriends()
     case .telegram:
       KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_telegram"])
-      self.openCommunityURL("https://t.me/kybernetwork")
+      self.openCommunityURL("https://t.me/KyberSwapOfficial")
     case .telegramDev:
       KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_telegram_dev"])
       self.openCommunityURL("https://t.me/KyberDeveloper")
@@ -169,7 +169,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.openCommunityURL("https://github.com/KyberNetwork/KyberSwap-iOS")
     case .twitter:
       KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_twitter"])
-      self.openCommunityURL("https://twitter.com/KyberSwap")
+      self.openCommunityURL("https://twitter.com/KyberSwap/")
     case .facebook:
       KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_facebook"])
       self.openCommunityURL("https://www.facebook.com/kybernetwork")
