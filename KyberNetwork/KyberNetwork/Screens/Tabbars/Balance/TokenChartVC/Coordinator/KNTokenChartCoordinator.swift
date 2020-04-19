@@ -5,6 +5,7 @@ import UIKit
 protocol KNTokenChartCoordinatorDelegate: class {
   func tokenChartCoordinator(sell token: TokenObject)
   func tokenChartCoordinator(buy token: TokenObject)
+  func tokenChartCoordinatorShouldBack()
 }
 
 class KNTokenChartCoordinator: Coordinator {
@@ -12,13 +13,14 @@ class KNTokenChartCoordinator: Coordinator {
   let navigationController: UINavigationController
   let session: KNSession
   let token: TokenObject
+  var chartLOData: KNLimitOrderChartData? //if open from LO
   var coordinators: [Coordinator] = []
   var balances: [String: Balance] = [:]
 
   weak var delegate: KNTokenChartCoordinatorDelegate?
 
   lazy var rootViewController: KNTokenChartViewController = {
-    let viewModel = KNTokenChartViewModel(token: self.token)
+    let viewModel = KNTokenChartViewModel(token: self.token, chartDataLO: self.chartLOData)
     let controller = KNTokenChartViewController(viewModel: viewModel)
     controller.loadViewIfNeeded()
     controller.delegate = self
@@ -33,12 +35,14 @@ class KNTokenChartCoordinator: Coordinator {
     navigationController: UINavigationController,
     session: KNSession,
     balances: [String: Balance],
-    token: TokenObject
+    token: TokenObject,
+    chartLOData: KNLimitOrderChartData? = nil
     ) {
     self.navigationController = navigationController
     self.session = session
     self.balances = balances
     self.token = token
+    self.chartLOData = chartLOData
   }
 
   func start() {
@@ -49,7 +53,7 @@ class KNTokenChartCoordinator: Coordinator {
   }
 
   func stop() {
-    self.navigationController.popToRootViewController(animated: true)
+    self.delegate?.tokenChartCoordinatorShouldBack()
   }
 
   func coordinatorTokenBalancesDidUpdate(balances: [String: Balance]) {
@@ -75,6 +79,13 @@ class KNTokenChartCoordinator: Coordinator {
 
   func coordinatorDidUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
     return self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) ?? false
+  }
+
+  func coordinatorDidUpdateMarketData() {
+    // no market data
+    guard let curMarket = self.chartLOData?.market else { return }
+    guard let newMarket = KNRateCoordinator.shared.cachedMarket.first(where: { return $0.pair == curMarket.pair }) else { return }
+    self.rootViewController.coordinatorUpdateMarketPair(market: newMarket)
   }
 }
 

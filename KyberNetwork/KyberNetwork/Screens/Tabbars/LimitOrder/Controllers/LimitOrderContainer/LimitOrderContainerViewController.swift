@@ -12,6 +12,7 @@ enum KNCreateLimitOrderViewEventV2 {
   case getRelatedOrders(address: String, src: String, dest: String, minRate: Double)
   case getPendingBalances(address: String)
   case changeMarket
+  case openChartView(market: KNMarket, isBuy: Bool)
   case openCancelSuggestOrder(header: [String], sections: [String: [KNOrderObject]], cancelOrder: KNOrderObject?, parent: UIViewController)
 }
 
@@ -133,6 +134,14 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   @IBAction func marketButtonTapped(_ sender: UIButton) {
     self.delegate?.kCreateLimitOrderViewController(self, run: .changeMarket)
+  }
+
+  @IBAction func chartButtonPressed(_ sender: Any) {
+    guard let market = self.currentMarket else { return }
+    self.delegate?.kCreateLimitOrderViewController(
+      self,
+      run: .openChartView(market: market, isBuy: self.currentIndex == 0)
+    )
   }
 
   @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
@@ -278,6 +287,14 @@ class LimitOrderContainerViewController: KNBaseViewController {
     self.walletNameLabel.text = self.walletNameString
     for vc in self.pages {
       vc.coordinatorUpdateNewSession(wallet: wallet)
+    }
+  }
+
+  func coordinatorShouldSelectNewPage(isBuy: Bool) {
+    if isBuy && self.currentIndex == 1 {
+      self.pagerButtonTapped(self.buyToolBarButton)
+    } else if !isBuy && self.currentIndex == 0 {
+      self.pagerButtonTapped(self.sellToolBarButton)
     }
   }
 
