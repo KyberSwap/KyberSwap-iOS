@@ -609,39 +609,21 @@ class KNTokenChartViewController: KNBaseViewController {
     self.chartView.xAxis.labelFont = UIFont.Kyber.light(with: 10)
     self.chartView.xAxis.valueFormatter = CustomAxisValueFormatter(.day)
 
-    self.sendButton.rounded(
-      color: UIColor.Kyber.border,
-      width: 1,
-      radius: style.buttonRadius()
-    )
-    self.sendButton.backgroundColor = .clear//UIColor.Kyber.merigold
+    self.sendButton.rounded()
     self.sendButton.setTitle(
       NSLocalizedString("transfer", value: "Transfer", comment: ""),
       for: .normal
     )
-    self.sendButton.setTitleColor(UIColor(red: 90, green: 94, blue: 103), for: .normal)
-    self.buyButton.rounded(
-      color: UIColor.Kyber.border,
-      width: 1,
-      radius: style.buttonRadius()
-    )
-    self.buyButton.backgroundColor = .clear//UIColor.Kyber.shamrock
+    self.buyButton.rounded()
     self.buyButton.setTitle(
       NSLocalizedString("buy", value: "Buy", comment: ""),
       for: .normal
     )
-    self.buyButton.setTitleColor(UIColor(red: 90, green: 94, blue: 103), for: .normal)
-    self.sellButton.rounded(
-      color: UIColor.Kyber.border,
-      width: 1,
-      radius: style.buttonRadius()
-    )
-    self.sellButton.backgroundColor = .clear//UIColor.Kyber.blueGreen
+    self.sellButton.rounded()
     self.sellButton.setTitle(
       NSLocalizedString("sell", value: "Sell", comment: ""),
       for: .normal
     )
-    self.sellButton.setTitleColor(UIColor(red: 90, green: 94, blue: 103), for: .normal)
 
     self.dataTypeButtons.forEach { button in
       let title: String = {
@@ -657,24 +639,13 @@ class KNTokenChartViewController: KNBaseViewController {
       button.setTitle(title, for: .normal)
     }
 
-    if self.viewModel.chartDataLO != nil {
-      self.buyButton.backgroundColor = UIColor.Kyber.green
-      self.sellButton.backgroundColor = UIColor.Kyber.red
-      self.sendButton.backgroundColor = UIColor(red: 0, green: 162.0/255.0, blue: 247.0/255.0, alpha: 1)
-      self.buyButton.setTitleColor(UIColor.white, for: .normal)
-      self.sellButton.setTitleColor(UIColor.white, for: .normal)
-      self.sendButton.setTitleColor(UIColor.white, for: .normal)
-      self.buyButton.rounded()
-      self.sellButton.rounded()
-      self.sendButton.rounded()
-    }
-
     if self.viewModel.isTokenSupported {
       self.noDataLabel.text = "\(NSLocalizedString("updating.data", value: "Updating data", comment: "")) ..."
       self.updateDisplayDataType(.day)
     } else {
       self.dataTypeButtonContainerView.isHidden = true
       self.noDataLabel.text = NSLocalizedString("this.token.is.not.supported", value: "This token is not supported by Kyber Network", comment: "")
+      self.chartView.isHidden = true
       self.buyButton.isHidden = true
       self.sellButton.setTitle(
         NSLocalizedString("transfer", value: "Transfer", comment: ""),
@@ -682,11 +653,7 @@ class KNTokenChartViewController: KNBaseViewController {
       )
       self.sellButton.backgroundColor = .clear//UIColor.Kyber.merigold
       self.sendButton.isHidden = true
-      if self.viewModel.chartDataLO != nil {
-        self.sellButton.backgroundColor = UIColor(red: 0, green: 162.0/255.0, blue: 247.0/255.0, alpha: 1)
-        self.sellButton.setTitleColor(UIColor.white, for: .normal)
-        self.sellButton.rounded()
-      }
+      self.sellButton.backgroundColor = UIColor(red: 0, green: 162.0/255.0, blue: 247.0/255.0, alpha: 1)
     }
     self.noDataLabel.addLetterSpacing()
 
