@@ -95,7 +95,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     }
     self.setSelectButton(self.ethMarketButton)
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.displayLoading()

@@ -326,7 +326,7 @@ class KNAppTracker {
     userDefaults.set(filterd, forKey: key)
     userDefaults.synchronize()
   }
-  
+
   static func cleanAllFavouriteMarkets() {
     let key = "\(KNEnvironment.default.displayName)-\(kFavouriteMarketsKey)"
     userDefaults.removeObject(forKey: key)

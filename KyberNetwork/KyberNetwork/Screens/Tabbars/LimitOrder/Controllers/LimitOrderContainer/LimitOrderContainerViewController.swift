@@ -198,8 +198,8 @@ class LimitOrderContainerViewController: KNBaseViewController {
     self.marketDetailLabel.attributedText = detailText
 
     self.marketVolLabel.text = "Vol \(formatter.string(from: NSNumber(value: fabs(market.volume))) ?? "") \(pair.last ?? "")"
-    self.buyToolBarButton.setTitle("\("Buy".toBeLocalised()) \(pair.last ?? "")", for: .normal)
-    self.sellToolBarButton.setTitle("\("Sell".toBeLocalised()) \(pair.last ?? "")", for: .normal)
+    self.buyToolBarButton.setTitle("\("Buy".toBeLocalised().uppercased()) \(pair.last ?? "")", for: .normal)
+    self.sellToolBarButton.setTitle("\("Sell".toBeLocalised().uppercased()) \(pair.last ?? "")", for: .normal)
   }
 
   private func setupPageController() {
