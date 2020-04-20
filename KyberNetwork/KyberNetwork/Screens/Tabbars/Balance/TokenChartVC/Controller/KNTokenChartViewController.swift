@@ -662,7 +662,7 @@ class KNTokenChartViewController: KNBaseViewController {
       self.updateDisplayDataType(.day)
     } else {
       self.dataTypeButtonContainerView.isHidden = true
-      self.noDataLabel.text = NSLocalizedString("this.token.is.not.supported", value: "This token is not supported by Kyber Network", comment: "")
+      self.noDataLabel.text = NSLocalizedString("this.token.is.not.supported", value: "This token is not supported by KyberSwap", comment: "")
       self.chartView.isHidden = true
       self.buyButton.isHidden = true
       self.sellButton.setTitle(

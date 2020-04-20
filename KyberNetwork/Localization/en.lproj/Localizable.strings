@@ -87,7 +87,7 @@
 "buy" = "Buy";
 "sell" = "Sell";
 "updating.data" = "Updating data";
-"this.token.is.not.supported" = "This token is not supported by Kyber Network";
+"this.token.is.not.supported" = "This token is not supported by KyberSwap";
 "can.not.update.data" = "Can not update data";
 "no.data.for.this.token" = "There is no data for this token";
 "unsupported" = "Unsupported";
