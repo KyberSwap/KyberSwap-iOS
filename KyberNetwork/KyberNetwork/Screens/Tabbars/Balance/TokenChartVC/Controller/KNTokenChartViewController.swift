@@ -657,6 +657,18 @@ class KNTokenChartViewController: KNBaseViewController {
       button.setTitle(title, for: .normal)
     }
 
+    if self.viewModel.chartDataLO != nil {
+      self.buyButton.backgroundColor = UIColor.Kyber.green
+      self.sellButton.backgroundColor = UIColor.Kyber.red
+      self.sendButton.backgroundColor = UIColor(red: 0, green: 162.0/255.0, blue: 247.0/255.0, alpha: 1)
+      self.buyButton.setTitleColor(UIColor.white, for: .normal)
+      self.sellButton.setTitleColor(UIColor.white, for: .normal)
+      self.sendButton.setTitleColor(UIColor.white, for: .normal)
+      self.buyButton.rounded()
+      self.sellButton.rounded()
+      self.sendButton.rounded()
+    }
+
     if self.viewModel.isTokenSupported {
       self.noDataLabel.text = "\(NSLocalizedString("updating.data", value: "Updating data", comment: "")) ..."
       self.updateDisplayDataType(.day)
@@ -670,6 +682,11 @@ class KNTokenChartViewController: KNBaseViewController {
       )
       self.sellButton.backgroundColor = .clear//UIColor.Kyber.merigold
       self.sendButton.isHidden = true
+      if self.viewModel.chartDataLO != nil {
+        self.sellButton.backgroundColor = UIColor(red: 0, green: 162.0/255.0, blue: 247.0/255.0, alpha: 1)
+        self.sellButton.setTitleColor(UIColor.white, for: .normal)
+        self.sellButton.rounded()
+      }
     }
     self.noDataLabel.addLetterSpacing()
 
