@@ -485,6 +485,11 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.amountField.text = ""
     self.totalField.text = ""
   }
+
+  @IBAction func marketPriceButtonTapped(_ sender: UIButton) {
+    self.priceField.text = self.viewModel.targetPriceFromMarket
+    self.viewModel.updateTargetPrice(self.viewModel.targetPriceFromMarket)
+  }
 }
 
 extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
