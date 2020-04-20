@@ -103,7 +103,7 @@ class KNSignUpViewController: KNBaseViewController {
     self.selectTermConditionButton.rounded(color: self.viewModel.isAgreeTAC ? UIColor.clear : UIColor.Kyber.border, width: 1.0, radius: 2.5)
 
     self.signUpButton.setTitle(NSLocalizedString("sign.up", value: "Sign Up", comment: ""), for: .normal)
-    self.signUpButton.rounded(radius: KNAppStyleType.current.buttonRadius(for: self.signUpButton.frame.height))
+    self.signUpButton.rounded(radius: KNAppStyleType.current.buttonRadius())
     self.signUpButton.applyGradient()
 
     self.signInButton.setAttributedTitle(

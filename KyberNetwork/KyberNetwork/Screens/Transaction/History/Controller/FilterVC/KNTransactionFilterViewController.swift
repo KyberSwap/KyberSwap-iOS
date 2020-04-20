@@ -192,13 +192,12 @@ class KNTransactionFilterViewController: KNBaseViewController {
     self.tokenTextLabel.text = "Token".toBeLocalised()
     self.resetButton.rounded(
       color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: self.resetButton.frame.height / 2.0
+      width: 1.0
     )
     self.resetButton.setTitle("Reset".toBeLocalised(), for: .normal)
     self.applyButton.applyGradient()
     self.applyButton.setTitle(NSLocalizedString("apply", value: "Apply", comment: ""), for: .normal)
-    self.applyButton.rounded(radius: self.applyButton.frame.height / 2.0)
+    self.applyButton.rounded()
 
     let nib = UINib(nibName: KNTransactionFilterTableViewCell.className, bundle: nil)
     self.tokensTableView.register(nib, forCellReuseIdentifier: kFilterTokensTableViewCellID)
@@ -241,29 +240,29 @@ class KNTransactionFilterViewController: KNBaseViewController {
         )
       }
       if self.viewModel.isSend {
-        self.sendButton.rounded(color: UIColor.Kyber.enygold, width: 1.0, radius: 4.0)
+        self.sendButton.rounded(color: UIColor.Kyber.enygold, width: 1.0)
         self.sendButton.setImage(UIImage(named: "filter_check_icon"), for: .normal)
         self.sendButton.backgroundColor = .white
       } else {
-        self.sendButton.rounded(color: .clear, width: 0.0, radius: 4.0)
+        self.sendButton.rounded(color: .clear, width: 0.0)
         self.sendButton.setImage(nil, for: .normal)
         self.sendButton.backgroundColor = .clear
       }
       if self.viewModel.isReceive {
-        self.receiveButton.rounded(color: UIColor.Kyber.enygold, width: 1.0, radius: 4.0)
+        self.receiveButton.rounded(color: UIColor.Kyber.enygold, width: 1.0)
         self.receiveButton.setImage(UIImage(named: "filter_check_icon"), for: .normal)
         self.receiveButton.backgroundColor = .white
       } else {
-        self.receiveButton.rounded(color: .clear, width: 0.0, radius: 4.0)
+        self.receiveButton.rounded(color: .clear, width: 0.0)
         self.receiveButton.setImage(nil, for: .normal)
         self.receiveButton.backgroundColor = .clear
       }
       if self.viewModel.isSwap {
-        self.swapButton.rounded(color: UIColor.Kyber.enygold, width: 1.0, radius: 4.0)
+        self.swapButton.rounded(color: UIColor.Kyber.enygold, width: 1.0)
         self.swapButton.setImage(UIImage(named: "filter_check_icon"), for: .normal)
         self.swapButton.backgroundColor = .white
       } else {
-        self.swapButton.rounded(color: .clear, width: 0.0, radius: 4.0)
+        self.swapButton.rounded(color: .clear, width: 0.0)
         self.swapButton.setImage(nil, for: .normal)
         self.swapButton.backgroundColor = .clear
       }

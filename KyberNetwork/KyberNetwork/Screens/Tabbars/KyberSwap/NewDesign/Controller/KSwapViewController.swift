@@ -234,7 +234,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   fileprivate func setupHamburgerMenu() {
-    self.hasPendingTxView.rounded(radius: self.hasPendingTxView.frame.height / 2.0)
+    self.hasPendingTxView.rounded()
     self.hamburgerMenu.hideMenu(animated: false)
   }
 
@@ -259,7 +259,7 @@ class KSwapViewController: KNBaseViewController {
 
   fileprivate func setupContinueButton() {
     let style = KNAppStyleType.current
-    let radius = style.buttonRadius(for: self.continueButton.frame.height)
+    let radius = style.buttonRadius()
     self.continueButton.rounded(radius: radius)
     self.continueButton.setTitle(
       NSLocalizedString("Swap Now", value: "Swap Now", comment: ""),
@@ -273,19 +273,19 @@ class KSwapViewController: KNBaseViewController {
     self.firstSuggestButton.rounded(
       color: UIColor.Kyber.border,
       width: 1.0,
-      radius: self.firstSuggestButton.frame.height / 2.0
+      radius: 5.0
     )
     self.firstSuggestType.rounded(radius: self.firstSuggestType.frame.height / 2.0)
     self.secondSuggestButton.rounded(
       color: UIColor.Kyber.border,
       width: 1.0,
-      radius: self.firstSuggestButton.frame.height / 2.0
+      radius: 5.0
     )
     self.secondSuggestType.rounded(radius: self.secondSuggestType.frame.height / 2.0)
     self.thirdSuggestButton.rounded(
       color: UIColor.Kyber.border,
       width: 1.0,
-      radius: self.firstSuggestButton.frame.height / 2.0
+      radius: 5.0
     )
     self.thirdSuggestType.rounded(radius: self.thirdSuggestType.frame.height / 2.0)
 

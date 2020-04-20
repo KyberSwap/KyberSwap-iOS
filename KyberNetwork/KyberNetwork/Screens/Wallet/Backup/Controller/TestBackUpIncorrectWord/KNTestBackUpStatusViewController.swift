@@ -102,11 +102,11 @@ class KNTestBackUpStatusViewController: KNBaseViewController {
     self.firstButton.rounded(
       color: self.viewModel.firstButtonBorderColor,
       width: 1,
-      radius: style.buttonRadius(for: self.firstButton.frame.height)
+      radius: style.buttonRadius()
     )
     self.firstButton.setTitle(self.viewModel.firstButtonTitle, for: .normal)
 
-    self.secondButton.rounded(radius: style.buttonRadius(for: self.secondButton.frame.height))
+    self.secondButton.rounded(radius: style.buttonRadius())
     self.secondButton.setTitle(self.viewModel.secondButtonTitle, for: .normal)
     self.secondButton.backgroundColor = self.viewModel.secondButtonColor
 

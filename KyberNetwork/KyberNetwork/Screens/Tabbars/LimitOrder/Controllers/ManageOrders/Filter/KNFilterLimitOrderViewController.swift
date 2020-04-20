@@ -106,12 +106,11 @@ class KNFilterLimitOrderViewController: KNBaseViewController {
 
     self.resetButton.rounded(
       color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: self.resetButton.frame.height / 2.0
+      width: 1.0
     )
     self.resetButton.setTitle("Reset".toBeLocalised(), for: .normal)
 
-    self.applyButton.rounded(radius: self.resetButton.frame.height / 2.0)
+    self.applyButton.rounded()
     self.applyButton.applyGradient()
     self.applyButton.setTitle("Apply".toBeLocalised(), for: .normal)
 
@@ -156,13 +155,11 @@ class KNFilterLimitOrderViewController: KNBaseViewController {
   fileprivate func updateDateView() {
     self.latestSelectButton.rounded(
       color: self.viewModel.isDateDesc ? UIColor.Kyber.enygold : UIColor.Kyber.border,
-      width: self.viewModel.isDateDesc ? 6.0 : 1.0,
-      radius: self.latestSelectButton.frame.height / 2.0
+      width: self.viewModel.isDateDesc ? 6.0 : 1.0
     )
     self.oldestSelectButton.rounded(
       color: !self.viewModel.isDateDesc ? UIColor.Kyber.enygold : UIColor.Kyber.border,
-      width: !self.viewModel.isDateDesc ? 6.0 : 1.0,
-      radius: self.oldestSelectButton.frame.height / 2.0
+      width: !self.viewModel.isDateDesc ? 6.0 : 1.0
     )
   }
 

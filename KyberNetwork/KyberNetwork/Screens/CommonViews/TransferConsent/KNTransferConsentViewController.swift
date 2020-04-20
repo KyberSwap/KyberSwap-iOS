@@ -47,12 +47,11 @@ class KNTransferConsentViewController: KNBaseViewController {
     self.navTitleLabel.text = "KyberSwap is moving to BVI".toBeLocalised()
     self.noButton.rounded(
       color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: self.noButton.frame.height / 2.0
+      width: 1.0
     )
     self.noButton.setTitle("No".toBeLocalised(), for: .normal)
     self.yesButton.setTitle("Yes".toBeLocalised(), for: .normal)
-    self.yesButton.rounded(radius: self.yesButton.frame.height / 2.0)
+    self.yesButton.rounded()
     self.yesButton.applyGradient()
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.backButton.isHidden = true

@@ -51,12 +51,11 @@ class KNConfirmCancelTransactionPopUp: KNBaseViewController {
     super.viewDidLoad()
     self.noButton.rounded(
       color: UIColor.Kyber.border,
-      width: 1.0,
-      radius: self.noButton.frame.height / 2.0
+      width: 1.0
     )
     self.noButton.setTitle("No".toBeLocalised(), for: .normal)
     self.yesButton.setTitle("Yes".toBeLocalised(), for: .normal)
-    self.yesButton.rounded(radius: self.yesButton.frame.height / 2.0)
+    self.yesButton.rounded()
     self.yesButton.applyGradient()
     containerView.rounded(radius: 8.0)
     questionTitleLabel.text = "Attempt to Cancel?".toBeLocalised()

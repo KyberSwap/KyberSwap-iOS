@@ -26,7 +26,7 @@ class KNPromoCodeViewController: KNBaseViewController {
     self.enterPromoCodeTextField.placeholder = "Both capital or small letters work fine".toBeLocalised()
 
     self.applyButton.setTitle(NSLocalizedString("apply", value: "Apply", comment: ""), for: .normal)
-    self.applyButton.rounded(radius: KNAppStyleType.current.buttonRadius(for: self.applyButton.frame.height))
+    self.applyButton.rounded(radius: KNAppStyleType.current.buttonRadius())
     self.applyButton.applyGradient()
   }
 

@@ -59,7 +59,7 @@ class KNLandingPageViewController: KNBaseViewController {
     )
     self.importWalletButton.addTextSpacing()
 
-    let radius = style.buttonRadius(for: self.createWalletButton.frame.height)
+    let radius = style.buttonRadius()
     self.promoCodeButton.rounded(radius: radius)
     self.createWalletButton.rounded(color: .white, width: 1.0, radius: radius)
     self.importWalletButton.rounded(color: .white, width: 1.0, radius: radius)

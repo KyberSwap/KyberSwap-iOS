@@ -52,12 +52,12 @@ class KNBackUpWalletViewController: KNBaseViewController {
     self.view.backgroundColor = style.mainBackgroundColor
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
 
-    self.nextButton.rounded(radius: style.buttonRadius(for: self.nextButton.frame.height))
+    self.nextButton.rounded(radius: style.buttonRadius())
     self.nextButton.setTitle(
       NSLocalizedString("next", value: "Next", comment: ""),
       for: .normal
     )
-    self.completeButton.rounded(radius: style.buttonRadius(for: self.completeButton.frame.height))
+    self.completeButton.rounded(radius: style.buttonRadius())
     self.completeButton.setTitle(
       NSLocalizedString("complete", value: "Complete", comment: ""),
       for: .normal

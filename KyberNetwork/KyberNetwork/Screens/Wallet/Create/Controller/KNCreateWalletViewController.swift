@@ -31,7 +31,7 @@ class KNCreateWalletViewController: KNBaseViewController {
     self.confirmLabel.text = NSLocalizedString("confirm", value: "Confirm", comment: "")
     self.descLabel.text = "This creates a new Ethereum wallet for you to receive and send tokens".toBeLocalised()
     let style = KNAppStyleType.current
-    self.confirmButton.rounded(radius: style.buttonRadius(for: self.confirmButton.frame.height))
+    self.confirmButton.rounded(radius: style.buttonRadius())
     self.confirmButton.applyGradient()
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),

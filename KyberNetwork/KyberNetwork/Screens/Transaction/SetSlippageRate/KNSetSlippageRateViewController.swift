@@ -71,7 +71,7 @@ class KNSetSlippageRateViewController: KNBaseViewController {
   fileprivate func setupUI() {
     self.navTitleLabel.text = self.viewModel.navTitle
     self.maxValueLabel.text = self.viewModel.displayMaxText
-    self.doneButton.rounded(radius: 7.0)
+    self.doneButton.rounded()
     self.slider.setThumbImage(UIImage(named: "slider_thumb_icon"), for: .normal)
     self.slider.setThumbImage(UIImage(named: "slider_thumb_icon"), for: .highlighted)
     self.slider.setValue(Float(self.viewModel.currentValue), animated: false)

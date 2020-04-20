@@ -51,7 +51,7 @@ class KNManageAlertsViewController: KNBaseViewController {
 
     self.alertTableView.isHidden = alerts.isEmpty
     self.emptyStateContainerView.isHidden = !alerts.isEmpty
-    self.addAlertButton.rounded(radius: KNAppStyleType.current.buttonRadius(for: self.addAlertButton.frame.height))
+    self.addAlertButton.rounded(radius: KNAppStyleType.current.buttonRadius())
     self.addAlertButton.applyGradient()
     self.addAlertButton.setTitle(
       NSLocalizedString("Add Alert", comment: ""),

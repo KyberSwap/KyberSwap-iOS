@@ -93,9 +93,7 @@ class KNConfirmLimitOrderViewController: KNBaseViewController {
     self.feeValueButton.setTitle("\(feeAmountString) \(from.symbol)", for: .normal)
 
     self.confirmButton.setTitle(NSLocalizedString("confirm", value: "Confirm", comment: ""), for: .normal)
-    self.confirmButton.rounded(
-      radius: self.confirmButton.frame.height / 2.0
-    )
+    self.confirmButton.rounded()
     self.confirmButton.applyGradient()
 
     self.cancelButton.setTitle(NSLocalizedString("cancel", value: "Cancel", comment: ""), for: .normal)

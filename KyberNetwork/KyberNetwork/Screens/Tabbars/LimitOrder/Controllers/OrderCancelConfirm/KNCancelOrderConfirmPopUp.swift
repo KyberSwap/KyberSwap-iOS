@@ -59,12 +59,15 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
       NSLocalizedString("no", value: "No", comment: ""),
       for: .normal
     )
-    self.cancelButton.rounded(color: UIColor.Kyber.border, width: 1.0, radius: 5.0)
+    self.cancelButton.rounded(
+      color: UIColor.Kyber.border,
+      width: 1.0
+    )
     self.confirmButton.setTitle(
       NSLocalizedString("yes", value: "Yes", comment: ""),
       for: .normal
     )
-    self.confirmButton.rounded(radius: 5.0)
+    self.confirmButton.rounded()
     self.confirmButton.applyGradient()
 
     let srcTokenSymbol = order.srcTokenSymbol

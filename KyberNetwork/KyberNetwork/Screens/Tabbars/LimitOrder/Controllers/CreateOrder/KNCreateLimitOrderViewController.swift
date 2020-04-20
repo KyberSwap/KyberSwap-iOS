@@ -191,9 +191,10 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
 
   fileprivate func setupUI() {
     self.walletNameLabel.text = self.viewModel.walletNameString
+    hasUnreadNotification.rounded()
     self.separatorView.dashLine(width: 1.0, color: UIColor.Kyber.border)
     self.separatorView.backgroundColor = .clear
-    self.submitOrderButton.rounded(radius: self.submitOrderButton.frame.height / 2.0)
+    self.submitOrderButton.rounded()
     self.submitOrderButton.setTitle("Submit Order".toBeLocalised(), for: .normal)
 
     self.rateOfTextLabel.text = "Rate of".toBeLocalised()
@@ -269,9 +270,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
     self.whyButton.setTitle("Why?".toBeLocalised(), for: .normal)
     self.iunderstandButton.setTitle("I understand".toBeLocalised(), for: .normal)
     self.confirmCancelButton.setTitle("OK".toBeLocalised(), for: .normal)
-    self.confirmCancelButton.rounded(
-      radius: self.confirmCancelButton.frame.height / 2.0
-    )
+    self.confirmCancelButton.rounded()
     self.confirmCancelButton.applyGradient()
     self.noCancelButton.setTitle("Change Rate".toBeLocalised(), for: .normal)
     self.cancelRelatedOrdersView.isHidden = true

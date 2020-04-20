@@ -36,7 +36,7 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
     self.privateKeyNoteLabel.addLetterSpacing()
 
     let style = KNAppStyleType.current
-    self.nextButton.rounded(radius: style.buttonRadius(for: self.nextButton.frame.height))
+    self.nextButton.rounded(radius: style.buttonRadius())
     self.nextButton.setBackgroundColor(
       style.importWalletButtonDisabledColor,
       forState: .disabled

@@ -612,7 +612,7 @@ class KNTokenChartViewController: KNBaseViewController {
     self.sendButton.rounded(
       color: UIColor.Kyber.border,
       width: 1,
-      radius: style.buttonRadius(for: self.sendButton.frame.height)
+      radius: style.buttonRadius()
     )
     self.sendButton.backgroundColor = .clear//UIColor.Kyber.merigold
     self.sendButton.setTitle(
@@ -623,7 +623,7 @@ class KNTokenChartViewController: KNBaseViewController {
     self.buyButton.rounded(
       color: UIColor.Kyber.border,
       width: 1,
-      radius: style.buttonRadius(for: self.buyButton.frame.height)
+      radius: style.buttonRadius()
     )
     self.buyButton.backgroundColor = .clear//UIColor.Kyber.shamrock
     self.buyButton.setTitle(
@@ -634,7 +634,7 @@ class KNTokenChartViewController: KNBaseViewController {
     self.sellButton.rounded(
       color: UIColor.Kyber.border,
       width: 1,
-      radius: style.buttonRadius(for: self.sellButton.frame.height)
+      radius: style.buttonRadius()
     )
     self.sellButton.backgroundColor = .clear//UIColor.Kyber.blueGreen
     self.sellButton.setTitle(

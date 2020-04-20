@@ -83,7 +83,7 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     self.slowGasPriceLabel.addGestureRecognizer(tapSlow)
     self.currentFeeLabel.text = self.viewModel.currentTransactionFeeETHString
     let style = KNAppStyleType.current
-    let radius = style.buttonRadius(for: self.doneButton.frame.height)
+    let radius = style.buttonRadius()
     self.doneButton.rounded(radius: radius)
     self.doneButton.applyGradient()
   }
