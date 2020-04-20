@@ -21,7 +21,7 @@ class CustomAxisValueFormatter: NSObject, IAxisValueFormatter {
                       axis: AxisBase?) -> String {
     guard let first = origin else { return "" }
     var output = ""
-    let timeStamp = value * (15.0 * 60.0) + Double(first.time)
+    let timeStamp = value * self.type.scaleUnit + Double(first.time)
     let date = Date(timeIntervalSince1970: timeStamp)
     let calendar = Calendar.current
     let dateFormatter = DateFormatter()
