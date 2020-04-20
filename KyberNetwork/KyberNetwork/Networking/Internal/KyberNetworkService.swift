@@ -293,7 +293,7 @@ extension UserInfoService: TargetType {
       let json: JSONDictionary = [
         "base": base,
         "quote": quote,
-        "status": status
+        "status": status,
       ]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)

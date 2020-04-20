@@ -61,7 +61,7 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
       return "Sell \(self.order.from.symbolLODisplay) to \(self.order.to.symbolLODisplay)".uppercased()
     }()
 
-    self.quantityTextLabel.text = "Quantity".toBeLocalised()
+    self.quantityTextLabel.text = "Amount".toBeLocalised()
     self.quantityValueLabel.text = {
       if self.order.isBuy == true {
         return "\(self.confirmData.amount.prefix(12)) \(self.order.to.symbolLODisplay)"

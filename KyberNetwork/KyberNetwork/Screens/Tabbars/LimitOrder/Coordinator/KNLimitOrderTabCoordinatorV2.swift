@@ -35,6 +35,7 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
   weak var delegate: KNLimitOrderTabCoordinatorV2Delegate?
 
   fileprivate var balances: [String: Balance] = [:]
+  fileprivate var pendingBalances: JSONDictionary = [:]
   fileprivate var approveTx: [String: TimeInterval] = [:]
 
   fileprivate var historyCoordinator: KNHistoryCoordinator?
@@ -96,6 +97,7 @@ extension KNLimitOrderTabCoordinatorV2 {
       self.navigationController.popToRootViewController(animated: false)
     }
     self.balances = [:]
+    self.self.pendingBalances = [:]
     self.approveTx = [:]
     let pendingTrans = self.session.transactionStorage.kyberPendingTransactions
     self.rootViewController.coordinatorDidUpdatePendingTransactions(pendingTrans)
@@ -336,6 +338,10 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
     )
     self.tokenChartCoordinator?.delegate = self
     self.tokenChartCoordinator?.start()
+    self.tokenChartCoordinator?.coordinatorUpdatePendingBalances(
+      address: self.session.wallet.address.description.lowercased(),
+      balances: self.pendingBalances
+    )
   }
 
   fileprivate func checkDataBeforeConfirmOrder(_ order: KNLimitOrder, confirmData: KNLimitOrderConfirmData?) {
@@ -506,8 +512,12 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       guard let `self` = self else { return }
       switch result {
       case .success(let balances):
+        if self.session.wallet.address.description.lowercased() == address.lowercased() {
+          self.pendingBalances = balances
+        }
         self.convertVC?.updatePendingWETHBalance(balances["WETH"] as? Double ?? 0.0)
         self.rootViewController.coordinatorUpdatePendingBalances(address: address, balances: balances)
+        self.tokenChartCoordinator?.coordinatorUpdatePendingBalances(address: address, balances: balances)
       case .failure(let error):
         print("--Get Pending Balances-- Error: \(error.prettyError)")
       }

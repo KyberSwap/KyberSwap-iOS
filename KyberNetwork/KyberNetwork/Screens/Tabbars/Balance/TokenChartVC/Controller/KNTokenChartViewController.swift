@@ -17,7 +17,8 @@ enum KNTokenChartType: Int {
   var resolution: String {
     switch self {
     case .day: return "15"
-    case .week, .month: return "60"
+    case .week: return "60"
+    case .month: return "720"
     case .year, .all: return "D"
     }
   }
@@ -58,7 +59,8 @@ enum KNTokenChartType: Int {
   var scaleUnit: Double {
     switch self {
     case .day: return 15 * 60
-    case .week, .month: return 60 * 60
+    case .week: return 60 * 60
+    case .month: return 12 * 60 * 60
     case .year, .all: return 24 * 60 * 60
     }
   }
@@ -87,9 +89,14 @@ class KNTokenChartViewModel {
   var type: KNTokenChartType = .day
   var chartDataLO: KNLimitOrderChartData? // not nil if opening from LO view
   var data: [KNChartObject] = []
-  var balance: Balance = Balance(value: BigInt())
+  var balance: BigInt = BigInt(0)
+  var pendingBalance: BigInt = BigInt(0) // use only for LO-chart
   var volume24h: String = "---"
   let currencyType: KWalletCurrencyType = KNAppTracker.getCurrencyType()
+
+  var availableBalance: BigInt {
+    return max(BigInt(0), balance - pendingBalance)
+  }
 
   init(token: TokenObject, chartDataLO: KNLimitOrderChartData? = nil) {
     self.token = token
@@ -197,7 +204,7 @@ class KNTokenChartViewModel {
   }
 
   var balanceAttributedString: NSAttributedString {
-    let balance: String = self.balance.value.string(
+    let balance: String = self.availableBalance.string(
       decimals: self.token.decimals,
       minFractionDigits: 0,
       maxFractionDigits: min(self.token.decimals, 6)
@@ -208,6 +215,14 @@ class KNTokenChartViewModel {
       NSAttributedStringKey.kern: 0.0,
     ]
     let attributedString = NSMutableAttributedString()
+    if self.chartDataLO != nil {
+      let availableTextAttributes: [NSAttributedStringKey: Any] = [
+        NSAttributedStringKey.foregroundColor: UIColor(red: 139, green: 142, blue: 147),
+        NSAttributedStringKey.font: UIFont.Kyber.medium(with: 10),
+        NSAttributedStringKey.kern: 0.0,
+      ]
+      attributedString.append(NSAttributedString(string: "\("Available Balance".toBeLocalised())\n", attributes: availableTextAttributes))
+    }
     attributedString.append(NSAttributedString(string: balance, attributes: balanceAttributes))
     return attributedString
   }
@@ -216,13 +231,13 @@ class KNTokenChartViewModel {
     guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: self.token) else { return "" }
     let value: BigInt = {
       let balance: BigInt = {
-        let balanceString: String = self.balance.value.string(
+        let balanceString: String = self.availableBalance.string(
           decimals: self.token.decimals,
           minFractionDigits: 0,
           maxFractionDigits: min(self.token.decimals, 6)
         )
         if balanceString.fullBigInt(decimals: self.token.decimals)?.isZero == true { return BigInt(0) }
-        return self.balance.value
+        return self.balance
       }()
       return trackerRate.rateETHBigInt * balance / BigInt(10).power(self.token.decimals)
     }()
@@ -235,13 +250,13 @@ class KNTokenChartViewModel {
   var totalUSDAmount: BigInt? {
     if let usdRate = KNRateCoordinator.shared.usdRate(for: self.token) {
       let balance: BigInt = {
-        let balanceString: String = self.balance.value.string(
+        let balanceString: String = self.availableBalance.string(
           decimals: self.token.decimals,
           minFractionDigits: 0,
           maxFractionDigits: min(self.token.decimals, 6)
         )
         if balanceString.fullBigInt(decimals: self.token.decimals)?.isZero == true { return BigInt(0) }
-        return self.balance.value
+        return self.balance
       }()
       return usdRate.rate * balance / BigInt(10).power(self.token.decimals)
     }
@@ -261,8 +276,12 @@ class KNTokenChartViewModel {
     self.data = []
   }
 
-  func updateBalance(_ balance: Balance) {
+  func updateBalance(_ balance: BigInt) {
     self.balance = balance
+  }
+
+  func updatePendingBalance(_ balance: BigInt) {
+    self.pendingBalance = balance
   }
 
   func updateMarket(_ market: KNMarket) {
@@ -292,10 +311,9 @@ class KNTokenChartViewModel {
   }
 
   var scaleXFactor: CGFloat {
-    //Test on device see that with 96 element and scale x = 3 is look good so use this value to calculate the scale factor base on number of element
-    let unitScale = 96
+    //Test on device see that with 96 elements looks good so use this value to calculate the scale factor base on number of element
     let totalCount = self.data.count
-    return CGFloat(totalCount * 3 / unitScale)
+    return CGFloat(totalCount) / CGFloat(96)
   }
 
   var displayChartData: CandleChartData {
@@ -791,7 +809,7 @@ class KNTokenChartViewController: KNBaseViewController {
       self.chartView.data = self.viewModel.displayChartData
       self.addChartLimitLines()
       self.updateChartInfoLabel()
-      if self.viewModel.type == .day || self.viewModel.type == .week {
+      if self.viewModel.type == .day || self.viewModel.type == .week || self.viewModel.type == .month {
         self.chartView.zoomAndCenterViewAnimated(scaleX: self.viewModel.scaleXFactor, scaleY: 1, xValue: self.chartView.highestVisibleX, yValue: 1, axis: .right, duration: 1)
       } else {
         self.chartView.zoomAndCenterViewAnimated(scaleX: 1, scaleY: 1, xValue: 1, yValue: 1, axis: .right, duration: 1)
@@ -853,14 +871,40 @@ class KNTokenChartViewController: KNBaseViewController {
   }
 
   func coordinatorUpdateBalance(balance: [String: Balance]) {
-    if let bal = balance[self.viewModel.token.contract] {
-      self.viewModel.updateBalance(bal)
-      self.balanceLabel.attributedText = self.viewModel.balanceAttributedString
-      self.totalValueLabel.text = self.viewModel.totalValueString
-      self.totalValueLabel.addLetterSpacing()
-      self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
-      self.totalUSDValueLabel.addLetterSpacing()
-    }
+    let bal: BigInt = {
+      if self.viewModel.chartDataLO == nil {
+        // normal chart opens from Balance tab
+        return balance[self.viewModel.token.contract]?.value ?? BigInt(0)
+      }
+      if self.viewModel.token.isETH || self.viewModel.token.isWETH {
+        let firstBal = balance[self.viewModel.token.contract]?.value ?? BigInt(0)
+        let secondBal: BigInt = {
+          if let token = self.viewModel.token.isETH ?
+            KNSupportedTokenStorage.shared.supportedTokens.first(where: { return $0.isWETH }) :
+            KNSupportedTokenStorage.shared.supportedTokens.first(where: { return $0.isETH }) {
+            return balance[token.contract]?.value ?? BigInt(0)
+          }
+          return BigInt(0)
+        }()
+        return firstBal + secondBal
+      }
+      return balance[self.viewModel.token.contract]?.value ?? BigInt(0)
+    }()
+    self.viewModel.updateBalance(bal)
+    self.balanceLabel.attributedText = self.viewModel.balanceAttributedString
+    self.totalValueLabel.text = self.viewModel.totalValueString
+    self.totalValueLabel.addLetterSpacing()
+    self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
+    self.totalUSDValueLabel.addLetterSpacing()
+  }
+
+  func coordinatorUpdatePendingBalance(balance: BigInt) {
+    self.viewModel.updatePendingBalance(balance)
+    self.balanceLabel.attributedText = self.viewModel.balanceAttributedString
+    self.totalValueLabel.text = self.viewModel.totalValueString
+    self.totalValueLabel.addLetterSpacing()
+    self.totalUSDValueLabel.text = self.viewModel.displayTotalUSDAmount
+    self.totalUSDValueLabel.addLetterSpacing()
   }
 
   func coordinatorUpdateMarketPair(market: KNMarket) {
