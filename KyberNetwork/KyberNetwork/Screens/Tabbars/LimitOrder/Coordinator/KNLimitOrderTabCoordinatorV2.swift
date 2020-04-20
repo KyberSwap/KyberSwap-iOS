@@ -960,7 +960,10 @@ extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
   func selectMakertViewController(_ controller: KNSelectMarketViewController, run event: KNSelectMarketEvent) {
     switch event {
     case .getListFavouriteMarket:
-      guard let accessToken = IEOUserStorage.shared.user?.accessToken else { return }
+      guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
+        self.marketsVC.coordinatorUpdatedFavouriteList(true)
+        return
+      }
       let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
       provider.request(.getListFavouriteMarket(accessToken: accessToken)) { (result) in
         switch result {
@@ -993,6 +996,7 @@ extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
           message: "You must sign in to use Limit Order feature".toBeLocalised(),
           time: 1.5
         )
+        self.marketsVC.coordinatorUpdatedFavouriteList(true)
         return
       }
       let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])

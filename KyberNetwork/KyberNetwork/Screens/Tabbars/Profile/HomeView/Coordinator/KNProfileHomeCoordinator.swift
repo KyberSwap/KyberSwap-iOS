@@ -187,6 +187,7 @@ extension KNProfileHomeCoordinator {
     // stop loading data
     self.loadUserInfoTimer?.invalidate()
     self.lastUpdatedUserInfo = nil
+    KNAppTracker.cleanAllFavouriteMarkets()
 
     // remove user's data
     IEOUserStorage.shared.signedOut()
