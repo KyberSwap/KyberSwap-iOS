@@ -80,7 +80,7 @@
                                     <rect key="frame" x="93" y="13.5" width="190" height="21.5"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="psT-0x-7HM"/>
                                     </connections>
@@ -136,7 +136,7 @@
                                     <rect key="frame" x="93" y="13.5" width="187.5" height="21.5"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="BSM-tR-xMx"/>
                                     </connections>
@@ -318,7 +318,7 @@
                                     <rect key="frame" x="93" y="13.5" width="190.5" height="21.5"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     <connections>
                                         <outlet property="delegate" destination="-1" id="2vq-gq-Y7B"/>
                                     </connections>

@@ -112,6 +112,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     guard self.viewModel.updatePair(name: market.pair) else {
       return
     }
+    self.resetAmountAndTotalField()
     guard isViewSetup else {
       return
     }
@@ -474,6 +475,10 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   func coordinatorFinishConfirmOrder() {
+    self.resetAmountAndTotalField()
+  }
+
+  fileprivate func resetAmountAndTotalField() {
     self.viewModel.updateAmountTo("")
     self.viewModel.updateAmountFrom("")
     guard self.isViewSetup else { return }
@@ -508,7 +513,8 @@ extension KNCreateLimitOrderV2ViewController: UITextFieldDelegate {
       }
       self.updateFeeNotesUI()
     }
-    return true
+    textField.text = text
+    return false
   }
 
   func textFieldDidEndEditing(_ textField: UITextField) {
