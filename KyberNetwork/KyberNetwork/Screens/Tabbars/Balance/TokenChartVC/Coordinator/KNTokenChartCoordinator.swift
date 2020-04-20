@@ -1,6 +1,7 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
+import BigInt
 
 protocol KNTokenChartCoordinatorDelegate: class {
   func tokenChartCoordinator(sell token: TokenObject)
@@ -47,9 +48,7 @@ class KNTokenChartCoordinator: Coordinator {
 
   func start() {
     self.navigationController.pushViewController(self.rootViewController, animated: true)
-    if let bal = balances[self.token.contract] {
-      self.rootViewController.coordinatorUpdateBalance(balance: [self.token.contract: bal])
-    }
+    self.rootViewController.coordinatorUpdateBalance(balance: self.balances)
   }
 
   func stop() {
@@ -58,10 +57,21 @@ class KNTokenChartCoordinator: Coordinator {
 
   func coordinatorTokenBalancesDidUpdate(balances: [String: Balance]) {
     balances.forEach { self.balances[$0.key] = $0.value }
-    if let bal = balances[self.token.contract] {
-      self.rootViewController.coordinatorUpdateBalance(balance: [self.token.contract: bal])
-    }
+    self.rootViewController.coordinatorUpdateBalance(balance: self.balances)
     self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: self.balances)
+  }
+
+  func coordinatorUpdatePendingBalances(address: String, balances: JSONDictionary) {
+    // different address
+    if address.lowercased() != self.session.wallet.address.description.lowercased() { return }
+    let bal: Double = {
+      if self.token.isETH || self.token.isWETH {
+        return (balances["ETH"] as? Double ?? 0.0) + (balances["WETH"] as? Double ?? 0.0)
+      }
+      return balances[self.token.symbol] as? Double ?? 0.0
+    }()
+    let balance = BigInt(bal * pow(10.0, Double(self.token.decimals)))
+    self.rootViewController.coordinatorUpdatePendingBalance(balance: balance)
   }
 
   func coordinatorExchangeRateDidUpdate() {
