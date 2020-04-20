@@ -191,7 +191,6 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
 
   fileprivate func setupUI() {
     self.walletNameLabel.text = self.viewModel.walletNameString
-    hasUnreadNotification.rounded()
     self.separatorView.dashLine(width: 1.0, color: UIColor.Kyber.border)
     self.separatorView.backgroundColor = .clear
     self.submitOrderButton.rounded()

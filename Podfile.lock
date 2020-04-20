@@ -14,7 +14,7 @@ PODS:
   - Charts/Core (3.4.0)
   - CryptoSwift (0.10.0)
   - EasyTipView (2.0.4)
-  - Eureka (4.1.1)
+  - Eureka (5.2.1)
   - FBSDKCoreKit (6.0.0):
     - FBSDKCoreKit/Basics (= 6.0.0)
     - FBSDKCoreKit/Core (= 6.0.0)
@@ -194,7 +194,7 @@ DEPENDENCIES:
   - Charts
   - CryptoSwift (~> 0.10.0)
   - EasyTipView (~> 2.0.1)
-  - Eureka (~> 4.1.1)
+  - Eureka (~> 5.2.1)
   - FBSDKLoginKit/Swift
   - Firebase (~> 6.20.0)
   - FirebaseAnalytics (~> 6.3)
@@ -228,7 +228,7 @@ DEPENDENCIES:
   - WalletConnect (from `https://github.com/trustwallet/wallet-connect-swift`, branch `master`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - APIKit
     - AppAuth
@@ -308,7 +308,7 @@ SPEC CHECKSUMS:
   Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
-  Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
+  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
   FBSDKCoreKit: fe738b172590e622c86735b45e20d196848b54df
   FBSDKLoginKit: fa57df1b967fe0e147b25bede6ea4e9cdf4d64be
   Firebase: fe7f74012742ab403451dd283e6909b8f1fb348a
@@ -361,8 +361,8 @@ SPEC CHECKSUMS:
   TrustKeystore: ba8a33ccd7b6a46dfe25f209253d6ba13da6655c
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit5: de28c7a3e022f18fd644e0bd61f9fca448991faa
-  WalletConnect: 20ca9cb4372f9b15cc67a416b751d0fe8ab2fe89
+  WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: 9677f65c5e52334dbef6a0431a392a2b658e4997
+PODFILE CHECKSUM: feae675a5027c9f4334297939f3d7a7c57f92b94
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

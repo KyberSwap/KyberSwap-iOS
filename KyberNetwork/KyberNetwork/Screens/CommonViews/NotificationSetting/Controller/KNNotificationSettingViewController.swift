@@ -46,12 +46,12 @@ class KNNotificationSettingViewController: KNBaseViewController {
     self.resetButton.rounded(
       color: UIColor.Kyber.border,
       width: 1.0,
-      radius: self.resetButton.frame.height / 2.0
+      radius: 5
     )
     self.resetButton.setTitle("Reset".toBeLocalised(), for: .normal)
     self.applyButton.applyGradient()
     self.applyButton.setTitle(NSLocalizedString("apply", value: "Apply", comment: ""), for: .normal)
-    self.applyButton.rounded(radius: self.applyButton.frame.height / 2.0)
+    self.applyButton.rounded(radius: 5)
 
     let nib = UINib(nibName: KNTransactionFilterTableViewCell.className, bundle: nil)
     self.tokensTableView.register(nib, forCellReuseIdentifier: kFilterTokensTableViewCellID)

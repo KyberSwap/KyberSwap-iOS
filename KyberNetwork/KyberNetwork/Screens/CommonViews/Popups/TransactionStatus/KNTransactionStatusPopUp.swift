@@ -86,7 +86,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   fileprivate func commontSetup() {
     self.containerView.rounded(radius: 5.0)
     self.transferButton.setTitle(NSLocalizedString("transfer", comment: ""), for: .normal)
-    self.transferButton.rounded(radius: self.transferButton.frame.height / 2.0)
+    self.transferButton.rounded()
     self.transferButton.applyGradient()
 
     self.swapButton.setTitle(NSLocalizedString("swap", comment: ""), for: .normal)
