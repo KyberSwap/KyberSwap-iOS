@@ -441,6 +441,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     }
   }
   fileprivate func updateRelatedOrdersView() {
+    guard self.isViewSetup else { return }
     let numberOrders = self.viewModel.relatedOrders.count
     if numberOrders > 0 {
       let orderCellHeight = KNLimitOrderCollectionViewCell.kLimitOrderCellHeight // height + bottom padding
