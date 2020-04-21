@@ -18,7 +18,7 @@ enum KNTokenChartType: Int {
     switch self {
     case .day: return "15"
     case .week: return "60"
-    case .month: return "720"
+    case .month: return "240"
     case .year, .all: return "D"
     }
   }
@@ -60,7 +60,7 @@ enum KNTokenChartType: Int {
     switch self {
     case .day: return 15 * 60
     case .week: return 60 * 60
-    case .month: return 12 * 60 * 60
+    case .month: return 4 * 60 * 60
     case .year, .all: return 24 * 60 * 60
     }
   }
@@ -292,14 +292,16 @@ class KNTokenChartViewModel {
   }
 
   func updateData(_ newData: JSONDictionary, symbol: String, resolution: String) {
-    let objects: [KNChartObject] = KNChartObject.objects(
+    var objects: [KNChartObject] = KNChartObject.objects(
       from: newData,
       symbol: symbol,
       resolution: resolution
     )
-    if self.token.symbol == symbol && self.type.resolution == resolution {
-      self.data.append(contentsOf: objects)
-      self.data = self.data.sorted(by: { $0.time < $1.time })
+    if self.token.symbol == symbol && self.type.resolution == resolution && !objects.isEmpty {
+      objects = objects.sorted(by: { $0.time < $1.time })
+      if self.data.isEmpty || self.data.last!.time < objects.first!.time {
+        self.data.append(contentsOf: objects)
+      }
       let fromTime = self.type.fromTime(for: Int64(floor(Date().timeIntervalSince1970)))
       for id in 0..<self.data.count where self.data[id].time >= fromTime {
         self.data = Array(self.data.suffix(from: id)) as [KNChartObject]
@@ -311,9 +313,9 @@ class KNTokenChartViewModel {
   }
 
   var scaleXFactor: CGFloat {
-    //Test on device see that with 96 elements looks good so use this value to calculate the scale factor base on number of element
+    //Test on device see that with 48 elements looks good so use this value to calculate the scale factor base on number of element
     let totalCount = self.data.count
-    return CGFloat(totalCount) / CGFloat(96)
+    return CGFloat(totalCount) / CGFloat(48)
   }
 
   var displayChartData: CandleChartData {
@@ -424,7 +426,7 @@ class KNTokenChartViewModel {
     let to: Int64 = Int64(floor(Date().timeIntervalSince1970))
     let from: Int64 = {
       let fromTime: Int64 = type.fromTime(for: to)
-      if let time = self.data.first?.time {
+      if let time = self.data.last?.time {
         return max(time + 60, fromTime)
       }
       return fromTime
