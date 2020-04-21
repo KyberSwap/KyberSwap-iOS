@@ -71,7 +71,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="85" height="48"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <action selector="marketPriceButtonTapped:" destination="-1" eventType="touchUpInside" id="Oz3-DA-ogI"/>
+                                                <action selector="marketPriceButtonTapped:" destination="-1" eventType="touchUpInside" id="1Rp-Kc-poB"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -116,11 +116,14 @@
                                 <constraint firstItem="u6a-j7-MXP" firstAttribute="centerY" secondItem="bZa-6n-jh8" secondAttribute="centerY" id="zAp-mE-eCe"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6E7-fa-WNi">
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6E7-fa-WNi">
                             <rect key="frame" x="18" y="88" width="339" height="0.0"/>
                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="12"/>
                             <color key="textColor" red="0.61960784313725492" green="0.63137254901960782" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="jaJ-3b-udF" appends="YES" id="Fw4-Mv-3eD"/>
+                            </connections>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vty-AQ-Ibr">
                             <rect key="frame" x="18" y="122" width="339" height="48"/>
@@ -229,6 +232,12 @@
                             <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXi-aC-RXT">
+                            <rect key="frame" x="18" y="187" width="133" height="36"/>
+                            <connections>
+                                <action selector="quickFillAmountButtonTapped:" destination="-1" eventType="touchUpInside" id="Vwh-sT-lnp"/>
+                            </connections>
+                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fee:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHX-1G-BQB">
                             <rect key="frame" x="18" y="309" width="29" height="18"/>
                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
@@ -416,6 +425,7 @@
                         <constraint firstItem="Lek-GO-7FX" firstAttribute="centerY" secondItem="YlA-gO-EWe" secondAttribute="centerY" id="7RR-rM-4ay"/>
                         <constraint firstItem="Q3x-cw-BJl" firstAttribute="centerY" secondItem="sBz-ns-jKw" secondAttribute="centerY" id="7SD-qD-Jgs"/>
                         <constraint firstAttribute="trailing" secondItem="vty-AQ-Ibr" secondAttribute="trailing" constant="18" id="7X8-bO-Stf"/>
+                        <constraint firstItem="lXi-aC-RXT" firstAttribute="trailing" secondItem="IHa-BU-feb" secondAttribute="trailing" id="8i8-zK-TrG"/>
                         <constraint firstItem="YlA-gO-EWe" firstAttribute="top" secondItem="IHa-BU-feb" secondAttribute="top" id="9U5-xA-lu5"/>
                         <constraint firstItem="sBz-ns-jKw" firstAttribute="leading" secondItem="w93-ly-3v6" secondAttribute="leading" id="AQI-Eo-64k"/>
                         <constraint firstItem="IHa-BU-feb" firstAttribute="top" secondItem="vty-AQ-Ibr" secondAttribute="bottom" constant="17" id="B2U-qh-SLn"/>
@@ -430,12 +440,14 @@
                         <constraint firstItem="w93-ly-3v6" firstAttribute="centerY" secondItem="nHX-1G-BQB" secondAttribute="centerY" id="LO1-0d-SzN"/>
                         <constraint firstAttribute="trailing" secondItem="0CU-e3-57j" secondAttribute="trailing" constant="18" id="LSy-aP-qAu"/>
                         <constraint firstItem="YlA-gO-EWe" firstAttribute="leading" secondItem="Lek-GO-7FX" secondAttribute="trailing" constant="7" id="Men-6b-P5S"/>
+                        <constraint firstItem="lXi-aC-RXT" firstAttribute="leading" secondItem="IHa-BU-feb" secondAttribute="leading" id="NxL-Tz-lfW"/>
                         <constraint firstItem="uAl-Dw-MWf" firstAttribute="leading" secondItem="BXf-zL-WBp" secondAttribute="leading" constant="18" id="QT8-Uy-qkk"/>
                         <constraint firstItem="cH9-QG-LFW" firstAttribute="leading" secondItem="BXf-zL-WBp" secondAttribute="leading" id="Svx-N8-zhj"/>
                         <constraint firstItem="Lek-GO-7FX" firstAttribute="top" secondItem="IHa-BU-feb" secondAttribute="top" id="VKM-mc-MLN"/>
                         <constraint firstItem="Lek-GO-7FX" firstAttribute="bottom" secondItem="Ls4-gj-7NW" secondAttribute="bottom" id="WeA-3o-ReU"/>
                         <constraint firstItem="Q3x-cw-BJl" firstAttribute="leading" secondItem="sBz-ns-jKw" secondAttribute="trailing" constant="7" id="XHn-Ig-Ay5"/>
                         <constraint firstAttribute="trailing" secondItem="bZa-6n-jh8" secondAttribute="trailing" constant="18" id="aKE-zw-gSW"/>
+                        <constraint firstItem="lXi-aC-RXT" firstAttribute="bottom" secondItem="Ls4-gj-7NW" secondAttribute="bottom" id="awi-Dj-rvx"/>
                         <constraint firstItem="6E7-fa-WNi" firstAttribute="top" secondItem="bZa-6n-jh8" secondAttribute="bottom" constant="10" id="bBb-SY-CyM"/>
                         <constraint firstItem="bZa-6n-jh8" firstAttribute="top" secondItem="BXf-zL-WBp" secondAttribute="top" constant="30" id="cbf-fH-caf"/>
                         <constraint firstAttribute="trailing" secondItem="uAl-Dw-MWf" secondAttribute="trailing" constant="18" id="cj6-nO-tO4"/>
@@ -449,6 +461,7 @@
                         <constraint firstItem="wx0-v5-8Mb" firstAttribute="leading" secondItem="BXf-zL-WBp" secondAttribute="leading" constant="18" id="joM-fx-IWS"/>
                         <constraint firstItem="YlA-gO-EWe" firstAttribute="centerY" secondItem="mne-4R-iNo" secondAttribute="centerY" id="lNU-B7-HzD"/>
                         <constraint firstItem="nHX-1G-BQB" firstAttribute="top" secondItem="wx0-v5-8Mb" secondAttribute="bottom" constant="21" id="liL-Lo-Oqb"/>
+                        <constraint firstItem="lXi-aC-RXT" firstAttribute="top" secondItem="IHa-BU-feb" secondAttribute="top" id="n8E-wZ-0hx"/>
                         <constraint firstAttribute="trailing" secondItem="cH9-QG-LFW" secondAttribute="trailing" id="q5A-hQ-yy6"/>
                         <constraint firstItem="bZa-6n-jh8" firstAttribute="leading" secondItem="BXf-zL-WBp" secondAttribute="leading" constant="18" id="qHN-tB-wfp"/>
                         <constraint firstAttribute="trailing" secondItem="6E7-fa-WNi" secondAttribute="trailing" constant="18" id="rAc-f5-hjf"/>
@@ -469,5 +482,10 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.40000000000001" y="116.49175412293854"/>
         </view>
+        <tapGestureRecognizer id="jaJ-3b-udF">
+            <connections>
+                <action selector="marketPriceButtonTapped:" destination="-1" id="vWo-nE-wZN"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>
