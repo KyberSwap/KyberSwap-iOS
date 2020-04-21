@@ -172,7 +172,7 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
       self.orderStatusLabel.setTitle("Open".toBeLocalised(), for: .normal)
       self.orderStatusLabel.backgroundColor = UIColor(red: 234, green: 230, blue: 255)
       self.orderStatusLabel.setTitleColor(UIColor(red: 64, green: 50, blue: 148), for: .normal)
-      self.closeButton.isHidden = false
+      self.closeButton.isHidden = !hasAction
     case .inProgress:
       self.orderStatusLabel.setTitle("In progress".toBeLocalised(), for: .normal)
       self.orderStatusLabel.backgroundColor = UIColor(red: 222, green: 235, blue: 255)
@@ -192,7 +192,6 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
     default:
       self.orderStatusLabel.isHidden = true
     }
-    self.closeButton.isHidden = !hasAction
 
     let feeDisplay: String = {
       let feeDouble = order.fee * order.sourceAmount
