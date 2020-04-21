@@ -87,7 +87,7 @@
 "buy" = "Mua";
 "sell" = "Bán";
 "updating.data" = "Cập nhật dữ liệu";
-"this.token.is.not.supported" = "Token này không được hỗ trợ bởi Kyber Network";
+"this.token.is.not.supported" = "Token này không được hỗ trợ bởi KyberSwap";
 "can.not.update.data" = "Không thể cập nhật dữ liệu";
 "no.data.for.this.token" = "Không có dữ liệu cho token này";
 "unsupported" = "Không hỗ trợ";

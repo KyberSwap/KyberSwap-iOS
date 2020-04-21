@@ -87,7 +87,7 @@
 "buy" = "购买";
 "sell" = "卖";
 "updating.data" = "更新数据";
-"this.token.is.not.supported" = "Kyber Network不支持此代币";
+"this.token.is.not.supported" = "KyberSwap不支持此代币";
 "can.not.update.data" = "无法更新数据";
 "no.data.for.this.token" = "没有支持此代币的数据";
 "unsupported" = "不支持";
