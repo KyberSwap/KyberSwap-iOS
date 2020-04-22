@@ -325,7 +325,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
     var tokenSymbol = pairs.last?.lowercased() ?? ""
     if tokenSymbol == "weth" { tokenSymbol = "eth" } // change to eth if it is weth
 
-    guard let token = self.tokens.first(where: { $0.symbol.lowercased() == (pairs.last?.lowercased() ?? "") }) else {
+    guard let token = self.tokens.first(where: { $0.symbol.lowercased() == tokenSymbol }) else {
       // no token found
       return
     }
