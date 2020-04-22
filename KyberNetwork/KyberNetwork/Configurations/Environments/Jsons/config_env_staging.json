@@ -10,7 +10,7 @@
                "type": "prune"
              },
              {
-               "endPoint": "https://eth-mainnet.alchemyapi.io/jsonrpc/",
+               "endPoint": "https://eth-mainnet.alchemyapi.io/v2/",
                "type": "prune"
              },
              {
