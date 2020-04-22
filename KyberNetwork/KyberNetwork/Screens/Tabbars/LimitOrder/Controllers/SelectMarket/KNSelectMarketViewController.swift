@@ -155,6 +155,7 @@ class KNSelectMarketViewController: KNBaseViewController {
       button.layer.borderWidth = 0
     }
     sender?.layer.borderWidth = 2.0
+    self.fakeTextField.resignFirstResponder()
   }
 
   func coordinatorMarketCachedDidUpdate() {
@@ -327,6 +328,14 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
+    guard (IEOUserStorage.shared.user?.accessToken) != nil else {
+      self.showWarningTopBannerMessage(
+        with: "Sign in required".toBeLocalised(),
+        message: "You must sign in to use Limit Order feature".toBeLocalised(),
+        time: 1.5
+      )
+      return
+    }
     guard self.viewModel.isFav == false else { return }
     self.setSelectButton(sender)
     self.viewModel.isFav = true
