@@ -220,6 +220,7 @@ extension KNLimitOrderTabCoordinatorV2 {
 
   func appCoordinatorOpenManageOrder() {
     if IEOUserStorage.shared.user == nil {
+      self.rootViewController.tabBarController?.selectedIndex = 3
       self.showWarningTopBannerMessage(
         with: "Sign in required".toBeLocalised(),
         message: "You must sign in to use Limit Order feature".toBeLocalised(),
@@ -938,6 +939,7 @@ extension KNLimitOrderTabCoordinatorV2: KNListNotificationViewControllerDelegate
       self.delegate?.limitOrderTabCoordinatorOpenExchange(from: from, to: to)
     case .openManageOrder:
       if IEOUserStorage.shared.user == nil {
+        self.rootViewController.tabBarController?.selectedIndex = 3
         self.showWarningTopBannerMessage(
           with: "Sign in required".toBeLocalised(),
           message: "You must sign in to use Limit Order feature".toBeLocalised(),
@@ -1013,6 +1015,7 @@ extension KNLimitOrderTabCoordinatorV2: KNSelectMarketViewControllerDelegate {
       }
     case .updateMarketFavouriteStatus(let base, let quote, let status):
       guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
+        self.rootViewController.tabBarController?.selectedIndex = 3
         self.showWarningTopBannerMessage(
           with: "Sign in required".toBeLocalised(),
           message: "You must sign in to use Limit Order feature".toBeLocalised(),

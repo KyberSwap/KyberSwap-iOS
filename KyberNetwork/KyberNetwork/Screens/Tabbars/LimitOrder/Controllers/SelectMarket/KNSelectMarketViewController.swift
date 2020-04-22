@@ -329,6 +329,7 @@ class KNSelectMarketViewController: KNBaseViewController {
 
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
     guard (IEOUserStorage.shared.user?.accessToken) != nil else {
+      self.tabBarController?.selectedIndex = 3
       self.showWarningTopBannerMessage(
         with: "Sign in required".toBeLocalised(),
         message: "You must sign in to use Limit Order feature".toBeLocalised(),
