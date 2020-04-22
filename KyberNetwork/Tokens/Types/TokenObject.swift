@@ -188,8 +188,9 @@ class TokenExtraData: NSObject {
   let limitOrderEnabled: Bool
   let isQuote: Bool
   let isGasFixed: Bool
+  let quotePriority: Int
 
-  init(address: String, gasLimit: String, gasApprove: Double, listingTime: TimeInterval, limitOrderEnabled: Bool, isQuote: Bool, isGasFixed: Bool) {
+  init(address: String, gasLimit: String, gasApprove: Double, listingTime: TimeInterval, limitOrderEnabled: Bool, isQuote: Bool, isGasFixed: Bool, quotePriority: Int) {
     self.address = address
     self.gasLimit = gasLimit
     self.gasApprove = gasApprove
@@ -197,6 +198,7 @@ class TokenExtraData: NSObject {
     self.limitOrderEnabled = limitOrderEnabled
     self.isQuote = isQuote
     self.isGasFixed = isGasFixed
+    self.quotePriority = quotePriority
   }
 
   init(dict: JSONDictionary) {
@@ -207,6 +209,7 @@ class TokenExtraData: NSObject {
     self.limitOrderEnabled = dict["sp_limit_order"] as? Bool ?? false
     self.isQuote = dict["is_quote"] as? Bool ?? false
     self.isGasFixed = dict["is_gas_fixed"] as? Bool ?? false
+    self.quotePriority = dict["quote_priority"] as? Int ?? 0
   }
 
   var json: JSONDictionary {
@@ -218,6 +221,7 @@ class TokenExtraData: NSObject {
       "sp_limit_order": self.limitOrderEnabled,
       "is_quote": self.isQuote,
       "is_gas_fixed": self.isGasFixed,
+      "quote_priority": self.quotePriority
     ]
   }
 

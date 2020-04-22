@@ -15,9 +15,6 @@ protocol KNSelectMarketViewControllerDelegate: class {
 
 class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var tableView: UITableView!
-  @IBOutlet weak var daiMarketButton: UIButton!
-  @IBOutlet weak var ethMarketButton: UIButton!
-  @IBOutlet weak var wbtcMarketButton: UIButton!
   @IBOutlet weak var pairButton: UIButton!
   @IBOutlet weak var priceButton: UIButton!
   @IBOutlet weak var volumeButton: UIButton!
@@ -26,8 +23,10 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var headerTitle: UILabel!
   @IBOutlet weak var noDataView: UIView!
-  @IBOutlet var marketTypeButtons: [UIButton]!
+  var marketTypeButtons: [UIButton] = []
   @IBOutlet weak var searchField: UITextField!
+  @IBOutlet weak var marketButtonsStackView: UIStackView!
+  var pickerButton: UIButton?
 
   lazy var pickerView: UIPickerView = {
     let pickerView = UIPickerView(frame: CGRect.zero)
@@ -85,15 +84,32 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.view.addSubview(self.fakeTextField)
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.headerTitle.text = "Market".toBeLocalised()
-    if self.viewModel.pickerViewData.count == 1 {
-      self.daiMarketButton.setImage(nil, for: .normal)
+    self.marketTypeButtons.append(self.favouriteButton)
+    if self.viewModel.pickerViewData.count >= 1, let first = self.viewModel.pickerViewData.first {
+      let button = self.buildMarketButton(first)
+      button.tag = 0
+      if self.viewModel.pickerViewData.count > 1 {
+        button.setImage(UIImage(named: "arrow_down_grey"), for: .normal)
+        button.semanticContentAttribute = .forceRightToLeft
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -5)
+        self.pickerButton = button
+      }
+      self.marketButtonsStackView.addArrangedSubview(button)
+      self.marketTypeButtons.append(button)
     }
-    self.daiMarketButton.setTitle(self.viewModel.pickerViewData.first, for: .normal)
+    for (index, element) in self.viewModel.marketButtonsData.enumerated() {
+      let button = self.buildMarketButton(element)
+      button.tag = index + 1
+      self.marketButtonsStackView.addArrangedSubview(button)
+      self.marketTypeButtons.append(button)
+    }
     self.marketTypeButtons.forEach { (button) in
       button.rounded(radius: 5)
       button.layer.borderColor = UIColor.Kyber.orange.cgColor
     }
-    self.setSelectButton(self.ethMarketButton)
+    if let button = self.marketTypeButtons.first(where: { $0.tag == 1 }) {
+      self.setSelectButton(button)
+    }
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -108,6 +124,19 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
 
+  fileprivate func buildMarketButton(_ title: String) -> UIButton {
+    let button = UIButton()
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.backgroundColor = UIColor(red: 246, green: 247, blue: 250)
+    button.rounded()
+    button.setTitle(title, for: .normal)
+    button.titleLabel?.font = UIFont.Kyber.medium(with: 14)
+    button.setTitleColor(UIColor(red: 90, green: 94, blue: 103), for: .normal)
+    button.heightAnchor.constraint(equalToConstant: 33.0).isActive = true
+    button.widthAnchor.constraint(equalToConstant: 68.0).isActive = true
+    button.addTarget(self, action: #selector(marketTypeButtonTapped(_:)), for: .touchUpInside)
+    return button
+  }
   fileprivate func setupMarketTableView() {
     let nib = UINib(nibName: KNMarketTableViewCell.className, bundle: nil)
     self.tableView.register(
@@ -133,7 +162,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   fileprivate func presentPickerView() {
-    if let index = self.viewModel.pickerViewData.firstIndex(where: { $0 == self.daiMarketButton.currentTitle }) {
+    if let index = self.viewModel.pickerViewData.firstIndex(where: { $0 == self.pickerButton?.currentTitle }) {
       let type = self.viewModel.pickerViewData[index]
       self.viewModel.pickerViewSelectedValue = type
       self.pickerView.selectRow(index, inComponent: 0, animated: false)
@@ -155,22 +184,15 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.viewModel.isFav = false
     self.favouriteButton.setImage(UIImage(named: "unselected_fav_icon"), for: .normal)
     self.setSelectButton(sender)
-    switch sender.tag {
-    case 1:
-      if self.viewModel.pickerViewData.count == 1, let sym = self.viewModel.pickerViewData.first {
-        self.viewModel.marketType = "/\(sym)"
-      } else {
-        self.presentPickerView()
-      }
-    case 2:
-      self.viewModel.marketType = "/ETH*"
-    case 3:
-      self.viewModel.marketType = "/WBTC"
-    default:
-      break
+    if sender.tag == 0 && self.viewModel.pickerViewData.count > 1 {
+      self.presentPickerView()
+      return
     }
-    self.noDataView.isHidden = !self.viewModel.showNoDataView
-    self.tableView.reloadData()
+    if let buttonTitle = sender.currentTitle {
+      self.viewModel.marketType = "/" + buttonTitle
+      self.noDataView.isHidden = !self.viewModel.showNoDataView
+      self.tableView.reloadData()
+    }
   }
 
   @IBAction func sortButtonTapped(_ sender: UIButton) {
@@ -293,7 +315,7 @@ class KNSelectMarketViewController: KNBaseViewController {
     self.fakeTextField.resignFirstResponder()
     guard let selected = self.viewModel.pickerViewSelectedValue else { return }
     self.viewModel.marketType = selected
-    self.daiMarketButton.setTitle(selected, for: .normal)
+    self.pickerButton?.setTitle(String(selected.dropFirst()), for: .normal)
     self.noDataView.isHidden = !self.viewModel.showNoDataView
     self.tableView.reloadData()
     self.viewModel.pickerViewSelectedValue = nil

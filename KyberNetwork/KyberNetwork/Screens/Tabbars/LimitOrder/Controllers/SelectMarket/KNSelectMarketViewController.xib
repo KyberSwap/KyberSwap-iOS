@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,11 +22,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNSelectMarketViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="change24hButton" destination="hGT-iU-hOG" id="Cyi-Qx-8IP"/>
-                <outlet property="daiMarketButton" destination="3mp-5R-5LM" id="kFg-7B-2og"/>
-                <outlet property="ethMarketButton" destination="srD-ch-i7b" id="lnD-Fs-CaU"/>
                 <outlet property="favouriteButton" destination="VLi-bo-vzq" id="dZj-7V-qNq"/>
                 <outlet property="headerContainerView" destination="XFV-a7-4wd" id="mMf-UA-0vT"/>
                 <outlet property="headerTitle" destination="2Gb-wx-r9C" id="5tS-Ot-QbH"/>
+                <outlet property="marketButtonsStackView" destination="qeT-0Q-Mps" id="DhO-cm-8ZF"/>
                 <outlet property="noDataView" destination="zhc-vo-6EH" id="omH-Ko-OOY"/>
                 <outlet property="pairButton" destination="fEO-73-hRs" id="fOy-RY-qID"/>
                 <outlet property="priceButton" destination="Wvl-nL-8P0" id="kpq-aN-kFC"/>
@@ -34,11 +33,6 @@
                 <outlet property="tableView" destination="DRd-aB-bqd" id="XOm-s9-xQH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="volumeButton" destination="IbR-Ip-l3P" id="AcN-L0-jRG"/>
-                <outlet property="wbtcMarketButton" destination="OuF-Uz-RCI" id="tKg-2d-ILh"/>
-                <outletCollection property="marketTypeButtons" destination="3mp-5R-5LM" collectionClass="NSMutableArray" id="daY-6h-0GY"/>
-                <outletCollection property="marketTypeButtons" destination="srD-ch-i7b" collectionClass="NSMutableArray" id="8yj-L9-HTm"/>
-                <outletCollection property="marketTypeButtons" destination="OuF-Uz-RCI" collectionClass="NSMutableArray" id="5Gn-dN-lQX"/>
-                <outletCollection property="marketTypeButtons" destination="VLi-bo-vzq" collectionClass="NSMutableArray" id="38y-eb-CMi"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -108,55 +102,8 @@
                         </button>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qeT-0Q-Mps">
                             <rect key="frame" x="58" y="9.5" width="224" height="33"/>
-                            <subviews>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mp-5R-5LM">
-                                    <rect key="frame" x="0.0" y="0.0" width="68" height="33"/>
-                                    <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="33" id="54F-Zc-qya"/>
-                                        <constraint firstAttribute="width" constant="68" id="KWI-d8-ZBJ"/>
-                                    </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-9" maxY="0.0"/>
-                                    <state key="normal" title="DAI" image="arrow_down_grey">
-                                        <color key="titleColor" red="0.3529411764705882" green="0.36862745098039218" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="marketTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="pnT-iP-syx"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srD-ch-i7b">
-                                    <rect key="frame" x="78" y="0.0" width="68" height="33"/>
-                                    <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="68" id="mRZ-UM-ho2"/>
-                                        <constraint firstAttribute="height" constant="33" id="vrb-0i-doq"/>
-                                    </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-19" maxY="0.0"/>
-                                    <state key="normal" title="ETH*">
-                                        <color key="titleColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="marketTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="ACq-jt-VFJ"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" tag="3" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OuF-Uz-RCI">
-                                    <rect key="frame" x="156" y="0.0" width="68" height="33"/>
-                                    <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="68" id="6H4-S9-yup"/>
-                                        <constraint firstAttribute="height" constant="33" id="hFD-ME-gK3"/>
-                                    </constraints>
-                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="-19" maxY="0.0"/>
-                                    <state key="normal" title="WBTC">
-                                        <color key="titleColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="marketTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="8OD-gZ-NFW"/>
-                                    </connections>
-                                </button>
-                            </subviews>
                             <constraints>
-                                <constraint firstItem="OuF-Uz-RCI" firstAttribute="leading" secondItem="srD-ch-i7b" secondAttribute="trailing" constant="10" id="Wm8-jY-8Sq"/>
+                                <constraint firstAttribute="height" constant="33" id="Cyd-Qp-KJl"/>
                             </constraints>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bgf-Of-4gE">
@@ -174,6 +121,9 @@
                         </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IsT-Ts-eFb">
                             <rect key="frame" x="285" y="9.5" width="56" height="33"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="56" id="rwQ-9B-Dns"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
@@ -342,7 +292,6 @@
         </view>
     </objects>
     <resources>
-        <image name="arrow_down_grey" width="8" height="6"/>
         <image name="back_white_icon" width="38" height="19"/>
         <image name="search_black_icon" width="15" height="16"/>
         <image name="unselected_fav_icon" width="14" height="13"/>
