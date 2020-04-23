@@ -337,7 +337,6 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   func updateTokenObjects(_ tokenObjects: [TokenObject]) -> Bool {
-    if self.tokenObjects == tokenObjects { return false }
     self.tokenObjects = tokenObjects
     self.createDisplayedData()
     return true

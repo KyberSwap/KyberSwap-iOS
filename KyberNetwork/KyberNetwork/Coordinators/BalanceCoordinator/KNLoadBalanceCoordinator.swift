@@ -281,11 +281,7 @@ class KNLoadBalanceCoordinator {
     if isFetchingOtherTokensBalance { return }
     isFetchingOtherTokensBalance = true
     var isBalanceChanged: Bool = false
-    let tokenContracts = self.session.tokenStorage.tokens.filter({ return !$0.isETH && $0.isSupported }).sorted { (token0, token1) -> Bool in
-      if token0.value.isEmpty || token0.value == "0" { return false }
-      if token1.value.isEmpty || token1.value == "0" { return true }
-      return true
-    }.map({ $0.contract })
+    let tokenContracts = self.session.tokenStorage.tokens.filter({ return !$0.isETH && $0.isSupported }).map({ $0.contract })
     let currentWallet = self.session.wallet
     let group = DispatchGroup()
     var counter = 0
@@ -334,11 +330,14 @@ class KNLoadBalanceCoordinator {
 
     self.fetchTokenBalances(tokens: tokens) { [weak self] result in
       guard let `self` = self else { return }
-      self.isFetchingOtherTokensBalance = false
+      self.isFetchNonSupportedBalance = false
       switch result {
       case .success(let isLoaded):
         if !isLoaded {
           self.fetchNonSupportedTokensBalance(sender)
+        } else {
+          let tokens = self.session.tokenStorage.tokens.filter({ return !$0.isSupported && $0.valueBigInt == BigInt(0) })
+          self.session.tokenStorage.deleteUnsupportedTokensWithZeroBalance(tokens: tokens)
         }
       case .failure:
         self.fetchNonSupportedTokensBalance(sender)
@@ -350,14 +349,11 @@ class KNLoadBalanceCoordinator {
     if self.isFetchNonSupportedBalance { return }
     self.isFetchNonSupportedBalance = true
     var isBalanceChanged: Bool = false
-    let tokenContracts = self.session.tokenStorage.tokens.filter({ return !$0.isETH && !$0.isSupported }).sorted { (token0, token1) -> Bool in
-      if token0.value.isEmpty || token0.value == "0" { return false }
-      if token1.value.isEmpty || token1.value == "0" { return true }
-      return true
-    }.map({ $0.contract })
+    let tokenContracts = self.session.tokenStorage.tokens.filter({ return !$0.isETH && !$0.isSupported }).map({ $0.contract })
     let currentWallet = self.session.wallet
     let group = DispatchGroup()
     var counter = 0
+    var zeroBalanceAddresses: [String] = []
     for contract in tokenContracts {
       if let contractAddress = Address(string: contract) {
         group.enter()
@@ -373,6 +369,7 @@ class KNLoadBalanceCoordinator {
             }
             self.otherTokensBalance[contract] = balance
             self.session.tokenStorage.updateBalance(for: contractAddress, balance: bigInt)
+            if bigInt == BigInt(0) { zeroBalanceAddresses.append(contract.lowercased()) }
             NSLog("---- Balance: Fetch token balance for contract \(contract) successfully: \(bigInt.shortString(decimals: 0))")
           case .failure(let error):
             NSLog("---- Balance: Fetch token balance failed with error: \(error.description). ----")
@@ -390,6 +387,12 @@ class KNLoadBalanceCoordinator {
       self.isFetchNonSupportedBalance = false
       if isBalanceChanged {
         KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
+      }
+      if !zeroBalanceAddresses.isEmpty {
+        let tokens = self.session.tokenStorage.tokens.filter({
+          return zeroBalanceAddresses.contains($0.contract.lowercased())
+        })
+        self.session.tokenStorage.deleteUnsupportedTokensWithZeroBalance(tokens: tokens)
       }
     }
   }

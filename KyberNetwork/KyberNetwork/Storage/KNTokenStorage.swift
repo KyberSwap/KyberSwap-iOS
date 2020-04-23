@@ -94,6 +94,11 @@ class KNTokenStorage {
     try! realm.commitWrite()
   }
 
+  func deleteUnsupportedTokensWithZeroBalance(tokens: [TokenObject]) {
+    self.delete(tokens: tokens)
+    KNNotificationUtil.postNotification(for: kSupportedTokenListDidUpdateNotificationKey)
+  }
+
   func deleteAll() {
     if realm.objects(TokenObject.self).isInvalidated { return }
     self.realm.beginWrite()
