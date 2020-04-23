@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -163,8 +163,19 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrR-bz-pSi">
                                     <rect key="frame" x="21" y="392" width="333" height="60"/>
                                     <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="64M-jX-2vc">
+                                            <rect key="frame" x="292.5" y="12" width="36" height="36"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="36" id="VDM-xP-WLt"/>
+                                                <constraint firstAttribute="width" constant="36" id="nLQ-ZQ-PN0"/>
+                                            </constraints>
+                                            <state key="normal" image="siwa_icon"/>
+                                            <connections>
+                                                <action selector="signInWithAppleTapped:" destination="-1" eventType="touchUpInside" id="d6j-OY-hgi"/>
+                                            </connections>
+                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jcu-c4-tjL">
-                                            <rect key="frame" x="272.5" y="12" width="36" height="36"/>
+                                            <rect key="frame" x="240.5" y="12" width="36" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="36" id="fHF-fM-MWG"/>
                                                 <constraint firstAttribute="height" constant="36" id="yNP-bP-QKU"/>
@@ -175,7 +186,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1pG-bo-knn">
-                                            <rect key="frame" x="216.5" y="12" width="36" height="36"/>
+                                            <rect key="frame" x="188.5" y="12" width="36" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="36" id="G2u-0M-NDT"/>
                                                 <constraint firstAttribute="height" constant="36" id="vUa-KN-vpV"/>
@@ -186,7 +197,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bIJ-KK-i2d">
-                                            <rect key="frame" x="160.5" y="12" width="36" height="36"/>
+                                            <rect key="frame" x="136.5" y="12" width="36" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="36" id="1UI-ZD-wJ8"/>
                                                 <constraint firstAttribute="height" constant="36" id="dqP-nw-3J8"/>
@@ -197,7 +208,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or sign in with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ch-LT-4TB">
-                                            <rect key="frame" x="31" y="21.5" width="104.5" height="17.5"/>
+                                            <rect key="frame" x="7" y="21.5" width="104.5" height="17.5"/>
                                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                                             <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -206,14 +217,16 @@
                                     <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="9Ch-LT-4TB" firstAttribute="centerY" secondItem="bIJ-KK-i2d" secondAttribute="centerY" id="8Pz-nq-nl0"/>
-                                        <constraint firstItem="Jcu-c4-tjL" firstAttribute="leading" secondItem="1pG-bo-knn" secondAttribute="trailing" constant="20" id="Gsm-3E-j3t"/>
+                                        <constraint firstItem="Jcu-c4-tjL" firstAttribute="leading" secondItem="1pG-bo-knn" secondAttribute="trailing" constant="16" id="Gsm-3E-j3t"/>
                                         <constraint firstItem="bIJ-KK-i2d" firstAttribute="centerY" secondItem="xrR-bz-pSi" secondAttribute="centerY" id="Gwh-jO-1at"/>
                                         <constraint firstItem="bIJ-KK-i2d" firstAttribute="leading" secondItem="9Ch-LT-4TB" secondAttribute="trailing" constant="25" id="H2V-wJ-Rhn"/>
                                         <constraint firstItem="Jcu-c4-tjL" firstAttribute="centerY" secondItem="1pG-bo-knn" secondAttribute="centerY" id="S8z-BU-Sus"/>
-                                        <constraint firstItem="bIJ-KK-i2d" firstAttribute="centerX" secondItem="xrR-bz-pSi" secondAttribute="centerX" constant="12" id="UsL-e8-wVA"/>
-                                        <constraint firstItem="1pG-bo-knn" firstAttribute="leading" secondItem="bIJ-KK-i2d" secondAttribute="trailing" constant="20" id="VxW-Dy-zDB"/>
+                                        <constraint firstItem="bIJ-KK-i2d" firstAttribute="centerX" secondItem="xrR-bz-pSi" secondAttribute="centerX" constant="-12" id="UsL-e8-wVA"/>
+                                        <constraint firstItem="1pG-bo-knn" firstAttribute="leading" secondItem="bIJ-KK-i2d" secondAttribute="trailing" constant="16" id="VxW-Dy-zDB"/>
+                                        <constraint firstItem="64M-jX-2vc" firstAttribute="centerY" secondItem="Jcu-c4-tjL" secondAttribute="centerY" id="ead-Id-Khs"/>
                                         <constraint firstItem="bIJ-KK-i2d" firstAttribute="centerY" secondItem="1pG-bo-knn" secondAttribute="centerY" id="iYy-03-SEQ"/>
                                         <constraint firstAttribute="height" constant="60" id="oBL-nt-O9C"/>
+                                        <constraint firstItem="64M-jX-2vc" firstAttribute="leading" secondItem="Jcu-c4-tjL" secondAttribute="trailing" constant="16" id="yZa-xF-eBx"/>
                                     </constraints>
                                 </view>
                             </subviews>
@@ -493,6 +506,7 @@
         <image name="add_alert_gray" width="18" height="21"/>
         <image name="hide_secure_text" width="22" height="19"/>
         <image name="leaderboard" width="20" height="22"/>
+        <image name="siwa_icon" width="32" height="32"/>
         <image name="social_facebook" width="45" height="45"/>
         <image name="social_google" width="45" height="46"/>
         <image name="social_twitter" width="45" height="45"/>

@@ -3,6 +3,7 @@
 import UIKit
 import Moya
 import TrustCore
+import AuthenticationServices
 
 enum KNProfileHomeViewEvent {
   case logOut
@@ -140,7 +141,7 @@ class KNProfileHomeViewController: KNBaseViewController {
 
   fileprivate func setupNotSignInView() {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
-    self.socialContainerView.rounded(radius: self.socialContainerView.frame.height / 2.0)
+    self.socialContainerView.rounded()
     self.signInButton.applyGradient()
     self.notSignInNavTitle.text = NSLocalizedString("sign.in", value: "Sign In", comment: "")
     self.orTextLabel.text = "Or sign in with".toBeLocalised()
@@ -258,6 +259,24 @@ class KNProfileHomeViewController: KNBaseViewController {
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithTwitter)
+  }
+  @IBAction func signInWithAppleTapped(_ sender: UIButton) {
+    if #available(iOS 13.0, *) {
+      let provider = ASAuthorizationAppleIDProvider()
+      let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        let authController = ASAuthorizationController(authorizationRequests: [request])
+        authController.presentationContextProvider = self
+        authController.delegate = self
+        authController.performRequests()
+    } else {
+      self.showErrorTopBannerMessage(
+        with: NSLocalizedString("error", value: "Error", comment: ""),
+        message: "Sign in with Apple only available in IOS 13".toBeLocalised(),
+        time: 2.0
+      )
+    }
+      
   }
 
   @IBAction func secureTextButtonPressed(_ sender: Any) {
@@ -377,6 +396,68 @@ extension KNProfileHomeViewController: KNAlertTableViewDelegate {
           message: NSLocalizedString("Alert deleted!", value: "Alert deleted!", comment: ""),
           time: 1.0
         )
+      }
+    }
+  }
+}
+
+@available(iOS 13.0, *)
+extension KNProfileHomeViewController: ASAuthorizationControllerPresentationContextProviding {
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    return self.view.window!
+  }
+}
+
+@available(iOS 13.0, *)
+extension KNProfileHomeViewController : ASAuthorizationControllerDelegate {
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    print("authorization error")
+    guard let error = error as? ASAuthorizationError else {
+      return
+    }
+    switch error.code {
+    case .canceled:
+      // user press "cancel" during the login prompt
+      print("Canceled")
+    case .unknown:
+      // user didn't login their Apple ID on the device
+      print("Unknown")
+    case .invalidResponse:
+      // invalid response received from the login
+      print("Invalid Respone")
+    case .notHandled:
+      // authorization request not handled, maybe internet failure during login
+      print("Not handled")
+    case .failed:
+      // authorization failed
+      print("Failed")
+    @unknown default:
+      print("Default")
+    }
+  }
+  
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+      let userID = appleIDCredential.user
+      let email = appleIDCredential.email
+      let givenName = appleIDCredential.fullName?.givenName
+      let familyName = appleIDCredential.fullName?.familyName
+      let nickName = appleIDCredential.fullName?.nickname
+      print("[SIWA][userID] \(userID)")
+      /*
+       useful for server side, the app can send identityToken and authorizationCode
+       to the server for verification purpose
+       */
+      var identityToken : String?
+      if let token = appleIDCredential.identityToken {
+        identityToken = String(bytes: token, encoding: .utf8)
+        print("[SIWA][IDTOKEN] \(identityToken)")
+      }
+      
+      var authorizationCode : String?
+      if let code = appleIDCredential.authorizationCode {
+        authorizationCode = String(bytes: code, encoding: .utf8)
+        print("[SIWA][authCode] \(authorizationCode)")
       }
     }
   }
