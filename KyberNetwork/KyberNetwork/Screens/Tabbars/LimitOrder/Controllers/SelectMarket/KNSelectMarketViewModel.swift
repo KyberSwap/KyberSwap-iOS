@@ -52,10 +52,15 @@ class KNSelectMarketViewModel {
     self.displayCellViewModels = sorted
     let allQuotes = KNSupportedTokenStorage.shared.supportedTokens.filter { $0.extraData?.isQuote == true }
     let maxPriority = allQuotes.map { $0.extraData?.quotePriority ?? 0 }.max()
-    let grouped = allQuotes.filter { $0.extraData?.quotePriority == maxPriority }
+    let grouped = allQuotes.filter { $0.extraData?.quotePriority == maxPriority && !$0.isETH }
     let unGrouped = allQuotes.filter { $0.extraData?.quotePriority != maxPriority && !$0.isETH }
 
-    self.pickerViewData = grouped.map { $0.symbol }.sorted()
+    self.pickerViewData = grouped.map({ (token) -> String in
+    if token.isWETH {
+      return "ETH*"
+    }
+    return token.symbol
+    }).sorted()
     self.marketButtonsData = unGrouped.map({ (token) -> String in
       if token.isWETH {
         return "ETH*"

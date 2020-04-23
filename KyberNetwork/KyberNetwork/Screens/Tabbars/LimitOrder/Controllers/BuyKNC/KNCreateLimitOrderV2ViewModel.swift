@@ -170,7 +170,7 @@ class KNCreateLimitOrderV2ViewModel {
   }
 
   var percentageRateDiff: Double {
-    guard let marketPrice = self.market?.buyPrice else { return 0.0 }
+    guard let marketPrice = self.isBuy ? self.market?.buyPrice : self.market?.sellPrice else { return 0.0 }
     let currentPrice = self.targetPrice.doubleValue
     return (currentPrice - marketPrice) / marketPrice * 100.0
   }

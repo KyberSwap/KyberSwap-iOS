@@ -75,6 +75,9 @@ extension UIColor {
     static var coral = UIColor(red: 250, green: 114, blue: 96)
     static var cancelGray = UIColor(red: 106, green: 106, blue: 106)
     static var speedUpOrange = UIColor(red: 255, green: 144, blue: 8)
+    static var marketGreen = UIColor(red: 49, green: 203, blue: 158)
+    static var marketRed = UIColor(red: 250, green: 101, blue: 102)
+    static var marketBlue = UIColor(red: 0, green: 162, blue: 247)
 
     static var buttonColors: [UIColor] = [
       UIColor.Kyber.enygold,

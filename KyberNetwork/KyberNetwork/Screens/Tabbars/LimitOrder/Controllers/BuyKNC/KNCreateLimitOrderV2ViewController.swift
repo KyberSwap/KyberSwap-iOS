@@ -83,9 +83,10 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     }
     if self.viewModel.isBuy {
       self.buySellButton.setTitle("\("Buy".toBeLocalised()) \(self.viewModel.toSymBol)", for: .normal)
+      self.buySellButton.backgroundColor = UIColor.Kyber.marketGreen
     } else {
       self.buySellButton.setTitle("\("Sell".toBeLocalised()) \(self.viewModel.fromSymbol)", for: .normal)
-      self.buySellButton.backgroundColor = UIColor.Kyber.red
+      self.buySellButton.backgroundColor = UIColor.Kyber.marketRed
     }
   }
 
@@ -492,6 +493,11 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.viewModel.updateTargetPrice(self.viewModel.targetPriceFromMarket)
     self.comparePriceLabel.attributedText = self.viewModel.displayRateCompareAttributedString
     self.totalField.text = self.viewModel.isBuy ? self.viewModel.amountFrom : self.viewModel.amountTo
+  }
+
+  func containerEventTapPriceLabel() {
+    guard self.isViewSetup else { return }
+    self.marketPriceButtonTapped(self)
   }
 }
 

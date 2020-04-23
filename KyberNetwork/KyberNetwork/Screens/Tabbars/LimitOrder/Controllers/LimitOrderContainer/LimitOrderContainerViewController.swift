@@ -156,6 +156,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
     delegate?.kCreateLimitOrderViewController(self, run: .selectNotifications)
   }
 
+  @IBAction func marketPriceLabelTapped(_ sender: UIButton) {
+    self.pages.forEach { (controller) in
+      controller.containerEventTapPriceLabel()
+    }
+  }
+
   @objc func notificationDidUpdate(_ sender: Any?) {
     let numUnread: Int = {
       if IEOUserStorage.shared.user == nil { return 0 }
@@ -174,7 +180,11 @@ class LimitOrderContainerViewController: KNBaseViewController {
     if sourceTokenSym == "ETH" || sourceTokenSym == "WETH" {
       sourceTokenSym = "ETH*"
     }
-    self.marketNameButton.setTitle("\(pair.last ?? "")/\(sourceTokenSym)", for: .normal)
+    var baseTokenSym = pair.last ?? ""
+    if baseTokenSym == "ETH" || baseTokenSym == "WETH" {
+      baseTokenSym = "ETH*"
+    }
+    self.marketNameButton.setTitle("\(baseTokenSym)/\(sourceTokenSym)", for: .normal)
     let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
@@ -197,9 +207,9 @@ class LimitOrderContainerViewController: KNBaseViewController {
     detailText.append(changeText)
     self.marketDetailLabel.attributedText = detailText
 
-    self.marketVolLabel.text = "Vol \(formatter.string(from: NSNumber(value: fabs(market.volume))) ?? "") \(pair.last ?? "")"
-    self.buyToolBarButton.setTitle("\("Buy".toBeLocalised().uppercased()) \(pair.last ?? "")", for: .normal)
-    self.sellToolBarButton.setTitle("\("Sell".toBeLocalised().uppercased()) \(pair.last ?? "")", for: .normal)
+    self.marketVolLabel.text = "Vol \(formatter.string(from: NSNumber(value: fabs(market.volume))) ?? "") \(baseTokenSym)"
+    self.buyToolBarButton.setTitle("\("Buy".toBeLocalised().uppercased()) \(baseTokenSym)", for: .normal)
+    self.sellToolBarButton.setTitle("\("Sell".toBeLocalised().uppercased()) \(baseTokenSym)", for: .normal)
   }
 
   private func setupPageController() {

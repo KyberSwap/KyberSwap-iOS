@@ -634,16 +634,19 @@ class KNTokenChartViewController: KNBaseViewController {
       NSLocalizedString("transfer", value: "Transfer", comment: ""),
       for: .normal
     )
+    self.sendButton.backgroundColor = UIColor.Kyber.marketBlue
     self.buyButton.rounded()
     self.buyButton.setTitle(
       NSLocalizedString("buy", value: "Buy", comment: ""),
       for: .normal
     )
+    self.buyButton.backgroundColor = UIColor.Kyber.marketGreen
     self.sellButton.rounded()
     self.sellButton.setTitle(
       NSLocalizedString("sell", value: "Sell", comment: ""),
       for: .normal
     )
+    self.sellButton.backgroundColor = UIColor.Kyber.marketRed
 
     self.dataTypeButtons.forEach { button in
       let title: String = {
@@ -671,9 +674,8 @@ class KNTokenChartViewController: KNBaseViewController {
         NSLocalizedString("transfer", value: "Transfer", comment: ""),
         for: .normal
       )
-      self.sellButton.backgroundColor = .clear//UIColor.Kyber.merigold
       self.sendButton.isHidden = true
-      self.sellButton.backgroundColor = UIColor(red: 0, green: 162.0/255.0, blue: 247.0/255.0, alpha: 1)
+      self.sellButton.backgroundColor = UIColor.Kyber.marketBlue
     }
     self.noDataLabel.addLetterSpacing()
 
