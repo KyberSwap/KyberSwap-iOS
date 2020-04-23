@@ -130,8 +130,19 @@ extension KNTokenChartCoordinator: KNTokenChartViewControllerDelegate {
         )
       }
     case .openEtherscan(let token):
-      if let etherScanEndpoint = KNEnvironment.default.knCustomRPC?.etherScanEndpoint, let url = URL(string: "\(etherScanEndpoint)address/\(token.contract)") {
-        self.navigationController.openSafari(with: url)
+      if let etherScanEndpoint = KNEnvironment.default.knCustomRPC?.etherScanEndpoint {
+        let address = self.session.wallet.address.description.lowercased()
+        let urlString: String = {
+          if token.isETH {
+            // if eth, open address as there is no address for eth
+            return "\(etherScanEndpoint)address/\(address)"
+          }
+          // open token with current address
+          return "\(etherScanEndpoint)token/\(token.contract)?a=\(address)"
+        }()
+        if let url = URL(string: urlString) {
+          self.navigationController.openSafari(with: url)
+        }
       }
     case .addNewAlert(let token):
       if KNAlertStorage.shared.isMaximumAlertsReached {
