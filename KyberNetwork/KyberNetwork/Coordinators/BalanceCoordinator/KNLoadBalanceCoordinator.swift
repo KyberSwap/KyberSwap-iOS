@@ -337,7 +337,7 @@ class KNLoadBalanceCoordinator {
           self.fetchNonSupportedTokensBalance(sender)
         } else {
           let tokens = self.session.tokenStorage.tokens.filter({ return !$0.isSupported && $0.valueBigInt == BigInt(0) })
-          self.session.tokenStorage.deleteUnsupportedTokensWithZeroBalance(tokens: tokens)
+          self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
         }
       case .failure:
         self.fetchNonSupportedTokensBalance(sender)
@@ -392,7 +392,7 @@ class KNLoadBalanceCoordinator {
         let tokens = self.session.tokenStorage.tokens.filter({
           return zeroBalanceAddresses.contains($0.contract.lowercased())
         })
-        self.session.tokenStorage.deleteUnsupportedTokensWithZeroBalance(tokens: tokens)
+        self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
       }
     }
   }

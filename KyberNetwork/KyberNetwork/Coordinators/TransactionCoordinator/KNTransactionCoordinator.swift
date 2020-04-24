@@ -323,8 +323,12 @@ extension KNTransactionCoordinator {
     var tokenObjects: [TokenObject] = []
     let savedTokens: [TokenObject] = self.tokenStorage.tokens
     transactions.forEach { tx in
-      if let token = tx.getTokenObject(), !tokenObjects.contains(token),
-        !savedTokens.contains(token) { tokenObjects.append(token) }
+      // receive token tx only
+      if self.wallet.address.description.lowercased() == tx.to.lowercased(),
+        let token = tx.getTokenObject(), !tokenObjects.contains(token),
+        !savedTokens.contains(token) {
+        tokenObjects.append(token)
+      }
     }
     if !tokenObjects.isEmpty {
       self.tokenStorage.add(tokens: tokenObjects)
