@@ -165,11 +165,13 @@ class KNSelectMarketViewController: KNBaseViewController {
   fileprivate func presentPickerView() {
     if let index = self.viewModel.pickerViewData.firstIndex(where: { $0 == self.pickerButton?.currentTitle }) {
       let type = self.viewModel.pickerViewData[index]
-      self.viewModel.pickerViewSelectedValue = type
+      self.viewModel.pickerViewSelectedValue = "/" + type
       self.pickerView.selectRow(index, inComponent: 0, animated: false)
     } else {
-      self.viewModel.pickerViewSelectedValue = "DAI"
-      self.pickerView.selectRow(1, inComponent: 0, animated: false)
+      if let firstValue = self.viewModel.pickerViewData.first {
+        self.viewModel.pickerViewSelectedValue = "/" + firstValue
+      }
+      self.pickerView.selectRow(0, inComponent: 0, animated: false)
     }
     self.fakeTextField.inputView = self.pickerView
     self.fakeTextField.inputAccessoryView = self.toolBar
