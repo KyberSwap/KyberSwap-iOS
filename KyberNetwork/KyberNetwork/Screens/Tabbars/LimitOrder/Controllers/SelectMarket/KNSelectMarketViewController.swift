@@ -264,7 +264,7 @@ class KNSelectMarketViewController: KNBaseViewController {
       self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
                                            for: .normal
       )
-      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h%".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
                                               for: .normal
       )
     case .price(let asc):
@@ -279,7 +279,7 @@ class KNSelectMarketViewController: KNBaseViewController {
       self.volumeButton.setAttributedTitle(NSAttributedString(string: "volume".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
                                            for: .normal
       )
-      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h%".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
                                               for: .normal
       )
     case .volume(let asc):
@@ -295,12 +295,12 @@ class KNSelectMarketViewController: KNBaseViewController {
                                           for: .normal
       )
       self.volumeButton.setAttributedTitle(attributeTitle, for: .normal)
-      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
+      self.change24hButton.setAttributedTitle(NSAttributedString(string: "24h%".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
                                               for: .normal
       )
     case .change(let asc):
       let sortingCharacter = asc ? arrowUpAttributedString : arrowDownAttributedString
-      let attributeTitle = NSMutableAttributedString(string: "24h".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes
+      let attributeTitle = NSMutableAttributedString(string: "24h%".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes
       )
       attributeTitle.append(sortingCharacter)
       self.pairButton.setAttributedTitle(NSAttributedString(string: "pair".toBeLocalised().uppercased(), attributes: displayTypeNormalAttributes),
