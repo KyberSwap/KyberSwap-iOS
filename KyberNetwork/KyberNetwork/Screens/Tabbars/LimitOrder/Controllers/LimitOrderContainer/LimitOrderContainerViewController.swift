@@ -122,10 +122,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   @IBAction func pagerButtonTapped(_ sender: UIButton) {
     if sender.tag == 1 {
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "open_buy_view_button_clicked"])
       self.pageController.setViewControllers([pages.first!], direction: .reverse, animated: true, completion: nil)
       self.animatePagerIndicator(index: 1, delay: 0.3)
       self.currentIndex = 0
     } else {
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "open_sell_view_button_clicked"])
       self.pageController.setViewControllers([pages.last!], direction: .forward, animated: true, completion: nil)
       self.animatePagerIndicator(index: 2, delay: 0.3)
       self.currentIndex = 1
@@ -133,11 +135,13 @@ class LimitOrderContainerViewController: KNBaseViewController {
   }
 
   @IBAction func marketButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "open_market_select_button_clicked"])
     self.delegate?.kCreateLimitOrderViewController(self, run: .changeMarket)
   }
 
   @IBAction func chartButtonPressed(_ sender: Any) {
     guard let market = self.currentMarket else { return }
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "open_chart_button_clicked"])
     self.delegate?.kCreateLimitOrderViewController(
       self,
       run: .openChartView(market: market, isBuy: self.currentIndex == 0)
