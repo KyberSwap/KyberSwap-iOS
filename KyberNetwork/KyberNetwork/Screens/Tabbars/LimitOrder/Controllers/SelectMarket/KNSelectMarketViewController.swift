@@ -166,6 +166,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   fileprivate func presentPickerView() {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "open_quote_token_picker"])
     if let index = self.viewModel.pickerViewData.firstIndex(where: { $0 == self.pickerButton?.currentTitle }) {
       let type = self.viewModel.pickerViewData[index]
       self.viewModel.pickerViewSelectedValue = "/" + type
@@ -195,6 +196,7 @@ class KNSelectMarketViewController: KNBaseViewController {
       return
     }
     if let buttonTitle = sender.currentTitle {
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "change_market_\(buttonTitle)_button_clicked"])
       self.viewModel.marketType = "/" + buttonTitle
       self.noDataView.isHidden = !self.viewModel.showNoDataView
       self.tableView.reloadData()
@@ -204,24 +206,28 @@ class KNSelectMarketViewController: KNBaseViewController {
   @IBAction func sortButtonTapped(_ sender: UIButton) {
     switch sender.tag {
     case 1:
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "sort_by_pair_name_button_clicked"])
       if case .pair(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .pair(asc: !asc)
       } else {
         self.viewModel.sortType = .pair(asc: false)
       }
     case 2:
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "sort_by_price_button_clicked"])
       if case .price(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .price(asc: !asc)
       } else {
         self.viewModel.sortType = .price(asc: false)
       }
     case 3:
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "sort_by_volume_button_clicked"])
       if case .volume(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .volume(asc: !asc)
       } else {
         self.viewModel.sortType = .volume(asc: false)
       }
     case 4:
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "sort_by_24h_change_button_clicked"])
       if case .change(let asc) = self.viewModel.sortType {
         self.viewModel.sortType = .change(asc: !asc)
       } else {
@@ -320,6 +326,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   @objc func dataPickerDonePressed(_ sender: Any) {
     self.fakeTextField.resignFirstResponder()
     guard let selected = self.viewModel.pickerViewSelectedValue else { return }
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "selected_\(selected)_from_picker"])
     self.viewModel.marketType = selected
     self.pickerButton?.setTitle(String(selected.dropFirst()), for: .normal)
     self.noDataView.isHidden = !self.viewModel.showNoDataView
@@ -328,11 +335,13 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   @objc func dataPickerCancelPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "cancel_select_picker"])
     self.fakeTextField.resignFirstResponder()
     self.viewModel.pickerViewSelectedValue = nil
   }
 
   @IBAction func favouriteButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "favorite_button_clicked"])
     guard (IEOUserStorage.shared.user?.accessToken) != nil else {
       self.tabBarController?.selectedIndex = 3
       self.showWarningTopBannerMessage(
@@ -352,6 +361,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   @IBAction func searchButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "search_token_button_clicked"])
     self.searchField.becomeFirstResponder()
   }
 

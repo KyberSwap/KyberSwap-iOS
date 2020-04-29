@@ -51,6 +51,7 @@ class KNCancelSuggestOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func checkButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "cancel_suggest_order_limit_order_2", customAttributes: ["action": "check_box_button_clicked"])
     self.checkButton.rounded(
       color: UIColor.clear,
       width: 0.0,
@@ -66,6 +67,7 @@ class KNCancelSuggestOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func whyButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "cancel_suggest_order_limit_order_2", customAttributes: ["action": "why_button_clicked"])
     let url = "\(KNEnvironment.default.profileURL)/faq#can-I-submit-multiple-limit-orders-for-same-token-pair"
     self.navigationController?.openSafari(with: url)
   }
