@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +13,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNSettingsTabViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNSettingsTabViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="aboutButton" destination="0Wu-3X-xy0" id="yur-6n-epM"/>
                 <outlet property="alertMethodsButton" destination="400-Y7-DXM" id="xEe-j2-A0A"/>
@@ -182,7 +180,7 @@
                         <action selector="linkedInButtonPressed:" destination="-1" eventType="touchUpInside" id="otz-4A-UAR"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z6O-Km-0S7">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z6O-Km-0S7">
                     <rect key="frame" x="24" y="477" width="327" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="Q4W-8X-DHG"/>
@@ -203,7 +201,7 @@
                         <action selector="telegramDevButtonPressed:" destination="-1" eventType="touchUpInside" id="0ze-VG-Xif"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvF-yd-iWq">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvF-yd-iWq">
                     <rect key="frame" x="24" y="517" width="327" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="AJz-bO-L3w"/>
@@ -246,7 +244,7 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-D1-b9i">
-                    <rect key="frame" x="24" y="557" width="327" height="32"/>
+                    <rect key="frame" x="24" y="473" width="327" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="iyx-iq-67d"/>
                     </constraints>
@@ -260,7 +258,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rGf-Ii-F5o">
-                    <rect key="frame" x="64" y="557" width="62" height="12.5"/>
+                    <rect key="frame" x="64" y="473" width="62" height="12.5"/>
                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="10"/>
                     <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -272,6 +270,7 @@
                 <constraint firstItem="tdX-Yv-Ujd" firstAttribute="centerY" secondItem="P8S-Nk-EbV" secondAttribute="centerY" id="2Yy-dT-BJs"/>
                 <constraint firstItem="JvF-yd-iWq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="24" id="4P2-Xo-DDQ"/>
                 <constraint firstItem="Z43-SL-69M" firstAttribute="top" secondItem="OVZ-jU-hlZ" secondAttribute="bottom" constant="8" id="7DV-1O-yxE"/>
+                <constraint firstItem="0f5-D1-b9i" firstAttribute="top" secondItem="Pd0-VK-ek2" secondAttribute="bottom" constant="8" id="8aK-JL-l9C"/>
                 <constraint firstItem="c9Z-ZK-Ucl" firstAttribute="leading" secondItem="N5S-5z-7Ii" secondAttribute="leading" id="8bi-DU-dg9"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="OVZ-jU-hlZ" secondAttribute="trailing" constant="24" id="8hZ-R1-B5K"/>
                 <constraint firstItem="P8S-Nk-EbV" firstAttribute="centerY" secondItem="Pd0-VK-ek2" secondAttribute="centerY" id="8ns-Ya-Pg8"/>
@@ -288,7 +287,6 @@
                 <constraint firstItem="XDo-Po-iWz" firstAttribute="leading" secondItem="OVZ-jU-hlZ" secondAttribute="leading" id="JrF-tz-6Wh"/>
                 <constraint firstItem="0Wu-3X-xy0" firstAttribute="trailing" secondItem="c9Z-ZK-Ucl" secondAttribute="trailing" id="JyF-Mh-lTr"/>
                 <constraint firstItem="Z6O-Km-0S7" firstAttribute="top" secondItem="Pd0-VK-ek2" secondAttribute="bottom" constant="12" id="KAx-Gb-p8P"/>
-                <constraint firstItem="0f5-D1-b9i" firstAttribute="top" secondItem="JvF-yd-iWq" secondAttribute="bottom" constant="8" id="KsF-LP-ajq"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JvF-yd-iWq" secondAttribute="trailing" constant="24" id="Lih-Hm-jd9"/>
                 <constraint firstItem="N5S-5z-7Ii" firstAttribute="trailing" secondItem="XDo-Po-iWz" secondAttribute="trailing" id="Nlb-ey-zwt"/>
                 <constraint firstItem="sSk-u8-Y8q" firstAttribute="top" secondItem="0Wu-3X-xy0" secondAttribute="bottom" constant="8" id="OEN-KH-Gaf"/>
@@ -301,9 +299,9 @@
                 <constraint firstItem="0Wu-3X-xy0" firstAttribute="leading" secondItem="c9Z-ZK-Ucl" secondAttribute="leading" id="Wwf-N9-2mk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0f5-D1-b9i" secondAttribute="trailing" constant="24" id="YmC-i0-h7e"/>
                 <constraint firstItem="400-Y7-DXM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="ZUG-Hx-Ulv"/>
-                <constraint firstItem="rGf-Ii-F5o" firstAttribute="top" secondItem="JvF-yd-iWq" secondAttribute="bottom" constant="8" id="aQb-OD-E74"/>
                 <constraint firstItem="LAf-Nx-GiM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ayY-28-rtZ"/>
                 <constraint firstItem="Pd0-VK-ek2" firstAttribute="top" secondItem="sSk-u8-Y8q" secondAttribute="bottom" constant="12" id="bM5-4x-Ld3"/>
+                <constraint firstItem="rGf-Ii-F5o" firstAttribute="top" secondItem="Pd0-VK-ek2" secondAttribute="bottom" constant="8" id="bsJ-IT-UXK"/>
                 <constraint firstItem="80r-ho-KCH" firstAttribute="centerY" secondItem="Pd0-VK-ek2" secondAttribute="centerY" id="cO0-Wt-ivJ"/>
                 <constraint firstItem="c9Z-ZK-Ucl" firstAttribute="trailing" secondItem="N5S-5z-7Ii" secondAttribute="trailing" id="eac-HY-dQQ"/>
                 <constraint firstItem="80r-ho-KCH" firstAttribute="leading" secondItem="Pd0-VK-ek2" secondAttribute="trailing" constant="10" id="gvn-9c-87f"/>
@@ -322,6 +320,7 @@
                 <constraint firstItem="400-Y7-DXM" firstAttribute="top" secondItem="Z43-SL-69M" secondAttribute="bottom" constant="8" id="zmv-Zy-AFP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="140" y="152"/>
         </view>
     </objects>
     <resources>
