@@ -184,6 +184,7 @@ class KNSelectMarketViewController: KNBaseViewController {
   }
 
   @IBAction func limitOrderV1ButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_select_market", customAttributes: ["action": "navigate_limit_order_version_1_button_clicked"])
     self.delegate?.selectMarketViewControllerDidSelectLOV1(self)
   }
 
