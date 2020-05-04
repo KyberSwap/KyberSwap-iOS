@@ -7,6 +7,7 @@ import GoogleSignIn
 import Result
 import TwitterKit
 import Moya
+import AuthenticationServices
 
 // swiftlint:disable file_length
 extension KNProfileHomeCoordinator: KNSignUpViewControllerDelegate {
@@ -58,6 +59,8 @@ extension KNProfileHomeCoordinator {
       self.authenticateTwitter()
     case .dontHaveAccountSignUp:
       self.openSignUpView()
+    case .signInWithApple:
+      self.authenticateApple()
     }
   }
 
@@ -71,6 +74,25 @@ extension KNProfileHomeCoordinator {
       return controller
     }()
     self.navigationController.pushViewController(self.signUpViewController!, animated: true)
+  }
+  
+  fileprivate func authenticateApple() {
+    if #available(iOS 13.0, *) {
+      KNAppTracker.saveLastTimeAuthenticate()
+      let provider = ASAuthorizationAppleIDProvider()
+      let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        let authController = ASAuthorizationController(authorizationRequests: [request])
+        authController.presentationContextProvider = self
+        authController.delegate = self
+        authController.performRequests()
+    } else {
+      self.showErrorTopBannerMessage(
+        with: NSLocalizedString("error", value: "Error", comment: ""),
+        message: "Sign in with Apple only available in IOS 13".toBeLocalised(),
+        time: 2.0
+      )
+    }
   }
 }
 
@@ -631,6 +653,65 @@ extension KNProfileHomeCoordinator: KNTransferConsentViewControllerDelegate {
         completion(message, userInfo)
       case .failure(let error):
         completion(error.prettyError, nil)
+      }
+    }
+  }
+}
+
+@available(iOS 13.0, *)
+extension KNProfileHomeCoordinator: ASAuthorizationControllerPresentationContextProviding {
+  func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    return self.rootViewController.view.window!
+  }
+}
+
+@available(iOS 13.0, *)
+extension KNProfileHomeCoordinator: ASAuthorizationControllerDelegate {
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    print("authorization error")
+    guard let error = error as? ASAuthorizationError else {
+      return
+    }
+    switch error.code {
+    case .canceled:
+      // user press "cancel" during the login prompt
+      print("Canceled")
+    case .unknown:
+      // user didn't login their Apple ID on the device
+      print("Unknown")
+    case .invalidResponse:
+      // invalid response received from the login
+      print("Invalid Respone")
+    case .notHandled:
+      // authorization request not handled, maybe internet failure during login
+      print("Not handled")
+    case .failed:
+      // authorization failed
+      print("Failed")
+    @unknown default:
+      print("Default")
+    }
+  }
+  
+  func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+      let userID = appleIDCredential.user
+      let email = appleIDCredential.email
+      let givenName = appleIDCredential.fullName?.givenName
+      let familyName = appleIDCredential.fullName?.familyName
+      let nickName = appleIDCredential.fullName?.nickname
+      print("[SIWA][userID] \(userID)")
+      var identityToken : String?
+      if let token = appleIDCredential.identityToken {
+        identityToken = String(bytes: token, encoding: .utf8)
+        print("[SIWA][IDTOKEN] \(identityToken)")
+        //TODO: request login api with id token then get access token
+      }
+      
+      var authorizationCode : String?
+      if let code = appleIDCredential.authorizationCode {
+        authorizationCode = String(bytes: code, encoding: .utf8)
+        print("[SIWA][authCode] \(authorizationCode)")
       }
     }
   }
