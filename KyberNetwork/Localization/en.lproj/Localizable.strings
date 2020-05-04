@@ -683,3 +683,34 @@
 "You must sign in to use subscription token feature" = "You must sign in to use subscription token feature";
 "Price Trending Notification" = "Price Trending Notification";
 "Notification Setting" = "Notification Setting";
+
+
+// MARK: Limit Order V2
+"limit.order.is.noncusdotial" = "Limit order is non-custodial, which means %@ will remain in your wallet till %@ price reaches %@";
+"Amount" = "Amount";
+"Your price" = "Your price";
+"Market price" = "Market price";
+"Preview Order" = "Preview Order";
+"Change Price" = "Change Price";
+"Buy %@" = "Buy %@";
+"Sell %@" = "Sell %@";
+"Price" = "Price";
+"Volume" = "Volume";
+"No markets found" = "No markets found";
+"Market" = "Market";
+"Available Balance" = "Available Balance";
+"Your target price is" = "Your target price is";
+"higher than current Market price" = "higher than current Market price";
+"lower than current price" = "lower than current price";
+"Sell %@ to %@" = "Sell %@ to %@";
+"Buy %@ with %@" = "Buy %@ with %@";
+"Total" = "Total";
+"Your target price should be greater than 0" = "Your target price should be greater than 0";
+"Your target price is too high, should be at most 10 times of current price" = "Your target price is too high, should be at most 10 times of current price";
+"Please enter your target price to continue" = "Please enter your target price to continue";
+"Manage Orders" = "Manage Orders";
+"You are cancelling this order" = "You are cancelling this order";
+"Cancelling..." = "Cancelling...";
+"Your order has been cancelled" = "Your order has been cancelled";
+"Submitting order" = "Submitting order";
+"No order found" = "No order found";

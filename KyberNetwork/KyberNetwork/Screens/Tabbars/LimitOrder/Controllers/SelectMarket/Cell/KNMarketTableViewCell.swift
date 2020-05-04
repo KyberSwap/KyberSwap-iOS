@@ -2,6 +2,7 @@
 
 import UIKit
 import Foundation
+import BigInt
 
 struct KNMarketCellViewModel {
   let pairName: String
@@ -14,16 +15,26 @@ struct KNMarketCellViewModel {
   init(market: KNMarket) {
     self.source = market
     var marketPairName = market.pair
-    if marketPairName.contains("WETH") {
-      marketPairName = marketPairName.replacingOccurrences(of: "WETH", with: "ETH*")
-    } else if marketPairName.contains("ETH") {
-      marketPairName = marketPairName.replacingOccurrences(of: "ETH", with: "ETH*")
+    let firstSymbol = market.pair.components(separatedBy: "_").first ?? ""
+    let secondSymbol = market.pair.components(separatedBy: "_").last ?? ""
+    if firstSymbol == "ETH" || firstSymbol == "WETH" {
+      marketPairName = "ETH*_\(secondSymbol)"
+    } else if secondSymbol == "ETH" || secondSymbol == "WETH" {
+      marketPairName = "\(firstSymbol)_ETH*"
     }
     let pairs = marketPairName.components(separatedBy: "_")
     self.pairName = "\(pairs.last ?? "")/\(pairs.first ?? "")"
+    self.price = {
+      let price = market.sellPrice > 0 ? market.sellPrice : market.buyPrice
+      if price == 0 { return "--" }
+      return BigInt(price * pow(10.0, 18.0)).displayRate(decimals: 18)
+    }()
     let formatter = NumberFormatterUtil.shared.doubleFormatter
-    self.price = formatter.string(from: NSNumber(value: market.sellPrice)) ?? ""
-    self.volume = formatter.string(from: NSNumber(value: market.volume)) ?? ""
+    let volDouble = KNRateCoordinator.shared.getMarketVolume(pair: market.pair)
+    self.volume = {
+      if volDouble == 0 { return "--" }
+      return formatter.string(from: NSNumber(value: volDouble)) ?? "--"
+    }()
     let upAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
       NSAttributedStringKey.foregroundColor: UIColor(red: 49, green: 203, blue: 158),
@@ -45,7 +56,8 @@ struct KNMarketCellViewModel {
     } else {
       attributes = downAttributes
     }
-    self.change24h = NSAttributedString(string: "\(fabs(market.change))%", attributes: attributes)
+    let displayPrice = NumberFormatterUtil.shared.displayPercentage(from: fabs(market.change))
+    self.change24h = NSAttributedString(string: "\(displayPrice)%", attributes: attributes)
     self.isFav = KNAppTracker.isMarketFavourite(market.pair)
   }
 
@@ -54,11 +66,17 @@ struct KNMarketCellViewModel {
     case .pair(let asc):
       return asc ? left.pairName < right.pairName : left.pairName > right.pairName
     case .price(let asc):
-      return asc ? left.price < right.price : left.price > right.price
+      let leftPrice = left.source.sellPrice > 0 ? left.source.sellPrice : left.source.buyPrice
+      let rightPrice = right.source.sellPrice > 0 ? right.source.sellPrice : right.source.buyPrice
+      return asc ? leftPrice < rightPrice : leftPrice > rightPrice
     case .volume(let asc):
-      return asc ? left.volume < right.volume : left.volume > right.volume
+      let leftVolume = KNRateCoordinator.shared.getMarketVolume(pair: left.source.pair)
+      let rightVolume = KNRateCoordinator.shared.getMarketVolume(pair: right.source.pair)
+      return asc ? leftVolume < rightVolume : leftVolume > rightVolume
     case .change(let asc):
-      return asc ? left.change24h.string.dropLast() < right.change24h.string.dropLast() : left.change24h.string.dropLast() > right.change24h.string.dropLast()
+      if left.source.buyPrice == 0 && left.source.sellPrice == 0 { return false }
+      if right.source.buyPrice == 0 && right.source.sellPrice == 0 { return true }
+      return asc ? left.source.change < right.source.change : left.source.change > right.source.change
     }
   }
 }
@@ -83,9 +101,9 @@ class KNMarketTableViewCell: UITableViewCell {
   func updateViewModel(_ viewModel: KNMarketCellViewModel) {
     self.viewModel = viewModel
     self.pairNameLabel.text = viewModel.pairName
-    self.priceLabel.text = viewModel.price.doubleValue == 0 ? "--" : viewModel.price
-    self.volumeLabel.text = viewModel.volume.doubleValue == 0 ? "--" : viewModel.volume
-    if viewModel.price.doubleValue == 0 {
+    self.priceLabel.text = viewModel.price
+    self.volumeLabel.text = viewModel.volume
+    if viewModel.source.sellPrice == 0 && viewModel.source.buyPrice == 0 {
       let zeroAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.font: UIFont.Kyber.medium(with: 12),
         NSAttributedStringKey.foregroundColor: UIColor.Kyber.grayChateau,

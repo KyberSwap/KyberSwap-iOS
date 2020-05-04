@@ -26,6 +26,7 @@
       "decimals": 18,
       "usd_id":"ethereum",
       "gasLimit": "0",
+      "quote_priority": 1,
       "is_quote": true
     },
     "KNC": {
@@ -53,6 +54,7 @@
       "decimals": 18,
       "id": "0xbca556c912754bc8e7d4aad20ad69a1b1444f42d",
       "sp_limit_order": true,
+      "quote_priority": 1,
       "is_quote": true
     }
   },

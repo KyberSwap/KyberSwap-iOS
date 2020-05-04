@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,6 +27,7 @@
                 <outlet property="headerTitle" destination="2Gb-wx-r9C" id="5tS-Ot-QbH"/>
                 <outlet property="marketButtonsStackView" destination="qeT-0Q-Mps" id="DhO-cm-8ZF"/>
                 <outlet property="noDataView" destination="zhc-vo-6EH" id="omH-Ko-OOY"/>
+                <outlet property="noMarketFoundTextLabel" destination="1ti-yf-1Dj" id="wSv-hX-SJ1"/>
                 <outlet property="pairButton" destination="fEO-73-hRs" id="fOy-RY-qID"/>
                 <outlet property="priceButton" destination="Wvl-nL-8P0" id="kpq-aN-kFC"/>
                 <outlet property="searchField" destination="IsT-Ts-eFb" id="tIh-qT-yCW"/>
@@ -196,7 +197,7 @@
                                         <constraint firstItem="Wvl-nL-8P0" firstAttribute="leading" secondItem="Ihd-Iz-dWd" secondAttribute="leading" constant="16" id="vQ8-tV-x0P"/>
                                     </constraints>
                                 </view>
-                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbR-Ip-l3P">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IbR-Ip-l3P">
                                     <rect key="frame" x="192.5" y="0.0" width="86.5" height="42"/>
                                     <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
                                     <state key="normal" title="VOLUME">
@@ -209,8 +210,8 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X8C-qs-nfA">
                                     <rect key="frame" x="289" y="0.0" width="86" height="42"/>
                                     <subviews>
-                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGT-iU-hOG">
-                                            <rect key="frame" x="0.0" y="0.0" width="55" height="42"/>
+                                        <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGT-iU-hOG">
+                                            <rect key="frame" x="0.0" y="0.0" width="49" height="42"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" name="Montserrat-SemiBold" family="Montserrat" pointSize="10"/>
                                             <state key="normal" title="24H%">
@@ -229,8 +230,8 @@
                                         <constraint firstItem="hGT-iU-hOG" firstAttribute="leading" secondItem="X8C-qs-nfA" secondAttribute="leading" id="8vR-ul-HmK"/>
                                         <constraint firstAttribute="bottom" secondItem="hGT-iU-hOG" secondAttribute="bottom" id="HxQ-EH-0lC"/>
                                         <constraint firstAttribute="trailing" secondItem="4mz-lI-Ror" secondAttribute="trailing" constant="10" id="PTA-3M-Mth"/>
+                                        <constraint firstAttribute="trailing" secondItem="hGT-iU-hOG" secondAttribute="trailing" constant="37" id="fHB-JK-gaR"/>
                                         <constraint firstItem="4mz-lI-Ror" firstAttribute="centerY" secondItem="X8C-qs-nfA" secondAttribute="centerY" id="kFg-eo-FdD"/>
-                                        <constraint firstItem="4mz-lI-Ror" firstAttribute="leading" secondItem="hGT-iU-hOG" secondAttribute="trailing" constant="7" id="pIw-gl-cCQ"/>
                                         <constraint firstItem="hGT-iU-hOG" firstAttribute="top" secondItem="X8C-qs-nfA" secondAttribute="top" id="thf-zz-QnO"/>
                                     </constraints>
                                 </view>

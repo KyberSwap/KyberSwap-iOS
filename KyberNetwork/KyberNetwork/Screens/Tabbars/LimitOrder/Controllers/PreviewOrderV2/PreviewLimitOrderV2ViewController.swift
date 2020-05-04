@@ -56,9 +56,11 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
     self.navTitleLabel.text = "Preview Order".toBeLocalised()
     self.titleTextLabel.text = {
       if self.order.isBuy == true {
-        return "Buy \(self.order.to.symbolLODisplay) with \(self.order.from.symbolLODisplay)".uppercased()
+        let string = String(format: "Buy %@ with %@".toBeLocalised(), arguments: [self.order.to.symbolLODisplay, self.order.from.symbolLODisplay])
+        return string.uppercased()
       }
-      return "Sell \(self.order.from.symbolLODisplay) to \(self.order.to.symbolLODisplay)".uppercased()
+      let string = String(format: "Sell %@ to %@".toBeLocalised(), arguments: [self.order.from.symbolLODisplay, self.order.to.symbolLODisplay])
+      return string.uppercased()
     }()
 
     self.quantityTextLabel.text = "Amount".toBeLocalised()
@@ -72,10 +74,10 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
     self.yourPriceTextLabel.text = "Your price".toBeLocalised()
     self.yourPriceValueLabel.text = self.confirmData.price.removeGroupSeparator().fullBigInt(decimals: 18)?.displayRate(decimals: 18)
 
-    self.livePriceTextLabel.text = "Live price".toBeLocalised()
+    self.livePriceTextLabel.text = "Market price".toBeLocalised()
     self.livePriceValueLabel.text = self.confirmData.livePrice.removeGroupSeparator().fullBigInt(decimals: 18)?.displayRate(decimals: 18)
 
-    self.feeTextLabel.text = "Fee".toBeLocalised()
+    self.feeTextLabel.text = NSLocalizedString("fee", value: "Fee", comment: "")
     self.feeValueLabel.text = {
       let fee = BigInt(self.order.fee + self.order.transferFee) * self.order.srcAmount / BigInt(1000000)
       let feeAmountString = fee.string(
@@ -106,12 +108,15 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
       return "\(self.order.from.symbolLODisplay)/\(self.order.to.symbolLODisplay)"
     }()
 
-    self.rateMessageLabel.text = "Limit order are non custodial, which means \(sourceAmount) will remain in your wallet till \(pairString) price reaches \(self.confirmData.price)"
+    self.rateMessageLabel.text = {
+      let localisedString = NSLocalizedString("limit.order.is.noncusdotial", comment: "")
+      return String(format: localisedString, arguments: [sourceAmount, pairString, self.confirmData.price])
+    }()
 
     self.confirmButton.applyGradient()
     self.confirmButton.rounded(radius: 5.0)
-    self.confirmButton.setTitle("Confirm".toBeLocalised(), for: .normal)
-    self.cancelButton.setTitle("Cancel".toBeLocalised(), for: .normal)
+    self.confirmButton.setTitle(NSLocalizedString("confirm", value: "Confirm", comment: ""), for: .normal)
+    self.cancelButton.setTitle(NSLocalizedString("cancel", value: "Cancel", comment: ""), for: .normal)
 
     self.separatorView.dashLine(width: 1.0, color: UIColor.Kyber.dashLine)
   }
@@ -128,17 +133,17 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order", customAttributes: ["action": "back"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order_2", customAttributes: ["action": "back"])
     self.delegate?.previewLimitOrderV2ViewControllerDidBack()
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order", customAttributes: ["action": "confirm"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order_2", customAttributes: ["action": "confirm"])
     self.delegate?.previewLimitOrderV2ViewController(self, order: self.order)
   }
 
   @IBAction func cancelButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order", customAttributes: ["action": "cancel"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order_2", customAttributes: ["action": "cancel"])
     self.delegate?.previewLimitOrderV2ViewControllerDidBack()
   }
 }

@@ -189,6 +189,17 @@ extension KNListNotificationViewController: UITableViewDelegate {
         return
       }
     }
+    if noti.label == "big_swing" {
+      if let data = noti.extraData, let token = data["token"] as? String {
+        if token != "ETH" && token != "WETH" {
+          self.delegate?.listNotificationViewController(self, run: .openSwap(from: "ETH", to: token))
+        } else {
+          // eth or weth
+          self.delegate?.listNotificationViewController(self, run: .openSwap(from: "DAI", to: token))
+        }
+        return
+      }
+    }
     if !noti.link.isEmpty, let url = URL(string: noti.link), UIApplication.shared.canOpenURL(url) {
       self.openSafari(with: url)
       return

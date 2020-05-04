@@ -446,7 +446,6 @@
 "Updated alert successfully!" = "Updated alert successfully!";
 "Your target price should be different at least 0.1% from current price" = "목표 가격은 현재 가격보다 최소 0.1% 차이가 나야 합니다";
 "Alert LeaderBoard" = "알람 순위표";
-"Pair" = "쌍";
 "Entry" = "입장";
 "Target" = "목표";
 "Swing" = "Swing";
@@ -687,3 +686,33 @@
 "You must sign in to use subscription token feature" = "You must sign in to use subscription token feature";
 "Price Trending Notification" = "가격 현황 알림";
 "Notification Setting" = "알림 설정";
+
+// MARK: Limit Order V2
+"limit.order.is.noncusdotial" = "리밋오더는 비수탁으로 이뤄지기 때문에, %s 가격이 %s에 도달하기 전까지 사용자의 지갑에 %s가 유지됩니다.";
+"Amount" = "양";
+"Your price" = "사용자 지정 가";
+"Market price" = "시장가";
+"Preview Order" = "주문 미리보기";
+"Change Price" = "가격 바꾸기";
+"Buy %@" = "%@매수";
+"Sell %@" = "%@매도";
+"Price" = "가격";
+"Volume" = "Volume";
+"No markets found" = "No markets found";
+"Market" = "Market";
+"Available Balance" = "Available Balance";
+"Your target price is" = "Your target price is";
+"higher than current Market price" = "higher than current Market price";
+"lower than current price" = "lower than current price";
+"Sell %@ to %@" = "%s를 %s 로 매도";
+"Buy %@ with %@" = "%s로 %s 매수";
+"Total" = "합계";
+"Your target price should be greater than 0" = "목표하는 비율은 0보다 커야합니다.";
+"Your target price is too high, should be at most 10 times of current price" = "목표 비율이 너무 높습니다. 최대치는 현재 비율의 10배입니다.";
+"Please enter your target price to continue" = "계속하려면 목표 가격을 입력하십시오";
+"Manage Orders" = "Manage Orders";
+"You are cancelling this order" = "You are cancelling this order";
+"Cancelling..." = "Cancelling...";
+"Your order has been cancelled" = "Your order has been cancelled";
+"Submitting order" = "Submitting order";
+"No order found" = "No order found";

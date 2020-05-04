@@ -50,6 +50,7 @@ class KNLimitOrderTabCoordinatorV2: NSObject, Coordinator {
   fileprivate lazy var marketsVC: KNSelectMarketViewController = {
     let viewModel = KNSelectMarketViewModel()
     let viewController = KNSelectMarketViewController(viewModel: viewModel)
+    viewController.loadViewIfNeeded()
     viewController.delegate = self
     return viewController
   }()

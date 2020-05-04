@@ -86,6 +86,13 @@ extension KNAppCoordinator {
       name: gasPriceName,
       object: nil
     )
+    let marketDataName = Notification.Name(kMarketSuccessToLoadNotiKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.marketDataDidUpdate(_:)),
+      name: marketDataName,
+      object: nil
+    )
   }
 
   func removeObserveNotificationFromSession() {
@@ -147,6 +154,12 @@ extension KNAppCoordinator {
     NotificationCenter.default.removeObserver(
       self,
       name: gasPriceName,
+      object: nil
+    )
+    let marketDataName = Notification.Name(kMarketSuccessToLoadNotiKey)
+    NotificationCenter.default.removeObserver(
+      self,
+      name: marketDataName,
       object: nil
     )
   }
@@ -374,5 +387,9 @@ extension KNAppCoordinator {
     if self.session == nil { return }
     self.tabbarController.selectedIndex = 1
     self.exchangeCoordinator?.navigationController.popToRootViewController(animated: true)
+  }
+
+  @objc func marketDataDidUpdate(_ sender: Any?) {
+    self.limitOrderCoordinator?.appCoordinatorMarketCachedDidUpdate()
   }
 }

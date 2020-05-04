@@ -112,7 +112,7 @@ class KNFilterLimitOrderViewController: KNBaseViewController {
 
     self.applyButton.rounded()
     self.applyButton.applyGradient()
-    self.applyButton.setTitle("Apply".toBeLocalised(), for: .normal)
+    self.applyButton.setTitle(NSLocalizedString("apply", value: "Apply", comment: ""), for: .normal)
 
     let nib = UINib(nibName: KNFilterLimitOrderSelectPairTableViewCell.className, bundle: nil)
     self.listPairsTableView.register(
@@ -175,7 +175,7 @@ class KNFilterLimitOrderViewController: KNBaseViewController {
 
     self.listPairsTableViewHeightConstraint.constant = {
       if self.viewModel.allPairs.isEmpty { return 60.0 }
-      return min(108.0, CGFloat((self.viewModel.allPairs.count + 1) / 2) * 36.0)
+      return min(108.0, CGFloat((self.viewModel.allPairs.count + 1) / 2) * 36.0) + 10.0
     }()
     self.view.layoutIfNeeded()
   }

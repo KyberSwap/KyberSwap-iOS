@@ -71,6 +71,10 @@ class TokenObject: Object {
       return self.symbol == "WETH"
     }
 
+    var isWBTC: Bool {
+      return self.symbol == "WBTC"
+    }
+
     var symbolLODisplay: String {
       if self.isETH || self.isWETH { return "ETH*" }
       return self.symbol
@@ -221,7 +225,7 @@ class TokenExtraData: NSObject {
       "sp_limit_order": self.limitOrderEnabled,
       "is_quote": self.isQuote,
       "is_gas_fixed": self.isGasFixed,
-      "quote_priority": self.quotePriority
+      "quote_priority": self.quotePriority,
     ]
   }
 

@@ -38,7 +38,8 @@
       "decimals": 18,
       "usd_id":"ethereum",
       "gasLimit": "0",
-      "is_quote": true
+      "is_quote": true,
+      "quote_priority": 2
     },
     "WETH": {
       "name": "Wrapped Ether",
@@ -47,7 +48,8 @@
       "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
       "icon": "weth",
       "sp_limit_order": true,
-      "is_quote": true
+      "is_quote": true,
+      "quote_priority": 2
     },
     "KNC": {
       "name": "KyberNetwork",
@@ -68,7 +70,8 @@
       "gasLimit": "450000",
       "sp_limit_order": true,
       "is_quote": true,
-      "is_gas_fixed": true
+      "is_gas_fixed": true,
+      "quote_priority": 3
     },
     "OMG": {
       "name": "OmiseGO",
@@ -133,15 +136,6 @@
       "usd_id":"request-network",
       "sp_limit_order": true
     },
-    "GTO": {
-      "name":"Gifto",
-      "address": "0xc5bbae50781be1669306b9e001eff57a2957b09d",
-      "symbol": "GTO",
-      "icon": "gifto",
-      "decimals": 5,
-      "usd_id":"gifto",
-      "sp_limit_order": true
-    },
     "RDN": {
       "name":"Raiden",
       "address": "0x255aa6df07540cb5d3d297f0d0d4d84cb52bc8e6",
@@ -160,15 +154,6 @@
       "usd_id":"appcoins",
       "sp_limit_order": true
     },
-    "ENG": {
-      "name":"Enigma",
-      "address": "0xf0ee6b27b759c9893ce4f094b49ad28fd15a23e4",
-      "symbol": "ENG",
-      "icon": "eng",
-      "decimals": 8,
-      "usd_id":"enigma-project",
-      "sp_limit_order": true
-    },
     "BQX": {
       "name" : "Ethos",
       "address": "0x5af2be193a6abca9c8817001f45744777db30756",
@@ -178,15 +163,6 @@
       "usd_id":"ethos",
       "sp_limit_order": true
     },
-    "ADX": {
-      "name": "AdEx",
-      "address": "0x4470bb87d77b963a013db939be332f927f2b992e",
-      "symbol": "ADX",
-      "decimals": 4,
-      "icon": "adx",
-      "usd_id": "adx-net",
-      "sp_limit_order": true
-    },
     "AST": {
       "name": "AirSwap",
       "address": "0x27054b13b1b798b345b591a4d22e6562d47ea75a",
@@ -194,15 +170,6 @@
       "decimals": 4,
       "icon": "ast",
       "usd_id": "airswap",
-      "sp_limit_order": true
-    },
-    "RCN": {
-      "name": "Ripio Credit Network",
-      "address": "0xf970b8e36e23f7fc3fd752eea86f8be8d83375a6",
-      "symbol": "RCN",
-      "decimals": 18,
-      "icon": "rcn",
-      "usd_id": "ripio-credit-network",
       "sp_limit_order": true
     },
     "LINK": {
@@ -276,22 +243,6 @@
       "icon": "blz",
       "sp_limit_order": true
     },
-    "ELEC": {
-      "name": "ElectrifyAsia",
-      "decimals": 18,
-      "address": "0xd49ff13661451313ca1553fd6954bd1d9b6e02b9",
-      "symbol":"ELEC",
-      "icon": "elec",
-      "sp_limit_order": true
-    },
-    "BBO": {
-      "name": "Bigbom",
-      "decimals": 18,
-      "address": "0x84f7c44b6fed1080f647e354d552595be2cc602f",
-      "symbol":"BBO",
-      "icon": "bbo",
-      "sp_limit_order": true
-    },
     "POLY": {
       "name": "Polymath",
       "decimals": 18,
@@ -300,28 +251,12 @@
       "icon": "poly",
       "sp_limit_order": true
     },
-    "LBA": {
-      "name": "Libra Credit",
-      "decimals": 18,
-      "address": "0xfe5f141bf94fe84bc28ded0ab966c16b17490657",
-      "symbol":"LBA",
-      "icon": "lba",
-      "sp_limit_order": true
-    },
     "CVC": {
       "name": "Civic",
       "decimals": 8,
       "address": "0x41e5560054824ea6b0732e656e3ad64e20e94e45",
       "symbol":"CVC",
       "icon": "cvc",
-      "sp_limit_order": true
-    },
-    "WAX": {
-      "name": "Wax",
-      "decimals": 8,
-      "address": "0x39bb259f66e1c59d5abef88375979b4d20d98022",
-      "symbol":"WAX",
-      "icon": "wax",
       "sp_limit_order": true
     },
     "POE": {
@@ -365,7 +300,8 @@
       "icon": "tusd",
       "sp_limit_order": true,
       "is_quote": true,
-      "is_gas_fixed": true
+      "is_gas_fixed": true,
+      "quote_priority": 3
     },
     "LEND": {
       "name": "EthLend",
@@ -373,14 +309,6 @@
       "address": "0x80fb784b7ed66730e8b1dbd9820afd29931aab03",
       "symbol":"LEND",
       "icon": "lend",
-      "sp_limit_order": true
-    },
-    "WINGS": {
-      "name": "WINGS",
-      "decimals": 18,
-      "address": "0x667088b212ce3d06a1b553a7221e1fd19000d9af",
-      "symbol":"WINGS",
-      "icon": "wings",
       "sp_limit_order": true
     },
     "MTL": {
@@ -397,14 +325,6 @@
       "address": "0x286bda1413a2df81731d4930ce2f862a35a609fe",
       "symbol":"WABI",
       "icon": "wabi",
-      "sp_limit_order": true
-    },
-    "COFI":{
-      "name": "CoinFi",
-      "decimals": 18,
-      "address": "0x3136ef851592acf49ca4c825131e364170fa32b3",
-      "symbol":"COFI",
-      "icon": "cofi",
       "sp_limit_order": true
     },
     "MOC": {
@@ -429,14 +349,6 @@
       "symbol" : "ZRX",
       "address": "0xe41d2489571d322189246dafa5ebde1f4699f498",
       "icon": "zrx",
-      "sp_limit_order": true
-    },
-    "MAS":{
-      "name": "MidasProtocol",
-      "decimals": 18,
-      "symbol" : "MAS",
-      "address": "0x23ccc43365d9dd3882eab88f43d515208f832430",
-      "icon": "mas",
       "sp_limit_order": true
     },
     "DAT":{
@@ -474,16 +386,6 @@
       "expireDate": "2018/11/05",
       "sp_limit_order": true
     },
-    "DCC":{
-      "name": "Distributed Credit Chain",
-      "decimals": 18,
-      "symbol" : "DCC",
-      "address": "0xffa93aacf49297d51e211817452839052fdfb961",
-      "icon": "dcc",
-      "isNew": true,
-      "expireDate": "2018/11/05",
-      "sp_limit_order": true
-    },
     "PT":{
       "name": "Promotion Token",
       "decimals": 18,
@@ -492,6 +394,16 @@
       "gasLimit": "380000",
       "icon": "pt",
       "sp_limit_order": true
+    },
+    "WBTC":{
+      "symbol": "WBTC",
+      "name": "Wrapped BTC",
+      "address": "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599",
+      "decimals": 8,
+      "gasLimit": "650000",
+      "sp_limit_order": true,
+      "is_quote": true,
+      "quote_priority": 1
     }
   },
   "ethScanUrl": "https://etherscan.io/",

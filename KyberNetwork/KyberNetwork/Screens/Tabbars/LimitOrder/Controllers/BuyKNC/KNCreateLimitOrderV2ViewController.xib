@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,15 +25,20 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNCreateLimitOrderV2ViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="amountField" destination="uWt-k2-VQa" id="HIs-aa-FaI"/>
+                <outlet property="amountTextLabel" destination="y0u-hS-yox" id="d9H-9i-0gF"/>
+                <outlet property="availableBalanceTextLabel" destination="IHa-BU-feb" id="Ony-xZ-ORZ"/>
                 <outlet property="beforeDiscountFeeLabel" destination="sBz-ns-jKw" id="cXO-v0-OOU"/>
                 <outlet property="buySellButton" destination="uAl-Dw-MWf" id="Vc6-b0-JhI"/>
                 <outlet property="comparePriceLabel" destination="6E7-fa-WNi" id="UMm-3l-sqL"/>
                 <outlet property="discountPecentLabel" destination="BM7-kR-srb" id="jDN-Xk-eAC"/>
                 <outlet property="discountPercentContainerView" destination="Q3x-cw-BJl" id="4Fy-gd-MOB"/>
                 <outlet property="feeLabel" destination="w93-ly-3v6" id="45x-RM-Fg5"/>
+                <outlet property="feeTextLabel" destination="nHX-1G-BQB" id="KPn-dg-BiO"/>
+                <outlet property="learnMoreButton" destination="J2i-XH-xTw" id="tME-8g-Hn5"/>
                 <outlet property="mainManageOrdersButton" destination="0CU-e3-57j" id="lpf-fF-H1z"/>
                 <outlet property="mainManagerOrderButtonHeightContraint" destination="m1z-9c-dJJ" id="XOe-Ir-V38"/>
                 <outlet property="priceField" destination="u6a-j7-MXP" id="BiV-Cv-Mgh"/>
+                <outlet property="priceTextLabel" destination="0q3-1l-moV" id="CLe-nd-MOJ"/>
                 <outlet property="relatedManageOrderButton" destination="bwF-tE-rhQ" id="OBt-Kz-xFa"/>
                 <outlet property="relatedOrderCollectionView" destination="Db2-2b-94u" id="UYf-Me-Nqz"/>
                 <outlet property="relatedOrderContainerViewHeightConstraint" destination="wtk-H6-0gX" id="MsK-iF-nJj"/>
@@ -42,6 +47,7 @@
                 <outlet property="toSymLabel" destination="ljB-ID-F8A" id="ao9-1c-dym"/>
                 <outlet property="tokenAvailableLabel" destination="Ls4-gj-7NW" id="edR-mW-Y5q"/>
                 <outlet property="totalField" destination="Thu-V5-suv" id="x3K-Eq-4vv"/>
+                <outlet property="totalTextLabel" destination="F6b-lY-bng" id="Ae5-pd-UyP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="fromSymLabels" destination="akA-2Z-PbE" collectionClass="NSMutableArray" id="wWR-MJ-OEO"/>
                 <outletCollection property="fromSymLabels" destination="x3S-cu-pQH" collectionClass="NSMutableArray" id="IyJ-oC-vPw"/>
@@ -59,7 +65,7 @@
                             <rect key="frame" x="18" y="30" width="339" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-lN-bdT">
-                                    <rect key="frame" x="0.0" y="0.0" width="85" height="48"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRICE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0q3-1l-moV">
                                             <rect key="frame" x="14" y="16.5" width="38.5" height="15"/>
@@ -68,7 +74,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AaF-FI-Nql">
-                                            <rect key="frame" x="0.0" y="0.0" width="85" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="marketPriceButtonTapped:" destination="-1" eventType="touchUpInside" id="1Rp-Kc-poB"/>
@@ -77,7 +83,7 @@
                                     </subviews>
                                     <color key="backgroundColor" red="0.88235294117647056" green="0.89411764705882346" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="85" id="9gS-O1-hJt"/>
+                                        <constraint firstAttribute="width" constant="90" id="9gS-O1-hJt"/>
                                         <constraint firstItem="0q3-1l-moV" firstAttribute="leading" secondItem="oAE-lN-bdT" secondAttribute="leading" constant="14" id="DoY-Dh-7W8"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0q3-1l-moV" secondAttribute="trailing" id="Fru-TB-hOe"/>
                                         <constraint firstAttribute="bottom" secondItem="AaF-FI-Nql" secondAttribute="bottom" id="HiU-qm-7sT"/>
@@ -88,7 +94,7 @@
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="u6a-j7-MXP">
-                                    <rect key="frame" x="93" y="13.5" width="190" height="21.5"/>
+                                    <rect key="frame" x="98" y="14" width="185" height="20"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -129,7 +135,7 @@
                             <rect key="frame" x="18" y="122" width="339" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5EL-QX-h9b">
-                                    <rect key="frame" x="0.0" y="0.0" width="85" height="48"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMOUNT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="y0u-hS-yox">
                                             <rect key="frame" x="14" y="16.5" width="57.5" height="15"/>
@@ -142,12 +148,12 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="y0u-hS-yox" secondAttribute="trailing" id="Ftc-MS-dgu"/>
                                         <constraint firstItem="y0u-hS-yox" firstAttribute="centerY" secondItem="5EL-QX-h9b" secondAttribute="centerY" id="a5C-ab-hTt"/>
-                                        <constraint firstAttribute="width" constant="85" id="tcz-sY-rE4"/>
+                                        <constraint firstAttribute="width" constant="90" id="tcz-sY-rE4"/>
                                         <constraint firstItem="y0u-hS-yox" firstAttribute="leading" secondItem="5EL-QX-h9b" secondAttribute="leading" constant="14" id="tm1-lc-R5N"/>
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uWt-k2-VQa">
-                                    <rect key="frame" x="93" y="13.5" width="187.5" height="21.5"/>
+                                    <rect key="frame" x="98" y="14" width="182.5" height="20"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -317,7 +323,7 @@
                             <rect key="frame" x="18" y="240" width="339" height="48"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X98-Gd-TOp">
-                                    <rect key="frame" x="0.0" y="0.0" width="85" height="48"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOTAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="F6b-lY-bng">
                                             <rect key="frame" x="14" y="16.5" width="41" height="15"/>
@@ -329,13 +335,13 @@
                                     <color key="backgroundColor" red="0.88235294119999996" green="0.89411764709999997" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="F6b-lY-bng" secondAttribute="trailing" id="Wj6-PW-FY5"/>
-                                        <constraint firstAttribute="width" constant="85" id="dAL-wU-wAN"/>
+                                        <constraint firstAttribute="width" constant="90" id="dAL-wU-wAN"/>
                                         <constraint firstItem="F6b-lY-bng" firstAttribute="leading" secondItem="X98-Gd-TOp" secondAttribute="leading" constant="14" id="kdi-gg-gDy"/>
                                         <constraint firstItem="F6b-lY-bng" firstAttribute="centerY" secondItem="X98-Gd-TOp" secondAttribute="centerY" id="r8y-W5-x91"/>
                                     </constraints>
                                 </view>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Thu-V5-suv">
-                                    <rect key="frame" x="93" y="13.5" width="190.5" height="21.5"/>
+                                    <rect key="frame" x="98" y="14" width="185.5" height="20"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>

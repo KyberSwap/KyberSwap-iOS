@@ -435,7 +435,7 @@
 "Updated alert successfully!" = "更新警报成功!";
 "Your target price should be different at least 0.1% from current price" = "您的目标价格需要与当前价格有0.1%的价差";
 "Alert LeaderBoard" = "警报排行榜";
-"Pair" = "交易对";
+"Pair" = "Pair";
 "Entry" = "进入";
 "Target" = "目标";
 "Swing" = "波动";
@@ -621,7 +621,7 @@
 "You must sign in to use Limit Order feature" = "请登录您的个人资料以使用限价订单功能";
 "Your target rate should be greater than 0" = "您的目标汇率应大于0";
 "Your target rate is too high, should be at most 10 times of current rate" = "您的目标汇率太高，应至多为当前汇率的10倍";
-"Please enter your target rate to continue" = "Please enter your target rate to continue";
+"Please enter your target rate to continue" = "请输入您的目标费率以继续";
 "Rate of" = "Rate of";
 "Your target rate is" = "Your target rate is";
 "higher than current Market rate" = "higher than current Market rate";
@@ -685,3 +685,34 @@
 "You must sign in to use subscription token feature" = "You must sign in to use subscription token feature";
 "Price Trending Notification" = "价格变化通知";
 "Notification Setting" = "通知设置";
+
+
+// MARK: Limit Order V2
+"limit.order.is.noncusdotial" = "限价订单是非托管的，这意味着％@将保留在您的钱包中，直到％@的价格达到％@";
+"Amount" = "数量";
+"Your price" = "你设定的价格";
+"Market price" = "市场价格";
+"Preview Order" = "预览订单";
+"Change Price" = "更改价格";
+"Buy %@" = "购买％@";
+"Sell %@" = "出售%@";
+"Price" = "价钱";
+"Volume" = "体积";
+"No markets found" = "找不到市场";
+"Market" = "市场";
+"Available Balance" = "可用余额";
+"Your target price is" = "您的目标价是";
+"higher than current Market price" = "高于当前市场价格";
+"lower than current price" = "低于当前价格";
+"Sell %@ to %@" = "用％@出售％@";
+"Buy %@ with %@" = "用％@购买％@";
+"Total" = "总";
+"Your target price should be greater than 0" = "您的目标汇率应大于0";
+"Your target price is too high, should be at most 10 times of current price" = "您的目标汇率太高，应至多为当前汇率的10倍";
+"Please enter your target price to continue" = "请输入您的目标价格以继续";
+"Manage Orders" = "Manage Orders";
+"You are cancelling this order" = "您正在取消这个订单";
+"Cancelling..." = "Cancelling...";
+"Your order has been cancelled" = "Your order has been cancelled";
+"Submitting order" = "Submitting order";
+"No order found" = "No order found";

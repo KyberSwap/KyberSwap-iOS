@@ -49,7 +49,7 @@ class KNCreateLimitOrderV2ViewModel {
       self.to = KNSupportedTokenStorage.shared.wethToken ?? KNSupportedTokenStorage.shared.ethToken
       self.from = KNSupportedTokenStorage.shared.kncToken
     }
-    self.currentPair = "ETH_KNC"
+    self.currentPair = "WETH_KNC"
   }
 
   var walletNameString: String {
@@ -58,9 +58,9 @@ class KNCreateLimitOrderV2ViewModel {
   }
 
   var targetPriceFromMarket: String {
-    let formatter = NumberFormatterUtil.shared.limitOrderFormatter
-    let marketPrice = self.isBuy ? self.market?.buyPrice : self.market?.sellPrice
-    return formatter.string(from: NSNumber(value: marketPrice ?? 0)) ?? ""
+    let marketPrice = (self.isBuy ? self.market?.buyPrice : self.market?.sellPrice) ?? 0
+    if marketPrice == 0 { return "0" }
+    return BigInt(marketPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
   }
 
   func updatePair(name: String) -> Bool {
@@ -198,13 +198,13 @@ class KNCreateLimitOrderV2ViewModel {
       NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 12),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.strawberry,
     ]
-    attributedString.append(NSAttributedString(string: "Your target rate is".toBeLocalised(), attributes: normalAttributes))
+    attributedString.append(NSAttributedString(string: "Your target price is".toBeLocalised(), attributes: normalAttributes))
     if rateChange > 0 {
       attributedString.append(NSAttributedString(string: " \(rate) ", attributes: higherAttributes))
-      attributedString.append(NSAttributedString(string: "higher than current Market rate".toBeLocalised(), attributes: normalAttributes))
+      attributedString.append(NSAttributedString(string: "higher than current Market price".toBeLocalised(), attributes: normalAttributes))
     } else {
       attributedString.append(NSAttributedString(string: " \(rate) ", attributes: lowerAttributes))
-      attributedString.append(NSAttributedString(string: "lower than current rate".toBeLocalised(), attributes: normalAttributes))
+      attributedString.append(NSAttributedString(string: "lower than current price".toBeLocalised(), attributes: normalAttributes))
     }
     return attributedString
   }
@@ -355,7 +355,7 @@ class KNCreateLimitOrderV2ViewModel {
   }
 
   var totalAmountDouble: Double {
-    return self.amountTo.doubleValue * self.targetPrice.doubleValue
+    return self.amountFrom.doubleValue
   }
 
   var totalAmountString: String {

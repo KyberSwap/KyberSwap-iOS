@@ -53,7 +53,7 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
     self.statusValueLabel.rounded(radius: self.statusValueLabel.frame.height / 2.0)
 
     self.titleTextLabel.text = "You are cancelling this order".toBeLocalised()
-    self.feeTextLabel.text = "Fee".toBeLocalised().uppercased()
+    self.feeTextLabel.text = NSLocalizedString("fee", value: "Fee", comment: "").uppercased()
 
     self.cancelButton.setTitle(
       NSLocalizedString("no", value: "No", comment: ""),
@@ -82,7 +82,7 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
     self.fromTextLabel.text = "Total".toBeLocalised().uppercased()
     self.toTextLabel.text = "Amount".toBeLocalised().uppercased()
     if sideTrade == "sell" {
-      self.pairValueLabel.text = "Sell \(srcTokenSymbol)".toBeLocalised()
+      self.pairValueLabel.text = String(format: "Sell %@".toBeLocalised(), srcTokenSymbol)
       self.priceValueLabel.text = {
         let price = BigInt(self.order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
         return "\(price) \(destTokenSymbol)"
@@ -94,7 +94,7 @@ class KNCancelOrderConfirmPopUp: KNBaseViewController {
       self.sourceValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmount)) \(destTokenSymbol)"
       self.destValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
     } else {
-      self.pairValueLabel.text = "Buy \(destTokenSymbol)".toBeLocalised()
+      self.pairValueLabel.text = String(format: "Buy %@".toBeLocalised(), destTokenSymbol)
       self.priceValueLabel.text = {
         let price = BigInt(pow(10.0, 18.0)/self.order.targetPrice).displayRate(decimals: 18)
         return "\(price) \(srcTokenSymbol)"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,6 +26,7 @@
                 <outlet property="hasPendingTxView" destination="kWX-oU-1II" id="N9f-Dw-4Qd"/>
                 <outlet property="hasUnreadNotification" destination="qoK-VV-N1q" id="jzf-LP-TW4"/>
                 <outlet property="headerContainerView" destination="UM9-xL-Rjq" id="ZZZ-VQ-DCe"/>
+                <outlet property="limitOrderTextLabel" destination="0ko-xw-aPS" id="Xat-jo-y3X"/>
                 <outlet property="marketDetailLabel" destination="mct-Gm-G3A" id="3vo-CV-sGW"/>
                 <outlet property="marketNameButton" destination="2c9-ao-Wbk" id="uC8-IT-yEl"/>
                 <outlet property="marketVolLabel" destination="4fx-Nt-YCL" id="udO-NE-Bn8"/>
@@ -55,14 +56,14 @@
                                 <action selector="hamburgerMenuButtonPressed:" destination="-1" eventType="touchUpInside" id="6bb-Qd-zMh"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KyberSwap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ko-xw-aPS">
-                            <rect key="frame" x="20" y="43" width="103" height="22"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Limit Order" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ko-xw-aPS">
+                            <rect key="frame" x="20" y="43" width="105.5" height="22"/>
                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="| Satoshi Nakamoto" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rl7-Nt-kKk">
-                            <rect key="frame" x="131" y="45.5" width="138.5" height="17.5"/>
+                            <rect key="frame" x="133.5" y="45.5" width="138.5" height="17.5"/>
                             <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -76,10 +77,10 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q6Y-Uw-qXN">
-                            <rect key="frame" x="314" y="30" width="48" height="48"/>
+                            <rect key="frame" x="326" y="30" width="36" height="48"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="4eR-dC-IGG"/>
-                                <constraint firstAttribute="width" constant="48" id="pZe-LK-osS"/>
+                                <constraint firstAttribute="width" constant="36" id="pZe-LK-osS"/>
                             </constraints>
                             <state key="normal" image="notification_menu_icon"/>
                             <connections>
@@ -87,7 +88,7 @@
                             </connections>
                         </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qoK-VV-N1q">
-                            <rect key="frame" x="344" y="40" width="6" height="6"/>
+                            <rect key="frame" x="350" y="40" width="6" height="6"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="6" id="9ox-KT-aqg"/>

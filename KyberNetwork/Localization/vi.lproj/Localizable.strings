@@ -591,7 +591,6 @@
 "Status" = "Tình trạng";
 "Condition" = "Điều kiện";
 "Actions" = "Hành động";
-"Pair" = "Cặp giao dịch";
 "Date" = "Ngày";
 "Manage Your Orders" = "Quản lý các lệnh";
 "Related Orders" = "Lệnh liên quan";
@@ -687,3 +686,33 @@
 "You must sign in to use subscription token feature" = "Bạn phải đăng nhập để sử dụng tính năng theo dõi token";
 "Price Trending Notification" = "Thông báo về thay đổi tỷ giá";
 "Notification Setting" = "Cài đặt thông báo";
+
+// MARK: Limit Order V2
+"limit.order.is.noncusdotial" = "Bạn không cần gửi tiền khi sử dụng Limit Order, điều này có nghĩa là %@ sẽ ở nguyên trong ví của bạn cho đến khi %@ tỷ  giá đạt %@";
+"Amount" = "Số lượng";
+"Your price" = "Giá bạn đặt";
+"Market price" = "Giá thị trường";
+"Preview Order" = "Xem lệnh";
+"Change Price" = "Thay đổi giá";
+"Buy %@" = "Mua %@";
+"Sell %@" = "Bán %@";
+"Price" = "Giá";
+"Volume" = "Volume";
+"No markets found" = "Không tìm thấy";
+"Market" = "Thị trường";
+"Available Balance" = "Số dư khả dụng";
+"Your target price is" = "Giá của bạn là";
+"higher than current Market price" = "cao hơn giá thị trường";
+"lower than current price" = "thấp hơn giá thị trường";
+"Sell %@ to %@" = "Bán %@ sang %@";
+"Buy %@ with %@" = "Mua %@ với %@";
+"Total" = "Tổng";
+"Your target price should be greater than 0" = "Tỉ giá phải lớn hơn 0";
+"Your target price is too high, should be at most 10 times of current price" = "Tỉ giá quá cao, vui lòng đặt tỉ giá không vượt quá 10 lần giá hiện tại";
+"Please enter your target price to continue" = "Vui lòng điền tỉ giá để tiếp tục";
+"Manage Orders" = "Quản lý lệnh";
+"You are cancelling this order" = "Bạn đang huỷ lệnh này";
+"Cancelling..." = "Đang huỷ...";
+"Your order has been cancelled" = "Lệnh của bạn đã được huỷ";
+"Submitting order" = "Đang đặt lệnh";
+"No order found" = "Không có dữ liệu";

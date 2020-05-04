@@ -51,6 +51,7 @@ class KNCancelSuggestOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func checkButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "cancel_suggest_order_limit_order_2", customAttributes: ["action": "check_box_button_clicked"])
     self.checkButton.rounded(
       color: UIColor.clear,
       width: 0.0,
@@ -66,12 +67,17 @@ class KNCancelSuggestOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func whyButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "cancel_suggest_order_limit_order_2", customAttributes: ["action": "why_button_clicked"])
     let url = "\(KNEnvironment.default.profileURL)/faq#can-I-submit-multiple-limit-orders-for-same-token-pair"
     self.navigationController?.openSafari(with: url)
   }
 
   fileprivate func setupUI() {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
+    self.headerTitleLabel.text = "Cancel Order".toBeLocalised()
+    self.explainLabel.text = "By submitting this order, you also CANCEL the following orders:".toBeLocalised()
+    self.whyButton.setTitle("Why?".toBeLocalised(), for: .normal)
+    self.understandButton.setTitle("I understand".toBeLocalised(), for: .normal)
     let nib = UINib(nibName: KNLimitOrderCollectionViewCell.className, bundle: nil)
     let headerNib = UINib(nibName: KNTransactionCollectionReusableView.className, bundle: nil)
     self.collectionView.register(nib, forCellWithReuseIdentifier: kCancelOrdersCollectionViewCellID)

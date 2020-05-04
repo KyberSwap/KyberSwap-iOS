@@ -182,7 +182,7 @@ class KNManageOrdersViewController: KNBaseViewController {
 
   fileprivate func setupUI() {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
-
+    self.navTitleLabel.text = "Manage Orders".toBeLocalised()
     self.emptyStateLabel.text = "No order found".toBeLocalised()
     self.openOrderButton.setTitle("Open Orders".toBeLocalised(), for: .normal)
     self.orderHistoryButton.setTitle("Order History".toBeLocalised(), for: .normal)

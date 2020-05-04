@@ -49,7 +49,7 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
     super.awakeFromNib()
     // Initialization code
     self.orderStatusLabel.rounded(radius: self.orderStatusLabel.frame.height / 2.0)
-    self.feeTextLabel.text = "Fee".toBeLocalised().uppercased()
+    self.feeTextLabel.text = NSLocalizedString("fee", value: "Fee", comment: "").uppercased()
     self.fromTextLabel.text = NSLocalizedString("From", value: "From", comment: "").uppercased()
     self.toTextLabel.text = NSLocalizedString("To", value: "To", comment: "").uppercased()
     self.cancelButton.setTitle(
@@ -98,7 +98,7 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
     self.fromTextLabel.text = "Total".toBeLocalised().uppercased()
     self.toTextLabel.text = "Amount".toBeLocalised().uppercased()
     if sideTrade == "sell" {
-      self.pairValueLabel.text = "Sell \(srcTokenSymbol)".toBeLocalised()
+      self.pairValueLabel.text = String(format: "Sell %@".toBeLocalised(), srcTokenSymbol)
       self.priceValueLabel.text = {
         let price = BigInt(self.order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
         return "\(price) \(destTokenSymbol)"
@@ -112,7 +112,7 @@ class KNLimitOrderCollectionViewCell: UICollectionViewCell {
       self.destValueLabel.isUserInteractionEnabled = false
       self.sourceValueLabel.isUserInteractionEnabled = true
     } else {
-      self.pairValueLabel.text = "Buy \(destTokenSymbol)".toBeLocalised()
+      self.pairValueLabel.text = String(format: "Buy %@".toBeLocalised(), destTokenSymbol)
       self.priceValueLabel.text = {
         let price = BigInt(pow(10.0, 18.0)/self.order.targetPrice).displayRate(decimals: 18)
         return "\(price) \(srcTokenSymbol)"

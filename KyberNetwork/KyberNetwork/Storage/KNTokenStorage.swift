@@ -37,7 +37,7 @@ class KNTokenStorage {
   var tokens: [TokenObject] {
     if self.realm.objects(TokenObject.self).isInvalidated { return [] }
     return self.realm.objects(TokenObject.self)
-      .filter { return !$0.contract.isEmpty }
+      .filter { return !$0.contract.isEmpty && !$0.isDisabled }
   }
 
   var ethToken: TokenObject {
@@ -94,8 +94,14 @@ class KNTokenStorage {
     try! realm.commitWrite()
   }
 
-  func deleteUnsupportedTokensWithZeroBalance(tokens: [TokenObject]) {
-    self.delete(tokens: tokens)
+  func disableUnsupportedTokensWithZeroBalance(tokens: [TokenObject]) {
+    if tokens.isEmpty { return }
+    tokens.forEach { token in
+      if token.isInvalidated { return }
+      self.realm.beginWrite()
+      token.isDisabled = true
+      try! self.realm.commitWrite()
+    }
     KNNotificationUtil.postNotification(for: kSupportedTokenListDidUpdateNotificationKey)
   }
 

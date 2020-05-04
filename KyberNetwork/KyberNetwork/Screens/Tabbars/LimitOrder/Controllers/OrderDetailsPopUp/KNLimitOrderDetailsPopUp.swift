@@ -22,6 +22,8 @@ class KNLimitOrderDetailsPopUp: KNBaseViewController {
 
   @IBOutlet weak var closeButton: UIButton!
   @IBOutlet weak var detailsButton: UIButton!
+  @IBOutlet weak var priceTextLabel: UILabel!
+  @IBOutlet weak var priceValueLabel: UILabel!
 
   let order: KNOrderObject
 
@@ -36,15 +38,16 @@ class KNLimitOrderDetailsPopUp: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    let sideTrade = self.order.sideTrade ?? "sell"
+    let destAmountWithoutFee = order.sourceAmount * order.targetPrice
     self.containerView.rounded(radius: 8.0)
     self.pairContainerView.rounded(radius: 2.5)
     self.statusButton.rounded(radius: self.statusButton.frame.height / 2.0)
 
     self.titleTextLabel.text = "Your order is filled".toBeLocalised()
-    self.feeTextLabel.text = "Fee".toBeLocalised().uppercased()
-    self.fromTextLabel.text = NSLocalizedString("From", value: "From", comment: "").uppercased()
-    self.toTextLabel.text = NSLocalizedString("To", value: "To", comment: "").uppercased()
+    self.feeTextLabel.text = NSLocalizedString("fee", value: "Fee", comment: "").uppercased()
+    self.fromTextLabel.text = "Total".toBeLocalised().uppercased()
+    self.toTextLabel.text = "Amount".toBeLocalised().uppercased()
     self.closeButton.setTitle(
       NSLocalizedString("close", value: "Close", comment: ""),
       for: .normal
@@ -62,9 +65,28 @@ class KNLimitOrderDetailsPopUp: KNBaseViewController {
 
     let srcTokenSymbol = order.srcTokenSymbol
     let destTokenSymbol = order.destTokenSymbol
-    let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18).prefix(12)
+    if sideTrade == "sell" {
+      self.pairTextLabel.text = "Sell \(srcTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(self.order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+        return "\(price) \(destTokenSymbol)"
+      }()
+      self.fromValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmountWithoutFee)) \(destTokenSymbol)"
+      self.toValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
+    } else {
+      self.pairTextLabel.text = "Buy \(destTokenSymbol)".toBeLocalised()
+      self.priceValueLabel.text = {
+        let price = BigInt(pow(10.0, 18.0)/self.order.targetPrice).displayRate(decimals: 18)
+        return "\(price) \(srcTokenSymbol)"
+      }()
+      self.fromValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
+      self.toValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmountWithoutFee)) \(destTokenSymbol)"
+    }
+    if self.order.sideTrade == nil {
+      let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+      self.pairTextLabel.text = "\(srcTokenSymbol)/\(destTokenSymbol) >= \(rate)"
+    }
 
-    self.pairTextLabel.text = "\(srcTokenSymbol)  ➞  \(destTokenSymbol) >= \(rate)"
     self.dateLabel.text = DateFormatterUtil.shared.limitOrderFormatter.string(from: order.dateToDisplay)
     self.senderAddressLabel.text = "\(self.order.sender.prefix(8))...\(self.order.sender.suffix(4))"
     switch order.state {
@@ -82,30 +104,35 @@ class KNLimitOrderDetailsPopUp: KNBaseViewController {
     }()
     self.feeValueLabel.text = "\(feeDisplay) \(srcTokenSymbol)"
 
-    let actualSrcAmount = order.sourceAmount * (1.0 - order.fee)
-    self.fromValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: order.sourceAmount)) \(srcTokenSymbol)"
-
-    let destAmount: String = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: actualSrcAmount * order.targetPrice)) \(destTokenSymbol)"
     let extraAmount: String = "+ \(NumberFormatterUtil.shared.displayLimitOrderValue(from: order.extraAmount)) \(destTokenSymbol)"
+    let actualSrcAmount = self.order.sourceAmount * (1.0 - self.order.fee)
+    let destAmountStr: String = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: actualSrcAmount * order.targetPrice)) \(destTokenSymbol)"
     if order.state == .filled && order.extraAmount > 0 {
-      self.toValueLabel.text = nil
-      self.toValueLabel.attributedText = {
-        let attributedString = NSMutableAttributedString()
-        let normalAttributes: [NSAttributedStringKey: Any] = [
-          NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
-          NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
-        ]
-        let extraAttributes: [NSAttributedStringKey: Any] = [
-          NSAttributedStringKey.foregroundColor: UIColor(red: 49, green: 203, blue: 158),
-          NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 10),
-        ]
-        attributedString.append(NSAttributedString(string: destAmount, attributes: normalAttributes))
-        attributedString.append(NSAttributedString(string: "\n\(extraAmount)", attributes: extraAttributes))
-        return attributedString
-      }()
-    } else {
-      self.toValueLabel.attributedText = nil
-      self.toValueLabel.text = ">= \(destAmount)"
+      let normalAttributes: [NSAttributedStringKey: Any] = [
+        NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
+        NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
+      ]
+      let extraAttributes: [NSAttributedStringKey: Any] = [
+        NSAttributedStringKey.foregroundColor: UIColor(red: 49, green: 203, blue: 158),
+        NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 10),
+      ]
+      if sideTrade == "buy" {
+        self.toValueLabel.text = nil
+        self.toValueLabel.attributedText = {
+          let attributedString = NSMutableAttributedString()
+          attributedString.append(NSAttributedString(string: destAmountStr, attributes: normalAttributes))
+          attributedString.append(NSAttributedString(string: "\n\(extraAmount)", attributes: extraAttributes))
+          return attributedString
+        }()
+      } else {
+        self.fromValueLabel.text = nil
+        self.fromValueLabel.attributedText = {
+          let attributedString = NSMutableAttributedString()
+          attributedString.append(NSAttributedString(string: destAmountStr, attributes: normalAttributes))
+          attributedString.append(NSAttributedString(string: "\n\(extraAmount)", attributes: extraAttributes))
+          return attributedString
+        }()
+      }
     }
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOutSideToDismiss(_:)))

@@ -21,6 +21,7 @@ class KNRateCoordinator {
   fileprivate var cacheTokenETHRates: [String: KNRate] = [:] // Rate token to ETH
   fileprivate var cachedProdTokenRates: [String: KNRate] = [:] // Prod cached rate to compare when swapping
   var cachedMarket: [KNMarket] = []
+  var cachedMarketVolume: [String: Double] = [:]
   fileprivate var cacheRateTimer: Timer?
 
   fileprivate var cachedUSDRates: [String: KNRate] = [:] // Rate token to USD
@@ -123,7 +124,7 @@ class KNRateCoordinator {
   }
 
   func refreshData() {
-    if Date().timeIntervalSince(self.lastRefreshTime) < 10.0 {
+    if Date().timeIntervalSince(self.lastRefreshTime) > 15.0 {
       self.lastRefreshTime = Date()
       self.fetchCacheRate(nil)
       self.fetchExchangeTokenRate(nil)
@@ -210,6 +211,9 @@ class KNRateCoordinator {
       guard let `self` = self else { return }
       if case .success(let rates) = result {
         self.cachedMarket = rates.map { KNMarket(dict: $0) }
+        self.cachedMarket.forEach { market in
+          self.cachedMarketVolume[market.pair] = market.volume
+        }
         KNNotificationUtil.postNotification(for: kMarketSuccessToLoadNotiKey)
       } else {
         KNNotificationUtil.postNotification(for: kMarketFailedToLoadNotiKey)
@@ -219,12 +223,24 @@ class KNRateCoordinator {
 
   func getMarketWith(name: String) -> KNMarket? {
     guard !self.cachedMarket.isEmpty else {
-      return nil
+      return KNMarket(dict: ["pair": name])
     }
     let market = self.cachedMarket.first { (market) -> Bool in
       return market.pair == name
     }
     return market
+  }
+
+  func getMarketVolume(pair: String) -> Double {
+    let firstSymbol = pair.components(separatedBy: "_").first ?? ""
+    let secondSymbol = pair.components(separatedBy: "_").last ?? ""
+    if firstSymbol == "ETH" || firstSymbol == "WETH" {
+      return (self.cachedMarketVolume["ETH_\(secondSymbol)"] ?? 0) + (self.cachedMarketVolume["WETH_\(secondSymbol)"] ?? 0)
+    }
+    if secondSymbol == "ETH" || secondSymbol == "WETH" {
+      return (self.cachedMarketVolume["\(firstSymbol)_ETH"] ?? 0) + (self.cachedMarketVolume["\(firstSymbol)_WETH"] ?? 0)
+    }
+    return self.cachedMarketVolume[pair] ?? 0
   }
 
   fileprivate func updateTrackerRateWithCachedRates(isUSD: Bool, isNotify: Bool = true) {
