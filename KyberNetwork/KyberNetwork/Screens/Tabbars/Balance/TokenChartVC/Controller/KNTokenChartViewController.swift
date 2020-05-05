@@ -629,25 +629,73 @@ class KNTokenChartViewController: KNBaseViewController {
     self.chartView.xAxis.labelPosition = .bottom
     self.chartView.xAxis.labelFont = UIFont.Kyber.light(with: 10)
     self.chartView.xAxis.valueFormatter = CustomAxisValueFormatter(.day)
-
     self.sendButton.rounded()
-    self.sendButton.setTitle(
-      NSLocalizedString("transfer", value: "Transfer", comment: ""),
-      for: .normal
-    )
     self.sendButton.backgroundColor = UIColor.Kyber.marketBlue
     self.buyButton.rounded()
-    self.buyButton.setTitle(
-      NSLocalizedString("buy", value: "Buy", comment: ""),
-      for: .normal
-    )
     self.buyButton.backgroundColor = UIColor.Kyber.marketGreen
     self.sellButton.rounded()
-    self.sellButton.setTitle(
-      NSLocalizedString("sell", value: "Sell", comment: ""),
-      for: .normal
-    )
-    self.sellButton.backgroundColor = UIColor.Kyber.marketRed
+    if self.viewModel.chartDataLO != nil { //Is from LO2
+      self.sendButton.removeFromSuperview()
+      self.buyButton.removeConstraints(self.buyButton.constraints)
+      self.sellButton.removeConstraints(self.sellButton.constraints)
+      var allConstraints: [NSLayoutConstraint] = []
+      let views: [String: Any] = ["buyButton": self.buyButton, "sellButton": self.sellButton, "chartView": self.chartView]
+      let horizontalContraints = NSLayoutConstraint.constraints(
+        withVisualFormat: "H:|-16-[buyButton]-8-[sellButton]-16-|",
+        metrics: nil,
+        views: views)
+      let verticalContraints = NSLayoutConstraint.constraints(
+        withVisualFormat: "V:[chartView]-16-[buyButton(45)]",
+        metrics: nil,
+        views: views)
+      allConstraints += horizontalContraints
+      allConstraints += verticalContraints
+      let yCenterConstraint = NSLayoutConstraint(item: self.buyButton,
+                                                 attribute: .centerY,
+                                                 relatedBy: .equal,
+                                                 toItem: self.sellButton,
+                                                 attribute: .centerY,
+                                                 multiplier: 1,
+                                                 constant: 0)
+      let equalWidth = NSLayoutConstraint(item: self.buyButton,
+                                          attribute: .width,
+                                          relatedBy: .equal,
+                                          toItem: self.sellButton,
+                                          attribute: .width,
+                                          multiplier: 1,
+                                          constant: 0)
+      let equalHeight = NSLayoutConstraint(item: self.buyButton,
+                                           attribute: .height,
+                                           relatedBy: .equal,
+                                           toItem: self.sellButton,
+                                           attribute: .height,
+                                           multiplier: 1,
+                                           constant: 0)
+      allConstraints += [yCenterConstraint, equalWidth, equalHeight]
+      NSLayoutConstraint.activate(allConstraints)
+      self.sellButton.setTitle(
+        "Sell Limit Order".toBeLocalised(),
+        for: .normal
+      )
+      self.buyButton.setTitle(
+        "Buy Limit Order".toBeLocalised(),
+        for: .normal
+      )
+    } else {
+      self.sendButton.setTitle(
+        NSLocalizedString("transfer", value: "Transfer", comment: ""),
+        for: .normal
+      )
+      self.buyButton.setTitle(
+        NSLocalizedString("buy", value: "Buy", comment: ""),
+        for: .normal
+      )
+      self.sellButton.setTitle(
+        NSLocalizedString("sell", value: "Sell", comment: ""),
+        for: .normal
+      )
+      self.sellButton.backgroundColor = UIColor.Kyber.marketRed
+    }
 
     self.dataTypeButtons.forEach { button in
       let title: String = {
@@ -671,12 +719,8 @@ class KNTokenChartViewController: KNBaseViewController {
       self.noDataLabel.text = NSLocalizedString("this.token.is.not.supported", value: "This token is not supported by KyberSwap", comment: "")
       self.chartView.isHidden = true
       self.buyButton.isHidden = true
-      self.sellButton.setTitle(
-        NSLocalizedString("transfer", value: "Transfer", comment: ""),
-        for: .normal
-      )
+      self.sellButton.isHidden = true
       self.sendButton.isHidden = true
-      self.sellButton.backgroundColor = UIColor.Kyber.marketBlue
     }
     self.noDataLabel.addLetterSpacing()
 
