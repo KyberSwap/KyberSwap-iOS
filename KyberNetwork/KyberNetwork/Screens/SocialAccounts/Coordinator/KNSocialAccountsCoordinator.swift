@@ -13,6 +13,7 @@ enum KNSocialAccountsType {
   case google(name: String, email: String, icon: String, accessToken: String)
   case twitter(name: String, email: String, icon: String, authToken: String, authTokenSecret: String)
   case normal(name: String, email: String, password: String)
+  case apple(name: String, email: String?, userId: String, idToken: String, isSignUp: Bool)
 
   var isEmail: Bool {
     if case .normal = self { return true }
@@ -94,6 +95,22 @@ class KNSocialAccountsCoordinator {
       accessToken: accessToken,
       secret: secret
     )
+    self.sendRequest(request) { [weak self] result in
+      guard let _ = self else { return }
+      completion(result)
+    }
+  }
+
+  func signInApple(name: String, userId: String, idToken: String, isSignUp: Bool, completion: @escaping (Result<JSONDictionary, AnyError>) -> Void) {
+    let request = NativeSignInUpService.signInWithApple(name: name, userId: userId, idToken: idToken, isSignUp: isSignUp)
+    self.sendRequest(request) { [weak self] result in
+      guard let _ = self else { return }
+      completion(result)
+    }
+  }
+
+  func confirmSignInWithApple(name: String, userId: String, idToken: String, isSignUp: Bool, isSub: Bool, completion: @escaping (Result<JSONDictionary, AnyError>) -> Void) {
+    let request = NativeSignInUpService.confirmSignInWithApple(name: name, userId: userId, idToken: idToken, isSignUp: isSignUp, isSubs: isSub)
     self.sendRequest(request) { [weak self] result in
       guard let _ = self else { return }
       completion(result)

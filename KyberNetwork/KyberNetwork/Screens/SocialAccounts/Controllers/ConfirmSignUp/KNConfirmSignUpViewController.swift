@@ -28,6 +28,7 @@ class KNConfirmSignUpViewModel {
     case .facebook: return UIImage(named: "social_facebook")
     case .twitter: return UIImage(named: "social_twitter")
     case .google: return UIImage(named: "social_google")
+    case .apple: return UIImage(named: "siwa_icon")
     default: return nil
     }
   }
@@ -47,6 +48,7 @@ class KNConfirmSignUpViewModel {
     case .twitter(_, let email, _, _, _): return email
     case .google(_, let email, _, _): return email
     case .normal(let email, _, _): return email
+    case .apple(_, let email, _, _, _): return email ?? ""
     }
   }
 
@@ -56,6 +58,7 @@ class KNConfirmSignUpViewModel {
     case .twitter(let name, _, _, _, _): return name
     case .google(let name, _, _, _): return name
     case .normal(let name, _, _): return name
+    case .apple(let name, _, _, _, _): return name
     }
   }
 

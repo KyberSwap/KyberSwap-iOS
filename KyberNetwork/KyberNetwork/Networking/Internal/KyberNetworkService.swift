@@ -471,6 +471,8 @@ enum NativeSignInUpService {
   case refreshToken(refreshToken: String)
   case getUserInfo(authToken: String)
   case transferConsent(authToken: String, answer: String)
+  case signInWithApple(name: String, userId: String, idToken: String, isSignUp: Bool)
+  case confirmSignInWithApple(name: String, userId: String, idToken: String, isSignUp: Bool, isSubs: Bool)
 }
 
 extension NativeSignInUpService: MoyaCacheable {
@@ -493,6 +495,7 @@ extension NativeSignInUpService: TargetType {
       case .refreshToken: return KNSecret.refreshTokenURL
       case .getUserInfo: return KNSecret.getUserInfoURL
       case .transferConsent: return KNSecret.transferConsentURL
+      case .signInWithApple, .confirmSignInWithApple: return KNSecret.signInWithAppleURL
       }
     }()
     return URL(string: "\(baseString)\(endpoint)")!
@@ -588,6 +591,26 @@ extension NativeSignInUpService: TargetType {
     case .transferConsent(_, let answer):
       let json: JSONDictionary = [
         "transfer_permission": answer,
+      ]
+      let data = try! JSONSerialization.data(withJSONObject: json, options: [])
+      return .requestData(data)
+    case .signInWithApple(let name, let userId, let idToken, let isSignUp):
+      let json: JSONDictionary = [
+        "type": isSignUp ? "sign_up" : "sign_in",
+        "id_token": idToken,
+        "user_identity": userId,
+        "display_name": name,
+      ]
+      let data = try! JSONSerialization.data(withJSONObject: json, options: [])
+      return .requestData(data)
+    case .confirmSignInWithApple(let name, let userId, let idToken, let isSignUp, let isSub):
+      let json: JSONDictionary = [
+        "type": isSignUp ? "sign_up" : "sign_in",
+        "id_token": idToken,
+        "user_identity": userId,
+        "display_name": name,
+        "subscription": isSub,
+        "confirm_signup": true,
       ]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
