@@ -515,6 +515,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "프로모션 코드가 잘못되었습니다.";
 "Promo code has expired." = "프로모션 코드가 만료되었습니다.";
+"KyberCode is invaild format" = "KyberCode is invaild format";
 
 // Proof of address
 "Bank Statement" = "은행 성명서";

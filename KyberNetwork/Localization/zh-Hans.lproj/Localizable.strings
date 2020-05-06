@@ -515,6 +515,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "促销代码无效！";
 "Promo code has expired." = "促销代码已过期。";
+"KyberCode is invaild format" = "KyberCode is invaild format";
 
 // Proof of address
 "Bank Statement" = "银行对帐单";

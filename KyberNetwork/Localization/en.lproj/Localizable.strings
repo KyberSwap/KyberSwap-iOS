@@ -509,6 +509,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "Promo code is invalid!";
 "Promo code has expired." = "Promo code has expired.";
+"KyberCode is invaild format" = "KyberCode is invaild format";
 
 // Proof of address
 "Bank Statement" = "Bank Statement";
