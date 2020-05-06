@@ -736,10 +736,6 @@ extension KNProfileHomeCoordinator: ASAuthorizationControllerPresentationContext
 extension KNProfileHomeCoordinator: ASAuthorizationControllerDelegate {
   func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
     print("authorization error")
-    guard let error = error as? ASAuthorizationError else {
-      return
-    }
-    self.showErrorTopBannerMessage(with: "Error".toBeLocalised(), message: error.localizedDescription)
   }
 
   func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
