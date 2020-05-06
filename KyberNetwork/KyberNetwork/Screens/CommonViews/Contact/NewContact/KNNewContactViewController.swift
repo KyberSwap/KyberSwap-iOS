@@ -128,7 +128,7 @@ class KNNewContactViewController: KNBaseViewController {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.deleteButton.setTitle(NSLocalizedString("delete.contact", value: "Delete Contact", comment: ""), for: .normal)
     self.sendButton.setTitle(NSLocalizedString("transfer", value: "Transfer", comment: ""), for: .normal)
-    self.sendButton.setTitleColor(UIColor.Kyber.enygold, for: .normal)
+    self.sendButton.setTitleColor(UIColor.Kyber.marketBlue, for: .normal)
     self.addressTextField.delegate = self
     self.nameTextField.placeholder = NSLocalizedString("name", value: "Name", comment: "")
     self.addressTextField.placeholder = NSLocalizedString("address", value: "Address", comment: "")

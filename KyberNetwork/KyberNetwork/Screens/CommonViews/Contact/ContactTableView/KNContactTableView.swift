@@ -145,7 +145,7 @@ extension KNContactTableView: UITableViewDataSource {
         run: .send(address: self.contacts[indexPath.row].address)
       )
     }
-    send.backgroundColor = UIColor.Kyber.shamrock
+    send.backgroundColor = UIColor.Kyber.marketBlue
     let edit = UITableViewRowAction(style: .normal, title: NSLocalizedString("edit", value: "Edit", comment: "")) { (_, _) in
       self.delegate?.contactTableView(
         tableView,

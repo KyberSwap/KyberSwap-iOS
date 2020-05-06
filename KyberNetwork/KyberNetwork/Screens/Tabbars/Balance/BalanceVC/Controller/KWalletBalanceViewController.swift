@@ -463,17 +463,17 @@ extension KWalletBalanceViewController: UITableViewDataSource {
     let sendAction = UITableViewRowAction(style: .default, title: sendText) { _, _ in
       self.delegate?.kWalletBalanceViewController(self, run: .send(token: tokenObject))
     }
-    sendAction.backgroundColor = UIColor.Kyber.enygold
+    sendAction.backgroundColor = UIColor.Kyber.marketBlue
     let sellText = NSLocalizedString("sell", value: "Sell", comment: "")
     let sellAction = UITableViewRowAction(style: .default, title: sellText) { _, _ in
       self.delegate?.kWalletBalanceViewController(self, run: .sell(token: tokenObject))
     }
-    sellAction.backgroundColor = UIColor.Kyber.blueGreen
+    sellAction.backgroundColor = UIColor.Kyber.marketRed
     let buyText = NSLocalizedString("buy", value: "Buy", comment: "")
     let buyAction = UITableViewRowAction(style: .default, title: buyText) { _, _ in
       self.delegate?.kWalletBalanceViewController(self, run: .buy(token: tokenObject))
     }
-    buyAction.backgroundColor = UIColor.Kyber.shamrock
+    buyAction.backgroundColor = UIColor.Kyber.marketGreen
     return tokenObject.isSupported ? [sendAction, sellAction, buyAction] : [sendAction]
   }
 
