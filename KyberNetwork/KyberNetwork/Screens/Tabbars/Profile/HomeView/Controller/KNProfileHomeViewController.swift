@@ -239,28 +239,33 @@ class KNProfileHomeViewController: KNBaseViewController {
   }
 
   @IBAction func forgotButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_forgot_password_button"])
     self.view.endEditing(true)
     self.delegate?.profileHomeViewController(self, run: .forgotPassword)
   }
 
   @IBAction func facebookButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_facebook_button"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithFacebook)
   }
 
   @IBAction func googleButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_google_button"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithGoogle)
   }
 
   @IBAction func twitterButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_twitter_button"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithTwitter)
   }
   @IBAction func signInWithAppleTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_apple_button"])
     self.view.endEditing(true)
     self.delegate?.profileHomeViewController(self, run: .signInWithApple)
   }
