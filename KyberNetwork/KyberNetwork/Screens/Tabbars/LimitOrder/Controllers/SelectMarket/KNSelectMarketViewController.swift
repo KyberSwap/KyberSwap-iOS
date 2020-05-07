@@ -261,7 +261,7 @@ class KNSelectMarketViewController: KNBaseViewController {
       return NSAttributedString(string: " ↓", attributes: attributes)
     }()
     let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 11.5),
       NSAttributedStringKey.foregroundColor: UIColor(red: 78, green: 80, blue: 99),
     ]
     switch self.viewModel.sortType {
