@@ -730,3 +730,5 @@
 
 "Buy Limit Order" = "리밋오더 매수";
 "Sell Limit Order" = "리밋오더 매도";
+
+"Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";

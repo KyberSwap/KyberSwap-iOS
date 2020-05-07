@@ -728,3 +728,5 @@
 
 "Buy Limit Order" = "Buy Limit Order";
 "Sell Limit Order" = "Sell Limit Order";
+
+"Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";

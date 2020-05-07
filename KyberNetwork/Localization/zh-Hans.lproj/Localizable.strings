@@ -730,3 +730,5 @@
 
 "Buy Limit Order" = "购买限价订单";
 "Sell Limit Order" = "卖出限价订单";
+
+"Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";

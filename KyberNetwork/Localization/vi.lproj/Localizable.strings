@@ -730,3 +730,5 @@
 
 "Buy Limit Order" = "Đặt lệnh mua";
 "Sell Limit Order" = "Đặt lệnh bán";
+
+"Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";
