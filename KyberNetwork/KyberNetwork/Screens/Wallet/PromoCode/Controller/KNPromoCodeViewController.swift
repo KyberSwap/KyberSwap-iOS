@@ -71,7 +71,7 @@ class KNPromoCodeViewController: KNBaseViewController {
     guard promoCode.range(of: "[^a-zA-Z0-9]", options: .regularExpression) == nil else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("error", value: "Error", comment: ""),
-        message: "KyberCode is invaild format".toBeLocalised(),
+        message: "KyberCode is invalid format".toBeLocalised(),
         time: 1.5
       )
       return

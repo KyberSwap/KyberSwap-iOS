@@ -509,7 +509,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "Promo code is invalid!";
 "Promo code has expired." = "Promo code has expired.";
-"KyberCode is invaild format" = "KyberCode is invaild format";
+"KyberCode is invalid format" = "KyberCode is invalid format";
 
 // Proof of address
 "Bank Statement" = "Bank Statement";
@@ -725,8 +725,6 @@
 "min ago" = "min ago";
 "mins ago" = "mins ago";
 "just now" = "just now";
-
-"KyberCode is invaild format" = "KyberCode is invaild format";
 
 "Buy Limit Order" = "Buy Limit Order";
 "Sell Limit Order" = "Sell Limit Order";

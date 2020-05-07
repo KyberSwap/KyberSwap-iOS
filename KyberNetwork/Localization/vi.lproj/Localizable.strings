@@ -514,7 +514,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "Mã khuyến mãi không hợp lệ!";
 "Promo code has expired." = "Mã khuyến mãi đã hết hạn.";
-"KyberCode is invaild format" = "KyberCode is invaild format";
+"KyberCode is invalid format" = "KyberCode is invalid format";
 
 // Proof of address
 "Bank Statement" = "Bảng sao kê ngân hàng";
@@ -727,8 +727,6 @@
 "min ago" = "phút trước";
 "mins ago" = "phút trước";
 "just now" = "hiện tại";
-
-"KyberCode is invaild format" = "KyberCode is invaild format";
 
 "Buy Limit Order" = "Đặt lệnh mua";
 "Sell Limit Order" = "Đặt lệnh bán";

@@ -515,7 +515,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "프로모션 코드가 잘못되었습니다.";
 "Promo code has expired." = "프로모션 코드가 만료되었습니다.";
-"KyberCode is invaild format" = "KyberCode is invaild format";
+"KyberCode is invalid format" = "KyberCode is invalid format";
 
 // Proof of address
 "Bank Statement" = "은행 성명서";
@@ -727,8 +727,6 @@
 "min ago" = "min ago";
 "mins ago" = "분 전";
 "just now" = "방금";
-
-"KyberCode is invaild format" = "KyberCode is invaild format";
 
 "Buy Limit Order" = "리밋오더 매수";
 "Sell Limit Order" = "리밋오더 매도";

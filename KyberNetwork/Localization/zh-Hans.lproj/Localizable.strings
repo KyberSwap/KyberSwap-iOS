@@ -515,7 +515,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "促销代码无效！";
 "Promo code has expired." = "促销代码已过期。";
-"KyberCode is invaild format" = "KyberCode is invaild format";
+"KyberCode is invalid format" = "KyberCode is invalid format";
 
 // Proof of address
 "Bank Statement" = "银行对帐单";
@@ -727,8 +727,6 @@
 "min ago" = "min ago";
 "mins ago" = "分钟前";
 "just now" = "现在";
-
-"KyberCode is invaild format" = "KyberCode is invaild format";
 
 "Buy Limit Order" = "购买限价订单";
 "Sell Limit Order" = "卖出限价订单";
