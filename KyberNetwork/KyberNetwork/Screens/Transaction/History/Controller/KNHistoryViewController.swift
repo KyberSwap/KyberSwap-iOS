@@ -545,14 +545,14 @@ extension KNHistoryViewController: SwipeCollectionViewCellDelegate {
     }
     speedUp.hidesWhenSelected = true
     speedUp.title = NSLocalizedString("speed up", value: "Speed Up", comment: "")
-    speedUp.font = UIFont.Kyber.semiBold(with: 14)
+    speedUp.font = UIFont.Kyber.bold(with: 14)
     speedUp.backgroundColor = UIColor.Kyber.speedUpOrange
     let cancel = SwipeAction(style: .destructive, title: nil) { _, _ in
       KNCrashlyticsUtil.logCustomEvent(withName: "select_cancel_transaction", customAttributes: ["transactionHash": transaction.id])
       self.delegate?.historyViewController(self, run: .cancelTransaction(transaction: transaction))
     }
     cancel.title = NSLocalizedString("cancel", value: "Cancel", comment: "")
-    cancel.font = UIFont.Kyber.semiBold(with: 14)
+    cancel.font = UIFont.Kyber.bold(with: 14)
     cancel.backgroundColor = UIColor.Kyber.cancelGray
     return [cancel, speedUp]
   }

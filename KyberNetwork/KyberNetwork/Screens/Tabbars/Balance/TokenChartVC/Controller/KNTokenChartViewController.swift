@@ -885,7 +885,7 @@ class KNTokenChartViewController: KNBaseViewController {
     ll1.lineWidth = 1
     ll1.lineDashLengths = [5, 5]
     ll1.labelPosition = .topRight
-    ll1.valueFont = UIFont.Kyber.semiBold(with: 9)
+    ll1.valueFont = UIFont.Kyber.bold(with: 9)
 
     let displayLower = formatter.string(from: NSNumber(value: lower)) ?? ""
     let ll2 = ChartLimitLine(limit: lower, label: "\u{2192}\(displayLower)")
@@ -894,7 +894,7 @@ class KNTokenChartViewController: KNBaseViewController {
     ll2.lineWidth = 1
     ll2.lineDashLengths = [5, 5]
     ll2.labelPosition = .bottomRight
-    ll2.valueFont = UIFont.Kyber.semiBold(with: 9)
+    ll2.valueFont = UIFont.Kyber.bold(with: 9)
     self.chartView.rightAxis.addLimitLine(ll1)
     self.chartView.rightAxis.addLimitLine(ll2)
   }
@@ -982,7 +982,7 @@ class KNTokenChartViewController: KNBaseViewController {
     let percentEntry = changeEntry / openNumber * 100.0
     let percent = formatter.string(from: NSNumber(value: percentEntry)) ?? ""
     let dateAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 11),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.gray,
     ]
     let titleAttributes: [NSAttributedStringKey: Any] = [

@@ -360,11 +360,11 @@ class KNCreateLimitOrderViewModel {
       NSAttributedStringKey.foregroundColor: UIColor(red: 90, green: 94, blue: 103),
     ]
     let higherAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 12),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.shamrock,
     ]
     let lowerAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 12),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.strawberry,
     ]
     attributedString.append(NSAttributedString(string: "Your target rate is".toBeLocalised(), attributes: normalAttributes))
@@ -394,7 +394,7 @@ class KNCreateLimitOrderViewModel {
 
   lazy var feeNoteHighlightedAttributes: [NSAttributedStringKey: Any] = {
     return [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor(red: 90, green: 94, blue: 103),
     ]
   }()
@@ -454,14 +454,14 @@ class KNCreateLimitOrderViewModel {
     let attributedString = NSMutableAttributedString()
     let learnMoreAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.foregroundColor: UIColor(red: 98, green: 107, blue: 134),
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
       NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue,
     ]
     if !isShowingDiscount {
       // only show if there is no discount
       let normalAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.foregroundColor: UIColor(red: 98, green: 107, blue: 134),
-        NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
+        NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
       ]
       attributedString.append(NSAttributedString(
         string: "Hold from 2000 KNC to get discount for your orders. ".toBeLocalised(),

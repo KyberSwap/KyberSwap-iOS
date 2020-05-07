@@ -192,7 +192,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
     }
     self.marketNameButton.setTitle("\(baseTokenSym)/\(sourceTokenSym)", for: .normal)
     let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
     ]
     let upAttributes: [NSAttributedStringKey: Any] = [

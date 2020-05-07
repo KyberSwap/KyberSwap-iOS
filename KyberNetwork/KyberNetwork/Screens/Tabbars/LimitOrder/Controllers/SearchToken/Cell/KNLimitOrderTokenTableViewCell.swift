@@ -21,7 +21,7 @@ class KNLimitOrderTokenTableViewCell: UITableViewCell {
     tokenIconImageView.setTokenImage(token: token, size: tokenIconImageView.frame.size)
     let isETHStar = (token.isWETH || token.isETH)
     self.tokenSymbolLabel.text = isETHStar ? "ETH*" : "\(token.symbol.prefix(8))"
-    self.tokenSymbolLabel.font = isETHStar ? UIFont.Kyber.semiBold(with: 14) : UIFont.Kyber.medium(with: 14)
+    self.tokenSymbolLabel.font = isETHStar ? UIFont.Kyber.bold(with: 14) : UIFont.Kyber.medium(with: 14)
     self.tokenSymbolLabel.addLetterSpacing()
     self.tokenNameLabel.text = isETHStar ? NSLocalizedString("ETH* represents the sum of ETH & WETH for easy reference", value: "ETH* represents the sum of ETH & WETH for easy reference", comment: "") : token.name
     self.tokenNameLabel.textColor = isETHStar ? UIColor(red: 20, green: 25, blue: 39) : UIColor(red: 158, green: 161, blue: 170)

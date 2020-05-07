@@ -8,8 +8,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Montserrat-Medium.ttf">
-            <string>Montserrat-Medium</string>
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -35,7 +35,7 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer Consent" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVd-c5-lJ3">
                             <rect key="frame" x="129.5" y="46" width="155.5" height="22"/>
-                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -69,11 +69,11 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r9q-h3-JpR">
                                     <rect key="frame" x="24" y="24" width="366" height="563.5"/>
                                     <mutableString key="text">On Jan 24, 2020, KyberSwap.com and- related interfaces (the “Platform”) will no longer be operated by Kyber Network International Limited (“Kyber Network”) and will be operated by KYRD International Limited (“KYRD International”), a sister company incorporated and based in the British Virgin Islands (“BVI”). There are no other changes apart from the new operating entity of KyberSwap.com being changed to KYRD International.
-KYRD International is a company in BVI and as such, the country is not subject to an adequacy decision by the EU Commission on the processing of personal data. If you wish to continue using KyberSwap.com without providing personal data again, Kyber Network will transfer your current personal data to KYRD International upon your explicit consent. Please rest assured that KYRD International respects your privacy and is committed to protecting your personal data. For questions, please email support@kyber.network or reach out to us at https://t.me/kyberswapofficial 
+KYRD International is a company in BVI and as such, the country is not subject to an adequacy decision by the EU Commission on the processing of personal data. If you wish to continue using KyberSwap.com without providing personal data again, Kyber Network will transfer your current personal data to KYRD International upon your explicit consent. Please rest assured that KYRD International respects your privacy and is committed to protecting your personal data. For questions, please email support@kyber.network or reach out to us at https://t.me/kyberswapofficial
 Kindly select:
 “Yes” if you wish to allow KyberSwap.com to copy your personal data to KYRD International; or
 “No” if you do not wish to copy your personal data to KYRD International. Note that if you click “No”, your personal data shall be erased in accordance with the retention periods specified in Kyber Network’s Privacy Policy. You will have to create a new profile on KyberSwap.com in order to, but not limited to, access Limit Orders, price alerts, personalized notifications and other benefits. </mutableString>
-                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                                     <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -92,7 +92,7 @@ Kindly select:
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="sHn-yM-ZhV"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                             <state key="normal" title="YES">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
@@ -106,7 +106,7 @@ Kindly select:
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="7UT-Yy-Nho"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                             <state key="normal" title="NO">
                                 <color key="titleColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>

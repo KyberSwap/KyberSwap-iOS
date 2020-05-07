@@ -91,7 +91,7 @@ struct KNBalanceTokenTableViewCellModel {
 
   var displayRateFont: UIFont {
     if (self.rate == nil || self.rate?.isZero == true) && token.isSupported {
-      return UIFont.Kyber.semiBold(with: 12)
+      return UIFont.Kyber.bold(with: 12)
     }
     return UIFont.Kyber.medium(with: 16)
   }

@@ -557,6 +557,20 @@
 		C356C009243DAE9F007E419B /* KNMarketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C356C007243DAE9F007E419B /* KNMarketTableViewCell.swift */; };
 		C356C00A243DAE9F007E419B /* KNMarketTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C356C008243DAE9F007E419B /* KNMarketTableViewCell.xib */; };
 		C356C011243DC6E7007E419B /* KNSelectMarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C356C010243DC6E7007E419B /* KNSelectMarketViewModel.swift */; };
+		C37CC0832456DDC00081FB32 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C37CC0822456DDC00081FB32 /* GoogleService-Info.plist */; };
+		C37CC092245803CA0081FB32 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC085245803C90081FB32 /* Roboto-Medium.ttf */; };
+		C37CC093245803CA0081FB32 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC086245803C90081FB32 /* Roboto-Light.ttf */; };
+		C37CC094245803CA0081FB32 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC087245803C90081FB32 /* Roboto-Regular.ttf */; };
+		C37CC095245803CA0081FB32 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC088245803C90081FB32 /* Roboto-MediumItalic.ttf */; };
+		C37CC096245803CA0081FB32 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC089245803C90081FB32 /* Roboto-ThinItalic.ttf */; };
+		C37CC097245803CA0081FB32 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC08A245803C90081FB32 /* Roboto-BoldItalic.ttf */; };
+		C37CC098245803CA0081FB32 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC08B245803C90081FB32 /* Roboto-LightItalic.ttf */; };
+		C37CC099245803CA0081FB32 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC08C245803C90081FB32 /* Roboto-Italic.ttf */; };
+		C37CC09A245803CA0081FB32 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37CC08D245803C90081FB32 /* LICENSE.txt */; };
+		C37CC09B245803CA0081FB32 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC08E245803C90081FB32 /* Roboto-BlackItalic.ttf */; };
+		C37CC09C245803CA0081FB32 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC08F245803C90081FB32 /* Roboto-Bold.ttf */; };
+		C37CC09D245803CA0081FB32 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC090245803C90081FB32 /* Roboto-Thin.ttf */; };
+		C37CC09E245803CA0081FB32 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC091245803C90081FB32 /* Roboto-Black.ttf */; };
 		C3C4DAB22446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C4DAB02446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift */; };
 		C3C4DAB32446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C4DAB12446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib */; };
 		C3E401D7242B048D00F31372 /* LimitOrderContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E401D5242B048D00F31372 /* LimitOrderContainerViewController.swift */; };
@@ -577,7 +591,6 @@
 		C680C1202382958700A621CB /* KNVersionControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C680C11F2382958700A621CB /* KNVersionControlManager.swift */; };
 		C68AA276237A6BE900B9EC35 /* KNTransactionStatusPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AA274237A6BE900B9EC35 /* KNTransactionStatusPopUp.swift */; };
 		C68AA277237A6BE900B9EC35 /* KNTransactionStatusPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = C68AA275237A6BE900B9EC35 /* KNTransactionStatusPopUp.xib */; };
-		C6A228BC2448179200DA428B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C6A228BB2448179100DA428B /* GoogleService-Info.plist */; };
 		C6AA667A23A761A80050C610 /* KNNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AA667923A761A80050C610 /* KNNotification.swift */; };
 		C6AA667D23A764620050C610 /* KNNotificationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AA667C23A764620050C610 /* KNNotificationStorage.swift */; };
 		C6AA668023A76B4C0050C610 /* KNNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AA667F23A76B4C0050C610 /* KNNotificationCoordinator.swift */; };
@@ -1198,6 +1211,20 @@
 		C356C008243DAE9F007E419B /* KNMarketTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNMarketTableViewCell.xib; sourceTree = "<group>"; };
 		C356C00D243DB760007E419B /* COMODO ECC Domain Validation Secure Server CA 2.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = "COMODO ECC Domain Validation Secure Server CA 2.cer"; sourceTree = "<group>"; };
 		C356C010243DC6E7007E419B /* KNSelectMarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNSelectMarketViewModel.swift; sourceTree = "<group>"; };
+		C37CC0822456DDC00081FB32 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C37CC085245803C90081FB32 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		C37CC086245803C90081FB32 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		C37CC087245803C90081FB32 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		C37CC088245803C90081FB32 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
+		C37CC089245803C90081FB32 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		C37CC08A245803C90081FB32 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		C37CC08B245803C90081FB32 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
+		C37CC08C245803C90081FB32 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		C37CC08D245803C90081FB32 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		C37CC08E245803C90081FB32 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
+		C37CC08F245803C90081FB32 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		C37CC090245803C90081FB32 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		C37CC091245803C90081FB32 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		C3C4DAB02446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNCancelSuggestOrdersViewController.swift; sourceTree = "<group>"; };
 		C3C4DAB12446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNCancelSuggestOrdersViewController.xib; sourceTree = "<group>"; };
 		C3E401D5242B048D00F31372 /* LimitOrderContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitOrderContainerViewController.swift; sourceTree = "<group>"; };
@@ -1218,7 +1245,6 @@
 		C680C11F2382958700A621CB /* KNVersionControlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNVersionControlManager.swift; sourceTree = "<group>"; };
 		C68AA274237A6BE900B9EC35 /* KNTransactionStatusPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNTransactionStatusPopUp.swift; sourceTree = "<group>"; };
 		C68AA275237A6BE900B9EC35 /* KNTransactionStatusPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNTransactionStatusPopUp.xib; sourceTree = "<group>"; };
-		C6A228BB2448179100DA428B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C6AA667923A761A80050C610 /* KNNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotification.swift; sourceTree = "<group>"; };
 		C6AA667C23A764620050C610 /* KNNotificationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotificationStorage.swift; sourceTree = "<group>"; };
 		C6AA667F23A76B4C0050C610 /* KNNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotificationCoordinator.swift; sourceTree = "<group>"; };
@@ -2553,6 +2579,7 @@
 		25929C3320DA5C4C0045CFA3 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C37CC084245803C90081FB32 /* Roboto */,
 				25073D05211AF1F600833C92 /* Montserrat */,
 				25929C7320DA5CA50045CFA3 /* SFCompact */,
 				25929C7220DA5C8A0045CFA3 /* SFPro */,
@@ -3373,9 +3400,9 @@
 				291F52AA1F6B805400B369AB /* Vendors */,
 				2996F14B1F6CA725005C33AE /* Extensions */,
 				257B84AE2074D7B8003DD40E /* Assets.xcassets */,
+				C37CC0822456DDC00081FB32 /* GoogleService-Info.plist */,
 				C356C00D243DB760007E419B /* COMODO ECC Domain Validation Secure Server CA 2.cer */,
 				2912CCF81F6A830700C6CBE3 /* AppDelegate.swift */,
-				C6A228BB2448179100DA428B /* GoogleService-Info.plist */,
 				2912CD061F6A830700C6CBE3 /* Info.plist */,
 				29AD8A071F93E1F0008E10E7 /* KyberNetwork.entitlements */,
 				296106CD1F777E410006164B /* LaunchScreen.storyboard */,
@@ -3991,6 +4018,26 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		C37CC084245803C90081FB32 /* Roboto */ = {
+			isa = PBXGroup;
+			children = (
+				C37CC085245803C90081FB32 /* Roboto-Medium.ttf */,
+				C37CC086245803C90081FB32 /* Roboto-Light.ttf */,
+				C37CC087245803C90081FB32 /* Roboto-Regular.ttf */,
+				C37CC088245803C90081FB32 /* Roboto-MediumItalic.ttf */,
+				C37CC089245803C90081FB32 /* Roboto-ThinItalic.ttf */,
+				C37CC08A245803C90081FB32 /* Roboto-BoldItalic.ttf */,
+				C37CC08B245803C90081FB32 /* Roboto-LightItalic.ttf */,
+				C37CC08C245803C90081FB32 /* Roboto-Italic.ttf */,
+				C37CC08D245803C90081FB32 /* LICENSE.txt */,
+				C37CC08E245803C90081FB32 /* Roboto-BlackItalic.ttf */,
+				C37CC08F245803C90081FB32 /* Roboto-Bold.ttf */,
+				C37CC090245803C90081FB32 /* Roboto-Thin.ttf */,
+				C37CC091245803C90081FB32 /* Roboto-Black.ttf */,
+			);
+			path = Roboto;
+			sourceTree = "<group>";
+		};
 		C3C4DAAF2446F98E00CA4206 /* CancelSuggestOrder */ = {
 			isa = PBXGroup;
 			children = (
@@ -4336,6 +4383,7 @@
 				25929C9020DA5CC10045CFA3 /* SFCompactDisplay-Medium.otf in Resources */,
 				25073D27211AF20D00833C92 /* Montserrat-ThinItalic.ttf in Resources */,
 				25F96F7C215373DB00D7F927 /* KNDocumentPhotoInfoPopUp.xib in Resources */,
+				C37CC09A245803CA0081FB32 /* LICENSE.txt in Resources */,
 				2545C9012223FBD700CA99C5 /* KNManageAlertsViewController.xib in Resources */,
 				254773052294007200D82EA8 /* KNConfirmLimitOrderViewController.xib in Resources */,
 				25929C6B20DA5C760045CFA3 /* SF-Pro-Text-Regular.otf in Resources */,
@@ -4351,7 +4399,7 @@
 				2596873B211EA4360080A33F /* KAdvancedSettingsView.xib in Resources */,
 				25929C9520DA5CC10045CFA3 /* SFCompactText-Heavy.otf in Resources */,
 				25F1BAD921BBA7D200A36900 /* config_env_ropsten2.json in Resources */,
-				C6A228BC2448179200DA428B /* GoogleService-Info.plist in Resources */,
+				C37CC0832456DDC00081FB32 /* GoogleService-Info.plist in Resources */,
 				25929C5920DA5C760045CFA3 /* SF-Pro-Display-BoldItalic.otf in Resources */,
 				25C45AC420AC3D9F00CDA1FF /* KNLandingPageViewController.xib in Resources */,
 				25929C6220DA5C760045CFA3 /* SF-Pro-Text-Bold.otf in Resources */,
@@ -4360,6 +4408,7 @@
 				25BA01D020BFEBB500053863 /* KNTransactionStatusView.xib in Resources */,
 				25377B1222842BB30012178F /* KNCreateLimitOrderViewController.xib in Resources */,
 				25929C8A20DA5CC10045CFA3 /* SFCompactText-LightItalic.otf in Resources */,
+				C37CC094245803CA0081FB32 /* Roboto-Regular.ttf in Resources */,
 				254EBED7225F5D8300042FA2 /* KNEligibleTokensTableViewCell.xib in Resources */,
 				25931F1020AEE85200BAC774 /* KNBackUpWalletViewController.xib in Resources */,
 				259925B420EF286500CCF2D6 /* KNListContactViewController.xib in Resources */,
@@ -4390,6 +4439,7 @@
 				25929C9720DA5CC10045CFA3 /* SFCompactDisplay-Heavy.otf in Resources */,
 				290B2B541F8F50030053C83E /* Localizable.strings in Resources */,
 				2542604621215C120015ECC7 /* KSwapViewController.xib in Resources */,
+				C37CC09B245803CA0081FB32 /* Roboto-BlackItalic.ttf in Resources */,
 				257B84AF2074D7B9003DD40E /* Assets.xcassets in Resources */,
 				25073D26211AF20D00833C92 /* Montserrat-Light.ttf in Resources */,
 				25696F6420BE8973002CC53F /* KNSetSlippageRateViewController.xib in Resources */,
@@ -4404,12 +4454,14 @@
 				25929C5F20DA5C760045CFA3 /* SF-Pro-Display-BlackItalic.otf in Resources */,
 				257C9FCA2078F6A600EE0128 /* KNCreatePasswordViewController.xib in Resources */,
 				2537D8DF22D2FF80000D3E91 /* KNLimitOrderDetailsPopUp.xib in Resources */,
+				C37CC093245803CA0081FB32 /* Roboto-Light.ttf in Resources */,
 				25ACC264225E11EF0081D2B9 /* KNListAlertHeaderView.xib in Resources */,
 				25696F5520BD2B72002CC53F /* KNDataDetailsView.xib in Resources */,
 				251ABCB320578F6E0069687F /* config_env_ropsten.json in Resources */,
 				C6AA668C23A77C690050C610 /* KNNotificationTableViewCell.xib in Resources */,
 				25929C6420DA5C760045CFA3 /* SF-Pro-Text-Heavy.otf in Resources */,
 				C3E401DF242B458200F31372 /* KNCreateLimitOrderV2ViewController.xib in Resources */,
+				C37CC09D245803CA0081FB32 /* Roboto-Thin.ttf in Resources */,
 				25929C6F20DA5C760045CFA3 /* SF-Pro-Display-Medium.otf in Resources */,
 				C356C001243C2F85007E419B /* KNSelectMarketViewController.xib in Resources */,
 				251C29C1232A59F000E1FB6B /* KNPDPAUpdateInfoPopUp.xib in Resources */,
@@ -4417,6 +4469,7 @@
 				2528B40D228D5A14003EEA32 /* KNManageOrdersViewController.xib in Resources */,
 				2561454D20C64B2200FB00CF /* KNContactTableView.xib in Resources */,
 				255F6F2420BBC6B500EF808F /* KNWalletQRCodeViewController.xib in Resources */,
+				C37CC095245803CA0081FB32 /* Roboto-MediumItalic.ttf in Resources */,
 				25C45ACE20AC475700CDA1FF /* KNImportWalletViewController.xib in Resources */,
 				25929C5C20DA5C760045CFA3 /* SF-Pro-Text-LightItalic.otf in Resources */,
 				25117D3F2248D68300B5C495 /* KNAlertLeaderBoardViewController.xib in Resources */,
@@ -4425,9 +4478,11 @@
 				25485B052272F938004B7454 /* KNTransactionFilterTableViewCell.xib in Resources */,
 				25073D1A211AF20D00833C92 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				2567B3F1216B10060006D963 /* index.html in Resources */,
+				C37CC097245803CA0081FB32 /* Roboto-BoldItalic.ttf in Resources */,
 				25929C6D20DA5C760045CFA3 /* SF-Pro-Display-Heavy.otf in Resources */,
 				25117D442248D6B000B5C495 /* KNLeaderBoardCollectionViewCell.xib in Resources */,
 				257740C620579457003323EB /* KNSplashScreenViewController.xib in Resources */,
+				C37CC09E245803CA0081FB32 /* Roboto-Black.ttf in Resources */,
 				2503440020DA37F700528810 /* KNSaveContactViewController.xib in Resources */,
 				25073D19211AF20D00833C92 /* Montserrat-LightItalic.ttf in Resources */,
 				25BA0D9F225B32C000B0EF2D /* KNSignInViewController.xib in Resources */,
@@ -4440,7 +4495,9 @@
 				257A37A6205D187100E86794 /* KNTransactionStatusViewController.xib in Resources */,
 				254A88B6229BDBEC00AA6BBA /* KNLimitOrderSearchTokenViewController.xib in Resources */,
 				25073D22211AF20D00833C92 /* Montserrat-Italic.ttf in Resources */,
+				C37CC09C245803CA0081FB32 /* Roboto-Bold.ttf in Resources */,
 				251ABCB520578F6E0069687F /* config_env_staging.json in Resources */,
+				C37CC096245803CA0081FB32 /* Roboto-ThinItalic.ttf in Resources */,
 				25929C9120DA5CC10045CFA3 /* SFCompactText-Light.otf in Resources */,
 				25369F0C20F88A87007231FE /* KNWelcomeScreenCollectionViewCell.xib in Resources */,
 				251ABCB220578F6E0069687F /* config_env_production.json in Resources */,
@@ -4452,8 +4509,10 @@
 				25929C5220DA5C760045CFA3 /* SF-Pro-Text-BoldItalic.otf in Resources */,
 				25601AD822E8683D00E7CB99 /* KNLimitOrderExtraTokenReceivedPopupViewController.xib in Resources */,
 				254BB359211D9F1400B8E75D /* KConfirmSendViewController.xib in Resources */,
+				C37CC092245803CA0081FB32 /* Roboto-Medium.ttf in Resources */,
 				C6AA668723A772AA0050C610 /* KNListNotificationViewController.xib in Resources */,
 				25073D2A211AF20D00833C92 /* Montserrat-BoldItalic.ttf in Resources */,
+				C37CC098245803CA0081FB32 /* Roboto-LightItalic.ttf in Resources */,
 				25929C9F20DA5CCC0045CFA3 /* SF Compact Font License.rtf in Resources */,
 				25682B7520EE06CD009738C4 /* KNTransactionDetailsViewController.xib in Resources */,
 				25929C9220DA5CC10045CFA3 /* SFCompactText-SemiboldItalic.otf in Resources */,
@@ -4468,6 +4527,7 @@
 				25929C6320DA5C760045CFA3 /* SF-Pro-Text-Light.otf in Resources */,
 				25929C5820DA5C760045CFA3 /* SF-Pro-Text-MediumItalic.otf in Resources */,
 				25C45ADB20AD40F400CDA1FF /* KNImportPrivateKeyViewController.xib in Resources */,
+				C37CC099245803CA0081FB32 /* Roboto-Italic.ttf in Resources */,
 				254A88BB229BDC5300AA6BBA /* KNLimitOrderTokenTableViewCell.xib in Resources */,
 				25CDE82222290D9200AD0363 /* KNNotificationMethodsViewController.xib in Resources */,
 				25929C9B20DA5CC10045CFA3 /* SFCompactText-Regular.otf in Resources */,
@@ -5285,14 +5345,14 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 7N9YDG6SF9;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.24;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyberswap.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
@@ -5314,18 +5374,18 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = 7N9YDG6SF9;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.24;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyberswap.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "d08d5f84-6398-4202-b037-8e45e693b687";
-				PROVISIONING_PROFILE_SPECIFIER = "Kyberswap iOS Distribution Appstore";
+				PROVISIONING_PROFILE_SPECIFIER = "New KyberSwap iOS AppStore";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

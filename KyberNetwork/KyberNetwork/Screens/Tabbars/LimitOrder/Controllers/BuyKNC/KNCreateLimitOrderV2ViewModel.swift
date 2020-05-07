@@ -191,11 +191,11 @@ class KNCreateLimitOrderV2ViewModel {
       NSAttributedStringKey.foregroundColor: UIColor(red: 90, green: 94, blue: 103),
     ]
     let higherAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 12),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.shamrock,
     ]
     let lowerAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 12),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.strawberry,
     ]
     attributedString.append(NSAttributedString(string: "Your target price is".toBeLocalised(), attributes: normalAttributes))
@@ -250,7 +250,7 @@ class KNCreateLimitOrderV2ViewModel {
 
   lazy var feeNoteHighlightedAttributes: [NSAttributedStringKey: Any] = {
     return [
-      NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 14),
+      NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor(red: 90, green: 94, blue: 103),
     ]
   }()

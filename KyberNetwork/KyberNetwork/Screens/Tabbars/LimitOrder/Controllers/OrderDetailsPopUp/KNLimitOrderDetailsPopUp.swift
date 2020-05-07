@@ -110,11 +110,11 @@ class KNLimitOrderDetailsPopUp: KNBaseViewController {
     if order.state == .filled && order.extraAmount > 0 {
       let normalAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
-        NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 11),
+        NSAttributedStringKey.font: UIFont.Kyber.bold(with: 11),
       ]
       let extraAttributes: [NSAttributedStringKey: Any] = [
         NSAttributedStringKey.foregroundColor: UIColor(red: 49, green: 203, blue: 158),
-        NSAttributedStringKey.font: UIFont.Kyber.semiBold(with: 10),
+        NSAttributedStringKey.font: UIFont.Kyber.bold(with: 10),
       ]
       if sideTrade == "buy" {
         self.toValueLabel.text = nil
