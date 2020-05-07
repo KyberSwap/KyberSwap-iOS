@@ -29,6 +29,7 @@ class KNListNotificationViewController: KNBaseViewController {
   @IBOutlet weak var emptyStateContainerView: UIView!
   @IBOutlet weak var noNotificationsTextLabel: UILabel!
   @IBOutlet weak var settingButton: UIButton!
+  @IBOutlet weak var headerTitle: UILabel!
 
   fileprivate let viewModel = KNListNotificationViewModel()
 
@@ -44,6 +45,9 @@ class KNListNotificationViewController: KNBaseViewController {
     self.listNotiTableView.delegate = self
     self.listNotiTableView.dataSource = self
     self.listNotiTableView.rowHeight = 64.0
+    self.headerTitle.text = "Notifications".toBeLocalised()
+    self.settingButton.setTitle("Setting".toBeLocalised() + "  |", for: .normal)
+    self.markAllReadButton.setTitle("Mark all read".toBeLocalised(), for: .normal)
   }
 
   override func viewDidDisappear(_ animated: Bool) {

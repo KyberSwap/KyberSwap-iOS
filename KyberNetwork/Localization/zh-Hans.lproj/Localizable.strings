@@ -717,3 +717,18 @@
 "Your order has been cancelled" = "Your order has been cancelled";
 "Submitting order" = "Submitting order";
 "No order found" = "No order found";
+
+//Notifications
+"Notifications" = "Notifications";
+"Setting" = "Setting";
+"Mark all read" = "将所有内容标记为已读";
+"hour ago" = "小时前";
+"hours ago" = "小时前";
+"min ago" = "min ago";
+"mins ago" = "分钟前";
+"just now" = "现在";
+
+"KyberCode is invaild format" = "KyberCode is invaild format";
+
+"Buy Limit Order" = "购买限价订单";
+"Sell Limit Order" = "卖出限价订单";

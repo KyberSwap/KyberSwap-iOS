@@ -29,15 +29,15 @@ class KNNotificationTableViewCell: UITableViewCell {
       }
       if timePassed > 60.0 * 60.0 {
         let hours = Int(floor(timePassed)) / (60 * 60)
-        if hours == 1 { return "\(hours) hour ago" }
-        return "\(hours) hours ago"
+        if hours == 1 { return "\(hours) \("hour ago".toBeLocalised())" }
+        return "\(hours) \("hours ago".toBeLocalised())"
       }
       if timePassed > 60.0 {
         let mins = Int(floor(timePassed)) / 60
-        if mins == 1 { return "\(mins) min ago" }
-        return "\(mins) mins ago"
+        if mins == 1 { return "\(mins) \("min ago".toBeLocalised())" }
+        return "\(mins) \("mins ago".toBeLocalised())"
       }
-      return "just now"
+      return "just now".toBeLocalised()
     }()
   }
 }

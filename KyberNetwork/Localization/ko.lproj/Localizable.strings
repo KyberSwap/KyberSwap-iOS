@@ -717,3 +717,18 @@
 "Your order has been cancelled" = "Your order has been cancelled";
 "Submitting order" = "Submitting order";
 "No order found" = "No order found";
+
+//Notifications
+"Notifications" = "Notifications";
+"Setting" = "Setting";
+"Mark all read" = "모두 읽음 표시";
+"hour ago" = "시간 전";
+"hours ago" = "시간 전";
+"min ago" = "min ago";
+"mins ago" = "분 전";
+"just now" = "방금";
+
+"KyberCode is invaild format" = "KyberCode is invaild format";
+
+"Buy Limit Order" = "리밋오더 매수";
+"Sell Limit Order" = "리밋오더 매도";

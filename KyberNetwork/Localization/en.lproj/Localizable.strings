@@ -715,3 +715,18 @@
 "Your order has been cancelled" = "Your order has been cancelled";
 "Submitting order" = "Submitting order";
 "No order found" = "No order found";
+
+//Notifications
+"Notifications" = "Notifications";
+"Setting" = "Setting";
+"Mark all read" = "Mark all read";
+"hour ago" = "hour ago";
+"hours ago" = "hours ago";
+"min ago" = "min ago";
+"mins ago" = "mins ago";
+"just now" = "just now";
+
+"KyberCode is invaild format" = "KyberCode is invaild format";
+
+"Buy Limit Order" = "Buy Limit Order";
+"Sell Limit Order" = "Sell Limit Order";

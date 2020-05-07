@@ -717,3 +717,18 @@
 "Your order has been cancelled" = "Lệnh của bạn đã được huỷ";
 "Submitting order" = "Đang đặt lệnh";
 "No order found" = "Không có dữ liệu";
+
+//Notifications
+"Notifications" = "Notifications";
+"Setting" = "Setting";
+"Mark all read" = "Đã đọc tất cả";
+"hour ago" = "giờ trước";
+"hours ago" = "giờ trước";
+"min ago" = "phút trước";
+"mins ago" = "phút trước";
+"just now" = "hiện tại";
+
+"KyberCode is invaild format" = "KyberCode is invaild format";
+
+"Buy Limit Order" = "Đặt lệnh mua";
+"Sell Limit Order" = "Đặt lệnh bán";
