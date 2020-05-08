@@ -32,6 +32,8 @@ extension KNProfileHomeCoordinator: KNSignUpViewControllerDelegate {
       self.isSubscribe = isSubs
       self.accountType = accountType
       self.proceedSignUp(accountType: accountType)
+    case .pressedApple:
+      self.authenticateApple()
     }
   }
 }

@@ -128,9 +128,7 @@ extension KNAppCoordinator {
     }
 
     UITabBarItem.appearance().setTitleTextAttributes(
-      [NSAttributedStringKey.foregroundColor: UIColor.Kyber.tabbarNormal,
-       NSAttributedStringKey.font: UIFont.Kyber.medium(with: 10)
-      ],
+      [NSAttributedStringKey.foregroundColor: UIColor.Kyber.tabbarNormal, NSAttributedStringKey.font: UIFont.Kyber.medium(with: 10)],
       for: .normal
     )
     UITabBarItem.appearance().setTitleTextAttributes(
