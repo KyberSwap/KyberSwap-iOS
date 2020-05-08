@@ -514,7 +514,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "Mã khuyến mãi không hợp lệ!";
 "Promo code has expired." = "Mã khuyến mãi đã hết hạn.";
-"KyberCode is invalid format" = "KyberCode is invalid format";
+"KyberCode is invalid format" = "Không đúng định dạng KyberCode";
 
 // Proof of address
 "Bank Statement" = "Bảng sao kê ngân hàng";
@@ -719,8 +719,8 @@
 "No order found" = "Không có dữ liệu";
 
 //Notifications
-"Notifications" = "Notifications";
-"Setting" = "Setting";
+"Notifications" = "Thông báo";
+"Setting" = "Cài đặt";
 "Mark all read" = "Đã đọc tất cả";
 "hour ago" = "giờ trước";
 "hours ago" = "giờ trước";
@@ -731,4 +731,4 @@
 "Buy Limit Order" = "Đặt lệnh mua";
 "Sell Limit Order" = "Đặt lệnh bán";
 
-"Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";
+"Invalid nonce" = "Nhập KyberCode thất bại, vui lòng kiểm tra lại thời hạn code của bạn";
