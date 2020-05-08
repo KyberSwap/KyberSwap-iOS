@@ -188,6 +188,7 @@ extension KNListWalletsViewController: UITableViewDataSource {
       KNCrashlyticsUtil.logCustomEvent(withName: "screen_list_wallets", customAttributes: ["action": "select_wallet"])
       self.delegate?.listWalletsViewController(self, run: .select(wallet: wallet))
     }
+    switchWallet.backgroundColor = UIColor.Kyber.marketBlue
     let edit = UITableViewRowAction(style: .normal, title: NSLocalizedString("edit", value: "Edit", comment: "")) { (_, _) in
       KNCrashlyticsUtil.logCustomEvent(withName: "screen_list_wallets", customAttributes: ["action": "edit_wallet"])
       self.delegate?.listWalletsViewController(self, run: .edit(wallet: wallet))
@@ -199,8 +200,6 @@ extension KNListWalletsViewController: UITableViewDataSource {
     }
     delete.backgroundColor = UIColor.Kyber.strawberry
     if wallet.address.lowercased() != self.viewModel.curWallet.address.lowercased() {
-      switchWallet.backgroundColor = UIColor.Kyber.shamrock
-      edit.backgroundColor = UIColor.Kyber.blueGreen
       return [delete, edit, switchWallet]
     }
     return [delete, edit]
