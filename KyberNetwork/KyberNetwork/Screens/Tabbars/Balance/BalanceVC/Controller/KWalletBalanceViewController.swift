@@ -12,6 +12,7 @@ enum KWalletBalanceViewEvent {
   case alert(token: TokenObject)
   case receiveToken
   case refreshData
+  case buyETH
 }
 
 protocol KWalletBalanceViewControllerDelegate: class {
@@ -53,6 +54,8 @@ class KWalletBalanceViewController: KNBaseViewController {
   @IBOutlet weak var bottomPaddingConstraintForTableView: NSLayoutConstraint!
   @IBOutlet weak var balanceDisplayControlButton: UIButton!
   @IBOutlet weak var hasUnreadNotification: UIView!
+  @IBOutlet weak var buyETHButton: UIButton!
+
   lazy var refreshControl: UIRefreshControl = {
     let refresh = UIRefreshControl()
     refresh.tintColor = UIColor.Kyber.enygold
@@ -133,6 +136,9 @@ class KWalletBalanceViewController: KNBaseViewController {
     self.setupWalletBalanceHeaderView()
     self.setupDisplayDataType()
     self.setupTokensBalanceTableView()
+    self.buyETHButton.rounded(color: .white, width: 1.0)
+    let localisedString = String(format: "Buy %@".toBeLocalised(), "ETH")
+    self.buyETHButton.setTitle(localisedString, for: .normal)
   }
 
   fileprivate func setupWalletBalanceHeaderView() {
@@ -310,6 +316,10 @@ class KWalletBalanceViewController: KNBaseViewController {
   @IBAction func notificationMenuButtonPressed(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "select_notification_menu_button"])
     self.delegate?.kWalletBalanceViewController(self, run: .selectNotifications)
+  }
+
+  @IBAction func buyETHButtonTapped(_ sender: UIButton) {
+    self.delegate?.kWalletBalanceViewController(self, run: .buyETH)
   }
 
   @objc func userDidRefreshBalanceView(_ sender: Any?) {

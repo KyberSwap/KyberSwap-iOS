@@ -716,3 +716,5 @@
 "Your order has been cancelled" = "Lệnh của bạn đã được huỷ";
 "Submitting order" = "Đang đặt lệnh";
 "No order found" = "Không có dữ liệu";
+
+"KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "KyberSwap is only support buying ETH with fiat on web. Do you want to open KyberSwap's website?";

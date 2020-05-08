@@ -716,3 +716,5 @@
 "Your order has been cancelled" = "Your order has been cancelled";
 "Submitting order" = "Submitting order";
 "No order found" = "No order found";
+
+"KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "KyberSwap is only support buying ETH with fiat on web. Do you want to open KyberSwap's website?";

@@ -25,6 +25,7 @@
                 <outlet property="balanceTextLabel" destination="tNy-7j-Gt2" id="YYj-GO-LL8"/>
                 <outlet property="balanceValueLabel" destination="ztY-YM-0aU" id="mPu-J4-bRa"/>
                 <outlet property="bottomPaddingConstraintForTableView" destination="X3N-3J-Mg6" id="awZ-7P-hyp"/>
+                <outlet property="buyETHButton" destination="x7Q-87-ynn" id="qle-U4-Bg7"/>
                 <outlet property="change24hButton" destination="EY4-fd-g0P" id="tj9-Re-e4D"/>
                 <outlet property="change24hCenterConstraint" destination="3as-Pg-Ytd" id="PNx-n3-szc"/>
                 <outlet property="currencyETHButton" destination="2FJ-V0-D8n" id="iR8-A1-owW"/>
@@ -132,6 +133,20 @@
                                 <constraint firstAttribute="height" constant="6" id="xeF-ch-Nxf"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7Q-87-ynn">
+                            <rect key="frame" x="289" y="113.5" width="70" height="28"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="91U-Ve-Xuj"/>
+                                <constraint firstAttribute="height" constant="28" id="gse-yK-32V"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="12"/>
+                            <state key="normal" title="BUY ETH">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="buyETHButtonTapped:" destination="-1" eventType="touchUpInside" id="Gd3-ZG-SRO"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -139,6 +154,7 @@
                         <constraint firstItem="DHe-5I-0yd" firstAttribute="leading" secondItem="qlW-Mm-bZf" secondAttribute="trailing" constant="4" id="5wf-En-eaf"/>
                         <constraint firstItem="bYb-Bg-eFt" firstAttribute="leading" secondItem="Ex2-2Z-uLK" secondAttribute="centerX" constant="6" id="6DO-IB-GQF"/>
                         <constraint firstItem="uX4-lo-QAu" firstAttribute="centerY" secondItem="tNy-7j-Gt2" secondAttribute="centerY" id="8k0-jE-Bb5"/>
+                        <constraint firstItem="x7Q-87-ynn" firstAttribute="centerY" secondItem="DHe-5I-0yd" secondAttribute="centerY" id="9cZ-po-iDs"/>
                         <constraint firstItem="uX4-lo-QAu" firstAttribute="centerY" secondItem="Ex2-2Z-uLK" secondAttribute="centerY" id="CBN-Mq-IiE"/>
                         <constraint firstItem="6LI-U8-W7j" firstAttribute="bottom" secondItem="qlW-Mm-bZf" secondAttribute="bottom" id="EvA-Hf-iuK"/>
                         <constraint firstItem="WJc-fq-iX6" firstAttribute="centerX" secondItem="uX4-lo-QAu" secondAttribute="centerX" constant="10" id="Gbm-0u-Xsf"/>
@@ -147,7 +163,9 @@
                         <constraint firstItem="Ex2-2Z-uLK" firstAttribute="centerY" secondItem="bYb-Bg-eFt" secondAttribute="bottom" constant="8" id="NWc-zn-waj"/>
                         <constraint firstItem="uX4-lo-QAu" firstAttribute="leading" secondItem="Ex2-2Z-uLK" secondAttribute="trailing" id="OGD-Qx-8Pe"/>
                         <constraint firstItem="6LI-U8-W7j" firstAttribute="trailing" secondItem="ztY-YM-0aU" secondAttribute="trailing" id="P5D-zl-cRn"/>
+                        <constraint firstAttribute="trailing" secondItem="x7Q-87-ynn" secondAttribute="trailing" constant="16" id="PUc-rL-fN8"/>
                         <constraint firstItem="DHe-5I-0yd" firstAttribute="centerY" secondItem="qlW-Mm-bZf" secondAttribute="centerY" id="Yvs-F0-qwm"/>
+                        <constraint firstItem="x7Q-87-ynn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DHe-5I-0yd" secondAttribute="trailing" constant="5" id="b3e-Vg-Lqy"/>
                         <constraint firstItem="ztY-YM-0aU" firstAttribute="top" secondItem="tNy-7j-Gt2" secondAttribute="bottom" constant="16" id="cT3-hR-YfF"/>
                         <constraint firstItem="NpW-ka-5fO" firstAttribute="centerY" secondItem="tNy-7j-Gt2" secondAttribute="centerY" id="cxy-QZ-dON"/>
                         <constraint firstItem="ztY-YM-0aU" firstAttribute="leading" secondItem="tNy-7j-Gt2" secondAttribute="leading" id="dJb-xr-4hn"/>
