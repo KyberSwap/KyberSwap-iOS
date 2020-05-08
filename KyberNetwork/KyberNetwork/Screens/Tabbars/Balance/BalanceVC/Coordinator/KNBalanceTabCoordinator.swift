@@ -385,13 +385,11 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
 
   fileprivate func openBuyETHAlert() {
     let alertController = UIAlertController(
-      title: nil,
+      title: "",
       message: "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web".toBeLocalised(),
       preferredStyle: .alert
     )
-    alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cancel", comment: ""), style: .cancel, handler: { _ in
-      self.delegate?.balanceTabCoordinatorShouldOpenExchange(for: self.session.tokenStorage.ethToken, isReceived: true)
-    }))
+    alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cancel", comment: ""), style: .default, handler: nil))
     alertController.addAction(UIAlertAction(title: NSLocalizedString("yes", value: "yes", comment: ""), style: .default, handler: { _ in
       let ksURL = URL(string: "https://kyberswap.com/swap/knc-eth")!
       if UIApplication.shared.canOpenURL(ksURL) {
