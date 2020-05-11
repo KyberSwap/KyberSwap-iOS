@@ -251,6 +251,12 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       KNNotificationUtil.postNotification(for: kRefreshBalanceNotificationKey)
     case .buyETH:
       self.openBuyETHAlert()
+    case .copyAddress:
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "copy_wallet_address"])
+      UIPasteboard.general.string = self.session.wallet.address.description
+      self.navigationController.showMessageWithInterval(
+        message: NSLocalizedString("address.copied", value: "Address copied", comment: "")
+      )
     }
   }
 
