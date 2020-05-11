@@ -515,7 +515,7 @@
 // Promo code error messages
 "Promo code is invalid!" = "프로모션 코드가 잘못되었습니다.";
 "Promo code has expired." = "프로모션 코드가 만료되었습니다.";
-"KyberCode is invalid format" = "KyberCode is invalid format";
+"KyberCode is invalid format" = "카이버 코드 형식이 올바르지 않습니다.";
 
 // Proof of address
 "Bank Statement" = "은행 성명서";
@@ -719,16 +719,16 @@
 "No order found" = "No order found";
 
 //Notifications
-"Notifications" = "Notifications";
-"Setting" = "Setting";
+"Notifications" = "알림";
+"Setting" = "설정";
 "Mark all read" = "모두 읽음 표시";
 "hour ago" = "시간 전";
 "hours ago" = "시간 전";
-"min ago" = "min ago";
+"min ago" = " 분 전";
 "mins ago" = "분 전";
 "just now" = "방금";
 
 "Buy Limit Order" = "리밋오더 매수";
 "Sell Limit Order" = "리밋오더 매도";
 
-"Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";
+"Invalid nonce" = "카이버 코드 불러오기에 실패했습니다. 시간대 설정을 다시 확인해주세요.";
