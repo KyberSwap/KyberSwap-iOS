@@ -249,6 +249,8 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       // refresh rates
       KNRateCoordinator.shared.refreshData()
       KNNotificationUtil.postNotification(for: kRefreshBalanceNotificationKey)
+    case .buyETH:
+      self.openBuyETHAlert()
     }
   }
 
@@ -379,6 +381,22 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     self.navigationController.pushViewController(self.newAlertController!, animated: true) {
       self.newAlertController?.updatePair(token: token, currencyType: KNAppTracker.getCurrencyType())
     }
+  }
+
+  fileprivate func openBuyETHAlert() {
+    let alertController = UIAlertController(
+      title: "",
+      message: "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web".toBeLocalised(),
+      preferredStyle: .alert
+    )
+    alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cancel", comment: ""), style: .default, handler: nil))
+    alertController.addAction(UIAlertAction(title: NSLocalizedString("yes", value: "yes", comment: ""), style: .default, handler: { _ in
+      let ksURL = URL(string: "https://kyberswap.com/swap/knc-eth")!
+      if UIApplication.shared.canOpenURL(ksURL) {
+        UIApplication.shared.open(ksURL)
+      }
+    }))
+    self.navigationController.present(alertController, animated: true, completion: nil)
   }
 }
 

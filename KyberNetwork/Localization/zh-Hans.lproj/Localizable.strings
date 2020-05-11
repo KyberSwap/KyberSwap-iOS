@@ -732,3 +732,4 @@
 "Sell Limit Order" = "卖出限价订单";
 
 "Invalid nonce" = "无法导入Kyber code，请确认您输入的序号在有效期限内";
+"KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "Buying ETH with Fiat is only supported on KyberSwap's website at the moment. Do you want to open it?";
