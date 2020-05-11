@@ -27,18 +27,18 @@ enum KTokenListType: Int {
 class KWalletBalanceViewModel: NSObject {
 
   let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
-    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
+    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
     NSAttributedStringKey.foregroundColor: UIColor(red: 158, green: 161, blue: 170),
   ]
 
   let displayTypeHighLightedAttributes: [NSAttributedStringKey: Any] = [
-    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
+    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
     NSAttributedStringKey.foregroundColor: UIColor(red: 78, green: 80, blue: 99),
   ]
 
   lazy var arrowUpAttributedString: NSAttributedString = {
     let attributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 22),
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 15),
       NSAttributedStringKey.foregroundColor: UIColor(red: 78, green: 80, blue: 99),
     ]
     return NSAttributedString(string: "↑", attributes: attributes)

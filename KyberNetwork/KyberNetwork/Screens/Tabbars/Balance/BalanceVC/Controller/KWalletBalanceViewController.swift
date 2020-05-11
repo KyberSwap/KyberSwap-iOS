@@ -324,6 +324,7 @@ class KWalletBalanceViewController: KNBaseViewController {
   }
 
   @IBAction func buyETHButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "buy_eth_button_clicked"])
     self.delegate?.kWalletBalanceViewController(self, run: .buyETH)
   }
 
