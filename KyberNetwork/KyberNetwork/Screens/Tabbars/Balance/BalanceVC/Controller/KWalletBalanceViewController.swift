@@ -13,6 +13,7 @@ enum KWalletBalanceViewEvent {
   case receiveToken
   case refreshData
   case buyETH
+  case copyAddress
 }
 
 protocol KWalletBalanceViewControllerDelegate: class {
@@ -283,6 +284,10 @@ class KWalletBalanceViewController: KNBaseViewController {
     self.updateDisplayedDataType()
   }
 
+  @IBAction func copyButtonTapped(_ sender: UIButton) {
+    self.delegate?.kWalletBalanceViewController(self, run: .copyAddress)
+  }
+  
   @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
     self.hamburgerMenu.gestureScreenEdgePanAction(sender)
   }
@@ -319,6 +324,7 @@ class KWalletBalanceViewController: KNBaseViewController {
   }
 
   @IBAction func buyETHButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "buy_eth_button_clicked"])
     self.delegate?.kWalletBalanceViewController(self, run: .buyETH)
   }
 

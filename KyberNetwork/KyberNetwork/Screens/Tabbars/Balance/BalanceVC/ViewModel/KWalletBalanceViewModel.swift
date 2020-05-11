@@ -27,18 +27,18 @@ enum KTokenListType: Int {
 class KWalletBalanceViewModel: NSObject {
 
   let displayTypeNormalAttributes: [NSAttributedStringKey: Any] = [
-    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
+    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
     NSAttributedStringKey.foregroundColor: UIColor(red: 158, green: 161, blue: 170),
   ]
 
   let displayTypeHighLightedAttributes: [NSAttributedStringKey: Any] = [
-    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 14),
+    NSAttributedStringKey.font: UIFont.Kyber.bold(with: 12),
     NSAttributedStringKey.foregroundColor: UIColor(red: 78, green: 80, blue: 99),
   ]
 
   lazy var arrowUpAttributedString: NSAttributedString = {
     let attributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 22),
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 15),
       NSAttributedStringKey.foregroundColor: UIColor(red: 78, green: 80, blue: 99),
     ]
     return NSAttributedString(string: "↑", attributes: attributes)
@@ -124,10 +124,7 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var nameAndBalanceCenterXConstant: CGFloat {
-    if self.tokensDisplayType != .balanceDesc && self.tokensDisplayType != .nameDesc {
-      return 0.0
-    }
-    return -3.0
+    return 0.0
   }
 
   var displayETHCurrency: NSAttributedString {
@@ -149,9 +146,6 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var currencyETHCenterXConstant: CGFloat {
-    if self.currencyType == .eth && (self.tokensDisplayType == .priceAsc || self.tokensDisplayType == .priceDesc) {
-      return -3.0
-    }
     return 0.0
   }
 
@@ -174,9 +168,6 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var currencyUSDCenterXConstant: CGFloat {
-    if self.currencyType == .usd && (self.tokensDisplayType == .priceAsc || self.tokensDisplayType == .priceDesc) {
-      return -3.0
-    }
     return 0.0
   }
 
@@ -196,9 +187,6 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var change24hCenterXConstant: CGFloat {
-    if self.tokensDisplayType == .changeDesc || self.tokensDisplayType == .changeAsc {
-      return -3.0
-    }
     return 0.0
   }
 
