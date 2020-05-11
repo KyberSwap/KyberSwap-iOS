@@ -385,7 +385,7 @@ extension KNBalanceTabHamburgerMenuViewController: UITableViewDataSource {
         NSAttributedStringKey.foregroundColor: UIColor.Kyber.grayChateau,
         NSAttributedStringKey.kern: 0.0,
         ]
-      attributedString.append(NSAttributedString(string: "    \(wallet.name)", attributes: nameAttributes))
+      attributedString.append(NSAttributedString(string: "    \(wallet.name.trunc(length: 20))", attributes: nameAttributes))
       let address: String = "         \(wallet.address.lowercased().prefix(8))...\(wallet.address.lowercased().suffix(6))"
       attributedString.append(NSAttributedString(string: "\n\(address)", attributes: addressAttributes))
       return attributedString

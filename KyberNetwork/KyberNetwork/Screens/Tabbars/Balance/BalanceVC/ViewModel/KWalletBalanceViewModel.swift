@@ -124,10 +124,7 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var nameAndBalanceCenterXConstant: CGFloat {
-    if self.tokensDisplayType != .balanceDesc && self.tokensDisplayType != .nameDesc {
-      return 0.0
-    }
-    return -3.0
+    return 0.0
   }
 
   var displayETHCurrency: NSAttributedString {
