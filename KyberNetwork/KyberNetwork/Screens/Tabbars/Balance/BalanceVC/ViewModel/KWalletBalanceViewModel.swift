@@ -149,9 +149,6 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var currencyETHCenterXConstant: CGFloat {
-    if self.currencyType == .eth && (self.tokensDisplayType == .priceAsc || self.tokensDisplayType == .priceDesc) {
-      return -3.0
-    }
     return 0.0
   }
 
@@ -174,9 +171,6 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var currencyUSDCenterXConstant: CGFloat {
-    if self.currencyType == .usd && (self.tokensDisplayType == .priceAsc || self.tokensDisplayType == .priceDesc) {
-      return -3.0
-    }
     return 0.0
   }
 
@@ -196,9 +190,6 @@ class KWalletBalanceViewModel: NSObject {
   }
 
   var change24hCenterXConstant: CGFloat {
-    if self.tokensDisplayType == .changeDesc || self.tokensDisplayType == .changeAsc {
-      return -3.0
-    }
     return 0.0
   }
 
