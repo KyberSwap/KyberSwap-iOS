@@ -471,7 +471,7 @@
 "Do you want to delete this alert?" = "Bạn có muốn xóa thông báo này không?";
 "Add Alert" = "Thêm Thông Báo";
 "Alert deleted!" = "Thông báo đã xoá!";
-"You must sign in to use Price Alert feature" = "Vui lòng đăng nhập để sử dụng tính năng Price Alert";
+"You must sign in to use Price Alert feature" = "Vui lòng đăng nhập để sử dụng tính năng thông báo giá ";
 "Manage Alert" = "Quản Lý Thông Báo";
 "Alert Method" = "Phương Thức Thông Báo";
 "Push Notification" = "Gửi Thông Báo";
@@ -573,7 +573,7 @@
 "Please enter a display name to continue" = "Vui lòng điền tên hiển thị để tiếp tục";
 "Please accept our Terms and Conditions to continue" = "Vui lòng đồng ý với Terms & Conditions để tiếp tục";
 "Please enter a valid password to continue" = "Vui lòng điền một mật khẩu hợp lệ để tiếp tục";
-"Get Alert notifications by:" = "Nhận thông báo Price Alert bằng:";
+"Get Alert notifications by:" = "Nhận thông báo giá bằng:";
 "Alert Price" = "Giá";
 "Suggestion" = "Gợi Ý";
 "Reset Password" = "Đặt lại mật khẩu";
