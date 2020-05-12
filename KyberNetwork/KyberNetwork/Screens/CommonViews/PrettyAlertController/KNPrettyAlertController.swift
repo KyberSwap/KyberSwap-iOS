@@ -56,6 +56,9 @@ class KNPrettyAlertController: KNBaseViewController {
       self.yesButton.removeFromSuperview()
       let noButtonTrailingContraint = NSLayoutConstraint(item: self.noButton, attribute: .trailing, relatedBy: .equal, toItem: self.containerView, attribute: .trailing, multiplier: 1, constant: -36)
       self.containerView.addConstraint(noButtonTrailingContraint)
+      self.noButton.rounded()
+      self.noButton.backgroundColor = UIColor.Kyber.orange
+      self.noButton.setTitleColor(.white, for: .normal)
     }
     self.containerView.layoutIfNeeded()
   }

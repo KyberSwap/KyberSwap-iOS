@@ -359,12 +359,12 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
   func openAddNewAlert(_ token: TokenObject) {
     if let topVC = self.navigationController.topViewController, topVC is KNNewAlertViewController { return }
     if KNAlertStorage.shared.isMaximumAlertsReached {
-      let alertController = UIAlertController(
-        title: NSLocalizedString("Alert limit exceeded", value: "Alert limit exceeded", comment: ""),
-        message: NSLocalizedString("You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one", comment: ""),
-        preferredStyle: .alert
-      )
-      alertController.addAction(UIAlertAction(title: NSLocalizedString("ok", value: "OK", comment: ""), style: .cancel, handler: nil))
+      let alertController = KNPrettyAlertController(title: "Alert limit exceeded".toBeLocalised(),
+                                                    message: "You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one".toBeLocalised(),
+                                                    yesTitle: nil,
+                                                    noTitle: "OK".toBeLocalised(),
+                                                    yesAction: nil,
+                                                    noAction: nil)
       self.navigationController.present(alertController, animated: true, completion: nil)
       return
     }

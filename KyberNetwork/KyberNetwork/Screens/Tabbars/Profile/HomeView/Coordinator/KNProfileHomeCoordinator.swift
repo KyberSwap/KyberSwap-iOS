@@ -160,15 +160,14 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
 // MARK: Callbacks, networking
 extension KNProfileHomeCoordinator {
   fileprivate func handleUserSignOut() {
-    let alertController = UIAlertController(
-      title: nil,
-      message: NSLocalizedString("do.you.want.to.log.out?", value: "Do you want to log out?", comment: ""),
-      preferredStyle: .alert
-    )
-    alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cancel", comment: ""), style: .cancel, handler: nil))
-    alertController.addAction(UIAlertAction(title: NSLocalizedString("log.out", value: "Log Out", comment: ""), style: .default, handler: { _ in
-      self.signUserOut()
-    }))
+    let alertController = KNPrettyAlertController(title: nil,
+                                                  message: "do.you.want.to.log.out?".toBeLocalised(),
+                                                  yesTitle: "log.out".toBeLocalised(),
+                                                  noTitle: "cancel".toBeLocalised(),
+                                                  yesAction: {
+                                                    self.signUserOut()
+                                                  },
+                                                  noAction: nil)
     self.rootViewController.present(alertController, animated: true, completion: nil)
   }
 
@@ -370,13 +369,12 @@ extension KNProfileHomeCoordinator: KNProfileHomeViewControllerDelegate {
   }
 
   fileprivate func showAlertMaximumPriceAlertsReached() {
-    let message = NSLocalizedString("You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one", comment: "")
-    let alertController = UIAlertController(
-      title: NSLocalizedString("Alert limit exceeded", value: "Alert limit exceeded", comment: ""),
-      message: message,
-      preferredStyle: .alert
-    )
-    alertController.addAction(UIAlertAction(title: NSLocalizedString("ok", value: "OK", comment: ""), style: .cancel, handler: nil))
+    let alertController = KNPrettyAlertController(title: "Alert limit exceeded".toBeLocalised(),
+                                                  message: "You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one".toBeLocalised(),
+                                                  yesTitle: nil,
+                                                  noTitle: "OK".toBeLocalised(),
+                                                  yesAction: nil,
+                                                  noAction: nil)
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 }
