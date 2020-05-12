@@ -91,7 +91,7 @@ extension KNProfileHomeCoordinator {
     } else {
       self.showErrorTopBannerMessage(
         with: NSLocalizedString("error", value: "Error", comment: ""),
-        message: "Sign in with Apple only available in IOS 13".toBeLocalised(),
+        message: "Sign in with Apple feature is only available for iOS 13 and newer".toBeLocalised(),
         time: 2.0
       )
     }
@@ -608,7 +608,7 @@ extension KNProfileHomeCoordinator: KNConfirmSignUpViewControllerDelegate {
           if success {
             self.navigationController.showWarningTopBannerMessage(
               with: NSLocalizedString("success", comment: ""),
-              message: "You've successfully sign up!".toBeLocalised(),
+              message: "You've successfully sign up".toBeLocalised(),
               time: 1.5
             )
             self.navigationController.popToRootViewController(animated: true)
@@ -640,7 +640,7 @@ extension KNProfileHomeCoordinator: KNConfirmSignUpViewControllerDelegate {
         if success {
           self.navigationController.showWarningTopBannerMessage(
             with: NSLocalizedString("success", comment: ""),
-            message: "You've successfully sign up!".toBeLocalised(),
+            message: "You've successfully sign up".toBeLocalised(),
             time: 1.5
           )
           self.navigationController.popToRootViewController(animated: true)
