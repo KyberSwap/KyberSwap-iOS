@@ -15,6 +15,7 @@ class KNPrettyAlertController: KNBaseViewController {
   let noTitle: String
   let secondButtonAction:  (() -> Void)?
   let firstButtonAction: (() -> Void)?
+  var gradientButton: UIButton!
   init(title: String?,
        message: String,
        secondButtonTitle: String?,
@@ -52,6 +53,7 @@ class KNPrettyAlertController: KNBaseViewController {
     self.firstButton.setTitle(noTitle, for: .normal)
     if let yesTxt = self.yesTitle {
       self.secondButton.setTitle(yesTxt, for: .normal)
+      self.gradientButton = self.secondButton
     } else {
       self.secondButton.removeFromSuperview()
       let noButtonTrailingContraint = NSLayoutConstraint(item: self.firstButton, attribute: .trailing, relatedBy: .equal, toItem: self.containerView, attribute: .trailing, multiplier: 1, constant: -36)
@@ -59,8 +61,16 @@ class KNPrettyAlertController: KNBaseViewController {
       self.firstButton.rounded()
       self.firstButton.backgroundColor = UIColor.Kyber.orange
       self.firstButton.setTitleColor(.white, for: .normal)
+      self.gradientButton = firstButton
     }
+    self.gradientButton.applyGradient()
     self.containerView.layoutIfNeeded()
+  }
+
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    self.gradientButton.removeSublayer(at: 0)
+    self.gradientButton.applyGradient()
   }
 
   @IBAction func yesButtonTapped(_ sender: UIButton) {
