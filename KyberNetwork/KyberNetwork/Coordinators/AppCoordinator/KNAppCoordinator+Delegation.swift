@@ -20,15 +20,16 @@ extension KNAppCoordinator: KNLandingPageCoordinatorDelegate {
 // MARK: Session Delegate
 extension KNAppCoordinator: KNSessionDelegate {
   func userDidClickExitSession() {
-    let alertController = KNPrettyAlertController(title: "exit".toBeLocalised(),
-                                                  message: "do.you.want.to.exit.and.remove.all.wallets".toBeLocalised(),
-                                                  secondButtonTitle: "OK".toBeLocalised(),
-                                                  firstButtonTitle: "cancel".toBeLocalised(),
-                                                  secondButtonAction: {
-                                                    self.stopAllSessions()
-                                                  },
-                                                  firstButtonAction: nil)
-
+    let alertController = KNPrettyAlertController(
+      title: "exit".toBeLocalised(),
+      message: "do.you.want.to.exit.and.remove.all.wallets".toBeLocalised(),
+      secondButtonTitle: "OK".toBeLocalised(),
+      firstButtonTitle: "cancel".toBeLocalised(),
+      secondButtonAction: {
+        self.stopAllSessions()
+      },
+      firstButtonAction: nil
+    )
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 }

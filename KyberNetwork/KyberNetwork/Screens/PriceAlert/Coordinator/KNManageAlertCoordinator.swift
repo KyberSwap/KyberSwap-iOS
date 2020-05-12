@@ -44,12 +44,14 @@ extension KNManageAlertCoordinator: KNManageAlertsViewControllerDelegate {
 
   func openAddNewAlert() {
     if KNAlertStorage.shared.isMaximumAlertsReached {
-      let alertController = KNPrettyAlertController(title: "Alert limit exceeded".toBeLocalised(),
-                                                    message: "You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one".toBeLocalised(),
-                                                    secondButtonTitle: nil,
-                                                    firstButtonTitle: "OK".toBeLocalised(),
-                                                    secondButtonAction: nil,
-                                                    firstButtonAction: nil)
+      let alertController = KNPrettyAlertController(
+        title: "Alert limit exceeded".toBeLocalised(),
+        message: "You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one".toBeLocalised(),
+        secondButtonTitle: nil,
+        firstButtonTitle: "OK".toBeLocalised(),
+        secondButtonAction: nil,
+        firstButtonAction: nil
+      )
 
       self.navigationController.present(alertController, animated: true, completion: nil)
     } else {

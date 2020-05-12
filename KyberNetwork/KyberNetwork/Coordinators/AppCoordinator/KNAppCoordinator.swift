@@ -153,46 +153,48 @@ extension KNAppCoordinator {
     KNVersionControlManager.shouldShowUpdateApp { (shouldShow, isForced, title, subtitle) in
       if !shouldShow { return }
       if !isForced {
-        let alert = KNPrettyAlertController(title: (title ?? "Update available!").toBeLocalised(),
-                                            message: (subtitle ?? "New version is available for updating. Click to update now!").toBeLocalised(),
-                                            secondButtonTitle: "Update".toBeLocalised(),
-                                            firstButtonTitle: "cancel".toBeLocalised(),
-                                            secondButtonAction: {
-                                              KNCrashlyticsUtil.logCustomEvent(
-                                                withName: "new_update_available",
-                                                customAttributes: ["button": "update"]
-                                              )
-                                              DispatchQueue.main.async {
-                                                self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
-                                              }
-                                            }, firstButtonAction: {
-                                              KNCrashlyticsUtil.logCustomEvent(
-                                                withName: "new_update_available",
-                                                customAttributes: ["button": "cancel"]
-                                              )
-                                            })
-
+        let alert = KNPrettyAlertController(
+          title: (title ?? "Update available!").toBeLocalised(),
+          message: (subtitle ?? "New version is available for updating. Click to update now!").toBeLocalised(),
+          secondButtonTitle: "Update".toBeLocalised(),
+          firstButtonTitle: "cancel".toBeLocalised(),
+          secondButtonAction: {
+            KNCrashlyticsUtil.logCustomEvent(
+              withName: "new_update_available",
+              customAttributes: ["button": "update"]
+            )
+            DispatchQueue.main.async {
+              self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
+            }
+          }, firstButtonAction: {
+            KNCrashlyticsUtil.logCustomEvent(
+              withName: "new_update_available",
+              customAttributes: ["button": "cancel"]
+            )
+          }
+        )
         self.navigationController.present(alert, animated: true, completion: nil)
       } else {
         KNCrashlyticsUtil.logCustomEvent(
           withName: "force_update",
           customAttributes: ["cur_version": Bundle.main.versionNumber ?? ""]
         )
-        let alert = KNPrettyAlertController(title: (title ?? "Update available!").toBeLocalised(),
-                                            message: (subtitle ?? "New version is available for updating. Click to update now!").toBeLocalised(),
-                                            secondButtonTitle: nil,
-                                            firstButtonTitle: "Update".toBeLocalised(),
-                                            secondButtonAction: nil,
-                                            firstButtonAction: {
-                                              KNCrashlyticsUtil.logCustomEvent(
-                                                withName: "new_update_available",
-                                                customAttributes: ["button": "update"]
-                                              )
-                                              DispatchQueue.main.async {
-                                                self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
-                                              }
-                                            })
-
+        let alert = KNPrettyAlertController(
+          title: (title ?? "Update available!").toBeLocalised(),
+          message: (subtitle ?? "New version is available for updating. Click to update now!").toBeLocalised(),
+          secondButtonTitle: nil,
+          firstButtonTitle: "Update".toBeLocalised(),
+          secondButtonAction: nil,
+          firstButtonAction: {
+            KNCrashlyticsUtil.logCustomEvent(
+              withName: "new_update_available",
+              customAttributes: ["button": "update"]
+            )
+            DispatchQueue.main.async {
+              self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
+            }
+          }
+        )
         self.navigationController.present(alert, animated: true, completion: nil)
       }
     }
@@ -282,8 +284,14 @@ extension KNAppCoordinator {
     guard let payload = result?.notification.payload else { return }
     let title = payload.title
     let body = payload.body
-    let alertController = KNPrettyAlertController(title: title, message: body ?? "", secondButtonTitle: nil, firstButtonTitle: "OK".toBeLocalised(), secondButtonAction: nil, firstButtonAction: nil)
-
+    let alertController = KNPrettyAlertController(
+      title: title,
+      message: body ?? "",
+      secondButtonTitle: nil,
+      firstButtonTitle: "OK".toBeLocalised(),
+      secondButtonAction: nil,
+      firstButtonAction: nil
+    )
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 
