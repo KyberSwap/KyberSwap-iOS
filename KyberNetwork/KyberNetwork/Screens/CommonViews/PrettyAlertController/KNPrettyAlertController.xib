@@ -20,10 +20,10 @@
             <connections>
                 <outlet property="containerView" destination="BsK-bO-fJV" id="CYY-wl-dsa"/>
                 <outlet property="contentLabel" destination="leR-UV-syU" id="JRb-Aw-5tg"/>
-                <outlet property="noButton" destination="wWN-4D-kOE" id="nHt-Qb-46N"/>
+                <outlet property="firstButton" destination="wWN-4D-kOE" id="nHt-Qb-46N"/>
+                <outlet property="secondButton" destination="zmr-vR-Vc9" id="mjg-b2-MD3"/>
                 <outlet property="titleLabel" destination="c5U-te-ZY2" id="QkS-E0-iyT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="yesButton" destination="zmr-vR-Vc9" id="mjg-b2-MD3"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -5,28 +5,28 @@ import UIKit
 class KNPrettyAlertController: KNBaseViewController {
   @IBOutlet weak var titleLabel: UILabel!
   @IBOutlet weak var contentLabel: UILabel!
-  @IBOutlet weak var yesButton: UIButton!
-  @IBOutlet weak var noButton: UIButton!
+  @IBOutlet weak var secondButton: UIButton!
+  @IBOutlet weak var firstButton: UIButton!
   @IBOutlet weak var containerView: UIView!
 
   let mainTitle: String?
   let message: String
   let yesTitle: String?
   let noTitle: String
-  let yesAction:  (() -> Void)?
-  let noAction: (() -> Void)?
+  let secondButtonAction:  (() -> Void)?
+  let firstButtonAction: (() -> Void)?
   init(title: String?,
        message: String,
-       yesTitle: String?,
-       noTitle: String = "cancel".toBeLocalised(),
-       yesAction: (() -> Void)?,
-       noAction: (() -> Void)?) {
+       secondButtonTitle: String?,
+       firstButtonTitle: String = "cancel".toBeLocalised(),
+       secondButtonAction: (() -> Void)?,
+       firstButtonAction: (() -> Void)?) {
     self.mainTitle = title
     self.message = message
-    self.yesTitle = yesTitle
-    self.noTitle = noTitle
-    self.yesAction = yesAction
-    self.noAction = noAction
+    self.yesTitle = secondButtonTitle
+    self.noTitle = firstButtonTitle
+    self.secondButtonAction = secondButtonAction
+    self.firstButtonAction = firstButtonAction
     super.init(nibName: KNPrettyAlertController.className, bundle: nil)
     self.modalTransitionStyle = .crossDissolve
     self.modalPresentationStyle = .overFullScreen
@@ -39,8 +39,8 @@ class KNPrettyAlertController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.containerView.rounded()
-    self.yesButton.rounded()
-    self.noButton.rounded(color: UIColor.Kyber.border, width: 1)
+    self.secondButton.rounded()
+    self.firstButton.rounded(color: UIColor.Kyber.border, width: 1)
     if let titleTxt = self.mainTitle {
       self.titleLabel.text = titleTxt
     } else {
@@ -49,29 +49,29 @@ class KNPrettyAlertController: KNBaseViewController {
       self.containerView.addConstraint(messageTopContraint)
     }
     self.contentLabel.text = message
-    self.noButton.setTitle(noTitle, for: .normal)
+    self.firstButton.setTitle(noTitle, for: .normal)
     if let yesTxt = self.yesTitle {
-      self.yesButton.setTitle(yesTxt, for: .normal)
+      self.secondButton.setTitle(yesTxt, for: .normal)
     } else {
-      self.yesButton.removeFromSuperview()
-      let noButtonTrailingContraint = NSLayoutConstraint(item: self.noButton, attribute: .trailing, relatedBy: .equal, toItem: self.containerView, attribute: .trailing, multiplier: 1, constant: -36)
+      self.secondButton.removeFromSuperview()
+      let noButtonTrailingContraint = NSLayoutConstraint(item: self.firstButton, attribute: .trailing, relatedBy: .equal, toItem: self.containerView, attribute: .trailing, multiplier: 1, constant: -36)
       self.containerView.addConstraint(noButtonTrailingContraint)
-      self.noButton.rounded()
-      self.noButton.backgroundColor = UIColor.Kyber.orange
-      self.noButton.setTitleColor(.white, for: .normal)
+      self.firstButton.rounded()
+      self.firstButton.backgroundColor = UIColor.Kyber.orange
+      self.firstButton.setTitleColor(.white, for: .normal)
     }
     self.containerView.layoutIfNeeded()
   }
 
   @IBAction func yesButtonTapped(_ sender: UIButton) {
-    if let action = self.yesAction {
+    if let action = self.secondButtonAction {
       action()
     }
     self.dismiss(animated: true, completion: nil)
   }
 
   @IBAction func noButtonTapped(_ sender: UIButton) {
-    if let action = self.noAction {
+    if let action = self.firstButtonAction {
       action()
     }
     self.dismiss(animated: true, completion: nil)

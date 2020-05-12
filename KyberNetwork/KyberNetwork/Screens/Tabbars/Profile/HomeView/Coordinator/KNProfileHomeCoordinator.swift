@@ -162,12 +162,13 @@ extension KNProfileHomeCoordinator {
   fileprivate func handleUserSignOut() {
     let alertController = KNPrettyAlertController(title: nil,
                                                   message: "do.you.want.to.log.out?".toBeLocalised(),
-                                                  yesTitle: "log.out".toBeLocalised(),
-                                                  noTitle: "cancel".toBeLocalised(),
-                                                  yesAction: {
+                                                  secondButtonTitle: "log.out".toBeLocalised(),
+                                                  firstButtonTitle: "cancel".toBeLocalised(),
+                                                  secondButtonAction: {
                                                     self.signUserOut()
                                                   },
-                                                  noAction: nil)
+                                                  firstButtonAction: nil)
+
     self.rootViewController.present(alertController, animated: true, completion: nil)
   }
 
@@ -371,10 +372,11 @@ extension KNProfileHomeCoordinator: KNProfileHomeViewControllerDelegate {
   fileprivate func showAlertMaximumPriceAlertsReached() {
     let alertController = KNPrettyAlertController(title: "Alert limit exceeded".toBeLocalised(),
                                                   message: "You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one".toBeLocalised(),
-                                                  yesTitle: nil,
-                                                  noTitle: "OK".toBeLocalised(),
-                                                  yesAction: nil,
-                                                  noAction: nil)
+                                                  secondButtonTitle: nil,
+                                                  firstButtonTitle: "OK".toBeLocalised(),
+                                                  secondButtonAction: nil,
+                                                  firstButtonAction: nil)
+
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 }

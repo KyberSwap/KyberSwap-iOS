@@ -22,12 +22,13 @@ extension KNAppCoordinator: KNSessionDelegate {
   func userDidClickExitSession() {
     let alertController = KNPrettyAlertController(title: "exit".toBeLocalised(),
                                                   message: "do.you.want.to.exit.and.remove.all.wallets".toBeLocalised(),
-                                                  yesTitle: "OK".toBeLocalised(),
-                                                  noTitle: "cancel".toBeLocalised(),
-                                                  yesAction: {
+                                                  secondButtonTitle: "OK".toBeLocalised(),
+                                                  firstButtonTitle: "cancel".toBeLocalised(),
+                                                  secondButtonAction: {
                                                     self.stopAllSessions()
                                                   },
-                                                  noAction: nil)
+                                                  firstButtonAction: nil)
+
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 }

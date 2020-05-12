@@ -361,10 +361,11 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     if KNAlertStorage.shared.isMaximumAlertsReached {
       let alertController = KNPrettyAlertController(title: "Alert limit exceeded".toBeLocalised(),
                                                     message: "You already have 10 (maximum) alerts in your inbox. Please delete an existing alert to add a new one".toBeLocalised(),
-                                                    yesTitle: nil,
-                                                    noTitle: "OK".toBeLocalised(),
-                                                    yesAction: nil,
-                                                    noAction: nil)
+                                                    secondButtonTitle: nil,
+                                                    firstButtonTitle: "OK".toBeLocalised(),
+                                                    secondButtonAction: nil,
+                                                    firstButtonAction: nil)
+
       self.navigationController.present(alertController, animated: true, completion: nil)
       return
     }
@@ -386,15 +387,16 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
   fileprivate func openBuyETHAlert() {
     let alertController = KNPrettyAlertController(title: nil,
                                                   message: "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web".toBeLocalised(),
-                                                  yesTitle: "yes".toBeLocalised(),
-                                                  noTitle: "cancel".toBeLocalised(),
-                                                  yesAction: {
+                                                  secondButtonTitle: "yes".toBeLocalised(),
+                                                  firstButtonTitle: "cancel".toBeLocalised(),
+                                                  secondButtonAction: {
                                                     let ksURL = URL(string: "https://kyberswap.com/swap/knc-eth")!
                                                     if UIApplication.shared.canOpenURL(ksURL) {
                                                       UIApplication.shared.open(ksURL)
                                                     }
     },
-                                                  noAction: nil)
+                                                  firstButtonAction: nil)
+
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 }
