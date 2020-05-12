@@ -11,8 +11,8 @@ class KNPrettyAlertController: KNBaseViewController {
 
   let mainTitle: String?
   let message: String
-  let yesTitle: String?
-  let noTitle: String
+  let secondButtonTitle: String?
+  let firstButtonTitle: String
   let secondButtonAction:  (() -> Void)?
   let firstButtonAction: (() -> Void)?
   var gradientButton: UIButton!
@@ -24,8 +24,8 @@ class KNPrettyAlertController: KNBaseViewController {
        firstButtonAction: (() -> Void)?) {
     self.mainTitle = title
     self.message = message
-    self.yesTitle = secondButtonTitle
-    self.noTitle = firstButtonTitle
+    self.secondButtonTitle = secondButtonTitle
+    self.firstButtonTitle = firstButtonTitle
     self.secondButtonAction = secondButtonAction
     self.firstButtonAction = firstButtonAction
     super.init(nibName: KNPrettyAlertController.className, bundle: nil)
@@ -50,8 +50,8 @@ class KNPrettyAlertController: KNBaseViewController {
       self.containerView.addConstraint(messageTopContraint)
     }
     self.contentLabel.text = message
-    self.firstButton.setTitle(noTitle, for: .normal)
-    if let yesTxt = self.yesTitle {
+    self.firstButton.setTitle(firstButtonTitle, for: .normal)
+    if let yesTxt = self.secondButtonTitle {
       self.secondButton.setTitle(yesTxt, for: .normal)
       self.gradientButton = self.secondButton
     } else {
@@ -64,7 +64,6 @@ class KNPrettyAlertController: KNBaseViewController {
       self.gradientButton = firstButton
     }
     self.gradientButton.applyGradient()
-    self.containerView.layoutIfNeeded()
   }
 
   override func viewDidLayoutSubviews() {
