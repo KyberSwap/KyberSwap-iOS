@@ -18,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNPrettyAlertController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="containerView" destination="BsK-bO-fJV" id="CYY-wl-dsa"/>
                 <outlet property="contentLabel" destination="leR-UV-syU" id="JRb-Aw-5tg"/>
                 <outlet property="noButton" destination="wWN-4D-kOE" id="nHt-Qb-46N"/>
                 <outlet property="titleLabel" destination="c5U-te-ZY2" id="QkS-E0-iyT"/>
@@ -49,6 +50,9 @@
                             <state key="normal" title="YES">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="yesButtonTapped:" destination="-1" eventType="touchUpInside" id="7e7-i7-FhM"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wWN-4D-kOE">
                             <rect key="frame" x="36" y="168" width="121.5" height="45"/>
@@ -60,6 +64,9 @@
                             <state key="normal" title="NO">
                                 <color key="titleColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
+                            <connections>
+                                <action selector="noButtonTapped:" destination="-1" eventType="touchUpInside" id="4WD-xa-mWD"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Main title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5U-te-ZY2">
                             <rect key="frame" x="132" y="33" width="75.5" height="21.5"/>
@@ -71,7 +78,6 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstItem="leR-UV-syU" firstAttribute="leading" secondItem="BsK-bO-fJV" secondAttribute="leading" constant="21" id="1Av-z1-rAf"/>
-                        <constraint firstItem="zmr-vR-Vc9" firstAttribute="centerY" secondItem="wWN-4D-kOE" secondAttribute="centerY" id="5h0-dV-Pji"/>
                         <constraint firstItem="c5U-te-ZY2" firstAttribute="top" secondItem="BsK-bO-fJV" secondAttribute="top" constant="33" id="Hpb-KU-lEY"/>
                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="c5U-te-ZY2" secondAttribute="trailing" constant="21" id="J7i-bN-3ii"/>
                         <constraint firstItem="c5U-te-ZY2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BsK-bO-fJV" secondAttribute="leading" constant="21" id="Ky3-XV-noL"/>
@@ -79,8 +85,10 @@
                         <constraint firstItem="leR-UV-syU" firstAttribute="top" secondItem="c5U-te-ZY2" secondAttribute="bottom" constant="22" id="Vfa-c1-vmy"/>
                         <constraint firstItem="zmr-vR-Vc9" firstAttribute="width" secondItem="wWN-4D-kOE" secondAttribute="width" id="XIm-Pg-4oT"/>
                         <constraint firstAttribute="trailing" secondItem="zmr-vR-Vc9" secondAttribute="trailing" constant="36" id="YcT-CE-m83"/>
+                        <constraint firstItem="wWN-4D-kOE" firstAttribute="top" secondItem="leR-UV-syU" secondAttribute="bottom" constant="42" id="ZFX-Vr-O2O"/>
                         <constraint firstItem="zmr-vR-Vc9" firstAttribute="top" secondItem="leR-UV-syU" secondAttribute="bottom" constant="42" id="cqp-06-tcc"/>
                         <constraint firstItem="wWN-4D-kOE" firstAttribute="leading" secondItem="BsK-bO-fJV" secondAttribute="leading" constant="36" id="gq5-tv-yaf"/>
+                        <constraint firstAttribute="bottom" secondItem="wWN-4D-kOE" secondAttribute="bottom" constant="35" id="lh3-t3-MiP"/>
                         <constraint firstAttribute="bottom" secondItem="zmr-vR-Vc9" secondAttribute="bottom" constant="35" id="ogD-vX-hE5"/>
                         <constraint firstItem="zmr-vR-Vc9" firstAttribute="leading" secondItem="wWN-4D-kOE" secondAttribute="trailing" constant="24" id="q80-Lb-brb"/>
                         <constraint firstItem="c5U-te-ZY2" firstAttribute="centerX" secondItem="BsK-bO-fJV" secondAttribute="centerX" id="qtx-ZO-dQR"/>
