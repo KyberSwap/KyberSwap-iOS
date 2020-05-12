@@ -732,4 +732,4 @@
 "Sell Limit Order" = "Đặt lệnh bán";
 
 "Invalid nonce" = "Nhập KyberCode thất bại, vui lòng kiểm tra lại thời hạn code của bạn";
-"KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "Buying ETH with Fiat is only supported on KyberSwap's website at the moment. Do you want to open it?";
+"KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "Hiện tại, dịch vụ mua ETH qua thẻ chỉ được hỗ trợ trên trang web của KyberSwap. Bạn có muốn chuyển sang website không?";
