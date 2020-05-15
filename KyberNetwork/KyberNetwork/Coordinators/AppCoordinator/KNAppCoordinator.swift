@@ -173,7 +173,9 @@ extension KNAppCoordinator {
             )
           }
         )
-        self.navigationController.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+          self.navigationController.present(alert, animated: true, completion: nil)
+        }
       } else {
         KNCrashlyticsUtil.logCustomEvent(
           withName: "force_update",
@@ -195,7 +197,9 @@ extension KNAppCoordinator {
             }
           }
         )
-        self.navigationController.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+          self.navigationController.present(alert, animated: true, completion: nil)
+        }
       }
     }
     KNNotificationUtil.postNotification(for: "viewDidBecomeActive")
@@ -292,7 +296,9 @@ extension KNAppCoordinator {
       secondButtonAction: nil,
       firstButtonAction: nil
     )
-    self.navigationController.present(alertController, animated: true, completion: nil)
+    DispatchQueue.main.async {
+      self.navigationController.present(alertController, animated: true, completion: nil)
+    }
   }
 
   fileprivate func handleOpenKyberSwapPushNotification(_ notification: OSNotification, isPriceAlert: Bool = true) {
