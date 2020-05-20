@@ -58,6 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     FirebaseApp.configure()
 
+    let freschatConfig: FreshchatConfig = FreshchatConfig.init(appID: KNSecret.freshChatAppID, andAppKey: KNSecret.freshChatAppKey)
+    Freshchat.sharedInstance().initWith(freschatConfig)
+
     return true
   }
 

@@ -9,24 +9,24 @@ PODS:
   - AppAuth/ExternalUserAgent (1.3.0)
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
-  - Charts (3.4.0):
-    - Charts/Core (= 3.4.0)
-  - Charts/Core (3.4.0)
+  - Charts (3.5.0):
+    - Charts/Core (= 3.5.0)
+  - Charts/Core (3.5.0)
   - CryptoSwift (0.10.0)
   - EasyTipView (2.0.4)
   - Eureka (5.2.1)
-  - FBSDKCoreKit (6.0.0):
-    - FBSDKCoreKit/Basics (= 6.0.0)
-    - FBSDKCoreKit/Core (= 6.0.0)
-  - FBSDKCoreKit/Basics (6.0.0)
-  - FBSDKCoreKit/Core (6.0.0):
+  - FBSDKCoreKit (6.4.0):
+    - FBSDKCoreKit/Basics (= 6.4.0)
+    - FBSDKCoreKit/Core (= 6.4.0)
+  - FBSDKCoreKit/Basics (6.4.0)
+  - FBSDKCoreKit/Core (6.4.0):
     - FBSDKCoreKit/Basics
-  - FBSDKCoreKit/Swift (6.0.0):
+  - FBSDKCoreKit/Swift (6.4.0):
     - FBSDKCoreKit/Core
-  - FBSDKLoginKit/Login (6.0.0):
-    - FBSDKCoreKit (~> 6.0.0)
-  - FBSDKLoginKit/Swift (6.0.0):
-    - FBSDKCoreKit/Swift (~> 6.0.0)
+  - FBSDKLoginKit/Login (6.4.0):
+    - FBSDKCoreKit (~> 6.4.0)
+  - FBSDKLoginKit/Swift (6.4.0):
+    - FBSDKCoreKit/Swift (~> 6.4.0)
     - FBSDKLoginKit/Login
   - Firebase (6.20.0):
     - Firebase/Core (= 6.20.0)
@@ -54,18 +54,18 @@ PODS:
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Logger (~> 6.5)
-  - FirebaseCoreDiagnostics (1.2.2):
+  - FirebaseCoreDiagnostics (1.2.3):
     - FirebaseCoreDiagnosticsInterop (~> 1.2)
     - GoogleDataTransportCCTSupport (~> 2.0)
     - GoogleUtilities/Environment (~> 6.5)
     - GoogleUtilities/Logger (~> 6.5)
     - nanopb (~> 0.3.901)
   - FirebaseCoreDiagnosticsInterop (1.2.0)
-  - FirebaseInstallations (1.1.0):
+  - FirebaseInstallations (1.1.1):
     - FirebaseCore (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.5)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (4.3.2):
+  - FirebaseInstanceID (4.3.3):
     - FirebaseCore (~> 6.6)
     - FirebaseInstallations (~> 1.0)
     - GoogleUtilities/Environment (~> 6.5)
@@ -78,15 +78,16 @@ PODS:
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
+  - FreshchatSDK (3.4.0)
   - GoogleAppMeasurement (6.3.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
     - GoogleUtilities/Network (~> 6.0)
     - "GoogleUtilities/NSData+zlib (~> 6.0)"
     - nanopb (= 0.3.9011)
-  - GoogleDataTransport (5.0.0)
-  - GoogleDataTransportCCTSupport (2.0.0):
-    - GoogleDataTransport (~> 5.0)
+  - GoogleDataTransport (5.1.1)
+  - GoogleDataTransportCCTSupport (2.0.3):
+    - GoogleDataTransport (~> 5.1)
     - nanopb (~> 0.3.901)
   - GoogleSignIn (5.0.2):
     - AppAuth (~> 1.2)
@@ -125,9 +126,9 @@ PODS:
   - JSONRPCKit (3.0.0):
     - Result (~> 3.2.0)
   - KeychainSwift (13.0.0)
-  - Kingfisher (5.13.0):
-    - Kingfisher/Core (= 5.13.0)
-  - Kingfisher/Core (5.13.0)
+  - Kingfisher (5.13.4):
+    - Kingfisher/Core (= 5.13.4)
+  - Kingfisher/Core (5.13.4)
   - Lokalise (0.8.1)
   - MBProgressHUD (1.1.0)
   - Moya (10.0.2):
@@ -141,7 +142,7 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - OneSignal (2.12.6)
+  - OneSignal (2.13.1)
   - PromiseKit (6.13.1):
     - PromiseKit/CorePromise (= 6.13.1)
     - PromiseKit/Foundation (= 6.13.1)
@@ -200,6 +201,7 @@ DEPENDENCIES:
   - FirebaseAnalytics (~> 6.3)
   - FirebaseCore (~> 6.6)
   - FirebaseRemoteConfig (~> 4.4)
+  - FreshchatSDK
   - GoogleSignIn (~> 5.0.2)
   - IQKeyboardManager (~> 6.5)
   - JavaScriptKit (~> 1.0.0)
@@ -249,6 +251,7 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseRemoteConfig
+    - FreshchatSDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
@@ -297,7 +300,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   WalletConnect:
-    :commit: 91d07ea796ce81d49e5c7b9b068d52d563f986ac
+    :commit: 0d0756ecc235dbff5010e4fd43c38788b478dd54
     :git: https://github.com/trustwallet/wallet-connect-swift
 
 SPEC CHECKSUMS:
@@ -305,25 +308,26 @@ SPEC CHECKSUMS:
   APIKit: a39ff72ac44efc15513fd1b98800f63c525be61b
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
-  Charts: 74c9f256eaf0460c0c416522d1cf8c634ea6b286
+  Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
-  FBSDKCoreKit: fe738b172590e622c86735b45e20d196848b54df
-  FBSDKLoginKit: fa57df1b967fe0e147b25bede6ea4e9cdf4d64be
+  FBSDKCoreKit: 7bea330627be2601a9079413c615313746aa9f7c
+  FBSDKLoginKit: 8694d063972c7c524f9d33ba2f9d890e54fbe8ad
   Firebase: fe7f74012742ab403451dd283e6909b8f1fb348a
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 572e467f3d977825266e8ccd52674aa3e6f47eac
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseCore: ed0a24c758a57c2b88c5efa8e6a8195e868af589
-  FirebaseCoreDiagnostics: e9b4cd8ba60dee0f2d13347332e4b7898cca5b61
+  FirebaseCoreDiagnostics: 13a6564cd6d5375066bbc8940cc1753af24497f3
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
-  FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
-  FirebaseInstanceID: 7ee0d6777013bb952f377b41965bf132b6a075be
+  FirebaseInstallations: acb3216eb9784d3b1d2d2d635ff74fa892cc0c44
+  FirebaseInstanceID: 4b87a9a75ef628a53bb5de46e4d4cecfcce88c02
   FirebaseRemoteConfig: 47abf7a04a9082091955ea555aa79cfdd249b19c
+  FreshchatSDK: 03551681a92e784238677c85172e232d7f764561
   GoogleAppMeasurement: c29d405ff76e18551b5d158eaba6753fda8c7542
-  GoogleDataTransport: a857c6a002d201b524dd4bc2ed7e7355ed07e785
-  GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
+  GoogleDataTransport: 6ffa4dd0b6d547f8d27b91bd92fa9e197a3f5f1f
+  GoogleDataTransportCCTSupport: 2d7e609f8c5af1a33d7d59053e6f8cba59365df5
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
@@ -333,13 +337,13 @@ SPEC CHECKSUMS:
   JdenticonSwift: bc532f2761566eb29f26b085e5f72de25bc065ce
   JSONRPCKit: 50e0dc5e7f873e87f81562feb8836b7d1974da6d
   KeychainSwift: 23d6c16cbc33f20fafa30c3d783241b4b87d998c
-  Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
+  Kingfisher: d2279a7abece3c7f25a80cd2b7f363ca5cf3f44c
   Lokalise: d81f4ccce8cd2c1589bf73bb39fab7781d4f7cbc
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
   MSCircularSlider: 70759318a899279d7923aa0f454f3ba0fe448642
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  OneSignal: a6df91542d1cf133b9dd19d89f2b533d8f2d3163
+  OneSignal: fa98eaa90372bb367b6a4a1c1622ffb9832c7600
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
@@ -363,6 +367,6 @@ SPEC CHECKSUMS:
   TwitterKit5: de28c7a3e022f18fd644e0bd61f9fca448991faa
   WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: feae675a5027c9f4334297939f3d7a7c57f92b94
+PODFILE CHECKSUM: 5d2b6837d28573124203ab02002f2a71bb0bd84b
 
 COCOAPODS: 1.8.4

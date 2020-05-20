@@ -183,4 +183,8 @@ class KNSettingsTabViewController: KNBaseViewController {
   @IBAction func rateOurAppButtonPressed(_ sender: Any) {
     self.delegate?.settingsTabViewController(self, run: .rateOurApp)
   }
+  
+  @IBAction func liveChatButtonPressed(_ sender: UIButton) {
+    Freshchat.sharedInstance().showConversations(self)
+  }
 }
