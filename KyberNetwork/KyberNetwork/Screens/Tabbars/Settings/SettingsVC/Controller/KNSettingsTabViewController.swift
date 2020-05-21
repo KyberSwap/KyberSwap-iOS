@@ -108,9 +108,9 @@ class KNSettingsTabViewController: KNBaseViewController {
     self.versionLabel.text = "\(NSLocalizedString("version", value: "Version", comment: "")) \(version)"
     self.liveChatButton.rounded(radius: self.liveChatButton.frame.size.height / 2)
     self.liveChatButton.layer.shadowColor = UIColor.Kyber.orange.cgColor
-    self.liveChatButton.layer.shadowOpacity = 0.5
-    self.liveChatButton.layer.shadowOffset = CGSize(width: 5, height: 5)
-    self.liveChatButton.layer.shadowRadius = self.liveChatButton.frame.size.height / 2
+    self.liveChatButton.layer.shadowOpacity = 0.85
+    self.liveChatButton.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+    self.liveChatButton.layer.shadowPath = UIBezierPath(roundedRect: self.liveChatButton.bounds, cornerRadius: self.liveChatButton.frame.size.height / 2).cgPath
     self.liveChatButton.layer.masksToBounds = false
 
     self.unreadBadgeLabel.rounded(color: .white, width: 1, radius: self.unreadBadgeLabel.frame.height / 2)
