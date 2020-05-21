@@ -93,6 +93,13 @@ extension KNAppCoordinator {
       name: marketDataName,
       object: nil
     )
+
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(userRestoreIdReceived),
+      name: NSNotification.Name(rawValue: FRESHCHAT_USER_RESTORE_ID_GENERATED),
+      object: nil
+    )
   }
 
   func removeObserveNotificationFromSession() {
@@ -160,6 +167,13 @@ extension KNAppCoordinator {
     NotificationCenter.default.removeObserver(
       self,
       name: marketDataName,
+      object: nil
+    )
+
+    let liveChatName = Notification.Name(FRESHCHAT_USER_RESTORE_ID_GENERATED)
+    NotificationCenter.default.removeObserver(
+      self,
+      name: liveChatName,
       object: nil
     )
   }
@@ -391,5 +405,19 @@ extension KNAppCoordinator {
 
   @objc func marketDataDidUpdate(_ sender: Any?) {
     self.limitOrderCoordinator?.appCoordinatorMarketCachedDidUpdate()
+  }
+
+  @objc func userRestoreIdReceived() {
+    guard let restoreId = FreshchatUser.sharedInstance().restoreID, let externalID = FreshchatUser.sharedInstance().externalID  else {
+      return
+    }
+    if var saved = UserDefaults.standard.object(forKey: KNAppTracker.kSavedRestoreIDForLiveChat) as? [String: String] {
+      saved[externalID] = restoreId
+      UserDefaults.standard.set(saved, forKey: KNAppTracker.kSavedRestoreIDForLiveChat)
+    } else {
+      let dict = [externalID: restoreId]
+      UserDefaults.standard.set(dict, forKey: KNAppTracker.kSavedRestoreIDForLiveChat)
+    }
+    Freshchat.sharedInstance().identifyUser(withExternalID: externalID, restoreID: restoreId)
   }
 }

@@ -54,6 +54,8 @@ class KNAppTracker {
   static let kFirstTimePriceAlertKey: String = "kFirstTimePriceAlertKey"
   static let kHasShownTransferConsentKey: String = "kHasShownTransferConsentKey"
 
+  static let kSavedRestoreIDForLiveChat: String = "kSavedRestoreIDForLiveChat"
+
   static let userDefaults: UserDefaults = UserDefaults.standard
 
   static let minimumPriceAlertPercent: Double = -99.0

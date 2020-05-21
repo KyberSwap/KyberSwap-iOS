@@ -449,6 +449,19 @@ extension KNProfileHomeCoordinator {
       if isForceLogout { return }
     }
     self.signUserInWithData(authInfoDict: authInfoDict, userInfo: userInfo)
+    if let user = IEOUserStorage.shared.user {
+      Freshchat.sharedInstance().resetUser(completion: { () in
+      })
+      let chatUser = FreshchatUser.sharedInstance()
+      chatUser.firstName = user.name
+      Freshchat.sharedInstance().setUser(chatUser)
+      if let saved = UserDefaults.standard.object(forKey: KNAppTracker.kSavedRestoreIDForLiveChat) as? [String: String],
+        let restoreID = saved[user.userID.description] {
+        Freshchat.sharedInstance().identifyUser(withExternalID: user.userID.description, restoreID: restoreID)
+      } else {
+        Freshchat.sharedInstance().identifyUser(withExternalID: user.userID.description, restoreID: nil)
+      }
+    }
   }
 
   fileprivate func signUserInWithData(authInfoDict: JSONDictionary, userInfo: JSONDictionary) {
@@ -703,6 +716,19 @@ extension KNProfileHomeCoordinator: KNTransferConsentViewControllerDelegate {
                 // if isForceLogout -> user has not been signed in yet
                 // since user's ans is yes, allow user to login
                 self.signUserInWithData(authInfoDict: authInfo, userInfo: newUserInfo ?? userInfo)
+                if let user = IEOUserStorage.shared.user {
+                  Freshchat.sharedInstance().resetUser(completion: { () in
+                  })
+                  let chatUser = FreshchatUser.sharedInstance()
+                  chatUser.firstName = user.name
+                  Freshchat.sharedInstance().setUser(chatUser)
+                  if let saved = UserDefaults.standard.object(forKey: KNAppTracker.kSavedRestoreIDForLiveChat) as? [String: String],
+                    let restoreID = saved[user.userID.description] {
+                    Freshchat.sharedInstance().identifyUser(withExternalID: user.userID.description, restoreID: restoreID)
+                  } else {
+                    Freshchat.sharedInstance().identifyUser(withExternalID: user.userID.description, restoreID: nil)
+                  }
+                }
               }
             }
           }
