@@ -59,6 +59,7 @@
 "error" = "Error";
 "can.not.get.access.token" = "Can not get access token";
 "welcome.back.user" = "Welcome back, %@";
+"welcome.user.to.kyberswap" = "Welcome %@ to Kyberswap";
 "can.not.get.user.info" = "Can not get user info";
 "session.expired" = "Session expired";
 "your.session.has.expired.sign.in.to.continue" = "Your session has expired, please sign in again to continue";

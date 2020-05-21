@@ -59,6 +59,7 @@
 "error" = "错误";
 "can.not.get.access.token" = "无法获取访问令牌";
 "welcome.back.user" = "欢迎回来， %@";
+"welcome.user.to.kyberswap" = "Welcome %@ to Kyberswap";
 "can.not.get.user.info" = "无法获取用户信息";
 "session.expired" = "会话已过期";
 "your.session.has.expired.sign.in.to.continue" = "您的会话已过期，请重新登录";

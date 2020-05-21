@@ -59,6 +59,7 @@
 "error" = "오류";
 "can.not.get.access.token" = "액세스 토큰을 가져올 수 없습니다.";
 "welcome.back.user" = "다시 오신 것을 환영합니다. %@";
+"welcome.user.to.kyberswap" = "Welcome %@ to Kyberswap";
 "can.not.get.user.info" = "사용자 정보를 가져올 수 없습니다.";
 "session.expired" = "세션이 만료되었습니다.";
 "your.session.has.expired.sign.in.to.continue" = "세션이 만료되었습니다. 계속하려면 다시 로그인하십시오.";

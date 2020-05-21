@@ -59,6 +59,7 @@
 "error" = "Lỗi";
 "can.not.get.access.token" = "Không thể lấy mã truy cập ";
 "welcome.back.user" = "Chào mừng trở lại, %@";
+"welcome.user.to.kyberswap" = "Welcome %@ to Kyberswap";
 "can.not.get.user.info" = "Không thể lấy thông tin người dùng";
 "session.expired" = "Phiên hết hạn";
 "your.session.has.expired.sign.in.to.continue" = "Phiên của bạn đã hết hạn, vui lòng đăng nhập lại để tiếp tục";

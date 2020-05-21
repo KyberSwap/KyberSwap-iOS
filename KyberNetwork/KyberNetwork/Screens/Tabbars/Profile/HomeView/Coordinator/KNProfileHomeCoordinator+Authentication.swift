@@ -422,7 +422,7 @@ extension KNProfileHomeCoordinator {
     }
   }
 
-  fileprivate func userDidSignInWithData(_ data: JSONDictionary) {
+  fileprivate func userDidSignInWithData(_ data: JSONDictionary, isSignUp: Bool = false) {
     let cookieJar = HTTPCookieStorage.shared
     for cookie in (cookieJar.cookies ?? []) {
       cookieJar.deleteCookie(cookie)
@@ -448,7 +448,7 @@ extension KNProfileHomeCoordinator {
       )
       if isForceLogout { return }
     }
-    self.signUserInWithData(authInfoDict: authInfoDict, userInfo: userInfo)
+    self.signUserInWithData(authInfoDict: authInfoDict, userInfo: userInfo, isSignUp: isSignUp)
     if let user = IEOUserStorage.shared.user {
       Freshchat.sharedInstance().resetUser(completion: { () in
       })
@@ -464,7 +464,7 @@ extension KNProfileHomeCoordinator {
     }
   }
 
-  fileprivate func signUserInWithData(authInfoDict: JSONDictionary, userInfo: JSONDictionary) {
+  fileprivate func signUserInWithData(authInfoDict: JSONDictionary, userInfo: JSONDictionary, isSignUp: Bool = false) {
     let authToken = authInfoDict["auth_token"] as? String ?? ""
     let refreshToken = authInfoDict["refresh_token"] as? String ?? ""
     let expiredTime: Double = {
@@ -494,7 +494,7 @@ extension KNProfileHomeCoordinator {
     if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.updateOneSignalPlayerIDWithRetry() }
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["type": "signed_in_successfully"])
     let name = IEOUserStorage.shared.user?.name ?? ""
-    let text = NSLocalizedString("welcome.back.user", value: "Welcome back, %@", comment: "")
+    let text = isSignUp ? "welcome.user.to.kyberswap".toBeLocalised() : NSLocalizedString("welcome.back.user", value: "Welcome back, %@", comment: "")
     let message = String(format: text, name)
     self.navigationController.showSuccessTopBannerMessage(with: "", message: message)
     if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.resume() }
@@ -625,7 +625,7 @@ extension KNProfileHomeCoordinator: KNConfirmSignUpViewControllerDelegate {
               time: 1.5
             )
             self.navigationController.popToRootViewController(animated: true)
-            self.userDidSignInWithData(data)
+            self.userDidSignInWithData(data, isSignUp: true)
           } else {
             self.navigationController.showWarningTopBannerMessage(
               with: NSLocalizedString("failed", comment: ""),
@@ -657,7 +657,7 @@ extension KNProfileHomeCoordinator: KNConfirmSignUpViewControllerDelegate {
             time: 1.5
           )
           self.navigationController.popToRootViewController(animated: true)
-          self.userDidSignInWithData(data)
+          self.userDidSignInWithData(data, isSignUp: true)
         } else {
           self.navigationController.showWarningTopBannerMessage(
             with: NSLocalizedString("failed", comment: ""),

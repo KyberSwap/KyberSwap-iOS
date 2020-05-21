@@ -212,7 +212,7 @@ extension KNAlertTableView: UITableViewDataSource {
         run: .edit(alert: alert)
       )
     }
-    edit.backgroundColor = UIColor.Kyber.blueGreen
+    edit.backgroundColor = UIColor.Kyber.shamrock
     let delete = UITableViewRowAction(style: .destructive, title: NSLocalizedString("delete", value: "Delete", comment: "")) { (_, _) in
       self.delegate?.alertTableView(
         tableView,
