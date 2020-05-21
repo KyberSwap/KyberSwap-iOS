@@ -22,6 +22,7 @@ enum KNSettingsTabViewEvent {
   case linkedIn
   case reportBugs
   case rateOurApp
+  case liveChat
 }
 
 protocol KNSettingsTabViewControllerDelegate: class {
@@ -106,12 +107,6 @@ class KNSettingsTabViewController: KNBaseViewController {
     version += " - \(Bundle.main.buildNumber ?? "")"
     version += " - \(KNEnvironment.default.displayName)"
     self.versionLabel.text = "\(NSLocalizedString("version", value: "Version", comment: "")) \(version)"
-    self.liveChatButton.rounded(radius: self.liveChatButton.frame.size.height / 2)
-    self.liveChatButton.layer.shadowColor = UIColor.Kyber.orange.cgColor
-    self.liveChatButton.layer.shadowOpacity = 0.85
-    self.liveChatButton.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-    self.liveChatButton.layer.shadowPath = UIBezierPath(roundedRect: self.liveChatButton.bounds, cornerRadius: self.liveChatButton.frame.size.height / 2).cgPath
-    self.liveChatButton.layer.masksToBounds = false
 
     self.unreadBadgeLabel.rounded(color: .white, width: 1, radius: self.unreadBadgeLabel.frame.height / 2)
 
@@ -207,7 +202,7 @@ class KNSettingsTabViewController: KNBaseViewController {
   }
 
   @IBAction func liveChatButtonPressed(_ sender: UIButton) {
-    Freshchat.sharedInstance().showConversations(self)
+    self.delegate?.settingsTabViewController(self, run: .liveChat)
   }
 
   fileprivate func checkUnreadMessage() {

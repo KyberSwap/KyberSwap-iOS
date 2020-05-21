@@ -188,6 +188,9 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     case .rateOurApp:
       KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "rate_our_app"])
       self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
+    case .liveChat:
+      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "live_chat"])
+      Freshchat.sharedInstance().showConversations(self.navigationController)
     }
   }
 
