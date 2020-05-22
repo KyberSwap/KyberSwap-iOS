@@ -245,6 +245,20 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   func settingsViewControllerBackUpButtonPressed(wallet: KNWalletObject) {
+    let alertController = KNPrettyAlertController(
+      title: NSLocalizedString("export.at.your.own.risk", value: "Export at your own risk!", comment: ""),
+      message: "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen".toBeLocalised(),
+      secondButtonTitle: NSLocalizedString("continue", value: "Continue", comment: ""),
+      firstButtonTitle: NSLocalizedString("cancel", value: "Cancel", comment: ""),
+      secondButtonAction: {
+        self.userDidConfirmBackup(wallet: wallet)
+      }, firstButtonAction: {
+      }
+    )
+    self.navigationController.present(alertController, animated: true, completion: nil)
+  }
+
+  fileprivate func userDidConfirmBackup(wallet: KNWalletObject) {
     guard let wallet = self.session.keystore.wallets.first(where: { $0.address.description.lowercased() == wallet.address.lowercased() }) else { return }
     self.navigationController.displayLoading()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
@@ -276,13 +290,6 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
           }
         ))
       }
-      alertController.addAction(UIAlertAction(
-        title: NSLocalizedString("copy.address", value: "Copy Address", comment: ""),
-        style: .default,
-        handler: { _ in
-          self.copyAddress(wallet: wallet)
-        }
-      ))
       alertController.addAction(UIAlertAction(
         title: NSLocalizedString("cancel", value: "Cancel", comment: ""),
         style: .cancel,
