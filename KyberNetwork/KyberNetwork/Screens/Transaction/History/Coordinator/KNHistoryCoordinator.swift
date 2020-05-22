@@ -371,7 +371,6 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
       guard let `self` = self else { return }
       switch sendResult {
       case .success(let txHash):
-        self.sendUserTxHashIfNeeded(txHash)
         let tx: Transaction = transaction.toTransaction(
           wallet: self.session.wallet,
           hash: txHash,
