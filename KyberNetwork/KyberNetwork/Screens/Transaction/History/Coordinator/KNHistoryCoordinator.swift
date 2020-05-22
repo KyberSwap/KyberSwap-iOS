@@ -4,6 +4,7 @@ import UIKit
 import SafariServices
 import BigInt
 import TrustCore
+import Moya
 
 protocol KNHistoryCoordinatorDelegate: class {
   func historyCoordinatorDidClose()
@@ -238,6 +239,31 @@ class KNHistoryCoordinator: Coordinator {
     self.transactionStatusVC?.delegate = self
     self.navigationController.present(self.transactionStatusVC!, animated: true, completion: nil)
   }
+
+  fileprivate func sendUserTxHashIfNeeded(_ txHash: String) {
+    guard let accessToken = IEOUserStorage.shared.user?.accessToken else { return }
+    let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
+    provider.request(.sendTxHash(authToken: accessToken, txHash: txHash)) { result in
+      switch result {
+      case .success(let resp):
+        do {
+          _ = try resp.filterSuccessfulStatusCodes()
+          let json = try resp.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+          let success = json["success"] as? Bool ?? false
+          let message = json["message"] as? String ?? "Unknown"
+          if success {
+            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": true])
+          } else {
+            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": message])
+          }
+        } catch {
+          KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
+        }
+      case .failure:
+        KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
+      }
+    }
+  }
 }
 
 extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
@@ -345,6 +371,7 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
       guard let `self` = self else { return }
       switch sendResult {
       case .success(let txHash):
+        self.sendUserTxHashIfNeeded(txHash)
         let tx: Transaction = transaction.toTransaction(
           wallet: self.session.wallet,
           hash: txHash,
@@ -388,6 +415,7 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
           gasLimit: gasLimit) { sendResult in
           switch sendResult {
           case .success(let txHash):
+            self.sendUserTxHashIfNeeded(txHash)
             let tx = transaction.convertToSpeedUpTransaction(newHash: txHash, newGasPrice: newPrice.displayRate(decimals: 0).removeGroupSeparator())
             self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, state: .speedingUp, completion: {
               self.openTransactionStatusPopUp(transaction: tx)
