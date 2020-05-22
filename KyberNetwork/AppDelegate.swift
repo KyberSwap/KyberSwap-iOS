@@ -59,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     FirebaseApp.configure()
 
     let freschatConfig: FreshchatConfig = FreshchatConfig.init(appID: KNSecret.freshChatAppID, andAppKey: KNSecret.freshChatAppKey)
+    freschatConfig.themeName = "CustomFCTheme.plist"
     Freshchat.sharedInstance().initWith(freschatConfig)
     if let user = IEOUserStorage.shared.user {
       let chatUser = FreshchatUser.sharedInstance()
