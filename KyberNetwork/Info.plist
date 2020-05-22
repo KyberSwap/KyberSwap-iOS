@@ -163,6 +163,14 @@
 	<string>QR Scan</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Access your wallet</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Access location to improve our service</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Access location to improve our service</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Access location to improve our service</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Access location to improve our service</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Sending QR Code to your contacts</string>
 	<key>NSPhotoLibraryUsageDescription</key>
