@@ -207,12 +207,13 @@ class KNSettingsTabViewController: KNBaseViewController {
 
   fileprivate func checkUnreadMessage() {
     Freshchat.sharedInstance().unreadCount { (num: Int) -> Void in
-      print("Unread count (Async) :\(num)")
       if num > 0 {
         self.unreadBadgeLabel.isHidden = false
         self.unreadBadgeLabel.text = num.description
+        self.navigationController?.tabBarItem.badgeValue = num.description
       } else {
         self.unreadBadgeLabel.isHidden = true
+        self.navigationController?.tabBarItem.badgeValue = nil
       }
     }
   }
