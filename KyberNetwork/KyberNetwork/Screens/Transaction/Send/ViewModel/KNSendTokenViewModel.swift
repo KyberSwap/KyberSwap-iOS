@@ -160,8 +160,13 @@ class KNSendTokenViewModel: NSObject {
     return self.address != nil
   }
 
+  var ethFeeBigInt: BigInt {
+    let fee = self.gasPrice * self.gasLimit
+    return fee
+  }
+
   var isHavingEnoughETHForFee: Bool {
-    var fee = self.gasPrice * self.gasLimit
+    var fee = self.ethFeeBigInt
     if self.from.isETH { fee += self.amountBigInt }
     let eth = KNSupportedTokenStorage.shared.ethToken
     let ethBal = self.balances[eth.contract]?.value ?? BigInt(0)

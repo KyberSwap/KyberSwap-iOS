@@ -503,7 +503,7 @@
 "Removed from your favorites" = "Removed from your favorites";
 "Swap Now" = "Swap Now";
 "Transfer Now" = "Transfer Now";
-"Deposit more ETH or click Advanced to lower GAS fee" = "Deposit more ETH or click Advanced to lower GAS fee";
+"Deposit more ETH or click Advanced to lower GAS fee" = "Deposit more ETH or click Advanced to lower GAS fee. Transaction fee: %@ ETH";
 "Insufficient ETH for transaction" = "Insufficient ETH for transaction";
 "This password is needed to unlock your JSON file. Please remember it carefully." = "This password is needed to unlock your JSON file. Please remember it carefully.";
 

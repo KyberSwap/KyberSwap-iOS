@@ -363,9 +363,10 @@ class KSendTokenViewController: KNBaseViewController {
     if !isConfirming && self.isViewDisappeared { return false }
     if isConfirming {
       guard self.viewModel.isHavingEnoughETHForFee else {
+        let fee = self.viewModel.ethFeeBigInt
         self.showWarningTopBannerMessage(
           with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
-          message: NSLocalizedString("Deposit more ETH or click Advanced to lower GAS fee", value: "Deposit more ETH or click Advanced to lower GAS fee", comment: "")
+          message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.fullString(units: .ether))
         )
         return true
       }

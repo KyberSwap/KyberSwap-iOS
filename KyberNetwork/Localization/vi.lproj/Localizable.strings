@@ -508,7 +508,7 @@
 "This creates a new Ethereum wallet for you to receive and send tokens" = "Một ví Ethereum mới sẽ được tạo ra để bạn có thể nhận và chuyển tokens";
 "Swap Now" = "Trao đổi";
 "Transfer Now" = "Chuyển";
-"Deposit more ETH or click Advanced to lower GAS fee" = "Chuyển thêm ETH vào ví khoặc mở Nâng cao để giảm phí GAS";
+"Deposit more ETH or click Advanced to lower GAS fee" = "Chuyển thêm ETH vào ví khoặc mở Nâng cao để giảm phí GAS. Transaction fee: %xxx ETH";
 "Insufficient ETH for transaction" = "Không đủ ETH cho giao dịch";
 "This password is needed to unlock your JSON file. Please remember it carefully." = "Mật khẩu này là cần thiết để mở khóa tệp JSON. Hãy ghi nhớ nó một cách cẩn thận.";
 
