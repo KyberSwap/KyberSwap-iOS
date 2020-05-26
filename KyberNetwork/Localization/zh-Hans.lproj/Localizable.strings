@@ -506,7 +506,7 @@
 "This creates a new Ethereum wallet for you to receive and send tokens" = "这会创建一个新的以太坊钱包，讓您接收和发送代幣。";
 "Swap Now" = "现在兑换";
 "Transfer Now" = "现在转账";
-"Deposit more ETH or click Advanced to lower GAS fee" = "存入更多ETH或点击高级选项以降低GAS费用. Transaction fee: %xxx ETH";
+"Deposit more ETH or click Advanced to lower GAS fee" = "存入更多的ETH或点击高级选项以降低燃料费用。交易费用：%@ ETH";
 "Insufficient ETH for transaction" = "没有足够的ETH交易";
 "Get Started" = "Get Started";
 "This password is needed to unlock your JSON file. Please remember it carefully." = "This password is needed to unlock your JSON file. Please remember it carefully.";

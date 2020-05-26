@@ -509,7 +509,7 @@
 "This creates a new Ethereum wallet for you to receive and send tokens" = "토큰을 받고 전송하기 위한 새로운 이더리움 지갑이 생성됩니다.";
 "Swap Now" = "지금 환전하기";
 "Transfer Now" = "지금 환전하기";
-"Deposit more ETH or click Advanced to lower GAS fee" = "ETH를 더 입금하거나 Advanced를 클릭하여 가스비를 낮추세요. Transaction fee: %xxx ETH";
+"Deposit more ETH or click Advanced to lower GAS fee" = "ETH를 더 입금하거나 고급옵션(Advanced)을 클릭하여 이더를 가스비를 낮추세요. 거래 수수료:%@ETH";
 "Insufficient ETH for transaction" = "거래에 필요한 ETH가 부족합니다";
 
 
