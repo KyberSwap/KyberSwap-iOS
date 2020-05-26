@@ -192,16 +192,17 @@ class KNBackUpWalletViewController: KNBaseViewController {
 
   @IBAction func skipButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "skip_button"])
-    let alert = UIAlertController(
-      title: "\(NSLocalizedString("skip", value: "Skip", comment: ""))?",
-      message: NSLocalizedString("you.can.backup.your.wallet.later", value: "You can backup your wallet later", comment: ""),
-      preferredStyle: .alert
-    )
-    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cacnel", comment: ""), style: .cancel, handler: nil))
-    alert.addAction(UIAlertAction(title: NSLocalizedString("continue", value: "Continue", comment: ""), style: .default, handler: { _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "skip_button_continue"])
-      self.delegate?.backupWalletViewControllerDidConfirmSkipWallet()
-    }))
+    let alert = KNPrettyAlertController(
+      title: "skip".toBeLocalised(),
+      message: "You may not be able to access your wallet if you don’t have backup phrases".toBeLocalised(),
+      secondButtonTitle: "continue".toBeLocalised(),
+      secondButtonAction: {
+        KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "skip_button_continue"])
+        DispatchQueue.main.async {
+          self.delegate?.backupWalletViewControllerDidConfirmSkipWallet()
+        }
+      },
+      firstButtonAction: nil)
     self.present(alert, animated: true, completion: nil)
   }
 }
