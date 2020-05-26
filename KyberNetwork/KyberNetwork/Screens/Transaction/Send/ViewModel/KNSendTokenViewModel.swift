@@ -161,8 +161,7 @@ class KNSendTokenViewModel: NSObject {
   }
 
   var ethFeeBigInt: BigInt {
-    let fee = self.gasPrice * self.gasLimit
-    return fee
+    return self.gasPrice * self.gasLimit
   }
 
   var isHavingEnoughETHForFee: Bool {
