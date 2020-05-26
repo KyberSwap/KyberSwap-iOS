@@ -735,3 +735,5 @@
 "Invalid nonce" = "Nhập KyberCode thất bại, vui lòng kiểm tra lại thời hạn code của bạn";
 "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "Hiện tại, dịch vụ mua ETH qua thẻ chỉ được hỗ trợ trên trang web của KyberSwap. Bạn có muốn chuyển sang website không?";
 "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️KHÔNG chia sẻ Keystore/Private Key/Mnemonic cho bất kỳ ai (kể cả đội ngũ KyberSwap). Những thông tin này có thể giúp kẻ gian tiếp cận và đánh cắp tài sản trong ví của bạn";
+
+"You may not be able to access your wallet if you don’t have backup phrases" = "Bạn sẽ không thể phục hồi ví của bạn nếu bạn không sao lưu";

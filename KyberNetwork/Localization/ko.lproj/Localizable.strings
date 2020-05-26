@@ -735,3 +735,5 @@
 "Invalid nonce" = "카이버 코드 불러오기에 실패했습니다. 시간대 설정을 다시 확인해주세요.";
 "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "법정화폐를 사용한 ETH구매하기는 현재 카이버스왑 웹사이트에서만 가능합니다. 웹사이트로 이동하시겠습니까?";
 "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️Keystore / Private Key / Mnemonic 을 다른 사람 (KyberSwap 포함)과 공유하지 마십시오. 이 데이터는 모든 자금에 대한 액세스 권한을 부여하며 도난 당할 수 있습니다";
+
+"You may not be able to access your wallet if you don’t have backup phrases" = "백업용 단어들을 모르는 경우, 지갑에 접근하지 못 할 수 있습니다";

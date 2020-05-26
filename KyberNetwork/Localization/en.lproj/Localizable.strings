@@ -733,3 +733,5 @@
 "Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";
 "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "Buying ETH with Fiat is only supported on KyberSwap's website at the moment. Do you want to open it?";
 "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen";
+
+"You may not be able to access your wallet if you don’t have backup phrases" = "You may not be able to access your wallet if you don’t have backup phrases";
