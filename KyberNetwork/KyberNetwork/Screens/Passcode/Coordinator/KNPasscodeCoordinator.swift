@@ -57,6 +57,10 @@ class KNPasscodeCoordinator: NSObject, Coordinator {
       } else {
         self.navigationController.pushViewController(self.passcodeViewController, animated: true)
       }
+    } else if case .verify = self.type {
+      DispatchQueue.main.async {
+        self.navigationController.present(self.passcodeViewController, animated: true, completion: nil)
+      }
     }
   }
 
@@ -75,6 +79,8 @@ class KNPasscodeCoordinator: NSObject, Coordinator {
         } else {
           self.navigationController.popViewController(animated: true, completion: completion)
         }
+      } else if case .verify = self.type {
+        self.navigationController.dismiss(animated: true, completion: completion)
       }
     }
   }

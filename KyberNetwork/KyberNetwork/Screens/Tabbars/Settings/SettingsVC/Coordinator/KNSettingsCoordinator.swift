@@ -17,6 +17,7 @@ class KNSettingsCoordinator: NSObject, Coordinator {
   let navigationController: UINavigationController
   private(set) var session: KNSession
   fileprivate(set) var balances: [String: Balance] = [:]
+  var selectedWallet: KNWalletObject?
 
   weak var delegate: KNSettingsCoordinatorDelegate?
 
@@ -254,14 +255,15 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       secondButtonTitle: NSLocalizedString("continue", value: "Continue", comment: ""),
       firstButtonTitle: NSLocalizedString("cancel", value: "Cancel", comment: ""),
       secondButtonAction: {
-        self.userDidConfirmBackup(wallet: wallet)
+        self.selectedWallet = wallet
+        self.showAuthPasscode()
       }, firstButtonAction: {
       }
     )
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 
-  fileprivate func userDidConfirmBackup(wallet: KNWalletObject) {
+  fileprivate func showActionSheetBackupPhrase(wallet: KNWalletObject) {
     guard let wallet = self.session.keystore.wallets.first(where: { $0.address.description.lowercased() == wallet.address.lowercased() }) else { return }
     self.navigationController.displayLoading()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
@@ -301,6 +303,12 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.navigationController.hideLoading()
       self.navigationController.topViewController?.present(alertController, animated: true, completion: nil)
     }
+  }
+
+  fileprivate func showAuthPasscode() {
+    self.passcodeCoordinator = KNPasscodeCoordinator(navigationController: self.navigationController, type: .verify)
+    self.passcodeCoordinator.delegate = self
+    self.passcodeCoordinator.start()
   }
 
   fileprivate func backupKeystore(wallet: Wallet) {
@@ -476,18 +484,28 @@ extension KNSettingsCoordinator: KNPasscodeCoordinatorDelegate {
   }
 
   func passcodeCoordinatorDidEvaluatePIN() {
-    self.passcodeCoordinator.stop {
-      self.passcodeCoordinator = KNPasscodeCoordinator(
-        navigationController: self.navigationController,
-        type: .setPasscode(cancellable: true)
-      )
-      self.passcodeCoordinator.delegate = self
-      self.passcodeCoordinator.start()
+    if case .verify = self.passcodeCoordinator.type {
+      self.passcodeCoordinator.stop {
+        guard let wallet = self.selectedWallet else { return }
+        self.showActionSheetBackupPhrase(wallet: wallet)
+        self.selectedWallet = nil
+      }
+    } else {
+      self.passcodeCoordinator.stop {
+        self.passcodeCoordinator = KNPasscodeCoordinator(
+          navigationController: self.navigationController,
+          type: .setPasscode(cancellable: true)
+        )
+        self.passcodeCoordinator.delegate = self
+        self.passcodeCoordinator.start()
+      }
     }
   }
 
   func passcodeCoordinatorDidCancel() {
-    self.passcodeCoordinator.stop {}
+    self.passcodeCoordinator.stop {
+      self.selectedWallet = nil
+    }
   }
 }
 
