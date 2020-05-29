@@ -299,7 +299,7 @@ class KNCreateLimitOrderV2ViewModel {
     if isBuy {
       // reverse of sell
       if self.targetPrice.doubleValue == 0.0 { return BigInt(0) }
-      return BigInt(pow(10.0, Double(self.from.decimals)) / self.targetPrice.doubleValue)
+      return BigInt(pow(10.0, Double(self.to.decimals)) / self.targetPrice.doubleValue)
     }
 
     return self.targetPrice.removeGroupSeparator().amountBigInt(decimals: self.to.decimals) ?? BigInt(0)
