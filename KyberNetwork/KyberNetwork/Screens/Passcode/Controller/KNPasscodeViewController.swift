@@ -94,7 +94,6 @@ class KNPasscodeViewController: KNBaseViewController {
     self.errorLabel.addLetterSpacing()
     self.passcodeViews.forEach({ $0.backgroundColor = $0.tag < self.currentPasscode.count ? UIColor.Kyber.enygold : UIColor.Kyber.passcodeInactive })
     self.actionButton.setTitle(self.actionButtonTitle, for: .normal)
-    self.actionButton.addTextSpacing()
     self.view.layoutIfNeeded()
   }
 
