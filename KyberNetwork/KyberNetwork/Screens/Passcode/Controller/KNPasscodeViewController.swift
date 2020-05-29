@@ -277,7 +277,7 @@ extension KNPasscodeViewController {
       if cancellable || self.firstPasscode != nil { return NSLocalizedString("cancel", value: "Cancel", comment: "") }
     }
     if case .authenticate(let isUpdating) = self.viewType, isUpdating { return NSLocalizedString("cancel", value: "Cancel", comment: "") }
-    if case .verify = self.viewType { return "cancel".toBeLocalised() }
+    if case .verify = self.viewType { return NSLocalizedString("cancel", value: "Cancel", comment: "") }
     return ""
   }
 
