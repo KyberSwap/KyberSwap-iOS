@@ -81,7 +81,7 @@ class KNSignUpViewController: KNBaseViewController {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.navTitleLabel.text = NSLocalizedString("sign.up", value: "Sign Up", comment: "")
 
-    self.socialContainerView.rounded(radius: self.socialContainerView.frame.height / 2.0)
+    self.socialContainerView.rounded()
 
     self.orTextLabel.text = "Or sign up with".toBeLocalised()
     self.confirmEmailTextLabel.text = "A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.".toBeLocalised()

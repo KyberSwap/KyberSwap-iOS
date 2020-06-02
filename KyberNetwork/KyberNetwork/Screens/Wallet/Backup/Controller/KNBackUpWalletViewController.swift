@@ -135,6 +135,7 @@ class KNBackUpWalletViewController: KNBaseViewController {
 
         self.completeButton.isHidden = self.viewModel.isCompleteButtonHidden
         self.completeButton.isEnabled = self.isCompleteButtonEnabled
+        self.skipWalletButton.isHidden = self.viewModel.isCompleteButtonHidden
         if self.isCompleteButtonEnabled {
           self.completeButton.applyGradient()
         }
