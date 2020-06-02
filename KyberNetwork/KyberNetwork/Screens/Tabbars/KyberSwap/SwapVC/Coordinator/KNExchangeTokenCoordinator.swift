@@ -650,11 +650,16 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         guard let `self` = self else { return }
         if case .success(let resp) = result,
           let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
-          json["error"] as? Bool == false,
-          let timestamp = json["timestamp"] as? NSNumber,
-          Date().timeIntervalSince1970 - timestamp.doubleValue <= 60.0,
+          (json["error"] as? Bool ?? false) == false,
           let rate = json["expectedRate"] as? String,
           let rateBigInt = rate.fullBigInt(decimals: 0) {
+          if let timestamp = json["timestamp"] as? NSNumber, Date().timeIntervalSince1970 - timestamp.doubleValue > 60.0 {
+            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["get_expected_rate_from_node": true])
+            DispatchQueue.main.async {
+              self.updateEstimatedRate(from: from, to: to, amount: amount, showError: showError)
+            }
+            return
+          }
           let estRate = rateBigInt / BigInt(10).power(18 - to.decimals)
           DispatchQueue.main.async {
             self.rootViewController.coordinatorDidUpdateEstimateRate(
