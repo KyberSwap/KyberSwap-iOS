@@ -98,8 +98,13 @@ class KNPasscodeViewController: KNBaseViewController {
   }
 
   func showBioAuthenticationIfNeeded() {
-    guard case .verify = self.viewType else { return }
-    guard case .authenticate(let isUpdating) = self.viewType, !isUpdating else { return }
+    var isVerify = false
+    var isAuth = false
+    if case .verify = self.viewType { isVerify = true }
+    if case .authenticate(let isUpdating) = self.viewType, !isUpdating { isAuth = true }
+    guard !isVerify || !isAuth else {
+      return
+    }
     if KNPasscodeUtil.shared.timeToAllowNewAttempt() > 0 {
       self.runTimerIfNeeded()
       return
