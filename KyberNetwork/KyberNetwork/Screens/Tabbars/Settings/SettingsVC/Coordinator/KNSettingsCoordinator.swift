@@ -307,7 +307,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func showAuthPasscode() {
-    self.passcodeCoordinator = KNPasscodeCoordinator(navigationController: self.navigationController, type: .verify)
+    self.passcodeCoordinator = KNPasscodeCoordinator(navigationController: self.navigationController, type: .verifyPasscode)
     self.passcodeCoordinator.delegate = self
     self.passcodeCoordinator.start()
   }
@@ -485,7 +485,7 @@ extension KNSettingsCoordinator: KNPasscodeCoordinatorDelegate {
   }
 
   func passcodeCoordinatorDidEvaluatePIN() {
-    if case .verify = self.passcodeCoordinator.type {
+    if case .verifyPasscode = self.passcodeCoordinator.type {
       self.passcodeCoordinator.stop {
         guard let wallet = self.selectedWallet else { return }
         self.showActionSheetBackupPhrase(wallet: wallet)

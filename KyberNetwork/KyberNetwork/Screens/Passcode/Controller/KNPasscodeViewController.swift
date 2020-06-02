@@ -19,7 +19,7 @@ enum KNPasscodeViewType {
   case setPasscode(cancellable: Bool)
   // view to authenticate
   case authenticate(isUpdating: Bool)
-  case verify
+  case verifyPasscode
 }
 
 class KNPasscodeViewController: KNBaseViewController {
@@ -63,7 +63,7 @@ class KNPasscodeViewController: KNBaseViewController {
     if case .authenticate = self.viewType {
       self.runTimerIfNeeded()
     }
-    if case .verify = self.viewType {
+    if case .verifyPasscode = self.viewType {
       self.runTimerIfNeeded()
     }
   }
@@ -98,13 +98,8 @@ class KNPasscodeViewController: KNBaseViewController {
   }
 
   func showBioAuthenticationIfNeeded() {
-    var isVerify = false
-    var isAuth = false
-    if case .verify = self.viewType { isVerify = true }
-    if case .authenticate(let isUpdating) = self.viewType, !isUpdating { isAuth = true }
-    guard !isVerify || !isAuth else {
-      return
-    }
+    if case .verifyPasscode = self.viewType { return }
+    guard case .authenticate(let isUpdating) = self.viewType, !isUpdating else { return }
     if KNPasscodeUtil.shared.timeToAllowNewAttempt() > 0 {
       self.runTimerIfNeeded()
       return
@@ -176,7 +171,7 @@ class KNPasscodeViewController: KNBaseViewController {
   @IBAction func digitButtonPressed(_ sender: UIButton) {
     if KNPasscodeUtil.shared.numberAttemptsLeft() == 0 {
       if case .authenticate = self.viewType { return }
-      if case .verify = self.viewType { return }
+      if case .verifyPasscode = self.viewType { return }
     }
     self.currentPasscode = "\(self.currentPasscode)\(sender.tag)"
     if self.currentPasscode.count == 6 {
@@ -200,7 +195,7 @@ class KNPasscodeViewController: KNBaseViewController {
         }
       } else if case .authenticate(let isUpdating) = self.viewType, isUpdating {
         self.delegate?.passcodeViewController(self, run: .cancel)
-      } else if case .verify = self.viewType {
+      } else if case .verifyPasscode = self.viewType {
         self.delegate?.passcodeViewController(self, run: .cancel)
       }
     }
@@ -209,7 +204,7 @@ class KNPasscodeViewController: KNBaseViewController {
   fileprivate func userDidEnterPasscode() {
     if case .authenticate = self.viewType {
       self.delegate?.passcodeViewController(self, run: .enterPasscode(passcode: self.currentPasscode))
-    } else if case .verify = self.viewType {
+    } else if case .verifyPasscode = self.viewType {
       self.delegate?.passcodeViewController(self, run: .enterPasscode(passcode: self.currentPasscode))
     } else {
       guard let firstPass = self.firstPasscode else {
@@ -242,7 +237,7 @@ extension KNPasscodeViewController {
         return NSLocalizedString("repeat.pin", value: "Repeat PIN", comment: "")
       }
       return NSLocalizedString("set.a.new.pin", value: "Set a new PIN", comment: "")
-    case .verify:
+    case .verifyPasscode:
       return "verify.your.access".toBeLocalised()
     }
 
@@ -282,7 +277,7 @@ extension KNPasscodeViewController {
       if cancellable || self.firstPasscode != nil { return NSLocalizedString("cancel", value: "Cancel", comment: "") }
     }
     if case .authenticate(let isUpdating) = self.viewType, isUpdating { return NSLocalizedString("cancel", value: "Cancel", comment: "") }
-    if case .verify = self.viewType { return NSLocalizedString("cancel", value: "Cancel", comment: "") }
+    if case .verifyPasscode = self.viewType { return NSLocalizedString("cancel", value: "Cancel", comment: "") }
     return ""
   }
 
