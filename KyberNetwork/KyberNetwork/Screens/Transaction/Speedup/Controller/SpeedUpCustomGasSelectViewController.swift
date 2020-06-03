@@ -37,7 +37,7 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
   @IBOutlet weak var regularEstimateFeeLabel: UILabel!
   @IBOutlet weak var slowEstimateFeeLabel: UILabel!
   @IBOutlet weak var estimateFeeNoteLabel: UILabel!
-  
+
   fileprivate let viewModel: SpeedUpCustomGasSelectViewModel
   weak var delegate: SpeedUpCustomGasSelectDelegate?
 
@@ -96,6 +96,7 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     self.fastEstimateFeeLabel.text = self.viewModel.estimateFeeFastString
     self.regularEstimateFeeLabel.text = self.viewModel.estimateRegularFeeString
     self.slowEstimateFeeLabel.text = self.viewModel.estimateSlowFeeString
+    self.estimateFeeNoteLabel.text = "Select higher gas price to accelerate your transaction processing time".toBeLocalised()
   }
 
   func updateGasPriceUIs() {

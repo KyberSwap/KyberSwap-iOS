@@ -260,7 +260,7 @@ class KAdvancedSettingsView: XibLoaderView {
   @IBOutlet weak var regularEstimateFeeLabel: UILabel!
   @IBOutlet weak var slowEstimateFeeLabel: UILabel!
   @IBOutlet weak var estimateFeeNoteLabel: UILabel!
-
+  
   fileprivate var isPromo: Bool = false
   fileprivate(set) var viewModel: KAdvancedSettingsViewModel!
   weak var delegate: KAdvancedSettingsViewDelegate?
@@ -284,6 +284,7 @@ class KAdvancedSettingsView: XibLoaderView {
       NSLocalizedString("advanced.optional", value: "Advanced (optional)", comment: ""),
       for: .normal
     )
+    self.estimateFeeNoteLabel.text = "Select higher gas price to accelerate your transaction processing time".toBeLocalised()
     self.gasFeeGweiTextLabel.text = NSLocalizedString("gas.fee.gwei", value: "GAS fee (Gwei)", comment: "")
     self.customRateTextField.delegate = self
     self.advancedContainerView.rounded(radius: 5.0)

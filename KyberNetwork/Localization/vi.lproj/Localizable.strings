@@ -737,3 +737,5 @@
 "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️KHÔNG chia sẻ Keystore/Private Key/Mnemonic cho bất kỳ ai (kể cả đội ngũ KyberSwap). Những thông tin này có thể giúp kẻ gian tiếp cận và đánh cắp tài sản trong ví của bạn";
 
 "You may not be able to access your wallet if you don’t have backup phrases" = "Bạn sẽ không thể phục hồi ví của bạn nếu bạn không sao lưu";
+
+"Select higher gas price to accelerate your transaction processing time" = "Chọn giá gas cao hơn để tăng tốc độ giao dịch";

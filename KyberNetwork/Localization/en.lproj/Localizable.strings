@@ -735,3 +735,5 @@
 "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen";
 
 "You may not be able to access your wallet if you don’t have backup phrases" = "You may not be able to access your wallet if you don’t have backup phrases";
+
+"Select higher gas price to accelerate your transaction processing time" = "Select higher gas price to accelerate your transaction processing time";
