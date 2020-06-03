@@ -195,6 +195,7 @@ class KSendTokenViewController: KNBaseViewController {
     self.advancedSettingsView.updateViewModel(viewModel)
     self.heightConstraintAdvancedSettingsView.constant = self.advancedSettingsView.height
     self.advancedSettingsView.delegate = self
+    self.advancedSettingsView.updateGasLimit(self.viewModel.gasLimit)
     self.view.setNeedsUpdateConstraints()
     self.view.updateConstraints()
   }
@@ -237,6 +238,7 @@ class KSendTokenViewController: KNBaseViewController {
       slow: KNGasCoordinator.shared.lowKNGas,
       superFast: KNGasCoordinator.shared.superFastKNGas
     )
+    self.advancedSettingsView.updateGasLimit(self.viewModel.gasLimit)
     self.view.layoutIfNeeded()
   }
 

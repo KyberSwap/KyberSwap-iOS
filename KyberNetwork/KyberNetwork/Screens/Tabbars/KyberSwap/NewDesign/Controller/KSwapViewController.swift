@@ -253,6 +253,7 @@ class KSwapViewController: KNBaseViewController {
     self.advancedSettingsView.updateViewModel(viewModel)
     self.heightConstraintForAdvacedSettingsView.constant = self.advancedSettingsView.height
     self.advancedSettingsView.delegate = self
+    self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
     self.view.setNeedsUpdateConstraints()
     self.view.updateConstraints()
   }
@@ -894,6 +895,7 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasLimit
     )
+    self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
   }
 
   /*
@@ -906,6 +908,7 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasLimit
     )
+    self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
   }
   /*
    Update selected token
@@ -1164,7 +1167,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
           if self.advancedSettingsView.isExpanded {
             let offSetY: CGFloat = {
               if self.viewModel.isSwapSuggestionShown {
-                return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 160.0
+                return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 210.0
               }
               return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height
             }()
