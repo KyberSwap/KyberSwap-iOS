@@ -30,6 +30,7 @@
                 <outlet property="customRateTextField" destination="MEN-YX-m2w" id="kM4-Vc-VlI"/>
                 <outlet property="customTextLabel" destination="qb1-dP-hFg" id="gaq-Ih-xtc"/>
                 <outlet property="displayViewButton" destination="kC4-al-Lim" id="eNx-qY-2k3"/>
+                <outlet property="estimateFeeNoteLabel" destination="VoF-hh-hL0" id="hER-K4-lwe"/>
                 <outlet property="fasGasButton" destination="fkj-Ra-RNo" id="szT-ss-F40"/>
                 <outlet property="fasGasValueLabel" destination="6C2-5M-WJZ" id="XmJ-c9-mUp"/>
                 <outlet property="fastEstimateFeeLabel" destination="u3V-BL-tUz" id="TSS-aI-IE7"/>

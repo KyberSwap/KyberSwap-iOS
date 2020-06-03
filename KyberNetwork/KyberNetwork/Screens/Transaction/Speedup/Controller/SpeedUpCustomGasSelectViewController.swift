@@ -32,6 +32,12 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
   @IBOutlet weak var currentFeeTitleLabel: UILabel!
   @IBOutlet weak var newFeeTitleLabel: UILabel!
   @IBOutlet weak var gasPriceWarningMessageLabel: UILabel!
+  @IBOutlet weak var superFastEstimateFeeLabel: UILabel!
+  @IBOutlet weak var fastEstimateFeeLabel: UILabel!
+  @IBOutlet weak var regularEstimateFeeLabel: UILabel!
+  @IBOutlet weak var slowEstimateFeeLabel: UILabel!
+  @IBOutlet weak var estimateFeeNoteLabel: UILabel!
+  
   fileprivate let viewModel: SpeedUpCustomGasSelectViewModel
   weak var delegate: SpeedUpCustomGasSelectDelegate?
 
@@ -86,6 +92,10 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     let radius = style.buttonRadius()
     self.doneButton.rounded(radius: radius)
     self.doneButton.applyGradient()
+    self.superFastEstimateFeeLabel.text = self.viewModel.estimateFeeSuperFastString
+    self.fastEstimateFeeLabel.text = self.viewModel.estimateFeeFastString
+    self.regularEstimateFeeLabel.text = self.viewModel.estimateRegularFeeString
+    self.slowEstimateFeeLabel.text = self.viewModel.estimateSlowFeeString
   }
 
   func updateGasPriceUIs() {

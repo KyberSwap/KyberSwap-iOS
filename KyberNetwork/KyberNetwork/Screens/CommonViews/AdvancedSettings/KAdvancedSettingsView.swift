@@ -217,7 +217,7 @@ class KAdvancedSettingsViewModel: NSObject {
   var totalHeight: CGFloat {
     return 64.0 + self.advancedSettingsHeight
   }
-  
+
   func updateGasLimit(value: BigInt) {
     self.gasLimit = value
   }
@@ -255,12 +255,12 @@ class KAdvancedSettingsView: XibLoaderView {
   @IBOutlet weak var customRateTextField: UITextField!
   @IBOutlet weak var stillProceedIfRateGoesDownTextLabel: UILabel!
   @IBOutlet weak var transactionWillBeRevertedTextLabel: UILabel!
-  
   @IBOutlet weak var superFastEstimateFeeLabel: UILabel!
   @IBOutlet weak var fastEstimateFeeLabel: UILabel!
   @IBOutlet weak var regularEstimateFeeLabel: UILabel!
   @IBOutlet weak var slowEstimateFeeLabel: UILabel!
-  
+  @IBOutlet weak var estimateFeeNoteLabel: UILabel!
+
   fileprivate var isPromo: Bool = false
   fileprivate(set) var viewModel: KAdvancedSettingsViewModel!
   weak var delegate: KAdvancedSettingsViewDelegate?
@@ -448,7 +448,7 @@ class KAdvancedSettingsView: XibLoaderView {
     self.viewModel.updateIsPromoWallet(isPromo)
     self.updateGasPriceUIs()
   }
-  
+
   func updateGasLimit(_ value: BigInt) {
     self.viewModel.updateGasLimit(value: value)
     self.superFastEstimateFeeLabel.text = self.viewModel.estimateFeeSuperFastString
