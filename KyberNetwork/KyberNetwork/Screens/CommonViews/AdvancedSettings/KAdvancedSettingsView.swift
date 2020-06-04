@@ -112,7 +112,7 @@ class KAdvancedSettingsViewModel: NSObject {
     ]
     let attributedString = NSMutableAttributedString()
     attributedString.append(NSAttributedString(string: gasPriceString, attributes: gasPriceAttributes))
-    attributedString.append(NSAttributedString(string: "\n\(text)", attributes: feeAttributes))
+    attributedString.append(NSAttributedString(string: " \(text)", attributes: feeAttributes))
     return attributedString
   }
 
@@ -260,7 +260,7 @@ class KAdvancedSettingsView: XibLoaderView {
   @IBOutlet weak var regularEstimateFeeLabel: UILabel!
   @IBOutlet weak var slowEstimateFeeLabel: UILabel!
   @IBOutlet weak var estimateFeeNoteLabel: UILabel!
-  
+
   fileprivate var isPromo: Bool = false
   fileprivate(set) var viewModel: KAdvancedSettingsViewModel!
   weak var delegate: KAdvancedSettingsViewDelegate?

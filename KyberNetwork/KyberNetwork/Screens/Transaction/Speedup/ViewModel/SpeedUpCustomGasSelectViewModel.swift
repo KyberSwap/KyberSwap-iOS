@@ -90,7 +90,7 @@ class SpeedUpCustomGasSelectViewModel {
     ]
     let attributedString = NSMutableAttributedString()
     attributedString.append(NSAttributedString(string: gasPriceString, attributes: gasPriceAttributes))
-    attributedString.append(NSAttributedString(string: "\n\(text)", attributes: feeAttributes))
+    attributedString.append(NSAttributedString(string: " \(text)", attributes: feeAttributes))
     return attributedString
   }
 

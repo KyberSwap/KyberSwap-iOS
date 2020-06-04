@@ -713,10 +713,10 @@ extension KSendTokenViewController: KAdvancedSettingsViewDelegate {
           self.updateAdvancedSettingsView()
           self.view.layoutIfNeeded()
         }, completion: { _ in
-          if self.advancedSettingsView.isExpanded {
+          if self.advancedSettingsView.isExpanded && self.scrollContainerView.contentSize.height > self.scrollContainerView.bounds.size.height {
             let bottomOffset = CGPoint(
               x: 0,
-              y: self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height
+              y: self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 188.0
             )
             self.scrollContainerView.setContentOffset(bottomOffset, animated: true)
           }

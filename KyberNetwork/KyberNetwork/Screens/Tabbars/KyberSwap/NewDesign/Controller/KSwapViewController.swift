@@ -1164,7 +1164,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
           self.updateAdvancedSettingsView()
           self.view.layoutIfNeeded()
         }, completion: { _ in
-          if self.advancedSettingsView.isExpanded {
+          if self.advancedSettingsView.isExpanded && self.scrollContainerView.contentSize.height > self.scrollContainerView.bounds.size.height {
             let offSetY: CGFloat = {
               if self.viewModel.isSwapSuggestionShown {
                 return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 210.0

@@ -738,4 +738,4 @@
 
 "You may not be able to access your wallet if you don’t have backup phrases" = "백업용 단어들을 모르는 경우, 지갑에 접근하지 못 할 수 있습니다";
 
-"Select higher gas price to accelerate your transaction processing time" = "Select higher gas price to accelerate your transaction processing time";
+"Select higher gas price to accelerate your transaction processing time" = "가스비를 더 높게 설정하여 거래 처리 속도를 높일 수 있습니다.";
