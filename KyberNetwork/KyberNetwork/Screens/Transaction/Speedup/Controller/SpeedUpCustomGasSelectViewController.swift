@@ -79,14 +79,6 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     self.regularGasPriceButton.backgroundColor = .white
     self.slowGasPriceButton.backgroundColor = .white
 
-    let tapSuperFast = UITapGestureRecognizer(target: self, action: #selector(self.userTappedSelectBoxLabel(_:)))
-    self.superFastGasPriceLabel.addGestureRecognizer(tapSuperFast)
-    let tapFast = UITapGestureRecognizer(target: self, action: #selector(self.userTappedSelectBoxLabel(_:)))
-    self.fastGasPriceLabel.addGestureRecognizer(tapFast)
-    let tapRegular = UITapGestureRecognizer(target: self, action: #selector(self.userTappedSelectBoxLabel(_:)))
-    self.regularGasPriceLabel.addGestureRecognizer(tapRegular)
-    let tapSlow = UITapGestureRecognizer(target: self, action: #selector(self.userTappedSelectBoxLabel(_:)))
-    self.slowGasPriceLabel.addGestureRecognizer(tapSlow)
     self.currentFeeLabel.text = self.viewModel.currentTransactionFeeETHString
     let style = KNAppStyleType.current
     let radius = style.buttonRadius()
@@ -149,15 +141,13 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "tap_back_button_in_custom_gas_price_select_screen", customAttributes: ["transactionHash": self.viewModel.transaction.id])
     self.delegate?.speedUpCustomGasSelectViewController(self, run: .back)
   }
-  @objc func userTappedSelectBoxLabel(_ sender: UITapGestureRecognizer) {
-    guard let type = KNSelectedGasPriceType(rawValue: sender.view!.tag) else { return }
-    self.handleGasFeeChange(type)
-  }
+
   @IBAction func selectBoxButtonTapped(_ sender: UIButton) {
     guard let type = KNSelectedGasPriceType(rawValue: sender.tag) else { return }
     KNCrashlyticsUtil.logCustomEvent(withName: "tap_option_button_in_custom_gas_price_select_screen", customAttributes: ["transactionHash": self.viewModel.transaction.id, "option": type])
     self.handleGasFeeChange(type)
   }
+
   func handleGasFeeChange(_ type: KNSelectedGasPriceType) {
     self.viewModel.updateSelectedType(type)
     self.updateGasPriceUIs()
