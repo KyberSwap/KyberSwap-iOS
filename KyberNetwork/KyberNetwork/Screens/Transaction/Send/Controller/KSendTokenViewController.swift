@@ -184,7 +184,7 @@ class KSendTokenViewController: KNBaseViewController {
 
   fileprivate func setupAdvancedSettingsView() {
     // TODO: Do we need to check if it is a promo wallet here?
-    let viewModel = KAdvancedSettingsViewModel(hasMinRate: false, isPromo: false)
+    let viewModel = KAdvancedSettingsViewModel(hasMinRate: false, isPromo: false, gasLimit: self.viewModel.gasLimit)
     viewModel.updateGasPrices(
       fast: KNGasCoordinator.shared.fastKNGas,
       medium: KNGasCoordinator.shared.standardKNGas,

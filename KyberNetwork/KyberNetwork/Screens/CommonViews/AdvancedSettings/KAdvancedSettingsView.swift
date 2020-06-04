@@ -58,11 +58,12 @@ class KAdvancedSettingsViewModel: NSObject {
 
   fileprivate(set) var pairToken: String = ""
   fileprivate(set) var isPromoWallet: Bool = false
-  fileprivate(set) var gasLimit: BigInt = KNGasConfiguration.transferETHGasLimitDefault
+  fileprivate(set) var gasLimit: BigInt
 
-  init(hasMinRate: Bool, isPromo: Bool) {
+  init(hasMinRate: Bool, isPromo: Bool, gasLimit: BigInt) {
     self.hasMinRate = hasMinRate
     self.isPromoWallet = isPromo
+    self.gasLimit = gasLimit
   }
 
   var advancedSettingsHeight: CGFloat {
