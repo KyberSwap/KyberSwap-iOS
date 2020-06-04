@@ -258,22 +258,35 @@ class KNLoadBalanceCoordinator {
   @objc func fetchOtherTokenBalancesNew(_ sender: Timer?) {
     if isFetchingOtherTokensBalance { return }
     isFetchingOtherTokensBalance = true
+    //1. sort token base on their balance
+    let sortedTokens = self.session.tokenStorage.tokens.filter({ return !$0.isETH && $0.isSupported }).sorted { (left, right) -> Bool in
+      return left.value > right.value
+    }
+    let sortedAddress = sortedTokens.map({ $0.contract }).map({ return Address(string: $0)! })
 
-    let tokenContracts = self.session.tokenStorage.tokens.filter({ return !$0.isETH && $0.isSupported }).map({ $0.contract })
+    //2. peform load in sequence
+    let chunkedAddress = sortedAddress.chunked(into: 20)
 
-    let tokens = tokenContracts.map({ return Address(string: $0)! })
-
-    self.fetchTokenBalances(tokens: tokens) { [weak self] result in
-      guard let `self` = self else { return }
-      self.isFetchingOtherTokensBalance = false
-      switch result {
-      case .success(let isLoaded):
-        if !isLoaded {
-          self.fetchOtherTokensBalance(sender)
+    let group = DispatchGroup()
+    chunkedAddress.forEach { (addresses) in
+      group.enter()
+      print("[LoadBalance] start loading ")
+      self.fetchTokenBalances(tokens: addresses) { [weak self] result in
+        guard let `self` = self else { return }
+        group.leave()
+        switch result {
+        case .success(let isLoaded):
+          if !isLoaded {
+            self.fetchOtherTokenBalances(addresses: addresses)
+          }
+          print("[LoadBalance] OK ")
+        case .failure:
+          self.fetchOtherTokenBalances(addresses: addresses)
         }
-      case .failure:
-        self.fetchOtherTokensBalance(sender)
       }
+    }
+    group.notify(queue: .main) {
+      self.isFetchingOtherTokensBalance = false
     }
   }
 
@@ -313,6 +326,39 @@ class KNLoadBalanceCoordinator {
       }
     }
     // notify when all load balances are done
+    group.notify(queue: .main) {
+      self.isFetchingOtherTokensBalance = false
+      if isBalanceChanged {
+        KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
+      }
+    }
+  }
+
+  func fetchOtherTokenBalances(addresses: [Address]) {
+    var isBalanceChanged: Bool = false
+    let currentWallet = self.session.wallet
+    let group = DispatchGroup()
+    addresses.forEach { (address) in
+      group.enter()
+      self.session.externalProvider.getTokenBalance(for: address, completion: { [weak self] result in
+        guard let `self` = self else { group.leave(); return }
+        if self.session == nil || currentWallet != self.session.wallet { group.leave(); return }
+        switch result {
+        case .success(let bigInt):
+          let balance = Balance(value: bigInt)
+          if self.otherTokensBalance[address.description] == nil || self.otherTokensBalance[address.description]!.value != bigInt {
+            isBalanceChanged = true
+          }
+          self.otherTokensBalance[address.description] = balance
+          self.session.tokenStorage.updateBalance(for: address, balance: bigInt)
+          NSLog("---- Balance: Fetch token balance for contract \(address) successfully: \(bigInt.shortString(decimals: 0))")
+        case .failure(let error):
+          NSLog("---- Balance: Fetch token balance failed with error: \(error.description). ----")
+        }
+        group.leave()
+      })
+    }
+
     group.notify(queue: .main) {
       self.isFetchingOtherTokensBalance = false
       if isBalanceChanged {
