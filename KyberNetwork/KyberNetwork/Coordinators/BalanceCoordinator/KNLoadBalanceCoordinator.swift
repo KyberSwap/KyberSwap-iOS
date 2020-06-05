@@ -280,6 +280,10 @@ class KNLoadBalanceCoordinator {
   }
 
   @objc func fetchOtherTokenChucked(chunkedNum: Int = 20) {
+    KNCrashlyticsUtil.logCustomEvent(
+      withName: "LoadBalanceCoordinator",
+      customAttributes: ["info": "fallback_load_tokens_by_chunking"]
+    )
     if isFetchingOtherTokensBalance { return }
     isFetchingOtherTokensBalance = true
     //1. sort token base on their balance
@@ -294,7 +298,6 @@ class KNLoadBalanceCoordinator {
     let group = DispatchGroup()
     chunkedAddress.forEach { (addresses) in
       group.enter()
-      print("[LoadBalance] start loading ")
       self.fetchTokenBalances(tokens: addresses) { [weak self] result in
         guard let `self` = self else { return }
         group.leave()
@@ -303,7 +306,6 @@ class KNLoadBalanceCoordinator {
           if !isLoaded {
             self.fetchOtherTokenBalances(addresses: addresses)
           }
-          print("[LoadBalance] OK ")
         case .failure:
           self.fetchOtherTokenBalances(addresses: addresses)
         }
@@ -359,6 +361,10 @@ class KNLoadBalanceCoordinator {
   }
 
   func fetchOtherTokenBalances(addresses: [Address]) {
+    KNCrashlyticsUtil.logCustomEvent(
+      withName: "LoadBalanceCoordinator",
+      customAttributes: ["info": "fallback_load_each_token_balance"]
+    )
     var isBalanceChanged: Bool = false
     let currentWallet = self.session.wallet
     let group = DispatchGroup()
