@@ -256,6 +256,30 @@ class KNLoadBalanceCoordinator {
   }
 
   @objc func fetchOtherTokenBalancesNew(_ sender: Timer?) {
+    guard KNReachability.shared.reachabilityManager?.isReachable == true else { return }
+    if isFetchingOtherTokensBalance { return }
+    isFetchingOtherTokensBalance = true
+
+    let tokenContracts = self.session.tokenStorage.tokens.filter({ return !$0.isETH && $0.isSupported }).map({ $0.contract })
+
+    let tokens = tokenContracts.map({ return Address(string: $0)! })
+
+    self.fetchTokenBalances(tokens: tokens) { [weak self] result in
+      guard let `self` = self else { return }
+      self.isFetchingOtherTokensBalance = false
+      switch result {
+      case .success(let isLoaded):
+        if !isLoaded {
+          self.fetchOtherTokenChucked()
+        }
+      case .failure(let error):
+        if error.code == NSURLErrorNotConnectedToInternet { return }
+        self.fetchOtherTokenChucked()
+      }
+    }
+  }
+
+  @objc func fetchOtherTokenChucked(chunkedNum: Int = 20) {
     if isFetchingOtherTokensBalance { return }
     isFetchingOtherTokensBalance = true
     //1. sort token base on their balance
@@ -265,7 +289,7 @@ class KNLoadBalanceCoordinator {
     let sortedAddress = sortedTokens.map({ $0.contract }).map({ return Address(string: $0)! })
 
     //2. peform load in sequence
-    let chunkedAddress = sortedAddress.chunked(into: 20)
+    let chunkedAddress = sortedAddress.chunked(into: chunkedNum)
 
     let group = DispatchGroup()
     chunkedAddress.forEach { (addresses) in
