@@ -895,7 +895,9 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasLimit
     )
-    self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
+    if self.isViewSetup {
+      self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
+    }
   }
 
   /*
@@ -908,7 +910,9 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasLimit
     )
-    self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
+    if self.isViewSetup {
+      self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
+    }
   }
   /*
    Update selected token
