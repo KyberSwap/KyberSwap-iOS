@@ -13,6 +13,23 @@ enum KWalletSortType {
   case `default`
 }
 
+extension KWalletSortType {
+  func displayString() -> String {
+    switch self {
+    case .nameDesc:
+      return "name"
+    case .balanceDesc:
+      return "balance"
+    case .priceAsc, .priceDesc:
+      return "price"
+    case .changeAsc, .changeDesc:
+      return "24h"
+    default:
+      return "balance"
+    }
+  }
+}
+
 enum KWalletCurrencyType: String {
   case usd = "USD"
   case eth = "ETH"
@@ -22,6 +39,19 @@ enum KTokenListType: Int {
   case kyberListed
   case favourite
   case others
+}
+
+extension KTokenListType {
+  func displayString() -> String {
+    switch self {
+    case .kyberListed:
+      return "kyber listed"
+    case .favourite:
+      return "favourite"
+    case .others:
+      return "others"
+    }
+  }
 }
 
 class KWalletBalanceViewModel: NSObject {

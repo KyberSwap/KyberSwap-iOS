@@ -267,6 +267,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     case .selectAddWallet:
       self.hamburgerMenuSelectAddWallet()
     case .selectPromoCode:
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_kybercode", customAttributes: nil)
       self.hamburgerMenuSelectPromoCode()
     case .selectSendToken:
       let from: TokenObject = {
@@ -275,10 +276,13 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
         }
         return token
       }()
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_transfer", customAttributes: nil)
       self.openSendTokenView(with: from)
     case .selectAllTransactions:
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_tnx", customAttributes: nil)
       self.openHistoryTransactionView()
     case .selectWalletConnect:
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_walletconnect", customAttributes: nil)
       let qrcode = QRCodeReaderViewController()
       qrcode.delegate = self
       self.navigationController.present(qrcode, animated: true, completion: nil)
@@ -402,8 +406,11 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
         if UIApplication.shared.canOpenURL(ksURL) {
           UIApplication.shared.open(ksURL)
         }
+        KNCrashlyticsUtil.logCustomEvent(withName: "balance_buyeth_yes", customAttributes: nil)
       },
-      firstButtonAction: nil
+      firstButtonAction: {
+        KNCrashlyticsUtil.logCustomEvent(withName: "balance_buyeth_cancel", customAttributes: nil)
+      }
     )
 
     self.navigationController.present(alertController, animated: true, completion: nil)
