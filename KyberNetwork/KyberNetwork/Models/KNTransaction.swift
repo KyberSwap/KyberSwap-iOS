@@ -208,6 +208,43 @@ extension KNTransaction {
     return details
   }
 
+  func getSourceAmount() -> String {
+    let status: KNTransactionStatus = {
+      if self.state == .pending { return .pending }
+      if self.state == .failed || self.state == .error { return .failed }
+      if self.state == .completed { return .success }
+      return .unknown
+    }()
+    let storage: KNTokenStorage? = {
+      do {
+        let keystore = try EtherKeystore()
+        guard let wallet = keystore.recentlyUsedWallet else { return nil }
+        let config = RealmConfiguration.configuration(for: wallet, chainID: KNEnvironment.default.chainID)
+        do {
+          let realm = try Realm(configuration: config)
+          return KNTokenStorage(realm: realm)
+        } catch { }
+      } catch { }
+      return nil
+    }()
+    guard let object = self.localizedOperations.first, status == .failed || status == .success else { return "" }
+    guard let from = storage?.get(forPrimaryKey: object.from) else { return "" }
+    guard let amount = self.value.removeGroupSeparator().fullBigInt(decimals: from.decimals) else { return "" }
+    return "\(amount.string(decimals: from.decimals, minFractionDigits: 0, maxFractionDigits: 9).prefix(10))"
+  }
+
+  func getDestinationAmount() -> String {
+    let status: KNTransactionStatus = {
+      if self.state == .pending { return .pending }
+      if self.state == .failed || self.state == .error { return .failed }
+      if self.state == .completed { return .success }
+      return .unknown
+    }()
+    guard let object = self.localizedOperations.first, status == .failed || status == .success else { return "" }
+    guard let expectedAmount = object.value.removeGroupSeparator().fullBigInt(decimals: object.decimals) else { return "" }
+    return "\(expectedAmount.string(decimals: object.decimals, minFractionDigits: 0, maxFractionDigits: 9).prefix(10))"
+  }
+
   // return details to dispaly + rate if a swap
   func getNewTxDetails() -> (String, String?) {
     let status: KNTransactionStatus = {

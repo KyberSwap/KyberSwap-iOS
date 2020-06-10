@@ -29,8 +29,10 @@ class KNNotificationSettingViewModel {
   func selectTokenSymbol(_ symbol: String) {
     if self.tokens.contains(symbol) {
       self.removeToken(symbol)
+      KNCrashlyticsUtil.logCustomEvent(withName: "pricetrending_token", customAttributes: ["enable_token": "false"])
     } else {
       self.addToken(symbol)
+      KNCrashlyticsUtil.logCustomEvent(withName: "pricetrending_token", customAttributes: ["enable_token": "true"])
     }
   }
 

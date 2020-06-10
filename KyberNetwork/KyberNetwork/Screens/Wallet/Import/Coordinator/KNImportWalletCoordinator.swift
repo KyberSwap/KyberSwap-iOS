@@ -70,6 +70,7 @@ extension KNImportWalletCoordinator: KNImportWalletViewControllerDelegate {
       self.navigationController.topViewController?.hideLoading()
       switch result {
       case .success(let wallet):
+        KNCrashlyticsUtil.logCustomEvent(withName: "wallet_import_success", customAttributes: ["wallet_type": type.displayString()])
         self.navigationController.showSuccessTopBannerMessage(
           with: NSLocalizedString("wallet.imported", value: "Wallet Imported", comment: ""),
           message: NSLocalizedString("you.have.successfully.imported.a.wallet", value: "You have successfully imported a wallet", comment: ""),

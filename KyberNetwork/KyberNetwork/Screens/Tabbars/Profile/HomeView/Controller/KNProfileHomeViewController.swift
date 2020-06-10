@@ -245,27 +245,27 @@ class KNProfileHomeViewController: KNBaseViewController {
   }
 
   @IBAction func facebookButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_facebook_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "facebook"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithFacebook)
   }
 
   @IBAction func googleButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_google_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "google"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithGoogle)
   }
 
   @IBAction func twitterButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_twitter_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "twitter"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithTwitter)
   }
   @IBAction func signInWithAppleTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_apple_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "apple"])
     self.view.endEditing(true)
     self.delegate?.profileHomeViewController(self, run: .signInWithApple)
   }
@@ -278,6 +278,7 @@ class KNProfileHomeViewController: KNBaseViewController {
   }
 
   @IBAction func signInButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_signup_tapped", customAttributes: nil)
     let email = self.emailTextField.text ?? ""
     let pass = self.passwordTextField.text ?? ""
     guard email.isValidEmail() else {

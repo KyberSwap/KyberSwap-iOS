@@ -111,14 +111,26 @@ class KConfirmSendViewController: KNBaseViewController {
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_transfer", customAttributes: ["action": "confirmed_\(self.viewModel.transaction.transferType.tokenObject().symbol)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "transferconfirm_confirm_tapped",
+                                     customAttributes: [
+                                      "token": self.viewModel.transaction.transferType.tokenObject().symbol,
+                                      "amount": self.viewModel.totalAmountString,
+                                      "gas_fee": self.viewModel.transactionFeeETHString,
+      ]
+    )
     let event = KConfirmViewEvent.confirm(type: KNTransactionType.transfer(self.viewModel.transaction))
     self.updateActionButtonsSendingTransfer()
     self.delegate?.kConfirmSendViewController(self, run: event)
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_transfer", customAttributes: ["action": "back_pressed_\(self.viewModel.transaction.transferType.tokenObject().symbol)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "transferconfirm_confirm_cancel",
+                                     customAttributes: [
+                                      "token": self.viewModel.transaction.transferType.tokenObject().symbol,
+                                      "amount": self.viewModel.totalAmountString,
+                                      "gas_fee": self.viewModel.transactionFeeETHString,
+      ]
+    )
     self.delegate?.kConfirmSendViewController(self, run: .cancel)
   }
 
