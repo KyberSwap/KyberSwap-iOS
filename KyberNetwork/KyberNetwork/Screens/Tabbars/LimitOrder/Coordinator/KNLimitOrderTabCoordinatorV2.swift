@@ -765,6 +765,7 @@ extension KNLimitOrderTabCoordinatorV2: KNManageOrdersViewControllerDelegate {
 
 extension KNLimitOrderTabCoordinatorV2: PreviewLimitOrderV2ViewControllerDelegate {
   func previewLimitOrderV2ViewControllerDidBack() {
+    KNCrashlyticsUtil.logCustomEvent(withName: "loconfirm_cancel", customAttributes: nil)
     self.navigationController.popToRootViewController(animated: true) {
       self.confirmVC = nil
       self.convertVC = nil
@@ -775,14 +776,30 @@ extension KNLimitOrderTabCoordinatorV2: PreviewLimitOrderV2ViewControllerDelegat
     self.signAndSendOrder(order) { [weak self] isSuccess in
       guard let `self` = self else { return }
       if isSuccess, self.confirmVC != nil {
-        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["info": "success_\(order.from.symbol)_\(order.to.symbol)"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "loconfirm_order_success",
+                                         customAttributes: [
+                                          "token_pair": "\(order.from.symbol)_\(order.to.symbol)",
+                                          "current_rate": controller.livePriceValueLabel.text ?? "",
+                                          "target_price": controller.yourPriceValueLabel.text ?? "",
+                                          "des_amount": controller.quantityValueLabel.text ?? "",
+                                          "fee": controller.feeValueLabel.text ?? "",
+          ]
+        )
         self.navigationController.popToRootViewController(animated: true, completion: {
           self.confirmVC = nil
           self.convertVC = nil
           self.rootViewController.coordinatorFinishConfirmOrder()
         })
       } else {
-        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["info": "failed_\(order.from.symbol)_\(order.to.symbol)"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "loconfirm_order_failed",
+                                         customAttributes: [
+                                          "token_pair": "\(order.from.symbol)_\(order.to.symbol)",
+                                          "current_rate": controller.livePriceValueLabel.text ?? "",
+                                          "target_price": controller.yourPriceValueLabel.text ?? "",
+                                          "des_amount": controller.quantityValueLabel.text ?? "",
+                                          "fee": controller.feeValueLabel.text ?? "",
+          ]
+        )
       }
     }
   }

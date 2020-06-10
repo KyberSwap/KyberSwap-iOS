@@ -185,7 +185,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   @IBAction func learnMoreButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "learn_more_button_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_learnmore", customAttributes: nil)
     let url = "\(KNEnvironment.default.profileURL)/faq#I-have-KNC-in-my-wallet-Do-I-get-any-discount-on-trading-fees"
     self.navigationController?.openSafari(with: url)
   }
@@ -339,7 +339,13 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   @IBAction func sumitButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "click_summit_\(self.viewModel.isBuy ? "buy" : "sell")"])
+    KNCrashlyticsUtil.logCustomEvent(withName: self.viewModel.isBuy ? "lo_buy_tapped" : "lo_sell_tapped",
+                                     customAttributes: ["current_pair": self.viewModel.currentPair,
+                                                        "src_amount": self.viewModel.amountFrom,
+                                                        "des_amount": self.viewModel.amountTo,
+                                                        "lo_price": self.viewModel.targetPrice,
+      ]
+    )
     if !self.validateUserHasSignedIn() { return }
     if !self.validateDataIfNeeded(isConfirming: true) { return }
     if self.showShouldCancelOtherOrdersIfNeeded() { return }
@@ -429,6 +435,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   @IBAction func manageOrderButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_orders_tapped", customAttributes: nil)
     self.delegate?.kCreateLimitOrderViewController(self, run: .manageOrders)
   }
 

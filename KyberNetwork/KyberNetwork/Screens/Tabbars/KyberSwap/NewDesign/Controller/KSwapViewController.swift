@@ -362,7 +362,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func fromTokenButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_kyberswap", customAttributes: ["action": "from_token_pressed"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_token_select", customAttributes: nil)
     let event = KSwapViewEvent.searchToken(
       from: self.viewModel.from,
       to: self.viewModel.to,
@@ -372,7 +372,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func toTokenButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_kyberswap", customAttributes: ["action": "to_token_pressed"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_token_select", customAttributes: nil)
     let event = KSwapViewEvent.searchToken(
       from: self.viewModel.from,
       to: self.viewModel.to,
@@ -419,7 +419,7 @@ class KSwapViewController: KNBaseViewController {
    - send exchange tx to coordinator for preparing trade
    */
   @IBAction func continueButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_kyberswap", customAttributes: ["action": "continue_\(self.viewModel.from.symbol)_\(self.viewModel.to.symbol)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_tapped", customAttributes: nil)
     self.validateDataBeforeContinuing(hasCallValidateRate: false)
   }
 
@@ -573,6 +573,7 @@ class KSwapViewController: KNBaseViewController {
         message: NSLocalizedString("can.not.swap.same.token", value: "Can not swap the same token", comment: ""),
         time: 1.5
       )
+      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.swap.same.token".toBeLocalised()])
       return true
     }
     guard !self.viewModel.amountFrom.isEmpty else {
@@ -580,6 +581,7 @@ class KSwapViewController: KNBaseViewController {
         with: NSLocalizedString("invalid.input", value: "Invalid input", comment: ""),
         message: NSLocalizedString("please.enter.an.amount.to.continue", value: "Please enter an amount to continue", comment: "")
       )
+      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "please.enter.an.amount.to.continue".toBeLocalised()])
       return true
     }
     if self.viewModel.isPairUnderMaintenance {
@@ -587,6 +589,7 @@ class KSwapViewController: KNBaseViewController {
         with: "",
         message: NSLocalizedString("This token pair is temporarily under maintenance", value: "This token pair is temporarily under maintenance", comment: "")
       )
+      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "This token pair is temporarily under maintenance".toBeLocalised()])
       return true
     }
     if self.viewModel.estRate?.isZero == true {
@@ -594,6 +597,7 @@ class KSwapViewController: KNBaseViewController {
         with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
         message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: "")
       )
+      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.handle.your.amount".toBeLocalised()])
       return true
     }
     guard self.viewModel.isBalanceEnough else {
@@ -601,6 +605,7 @@ class KSwapViewController: KNBaseViewController {
         with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
         message: NSLocalizedString("balance.not.enough.to.make.transaction", value: "Balance is not enough to make the transaction.", comment: "")
       )
+      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "balance.not.enough.to.make.transaction".toBeLocalised()])
       return true
     }
     guard !self.viewModel.isAmountTooSmall else {
@@ -608,6 +613,7 @@ class KSwapViewController: KNBaseViewController {
         with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
         message: NSLocalizedString("amount.too.small.to.perform.swap", value: "Amount too small to perform swap, minimum equivalent to 0.001 ETH", comment: "")
       )
+      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "amount.too.small.to.perform.swap".toBeLocalised()])
       return true
     }
     if isConfirming {
@@ -617,6 +623,7 @@ class KSwapViewController: KNBaseViewController {
           with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
           message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
         )
+        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised()])
         return true
       }
       guard self.viewModel.isSlippageRateValid else {
@@ -624,6 +631,7 @@ class KSwapViewController: KNBaseViewController {
           with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
           message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: "")
         )
+        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.handle.your.amount".toBeLocalised()])
         return true
       }
       guard self.advancedSettingsView.isMinRateValid else {
@@ -635,6 +643,7 @@ class KSwapViewController: KNBaseViewController {
           with: "",
           message: "Please enter a value between 0 and 100 for custom field in advanced settings view".toBeLocalised()
         )
+        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "Please enter a value between 0 and 100 for custom field in advanced settings view".toBeLocalised()])
         return true
       }
       guard self.viewModel.estRate != nil, self.viewModel.estRate?.isZero == false else {
@@ -642,6 +651,7 @@ class KSwapViewController: KNBaseViewController {
           with: NSLocalizedString("rate.might.change", value: "Rate might change", comment: ""),
           message: NSLocalizedString("please.wait.for.expected.rate.updated", value: "Please wait for expected rate to be updated", comment: "")
         )
+        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "please.wait.for.expected.rate.updated".toBeLocalised()])
         return true
       }
     }
@@ -1186,6 +1196,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
     case .gasPriceChanged(let type, let value):
       self.viewModel.updateSelectedGasPriceType(type)
       self.viewModel.updateGasPrice(value)
+      KNCrashlyticsUtil.logCustomEvent(withName: "advanced", customAttributes: ["gas_option": type.displayString(), "gas_value": self.viewModel.gasPriceText, "slippage": self.viewModel.slippageRateText ?? "0.0"])
     case .minRatePercentageChanged(let percent):
       self.viewModel.updateExchangeMinRatePercent(Double(percent))
       self.updateAdvancedSettingsView()

@@ -305,14 +305,17 @@ class KNManageOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_cancel", customAttributes: nil)
     self.navigationController?.popViewController(animated: true)
   }
 
   @IBAction func openOrdersButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_open_order_tapped", customAttributes: nil)
     self.updateSelectOrdersType(isOpen: true)
   }
 
   @IBAction func orderHistoryButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_close_order_tapped", customAttributes: nil)
     self.updateSelectOrdersType(isOpen: false)
   }
 
@@ -325,7 +328,7 @@ class KNManageOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func filterButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "filter_button_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_filter", customAttributes: nil)
     self.openFilterView()
   }
 

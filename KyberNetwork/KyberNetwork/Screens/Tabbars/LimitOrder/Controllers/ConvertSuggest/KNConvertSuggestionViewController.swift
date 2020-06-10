@@ -150,12 +150,12 @@ class KNConvertSuggestionViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_convert_ETH_WETH", customAttributes: ["action": "back"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_convert_weth_cancel", customAttributes: nil)
     self.navigationController?.popViewController(animated: true)
   }
 
   @IBAction func convertButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_convert_ETH_WETH", customAttributes: ["action": "convert", "amount": self.amountTextField.text ?? ""])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_convert_weth_accept", customAttributes: nil)
     guard let text = self.amountTextField.text, let amount = EtherNumberFormatter.full.number(from: text.removeGroupSeparator(), decimals: 18), !amount.isZero else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("invalid.amount", value: "Invalid Amount", comment: ""),
@@ -207,7 +207,7 @@ class KNConvertSuggestionViewController: KNBaseViewController {
   }
 
   @IBAction func cancelButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_convert_ETH_WETH", customAttributes: ["action": "cancel"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_convert_weth_cancel", customAttributes: nil)
     self.navigationController?.popViewController(animated: true)
   }
 }

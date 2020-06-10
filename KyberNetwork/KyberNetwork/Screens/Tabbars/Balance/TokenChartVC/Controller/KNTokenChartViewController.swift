@@ -795,7 +795,6 @@ class KNTokenChartViewController: KNBaseViewController {
   }
 
   @objc func openTokenOnEtherscanPressed(_ sender: Any) {
-//    KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "open_token_on_etherscan_\(self.viewModel.token.symbol)"])
     KNCrashlyticsUtil.logCustomEvent(withName: "chart_token_tapped", customAttributes: nil)
     self.delegate?.tokenChartViewController(self, run: .openEtherscan(token: self.viewModel.token))
   }
@@ -812,15 +811,12 @@ class KNTokenChartViewController: KNBaseViewController {
       return
     }
     if sender.tag == 0 {
-//      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "buy_\(self.viewModel.token.symbol)"])
       KNCrashlyticsUtil.logCustomEvent(withName: "chart_buy", customAttributes: ["token_pair_rate_change": self.viewModel.rateChangeString])
       self.delegate?.tokenChartViewController(self, run: .buy(token: self.viewModel.token))
     } else if sender.tag == 1 {
-//      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "sell_\(self.viewModel.token.symbol)"])
        KNCrashlyticsUtil.logCustomEvent(withName: "chart_sell", customAttributes: ["token_pair_rate_change": self.viewModel.rateChangeString])
       self.delegate?.tokenChartViewController(self, run: .sell(token: self.viewModel.token))
     } else {
-//      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "send_\(self.viewModel.token.symbol)"])
       KNCrashlyticsUtil.logCustomEvent(withName: "chart_transfer", customAttributes: ["token_pair_rate_change": self.viewModel.rateChangeString])
       self.delegate?.tokenChartViewController(self, run: .send(token: self.viewModel.token))
     }
@@ -828,7 +824,6 @@ class KNTokenChartViewController: KNBaseViewController {
 
   @IBAction func dataTypeDidChange(_ sender: UIButton) {
     let type = KNTokenChartType(rawValue: sender.tag) ?? .day
-//    KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "data_type_changed_\(type.rawValue)"])
     self.updateDisplayDataType(type)
     KNCrashlyticsUtil.logCustomEvent(withName: "chart_time_frame", customAttributes: ["time": type.displayString()])
   }

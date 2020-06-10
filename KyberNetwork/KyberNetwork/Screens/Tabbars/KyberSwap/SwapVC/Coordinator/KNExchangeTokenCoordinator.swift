@@ -232,6 +232,10 @@ extension KNExchangeTokenCoordinator {
   fileprivate func didConfirmSendExchangeTransaction(_ exchangeTransaction: KNDraftExchangeTransaction) {
     self.rootViewController.coordinatorExchangeTokenUserDidConfirmTransaction()
     KNNotificationUtil.postNotification(for: kTransactionDidUpdateNotificationKey)
+    var fee = BigInt(0)
+    if let gasPrice = exchangeTransaction.gasPrice, let gasLimit = exchangeTransaction.gasLimit {
+      fee = gasPrice * gasLimit
+    }
     self.session.externalProvider.getAllowance(token: exchangeTransaction.from) { [weak self] getAllowanceResult in
       guard let `self` = self else { return }
       switch getAllowanceResult {
@@ -249,12 +253,26 @@ extension KNExchangeTokenCoordinator {
           object: error,
           userInfo: nil
         )
+        KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_broadcast_failed",
+                                         customAttributes: [
+                                          "token_pair": "\(exchangeTransaction.from.name)/\(exchangeTransaction.to.name)",
+                                          "amount": exchangeTransaction.amount.displayRate(decimals: exchangeTransaction.from.decimals),
+                                          "current_rate": exchangeTransaction.expectedRate.displayRate(decimals: 18),
+                                          "min_rate": exchangeTransaction.minRate?.displayRate(decimals: 18) ?? "",
+                                          "tx_fee": fee.displayRate(decimals: 18),
+                                          "error_text": error.description,
+          ]
+        )
       }
     }
   }
 
   fileprivate func sendExchangeTransaction(_ exchage: KNDraftExchangeTransaction) {
     KNAppTracker.logFirstSwapIfNeeded()
+    var fee = BigInt(0)
+    if let gasPrice = exchage.gasPrice, let gasLimit = exchage.gasLimit {
+      fee = gasPrice * gasLimit
+    }
     self.session.externalProvider.exchange(exchange: exchage) { [weak self] result in
       guard let `self` = self else { return }
       switch result {
@@ -283,12 +301,31 @@ extension KNExchangeTokenCoordinator {
             })
           }
         }
+        KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_broadcast_success",
+                                         customAttributes: [
+                                          "token_pair": "\(exchage.from.name)/\(exchage.to.name)",
+                                          "amount": exchage.amount.displayRate(decimals: exchage.from.decimals),
+                                          "current_rate": exchage.expectedRate.displayRate(decimals: 18),
+                                          "min_rate": exchage.minRate?.displayRate(decimals: 18) ?? "",
+                                          "tx_fee": fee.displayRate(decimals: 18),
+          ]
+        )
       case .failure(let error):
         self.confirmSwapVC?.resetActionButtons()
         KNNotificationUtil.postNotification(
           for: kTransactionDidUpdateNotificationKey,
           object: error,
           userInfo: nil
+        )
+        KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_broadcast_failed",
+                                         customAttributes: [
+                                          "token_pair": "\(exchage.from.name)/\(exchage.to.name)",
+                                          "amount": exchage.amount.displayRate(decimals: exchage.from.decimals),
+                                          "current_rate": exchage.expectedRate.displayRate(decimals: 18),
+                                          "min_rate": exchage.minRate?.displayRate(decimals: 18) ?? "",
+                                          "tx_fee": fee.displayRate(decimals: 18),
+                                          "error_text": error.description,
+          ]
         )
       }
     }

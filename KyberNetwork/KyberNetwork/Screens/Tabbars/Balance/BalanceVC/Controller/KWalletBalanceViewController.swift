@@ -308,28 +308,27 @@ class KWalletBalanceViewController: KNBaseViewController {
 
   @IBAction func currencyETHButtonPressed(_ sender: Any) {
     let newType: KWalletCurrencyType = .eth
-//    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "currency_changed_\(newType.rawValue)"])
+
     let isSwitched = self.viewModel.updateCurrencyType(newType)
     self.viewModel.updateTokenDisplayType(positionClicked: 2, isSwitched: isSwitched)
     self.updateDisplayedDataType()
     KNCrashlyticsUtil.logCustomEvent(withName: "balance_token_sort",
                                      customAttributes: [
                                       "token_sort": self.viewModel.currencyType.rawValue,
-                                      "list_type": self.viewModel.tabOption.displayString()
+                                      "list_type": self.viewModel.tabOption.displayString(),
                                       ]
                                     )
   }
 
   @IBAction func currencyUSDButtonPressed(_ sender: Any) {
     let newType: KWalletCurrencyType = .usd
-//    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "currency_changed_\(newType.rawValue)"])
     let isSwitched = self.viewModel.updateCurrencyType(newType)
     self.viewModel.updateTokenDisplayType(positionClicked: 2, isSwitched: isSwitched)
     self.updateDisplayedDataType()
     KNCrashlyticsUtil.logCustomEvent(withName: "balance_token_sort",
                                      customAttributes: [
                                       "token_sort": self.viewModel.currencyType.rawValue,
-                                      "list_type": self.viewModel.tabOption.displayString()
+                                      "list_type": self.viewModel.tabOption.displayString(),
                                       ]
                                     )
   }
@@ -345,7 +344,6 @@ class KWalletBalanceViewController: KNBaseViewController {
   }
 
   @IBAction func notificationMenuButtonPressed(_ sender: UIButton) {
-//    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "select_notification_menu_button"])
     KNCrashlyticsUtil.logCustomEvent(withName: "balanace_noti_flag", customAttributes: nil)
     self.delegate?.kWalletBalanceViewController(self, run: .selectNotifications)
   }
@@ -458,7 +456,6 @@ extension KWalletBalanceViewController: UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: false)
     let tokenObject = self.viewModel.tokenObject(for: indexPath.row)
     self.delegate?.kWalletBalanceViewController(self, run: .selectToken(token: tokenObject))
-//    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "selected_\(tokenObject.symbol)"])
     KNCrashlyticsUtil.logCustomEvent(withName: "balance_token_tapped", customAttributes: ["token_name": tokenObject.name])
   }
 }

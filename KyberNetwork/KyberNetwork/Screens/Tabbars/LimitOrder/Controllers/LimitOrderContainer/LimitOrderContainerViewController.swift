@@ -137,13 +137,13 @@ class LimitOrderContainerViewController: KNBaseViewController {
   }
 
   @IBAction func marketButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "open_market_select_button_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_pair_change", customAttributes: nil)
     self.delegate?.kCreateLimitOrderViewController(self, run: .changeMarket)
   }
 
   @IBAction func chartButtonPressed(_ sender: Any) {
     guard let market = self.currentMarket else { return }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "open_chart_button_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_chart", customAttributes: nil)
     self.delegate?.kCreateLimitOrderViewController(
       self,
       run: .openChartView(market: market, isBuy: self.currentIndex == 0)

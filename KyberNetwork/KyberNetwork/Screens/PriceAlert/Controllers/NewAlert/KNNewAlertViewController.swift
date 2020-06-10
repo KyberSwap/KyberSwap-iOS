@@ -228,7 +228,7 @@ class KNNewAlertViewController: KNBaseViewController {
   }
 
   @IBAction func selectTokenButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["action": "select_token_btn_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_token_tapped", customAttributes: nil)
     let viewModel = KNSearchTokenViewModel(
       headerColor: UIColor.Kyber.shamrock,
       supportedTokens: KNSupportedTokenStorage.shared.supportedTokens
@@ -240,7 +240,7 @@ class KNNewAlertViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["action": "back_btn_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_back", customAttributes: nil)
     self.navigationController?.popViewController(animated: true)
   }
 
@@ -253,7 +253,13 @@ class KNNewAlertViewController: KNBaseViewController {
   }
 
   @IBAction func saveButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["action": "save_button_\(self.viewModel.alertID == nil ? "new_alert" : "update_alert")"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_added",
+                                     customAttributes: [
+                                      "current_price": self.viewModel.currentPrice.description,
+                                      "alert_price": self.viewModel.targetPrice.description,
+                                      "token_pair": self.viewModel.displayTokenTitle,
+      ]
+    )
     if self.viewModel.currentPrice == 0.0 {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("error", value: "Error", comment: ""),

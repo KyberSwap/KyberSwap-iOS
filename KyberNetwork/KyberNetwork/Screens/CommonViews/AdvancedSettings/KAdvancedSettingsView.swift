@@ -11,6 +11,23 @@ enum KNSelectedGasPriceType: Int {
   case custom
 }
 
+extension KNSelectedGasPriceType {
+  func displayString() -> String {
+    switch self {
+    case .fast:
+      return "fast"
+    case .medium:
+      return "regular"
+    case .slow:
+      return "slow"
+    case .superFast:
+      return "super fast"
+    case .custom:
+      return "custom"
+    }
+  }
+}
+
 enum KAdvancedSettingsViewEvent {
   case infoPressed
   case displayButtonPressed
