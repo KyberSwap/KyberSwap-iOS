@@ -280,6 +280,7 @@ extension KNAppCoordinator {
         message: error.prettyError,
         time: -1
       )
+      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_update_failed", customAttributes: ["info": "no_details"])
       let transactions = self.session.transactionStorage.kyberPendingTransactions
       self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
       self.balanceTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
@@ -322,6 +323,7 @@ extension KNAppCoordinator {
             time: -1
           )
         }
+        KNCrashlyticsUtil.logCustomEvent(withName: "transaction_update_failed", customAttributes: ["info": "lost_dropped_replaced"])
       }
 
       let transactions = self.session.transactionStorage.kyberPendingTransactions

@@ -145,6 +145,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
   @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
     if sender.state == .ended {
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "screen_edge_pan_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
       self.delegate?.kConfirmSwapViewController(self, run: .cancel)
     }
   }
@@ -160,6 +161,7 @@ class KConfirmSwapViewController: KNBaseViewController {
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "confirmed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
     let event = KConfirmViewEvent.confirm(type: KNTransactionType.exchange(self.viewModel.transaction))
     self.updateActionButtonsSendingSwap()
     self.delegate?.kConfirmSwapViewController(self, run: event)

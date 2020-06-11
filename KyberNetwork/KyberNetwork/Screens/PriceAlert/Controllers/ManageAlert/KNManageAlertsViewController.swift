@@ -98,15 +98,18 @@ class KNManageAlertsViewController: KNBaseViewController {
 
   @IBAction func screenEdgePanAction(_ sender: UIScreenEdgePanGestureRecognizer) {
     if sender.state == .ended {
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_alert", customAttributes: ["action": "screen_edge_pan_back"])
       self.delegate?.manageAlertsViewController(self, run: .back)
     }
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_alert", customAttributes: ["action": "back_button_pressed"])
     self.delegate?.manageAlertsViewController(self, run: .back)
   }
 
   @IBAction func addAlertButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_alert", customAttributes: ["action": "add_alert_button_pressed"])
     self.delegate?.manageAlertsViewController(self, run: .addNewAlert)
   }
 

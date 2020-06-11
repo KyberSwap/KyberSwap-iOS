@@ -145,6 +145,8 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap_promo", customAttributes: ["action": "back_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap_promo", customAttributes: ["action": "confirmed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
     self.updateActionButtonsSendingSwap()
     self.delegate?.promoCodeSwapConfirmViewController(
       self,
@@ -154,6 +156,7 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
   }
 
   @IBAction func cancelButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap_promo", customAttributes: ["action": "cancel_pressed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
     self.delegate?.promoCodeSwapConfirmViewControllerDidBack()
   }
 

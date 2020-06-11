@@ -229,6 +229,7 @@ extension KNProfileHomeCoordinator {
               with: NSLocalizedString("error", value: "Error", comment: ""),
               message: NSLocalizedString("can.not.get.user.info", value: "Can not get user info", comment: "") + ": \(message)"
             )
+            KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["type": "get_user_info_failed"])
           }
           completion(false)
           return
@@ -303,12 +304,14 @@ extension KNProfileHomeCoordinator {
             expireTime: expireTime
           )
           self?.timerAccessTokenExpired()
+          KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["type": "expiry_session_reload_successfully"])
           return
         }
       case .failure:
         break
       }
       // Error for some reason
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["type": "expiry_session_failed_reload"])
       KNNotificationUtil.localPushNotification(
         title: NSLocalizedString("session.expired", value: "Session expired", comment: ""),
         body: NSLocalizedString("your.session.has.expired.sign.in.to.continue", value: "Your session has expired, please sign in again to continue", comment: "")
@@ -342,6 +345,7 @@ extension KNProfileHomeCoordinator: KNProfileHomeViewControllerDelegate {
       self.manageAlertCoordinator = KNManageAlertCoordinator(navigationController: self.navigationController)
       self.manageAlertCoordinator?.start()
     case .addPriceAlert:
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["value": "add_new_alert"])
       if KNAlertStorage.shared.isMaximumAlertsReached {
         self.showAlertMaximumPriceAlertsReached()
       } else {
@@ -352,6 +356,7 @@ extension KNProfileHomeCoordinator: KNProfileHomeViewControllerDelegate {
       }
     case .editAlert(let alert):
       if let topVC = self.navigationController.topViewController, topVC is KNNewAlertViewController { return }
+      KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["value": "edit_alert"])
       self.newAlertController = KNNewAlertViewController()
       self.newAlertController?.loadViewIfNeeded()
       self.navigationController.pushViewController(self.newAlertController!, animated: true) {

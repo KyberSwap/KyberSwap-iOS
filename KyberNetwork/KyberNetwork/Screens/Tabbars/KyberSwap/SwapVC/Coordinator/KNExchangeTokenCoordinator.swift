@@ -345,10 +345,22 @@ extension KNExchangeTokenCoordinator {
     let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
     provider.request(.sendTxHash(authToken: accessToken, txHash: txHash)) { result in
       switch result {
-      case .success:
-        print("Send user tx hash sucesss")
+      case .success(let resp):
+        do {
+          _ = try resp.filterSuccessfulStatusCodes()
+          let json = try resp.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+          let success = json["success"] as? Bool ?? false
+          let message = json["message"] as? String ?? "Unknown"
+          if success {
+            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": true])
+          } else {
+            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": message])
+          }
+        } catch {
+          KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
+        }
       case .failure:
-        print("Send user tx hash failure")
+        KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
       }
     }
   }
@@ -696,6 +708,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
             )
           }
         } else {
+          KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["get_expected_rate_from_node": true])
           DispatchQueue.main.async {
             self.updateEstimatedRate(from: from, to: to, amount: amount, showError: showError)
           }

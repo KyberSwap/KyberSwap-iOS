@@ -108,6 +108,7 @@ extension KNManageAlertCoordinator: KNManageAlertsViewControllerDelegate {
   }
 
   fileprivate func deleteAnAlert(_ alert: KNAlertObject) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "manage_alert_coordinator", customAttributes: ["action": "delete_alert"])
     guard let accessToken = IEOUserStorage.shared.user?.accessToken else { return }
     self.navigationController.displayLoading()
     KNPriceAlertCoordinator.shared.removeAnAlert(accessToken: accessToken, alertID: alert.id) { [weak self] (_, error) in
@@ -134,6 +135,7 @@ extension KNManageAlertCoordinator: KNManageAlertsViewControllerDelegate {
   }
 
   fileprivate func deleteAllAlerts() {
+    KNCrashlyticsUtil.logCustomEvent(withName: "manage_alert_coordinator", customAttributes: ["action": "delete_all_alert"])
     guard let accessToken = IEOUserStorage.shared.user?.accessToken else { return }
     self.navigationController.displayLoading()
     KNPriceAlertCoordinator.shared.removeAllTriggeredAlerts(accessToken: accessToken) { [weak self] (_, error) in
@@ -160,6 +162,7 @@ extension KNManageAlertCoordinator: KNManageAlertsViewControllerDelegate {
   }
 
   fileprivate func openEditAlert(_ alert: KNAlertObject) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "manage_alert_coordinator", customAttributes: ["action": "open_edit_alert"])
     self.newAlertController = KNNewAlertViewController()
     self.newAlertController?.loadViewIfNeeded()
     self.navigationController.pushViewController(self.newAlertController!, animated: true) {

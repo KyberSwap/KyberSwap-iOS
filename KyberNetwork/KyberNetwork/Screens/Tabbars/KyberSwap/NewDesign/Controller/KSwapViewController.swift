@@ -356,6 +356,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func hamburgerMenuPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_kyberswap", customAttributes: ["action": "hamburger_menu"])
     self.view.endEditing(true)
     self.hamburgerMenu.openMenu(animated: true)
   }
@@ -381,6 +382,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func swapButtonPressed(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_kyberswap", customAttributes: ["action": "swap_2_tokens"])
     if !self.viewModel.isFromTokenBtnEnabled { return }
     self.viewModel.swapTokens()
     self.fromAmountTextField.text = ""
@@ -505,6 +507,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @objc func keyboardSwapAllButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_kyberswap", customAttributes: ["action": "swap_all"])
     self.view.endEditing(true)
     self.viewModel.updateFocusingField(true)
     self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()

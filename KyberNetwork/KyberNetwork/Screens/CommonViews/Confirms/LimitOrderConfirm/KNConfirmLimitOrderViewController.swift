@@ -111,12 +111,14 @@ class KNConfirmLimitOrderViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_limit_order", customAttributes: ["action": "back"])
     self.navigationController?.popViewController(animated: true, completion: {
       self.delegate?.confirmLimitOrderViewControllerDidBack()
     })
   }
 
   @IBAction func feeValueButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_limit_order", customAttributes: ["action": "fee"])
     self.showTopBannerView(
       with: "",
       message: "Don’t worry. You will not be charged now. \nYou pay fees only when transaction is executed (broadcasted & mined).".toBeLocalised(),
@@ -126,10 +128,14 @@ class KNConfirmLimitOrderViewController: KNBaseViewController {
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
+    let info = "confirmed_\(self.order.srcAmount.displayRate(decimals: self.order.from.decimals))_\(self.order.from.symbol)_\(self.order.to.symbol)"
+    let attributes = [ "action": info]
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_limit_order", customAttributes: attributes)
     self.delegate?.confirmLimitOrderViewController(self, order: self.order)
   }
 
   @IBAction func cancelButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_limit_order", customAttributes: ["action": "cancel"])
     self.navigationController?.popViewController(animated: true, completion: {
       self.delegate?.confirmLimitOrderViewControllerDidBack()
     })

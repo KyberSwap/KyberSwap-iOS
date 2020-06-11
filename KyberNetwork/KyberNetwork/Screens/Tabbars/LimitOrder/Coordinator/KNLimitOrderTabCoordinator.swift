@@ -246,11 +246,13 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
     group.notify(queue: .main) {
       self.navigationController.hideLoading()
       if let error = errorMessage {
+        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["action": "submit_error_\(error)"])
         self.navigationController.showWarningTopBannerMessage(with: "", message: error, time: 2.0)
       } else {
         let attributes = [
           "action": "submit_\(order.srcAmount.displayRate(decimals: order.from.decimals))_\(order.from.symbol)_\(order.to.symbol)",
         ]
+        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: attributes)
         let newOrder = KNLimitOrder(
           from: order.from,
           to: order.to,
@@ -645,11 +647,13 @@ extension KNLimitOrderTabCoordinator: KNConfirmLimitOrderViewControllerDelegate 
     self.signAndSendOrder(order) { [weak self] isSuccess in
       guard let `self` = self else { return }
       if isSuccess, self.confirmVC != nil {
+        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["info": "success_\(order.from.symbol)_\(order.to.symbol)"])
         self.navigationController.popViewController(animated: true, completion: {
           self.confirmVC = nil
           self.convertVC = nil
         })
       } else {
+        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["info": "failed_\(order.from.symbol)_\(order.to.symbol)"])
       }
     }
   }
@@ -743,10 +747,22 @@ extension KNLimitOrderTabCoordinator: KNConvertSuggestionViewControllerDelegate 
     let provider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
     provider.request(.sendTxHash(authToken: accessToken, txHash: txHash)) { result in
       switch result {
-      case .success:
-        print("Send user tx hash success")
+      case .success(let resp):
+        do {
+          _ = try resp.filterSuccessfulStatusCodes()
+          let json = try resp.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+          let success = json["success"] as? Bool ?? false
+          let message = json["message"] as? String ?? "Unknown"
+          if success {
+            KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "tx_hash_sent"])
+          } else {
+            KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "error_\(message)"])
+          }
+        } catch {
+          KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "failed_to_send"])
+        }
       case .failure:
-        print("Send user tx hash failure")
+        KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "failed_to_send"])
       }
     }
   }

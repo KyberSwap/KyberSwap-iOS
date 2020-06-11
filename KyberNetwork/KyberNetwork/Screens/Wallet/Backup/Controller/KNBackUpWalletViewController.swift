@@ -150,11 +150,13 @@ class KNBackUpWalletViewController: KNBaseViewController {
   }
 
   @IBAction func nextButtonPressed(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "next_button"])
     self.viewModel.updateNextBackUpWords()
     self.updateUI()
   }
 
   @IBAction func completeButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "complete_button"])
     guard let firstWord = self.firstWordTextField.text, let secondWord = self.secondWordTextField.text else {
       return
     }
@@ -190,11 +192,13 @@ class KNBackUpWalletViewController: KNBaseViewController {
   }
 
   @IBAction func skipButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "skip_button"])
     let alert = KNPrettyAlertController(
       title: "skip".toBeLocalised(),
       message: "You may not be able to access your wallet if you don’t have backup phrases".toBeLocalised(),
       secondButtonTitle: "continue".toBeLocalised(),
       secondButtonAction: {
+        KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "skip_button_continue"])
         DispatchQueue.main.async {
           self.delegate?.backupWalletViewControllerDidConfirmSkipWallet()
         }

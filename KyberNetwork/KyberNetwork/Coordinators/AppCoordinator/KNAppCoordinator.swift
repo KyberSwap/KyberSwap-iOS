@@ -159,16 +159,28 @@ extension KNAppCoordinator {
           secondButtonTitle: "Update".toBeLocalised(),
           firstButtonTitle: "cancel".toBeLocalised(),
           secondButtonAction: {
+            KNCrashlyticsUtil.logCustomEvent(
+              withName: "new_update_available",
+              customAttributes: ["button": "update"]
+            )
             DispatchQueue.main.async {
               self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
             }
           }, firstButtonAction: {
+            KNCrashlyticsUtil.logCustomEvent(
+              withName: "new_update_available",
+              customAttributes: ["button": "cancel"]
+            )
           }
         )
         DispatchQueue.main.async {
           self.navigationController.present(alert, animated: true, completion: nil)
         }
       } else {
+        KNCrashlyticsUtil.logCustomEvent(
+          withName: "force_update",
+          customAttributes: ["cur_version": Bundle.main.versionNumber ?? ""]
+        )
         let alert = KNPrettyAlertController(
           title: (title ?? "Update available!").toBeLocalised(),
           message: (subtitle ?? "New version is available for updating. Click to update now!").toBeLocalised(),
@@ -176,6 +188,10 @@ extension KNAppCoordinator {
           firstButtonTitle: "Update".toBeLocalised(),
           secondButtonAction: nil,
           firstButtonAction: {
+            KNCrashlyticsUtil.logCustomEvent(
+              withName: "new_update_available",
+              customAttributes: ["button": "update"]
+            )
             DispatchQueue.main.async {
               self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
             }
