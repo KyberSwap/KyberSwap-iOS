@@ -55,13 +55,11 @@ class KNCreateWalletViewController: KNBaseViewController {
       || touchedPoint.x > self.containerView.frame.maxX
       || touchedPoint.y < self.containerView.frame.minY
       || touchedPoint.y > self.containerView.frame.maxY {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_create_wallet", customAttributes: ["action": "dismiss"])
       self.delegate?.createWalletViewController(self, run: .back)
     }
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_create_wallet", customAttributes: ["action": "confirm_btn_clicked"])
     self.delegate?.createWalletViewController(self, run: .next(name: "New Wallet"))
   }
 }

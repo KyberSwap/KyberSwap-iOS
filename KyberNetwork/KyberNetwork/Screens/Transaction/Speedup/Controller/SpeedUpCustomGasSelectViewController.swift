@@ -130,7 +130,6 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
   }
 
   @IBAction func doneButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_done_button_in_custom_gas_price_select_screen", customAttributes: ["transactionHash": self.viewModel.transaction.id])
     if viewModel.isNewGasPriceValid() {
       self.delegate?.speedUpCustomGasSelectViewController(self, run: .done(transaction: self.viewModel.transaction, newGasPrice: self.viewModel.getNewTransactionGasPriceETH()))
     } else {
@@ -138,13 +137,11 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     }
   }
   @IBAction func backButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_back_button_in_custom_gas_price_select_screen", customAttributes: ["transactionHash": self.viewModel.transaction.id])
     self.delegate?.speedUpCustomGasSelectViewController(self, run: .back)
   }
 
   @IBAction func selectBoxButtonTapped(_ sender: UIButton) {
     guard let type = KNSelectedGasPriceType(rawValue: sender.tag) else { return }
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_option_button_in_custom_gas_price_select_screen", customAttributes: ["transactionHash": self.viewModel.transaction.id, "option": type])
     self.handleGasFeeChange(type)
   }
 

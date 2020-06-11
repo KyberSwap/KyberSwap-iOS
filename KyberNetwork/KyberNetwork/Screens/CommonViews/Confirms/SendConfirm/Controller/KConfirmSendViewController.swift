@@ -136,7 +136,6 @@ class KConfirmSendViewController: KNBaseViewController {
 
   @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
     if sender.state == .ended {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_transfer", customAttributes: ["action": "screen_edge_pan\(self.viewModel.transaction.transferType.tokenObject().symbol)"])
       self.delegate?.kConfirmSendViewController(self, run: .cancel)
     }
   }

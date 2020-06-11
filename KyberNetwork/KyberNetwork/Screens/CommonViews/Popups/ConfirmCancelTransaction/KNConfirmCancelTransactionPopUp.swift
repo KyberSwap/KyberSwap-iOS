@@ -78,13 +78,11 @@ class KNConfirmCancelTransactionPopUp: KNBaseViewController {
   }
 
   @IBAction func yesButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_yes_button_on_cancel_tx_confirm_popup", customAttributes: ["transactionHash": viewModel.transaction.id])
     delegate?.didConfirmCancelTransactionPopup(self, transaction: viewModel.transaction)
     dismiss(animated: true, completion: nil)
   }
 
   @IBAction func noButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_no_button_on_cancel_tx_confirm_popup", customAttributes: ["transactionHash": viewModel.transaction.id])
     dismiss(animated: true, completion: nil)
   }
 }

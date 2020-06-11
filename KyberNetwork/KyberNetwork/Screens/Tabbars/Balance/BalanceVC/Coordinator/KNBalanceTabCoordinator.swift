@@ -234,16 +234,12 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     case .send(let token):
       self.openSendTokenView(with: token)
     case .sell(let token):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "sell_\(token.symbol)"])
       self.delegate?.balanceTabCoordinatorShouldOpenExchange(for: token, isReceived: false)
     case .buy(let token):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "buy_\(token.symbol)"])
       self.delegate?.balanceTabCoordinatorShouldOpenExchange(for: token, isReceived: true)
     case .receiveToken:
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "open_qrcode"])
       self.qrcodeCoordinator?.start()
     case .alert(let token):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "add_alert_\(token.symbol)"])
       self.openAddNewAlert(token)
     case .refreshData:
       // refresh rates
@@ -252,7 +248,6 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     case .buyETH:
       self.openBuyETHAlert()
     case .copyAddress:
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "copy_wallet_address"])
       UIPasteboard.general.string = self.session.wallet.address.description
       self.navigationController.showMessageWithInterval(
         message: NSLocalizedString("address.copied", value: "Address copied", comment: "")

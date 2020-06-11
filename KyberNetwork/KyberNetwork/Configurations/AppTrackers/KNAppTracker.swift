@@ -406,18 +406,6 @@ class KNAppTracker {
   }
 
   static func logFirstSwapIfNeeded() {
-    if userDefaults.value(forKey: kFirstTimeSwapKey) != nil { return }
-    let time = Date().timeIntervalSince1970
-    let installTime = KNAppTracker.getFirstInstallTime()
-    if time <= installTime + 24.0 * 60.0 * 60.0 { // one day
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_swap", customAttributes: ["value": "day_\(installTime)"])
-    } else if time <= installTime + 7.0 * 24.0 * 60.0 * 60.0 { // one week
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_swap", customAttributes: ["value": "week_\(installTime)"])
-    } else if time <= installTime + 30.0 * 24.0 * 60.0 * 60.0 { // one week
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_swap", customAttributes: ["value": "month_\(installTime)"])
-    } else {
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_swap", customAttributes: ["value": "\(installTime)_\(time)"])
-    }
     KNAppTracker.saveFirstTimeSwap()
   }
 
@@ -428,17 +416,6 @@ class KNAppTracker {
 
   static func logFirstTimeLimitOrderIfNeeded() {
     if userDefaults.value(forKey: kFirstTimeLimitOrderKey) != nil { return }
-    let time = Date().timeIntervalSince1970
-    let installTime = KNAppTracker.getFirstInstallTime()
-    if time <= installTime + 24.0 * 60.0 * 60.0 { // one day
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_limit_order", customAttributes: ["value": "day_\(installTime)"])
-    } else if time <= installTime + 7.0 * 24.0 * 60.0 * 60.0 { // one week
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_limit_order", customAttributes: ["value": "week_\(installTime)"])
-    } else if time <= installTime + 30.0 * 24.0 * 60.0 * 60.0 { // one week
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_limit_order", customAttributes: ["value": "month_\(installTime)"])
-    } else {
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_limit_order", customAttributes: ["value": "\(installTime)_\(time)"])
-    }
     KNAppTracker.saveFirstTimeLimitOrder()
   }
 
@@ -449,17 +426,6 @@ class KNAppTracker {
 
   static func logFirstTimePriceAlertIfNeeded() {
     if userDefaults.value(forKey: kFirstTimePriceAlertKey) != nil { return }
-    let time = Date().timeIntervalSince1970
-    let installTime = KNAppTracker.getFirstInstallTime()
-    if time <= installTime + 24.0 * 60.0 * 60.0 { // one day
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_price_alert", customAttributes: ["value": "day_\(installTime)"])
-    } else if time <= installTime + 7.0 * 24.0 * 60.0 * 60.0 { // one week
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_price_alert", customAttributes: ["value": "week_\(installTime)"])
-    } else if time <= installTime + 30.0 * 24.0 * 60.0 * 60.0 { // one week
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_price_alert", customAttributes: ["value": "month_\(installTime)"])
-    } else {
-      KNCrashlyticsUtil.logCustomEvent(withName: "first_price_alert", customAttributes: ["value": "\(installTime)_\(time)"])
-    }
     KNAppTracker.saveFirstTimePriceAlert()
   }
   static func saveFirstTimePriceAlert() {
