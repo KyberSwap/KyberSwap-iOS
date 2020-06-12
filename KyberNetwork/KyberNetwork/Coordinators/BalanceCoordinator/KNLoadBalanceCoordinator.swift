@@ -34,7 +34,7 @@ class KNLoadBalanceCoordinator {
       }
       let tokens = KNSupportedTokenStorage.shared.supportedTokens
       for token in tokens {
-        if let balance = otherTokensBalance[token.contract], !balance.value.isZero, let rate = KNRateCoordinator.shared.usdRate(for: token) {
+        if let balance = otherTokensBalance[token.contract.lowercased()], !balance.value.isZero, let rate = KNRateCoordinator.shared.usdRate(for: token) {
           value += rate.rate * balance.value / BigInt(10).power(token.decimals)
         }
       }
@@ -51,7 +51,7 @@ class KNLoadBalanceCoordinator {
       let tokenObjects = KNSupportedTokenStorage.shared.supportedTokens
 
       for tokenObj in tokenObjects {
-        if let balance = otherTokensBalance[tokenObj.contract], !balance.value.isZero, let rate = KNRateCoordinator.shared.getRate(from: tokenObj, to: self.ethToken) {
+        if let balance = otherTokensBalance[tokenObj.contract.lowercased()], !balance.value.isZero, let rate = KNRateCoordinator.shared.getRate(from: tokenObj, to: self.ethToken) {
           value += rate.rate * balance.value / BigInt(10).power(tokenObj.decimals)
         }
       }
