@@ -103,7 +103,7 @@ class KNLoadBalanceCoordinator {
     if Date().timeIntervalSince(self.lastRefreshTime) >= 15.0 {
       self.lastRefreshTime = Date()
       self.fetchETHBalance(nil)
-      self.fetchOtherTokensBalance(nil)
+      self.fetchOtherTokenBalancesNew(nil)
     }
   }
 
