@@ -255,7 +255,7 @@ class KNLoadBalanceCoordinator {
     }
   }
 
-  @objc func fetchOtherTokenBalancesNew(_ sender: Timer?) {
+  @objc func fetchOtherTokenBalancesNew(_ sender: Timer?, isRetry: Bool = false) {
     guard KNReachability.shared.reachabilityManager?.isReachable == true else { return }
     if isFetchingOtherTokensBalance { return }
     isFetchingOtherTokensBalance = true
@@ -274,15 +274,20 @@ class KNLoadBalanceCoordinator {
         }
       case .failure(let error):
         if error.code == NSURLErrorNotConnectedToInternet { return }
-        self.fetchOtherTokenChucked()
+        guard isRetry else {
+          return
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
+          self.fetchOtherTokenBalancesNew(nil, isRetry: true)
+        }
       }
     }
   }
 
   @objc func fetchOtherTokenChucked(chunkedNum: Int = 20) {
     KNCrashlyticsUtil.logCustomEvent(
-      withName: "LoadBalanceCoordinator",
-      customAttributes: ["info": "fallback_load_tokens_by_chunking"]
+      withName: "load_balance_load_token_chucked",
+      customAttributes: nil
     )
     if isFetchingOtherTokensBalance { return }
     isFetchingOtherTokensBalance = true
@@ -307,7 +312,10 @@ class KNLoadBalanceCoordinator {
             self.fetchOtherTokenBalances(addresses: addresses)
           }
         case .failure:
-          self.fetchOtherTokenBalances(addresses: addresses)
+          KNCrashlyticsUtil.logCustomEvent(
+            withName: "load_balance_load_token_chucked_failure",
+            customAttributes: nil
+          )
         }
       }
     }
@@ -362,8 +370,8 @@ class KNLoadBalanceCoordinator {
 
   func fetchOtherTokenBalances(addresses: [Address]) {
     KNCrashlyticsUtil.logCustomEvent(
-      withName: "LoadBalanceCoordinator",
-      customAttributes: ["info": "fallback_load_each_token_balance"]
+      withName: "load_balance_load_token_balance_one_by_one",
+      customAttributes: nil
     )
     var isBalanceChanged: Bool = false
     let currentWallet = self.session.wallet
