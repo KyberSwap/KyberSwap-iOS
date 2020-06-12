@@ -132,7 +132,7 @@ class KNNewAlertViewController: KNBaseViewController {
 
     self.updateUIs()
 
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["info": "currency_\(self.viewModel.currencyType.rawValue)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_did_load", customAttributes: ["currency": self.viewModel.currencyType.rawValue])
     self.alertPriceTextLabel.text = "Alert Price".toBeLocalised()
     self.alertPriceTextField.delegate = self
     self.viewModel.updateCurrentPrice()
@@ -169,13 +169,13 @@ class KNNewAlertViewController: KNBaseViewController {
   func updatePair(token: TokenObject, currencyType: KWalletCurrencyType) {
     self.viewModel.update(token: token.symbol, currencyType: currencyType)
     self.updateUIs()
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["info": "currency_\(self.viewModel.currencyType.rawValue)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_update_pair", customAttributes: ["currency": self.viewModel.currencyType.rawValue])
     // for refetch token rates
     KNRateCoordinator.shared.fetchCacheRate(nil)
   }
 
   func updateEditAlert(_ alert: KNAlertObject) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["info": "editting_alert"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_editting_alert", customAttributes: nil)
     self.viewModel.updateEditAlert(alert)
     self.alertPriceTextField.text = self.viewModel.priceNumberFormatter.string(from: NSNumber(value: alert.price))
     self.updateUIs()
@@ -247,7 +247,7 @@ class KNNewAlertViewController: KNBaseViewController {
   @IBAction func screenEdgePanAction(_ sender: UIScreenEdgePanGestureRecognizer
     ) {
     if sender.state == .ended {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["action": "screen_edge_pan"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_edge_pan", customAttributes: nil)
       self.navigationController?.popViewController(animated: true)
     }
   }
@@ -327,7 +327,7 @@ class KNNewAlertViewController: KNBaseViewController {
       guard let `self` = self else { return }
       self.hideLoading()
       if let error = error {
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["info": "create_new_alert_failed_\(error)"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_create_new_alert_failure", customAttributes: ["error": error])
         KNAppTracker.logFirstTimePriceAlertIfNeeded()
         self.showErrorTopBannerMessage(
           with: NSLocalizedString("error", value: "Error", comment: ""),
@@ -389,7 +389,7 @@ class KNNewAlertViewController: KNBaseViewController {
       guard let `self` = self else { return }
       self.hideLoading()
       if let error = error {
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_alert", customAttributes: ["info": "update_alert_failed_\(error)"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_create_new_alert_failure", customAttributes: ["error": error])
         self.showErrorTopBannerMessage(
           with: NSLocalizedString("error", value: "Error", comment: ""),
           message: error,

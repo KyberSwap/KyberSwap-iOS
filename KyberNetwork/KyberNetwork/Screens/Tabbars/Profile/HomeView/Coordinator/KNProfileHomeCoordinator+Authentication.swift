@@ -492,7 +492,7 @@ extension KNProfileHomeCoordinator {
     self.rootViewController.coordinatorUserDidSignInSuccessfully(isFirstTime: true)
     self.lastUpdatedUserInfo = Date()
     if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.updateOneSignalPlayerIDWithRetry() }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["type": "signed_in_successfully"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "profile_signed_in_successfully", customAttributes: nil)
     let name = IEOUserStorage.shared.user?.name ?? ""
     let text = isSignUp ? "welcome.user.to.kyberswap".toBeLocalised() : NSLocalizedString("welcome.back.user", value: "Welcome back, %@", comment: "")
     let message = String(format: text, name)

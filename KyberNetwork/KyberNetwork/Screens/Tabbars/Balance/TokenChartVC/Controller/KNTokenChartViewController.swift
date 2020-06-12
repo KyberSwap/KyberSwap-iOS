@@ -806,7 +806,7 @@ class KNTokenChartViewController: KNBaseViewController {
 
   @IBAction func actionButtonDidPress(_ sender: UIButton) {
     if !self.viewModel.isTokenSupported {
-      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "send_\(self.viewModel.token.symbol)"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "chart_send_tapped", customAttributes: ["token": self.viewModel.token.symbol])
       self.delegate?.tokenChartViewController(self, run: .send(token: self.viewModel.token))
       return
     }

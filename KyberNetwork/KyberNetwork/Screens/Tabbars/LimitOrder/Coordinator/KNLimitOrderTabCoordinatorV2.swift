@@ -394,7 +394,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
     group.notify(queue: .main) {
       self.navigationController.hideLoading()
       if let error = errorMessage {
-        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: ["action": "submit_error_\(error)"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "lo_submit_error", customAttributes: ["error": error])
         if self.navigationController.viewControllers.count > 1 {
           self.navigationController.popToRootViewController(animated: true, completion: {
             self.navigationController.showWarningTopBannerMessage(with: "", message: error, time: 2.0)
@@ -403,10 +403,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
           self.navigationController.showWarningTopBannerMessage(with: "", message: error, time: 2.0)
         }
       } else {
-        let attributes = [
-          "action": "submit_\(order.srcAmount.displayRate(decimals: order.from.decimals))_\(order.from.symbol)_\(order.to.symbol)",
-        ]
-        KNCrashlyticsUtil.logCustomEvent(withName: "limit_order_coordinator", customAttributes: attributes)
+        KNCrashlyticsUtil.logCustomEvent(withName: "lo_submit_success", customAttributes: ["pair": "\(order.from.symbol)_\(order.to.symbol)", "src_amount": order.srcAmount.displayRate(decimals: order.from.decimals)])
         let newOrder = KNLimitOrder(
           from: order.from,
           to: order.to,
@@ -900,15 +897,15 @@ extension KNLimitOrderTabCoordinatorV2: KNConvertSuggestionViewControllerDelegat
           let success = json["success"] as? Bool ?? false
           let message = json["message"] as? String ?? "Unknown"
           if success {
-            KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "tx_hash_sent"])
+            KNCrashlyticsUtil.logCustomEvent(withName: "lo_send_tx_hash_success", customAttributes: nil)
           } else {
-            KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "error_\(message)"])
+            KNCrashlyticsUtil.logCustomEvent(withName: "lo_send_tx_hash_failure", customAttributes: ["error": message])
           }
         } catch {
-          KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "failed_to_send"])
+          KNCrashlyticsUtil.logCustomEvent(withName: "lo_send_tx_hash_failure", customAttributes: nil)
         }
       case .failure:
-        KNCrashlyticsUtil.logCustomEvent(withName: "swap_coordinator", customAttributes: ["action": "failed_to_send"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "lo_send_tx_hash_failure", customAttributes: nil)
       }
     }
   }

@@ -195,21 +195,21 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     var amountDisplay = ""
     switch sender.tag {
     case 1:
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "25_percent_clicked"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "lo_25_percent_tapped", customAttributes: nil)
       amountDisplay = self.viewModel.amountFromWithPercentage(25).string(
         decimals: self.viewModel.from.decimals,
         minFractionDigits: 0,
         maxFractionDigits: min(self.viewModel.from.decimals, 6)
       ).removeGroupSeparator()
     case 2:
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "50_percent_clicked"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "lo_50_percent_tapped", customAttributes: nil)
       amountDisplay = self.viewModel.amountFromWithPercentage(50).string(
         decimals: self.viewModel.from.decimals,
         minFractionDigits: 0,
         maxFractionDigits: min(self.viewModel.from.decimals, 6)
       ).removeGroupSeparator()
     case 3:
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "100_percent_clicked"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "lo_100_percent_tapped", customAttributes: nil)
       amountDisplay = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
     default:
       break
@@ -399,14 +399,14 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
         confirmData: confirmData
       )
       self.delegate?.kCreateLimitOrderViewController(self, run: event)
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "show_convert_eth_weth"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "lo_show_convert_eth_weth", customAttributes: nil)
       return true
     }
     return false
   }
 
   fileprivate func submitOrderDidVerifyData() {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["info": "order_did_verify"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_order_did_verify", customAttributes: nil)
     let amount: BigInt = {
       if !self.viewModel.from.isWETH && self.viewModel.isUseAllBalance { return self.viewModel.availableBalance }
       return self.viewModel.amountFromBigInt
@@ -522,7 +522,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   }
 
   @IBAction func marketPriceButtonTapped(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "fill_market_price_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_fill_market_price_tapped", customAttributes: nil)
     self.priceField.text = self.viewModel.targetPriceFromMarket
     self.viewModel.updateTargetPrice(self.viewModel.targetPriceFromMarket)
     self.comparePriceLabel.attributedText = self.viewModel.displayRateCompareAttributedString
@@ -673,7 +673,7 @@ extension KNCreateLimitOrderV2ViewController: KNLimitOrderCollectionViewCellDele
       let row = self.viewModel.relatedSections[date]?.firstIndex(where: { $0.id == order.id }) else {
       return // order not exist
     }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "open_cancel_order"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_open_cancel_order", customAttributes: nil)
     self.openCancelOrder(order) {
       self.viewModel.cancelOrder = nil
       let indexPath = IndexPath(row: row, section: section)
@@ -706,7 +706,7 @@ extension KNCreateLimitOrderV2ViewController: KNLimitOrderCollectionViewCellDele
 
 extension KNCreateLimitOrderV2ViewController: KNCancelOrderConfirmPopUpDelegate {
   func cancelOrderConfirmPopup(_ controller: KNCancelOrderConfirmPopUp, didConfirmCancel order: KNOrderObject) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_limit_order_2", customAttributes: ["action": "confirm_cancel"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_confirm_cancel", customAttributes: nil)
     self.updateRelatedOrdersFromServer()
     self.updatePendingBalancesFromServer()
   }

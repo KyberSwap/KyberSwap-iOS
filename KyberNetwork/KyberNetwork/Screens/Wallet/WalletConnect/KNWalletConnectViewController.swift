@@ -85,7 +85,7 @@ class KNWalletConnectViewController: KNBaseViewController {
         self?.isShowLoading = false
         self?.hideLoading()
       }
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["info": "connection_error"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_error", customAttributes: nil)
       let alert = UIAlertController(title: "Error", message: "Do you want to re-connect?", preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "Reconnect", style: .default, handler: { _ in
         guard let session = self?.wcSession else { return }
@@ -107,17 +107,17 @@ class KNWalletConnectViewController: KNBaseViewController {
       let message = [peer.description, peer.url].joined(separator: "\n")
       self?.nameTextLabel.text = peer.name
       self?.urlLabel.text = peer.url
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["info": "connected_\(peer.url)"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_connected", customAttributes: ["url": peer.url])
       self?.logoImageView.setImage(with: peer.icons.first ?? "", placeholder: nil)
       let alert = UIAlertController(title: peer.name, message: message, preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "Reject", style: .destructive, handler: { _ in
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "reject_\(peer.url)"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_reject", customAttributes: ["url": peer.url])
         self?.interactor?.rejectSession().cauterize()
         self?.interactor?.killSession().cauterize()
         self?.shouldRecover = false
       }))
       alert.addAction(UIAlertAction(title: "Approve", style: .default, handler: { _ in
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "approved_\(peer.url)"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_approved", customAttributes: ["url": peer.url])
         self?.interactor?.approveSession(accounts: accounts, chainId: chainId).cauterize()
       }))
       self?.show(alert, sender: nil)
@@ -128,7 +128,7 @@ class KNWalletConnectViewController: KNBaseViewController {
         self?.isShowLoading = false
         self?.hideLoading()
       }
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["info": "disconnect"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_disconnected", customAttributes: nil)
       self?.connectionStatusUpdated(self?.interactor?.state == .connected)
       guard let err = error as? WSError, err.code == 1000 else {
         if self?.shouldRecover == true {
@@ -145,14 +145,14 @@ class KNWalletConnectViewController: KNBaseViewController {
         self?.isShowLoading = false
         self?.hideLoading()
       }
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "sign_data"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_sign_data", customAttributes: nil)
       let alert = UIAlertController(title: "Sign data".toBeLocalised(), message: payload.message, preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "sign_data_reject"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_sign_data_reject", customAttributes: nil)
         self?.interactor?.rejectRequest(id: id, message: "User canceled").cauterize()
       }))
       alert.addAction(UIAlertAction(title: "Sign", style: .default, handler: { _ in
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "sign_data_approved"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_sign_data_approved", customAttributes: nil)
         self?.signEth(id: id, payload: payload)
       }))
       self?.present(alert, animated: true, completion: nil)
@@ -163,7 +163,7 @@ class KNWalletConnectViewController: KNBaseViewController {
         self?.isShowLoading = false
         self?.hideLoading()
       }
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "transaction"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction", customAttributes: nil)
       let data = try! JSONEncoder().encode(transaction)
       self?.sendTransaction(id, data: data)
     }
@@ -209,11 +209,11 @@ class KNWalletConnectViewController: KNBaseViewController {
     }()
     let alert = UIAlertController(title: "Approve transaction", message: message, preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: "Reject", style: .destructive, handler: { _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "transaction_rejected"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_rejected", customAttributes: nil)
       self.interactor?.rejectRequest(id: id, message: "User cancelled").cauterize()
     }))
     alert.addAction(UIAlertAction(title: "Approve", style: .default, handler: { _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["action": "transaction_approved"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_approved", customAttributes: nil)
       self.displayLoading(text: "Submitting...", animated: true)
       self.knSession.externalProvider.sendTxWalletConnect(txData: json) { [weak self] result in
         guard let `self` = self else { return }
@@ -326,7 +326,7 @@ class KNWalletConnectViewController: KNBaseViewController {
     }
     if data.starts(with: kApprovePrefix),
       let token = self.knSession.tokenStorage.tokens.first(where: { return $0.contract.lowercased() == to }) {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["info": "transaction_type_approve"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_type_approve", customAttributes: nil)
       let address = data.substring(to: 72).substring(from: 32).add0x.lowercased()
       let contractName: String = {
         if let networkAddr = KNEnvironment.default.knCustomRPC?.networkAddress, networkAddr.lowercased() == address {
@@ -341,14 +341,14 @@ class KNWalletConnectViewController: KNBaseViewController {
     }
     if data.starts(with: kTransferPrefix),
       let token = self.knSession.tokenStorage.tokens.first(where: { return $0.contract.lowercased() == to }) {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["info": "transaction_type_transfer"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_type_transfer", customAttributes: nil)
       let address = data.substring(to: 72).substring(from: 32).add0x.lowercased()
       let amount = data.substring(from: 72).add0x.fullBigInt(decimals: 0) ?? BigInt(0)
       return "Transfer \(amount.string(decimals: token.decimals, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))) \(token.symbol) to \(address)"
     }
     if data.starts(with: kTradeWithHintPrefix),
       let networkAddr = KNEnvironment.default.knCustomRPC?.networkAddress, networkAddr.lowercased() == to {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["info": "transaction_type_swap"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_type_swap", customAttributes: nil)
       // swap
       let fromToken = data.substring(to: 8 + 64).substring(from: 8 + 24).add0x.lowercased()
       let fromAmount = data.substring(to: 8 + 64 * 2).substring(from: 8 + 64).add0x.fullBigInt(decimals: 0) ?? BigInt(0)
@@ -359,7 +359,7 @@ class KNWalletConnectViewController: KNBaseViewController {
       }
       return "Swap \(fromAmount.string(decimals: from.decimals, minFractionDigits: 0, maxFractionDigits: min(6, from.decimals))) \(from.symbol) to \(to.symbol)"
     }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_wallet_connect", customAttributes: ["info": "transaction_type_unknown"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_type_unknown", customAttributes: nil)
     return nil
   }
 

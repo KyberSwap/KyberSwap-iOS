@@ -244,19 +244,19 @@ class KWalletBalanceViewController: KNBaseViewController {
   }
 
   @IBAction func menuButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "hamburger_menu"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "balance_hamburger_menu", customAttributes: nil)
     self.hamburgerMenu.openMenu(animated: true)
   }
 
   @IBAction func kyberListButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "kyber_listed_tokens"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "balance_kyber_listed_tokens", customAttributes: nil)
     if self.viewModel.updateDisplayTabOption(.kyberListed) {
       self.updateDisplayedDataType()
     }
   }
 
   @IBAction func otherButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "other_tokens"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "balance_other_tokens", customAttributes: nil)
     let newOption: KTokenListType = {
       if self.viewModel.tabOption == .kyberListed { return self.viewModel.preExtraTabOption }
       return self.viewModel.tabOption == .favourite ? .others : .favourite
@@ -267,12 +267,12 @@ class KWalletBalanceViewController: KNBaseViewController {
   }
 
   @IBAction func searchButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "search_token"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "balance_search_token", customAttributes: nil)
     if !self.searchTextField.isFirstResponder { self.searchTextField.becomeFirstResponder() }
   }
 
   @IBAction func sortNameButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "sorted_name"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "balance_sorted_name", customAttributes: nil)
     self.viewModel.updateTokenDisplayType(positionClicked: 1)
     self.tokensBalanceTableView.reloadData()
     self.updateDisplayedDataType()

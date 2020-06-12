@@ -88,7 +88,7 @@ class KNListNotificationViewController: KNBaseViewController {
           return
         }
         if let err = error {
-          KNCrashlyticsUtil.logCustomEvent(withName: "screen_notification", customAttributes: ["reload_error": err])
+          KNCrashlyticsUtil.logCustomEvent(withName: "notification_reload_failure", customAttributes: ["error": err])
           errorMessage = err
         } else {
           notifications.append(contentsOf: notis)
@@ -99,7 +99,7 @@ class KNListNotificationViewController: KNBaseViewController {
     group.notify(queue: .main) {
       if isLoading { self.hideLoading() }
       if let error = errorMessage {
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_notification", customAttributes: ["error": error])
+        KNCrashlyticsUtil.logCustomEvent(withName: "notification_failure", customAttributes: ["error": error])
         self.showErrorTopBannerMessage(
           with: NSLocalizedString("error", comment: ""),
           message: error,
@@ -126,14 +126,14 @@ class KNListNotificationViewController: KNBaseViewController {
   }
 
   @IBAction func markAllButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_notification", customAttributes: ["action": "mark_all_read"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "notification_mark_all_read", customAttributes: nil)
     let ids = KNNotificationStorage.shared.notifications.map({ return $0.id })
     self.displayLoading()
     KNNotificationCoordinator.shared.markAsRead(ids: ids) { [weak self] error in
       guard let `self` = self else { return }
       self.hideLoading()
       if let err = error {
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_notification", customAttributes: ["mark_read_error": err])
+        KNCrashlyticsUtil.logCustomEvent(withName: "notification_mark_read_failure", customAttributes: ["error": err])
         self.showErrorTopBannerMessage(
           with: NSLocalizedString("error", comment: ""),
           message: err,
@@ -164,7 +164,7 @@ extension KNListNotificationViewController: UITableViewDelegate {
       }
     }
 
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_notification", customAttributes: ["action": "click_\(noti.label)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "notification_item_tapped", customAttributes: ["item": noti.label])
 
     if noti.scope == "personal" && noti.label == "alert" {
       // alert, open swap view
