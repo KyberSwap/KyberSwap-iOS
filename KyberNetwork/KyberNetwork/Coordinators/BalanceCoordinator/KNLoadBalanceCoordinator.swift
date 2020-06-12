@@ -255,7 +255,7 @@ class KNLoadBalanceCoordinator {
     }
   }
 
-  @objc func fetchOtherTokenBalancesNew(_ sender: Timer?, isRetry: Bool = false) {
+  @objc func fetchOtherTokenBalancesNew(_ sender: Timer?, isRetry: Bool = true) {
     guard KNReachability.shared.reachabilityManager?.isReachable == true else { return }
     if isFetchingOtherTokensBalance { return }
     isFetchingOtherTokensBalance = true
@@ -278,7 +278,7 @@ class KNLoadBalanceCoordinator {
           return
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0) {
-          self.fetchOtherTokenBalancesNew(nil, isRetry: true)
+          self.fetchOtherTokenBalancesNew(nil, isRetry: false)
         }
       }
     }
