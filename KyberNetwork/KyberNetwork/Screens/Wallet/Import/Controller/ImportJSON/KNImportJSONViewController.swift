@@ -36,7 +36,7 @@ class KNImportJSONViewController: KNBaseViewController {
   func resetUIs() {
     let attributedString: NSAttributedString = {
       return NSAttributedString(
-        string: NSLocalizedString("import.your.json.file", value: "Import your JSON file", comment: ""),
+        string: NSLocalizedString("import.your.keystore.file", value: "Import your Keystore file", comment: ""),
         attributes: self.buttonAttributes
       )
     }()

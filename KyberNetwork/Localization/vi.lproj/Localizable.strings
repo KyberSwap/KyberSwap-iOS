@@ -128,7 +128,7 @@
 "words.count" = "Số từ";
 "your.private.key" = "Khóa riêng của bạn";
 "private.key.has.to.be.64.characters" = "Khóa riêng phải có 64 ký tự";
-"import.your.json.file" = "Nhập tệp JSON của bạn";
+"import.your.keystore.file" = "Nhập tệp Keystore của bạn";
 "can.not.get.data.from.your.file" = "Không thể lấy dữ liệu từ tệp.";
 "backup.your.wallet" = "Sao Lưu Ví";
 "paper.only" = "Ghi vào giấy";
@@ -616,7 +616,7 @@
 "Amount is too big. Limit order only support max 10 ETH equivalent order" = "Lượng giao dịch quá lớn. Lệnh giao dịch chỉ hỗ trợ lượng giao dịch tối đa 10 ETH.";
 "Your balance is insufficent for the order. Please check your balance and your pending order" = "Tài khoản của bạn không đủ để đặt lệnh. Vui lòng kiểm tra số dư của bạn và các lệnh đã đặt";
 "Your balance is insufficient for transaction" = "Tài khoản của bạn không đủ để thực hiện giao dịch";
-"This address has been used by another account. Please place order with other address." = "Địa chỉ ví này đã được sử dụng bởi tài khoản khác. Vui lòng sử dụng địa chỉ ví khác để đặt lệnh giao dịch.";
+"This address has been used by another account. Please place order with other address." = "Địa chỉ ví này đã được sử dụng bởi tài khoản khác (%@). Vui lòng sử dụng địa chỉ ví khác để đặt lệnh giao dịch.";
 "Hold from 2000 KNC to get discount for your orders." = "Giữ 2000 KNC trong ví để nhận được khuyến mại.";
 "Please enter an amount to continue" = "Vui lòng nhập số tiền để tiếp tục";
 "You cannot submit order with promo code. Please use other wallets." = "Bạn không thể đặt lệnh bằng promo code. Vui lòng sử dụng các loại ví khác";

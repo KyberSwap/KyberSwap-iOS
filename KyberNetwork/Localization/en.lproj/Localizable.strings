@@ -128,7 +128,7 @@
 "words.count" = "Words Count";
 "your.private.key" = "Your Private Key";
 "private.key.has.to.be.64.characters" = "Private key has to be 64 characters";
-"import.your.json.file" = "Import your JSON file";
+"import.your.keystore.file" = "Import your Keystore file";
 "can.not.get.data.from.your.file" = "Can not get data from your file.";
 "backup.your.wallet" = "Backup Your Wallet";
 "paper.only" = "Paper Only";
@@ -613,7 +613,7 @@
 "Amount is too big. Limit order only support max 10 ETH equivalent order" = "Amount is too big. Limit order only support max 10 ETH equivalent order";
 "Your balance is insufficent for the order. Please check your balance and your pending order" = "Your balance is insufficent for the order. Please check your balance and your pending order";
 "Your balance is insufficient for transaction" = "Your balance is insufficient for transaction";
-"This address has been used by another account. Please place order with other address." = "This address has been used by another account. Please place order with other address.";
+"This address has been used by another account. Please place order with other address." = "This address has been used by another account (%@). Please place order with other address.";
 "Hold from 2000 KNC to get discount for your orders." = "Hold from 2000 KNC to get discount for your orders.";
 "Please enter an amount to continue" = "Please enter an amount to continue";
 "You cannot submit order with promo code. Please use other wallets." = "You cannot submit order with promo code. Please use other wallets.";

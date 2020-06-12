@@ -172,7 +172,7 @@ class KNLimitOrderServerCoordinator {
     }
   }
 
-  func checkEligibleAddress(accessToken: String, address: String, completion: @escaping (Result<Bool, AnyError>) -> Void) {
+  func checkEligibleAddress(accessToken: String, address: String, completion: @escaping (Result<(Bool, String?), AnyError>) -> Void) {
     DispatchQueue.global(qos: .background).async {
       self.provider.request(.checkEligibleAddress(accessToken: accessToken, address: address)) { [weak self] result in
         guard let _ = self else { return }
@@ -182,7 +182,9 @@ class KNLimitOrderServerCoordinator {
             do {
               let _ = try data.filterSuccessfulStatusCodes()
               let json = try data.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
-              completion(.success(json["eligible_address"] as? Bool ?? true))
+              let eligible = json["eligible_address"] as? Bool ?? true
+              let account = json["account"] as? String // in case not eligible, show account
+              completion(.success((eligible, account)))
             } catch let error {
               completion(.failure(AnyError(error)))
             }

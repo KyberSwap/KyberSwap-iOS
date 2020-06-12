@@ -887,11 +887,14 @@ extension KNCreateLimitOrderViewController {
     let address = self.viewModel.walletObject.address
     KNLimitOrderServerCoordinator.shared.checkEligibleAddress(accessToken: accessToken, address: address) { [weak self] result in
       guard let `self` = self else { return }
-      if case .success(let eligile) = result, !eligile {
+      if case .success(let eligileData) = result, !eligileData.0 {
+        let account = eligileData.1 ?? ""
+        var message = "This address has been used by another account. Please place order with other address.".toBeLocalised()
+        message = String(format: message, account)
         // not eligible
         self.showWarningTopBannerMessage(
           with: "",
-          message: "This address has been used by another account. Please place order with other address.".toBeLocalised(),
+          message: message,
           time: 2.0
         )
       }

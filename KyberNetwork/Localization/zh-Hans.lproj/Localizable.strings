@@ -128,7 +128,7 @@
 "words.count" = "字数统计";
 "your.private.key" = "你的私钥";
 "private.key.has.to.be.64.characters" = "私钥必须是64个字符";
-"import.your.json.file" = "导入您的JSON文件";
+"import.your.keystore.file" = "导入您的Keystore文件";
 "can.not.get.data.from.your.file" = "无法从您的文件中获取数据。";
 "backup.your.wallet" = "备份你的钱包";
 "paper.only" = "仅限纸张";
@@ -615,7 +615,7 @@
 "Amount is too big. Limit order only support max 10 ETH equivalent order" = "数量太大。限价订单仅支持10ETH以下的订单";
 "Your balance is insufficent for the order. Please check your balance and your pending order" = "您的余额不足。请检查您的余额和正在缓冲的订单。";
 "Your balance is insufficient for transaction" = "您的余额不足以支持这笔交易";
-"This address has been used by another account. Please place order with other address." = "这个地址已经被另一个账户所使用。请使用其他地址下单。";
+"This address has been used by another account. Please place order with other address." = "这个地址已经被另一个账户所使用 (%@)。请使用其他地址下单。";
 "Hold from 2000 KNC to get discount for your orders." = "持有2000KNC以上可享受享受折扣。";
 "Please enter an amount to continue" = "请输入要继续的金额";
 "You cannot submit order with promo code. Please use other wallets." = "您不能使用兑奖码下单。请使用其他钱包。";

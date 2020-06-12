@@ -236,9 +236,12 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
 
     // check address eligible
     group.enter()
-    self.checkWalletEligible { isEligible in
+    self.checkWalletEligible { data in
+      let isEligible = data.0
+      let account = data.1 ?? ""
       if !isEligible {
-        errorMessage = "This address has been used by another account. Please place order with other address.".toBeLocalised()
+        let message = "This address has been used by another account. Please place order with other address.".toBeLocalised()
+        errorMessage = String(format: message, account)
       }
       group.leave()
     }
@@ -367,9 +370,9 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
     }
   }
 
-  fileprivate func checkWalletEligible(completion: ((Bool) -> Void)?) {
+  fileprivate func checkWalletEligible(completion: (((Bool, String?)) -> Void)?) {
     guard let accessToken = IEOUserStorage.shared.user?.accessToken else {
-      completion?(true)
+      completion?((true, nil))
       return
     }
     KNLimitOrderServerCoordinator.shared.checkEligibleAddress(
@@ -380,7 +383,7 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
         case .success(let data):
           completion?(data)
         case .failure:
-          completion?(true)
+          completion?((true, nil))
         }
     }
   }
