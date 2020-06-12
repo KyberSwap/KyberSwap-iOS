@@ -120,16 +120,19 @@ class KNNotificationSettingViewController: KNBaseViewController {
         self.showErrorTopBannerMessage(message: errorMessage)
       } else {
         self.hideFormViews(!state)
+        KNCrashlyticsUtil.logCustomEvent(withName: state ? "pricetrending_noti_enable" : "pricetrending_noti_disable", customAttributes: nil)
       }
     }
   }
 
   @IBAction func resetButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "pricetrending_reset_tapped", customAttributes: nil)
     self.viewModel.resetTokens()
     self.updateUI()
   }
 
   @IBAction func applyButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "pricetrending_apply_tapped", customAttributes: nil)
     self.displayLoading()
     KNNotificationCoordinator.shared.updateListSubscriptionTokens(symbols: self.viewModel.tokens) { [weak self] (message) in
       guard let `self` = self else { return }

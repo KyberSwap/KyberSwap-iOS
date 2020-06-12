@@ -355,7 +355,25 @@ extension KNAppCoordinator {
           self.loadBalanceCoordinator?.fetchTokenAddressAfterTx(token1: objc.from, token2: objc.to)
         }
       }
-      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_update_success", customAttributes: ["info": trans.shortDesc])
+      if let type = trans.localizedOperations.first?.type {
+        if type == "transfer" {
+          KNCrashlyticsUtil.logCustomEvent(withName: "tx_mined_transfer_success",
+                                           customAttributes: [
+                                            "token": trans.from,
+                                            "src_amount": trans.value,
+            ]
+          )
+        } else if type == "exchange" {
+          KNCrashlyticsUtil.logCustomEvent(withName: "tx_mined_swap_success",
+                                           customAttributes: [
+                                            "src_token": trans.from,
+                                            "des_token": trans.to,
+                                            "src_amount": trans.getSourceAmount(),
+                                            "des_amount": trans.getDestinationAmount(),
+            ]
+          )
+        }
+      }
     } else if trans.state == .failed || trans.state == .error {
       if !(updateBalance || updateExchange || updateLO || updateSettings) {
         self.navigationController.showSuccessTopBannerMessage(
@@ -364,7 +382,27 @@ extension KNAppCoordinator {
           time: -1
         )
       }
-      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_update_failed", customAttributes: ["info": trans.shortDesc])
+      if let type = trans.localizedOperations.first?.type {
+        if type == "transfer" {
+          KNCrashlyticsUtil.logCustomEvent(withName: "tx_mined_transfer_fail",
+                                           customAttributes: [
+                                            "token": trans.from,
+                                            "src_amount": trans.value,
+                                            "error": trans.getDetails(),
+            ]
+          )
+        } else if type == "exchange" {
+          KNCrashlyticsUtil.logCustomEvent(withName: "tx_mined_swap_fail",
+                                           customAttributes: [
+                                            "src_token": trans.from,
+                                            "des_token": trans.to,
+                                            "src_amount": trans.getSourceAmount(),
+                                            "des_amount": trans.getDestinationAmount(),
+                                            "error": trans.getDetails(),
+            ]
+          )
+        }
+      }
     }
     let transactions = self.session.transactionStorage.kyberPendingTransactions
     self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)

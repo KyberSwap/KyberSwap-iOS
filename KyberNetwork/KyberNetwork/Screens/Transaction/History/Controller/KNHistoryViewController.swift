@@ -302,7 +302,7 @@ class KNHistoryViewController: KNBaseViewController {
   }
 
   fileprivate func setupUI() {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_tx_history", customAttributes: ["action": "pending_tx"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_pending_tx", customAttributes: nil)
     self.setupNavigationBar()
     self.setupCollectionView()
   }
@@ -360,7 +360,7 @@ class KNHistoryViewController: KNBaseViewController {
   fileprivate func updateDisplayTxsType(_ isShowPending: Bool) {
     self.viewModel.updateIsShowingPending(isShowPending)
     self.updateUIWhenDataDidChange()
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_tx_history", customAttributes: ["action": self.viewModel.isShowingPending ? "pending_tx" : "mined_tx"])
+    KNCrashlyticsUtil.logCustomEvent(withName: self.viewModel.isShowingPending ? "txhistory_pending_tx" : "txhistory_mined_tx", customAttributes: nil)
   }
 
   @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
@@ -390,13 +390,13 @@ class KNHistoryViewController: KNBaseViewController {
   @IBAction func pendingButtonPressed(_ sender: Any) {
     self.viewModel.updateIsShowingPending(true)
     self.updateUIWhenDataDidChange()
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_tx_history", customAttributes: ["action": self.viewModel.isShowingPending ? "pending_tx" : "mined_tx"])
+    KNCrashlyticsUtil.logCustomEvent(withName: self.viewModel.isShowingPending ? "txhistory_pending_tx" : "txhistory_mined_tx", customAttributes: nil)
   }
 
   @IBAction func completedButtonPressed(_ sender: Any) {
     self.viewModel.updateIsShowingPending(false)
     self.updateUIWhenDataDidChange()
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_tx_history", customAttributes: ["action": self.viewModel.isShowingPending ? "pending_tx" : "mined_tx"])
+    KNCrashlyticsUtil.logCustomEvent(withName: self.viewModel.isShowingPending ? "txhistory_pending_tx" : "txhistory_mined_tx", customAttributes: nil)
   }
 }
 
@@ -434,7 +434,7 @@ extension KNHistoryViewController {
 
 extension KNHistoryViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_tx_history", customAttributes: ["action": "selected_tx"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_selected_tx", customAttributes: nil)
     if self.viewModel.isShowingPending {
       guard let transaction = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section) else { return }
       self.delegate?.historyViewController(self, run: .selectTransaction(transaction: transaction))
@@ -540,7 +540,7 @@ extension KNHistoryViewController: SwipeCollectionViewCellDelegate {
     }
     guard let transaction = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section), transaction.type == .normal else { return nil }
     let speedUp = SwipeAction(style: .default, title: nil) { (_, _) in
-      KNCrashlyticsUtil.logCustomEvent(withName: "select_speedup_transaction", customAttributes: ["transactionHash": transaction.id])
+      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_speedup", customAttributes: nil)
       self.delegate?.historyViewController(self, run: .speedUpTransaction(transaction: transaction))
     }
     speedUp.hidesWhenSelected = true
@@ -548,7 +548,7 @@ extension KNHistoryViewController: SwipeCollectionViewCellDelegate {
     speedUp.font = UIFont.Kyber.bold(with: 14)
     speedUp.backgroundColor = UIColor.Kyber.speedUpOrange
     let cancel = SwipeAction(style: .destructive, title: nil) { _, _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "select_cancel_transaction", customAttributes: ["transactionHash": transaction.id])
+      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_cancel", customAttributes: nil)
       self.delegate?.historyViewController(self, run: .cancelTransaction(transaction: transaction))
     }
     cancel.title = NSLocalizedString("cancel", value: "Cancel", comment: "")

@@ -234,16 +234,12 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     case .send(let token):
       self.openSendTokenView(with: token)
     case .sell(let token):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "sell_\(token.symbol)"])
       self.delegate?.balanceTabCoordinatorShouldOpenExchange(for: token, isReceived: false)
     case .buy(let token):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "buy_\(token.symbol)"])
       self.delegate?.balanceTabCoordinatorShouldOpenExchange(for: token, isReceived: true)
     case .receiveToken:
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "open_qrcode"])
       self.qrcodeCoordinator?.start()
     case .alert(let token):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "add_alert_\(token.symbol)"])
       self.openAddNewAlert(token)
     case .refreshData:
       // refresh rates
@@ -252,7 +248,6 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     case .buyETH:
       self.openBuyETHAlert()
     case .copyAddress:
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "copy_wallet_address"])
       UIPasteboard.general.string = self.session.wallet.address.description
       self.navigationController.showMessageWithInterval(
         message: NSLocalizedString("address.copied", value: "Address copied", comment: "")
@@ -267,6 +262,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     case .selectAddWallet:
       self.hamburgerMenuSelectAddWallet()
     case .selectPromoCode:
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_kybercode", customAttributes: nil)
       self.hamburgerMenuSelectPromoCode()
     case .selectSendToken:
       let from: TokenObject = {
@@ -275,10 +271,13 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
         }
         return token
       }()
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_transfer", customAttributes: nil)
       self.openSendTokenView(with: from)
     case .selectAllTransactions:
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_tnx", customAttributes: nil)
       self.openHistoryTransactionView()
     case .selectWalletConnect:
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_walletconnect", customAttributes: nil)
       let qrcode = QRCodeReaderViewController()
       qrcode.delegate = self
       self.navigationController.present(qrcode, animated: true, completion: nil)
@@ -402,8 +401,11 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
         if UIApplication.shared.canOpenURL(ksURL) {
           UIApplication.shared.open(ksURL)
         }
+        KNCrashlyticsUtil.logCustomEvent(withName: "balance_buyeth_yes", customAttributes: nil)
       },
-      firstButtonAction: nil
+      firstButtonAction: {
+        KNCrashlyticsUtil.logCustomEvent(withName: "balance_buyeth_cancel", customAttributes: nil)
+      }
     )
 
     self.navigationController.present(alertController, animated: true, completion: nil)

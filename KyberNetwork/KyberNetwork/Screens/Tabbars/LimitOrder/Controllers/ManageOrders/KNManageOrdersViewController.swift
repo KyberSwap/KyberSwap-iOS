@@ -305,14 +305,17 @@ class KNManageOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_cancel", customAttributes: nil)
     self.navigationController?.popViewController(animated: true)
   }
 
   @IBAction func openOrdersButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_open_order_tapped", customAttributes: nil)
     self.updateSelectOrdersType(isOpen: true)
   }
 
   @IBAction func orderHistoryButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_close_order_tapped", customAttributes: nil)
     self.updateSelectOrdersType(isOpen: false)
   }
 
@@ -325,12 +328,12 @@ class KNManageOrdersViewController: KNBaseViewController {
   }
 
   @IBAction func filterButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "filter_button_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_manager_filter", customAttributes: nil)
     self.openFilterView()
   }
 
   @IBAction func openFAQButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "faq_button_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "manageorder_faq_button_tapped", customAttributes: nil)
     let url = "\(KNEnvironment.default.profileURL)/faq#I-submitted-the-limit-order-but-it-was-not-triggered-even-though-my-desired-price-was-hit"
     self.navigationController?.openSafari(with: url)
   }
@@ -369,7 +372,7 @@ class KNManageOrdersViewController: KNBaseViewController {
             }
           })
         case .failure:
-          KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "list_order_fail_to_load"])
+          KNCrashlyticsUtil.logCustomEvent(withName: "manageorder_list_order_fail_to_load", customAttributes: nil)
           errorMessage = "Can not load your orders right now".toBeLocalised()
         }
         group.leave()
@@ -530,7 +533,7 @@ extension KNManageOrdersViewController: KNLimitOrderCollectionViewCellDelegate {
 
 extension KNManageOrdersViewController: KNFilterLimitOrderViewControllerDelegate {
   func filterLimitOrderViewController(_ controller: KNFilterLimitOrderViewController, isDateDesc: Bool, pairs: [String]?, status: [Int], addresses: [String]?) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "filter_applied_pairs_\(pairs?.joined(separator: ",") ?? "all")"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "manageorder_filter_applied_pairs", customAttributes: ["pair": pairs?.joined(separator: ",") ?? "all"])
     self.viewModel.isDateDesc = isDateDesc
     self.viewModel.selectedPairs = pairs
     self.viewModel.selectedStates = status
@@ -541,7 +544,7 @@ extension KNManageOrdersViewController: KNFilterLimitOrderViewControllerDelegate
 
 extension KNManageOrdersViewController: KNCancelOrderConfirmPopUpDelegate {
   func cancelOrderConfirmPopup(_ controller: KNCancelOrderConfirmPopUp, didConfirmCancel order: KNOrderObject) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_manage_order", customAttributes: ["action": "cancel_order"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "manageorder_cancel_order", customAttributes: nil)
     self.loadListOrders(isDisplayLoading: true)
   }
 }

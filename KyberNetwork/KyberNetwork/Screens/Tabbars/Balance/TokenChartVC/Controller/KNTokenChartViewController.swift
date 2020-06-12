@@ -23,6 +23,21 @@ enum KNTokenChartType: Int {
     }
   }
 
+  func displayString() -> String {
+    switch self {
+    case .day:
+      return "24h"
+    case .week:
+      return "7 days"
+    case .month:
+      return "month"
+    case .year:
+      return "year"
+    case .all:
+      return "all"
+    }
+  }
+
   func fromTime(for toTime: Int64) -> Int64 {
     switch self {
     case .day:
@@ -115,6 +130,34 @@ class KNTokenChartViewModel {
     return "\(self.token.symbol.prefix(8))"
   }
   var isTokenSupported: Bool { return self.token.isSupported }
+
+  var rateChangeString: String {
+    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: self.token) else {
+      return ""
+    }
+    let chartData = self.chartDataLO
+    let change24h: Double = {
+      if let market = chartData?.market {
+        // data from LO
+        return market.change
+      }
+      return currencyType == .eth ? trackerRate.changeETH24h : trackerRate.changeUSD24h
+    }()
+    let change24hString: String = {
+      if self.type == .day || chartData != nil {
+        let string = NumberFormatterUtil.shared.displayPercentage(from: fabs(change24h))
+        return "\(string)%"
+      }
+      if let firstData = self.data.first, let lastData = self.data.last {
+        if firstData.close == 0 || lastData.close == 0 { return "" }
+        let change = (lastData.close - firstData.close) / firstData.close * 100.0
+        let string = NumberFormatterUtil.shared.displayPercentage(from: fabs(change))
+        return "\(string)%"
+      }
+      return ""
+    }()
+    return change24hString
+  }
 
   var rateAttributedString: NSAttributedString {
     guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: self.token) else {
@@ -752,42 +795,44 @@ class KNTokenChartViewController: KNBaseViewController {
   }
 
   @objc func openTokenOnEtherscanPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "open_token_on_etherscan_\(self.viewModel.token.symbol)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "chart_token_tapped", customAttributes: nil)
     self.delegate?.tokenChartViewController(self, run: .openEtherscan(token: self.viewModel.token))
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "chart_token_tapped", customAttributes: nil)
     self.delegate?.tokenChartViewController(self, run: .back)
   }
 
   @IBAction func actionButtonDidPress(_ sender: UIButton) {
     if !self.viewModel.isTokenSupported {
-      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "send_\(self.viewModel.token.symbol)"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "chart_send_tapped", customAttributes: ["token": self.viewModel.token.symbol])
       self.delegate?.tokenChartViewController(self, run: .send(token: self.viewModel.token))
       return
     }
     if sender.tag == 0 {
-      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "buy_\(self.viewModel.token.symbol)"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "chart_buy", customAttributes: ["token_pair_rate_change": self.viewModel.rateChangeString])
       self.delegate?.tokenChartViewController(self, run: .buy(token: self.viewModel.token))
     } else if sender.tag == 1 {
-      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "sell_\(self.viewModel.token.symbol)"])
+       KNCrashlyticsUtil.logCustomEvent(withName: "chart_sell", customAttributes: ["token_pair_rate_change": self.viewModel.rateChangeString])
       self.delegate?.tokenChartViewController(self, run: .sell(token: self.viewModel.token))
     } else {
-      KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "send_\(self.viewModel.token.symbol)"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "chart_transfer", customAttributes: ["token_pair_rate_change": self.viewModel.rateChangeString])
       self.delegate?.tokenChartViewController(self, run: .send(token: self.viewModel.token))
     }
   }
 
   @IBAction func dataTypeDidChange(_ sender: UIButton) {
     let type = KNTokenChartType(rawValue: sender.tag) ?? .day
-    KNCrashlyticsUtil.logCustomEvent(withName: "scree_token_chart", customAttributes: ["action": "data_type_changed_\(type.rawValue)"])
     self.updateDisplayDataType(type)
+    KNCrashlyticsUtil.logCustomEvent(withName: "chart_time_frame", customAttributes: ["time": type.displayString()])
   }
 
   @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
   }
 
   @IBAction func priceAlertButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "chart_alert", customAttributes: ["token_name": self.viewModel.token.name])
     self.delegate?.tokenChartViewController(self, run: .addNewAlert(token: self.viewModel.token))
   }
 
@@ -1031,5 +1076,9 @@ extension KNTokenChartViewController: ChartViewDelegate {
                                            closeNumber: candleStickEntry.close,
                                            timeStampNumber: candleStickEntry.x)
     self.touchPriceLabel.attributedText = detailText
+  }
+
+  func chartViewDidEndPanning(_ chartView: ChartViewBase) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "chart_interact", customAttributes: nil)
   }
 }

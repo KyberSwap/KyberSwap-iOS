@@ -10,3 +10,18 @@ enum ImportType {
     case mnemonic(words: [String], password: String)
     case watch(address: Address)
 }
+
+extension ImportType {
+  func displayString() -> String {
+    switch self {
+    case .keystore:
+      return "json"
+    case .privateKey:
+      return "privatekey"
+    case .mnemonic:
+      return "seeds"
+    case .watch:
+      return "watch"
+    }
+  }
+}

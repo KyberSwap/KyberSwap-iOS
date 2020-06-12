@@ -133,17 +133,17 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order_2", customAttributes: ["action": "back"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "previeworder_back_tapped", customAttributes: nil)
     self.delegate?.previewLimitOrderV2ViewControllerDidBack()
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order_2", customAttributes: ["action": "confirm"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "previeworder_confirm_tapped", customAttributes: nil)
     self.delegate?.previewLimitOrderV2ViewController(self, order: self.order)
   }
 
   @IBAction func cancelButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_preview_order_2", customAttributes: ["action": "cancel"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "previeworder_cancel_tapped", customAttributes: nil)
     self.delegate?.previewLimitOrderV2ViewControllerDidBack()
   }
 }

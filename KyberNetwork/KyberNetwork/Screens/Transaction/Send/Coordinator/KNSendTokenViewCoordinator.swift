@@ -204,7 +204,7 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
 
   fileprivate func openConfirmTransfer(transaction: UnconfirmedTransaction, ens: String?) {
     if ens != nil {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_token", customAttributes: ["action": "send_using_ens"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "tranfer_send_using_ens", customAttributes: nil)
     }
     if self.session.transactionStorage.kyberPendingTransactions.isEmpty {
       self.confirmVC = {

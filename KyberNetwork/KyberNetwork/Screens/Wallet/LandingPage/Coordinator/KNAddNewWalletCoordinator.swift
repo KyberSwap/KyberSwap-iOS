@@ -63,13 +63,16 @@ class KNAddNewWalletCoordinator: Coordinator {
     )
     let createWallet = NSLocalizedString("create.a.new.wallet", value: "Create a new wallet", comment: "")
     controller.addAction(UIAlertAction(title: createWallet, style: .default, handler: { _ in
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_mywallet_create", customAttributes: nil)
       self.createNewWallet()
     }))
     let importWallet = NSLocalizedString("import.a.wallet", value: "Import a wallet", comment: "")
     controller.addAction(UIAlertAction(title: importWallet, style: .default, handler: { _ in
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_mywallet_import", customAttributes: nil)
       self.importAWallet()
     }))
     controller.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cancel", comment: ""), style: .cancel, handler: { _ in
+      KNCrashlyticsUtil.logCustomEvent(withName: "balance_menu_mywallet_cancel", customAttributes: nil)
       self.navigationController.dismiss(animated: false, completion: nil)
     }))
     return controller

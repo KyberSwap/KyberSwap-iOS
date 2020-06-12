@@ -109,10 +109,8 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   func settingsTabViewController(_ controller: KNSettingsTabViewController, run event: KNSettingsTabViewEvent) {
     switch event {
     case .manageWallet:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "manage_wallet"])
       self.settingsViewControllerWalletsButtonPressed()
     case .manageAlerts:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "manage_alerts"])
       if let _ = IEOUserStorage.shared.user {
         self.manageAlertCoordinator = KNManageAlertCoordinator(navigationController: self.navigationController)
         self.manageAlertCoordinator?.start()
@@ -124,7 +122,6 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
         )
       }
     case .alertMethods:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "alert_method"])
       if let _ = IEOUserStorage.shared.user {
         let alertMethodsVC = KNNotificationMethodsViewController()
         alertMethodsVC.loadViewIfNeeded()
@@ -137,16 +134,12 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
         )
       }
     case .contact:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "contact"])
       self.navigationController.pushViewController(self.contactVC, animated: true)
     case .support:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "support"])
       self.openMailSupport()
     case .about:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "about"])
       self.openCommunityURL("https://medium.com/kyberswap/get-started-on-kyberswap-ios-app-942ee1dffdc4")
     case .changePIN:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "change_pin"])
       self.passcodeCoordinator = KNPasscodeCoordinator(
         navigationController: self.navigationController,
         type: .authenticate(isUpdating: true)
@@ -154,44 +147,31 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.passcodeCoordinator.delegate = self
       self.passcodeCoordinator.start()
     case .community:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "community"])
       let url = "https://kyber.network/community"
       self.openCommunityURL(url)
     case .shareWithFriends:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "share_with_friends"])
       self.openShareWithFriends()
     case .telegram:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_telegram"])
       self.openCommunityURL("https://t.me/KyberSwapOfficial")
     case .telegramDev:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_telegram_dev"])
       self.openCommunityURL("https://t.me/KyberDeveloper")
     case .github:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_github"])
       self.openCommunityURL("https://github.com/KyberNetwork/KyberSwap-iOS")
     case .twitter:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_twitter"])
       self.openCommunityURL("https://twitter.com/KyberSwap/")
     case .facebook:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_facebook"])
       self.openCommunityURL("https://www.facebook.com/kybernetwork")
     case .medium:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_medium"])
       self.openCommunityURL("https://medium.com/@kyberswap")
     case .reddit:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_reddit"])
       self.openCommunityURL("https://www.reddit.com/r/kybernetwork")
     case .linkedIn:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "open_linked_in"])
       self.openCommunityURL("https://www.linkedin.com/company/kybernetwork")
     case .reportBugs:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "report_bugs"])
       self.navigationController.openSafari(with: "https://goo.gl/forms/ZarhiV7MPE0mqr712")
     case .rateOurApp:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "rate_our_app"])
       self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
     case .liveChat:
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "live_chat"])
       Freshchat.sharedInstance().showConversations(self.navigationController)
     }
   }
@@ -313,7 +293,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func backupKeystore(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "show_back_up_keystore"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_keystore", customAttributes: nil)
     let createPassword = KNCreatePasswordViewController(wallet: wallet, delegate: self)
     createPassword.modalPresentationStyle = .overCurrentContext
     createPassword.modalTransitionStyle = .crossDissolve
@@ -321,7 +301,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func backupPrivateKey(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "show_back_up_private_key"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_private_key", customAttributes: nil)
     self.navigationController.displayLoading()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
       if case .real(let account) = wallet.type {
@@ -340,7 +320,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func backupMnemonic(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "show_back_up_mnemonic"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_mnemonic", customAttributes: nil)
     self.navigationController.displayLoading()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
       if case .real(let account) = wallet.type {
@@ -368,7 +348,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func copyAddress(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "show_back_up_copy_address"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_copy_address", customAttributes: nil)
     UIPasteboard.general.string = wallet.address.description
   }
 
@@ -541,7 +521,7 @@ extension KNSettingsCoordinator: KNListWalletsCoordinatorDelegate {
 extension KNSettingsCoordinator: MFMailComposeViewControllerDelegate {
   func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
     if case .sent = result {
-      KNCrashlyticsUtil.logCustomEvent(withName: "settings_coordinator", customAttributes: ["action": "support_email_sent"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "setting_support_email_sent", customAttributes: nil)
     }
     controller.dismiss(animated: true, completion: nil)
   }

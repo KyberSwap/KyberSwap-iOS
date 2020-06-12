@@ -252,15 +252,15 @@ class KNHistoryCoordinator: Coordinator {
           let success = json["success"] as? Bool ?? false
           let message = json["message"] as? String ?? "Unknown"
           if success {
-            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": true])
+            KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_tx_hash_sent_success", customAttributes: nil)
           } else {
-            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": message])
+            KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_tx_hash_sent_failure", customAttributes: ["error": message])
           }
         } catch {
-          KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
+          KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_tx_hash_sent_failure", customAttributes: nil)
         }
       case .failure:
-        KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_tx_hash_sent_failure", customAttributes: nil)
       }
     }
   }

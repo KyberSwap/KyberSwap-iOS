@@ -81,7 +81,7 @@ class KNTransferConsentViewController: KNBaseViewController {
   }
 
   @IBAction func yesButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_consent", customAttributes: ["action": "yes"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "transfer_consent_yes_tapped", customAttributes: nil)
     self.delegate?.transferConsentViewController(
       self,
       answer: true,
@@ -92,7 +92,7 @@ class KNTransferConsentViewController: KNBaseViewController {
   }
 
   @IBAction func noButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_consent", customAttributes: ["action": "no"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "transfer_consent_no_tapped", customAttributes: nil)
     let alert = UIAlertController(
       title: "Your profile will not be copied",
       message: "\nYou would have to create a new profile to use some services like Limit Order, Price Alerts, Notifications, etc. \n\nDo you want to continue?".toBeLocalised(),
@@ -102,7 +102,7 @@ class KNTransferConsentViewController: KNBaseViewController {
       KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_consent", customAttributes: ["action": "go_back_no"])
     }))
     alert.addAction(UIAlertAction(title: NSLocalizedString("confirm", value: "Confirm", comment: ""), style: .destructive, handler: { _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_consent", customAttributes: ["action": "confirm_no"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "transfer_consent_confirm_no_tapped", customAttributes: nil)
       self.delegate?.transferConsentViewController(
         self,
         answer: false,
@@ -115,7 +115,7 @@ class KNTransferConsentViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_consent", customAttributes: ["action": "dismiss_popup"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "transfer_consent_dismiss_popup", customAttributes: nil)
     self.delegate?.transferConsentViewController(
       self,
       answer: nil,
@@ -133,7 +133,7 @@ class KNTransferConsentViewController: KNBaseViewController {
     }
     let rangeLink = ((self.descriptionTextLabel.text ?? "") as NSString).range(of: "https://t.me/kyberswapofficial")
     if sender.didTapAttributedTextInLabel(label: self.descriptionTextLabel, inRange: rangeLink) {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_consent", customAttributes: ["action": "open_telegram"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "transfer_consent_open_telegram", customAttributes: nil)
       self.openSafari(with: "https://t.me/kyberswapofficial")
       return
     }
@@ -250,7 +250,7 @@ extension KNTransferConsentViewController: UIScrollViewDelegate {
 extension KNTransferConsentViewController: MFMailComposeViewControllerDelegate {
   func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
     if case .sent = result {
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_transfer_consent", customAttributes: ["action": "support_email_sent"])
+      KNCrashlyticsUtil.logCustomEvent(withName: "transfer_consent_support_email_sent", customAttributes: nil)
     }
     controller.dismiss(animated: true, completion: nil)
   }

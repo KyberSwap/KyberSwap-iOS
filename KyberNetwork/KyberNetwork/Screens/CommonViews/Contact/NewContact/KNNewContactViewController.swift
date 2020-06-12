@@ -168,7 +168,7 @@ class KNNewContactViewController: KNBaseViewController {
   }
 
   @IBAction func saveButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_contact", customAttributes: ["action": "save_btn_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "new_contact_save_button_tapped", customAttributes: nil)
     guard let name = self.nameTextField.text, !name.isEmpty else {
       self.showWarningTopBannerMessage(with: "", message: NSLocalizedString("contact.should.have.a.name", value: "Contact should have a name", comment: ""))
       return
@@ -187,7 +187,7 @@ class KNNewContactViewController: KNBaseViewController {
   }
 
   @IBAction func deleteButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_contact", customAttributes: ["action": "delete_btn_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "new_contact_delete_btn_tapped", customAttributes: nil)
     let alertController = UIAlertController(
       title: "",
       message: NSLocalizedString("do.you.want.to.delete.this.contact", value: "Do you want to delete this contact?", comment: ""),
@@ -203,7 +203,7 @@ class KNNewContactViewController: KNBaseViewController {
   }
 
   @IBAction func sendButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_new_contact", customAttributes: ["action": "send_btn_clicked"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "new_contact_send_btn_tapped", customAttributes: nil)
     guard let address = Address(string: self.addressTextField.text ?? "") else {
       self.showErrorTopBannerMessage(
         with: NSLocalizedString("invalid.address", value: "Invalid Address", comment: ""),

@@ -232,6 +232,10 @@ extension KNExchangeTokenCoordinator {
   fileprivate func didConfirmSendExchangeTransaction(_ exchangeTransaction: KNDraftExchangeTransaction) {
     self.rootViewController.coordinatorExchangeTokenUserDidConfirmTransaction()
     KNNotificationUtil.postNotification(for: kTransactionDidUpdateNotificationKey)
+    var fee = BigInt(0)
+    if let gasPrice = exchangeTransaction.gasPrice, let gasLimit = exchangeTransaction.gasLimit {
+      fee = gasPrice * gasLimit
+    }
     self.session.externalProvider.getAllowance(token: exchangeTransaction.from) { [weak self] getAllowanceResult in
       guard let `self` = self else { return }
       switch getAllowanceResult {
@@ -249,12 +253,25 @@ extension KNExchangeTokenCoordinator {
           object: error,
           userInfo: nil
         )
+        KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_broadcast_failed",
+                                         customAttributes: [
+                                          "token_pair": "\(exchangeTransaction.from.name)/\(exchangeTransaction.to.name)",
+                                          "amount": exchangeTransaction.amount.displayRate(decimals: exchangeTransaction.from.decimals),
+                                          "current_rate": exchangeTransaction.expectedRate.displayRate(decimals: 18),
+                                          "min_rate": exchangeTransaction.minRate?.displayRate(decimals: 18) ?? "",
+                                          "tx_fee": fee.displayRate(decimals: 18),
+                                          "error_text": error.description,
+          ]
+        )
       }
     }
   }
 
   fileprivate func sendExchangeTransaction(_ exchage: KNDraftExchangeTransaction) {
-    KNAppTracker.logFirstSwapIfNeeded()
+    var fee = BigInt(0)
+    if let gasPrice = exchage.gasPrice, let gasLimit = exchage.gasLimit {
+      fee = gasPrice * gasLimit
+    }
     self.session.externalProvider.exchange(exchange: exchage) { [weak self] result in
       guard let `self` = self else { return }
       switch result {
@@ -283,12 +300,31 @@ extension KNExchangeTokenCoordinator {
             })
           }
         }
+        KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_broadcast_success",
+                                         customAttributes: [
+                                          "token_pair": "\(exchage.from.name)/\(exchage.to.name)",
+                                          "amount": exchage.amount.displayRate(decimals: exchage.from.decimals),
+                                          "current_rate": exchage.expectedRate.displayRate(decimals: 18),
+                                          "min_rate": exchage.minRate?.displayRate(decimals: 18) ?? "",
+                                          "tx_fee": fee.displayRate(decimals: 18),
+          ]
+        )
       case .failure(let error):
         self.confirmSwapVC?.resetActionButtons()
         KNNotificationUtil.postNotification(
           for: kTransactionDidUpdateNotificationKey,
           object: error,
           userInfo: nil
+        )
+        KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_broadcast_failed",
+                                         customAttributes: [
+                                          "token_pair": "\(exchage.from.name)/\(exchage.to.name)",
+                                          "amount": exchage.amount.displayRate(decimals: exchage.from.decimals),
+                                          "current_rate": exchage.expectedRate.displayRate(decimals: 18),
+                                          "min_rate": exchage.minRate?.displayRate(decimals: 18) ?? "",
+                                          "tx_fee": fee.displayRate(decimals: 18),
+                                          "error_text": error.description,
+          ]
         )
       }
     }
@@ -315,15 +351,15 @@ extension KNExchangeTokenCoordinator {
           let success = json["success"] as? Bool ?? false
           let message = json["message"] as? String ?? "Unknown"
           if success {
-            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": true])
+            KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_send_tx_hash_success", customAttributes: nil)
           } else {
-            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": message])
+            KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_send_tx_hash_failure", customAttributes: ["error": message])
           }
         } catch {
-          KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
+          KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_send_tx_hash_failure", customAttributes: nil)
         }
       case .failure:
-        KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["tx_hash_sent": "failed_to_send"])
+        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_send_tx_hash_failure", customAttributes: nil)
       }
     }
   }
@@ -654,7 +690,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           let rate = json["expectedRate"] as? String,
           let rateBigInt = rate.fullBigInt(decimals: 0) {
           if let timestamp = json["timestamp"] as? NSNumber, Date().timeIntervalSince1970 - timestamp.doubleValue > 60.0 {
-            KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["get_expected_rate_from_node": true])
+            KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_get_expected_rate_from_node_success", customAttributes: nil)
             DispatchQueue.main.async {
               self.updateEstimatedRate(from: from, to: to, amount: amount, showError: showError)
             }
@@ -671,7 +707,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
             )
           }
         } else {
-          KNCrashlyticsUtil.logCustomEvent(withName: "kyberswap_coordinator", customAttributes: ["get_expected_rate_from_node": true])
+          KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_get_expected_rate_from_node_failure", customAttributes: nil)
           DispatchQueue.main.async {
             self.updateEstimatedRate(from: from, to: to, amount: amount, showError: showError)
           }

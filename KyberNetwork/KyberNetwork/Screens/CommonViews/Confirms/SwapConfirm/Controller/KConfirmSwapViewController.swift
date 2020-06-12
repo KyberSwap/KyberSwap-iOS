@@ -130,7 +130,16 @@ class KConfirmSwapViewController: KNBaseViewController {
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "back_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
+
+    KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_cancel",
+                                     customAttributes: [
+                                      "token_pair": self.viewModel.titleString,
+                                      "amount": self.viewModel.leftAmountString,
+                                      "current_rate": self.viewModel.displayEstimatedRate,
+                                      "min_rate": self.viewModel.minRateString,
+                                      "tx_fee": self.viewModel.feeETHString,
+      ]
+    )
     self.delegate?.kConfirmSwapViewController(self, run: .cancel)
   }
 
@@ -159,7 +168,15 @@ class KConfirmSwapViewController: KNBaseViewController {
   }
 
   @IBAction func cancelButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "cancel_pressed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_cancel",
+                                     customAttributes: [
+                                      "token_pair": self.viewModel.titleString,
+                                      "amount": self.viewModel.leftAmountString,
+                                      "current_rate": self.viewModel.displayEstimatedRate,
+                                      "min_rate": self.viewModel.minRateString,
+                                      "tx_fee": self.viewModel.feeETHString,
+      ]
+    )
     self.delegate?.kConfirmSwapViewController(self, run: .cancel)
   }
 

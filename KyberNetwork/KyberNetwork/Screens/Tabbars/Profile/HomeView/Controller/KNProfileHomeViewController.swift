@@ -239,33 +239,33 @@ class KNProfileHomeViewController: KNBaseViewController {
   }
 
   @IBAction func forgotButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_forgot_password_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "profile_tap_forgot_password_button", customAttributes: nil)
     self.view.endEditing(true)
     self.delegate?.profileHomeViewController(self, run: .forgotPassword)
   }
 
   @IBAction func facebookButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_facebook_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "facebook"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithFacebook)
   }
 
   @IBAction func googleButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_google_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "google"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithGoogle)
   }
 
   @IBAction func twitterButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_twitter_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "twitter"])
     self.view.endEditing(true)
     KNAppTracker.saveLastTimeAuthenticate()
     self.delegate?.profileHomeViewController(self, run: .signInWithTwitter)
   }
   @IBAction func signInWithAppleTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "tap_sign_in_apple_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_method", customAttributes: ["method": "apple"])
     self.view.endEditing(true)
     self.delegate?.profileHomeViewController(self, run: .signInWithApple)
   }
@@ -278,6 +278,7 @@ class KNProfileHomeViewController: KNBaseViewController {
   }
 
   @IBAction func signInButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "signup_signup_tapped", customAttributes: nil)
     let email = self.emailTextField.text ?? ""
     let pass = self.passwordTextField.text ?? ""
     guard email.isValidEmail() else {
@@ -306,22 +307,22 @@ class KNProfileHomeViewController: KNBaseViewController {
   }
 
   @IBAction func logOutButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "sign_out_button_pressed"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "profile_sign_out_button_pressed", customAttributes: nil)
     self.delegate?.profileHomeViewController(self, run: .logOut)
   }
 
   @IBAction func addPriceAlertButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "add_alert"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "profile_add_alert", customAttributes: nil)
     self.delegate?.profileHomeViewController(self, run: .addPriceAlert)
   }
 
   @IBAction func moreAlertsButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "more_alerts"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "profile_more_alerts", customAttributes: nil)
     self.delegate?.profileHomeViewController(self, run: .managePriceAlerts)
   }
 
   @IBAction func leaderBoardButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "leader_board"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "profile_leader_board", customAttributes: nil)
     self.delegate?.profileHomeViewController(self, run: .leaderBoard)
   }
 }
@@ -368,14 +369,14 @@ extension KNProfileHomeViewController: KNAlertTableViewDelegate {
   }
 
   fileprivate func deleteAnAlert(_ alert: KNAlertObject) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "delete_alert"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "profile_delete_alert", customAttributes: nil)
     guard let accessToken = IEOUserStorage.shared.user?.accessToken else { return }
     self.displayLoading()
     KNPriceAlertCoordinator.shared.removeAnAlert(accessToken: accessToken, alertID: alert.id) { [weak self] (_, error) in
       guard let `self` = self else { return }
       self.hideLoading()
       if let error = error {
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_profile_kyc", customAttributes: ["action": "delete_alert_failed", "error": error])
+        KNCrashlyticsUtil.logCustomEvent(withName: "profile_delete_alert_failed", customAttributes: ["error": error])
         self.showErrorTopBannerMessage(
           with: NSLocalizedString("error", value: "Error", comment: ""),
           message: error,

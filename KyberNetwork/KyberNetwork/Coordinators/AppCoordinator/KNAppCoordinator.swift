@@ -160,16 +160,16 @@ extension KNAppCoordinator {
           firstButtonTitle: "cancel".toBeLocalised(),
           secondButtonAction: {
             KNCrashlyticsUtil.logCustomEvent(
-              withName: "new_update_available",
-              customAttributes: ["button": "update"]
+              withName: "update_alert_update_tapped",
+              customAttributes: nil
             )
             DispatchQueue.main.async {
               self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
             }
           }, firstButtonAction: {
             KNCrashlyticsUtil.logCustomEvent(
-              withName: "new_update_available",
-              customAttributes: ["button": "cancel"]
+              withName: "update_alert_cancel_tapped",
+              customAttributes: nil
             )
           }
         )
@@ -189,8 +189,8 @@ extension KNAppCoordinator {
           secondButtonAction: nil,
           firstButtonAction: {
             KNCrashlyticsUtil.logCustomEvent(
-              withName: "new_update_available",
-              customAttributes: ["button": "update"]
+              withName: "update_alert_update_tapped",
+              customAttributes: nil
             )
             DispatchQueue.main.async {
               self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")

@@ -58,7 +58,7 @@ class KNPromoCodeViewController: KNBaseViewController {
 
   @IBAction func applyButtonPressed(_ sender: Any) {
     self.view.endEditing(true)
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_kybercode", customAttributes: ["action": "apply_button"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "kybercode_apply", customAttributes: nil)
     let promoCode = self.enterPromoCodeTextField.text ?? ""
     guard !promoCode.isEmpty else {
       self.showWarningTopBannerMessage(

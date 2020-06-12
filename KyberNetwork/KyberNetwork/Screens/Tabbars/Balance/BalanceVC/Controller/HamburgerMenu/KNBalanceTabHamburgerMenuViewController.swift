@@ -223,14 +223,14 @@ class KNBalanceTabHamburgerMenuViewController: KNBaseViewController {
     self.hideMenu(animated: true) {
       self.delegate?.balanceTabHamburgerMenuViewController(self, run: .selectPromoCode)
     }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_hamburger_menu", customAttributes: ["action": "kybercode"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "hamberger_menu_kybercode", customAttributes: nil)
   }
 
   @objc func walletConnectTapped(_ sender: Any?) {
     self.hideMenu(animated: true) {
       self.delegate?.balanceTabHamburgerMenuViewController(self, run: .selectWalletConnect)
     }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_hamburger_menu", customAttributes: ["action": "wallet_connect"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "hamberger_menu_wallet_connect", customAttributes: nil)
   }
 
   @objc func backgroundViewTap(_ recognizer: UITapGestureRecognizer) {
@@ -244,21 +244,21 @@ class KNBalanceTabHamburgerMenuViewController: KNBaseViewController {
     self.hideMenu(animated: true) {
       self.delegate?.balanceTabHamburgerMenuViewController(self, run: .selectAddWallet)
     }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_hamburger_menu", customAttributes: ["action": "add_wallet"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "hamberger_menu_add_wallet", customAttributes: nil)
   }
 
   @IBAction func sendTokenButtonPressed(_ sender: Any) {
     self.hideMenu(animated: true) {
       self.delegate?.balanceTabHamburgerMenuViewController(self, run: .selectSendToken)
     }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_hamburger_menu", customAttributes: ["action": "send_token"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "hamberger_menu_send_token", customAttributes: nil)
   }
 
   @IBAction func allTransactionButtonPressed(_ sender: Any) {
     self.hideMenu(animated: true) {
       self.delegate?.balanceTabHamburgerMenuViewController(self, run: .selectAllTransactions)
     }
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_hamburger_menu", customAttributes: ["action": "transaction"])
+    KNCrashlyticsUtil.logCustomEvent(withName: "hamberger_menu_transaction", customAttributes: nil)
   }
 
   @objc func handleLongPressedWalletTableView(_ sender: UILongPressGestureRecognizer) {
