@@ -328,7 +328,6 @@ class KNNewAlertViewController: KNBaseViewController {
       self.hideLoading()
       if let error = error {
         KNCrashlyticsUtil.logCustomEvent(withName: "scr_alert_create_new_alert_failure", customAttributes: ["error": error])
-        KNAppTracker.logFirstTimePriceAlertIfNeeded()
         self.showErrorTopBannerMessage(
           with: NSLocalizedString("error", value: "Error", comment: ""),
           message: error,

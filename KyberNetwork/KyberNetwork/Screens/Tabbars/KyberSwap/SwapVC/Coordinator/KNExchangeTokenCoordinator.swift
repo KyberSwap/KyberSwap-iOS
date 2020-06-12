@@ -268,7 +268,6 @@ extension KNExchangeTokenCoordinator {
   }
 
   fileprivate func sendExchangeTransaction(_ exchage: KNDraftExchangeTransaction) {
-    KNAppTracker.logFirstSwapIfNeeded()
     var fee = BigInt(0)
     if let gasPrice = exchage.gasPrice, let gasLimit = exchage.gasLimit {
       fee = gasPrice * gasLimit
