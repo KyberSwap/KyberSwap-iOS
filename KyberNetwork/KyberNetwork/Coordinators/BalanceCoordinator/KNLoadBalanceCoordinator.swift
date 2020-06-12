@@ -100,7 +100,7 @@ class KNLoadBalanceCoordinator {
   }
 
   @objc func shouldRefreshBalance(_ sender: Any?) {
-    if Date().timeIntervalSince(self.lastRefreshTime) < 5.0 {
+    if Date().timeIntervalSince(self.lastRefreshTime) < 15.0 {
       self.lastRefreshTime = Date()
       self.fetchETHBalance(nil)
       self.fetchOtherTokensBalance(nil)
@@ -367,26 +367,30 @@ class KNLoadBalanceCoordinator {
     )
     var isBalanceChanged: Bool = false
     let currentWallet = self.session.wallet
+    var delay = 0.2
     let group = DispatchGroup()
     addresses.forEach { (address) in
       group.enter()
-      self.session.externalProvider.getTokenBalance(for: address, completion: { [weak self] result in
-        guard let `self` = self else { group.leave(); return }
-        if self.session == nil || currentWallet != self.session.wallet { group.leave(); return }
-        switch result {
-        case .success(let bigInt):
-          let balance = Balance(value: bigInt)
-          if self.otherTokensBalance[address.description] == nil || self.otherTokensBalance[address.description]!.value != bigInt {
-            isBalanceChanged = true
-          }
-          self.otherTokensBalance[address.description] = balance
-          self.session.tokenStorage.updateBalance(for: address, balance: bigInt)
-          NSLog("---- Balance: Fetch token balance for contract \(address) successfully: \(bigInt.shortString(decimals: 0))")
-        case .failure(let error):
-          NSLog("---- Balance: Fetch token balance failed with error: \(error.description). ----")
-        }
-        group.leave()
-      })
+      DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+         self.session.externalProvider.getTokenBalance(for: address, completion: { [weak self] result in
+           guard let `self` = self else { group.leave(); return }
+           if self.session == nil || currentWallet != self.session.wallet { group.leave(); return }
+           switch result {
+           case .success(let bigInt):
+             let balance = Balance(value: bigInt)
+             if self.otherTokensBalance[address.description] == nil || self.otherTokensBalance[address.description]!.value != bigInt {
+               isBalanceChanged = true
+             }
+             self.otherTokensBalance[address.description] = balance
+             self.session.tokenStorage.updateBalance(for: address, balance: bigInt)
+             NSLog("---- Balance: Fetch token balance for contract \(address) successfully: \(bigInt.shortString(decimals: 0))")
+           case .failure(let error):
+             NSLog("---- Balance: Fetch token balance failed with error: \(error.description). ----")
+           }
+           group.leave()
+         })
+      }
+      delay += 0.2
     }
 
     group.notify(queue: .main) {
