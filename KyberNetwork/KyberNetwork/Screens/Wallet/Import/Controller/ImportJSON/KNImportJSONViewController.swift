@@ -53,8 +53,7 @@ class KNImportJSONViewController: KNBaseViewController {
   fileprivate func setupUI() {
     self.importJSONButton.rounded(
       color: UIColor.Kyber.border,
-      width: 1,
-      radius: self.importJSONButton.frame.height / 2.0
+      width: 1
     )
     self.enterPasswordTextField.delegate = self
 
