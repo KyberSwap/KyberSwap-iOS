@@ -587,8 +587,6 @@ extension KNProfileHomeCoordinator: KNConfirmSignUpViewControllerDelegate {
     switch event {
     case .back: self.navigationController.popViewController(animated: true)
     case .alreadyMemberSignIn: self.navigationController.popToRootViewController(animated: true)
-    case .openTAC:
-      UIApplication.shared.open(URL(string: "https://files.kyberswap.com/tac.pdf")!, options: [:], completionHandler: nil)
     case .confirmSignUp(let accountType, let isSubscribe):
       switch accountType {
       case .facebook(let name, let email, let icon, let accessToken):

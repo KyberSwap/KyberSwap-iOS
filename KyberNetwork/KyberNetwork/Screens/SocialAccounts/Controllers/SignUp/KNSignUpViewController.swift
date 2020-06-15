@@ -16,7 +16,6 @@ enum KNSignUpViewEvent {
 class KNSignUpViewModel {
   var isSecureText: Bool = true
   var isSubscribe: Bool = false
-  var isAgreeTAC: Bool = false
 
   var alreadyMemberAttributedText: NSAttributedString = {
     let normalAttributes: [NSAttributedStringKey: Any] = [
@@ -58,10 +57,6 @@ class KNSignUpViewController: KNBaseViewController {
   @IBOutlet weak var subscribeNewsLetters: UIButton!
   @IBOutlet weak var subscribeButton: UIButton!
 
-  @IBOutlet weak var selectTermConditionButton: UIButton!
-  @IBOutlet weak var agreeToTextLabel: UILabel!
-  @IBOutlet weak var termsAndConditionsButton: UIButton!
-
   @IBOutlet weak var bottomPaddingConstraint: NSLayoutConstraint!
 
   fileprivate var viewModel: KNSignUpViewModel
@@ -97,11 +92,6 @@ class KNSignUpViewController: KNBaseViewController {
     self.subscribeNewsLetters.setTitle("Subscribe to Newsletters".toBeLocalised(), for: .normal)
     self.subscribeButton.setImage(self.viewModel.isSubscribe ? UIImage(named: "check_box_icon") : nil, for: .normal)
     self.subscribeButton.rounded(color: self.viewModel.isSubscribe ? UIColor.clear : UIColor.Kyber.border, width: 1.0, radius: 2.5)
-
-    self.agreeToTextLabel.text = "Agree to".toBeLocalised()
-    self.termsAndConditionsButton.setTitle("Terms & Conditions".toBeLocalised(), for: .normal)
-    self.selectTermConditionButton.setImage(self.viewModel.isAgreeTAC ? UIImage(named: "check_box_icon") : nil, for: .normal)
-    self.selectTermConditionButton.rounded(color: self.viewModel.isAgreeTAC ? UIColor.clear : UIColor.Kyber.border, width: 1.0, radius: 2.5)
 
     self.signUpButton.setTitle(NSLocalizedString("sign.up", value: "Sign Up", comment: ""), for: .normal)
     self.signUpButton.rounded(radius: KNAppStyleType.current.buttonRadius())
@@ -189,14 +179,6 @@ class KNSignUpViewController: KNBaseViewController {
       )
       return
     }
-    guard self.viewModel.isAgreeTAC else {
-      self.showErrorTopBannerMessage(
-        with: NSLocalizedString("error", value: "Error", comment: ""),
-        message: "Please accept our Terms and Conditions to continue".toBeLocalised(),
-        time: 2.0
-      )
-      return
-    }
     self.view.endEditing(true)
     let account = KNSocialAccountsType.normal(name: name, email: email, password: password)
     self.delegate?.signUpViewController(self, run: .signUp(accountType: account, isSubscribe: self.viewModel.isSubscribe))
@@ -217,18 +199,6 @@ class KNSignUpViewController: KNBaseViewController {
     self.subscribeButton.setImage(self.viewModel.isSubscribe ? UIImage(named: "check_box_icon") : nil, for: .normal)
     self.subscribeButton.rounded(color: self.viewModel.isSubscribe ? UIColor.clear : UIColor.Kyber.border, width: 1.0, radius: 2.5)
     self.view.layoutIfNeeded()
-  }
-
-  @IBAction func selectTermsAndConditionsPressed(_ sender: Any) {
-    self.viewModel.isAgreeTAC = !self.viewModel.isAgreeTAC
-    self.selectTermConditionButton.setImage(self.viewModel.isAgreeTAC ? UIImage(named: "check_box_icon") : nil, for: .normal)
-    self.selectTermConditionButton.rounded(color: self.viewModel.isAgreeTAC ? UIColor.clear : UIColor.Kyber.border, width: 1.0, radius: 2.5)
-    self.view.layoutIfNeeded()
-  }
-
-  @IBAction func termsAndConditionsButtonPressed(_ sender: Any) {
-    self.view.endEditing(true)
-    self.delegate?.signUpViewController(self, run: .openTAC)
   }
 
   func userDidSignedWithEmail() {

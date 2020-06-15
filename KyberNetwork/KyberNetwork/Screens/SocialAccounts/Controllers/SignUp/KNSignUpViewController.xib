@@ -21,7 +21,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNSignUpViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
-                <outlet property="agreeToTextLabel" destination="47u-ee-fpz" id="Kne-ep-W0x"/>
                 <outlet property="bottomPaddingConstraint" destination="cBQ-QR-9zP" id="U7f-Xn-tH6"/>
                 <outlet property="confirmEmailTextLabel" destination="1yd-hj-k90" id="kqK-vf-xtc"/>
                 <outlet property="displayNameTextField" destination="619-ad-6aO" id="De0-wu-Z5e"/>
@@ -32,13 +31,11 @@
                 <outlet property="passwordGuideTextLabel" destination="PUM-Bp-yAe" id="IZz-m8-hb3"/>
                 <outlet property="passwordTextField" destination="k7g-p0-ZZa" id="0J1-j0-t4q"/>
                 <outlet property="secureTextButton" destination="hhL-NG-82A" id="gQf-4F-98y"/>
-                <outlet property="selectTermConditionButton" destination="1zJ-XH-kIw" id="vl8-eA-c3r"/>
                 <outlet property="signInButton" destination="kMP-4I-f8j" id="pvY-IT-bMm"/>
                 <outlet property="signUpButton" destination="UvI-Kh-tIe" id="LXU-ai-F3I"/>
                 <outlet property="socialContainerView" destination="bKW-8l-0dG" id="1NN-ui-7qj"/>
                 <outlet property="subscribeButton" destination="QbZ-jW-iGq" id="oLL-hQ-O2a"/>
                 <outlet property="subscribeNewsLetters" destination="3be-fA-QrX" id="WpK-Vn-hFW"/>
-                <outlet property="termsAndConditionsButton" destination="icZ-k4-Dau" id="F7i-8n-fOy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -174,24 +171,6 @@
                                 <action selector="subscribeButtonPressed:" destination="-1" eventType="touchUpInside" id="TgL-dQ-Nna"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1zJ-XH-kIw">
-                            <rect key="frame" x="20" y="314" width="24" height="24"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="24" id="LIc-Wl-obU"/>
-                                <constraint firstAttribute="height" constant="24" id="Rom-4f-wBv"/>
-                            </constraints>
-                            <state key="normal" image="check_box_icon"/>
-                            <connections>
-                                <action selector="selectTermsAndConditionsPressed:" destination="-1" eventType="touchUpInside" id="JuG-sN-STw"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Agree to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47u-ee-fpz">
-                            <rect key="frame" x="56" y="318" width="53" height="16.5"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
-                            <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3be-fA-QrX">
                             <rect key="frame" x="56" y="269.5" width="158" height="29"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
@@ -208,16 +187,6 @@
                             <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icZ-k4-Dau">
-                            <rect key="frame" x="113" y="311.5" width="124" height="29"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
-                            <state key="normal" title="Terms &amp; Conditions">
-                                <color key="titleColor" red="0.99607843139999996" green="0.63921568630000003" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="termsAndConditionsButtonPressed:" destination="-1" eventType="touchUpInside" id="fUa-5r-zPl"/>
-                            </connections>
-                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A message with a confirmation link has been sent to your email address. Please follow the link to activate your account." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yd-hj-k90">
                             <rect key="frame" x="20" y="75" width="335" height="26"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="11"/>
@@ -301,7 +270,6 @@
                         <constraint firstItem="EnS-jP-oHi" firstAttribute="top" secondItem="k7g-p0-ZZa" secondAttribute="bottom" constant="-10" id="3Fj-dc-xSu"/>
                         <constraint firstItem="3be-fA-QrX" firstAttribute="centerY" secondItem="QbZ-jW-iGq" secondAttribute="centerY" id="9sr-Ii-tDl"/>
                         <constraint firstItem="oHt-BK-yKo" firstAttribute="top" secondItem="9lG-gQ-1xN" secondAttribute="bottom" constant="-10" id="AW4-0Y-Vel"/>
-                        <constraint firstItem="icZ-k4-Dau" firstAttribute="centerY" secondItem="47u-ee-fpz" secondAttribute="centerY" id="C5J-24-QOp"/>
                         <constraint firstItem="PUM-Bp-yAe" firstAttribute="top" secondItem="k7g-p0-ZZa" secondAttribute="bottom" constant="4" id="CMW-KB-Y6d"/>
                         <constraint firstItem="UvI-Kh-tIe" firstAttribute="leading" secondItem="6ZF-fP-eVn" secondAttribute="leading" constant="20" id="CQr-5K-Goo"/>
                         <constraint firstAttribute="trailing" secondItem="EnS-jP-oHi" secondAttribute="trailing" constant="20" id="DS8-4Y-4yc"/>
@@ -309,7 +277,6 @@
                         <constraint firstAttribute="trailing" secondItem="9lG-gQ-1xN" secondAttribute="trailing" constant="20" id="GJX-8b-fk7"/>
                         <constraint firstItem="1yd-hj-k90" firstAttribute="centerX" secondItem="6ZF-fP-eVn" secondAttribute="centerX" id="HtM-Jg-zVF"/>
                         <constraint firstItem="oHt-BK-yKo" firstAttribute="leading" secondItem="9lG-gQ-1xN" secondAttribute="leading" id="IWb-aA-o7F"/>
-                        <constraint firstItem="47u-ee-fpz" firstAttribute="centerY" secondItem="1zJ-XH-kIw" secondAttribute="centerY" id="Iee-SN-Dua"/>
                         <constraint firstAttribute="trailing" secondItem="619-ad-6aO" secondAttribute="trailing" constant="20" id="IxG-Ut-mmy"/>
                         <constraint firstItem="k7g-p0-ZZa" firstAttribute="leading" secondItem="6ZF-fP-eVn" secondAttribute="leading" constant="20" id="JIB-iX-MT0"/>
                         <constraint firstItem="619-ad-6aO" firstAttribute="top" secondItem="9lG-gQ-1xN" secondAttribute="bottom" constant="32" id="K1l-jw-hbB"/>
@@ -317,28 +284,24 @@
                         <constraint firstItem="3be-fA-QrX" firstAttribute="leading" secondItem="QbZ-jW-iGq" secondAttribute="trailing" constant="12" id="Q8i-JR-o4b"/>
                         <constraint firstAttribute="trailing" secondItem="hhL-NG-82A" secondAttribute="trailing" constant="20" id="Qwn-ns-xjg"/>
                         <constraint firstAttribute="trailing" secondItem="1yd-hj-k90" secondAttribute="trailing" constant="20" id="SJ0-6w-5lq"/>
-                        <constraint firstItem="1zJ-XH-kIw" firstAttribute="top" secondItem="QbZ-jW-iGq" secondAttribute="bottom" constant="18" id="TTe-Yi-V6A"/>
                         <constraint firstItem="k7g-p0-ZZa" firstAttribute="top" secondItem="619-ad-6aO" secondAttribute="bottom" constant="32" id="TfB-le-ssa"/>
                         <constraint firstItem="QbZ-jW-iGq" firstAttribute="leading" secondItem="6ZF-fP-eVn" secondAttribute="leading" constant="20" id="XAG-27-cSq"/>
                         <constraint firstItem="9lG-gQ-1xN" firstAttribute="leading" secondItem="6ZF-fP-eVn" secondAttribute="leading" constant="20" id="XAi-tr-7cT"/>
                         <constraint firstItem="bKW-8l-0dG" firstAttribute="top" secondItem="kMP-4I-f8j" secondAttribute="bottom" constant="32" id="XfA-T6-eTP"/>
+                        <constraint firstItem="UvI-Kh-tIe" firstAttribute="top" secondItem="QbZ-jW-iGq" secondAttribute="bottom" constant="82" id="YuC-Qe-mas"/>
                         <constraint firstItem="hhL-NG-82A" firstAttribute="centerY" secondItem="k7g-p0-ZZa" secondAttribute="centerY" id="ZGL-jO-Ymp"/>
                         <constraint firstItem="41h-jY-HE9" firstAttribute="top" secondItem="619-ad-6aO" secondAttribute="bottom" constant="-10" id="b07-xo-rQX"/>
                         <constraint firstItem="EnS-jP-oHi" firstAttribute="leading" secondItem="k7g-p0-ZZa" secondAttribute="leading" id="cDt-Fc-qfa"/>
-                        <constraint firstItem="47u-ee-fpz" firstAttribute="leading" secondItem="1zJ-XH-kIw" secondAttribute="trailing" constant="12" id="e6G-l9-5lo"/>
                         <constraint firstItem="bKW-8l-0dG" firstAttribute="centerX" secondItem="6ZF-fP-eVn" secondAttribute="centerX" id="ebi-GR-43g"/>
                         <constraint firstAttribute="trailing" secondItem="UvI-Kh-tIe" secondAttribute="trailing" constant="20" id="gK3-Yy-ItQ"/>
                         <constraint firstItem="UvI-Kh-tIe" firstAttribute="centerX" secondItem="6ZF-fP-eVn" secondAttribute="centerX" id="gRU-T1-wjF"/>
-                        <constraint firstItem="1zJ-XH-kIw" firstAttribute="leading" secondItem="6ZF-fP-eVn" secondAttribute="leading" constant="20" id="jdd-oC-xxI"/>
                         <constraint firstItem="41h-jY-HE9" firstAttribute="leading" secondItem="619-ad-6aO" secondAttribute="leading" id="mNL-6F-dRS"/>
                         <constraint firstAttribute="trailing" secondItem="bKW-8l-0dG" secondAttribute="trailing" constant="21" id="olE-4K-xM6"/>
                         <constraint firstItem="41h-jY-HE9" firstAttribute="trailing" secondItem="619-ad-6aO" secondAttribute="trailing" id="pkS-HS-vaM"/>
                         <constraint firstItem="QbZ-jW-iGq" firstAttribute="top" secondItem="k7g-p0-ZZa" secondAttribute="bottom" constant="44" id="rbI-LX-6FD"/>
                         <constraint firstItem="1yd-hj-k90" firstAttribute="top" secondItem="oHt-BK-yKo" secondAttribute="bottom" constant="8" id="sgZ-0J-gsC"/>
                         <constraint firstAttribute="bottom" secondItem="bKW-8l-0dG" secondAttribute="bottom" constant="32" id="snf-iB-C2X"/>
-                        <constraint firstItem="UvI-Kh-tIe" firstAttribute="top" secondItem="1zJ-XH-kIw" secondAttribute="bottom" constant="40" id="u9T-Vb-uxs"/>
                         <constraint firstItem="619-ad-6aO" firstAttribute="leading" secondItem="6ZF-fP-eVn" secondAttribute="leading" constant="20" id="ugR-fN-Jkk"/>
-                        <constraint firstItem="icZ-k4-Dau" firstAttribute="leading" secondItem="47u-ee-fpz" secondAttribute="trailing" constant="4" id="vl8-Rf-4rA"/>
                         <constraint firstItem="1yd-hj-k90" firstAttribute="leading" secondItem="6ZF-fP-eVn" secondAttribute="leading" constant="20" id="y0c-h6-SeV"/>
                         <constraint firstAttribute="trailing" secondItem="k7g-p0-ZZa" secondAttribute="trailing" constant="40" id="ygc-gS-GLi"/>
                         <constraint firstItem="oHt-BK-yKo" firstAttribute="trailing" secondItem="9lG-gQ-1xN" secondAttribute="trailing" id="z2P-Jv-7UI"/>
