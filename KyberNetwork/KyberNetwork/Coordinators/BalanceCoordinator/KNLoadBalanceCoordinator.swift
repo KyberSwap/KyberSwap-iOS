@@ -13,8 +13,7 @@ class KNLoadBalanceCoordinator {
   fileprivate var ethToken: TokenObject!
 
   var ethBalance: Balance {
-    let ethToken = KNSupportedTokenStorage.shared.ethToken
-    return otherTokensBalance[ethToken.address.description] ?? Balance(value: BigInt(0))
+    return otherTokensBalance[self.ethToken.address.description.lowercased()] ?? Balance(value: BigInt(0))
   }
 
   fileprivate var fetchOtherTokensBalanceTimer: Timer?
@@ -176,6 +175,7 @@ class KNLoadBalanceCoordinator {
         }
         if case .success(let balance) = result {
           if self.ethBalance.value != balance.value {
+            self.otherTokensBalance[token.lowercased()] = balance
             self.session.tokenStorage.updateBalance(for: address, balance: balance.value)
             KNNotificationUtil.postNotification(for: kETHBalanceDidUpdateNotificationKey)
           }
