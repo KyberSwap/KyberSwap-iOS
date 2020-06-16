@@ -43,8 +43,8 @@ class KNLoadBalanceCoordinator {
 
   var totalBalanceInETH: BigInt {
     let balanceValue: BigInt = {
-      var value = self.ethBalance.value
-      if self.ethToken == nil { return value }
+      var value = BigInt(0)
+      if self.ethToken == nil { return self.ethBalance.value }
 
       let tokenObjects = KNSupportedTokenStorage.shared.supportedTokens
 
