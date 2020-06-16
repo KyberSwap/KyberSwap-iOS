@@ -12,7 +12,10 @@ class KNLoadBalanceCoordinator {
   fileprivate var session: KNSession!
   fileprivate var ethToken: TokenObject!
 
-  var ethBalance: Balance = Balance(value: BigInt(0))
+  var ethBalance: Balance {
+    let ethToken = KNSupportedTokenStorage.shared.ethToken
+    return otherTokensBalance[ethToken.address.description] ?? Balance(value: BigInt(0))
+  }
 
   fileprivate var fetchOtherTokensBalanceTimer: Timer?
   fileprivate var isFetchingOtherTokensBalance: Bool = false
@@ -27,9 +30,6 @@ class KNLoadBalanceCoordinator {
   var totalBalanceInUSD: BigInt {
     let balanceValue: BigInt = {
       var value = BigInt(0)
-      if self.ethToken != nil, let ethRate = KNRateCoordinator.shared.usdRate(for: self.ethToken) {
-        value = ethRate.rate * ethBalance.value / BigInt(EthereumUnit.ether.rawValue)
-      }
       let tokens = KNSupportedTokenStorage.shared.supportedTokens
       for token in tokens {
         if let balance = otherTokensBalance[token.contract.lowercased()], !balance.value.isZero, let rate = KNRateCoordinator.shared.usdRate(for: token) {
@@ -80,7 +80,6 @@ class KNLoadBalanceCoordinator {
   func restartNewSession(_ session: KNSession) {
     self.session = session
     self.ethToken = session.tokenStorage.ethToken
-    self.ethBalance = Balance(value: BigInt(0))
     self.otherTokensBalance = [:]
     self.updateBalancesFromLocalData()
     self.resume()
@@ -89,11 +88,7 @@ class KNLoadBalanceCoordinator {
   fileprivate func updateBalancesFromLocalData() {
     let tokens = self.session.tokenStorage.tokens
     tokens.forEach { token in
-      if token.isETH {
-        self.ethBalance = Balance(value: token.valueBigInt)
-      } else {
-        self.otherTokensBalance[token.contract.lowercased()] = Balance(value: token.valueBigInt)
-      }
+      self.otherTokensBalance[token.contract.lowercased()] = Balance(value: token.valueBigInt)
     }
   }
 
@@ -181,7 +176,6 @@ class KNLoadBalanceCoordinator {
         }
         if case .success(let balance) = result {
           if self.ethBalance.value != balance.value {
-            self.ethBalance = balance
             self.session.tokenStorage.updateBalance(for: address, balance: balance.value)
             KNNotificationUtil.postNotification(for: kETHBalanceDidUpdateNotificationKey)
           }
