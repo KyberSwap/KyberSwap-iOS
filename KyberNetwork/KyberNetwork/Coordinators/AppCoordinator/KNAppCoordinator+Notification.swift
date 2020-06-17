@@ -15,13 +15,6 @@ extension KNAppCoordinator {
       name: Notification.Name(kTransactionDidUpdateNotificationKey),
       object: nil
     )
-    let ethBalanceName = Notification.Name(kETHBalanceDidUpdateNotificationKey)
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(self.ethBalanceDidUpdateNotification(_:)),
-      name: ethBalanceName,
-      object: nil
-    )
     let tokenBalanceName = Notification.Name(kOtherBalanceDidUpdateNotificationKey)
     NotificationCenter.default.addObserver(
       self,
@@ -106,11 +99,6 @@ extension KNAppCoordinator {
     NotificationCenter.default.removeObserver(
       self,
       name: Notification.Name(kTransactionDidUpdateNotificationKey),
-      object: nil
-    )
-    NotificationCenter.default.removeObserver(
-      self,
-      name: Notification.Name(kETHBalanceDidUpdateNotificationKey),
       object: nil
     )
     NotificationCenter.default.removeObserver(
@@ -213,31 +201,6 @@ extension KNAppCoordinator {
       totalBalanceInETH: totalETH
     )
     self.settingsCoordinator?.appCoordinatorUSDRateUpdate()
-  }
-
-  @objc func ethBalanceDidUpdateNotification(_ sender: Any?) {
-    if self.session == nil { return }
-    guard let loadBalanceCoordinator = self.loadBalanceCoordinator else { return }
-    let totalUSD: BigInt = loadBalanceCoordinator.totalBalanceInUSD
-    let totalETH: BigInt = loadBalanceCoordinator.totalBalanceInETH
-    let ethBalance: Balance = loadBalanceCoordinator.ethBalance
-
-    self.exchangeCoordinator?.appCoordinatorETHBalanceDidUpdate(
-      totalBalanceInUSD: totalUSD,
-      totalBalanceInETH: totalETH,
-      ethBalance: ethBalance
-    )
-    self.balanceTabCoordinator?.appCoordinatorETHBalanceDidUpdate(
-      totalBalanceInUSD: totalUSD,
-      totalBalanceInETH: totalETH,
-      ethBalance: ethBalance
-    )
-    self.limitOrderCoordinator?.appCoordinatorETHBalanceDidUpdate(
-      totalBalanceInUSD: totalUSD,
-      totalBalanceInETH: totalETH,
-      ethBalance: ethBalance
-    )
-    self.settingsCoordinator?.appCoordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
   }
 
   @objc func tokenBalancesDidUpdateNotification(_ sender: Any?) {

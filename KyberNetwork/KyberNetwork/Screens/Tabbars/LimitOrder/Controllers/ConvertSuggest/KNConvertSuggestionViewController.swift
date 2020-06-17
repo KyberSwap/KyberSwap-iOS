@@ -109,10 +109,17 @@ class KNConvertSuggestionViewController: KNBaseViewController {
     self.address = address
     self.addressValueLabel.text = "\(address.prefix(12))...\(address.suffix(8))"
   }
-
+  
   func updateETHBalance(_ balance: BigInt) {
     self.ethBalance = balance
 
+    let ethBalanceDisplay = "\(self.ethBalance.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 4)) ETH"
+    let wethBalanceDisplay = "\(self.availableWETHBalance.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 4)) WETH"
+    self.balanceValueLabel.text = "\(ethBalanceDisplay)\n\(wethBalanceDisplay)"
+  }
+
+  func updateETHBalance(_ balances: [String: Balance]) {
+    self.ethBalance = balances[self.eth.contract]?.value ?? BigInt(0)
     let ethBalanceDisplay = "\(self.ethBalance.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 4)) ETH"
     let wethBalanceDisplay = "\(self.availableWETHBalance.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 4)) WETH"
     self.balanceValueLabel.text = "\(ethBalanceDisplay)\n\(wethBalanceDisplay)"

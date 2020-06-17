@@ -131,23 +131,6 @@ extension KNBalanceTabCoordinator {
     self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: self.balances)
   }
 
-  func appCoordinatorETHBalanceDidUpdate(
-    totalBalanceInUSD: BigInt,
-    totalBalanceInETH: BigInt,
-    ethBalance: Balance
-    ) {
-    if let ethToken = KNSupportedTokenStorage.shared.supportedTokens.first(where: { $0.isETH }) {
-      self.newRootViewController.coordinatorUpdateTokenBalances([ethToken.contract: ethBalance])
-      self.balances[ethToken.contract] = ethBalance
-    }
-    self.appCoordinatorExchangeRateDidUpdate(
-      totalBalanceInUSD: totalBalanceInUSD,
-      totalBalanceInETH: totalBalanceInETH
-    )
-    self.tokenChartCoordinator?.coordinatorTokenBalancesDidUpdate(balances: self.balances)
-    self.sendTokenCoordinator?.coordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
-  }
-
   func appCoordinatorExchangeRateDidUpdate(
     totalBalanceInUSD: BigInt,
     totalBalanceInETH: BigInt

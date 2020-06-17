@@ -135,15 +135,6 @@ extension KNExchangeTokenCoordinator {
     self.searchTokensViewController?.updateBalances(otherTokensBalance)
   }
 
-  func appCoordinatorETHBalanceDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, ethBalance: Balance) {
-    if let eth = self.tokens.first(where: { $0.isETH }) {
-      self.balances[eth.contract] = ethBalance
-      self.searchTokensViewController?.updateBalances([eth.contract: ethBalance])
-      self.rootViewController.coordinatorUpdateTokenBalance([eth.contract: ethBalance])
-    }
-    self.sendTokenCoordinator?.coordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
-  }
-
   func appCoordinatorUSDRateDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt) {
     self.rootViewController.coordinatorTrackerRateDidUpdate()
     self.sendTokenCoordinator?.coordinatorDidUpdateTrackerRate()

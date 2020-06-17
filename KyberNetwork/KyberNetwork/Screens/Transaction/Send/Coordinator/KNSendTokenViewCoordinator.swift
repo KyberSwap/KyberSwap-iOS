@@ -78,13 +78,6 @@ extension KNSendTokenViewCoordinator {
     self.searchTokensVC?.updateBalances(self.balances)
   }
 
-  func coordinatorETHBalanceDidUpdate(ethBalance: Balance) {
-    let eth = KNSupportedTokenStorage.shared.ethToken
-    self.balances[eth.contract] = ethBalance
-    self.rootViewController.coordinatorUpdateBalances(self.balances)
-    self.searchTokensVC?.updateBalances(self.balances)
-  }
-
   func coordinatorShouldOpenSend(from token: TokenObject) {
     self.rootViewController.coordinatorDidUpdateSendToken(token, balance: self.balances[token.contract])
   }

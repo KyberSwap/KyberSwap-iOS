@@ -85,12 +85,6 @@ class KNSettingsCoordinator: NSObject, Coordinator {
     self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: balances)
   }
 
-  func appCoordinatorETHBalanceDidUpdate(ethBalance: Balance) {
-    let eth = KNSupportedTokenStorage.shared.ethToken
-    self.balances[eth.contract] = ethBalance
-    self.sendTokenCoordinator?.coordinatorETHBalanceDidUpdate(ethBalance: ethBalance)
-  }
-
   func appCoordinatorUSDRateUpdate() {
     self.sendTokenCoordinator?.coordinatorDidUpdateTrackerRate()
   }

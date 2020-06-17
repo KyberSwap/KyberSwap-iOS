@@ -118,7 +118,6 @@ extension KNAppCoordinator {
     self.addObserveNotificationFromSession()
     self.updateLocalData()
 
-    KNNotificationUtil.postNotification(for: kETHBalanceDidUpdateNotificationKey)
     KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
 
     let transactions = self.session.transactionStorage.kyberPendingTransactions
@@ -194,7 +193,6 @@ extension KNAppCoordinator {
       self.settingsCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
       self.addObserveNotificationFromSession()
       self.updateLocalData()
-      KNNotificationUtil.postNotification(for: kETHBalanceDidUpdateNotificationKey)
       KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
       let transactions = self.session.transactionStorage.kyberPendingTransactions
       self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
@@ -255,7 +253,6 @@ extension KNAppCoordinator {
           self.session,
           resetRoot: isRemovingCurrentWallet
         )
-        KNNotificationUtil.postNotification(for: kETHBalanceDidUpdateNotificationKey)
         KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
       } else {
         self.loadBalanceCoordinator?.restartNewSession(self.session)
@@ -290,7 +287,6 @@ extension KNAppCoordinator {
 
   fileprivate func updateLocalData() {
     self.tokenBalancesDidUpdateNotification(nil)
-    self.ethBalanceDidUpdateNotification(nil)
     self.exchangeRateTokenDidUpdateNotification(nil)
     self.tokenObjectListDidUpdate(nil)
     self.tokenTransactionListDidUpdate(nil)

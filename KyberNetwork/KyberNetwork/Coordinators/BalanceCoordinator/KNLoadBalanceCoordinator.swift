@@ -177,7 +177,7 @@ class KNLoadBalanceCoordinator {
           if self.ethBalance.value != balance.value {
             self.otherTokensBalance[token.lowercased()] = balance
             self.session.tokenStorage.updateBalance(for: address, balance: balance.value)
-            KNNotificationUtil.postNotification(for: kETHBalanceDidUpdateNotificationKey)
+            KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
           }
         }
         completion()

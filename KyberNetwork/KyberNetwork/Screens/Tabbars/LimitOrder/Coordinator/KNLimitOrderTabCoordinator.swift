@@ -103,15 +103,7 @@ extension KNLimitOrderTabCoordinator {
     otherTokensBalance.forEach { self.balances[$0.key] = $0.value }
     self.searchTokensViewController?.updateBalances(otherTokensBalance)
     self.convertVC?.updateWETHBalance(otherTokensBalance)
-  }
-
-  func appCoordinatorETHBalanceDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, ethBalance: Balance) {
-    if let eth = self.tokens.first(where: { $0.isETH }) {
-      self.balances[eth.contract] = ethBalance
-      self.searchTokensViewController?.updateBalances([eth.contract: ethBalance])
-      self.rootViewController.coordinatorUpdateTokenBalance([eth.contract: ethBalance])
-    }
-    self.convertVC?.updateETHBalance(ethBalance.value)
+    self.convertVC?.updateETHBalance(otherTokensBalance)
   }
 
   func appCoordinatorUSDRateDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt) {
