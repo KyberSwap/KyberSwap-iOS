@@ -50,7 +50,7 @@ class KNMigrationTutorialViewModel {
     )
     step4AttributeString.string.enumerateSubstrings(in: step4AttributeString.string.startIndex..<step4AttributeString.string.endIndex, options: .byWords) { (substring, substringRange, _, _) in
       if substring == "NEVER" {
-        step4AttributeString.addAttribute(.font, value: UIFont(name: "Roboto-Medium", size: 14.0)!, range: NSRange(substringRange, in: step4AttributeString.string))
+        step4AttributeString.addAttribute(.font, value: UIFont.Kyber.medium(with: 14), range: NSRange(substringRange, in: step4AttributeString.string))
       }
     }
 
@@ -165,7 +165,7 @@ class KNMigrationTutorialViewModel {
     let attributedString = NSMutableAttributedString(
       string: "Send email to support@kyberswap.com if you have any issues.",
       attributes: [
-        .font: UIFont(name: "Roboto-Regular", size: 12.0)!,
+        .font: UIFont.Kyber.regular(with: 12),
         .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
