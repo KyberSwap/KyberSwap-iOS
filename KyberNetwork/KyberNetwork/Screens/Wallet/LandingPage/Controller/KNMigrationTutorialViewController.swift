@@ -16,8 +16,8 @@ class KNMigrationTutorialViewModel {
     let step1AttributeString = NSMutableAttributedString(
       string: "Go to Settings → Manage Wallet.",
       attributes: [
-        .font: UIFont(name: "Roboto-Regular", size: 14.0)!,
-        .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+        .font: UIFont.Kyber.regular(with: 14),
+        .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
     )
@@ -25,8 +25,8 @@ class KNMigrationTutorialViewModel {
     let step2AttributeString = NSMutableAttributedString(
       string: "Choose the wallet you want to back up → Select Edit ",
       attributes: [
-        .font: UIFont(name: "Roboto-Regular", size: 14.0)!,
-        .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+        .font: UIFont.Kyber.regular(with: 14),
+        .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
     )
@@ -34,8 +34,8 @@ class KNMigrationTutorialViewModel {
     let step3AttributeString = NSMutableAttributedString(
       string: "Select Show Backup Phrase → Choose your desired back up method (Private key, Keystore, Mnemonic)",
       attributes: [
-        .font: UIFont(name: "Roboto-Regular", size: 14.0)!,
-        .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+        .font: UIFont.Kyber.regular(with: 14),
+        .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
     )
@@ -43,8 +43,8 @@ class KNMigrationTutorialViewModel {
     let step4AttributeString = NSMutableAttributedString(
       string: "Save your backup safely\nNEVER share your backup with anyone",
       attributes: [
-        .font: UIFont(name: "Roboto-Regular", size: 14.0)!,
-        .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+        .font: UIFont.Kyber.regular(with: 14),
+        .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
     )
@@ -74,17 +74,17 @@ class KNMigrationTutorialViewModel {
     let step1AttributeString = NSMutableAttributedString(
       string: "Select Import Wallet",
       attributes: [
-        .font: UIFont(name: "Roboto-Regular", size: 14.0)!,
-        .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+        .font: UIFont.Kyber.regular(with: 14),
+        .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
     )
-    
+
     let step2AttributeString = NSMutableAttributedString(
       string: "Choose your desired import method (Keystore, Private Key, Seeds)",
       attributes: [
-        .font: UIFont(name: "Roboto-Regular", size: 14.0)!,
-        .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+        .font: UIFont.Kyber.regular(with: 14),
+        .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
     )
@@ -121,8 +121,8 @@ class KNMigrationTutorialViewModel {
     let bullet: String = "\u{2022}"
     let bulletAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: UIColor.Kyber.orange, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 20)]
     let textAttributes: [NSAttributedStringKey: Any] = [
-      .font: UIFont(name: "Roboto-Regular", size: 14.0)!,
-      .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+      .font: UIFont.Kyber.regular(with: 14),
+      .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
       .kern: 0.0,
     ]
     let paragraphStyle = NSMutableParagraphStyle()
@@ -166,7 +166,7 @@ class KNMigrationTutorialViewModel {
       string: "Send email to support@kyberswap.com if you have any issues.",
       attributes: [
         .font: UIFont(name: "Roboto-Regular", size: 12.0)!,
-        .foregroundColor: UIColor(red: 20.0 / 255.0, green: 25.0 / 255.0, blue: 39.0 / 255.0, alpha: 1.0),
+        .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
         .kern: 0.0,
       ]
     )
