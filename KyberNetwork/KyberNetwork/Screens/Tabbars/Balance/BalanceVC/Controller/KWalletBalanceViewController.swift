@@ -126,12 +126,14 @@ class KWalletBalanceViewController: KNBaseViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     if self.viewModel.isNeedShowTutorial {
+      self.viewModel.updateDoneTutorial()
       self.viewModel.currentTutorialStep = 1
       let event = KWalletBalanceViewEvent.quickTutorial(
         step: 1,
         pointsAndRadius: [(CGPoint(x: self.buyETHButton.frame.midX, y: self.buyETHButton.frame.midY), 65), (CGPoint(x: self.balanceValueLabel.frame.midX - 50, y: self.balanceValueLabel.frame.midY), 93)]
       )
       self.delegate?.kWalletBalanceViewController(self, run: event)
+      self.viewModel.isShowingQuickTutorial = true
     }
   }
 
@@ -216,6 +218,9 @@ class KWalletBalanceViewController: KNBaseViewController {
     self.balanceValueLabel.attributedText = self.viewModel.balanceDisplayAttributedString
     self.tokensBalanceTableView.isHidden = self.viewModel.displayedTokens.isEmpty
     self.emptyStateView.isHidden = !self.viewModel.displayedTokens.isEmpty
+    guard self.viewModel.isShowingQuickTutorial == false else {
+      return
+    }
     self.tokensBalanceTableView.reloadData()
     self.view.layoutIfNeeded()
   }
@@ -369,7 +374,7 @@ class KWalletBalanceViewController: KNBaseViewController {
   override func quickTutorialNextAction() {
     self.dismissTutorialOverlayer()
     if self.viewModel.currentTutorialStep == 4 {
-      self.viewModel.updateDoneTutorial()
+      self.viewModel.isShowingQuickTutorial = false
       return
     }
     self.viewModel.currentTutorialStep += 1

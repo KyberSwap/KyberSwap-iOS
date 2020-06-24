@@ -476,9 +476,10 @@ class KWalletBalanceViewModel: NSObject {
 
   // MARK: TUTORIAL
   var currentTutorialStep: Int = 1
+  var isShowingQuickTutorial: Bool = false
 
   var isNeedShowTutorial: Bool {
-    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForBalanceView) == nil
+    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForBalanceView) == nil || KNEnvironment.default == .ropsten
   }
 
   func updateDoneTutorial() {

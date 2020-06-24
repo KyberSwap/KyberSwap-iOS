@@ -94,8 +94,6 @@ extension KNBaseViewController {
     NSLayoutConstraint.activate(allConstraints)
 
     overlayView.tag = 1000
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissTutorialOverlayer))
-    overlayView.gestureRecognizers = [tapGesture]
 
     let tapGestureForContentLable = UITapGestureRecognizer(target: self, action: #selector(quickTutorialContentLabelTapped))
     label.gestureRecognizers = [tapGestureForContentLable]
