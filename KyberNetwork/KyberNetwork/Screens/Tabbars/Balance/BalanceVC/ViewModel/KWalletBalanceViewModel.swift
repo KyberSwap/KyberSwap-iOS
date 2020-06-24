@@ -473,4 +473,15 @@ class KWalletBalanceViewModel: NSObject {
     if self.tokensDisplayType == .priceAsc { return tracker0.rateETHNow < tracker1.rateETHNow }
     return tracker0.rateETHNow > tracker1.rateETHNow
   }
+
+  // MARK: TUTORIAL
+  var currentTutorialStep: Int = 1
+
+  var isNeedShowTutorial: Bool {
+    return UserDefaults.standard.object(forKey: "balance_tutorial_done") == nil
+  }
+
+  func updateDoneTutorial() {
+    UserDefaults.standard.set(true, forKey: "balance_tutorial_done")
+  }
 }
