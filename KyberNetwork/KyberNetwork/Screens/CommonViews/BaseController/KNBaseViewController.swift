@@ -96,7 +96,7 @@ extension KNBaseViewController {
     overlayView.tag = 1000
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissTutorialOverlayer))
     overlayView.gestureRecognizers = [tapGesture]
-    
+
     let tapGestureForContentLable = UITapGestureRecognizer(target: self, action: #selector(quickTutorialContentLabelTapped))
     label.gestureRecognizers = [tapGestureForContentLable]
 
@@ -110,6 +110,6 @@ extension KNBaseViewController {
   }
 
   @objc func quickTutorialNextAction() {}
-  
+
   @objc func quickTutorialContentLabelTapped() {}
 }
