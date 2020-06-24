@@ -478,10 +478,10 @@ class KWalletBalanceViewModel: NSObject {
   var currentTutorialStep: Int = 1
 
   var isNeedShowTutorial: Bool {
-    return UserDefaults.standard.object(forKey: "balance_tutorial_done") == nil
+    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForBalanceView) == nil
   }
 
   func updateDoneTutorial() {
-    UserDefaults.standard.set(true, forKey: "balance_tutorial_done")
+    UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForBalanceView)
   }
 }
