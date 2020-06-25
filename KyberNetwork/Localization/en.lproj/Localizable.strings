@@ -229,6 +229,7 @@
 "increase.kyberswap.trade.limits" = "Increase KyberSwap's trade limits";
 "create.wallet" = "Create Wallet";
 "terms.and.conditions" = "Terms and Conditions";
+"By using KyberSwap, you agree to\n the Terms and Conditions" = "By using KyberSwap, you agree to\n the Terms and Conditions";
 "name" = "Name";
 "kyber.listed" = "Kyber Listed";
 "other" = "Other";
@@ -737,3 +738,24 @@
 "You may not be able to access your wallet if you don’t have backup phrases" = "You may not be able to access your wallet if you don’t have backup phrases";
 
 "Select higher gas price to accelerate your transaction processing time" = "Select higher gas price to accelerate your transaction processing time";
+
+//Migration tutorial
+"How to migrate to new iOS app" = "How to migrate to new iOS app";
+"Backup your wallets" = "Backup your wallets";
+"In your old KyberSwap app" = "In your old KyberSwap app";
+"Go to Settings → Manage Wallet." = "Go to Settings → Manage Wallet.";
+"Choose the wallet you want to back up → Select Edit" = "Choose the wallet you want to back up → Select Edit";
+"Select Show Backup Phrase → Choose your desired back up method (Private key, Keystore, Mnemonic)" = "Select Show Backup Phrase → Choose your desired back up method (Private key, Keystore, Mnemonic)";
+"Save your backup safely\nNEVER share your backup with anyone" = "Save your backup safely\nNEVER share your backup with anyone";
+"Never" = "Never";
+"Use your backup to import wallet" = "Use your backup to import wallet";
+"Within this New KyberSwap app" = "Within this New KyberSwap app";
+"Select Import Wallet" = "Select Import Wallet";
+"Choose your desired import method (Keystore, Private Key, Seeds)" = "Choose your desired import method (Keystore, Private Key, Seeds)";
+"Check your Balance" = "Check your Balance";
+"Make sure your wallet address and balance of your tokens are all correct." = "Make sure your wallet address and balance of your tokens are all correct.";
+"Make a simple transfer/swap transaction to make sure everything is working as expected." = "Make a simple transfer/swap transaction to make sure everything is working as expected.";
+"You can either keep or delete the old iOS app." = "You can either keep or delete the old iOS app.";
+"Send email to support@kyberswap.com if you have any issues." = "Send email to support@kyberswap.com if you have any issues.";
+"Optional" = "Optional";
+"Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app." = "Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app.";

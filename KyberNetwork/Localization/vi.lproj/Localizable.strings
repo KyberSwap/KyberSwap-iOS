@@ -229,6 +229,7 @@
 "increase.kyberswap.trade.limits" = "Tăng giới hạn giao dịch KyberSwap";
 "create.wallet" = "Tạo Ví";
 "terms.and.conditions" = "Điều khoản và điều kiện";
+"By using KyberSwap, you agree to\n the Terms and Conditions" = "Bằng việc sử dụng KyberSwap, bạn đã đồng ý với Điều khoản sử dụng của chúng tôi";
 "name" = "Tên";
 "kyber.listed" = "Có trên Kyber";
 "other" = "Khác";
@@ -739,3 +740,24 @@
 "You may not be able to access your wallet if you don’t have backup phrases" = "Bạn sẽ không thể phục hồi ví của bạn nếu bạn không sao lưu";
 
 "Select higher gas price to accelerate your transaction processing time" = "Chọn giá gas cao hơn để tăng tốc độ giao dịch";
+
+//Migration tutorial
+"How to migrate to new iOS app" = "Cách để sao lưu sang ứng dụng iOS mới.";
+"Backup your wallets" = "Sao lưu ví của bạn";
+"In your old KyberSwap app" = "Trong ứng dụng KyberSwap cũ của bạn";
+"Go to Settings → Manage Wallet." = "Bấm “Cài đặt”→  Chọn “Quản lý ví”";
+"Choose the wallet you want to back up → Select Edit" = "Chọn ví bạn muốn sao lưu → chọn Chỉnh sửa.";
+"Select Show Backup Phrase → Choose your desired back up method (Private key, Keystore, Mnemonic)" = "Chọn Hiển thị sao lưu → Chọn phương pháp sao lưu mà bạn muốn (Privatekey, Keystore hoặc Mnemonic)";
+"Save your backup safely\nNEVER share your backup with anyone" = "Lưu bản sao lưu của bạn một cách cẩn thận\nNhớ rằng KHÔNG BAO GIỜ chia sẻ sao lưu của bạn cho bất kỳ ai.";
+"Never" = "Không bao giờ";
+"Use your backup to import wallet" = "Sử dụng sao lưu của bạn để nhập ví";
+"Within this New KyberSwap app" = "Trong ứng dụng mới này của KyberSwap";
+"Select Import Wallet" = "Chọn cách nhập ví";
+"Choose your desired import method (Keystore, Private Key, Seeds)" = "Chọn cách nhập ví mà bạn muốn (Keystore, Private Key hoặc Mnemonic)";
+"Check your Balance" = "Kiểm tra số dư tài khoản";
+"Make sure your wallet address and balance of your tokens are all correct." = "Chắc chắn rằng địa chỉ ví của bạn và số dư token của bạn đều đúng.";
+"Make a simple transfer/swap transaction to make sure everything is working as expected." = "Make a simple transfer/swap transaction to make sure everything is working as expected.";
+"You can either keep or delete the old iOS app." = "Bạn có thể giữ hoặc xóa ứng dụng iOS cũ.";
+"Send email to support@kyberswap.com if you have any issues." = "Gửi email đến support@kyberswap.com nếu bạn gặp phải bất kỳ vấn đề gì.";
+"Optional" = "Tùy chọn";
+"Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app." = "Bạn có cài ứng dụng KyberSwap phiên bản cũ trên iOS không? Nếu có hãy đọc hướng dẫn sao lưu của chúng tôi từ ứng dụng cũ lên ứng dụng mới.";

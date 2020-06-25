@@ -229,6 +229,7 @@
 "increase.kyberswap.trade.limits" = "KyberSwap의 거래 한도 확대";
 "create.wallet" = "지갑 만들기";
 "terms.and.conditions" = "이용 약관";
+"By using KyberSwap, you agree to\n the Terms and Conditions" = "카이버스왑을 사용함으로써, 이용약관에 동의합니다.";
 "name" = "이름";
 "kyber.listed" = "Kyber Listed";
 "other" = "기타";
@@ -739,3 +740,24 @@
 "You may not be able to access your wallet if you don’t have backup phrases" = "백업용 단어들을 모르는 경우, 지갑에 접근하지 못 할 수 있습니다";
 
 "Select higher gas price to accelerate your transaction processing time" = "가스비를 더 높게 설정하여 거래 처리 속도를 높일 수 있습니다.";
+
+//Migration tutorial
+"How to migrate to new iOS app" = "새로운 iOS 앱으로 이전하는 법";
+"Backup your wallets" = "지갑을 백업해주세요.";
+"In your old KyberSwap app" = "이전 버전의 카이버스왑 앱에";
+"Go to Settings → Manage Wallet." = "설정 -> 지갑 관리";
+"Choose the wallet you want to back up → Select Edit" = "백업하기 원하는 지갑 선택 -> 수정하기";
+"Select Show Backup Phrase → Choose your desired back up method (Private key, Keystore, Mnemonic)" = "백업 문구 보기 선택 -> 원하는 백업 방법 선택 (Private key, Keystore, Mnemonic)";
+"Save your backup safely\nNEVER share your backup with anyone" = "안전한 곳에 백업 저장하기\n절대로 다른 사람과 백업을 공유하지 마세요";
+"Never" = "절대";
+"Use your backup to import wallet" = "백업을 사용하여 지갑 불러오기";
+"Within this New KyberSwap app" = "새로운 카이버스왑 앱 내에서";
+"Select Import Wallet" = "지갑 불러오기 선택";
+"Choose your desired import method (Keystore, Private Key, Seeds)" = "원하는 지갑 불러오기 방법 선택(Keystore, Private Key, Seeds)";
+"Check your Balance" = "잔액 확인하기";
+"Make sure your wallet address and balance of your tokens are all correct." = "지갑 주소와 소유한 토큰의 잔액이 올바른지 반드시 확인하세요.";
+"Make a simple transfer/swap transaction to make sure everything is working as expected." = "Make a simple transfer/swap transaction to make sure everything is working as expected.";
+"You can either keep or delete the old iOS app." = "이전 버전의 iOS 앱은 지우거나 보관해도 됩니다.";
+"Send email to support@kyberswap.com if you have any issues." = "문제가 생길 시 support@kyberswap.com 로 메일을 보내주세요.";
+"Optional" = "선택사항";
+"Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app." = "이전 버전의 카이버스왑 iOS를 설치하셨나요? 이전 앱에서 새로운 앱으로 지갑 이전하는 법에 대한 가이드를 읽어주세요";

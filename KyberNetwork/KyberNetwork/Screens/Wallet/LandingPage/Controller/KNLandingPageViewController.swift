@@ -64,12 +64,23 @@ class KNLandingPageViewController: KNBaseViewController {
     self.promoCodeButton.rounded(radius: radius)
     self.createWalletButton.rounded(color: .white, width: 1.0, radius: radius)
     self.importWalletButton.rounded(color: .white, width: 1.0, radius: radius)
-    self.termAndConditionButton.setTitle(
-      NSLocalizedString("terms.and.conditions", value: "Terms and Conditions", comment: ""),
-      for: .normal
+
+    let attributeString = NSMutableAttributedString(
+      string: "By using KyberSwap, you agree to\n the Terms and Conditions".toBeLocalised(),
+      attributes: [
+        .font: UIFont.Kyber.medium(with: 14),
+        .foregroundColor: UIColor.white,
+        .kern: 0.0,
+      ]
     )
-    self.termAndConditionButton.setTitleColor(.white, for: .normal)
-    self.termAndConditionButton.addTextSpacing()
+
+    if let range = attributeString.string.range(of: "terms.and.conditions".toBeLocalised()) {
+       print(range)
+      let r = NSRange(range, in: attributeString.string)
+      attributeString.addAttribute(.font, value: UIFont.Kyber.bold(with: 15), range: r)
+    }
+    self.termAndConditionButton.setAttributedTitle(attributeString, for: .normal)
+
     self.debugButton.isHidden = false
   }
 
