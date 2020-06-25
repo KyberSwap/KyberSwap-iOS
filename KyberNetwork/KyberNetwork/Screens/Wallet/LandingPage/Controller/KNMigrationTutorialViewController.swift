@@ -253,6 +253,7 @@ class KNMigrationTutorialViewController: KNBaseViewController {
   }
 
   @IBAction func closeButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_migrate_exit_button", customAttributes: nil)
     self.dismiss(animated: true, completion: nil)
   }
 
@@ -266,6 +267,7 @@ class KNMigrationTutorialViewController: KNBaseViewController {
   }
 
   @IBAction func previousStepButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_migrate_previous_button_tapped", customAttributes: ["step": "\(self.viewModel.currentStep)_\(self.viewModel.currentSubStepIndex)"])
     if (self.viewModel.currentStep == 1 && self.viewModel.currentSubStepIndex != 0) || (self.viewModel.currentStep == 2 && self.viewModel.currentSubStepIndex != 0) {
       self.viewModel.currentSubStepIndex -= 1
       self.pagerContainerView.scrollToItem(at: self.viewModel.currentSubStepIndex, animated: true)
@@ -303,6 +305,7 @@ class KNMigrationTutorialViewController: KNBaseViewController {
   }
 
   @IBAction func nextStepButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_migrate_next_button_tapped", customAttributes: ["step": "\(self.viewModel.currentStep)_\(self.viewModel.currentSubStepIndex)"])
     if (self.viewModel.currentStep == 1 && self.viewModel.currentSubStepIndex <= 2) || (self.viewModel.currentStep == 2 && self.viewModel.currentSubStepIndex == 0) {
       self.viewModel.currentSubStepIndex += 1
       self.pagerContainerView.scrollToItem(at: self.viewModel.currentSubStepIndex, animated: true)
@@ -317,6 +320,7 @@ class KNMigrationTutorialViewController: KNBaseViewController {
 
   @IBAction func nextButtonTapped(_ sender: UIButton) {
     if self.viewModel.currentStep == 3 {
+      KNCrashlyticsUtil.logCustomEvent(withName: "tut_migrate_done_button_tapped", customAttributes: nil)
       self.dismiss(animated: true, completion: nil)
     } else {
       self.nextStepButtonTapped(sender)
@@ -324,6 +328,7 @@ class KNMigrationTutorialViewController: KNBaseViewController {
   }
 
   @IBAction func contactLabelTapped(_ sender: UITapGestureRecognizer) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_migrate_contact_label_tapped", customAttributes: nil)
     self.delegate?.kMigrationTutorialViewControllerDidClickKyberSupportContact(self)
   }
 
