@@ -756,7 +756,7 @@
 "Choose your desired import method (Keystore, Private Key, Seeds)" = "选择您想要的导入方法（密钥库、私钥、种子）";
 "Check your Balance" = "检查你的余额";
 "Make sure your wallet address and balance of your tokens are all correct." = "确保您的钱包地址和代币余额均正确无误。";
-"Make a simple transfer/swap transaction to make sure everything is working as expected." = "Make a simple transfer/swap transaction to make sure everything is working as expected.";
+"Make a simple transfer/swap transaction to make sure everything is working as expected." = "进行简单的转移/兑换交易，以确保一切正常工作。";
 "You can either keep or delete the old iOS app." = "您可以保留或删除旧的iOS应用。";
 "Send email to support@kyberswap.com if you have any issues." = "如果您有任何问题，请发送邮件至support@kyberswap.com。";
 "Optional" = "可选择的";

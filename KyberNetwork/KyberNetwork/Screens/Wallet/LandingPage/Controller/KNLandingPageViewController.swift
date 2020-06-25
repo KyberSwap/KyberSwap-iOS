@@ -65,12 +65,15 @@ class KNLandingPageViewController: KNBaseViewController {
     self.createWalletButton.rounded(color: .white, width: 1.0, radius: radius)
     self.importWalletButton.rounded(color: .white, width: 1.0, radius: radius)
 
+    let paragraphStyle = NSMutableParagraphStyle()
+    paragraphStyle.alignment = NSTextAlignment.center
     let attributeString = NSMutableAttributedString(
       string: "By using KyberSwap, you agree to\n the Terms and Conditions".toBeLocalised(),
       attributes: [
         .font: UIFont.Kyber.medium(with: 14),
         .foregroundColor: UIColor.white,
         .kern: 0.0,
+        .paragraphStyle: paragraphStyle,
       ]
     )
 

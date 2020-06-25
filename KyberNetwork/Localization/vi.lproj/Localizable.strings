@@ -756,7 +756,7 @@
 "Choose your desired import method (Keystore, Private Key, Seeds)" = "Chọn cách nhập ví mà bạn muốn (Keystore, Private Key hoặc Mnemonic)";
 "Check your Balance" = "Kiểm tra số dư tài khoản";
 "Make sure your wallet address and balance of your tokens are all correct." = "Chắc chắn rằng địa chỉ ví của bạn và số dư token của bạn đều đúng.";
-"Make a simple transfer/swap transaction to make sure everything is working as expected." = "Make a simple transfer/swap transaction to make sure everything is working as expected.";
+"Make a simple transfer/swap transaction to make sure everything is working as expected." = "Tạo một giao dịch đơn giản để chắc chắn rằng mọi thứ hoạt động tốt.";
 "You can either keep or delete the old iOS app." = "Bạn có thể giữ hoặc xóa ứng dụng iOS cũ.";
 "Send email to support@kyberswap.com if you have any issues." = "Gửi email đến support@kyberswap.com nếu bạn gặp phải bất kỳ vấn đề gì.";
 "Optional" = "Tùy chọn";

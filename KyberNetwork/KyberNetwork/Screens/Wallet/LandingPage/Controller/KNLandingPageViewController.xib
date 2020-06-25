@@ -47,7 +47,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-Xx-uQV">
-                    <rect key="frame" x="35" y="610.5" width="305" height="29"/>
+                    <rect key="frame" x="35" y="600.5" width="305" height="29"/>
                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Terms and Conditions">
@@ -117,7 +117,7 @@
                 <constraint firstItem="tFk-DS-wvQ" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XMu-FQ-vgN"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="width" secondItem="7nN-NM-xeF" secondAttribute="width" id="j9g-cw-ZX6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0di-8l-vR4" secondAttribute="bottom" constant="10" id="ji3-dn-2C2"/>
-                <constraint firstItem="y2C-Xx-uQV" firstAttribute="top" secondItem="hSF-ar-Svx" secondAttribute="bottom" constant="24" id="ks2-I0-iHf"/>
+                <constraint firstItem="y2C-Xx-uQV" firstAttribute="top" secondItem="hSF-ar-Svx" secondAttribute="bottom" constant="14" id="ks2-I0-iHf"/>
                 <constraint firstItem="LIp-Wc-Zua" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="nbp-23-7yF"/>
                 <constraint firstItem="7nN-NM-xeF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="wIo-Vy-VEy"/>
                 <constraint firstItem="y2C-Xx-uQV" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="yWW-ia-7GG"/>
