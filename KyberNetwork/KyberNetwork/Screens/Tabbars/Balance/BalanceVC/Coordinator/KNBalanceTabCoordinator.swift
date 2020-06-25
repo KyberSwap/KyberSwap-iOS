@@ -235,6 +235,8 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       self.navigationController.showMessageWithInterval(
         message: NSLocalizedString("address.copied", value: "Address copied", comment: "")
       )
+    case .quickTutorial(let step, let pointsAndRadius):
+      self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
     }
   }
 
@@ -270,6 +272,58 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       viewController.delegate = self
       self.navigationController.pushViewController(viewController, animated: true)
     }
+  }
+
+  fileprivate func openQuickTutorial(_ controller: KWalletBalanceViewController, step: Int, pointsAndRadius: [(CGPoint, CGFloat)]) {
+    var attributedString = NSMutableAttributedString()
+    var contentTopOffset: CGFloat = 0.0
+    var nextButtonText = "next".toBeLocalised()
+    switch step {
+    case 1:
+      attributedString = NSMutableAttributedString(string: "Total balance in your wallet\nYou can buy ETH here".toBeLocalised(), attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      attributedString.string.enumerateSubstrings(in: attributedString.string.startIndex..<attributedString.string.endIndex, options: .byWords) { (substring, substringRange, _, _) in
+        if substring == "here" {
+          attributedString.addAttribute(.foregroundColor, value: UIColor.Kyber.orange, range: NSRange(substringRange, in: attributedString.string))
+        }
+      }
+      contentTopOffset = 302
+    case 2:
+      attributedString = NSMutableAttributedString(string: "Token balance in your wallet".toBeLocalised(), attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      contentTopOffset = 452
+    case 3:
+      attributedString = NSMutableAttributedString(string: "Live token price along with 24h change.".toBeLocalised(), attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      contentTopOffset = 464
+    case 4:
+      attributedString = NSMutableAttributedString(string: "Swipe right to set price alert.\nSwipe left to buy, sell or send tokens.".toBeLocalised(), attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      contentTopOffset = 476
+      nextButtonText = "Got it".toBeLocalised()
+    default:
+      break
+    }
+    let overlayer = controller.createOverlay(
+      frame: controller.tabBarController!.view.frame,
+      contentText: attributedString,
+      contentTopOffset: contentTopOffset,
+      pointsAndRadius: pointsAndRadius,
+      nextButtonTitle: nextButtonText
+    )
+    controller.tabBarController!.view.addSubview(overlayer)
   }
 
   fileprivate func openTokenChartView(for tokenObject: TokenObject) {

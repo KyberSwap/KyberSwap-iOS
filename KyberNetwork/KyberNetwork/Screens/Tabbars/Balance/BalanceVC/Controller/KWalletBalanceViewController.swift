@@ -14,6 +14,7 @@ enum KWalletBalanceViewEvent {
   case refreshData
   case buyETH
   case copyAddress
+  case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
 }
 
 protocol KWalletBalanceViewControllerDelegate: class {
@@ -122,6 +123,20 @@ class KWalletBalanceViewController: KNBaseViewController {
     }
   }
 
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    if self.viewModel.isNeedShowTutorial {
+      self.viewModel.updateDoneTutorial()
+      self.viewModel.currentTutorialStep = 1
+      let event = KWalletBalanceViewEvent.quickTutorial(
+        step: 1,
+        pointsAndRadius: [(CGPoint(x: self.buyETHButton.frame.midX, y: self.buyETHButton.frame.midY), 65), (CGPoint(x: self.balanceValueLabel.frame.midX - 50, y: self.balanceValueLabel.frame.midY), 93)]
+      )
+      self.delegate?.kWalletBalanceViewController(self, run: event)
+      self.viewModel.isShowingQuickTutorial = true
+    }
+  }
+
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.headerContainerView.removeSublayer(at: 0)
@@ -203,6 +218,9 @@ class KWalletBalanceViewController: KNBaseViewController {
     self.balanceValueLabel.attributedText = self.viewModel.balanceDisplayAttributedString
     self.tokensBalanceTableView.isHidden = self.viewModel.displayedTokens.isEmpty
     self.emptyStateView.isHidden = !self.viewModel.displayedTokens.isEmpty
+    guard self.viewModel.isShowingQuickTutorial == false else {
+      return
+    }
     self.tokensBalanceTableView.reloadData()
     self.view.layoutIfNeeded()
   }
@@ -279,7 +297,7 @@ class KWalletBalanceViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "balance_token_sort",
                                      customAttributes: [
                                       "token_sort": self.viewModel.tokensDisplayType.displayString(),
-                                      "list_type": self.viewModel.tabOption.displayString()
+                                      "list_type": self.viewModel.tabOption.displayString(),
                                       ]
                                     )
   }
@@ -292,7 +310,7 @@ class KWalletBalanceViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "balance_token_sort",
                                      customAttributes: [
                                       "token_sort": self.viewModel.tokensDisplayType.displayString(),
-                                      "list_type": self.viewModel.tabOption.displayString()
+                                      "list_type": self.viewModel.tabOption.displayString(),
       ]
     )
   }
@@ -351,6 +369,117 @@ class KWalletBalanceViewController: KNBaseViewController {
   @IBAction func buyETHButtonTapped(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "buy_eth_button_clicked"])
     self.delegate?.kWalletBalanceViewController(self, run: .buyETH)
+  }
+
+  override func quickTutorialNextAction() {
+    self.dismissTutorialOverlayer()
+    if self.viewModel.currentTutorialStep == 4 {
+      self.viewModel.isShowingQuickTutorial = false
+      return
+    }
+    self.viewModel.currentTutorialStep += 1
+    var pointsAndRadius: [(CGPoint, CGFloat)] = []
+    let tableViewOrigin = self.tokensBalanceTableView.frame.origin
+    let tableViewFrame = self.tokensBalanceTableView.frame.size
+    switch self.viewModel.currentTutorialStep {
+    case 2:
+      pointsAndRadius = [(CGPoint(x: tableViewOrigin.x + 52, y: tableViewOrigin.y + 64 * 1.5), 90)]
+    case 3:
+      pointsAndRadius = [(CGPoint(x: tableViewOrigin.x + tableViewFrame.width - 118, y: tableViewOrigin.y + 64 * 1.5), 115)]
+    case 4:
+      pointsAndRadius = [(CGPoint(x: tableViewOrigin.x + 32, y: tableViewOrigin.y + 32), 60), (CGPoint(x: tableViewOrigin.x + tableViewFrame.width - 64, y: tableViewOrigin.y + 64 * 1.5), 133)]
+      self.animateReviewCellActionForTutorial()
+    default:
+      break
+    }
+    let event = KWalletBalanceViewEvent.quickTutorial(
+      step: self.viewModel.currentTutorialStep,
+      pointsAndRadius: pointsAndRadius
+    )
+    self.delegate?.kWalletBalanceViewController(self, run: event)
+  }
+
+  override func quickTutorialContentLabelTapped() {
+    if self.viewModel.currentTutorialStep == 1 {
+      self.buyETHButtonTapped(UIButton())
+    }
+  }
+
+  override func dismissTutorialOverlayer() {
+    super.dismissTutorialOverlayer()
+    if self.viewModel.currentTutorialStep == 4 {
+      self.animateResetReviewCellActionForTutorial()
+    }
+  }
+
+  func animateReviewCellActionForTutorial() {
+    guard let firstCell = self.tokensBalanceTableView.cellForRow(at: IndexPath(row: 0, section: 0)),
+      let secondCell = self.tokensBalanceTableView.cellForRow(at: IndexPath(row: 1, section: 0))
+      else {
+        return
+    }
+    let alertImageView = UIImageView(frame: CGRect(x: -64, y: 0, width: 64, height: 64))
+
+    let buyLabel = UILabel(frame: CGRect(x: secondCell.bounds.size.width, y: 0, width: 64, height: 64))
+    let sellLabel = UILabel(frame: CGRect(x: secondCell.bounds.size.width + 64, y: 0, width: 64, height: 64))
+    let transferLabel = UILabel(frame: CGRect(x: secondCell.bounds.size.width + 64 * 2, y: 0, width: 64, height: 64))
+
+    alertImageView.image = UIImage(named: "add_alert_icon")
+    alertImageView.backgroundColor = UIColor(hex: "5A5E67")
+    alertImageView.contentMode = .center
+    alertImageView.tag = 100
+    firstCell.addSubview(alertImageView)
+
+    buyLabel.text = "buy".toBeLocalised()
+    buyLabel.textAlignment = .center
+    buyLabel.textColor = .white
+    buyLabel.backgroundColor = UIColor.Kyber.marketGreen
+    buyLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+    buyLabel.tag = 101
+    secondCell.addSubview(buyLabel)
+
+    sellLabel.text = "sell".toBeLocalised()
+    sellLabel.textAlignment = .center
+    sellLabel.textColor = .white
+    sellLabel.backgroundColor = UIColor.Kyber.marketRed
+    sellLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+    sellLabel.tag = 102
+    secondCell.addSubview(sellLabel)
+
+    transferLabel.text = "transfer".toBeLocalised()
+    transferLabel.textAlignment = .center
+    transferLabel.textColor = .white
+    transferLabel.backgroundColor = UIColor.Kyber.marketBlue
+    transferLabel.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+    transferLabel.tag = 103
+    secondCell.addSubview(transferLabel)
+
+    UIView.animate(withDuration: 0.3) {
+      firstCell.frame = CGRect(x: 64, y: firstCell.frame.origin.y, width: firstCell.frame.size.width, height: firstCell.frame.size.height)
+      secondCell.frame = CGRect(x: secondCell.frame.origin.x - 64 * 3, y: secondCell.frame.origin.y, width: secondCell.frame.size.width, height: secondCell.frame.size.height)
+    }
+  }
+
+  func animateResetReviewCellActionForTutorial() {
+    guard let firstCell = self.tokensBalanceTableView.cellForRow(at: IndexPath(row: 0, section: 0)),
+      let secondCell = self.tokensBalanceTableView.cellForRow(at: IndexPath(row: 1, section: 0))
+      else {
+        return
+    }
+    let alertImageView = firstCell.viewWithTag(100)
+    let buyLabel = secondCell.viewWithTag(101)
+    let sellLabel = secondCell.viewWithTag(102)
+    let transferLabel = secondCell.viewWithTag(103)
+
+    UIView.animate(withDuration: 0.3, animations: {
+      firstCell.frame = CGRect(x: 0, y: firstCell.frame.origin.y, width: firstCell.frame.size.width, height: firstCell.frame.size.height)
+      secondCell.frame = CGRect(x: secondCell.frame.origin.x + 64 * 3, y: secondCell.frame.origin.y, width: secondCell.frame.size.width, height: secondCell.frame.size.height)
+    }) { (_) in
+      alertImageView?.removeFromSuperview()
+      buyLabel?.removeFromSuperview()
+      sellLabel?.removeFromSuperview()
+      transferLabel?.removeFromSuperview()
+    }
   }
 
   @objc func userDidRefreshBalanceView(_ sender: Any?) {
