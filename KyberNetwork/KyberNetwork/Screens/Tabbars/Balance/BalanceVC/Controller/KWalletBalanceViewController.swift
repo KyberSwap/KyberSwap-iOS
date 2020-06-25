@@ -126,6 +126,7 @@ class KWalletBalanceViewController: KNBaseViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     if self.viewModel.isNeedShowTutorial {
+      KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_show_quick_tutorial", customAttributes: nil)
       self.viewModel.updateDoneTutorial()
       self.viewModel.currentTutorialStep = 1
       let event = KWalletBalanceViewEvent.quickTutorial(
@@ -374,9 +375,11 @@ class KWalletBalanceViewController: KNBaseViewController {
   override func quickTutorialNextAction() {
     self.dismissTutorialOverlayer()
     if self.viewModel.currentTutorialStep == 4 {
+      KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_got_it_button_tapped", customAttributes: nil)
       self.viewModel.isShowingQuickTutorial = false
       return
     }
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_next_button_tapped", customAttributes: ["step": self.viewModel.currentTutorialStep])
     self.viewModel.currentTutorialStep += 1
     var pointsAndRadius: [(CGPoint, CGFloat)] = []
     let tableViewOrigin = self.tokensBalanceTableView.frame.origin
@@ -401,6 +404,7 @@ class KWalletBalanceViewController: KNBaseViewController {
 
   override func quickTutorialContentLabelTapped() {
     if self.viewModel.currentTutorialStep == 1 {
+      KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_buy_eth_tapped", customAttributes: nil)
       self.buyETHButtonTapped(UIButton())
     }
   }
