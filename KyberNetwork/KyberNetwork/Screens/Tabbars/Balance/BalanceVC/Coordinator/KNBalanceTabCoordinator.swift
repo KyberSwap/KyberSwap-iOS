@@ -286,7 +286,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
         .kern: 0.0,
       ])
       attributedString.string.enumerateSubstrings(in: attributedString.string.startIndex..<attributedString.string.endIndex, options: .byWords) { (substring, substringRange, _, _) in
-        if substring == "here" {
+        if substring == "here".toBeLocalised() {
           attributedString.addAttribute(.foregroundColor, value: UIColor.Kyber.orange, range: NSRange(substringRange, in: attributedString.string))
         }
       }

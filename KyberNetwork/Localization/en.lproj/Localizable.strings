@@ -120,9 +120,9 @@
 "wallet.imported" = "Wallet Imported";
 "you.have.successfully.imported.a.wallet" = "You have successfully imported a wallet";
 "import.wallet" = "Import Wallet";
-"invalid.seeds" = "Invalid seeds/mnemonic";
-"please.check.your.seeds.again" = "Please check your seeds/mnemonic again.";
-"seeds.should.have.exactly.12.words" = "Seeds/Mnemonic should have exactly 12 words";
+"invalid.seeds" = "Invalid mnemonic";
+"please.check.your.seeds.again" = "Please check your mnemonic again.";
+"seeds.should.have.exactly.12.words" = "Mnemonic should have exactly 12 words";
 "field.required" = "Field Required";
 "please.check.your.input.data" = "Please check your input data";
 "words.count" = "Words Count";
@@ -291,7 +291,7 @@
 "enter.or.scan.private.key" = "Enter or scan private key";
 "private.key" = "Private Key";
 "enter.password.to.decrypt" = "Enter Password to Decrypt";
-"enter.your.seeds" = "Enter your seeds/mnemonic";
+"enter.your.seeds" = "Enter your mnemonic";
 "first.name" = "First Name";
 "middle.name" = "Middle Name";
 "last.name" = "Last Name";
@@ -305,7 +305,7 @@
 "do.you.want.to.exit.and.remove.all.wallets" = "Do you want to exit and remove all wallets from the app?";
 "contribute" = "Contribute";
 "loading" = "Loading";
-"recover.with.seeds" = "Recover with seeds/mnemonic";
+"recover.with.seeds" = "Recover with mnemonic";
 "create.new.wallet.desc" = "This will create a new wallet. It can not be undone, but you could abandon it";
 "edit.wallet" = "Edit Wallet";
 "backup.keystore" = "Backup Keystore";
@@ -751,7 +751,7 @@
 "Use your backup to import wallet" = "Use your backup to import wallet";
 "Within this New KyberSwap app" = "Within this New KyberSwap app";
 "Select Import Wallet" = "Select Import Wallet";
-"Choose your desired import method (Keystore, Private Key, Seeds)" = "Choose your desired import method (Keystore, Private Key, Seeds)";
+"Choose your desired import method (Keystore, Private Key, Seeds)" = "Choose your desired import method (Keystore, Private Key, Mnemonic)";
 "Check your Balance" = "Check your Balance";
 "Make sure your wallet address and balance of your tokens are all correct." = "Make sure your wallet address and balance of your tokens are all correct.";
 "Make a simple transfer/swap transaction to make sure everything is working as expected." = "Make a simple transfer/swap transaction to make sure everything is working as expected.";
@@ -759,3 +759,11 @@
 "Send email to support@kyberswap.com if you have any issues." = "Send email to support@kyberswap.com if you have any issues.";
 "Optional" = "Optional";
 "Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app." = "Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app.";
+
+//Quick tutorial
+"Total balance in your wallet\nYou can buy ETH here" = "Total balance in your wallet\nYou can buy ETH here";
+"Token balance in your wallet" = "Token balance in your wallet";
+"Live token price along with 24h change." = "Live token price along with 24h change.";
+"Swipe right to set price alert.\nSwipe left to buy, sell or send tokens." = "Swipe right to set price alert.\nSwipe left to buy, sell or send tokens.";
+"Got It" = "Got It";
+"here" = "here";

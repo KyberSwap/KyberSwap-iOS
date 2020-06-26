@@ -120,7 +120,7 @@
 "wallet.imported" = "Ví đã nhập";
 "you.have.successfully.imported.a.wallet" = "Bạn đã nhập thành công ví";
 "import.wallet" = "Nhập Ví";
-"invalid.seeds" = "Seeds/Mnemonic không hợp lệ";
+"invalid.seeds" = "Mnemonic không hợp lệ";
 "please.check.your.seeds.again" = "Vui lòng kiểm tra lại.";
 "seeds.should.have.exactly.12.words" = "Nên có chính xách 12 từ";
 "field.required" = "Trường bắt buộc";
@@ -291,7 +291,7 @@
 "enter.or.scan.private.key" = "Nhập hoặc quét khóa cá nhân";
 "private.key" = "Khóa cá nhân";
 "enter.password.to.decrypt" = "Nhập mật khẩu để giải mã";
-"enter.your.seeds" = "Nhập seeds/mnemonic";
+"enter.your.seeds" = "Nhập mnemonic";
 "first.name" = "Tên";
 "middle.name" = "Tên đệm";
 "last.name" = "Họ";
@@ -305,7 +305,7 @@
 "do.you.want.to.exit.and.remove.all.wallets" = "Bạn có muốn thoát và xóa tất cả các ví từ ứng dụng không?";
 "contribute" = "Contribute";
 "loading" = "Đang tải";
-"recover.with.seeds" = "Phục hồi bằng seeds/mnemonic";
+"recover.with.seeds" = "Phục hồi bằng mnemonic";
 "create.new.wallet.desc" = "Điều này sẽ tạo ra một ví mới. Nó không thể hoàn tác, nhưng bạn có thể từ bỏ nó";
 "edit.wallet" = "Chỉnh sử ví";
 "backup.keystore" = "Sao lưu Keystore";
@@ -761,3 +761,11 @@
 "Send email to support@kyberswap.com if you have any issues." = "Gửi email đến support@kyberswap.com nếu bạn gặp phải bất kỳ vấn đề gì.";
 "Optional" = "Tùy chọn";
 "Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app." = "Bạn có cài ứng dụng KyberSwap phiên bản cũ trên iOS không? Nếu có hãy đọc hướng dẫn sao lưu của chúng tôi từ ứng dụng cũ lên ứng dụng mới.";
+
+//Quick tutorial
+"Total balance in your wallet\nYou can buy ETH here" = "Số dư tài khoản trong ví của bạn\nBạn có thể mua ETH tại đây";
+"Token balance in your wallet" = "Số dư tài khoản trong ví của bạn";
+"Live token price along with 24h change." = "Giá token hiện tại cùng với thay đổi trong 24h";
+"Swipe right to set price alert.\nSwipe left to buy, sell or send tokens." = "Vuốt sang phải để đặt thông báo giá\nVuốt sang trái để mua, bán hoặc gửi token";
+"Got It" = "Đã rõ";
+"here" = "tại đây";

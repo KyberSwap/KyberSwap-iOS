@@ -120,9 +120,9 @@
 "wallet.imported" = "钱包导入成功";
 "you.have.successfully.imported.a.wallet" = "您已成功导入钱包";
 "import.wallet" = "导入钱包";
-"invalid.seeds" = "无效的seeds/mnemonic";
-"please.check.your.seeds.again" = "请再次检查你的seeds/mnemonic。";
-"seeds.should.have.exactly.12.words" = "seeds/mnemonic应该有12个词";
+"invalid.seeds" = "无效的mnemonic";
+"please.check.your.seeds.again" = "请再次检查你的mnemonic。";
+"seeds.should.have.exactly.12.words" = "mnemonic应该有12个词";
 "field.required" = "需要字段";
 "please.check.your.input.data" = "请检查您的输入数据";
 "words.count" = "字数统计";
@@ -291,7 +291,7 @@
 "enter.or.scan.private.key" = "输入或扫描私钥";
 "private.key" = "私钥";
 "enter.password.to.decrypt" = "输入密码解密";
-"enter.your.seeds" = "输入你的seeds/mnemonic";
+"enter.your.seeds" = "输入你的mnemonic";
 "first.name" = "名字";
 "middle.name" = "Middle Name";
 "last.name" = "姓氏";
@@ -753,7 +753,7 @@
 "Use your backup to import wallet" = "使用备份选项导入钱包";
 "Within this New KyberSwap app" = "在新的KyberSwap应用中";
 "Select Import Wallet" = "选择导入钱包";
-"Choose your desired import method (Keystore, Private Key, Seeds)" = "选择您想要的导入方法（密钥库、私钥、种子）";
+"Choose your desired import method (Keystore, Private Key, Seeds)" = "选择您想要的导入方法（密钥库、私钥、助记符）";
 "Check your Balance" = "检查你的余额";
 "Make sure your wallet address and balance of your tokens are all correct." = "确保您的钱包地址和代币余额均正确无误。";
 "Make a simple transfer/swap transaction to make sure everything is working as expected." = "进行简单的转移/兑换交易，以确保一切正常工作。";
@@ -761,3 +761,11 @@
 "Send email to support@kyberswap.com if you have any issues." = "如果您有任何问题，请发送邮件至support@kyberswap.com。";
 "Optional" = "可选择的";
 "Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app." = "您是否安装了旧的KyberSwap iOS应用？阅读我们的指南，了解如何将您的钱包从旧应用迁移到新应用。";
+
+//Quick tutorial
+"Total balance in your wallet\nYou can buy ETH here" = "钱包中的余额总计\n您可以在这里购买ETH";
+"Token balance in your wallet" = "钱包里的代币余额";
+"Live token price along with 24h change." = "24小时变化的实时代币价格。";
+"Swipe right to set price alert.\nSwipe left to buy, sell or send tokens." = "向右滑动即可设置价格提醒。\n向左滑动即可购买、出售或发送代币。";
+"Got It" = "了解";
+"here" = "这里";

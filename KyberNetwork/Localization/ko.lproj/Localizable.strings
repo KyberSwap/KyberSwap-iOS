@@ -120,9 +120,9 @@
 "wallet.imported" = "지갑을 가져 왔습니다.";
 "you.have.successfully.imported.a.wallet" = "지갑을 성공적으로 가져 왔습니다.";
 "import.wallet" = "지갑 가져 오기";
-"invalid.seeds" = "유효하지 않은 Seeds/Mnemonic";
-"please.check.your.seeds.again" = "Seeds/Mnemonic를 다시 확인하십시오.";
-"seeds.should.have.exactly.12.words" = "Seeds/Mnemonic는 정확히 12단어여야 합니다.";
+"invalid.seeds" = "유효하지 않은 Mnemonic";
+"please.check.your.seeds.again" = "Mnemonic를 다시 확인하십시오.";
+"seeds.should.have.exactly.12.words" = "Mnemonic는 정확히 12단어여야 합니다.";
 "field.required" = "필요한 영역";
 "please.check.your.input.data" = "입력 데이터를 확인하십시오.";
 "words.count" = "단어 수";
@@ -291,7 +291,7 @@
 "enter.or.scan.private.key" = "프라이빗 키 입력 또는 스캔";
 "private.key" = "프라이빗 키";
 "enter.password.to.decrypt" = "패스워드를 입력하세요";
-"enter.your.seeds" = "Seed/Mnemonic 단어들을 입력해주세요";
+"enter.your.seeds" = "Mnemonic 단어들을 입력해주세요";
 "first.name" = "이름";
 "middle.name" = "중간 이름";
 "last.name" = "성";
@@ -305,7 +305,7 @@
 "do.you.want.to.exit.and.remove.all.wallets" = "종료하고 모든 지갑을 제거하시겠습니까?";
 "contribute" = "기여하기";
 "loading" = "로딩 중";
-"recover.with.seeds" = "Seeds/Mnemonic키로 복구 하기";
+"recover.with.seeds" = "Mnemonic키로 복구 하기";
 "create.new.wallet.desc" = "새 지갑을 생성합니다. 실행 취소 할 수는 없지만, 추후에 지갑 목록에서 삭제할 수 있습니다.";
 "edit.wallet" = "지갑 수정";
 "backup.keystore" = "키스토어 백업";
@@ -753,7 +753,7 @@
 "Use your backup to import wallet" = "백업을 사용하여 지갑 불러오기";
 "Within this New KyberSwap app" = "새로운 카이버스왑 앱 내에서";
 "Select Import Wallet" = "지갑 불러오기 선택";
-"Choose your desired import method (Keystore, Private Key, Seeds)" = "원하는 지갑 불러오기 방법 선택(Keystore, Private Key, Seeds)";
+"Choose your desired import method (Keystore, Private Key, Seeds)" = "원하는 지갑 불러오기 방법 선택(Keystore, Private Key, Mnemonic)";
 "Check your Balance" = "잔액 확인하기";
 "Make sure your wallet address and balance of your tokens are all correct." = "지갑 주소와 소유한 토큰의 잔액이 올바른지 반드시 확인하세요.";
 "Make a simple transfer/swap transaction to make sure everything is working as expected." = "Make a simple transfer/swap transaction to make sure everything is working as expected.";
@@ -761,3 +761,11 @@
 "Send email to support@kyberswap.com if you have any issues." = "문제가 생길 시 support@kyberswap.com 로 메일을 보내주세요.";
 "Optional" = "선택사항";
 "Have you installed the old KyberSwap iOS app? Read our guide on how to migrate your wallets from old app to this new app." = "이전 버전의 카이버스왑 iOS를 설치하셨나요? 이전 앱에서 새로운 앱으로 지갑 이전하는 법에 대한 가이드를 읽어주세요";
+
+//Quick tutorial
+"Total balance in your wallet\nYou can buy ETH here" = "Total balance in your wallet\nYou can buy ETH here";
+"Token balance in your wallet" = "Token balance in your wallet";
+"Live token price along with 24h change." = "Live token price along with 24h change.";
+"Swipe right to set price alert.\nSwipe left to buy, sell or send tokens." = "Swipe right to set price alert.\nSwipe left to buy, sell or send tokens.";
+"Got It" = "Got It";
+"here" = "here";
