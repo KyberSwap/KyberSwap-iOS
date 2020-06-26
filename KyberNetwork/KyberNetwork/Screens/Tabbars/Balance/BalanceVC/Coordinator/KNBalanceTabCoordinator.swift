@@ -285,10 +285,9 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
         .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
         .kern: 0.0,
       ])
-      attributedString.string.enumerateSubstrings(in: attributedString.string.startIndex..<attributedString.string.endIndex, options: .byWords) { (substring, substringRange, _, _) in
-        if substring == "here".toBeLocalised() {
-          attributedString.addAttribute(.foregroundColor, value: UIColor.Kyber.orange, range: NSRange(substringRange, in: attributedString.string))
-        }
+      if let range = attributedString.string.range(of: "here".toBeLocalised()) {
+        let r = NSRange(range, in: attributedString.string)
+        attributedString.addAttribute(.foregroundColor, value: UIColor.Kyber.orange, range: r)
       }
       contentTopOffset = 302
     case 2:
@@ -312,7 +311,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
         .kern: 0.0,
       ])
       contentTopOffset = 476
-      nextButtonText = "Got it".toBeLocalised()
+      nextButtonText = "Got It".toBeLocalised()
     default:
       break
     }

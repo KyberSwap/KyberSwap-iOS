@@ -48,10 +48,9 @@ class KNMigrationTutorialViewModel {
         .kern: 0.0,
       ]
     )
-    step4AttributeString.string.enumerateSubstrings(in: step4AttributeString.string.startIndex..<step4AttributeString.string.endIndex, options: .byWords) { (substring, substringRange, _, _) in
-      if substring == "NEVER".toBeLocalised() {
-        step4AttributeString.addAttribute(.font, value: UIFont.Kyber.medium(with: 14), range: NSRange(substringRange, in: step4AttributeString.string))
-      }
+    if let range = step4AttributeString.string.range(of: "NEVER".toBeLocalised()) {
+      let r = NSRange(range, in: step4AttributeString.string)
+      step4AttributeString.addAttribute(.font, value: UIFont.Kyber.medium(with: 14), range: r)
     }
 
     return [
