@@ -8,6 +8,7 @@ public struct Constants {
     public static let transactionIsCancel = "is_cancel"
     public static let isShowMigrationTutorial = "notify_migration"
     public static let isDoneShowQuickTutorialForBalanceView = "balance_tutorial_done"
+    public static let isDoneShowQuickTutorialForSwapView = "swap_tutorial_done"
 }
 
 public struct UnitConfiguration {

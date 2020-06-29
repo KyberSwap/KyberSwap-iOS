@@ -16,6 +16,7 @@ enum KSwapViewEvent {
   case validateRate(data: KNDraftExchangeTransaction)
   case swap(data: KNDraftExchangeTransaction)
   case showQRCode
+  case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
 }
 
 protocol KSwapViewControllerDelegate: class {
@@ -175,6 +176,11 @@ class KSwapViewController: KNBaseViewController {
     self.updateExchangeRateField()
 
     self.loadSwapSuggestionIfNeeded()
+
+    if self.viewModel.isNeedShowTutorial {
+      self.viewModel.currentTutorialStep = 1
+      self.showQuickTutorial()
+    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -700,6 +706,33 @@ class KSwapViewController: KNBaseViewController {
   func update(notificationsCount: Int) {
     self.hasUnreadNotification.isHidden = notificationsCount == 0
   }
+
+  func showQuickTutorial() {
+    var pointsAndRadius: [(CGPoint, CGFloat)] = []
+    switch self.viewModel.currentTutorialStep {
+    case 1:
+      pointsAndRadius = [(CGPoint(x: 92, y: self.dataContainerView.frame.midY), 109)]
+    case 2:
+      pointsAndRadius = [(self.equivalentUSDValueLabel.frame.origin, 108)]
+    case 3:
+      pointsAndRadius = [(CGPoint(x: self.scrollContainerView.frame.midX - 60, y: self.view.frame.height - self.scrollContainerView.frame.size.height / 2), 167)]
+      self.advancedSettingsView.displayViewButtonPressed(self)
+    default:
+      break
+    }
+    let event = KSwapViewEvent.quickTutorial(step: self.viewModel.currentTutorialStep, pointsAndRadius: pointsAndRadius)
+    self.delegate?.kSwapViewController(self, run: event)
+  }
+  
+  override func quickTutorialNextAction() {
+    self.dismissTutorialOverlayer()
+    if self.viewModel.currentTutorialStep == 3 {
+      self.advancedSettingsView.displayViewButtonPressed(self)
+      return
+    }
+    self.viewModel.currentTutorialStep += 1
+    self.showQuickTutorial()
+  }
 }
 
 // MARK: Update UIs
@@ -1168,31 +1201,35 @@ extension KSwapViewController: UITextFieldDelegate {
 
 // MARK: Advanced Settings View
 extension KSwapViewController: KAdvancedSettingsViewDelegate {
+  fileprivate func displayAdvancedSettingView() {
+    UIView.animate(
+      withDuration: 0.32,
+      animations: {
+        self.heightConstraintForAdvacedSettingsView.constant = self.advancedSettingsView.height
+        self.updateAdvancedSettingsView()
+        self.view.layoutIfNeeded()
+    }, completion: { _ in
+      if self.advancedSettingsView.isExpanded && self.scrollContainerView.contentSize.height > self.scrollContainerView.bounds.size.height {
+        let offSetY: CGFloat = {
+          if self.viewModel.isSwapSuggestionShown {
+            return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 210.0
+          }
+          return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height
+        }()
+        let bottomOffset = CGPoint(
+          x: 0,
+          y: offSetY
+        )
+        self.scrollContainerView.setContentOffset(bottomOffset, animated: true)
+      }
+    }
+    )
+  }
+
   func kAdvancedSettingsView(_ view: KAdvancedSettingsView, run event: KAdvancedSettingsViewEvent) {
     switch event {
     case .displayButtonPressed:
-      UIView.animate(
-        withDuration: 0.32,
-        animations: {
-          self.heightConstraintForAdvacedSettingsView.constant = self.advancedSettingsView.height
-          self.updateAdvancedSettingsView()
-          self.view.layoutIfNeeded()
-        }, completion: { _ in
-          if self.advancedSettingsView.isExpanded && self.scrollContainerView.contentSize.height > self.scrollContainerView.bounds.size.height {
-            let offSetY: CGFloat = {
-              if self.viewModel.isSwapSuggestionShown {
-                return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 210.0
-              }
-              return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height
-            }()
-            let bottomOffset = CGPoint(
-              x: 0,
-              y: offSetY
-            )
-            self.scrollContainerView.setContentOffset(bottomOffset, animated: true)
-          }
-        }
-      )
+      self.displayAdvancedSettingView()
     case .gasPriceChanged(let type, let value):
       self.viewModel.updateSelectedGasPriceType(type)
       self.viewModel.updateGasPrice(value)

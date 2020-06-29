@@ -507,4 +507,15 @@ class KSwapViewModel {
       }
     }
   }
+
+  // MARK: TUTORIAL
+  var currentTutorialStep: Int = 1
+
+  var isNeedShowTutorial: Bool {
+    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForSwapView) == nil || KNEnvironment.default == .ropsten
+  }
+
+  func updateDoneTutorial() {
+    UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForSwapView)
+  }
 }
