@@ -14,6 +14,7 @@ enum KNCreateLimitOrderViewEventV2 {
   case changeMarket
   case openChartView(market: KNMarket, isBuy: Bool)
   case openCancelSuggestOrder(header: [String], sections: [String: [KNOrderObject]], cancelOrder: KNOrderObject?, parent: UIViewController)
+  case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
 }
 
 protocol LimitOrderContainerViewControllerDelegate: class {
@@ -60,6 +61,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
   private var pageController: UIPageViewController!
   private var pages: [KNCreateLimitOrderV2ViewController]
   private var currentMarket: KNMarket?
+  var currentTutorialStep: Int = 1
 
   init(wallet: Wallet) {
     self.wallet = wallet
@@ -81,6 +83,14 @@ class LimitOrderContainerViewController: KNBaseViewController {
   deinit {
     let name = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.removeObserver(self, name: name, object: nil)
+  }
+
+  var isNeedShowTutorial: Bool {
+    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForLimitOrderView) == nil || KNEnvironment.default == .ropsten
+  }
+
+  func updateDoneTutorial() {
+    UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForLimitOrderView)
   }
 
   override func viewDidLoad() {
@@ -113,6 +123,15 @@ class LimitOrderContainerViewController: KNBaseViewController {
       if let market = self.currentMarket {
         self.setupUI(market: market)
       }
+    }
+  }
+
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+
+    if self.isNeedShowTutorial {
+      self.currentTutorialStep = 1
+      self.showQuickTutorial()
     }
   }
 
@@ -389,6 +408,39 @@ class LimitOrderContainerViewController: KNBaseViewController {
     for vc in self.pages {
       vc.coordinatorFinishConfirmOrder()
     }
+  }
+
+  func showQuickTutorial() {
+    guard let firstPage = self.pages.first else { return }
+    var pointsAndRadius: [(CGPoint, CGFloat)] = []
+    let contentOrigin = self.contentContainerView.frame.origin
+    switch self.currentTutorialStep {
+    case 1:
+      pointsAndRadius = [(CGPoint(x: self.marketDetailLabel.frame.midX, y: self.marketDetailLabel.frame.midY + 8), 90)]
+    case 2:
+      pointsAndRadius = [(CGPoint(x: 102.0, y: firstPage.comparePriceLabel.frame.midY + contentOrigin.y), 111)]
+    case 3:
+      pointsAndRadius = [(CGPoint(x: firstPage.feeLabel.frame.origin.x, y: firstPage.feeLabel.frame.midY + contentOrigin.y), 72.5)]
+    case 4:
+      pointsAndRadius = [(CGPoint(x: firstPage.mainManageOrdersButton.frame.midX, y: self.view.frame.size.height - 24 - 49), 70.5)]
+      let bottomOffset = CGPoint(x: 0, y: firstPage.containerScrollView.contentSize.height - firstPage.containerScrollView.bounds.size.height)
+      firstPage.containerScrollView.setContentOffset(bottomOffset, animated: true)
+    default:
+      break
+    }
+    let event = KNCreateLimitOrderViewEventV2.quickTutorial(step: self.currentTutorialStep, pointsAndRadius: pointsAndRadius)
+    self.delegate?.kCreateLimitOrderViewController(self, run: event)
+  }
+
+  override func quickTutorialNextAction() {
+    self.dismissTutorialOverlayer()
+    if self.currentTutorialStep == 4 {
+      let firstPage = self.pages.first
+      firstPage?.containerScrollView.setContentOffset(CGPoint.zero, animated: true)
+      return
+    }
+    self.currentTutorialStep += 1
+    self.showQuickTutorial()
   }
 }
 

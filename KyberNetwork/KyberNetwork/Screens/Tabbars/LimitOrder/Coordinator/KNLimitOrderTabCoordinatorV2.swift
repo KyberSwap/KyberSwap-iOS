@@ -265,6 +265,8 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       self.openCancelSuggestionOrderScreen(header: headers, sections: sections, cancelOrder: cancelOrder, parent: parent)
     case .openChartView(let market, let isBuy):
       self.openChartView(market: market, isBuy: isBuy)
+    case .quickTutorial(let step, let pointsAndRadius):
+      self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
     default: break
     }
   }
@@ -291,6 +293,58 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       viewController.delegate = self
       self.navigationController.pushViewController(viewController, animated: true)
     }
+  }
+
+  fileprivate func openQuickTutorial(_ controller: KNBaseViewController, step: Int, pointsAndRadius: [(CGPoint, CGFloat)]) {
+    var attributedString = NSMutableAttributedString()
+    var contentTopOffset: CGFloat = 0.0
+    var nextButtonText = "next".toBeLocalised()
+
+    switch step {
+    case 1:
+      attributedString = NSMutableAttributedString(string: "Step 1\nSelect pair you want to trade".toBeLocalised(), attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      contentTopOffset = 266
+    case 2:
+      attributedString = NSMutableAttributedString(string: "Step 2\nSet your desired price. Press Buy/Sell and its done.".toBeLocalised(), attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      contentTopOffset = 422
+    case 3:
+      attributedString = NSMutableAttributedString(string: "Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees.", attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      if let range = attributedString.string.range(of: "Zero Fees".toBeLocalised()) {
+        let r = NSRange(range, in: attributedString.string)
+        attributedString.addAttribute(.font, value: UIFont.Kyber.medium(with: 18), range: r)
+      }
+      contentTopOffset = 172
+    case 4:
+      attributedString = NSMutableAttributedString(string: "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well.".toBeLocalised(), attributes: [
+        .font: UIFont.Kyber.regular(with: 18),
+        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+        .kern: 0.0,
+      ])
+      contentTopOffset = 330
+      nextButtonText = "Got It".toBeLocalised()
+    default:
+      break
+    }
+    let overlayer = controller.createOverlay(
+      frame: controller.tabBarController!.view.frame,
+      contentText: attributedString,
+      contentTopOffset: contentTopOffset,
+      pointsAndRadius: pointsAndRadius,
+      nextButtonTitle: nextButtonText
+    )
+    controller.tabBarController!.view.addSubview(overlayer)
   }
 
   fileprivate func openConvertWETHView(address: String, ethBalance: BigInt, amount: BigInt, pendingWETH: Double) {

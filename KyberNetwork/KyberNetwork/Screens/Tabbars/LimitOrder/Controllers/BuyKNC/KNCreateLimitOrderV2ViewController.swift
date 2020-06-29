@@ -31,6 +31,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBOutlet weak var feeTextLabel: UILabel!
   @IBOutlet weak var totalTextLabel: UILabel!
   @IBOutlet weak var learnMoreButton: UIButton!
+  @IBOutlet weak var containerScrollView: UIScrollView!
 
   fileprivate var updateFeeTimer: Timer?
 
