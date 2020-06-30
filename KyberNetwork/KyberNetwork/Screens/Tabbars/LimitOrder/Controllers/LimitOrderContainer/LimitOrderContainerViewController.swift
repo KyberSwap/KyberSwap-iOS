@@ -422,9 +422,13 @@ class LimitOrderContainerViewController: KNBaseViewController {
     case 3:
       pointsAndRadius = [(CGPoint(x: firstPage.feeLabel.frame.origin.x, y: firstPage.feeLabel.frame.midY + contentOrigin.y), 72.5)]
     case 4:
-      pointsAndRadius = [(CGPoint(x: firstPage.mainManageOrdersButton.frame.midX, y: self.view.frame.size.height - 24 - 49), 70.5)]
       let bottomOffset = CGPoint(x: 0, y: firstPage.containerScrollView.contentSize.height - firstPage.containerScrollView.bounds.size.height)
-      firstPage.containerScrollView.setContentOffset(bottomOffset, animated: true)
+      if bottomOffset.y > 0 {
+        pointsAndRadius = [(CGPoint(x: firstPage.mainManageOrdersButton.frame.midX, y: self.view.frame.size.height - 24 - 49), 70.5)]
+        firstPage.containerScrollView.setContentOffset(bottomOffset, animated: true)
+      } else {
+        pointsAndRadius = [(CGPoint(x: firstPage.mainManageOrdersButton.frame.midX, y: firstPage.mainManageOrdersButton.frame.midY + contentOrigin.y), 70.5)]
+      }
     default:
       break
     }

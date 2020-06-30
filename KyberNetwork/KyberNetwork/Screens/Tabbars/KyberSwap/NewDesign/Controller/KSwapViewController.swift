@@ -723,7 +723,7 @@ class KSwapViewController: KNBaseViewController {
     let event = KSwapViewEvent.quickTutorial(step: self.viewModel.currentTutorialStep, pointsAndRadius: pointsAndRadius)
     self.delegate?.kSwapViewController(self, run: event)
   }
-  
+
   override func quickTutorialNextAction() {
     self.dismissTutorialOverlayer()
     if self.viewModel.currentTutorialStep == 3 {
