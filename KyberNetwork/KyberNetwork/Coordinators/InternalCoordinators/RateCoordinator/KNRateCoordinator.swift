@@ -17,6 +17,7 @@ class KNRateCoordinator {
   static let shared = KNRateCoordinator()
 
   fileprivate let provider = MoyaProvider<KNTrackerService>()
+  fileprivate let userInfoProvider = MoyaProvider<UserInfoService>(plugins: [MoyaCacheablePlugin()])
 
   fileprivate var cacheTokenETHRates: [String: KNRate] = [:] // Rate token to ETH
   fileprivate var cachedProdTokenRates: [String: KNRate] = [:] // Prod cached rate to compare when swapping
@@ -217,6 +218,26 @@ class KNRateCoordinator {
         KNNotificationUtil.postNotification(for: kMarketSuccessToLoadNotiKey)
       } else {
         KNNotificationUtil.postNotification(for: kMarketFailedToLoadNotiKey)
+      }
+    }
+  }
+  
+  @objc func fetchFlatformFee(_ sender: Any?) {
+    self.userInfoProvider.request(.getFlatformFee) { [weak self] (response) in
+      guard let _ = self else { return }
+      switch response {
+      case .success(let resp):
+        print(resp)
+        do {
+          let _ = try resp.filterSuccessfulStatusCodes()
+          let json = try resp.mapJSON() as? JSONDictionary ?? [:]
+          if let isSuccess = json["success"] as? Bool, isSuccess == true, let fee = json["fee"] as? NSNumber {
+            UserDefaults.standard.set(fee.doubleValue, forKey: "flatform_fee")
+          }
+        } catch {
+        }
+      case .failure(_):
+        break
       }
     }
   }

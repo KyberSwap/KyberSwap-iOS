@@ -172,6 +172,7 @@ enum UserInfoService {
   case updateUserPlayerId(accessToken: String, playerId: String)
   case getListFavouriteMarket(accessToken: String)
   case updateMarketFavouriteStatus(accessToken: String, base: String, quote: String, status: Bool)
+  case getFlatformFee
 }
 
 extension UserInfoService: MoyaCacheable {
@@ -222,6 +223,8 @@ extension UserInfoService: TargetType {
       return URL(string: "\(baseString)/api/orders/favorite_pair")!
     case .getListFavouriteMarket:
       return URL(string: "\(baseString)/api/orders/favorite_pairs")!
+    case .getFlatformFee:
+      return URL(string: "\(baseString)/api/swap_fee")!
     }
   }
 
@@ -229,7 +232,7 @@ extension UserInfoService: TargetType {
 
   var method: Moya.Method {
     switch self {
-    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet, .getListSubscriptionTokens, .getListFavouriteMarket: return .get
+    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet, .getListSubscriptionTokens, .getListFavouriteMarket, .getFlatformFee: return .get
     case .removeAnAlert, .deleteAllTriggerdAlerts: return .delete
     case .addPushToken, .updateAlert, .togglePriceNotification: return .patch
     case .markAsRead, .updateMarketFavouriteStatus: return .put
@@ -262,7 +265,7 @@ extension UserInfoService: TargetType {
       print(json)
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
-    case .getListAlerts, .removeAnAlert, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .deleteAllTriggerdAlerts, .getListSubscriptionTokens, .getListFavouriteMarket:
+    case .getListAlerts, .removeAnAlert, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .deleteAllTriggerdAlerts, .getListSubscriptionTokens, .getListFavouriteMarket, .getFlatformFee:
       return .requestPlain
     case .getPreScreeningWallet:
       return .requestPlain
@@ -350,6 +353,8 @@ extension UserInfoService: TargetType {
       json["Authorization"] = accessToken
     case .updateMarketFavouriteStatus(let accessToken, _, _, _):
       json["Authorization"] = accessToken
+    case .getFlatformFee:
+      break
     }
     return json
   }
