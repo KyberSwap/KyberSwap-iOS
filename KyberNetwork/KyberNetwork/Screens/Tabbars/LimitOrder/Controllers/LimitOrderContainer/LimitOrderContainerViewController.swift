@@ -441,10 +441,12 @@ class LimitOrderContainerViewController: KNBaseViewController {
     if self.currentTutorialStep == 4 {
       let firstPage = self.pages.first
       firstPage?.containerScrollView.setContentOffset(CGPoint.zero, animated: true)
+      KNCrashlyticsUtil.logCustomEvent(withName: "tut_lo_got_it_button_tapped", customAttributes: nil)
       return
     }
     self.currentTutorialStep += 1
     self.showQuickTutorial()
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_lo_next_button_tapped", customAttributes: nil)
   }
 }
 

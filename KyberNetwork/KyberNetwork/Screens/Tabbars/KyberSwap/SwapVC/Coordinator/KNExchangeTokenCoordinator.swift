@@ -525,6 +525,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       nextButtonTitle: nextButtonText
     )
     controller.tabBarController!.view.addSubview(overlayer)
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_swap_show_quick_tutorial", customAttributes: ["step": step])
   }
 
   fileprivate func openSearchToken(from: TokenObject, to: TokenObject, isSource: Bool) {

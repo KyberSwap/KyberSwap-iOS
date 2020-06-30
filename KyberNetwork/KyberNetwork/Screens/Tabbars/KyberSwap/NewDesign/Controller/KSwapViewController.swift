@@ -728,10 +728,12 @@ class KSwapViewController: KNBaseViewController {
     self.dismissTutorialOverlayer()
     if self.viewModel.currentTutorialStep == 3 {
       self.advancedSettingsView.displayViewButtonPressed(self)
+      KNCrashlyticsUtil.logCustomEvent(withName: "tut_swap_got_it_button_tapped", customAttributes: nil)
       return
     }
     self.viewModel.currentTutorialStep += 1
     self.showQuickTutorial()
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_swap_next_button_tapped", customAttributes: nil)
   }
 }
 

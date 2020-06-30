@@ -345,6 +345,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       nextButtonTitle: nextButtonText
     )
     controller.tabBarController!.view.addSubview(overlayer)
+    KNCrashlyticsUtil.logCustomEvent(withName: "tut_lo_show_quick_tutorial", customAttributes: ["step": step])
   }
 
   fileprivate func openConvertWETHView(address: String, ethBalance: BigInt, amount: BigInt, pendingWETH: Double) {
