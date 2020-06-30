@@ -61,7 +61,7 @@
   "ethScanUrl": "https://ropsten.etherscan.io/",
   "enjinx": "https://kyber.enjinx.io/",
   "reserve": "0xf13ca246ed7f26dfaf5443ea8debccfa899f947c",
-  "network": "0xa16Fc6e9b5D359797999adA576F7f4a4d57E8F75",
+  "network": "0xd719c34261e099Fdb33030ac8909d5788D3039C4",
   "limit_order": "0xa33caaed059f0c574c07136a5da9f28dc2fa27c2",
   "authorize_contract": "0xd07896e99e88261f88091b39d5a438527ec70ff4",
   "token_ieo": "0x8bbd103627985663477de0d72e23aa1e28e594ac",
