@@ -689,7 +689,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           }
           var estRate = rateBigInt / BigInt(10).power(18 - to.decimals)
           // reduce rate amount with platform fee
-          estRate = estRate * BigInt(10000 - KNAppTracker.kPlatformFeeBps) / BigInt(10000)
+          estRate = estRate * BigInt(10000 - KNAppTracker.getFlatformFee()) / BigInt(10000)
           DispatchQueue.main.async {
             self.rootViewController.coordinatorDidUpdateEstimateRate(
               from: from,

@@ -29,6 +29,7 @@ class KNRateCoordinator {
 
   fileprivate var exchangeTokenRatesTimer: Timer?
   fileprivate var isLoadingExchangeTokenRates: Bool = false
+  fileprivate var flatformFeeTimer: Timer?
 
   fileprivate var lastRefreshTime: Date = Date()
 
@@ -106,12 +107,22 @@ class KNRateCoordinator {
     // Immediate fetch data from server, then run timers with interview 60 seconds
     self.fetchExchangeTokenRate(nil)
     self.exchangeTokenRatesTimer?.invalidate()
+    self.flatformFeeTimer?.invalidate()
 
     self.exchangeTokenRatesTimer = Timer.scheduledTimer(
       withTimeInterval: KNLoadingInterval.seconds30,
       repeats: true,
       block: { [weak self] timer in
       self?.fetchExchangeTokenRate(timer)
+      }
+    )
+
+    self.fetchFlatformFee(nil)
+    self.flatformFeeTimer = Timer.scheduledTimer(
+      withTimeInterval: KNLoadingInterval.seconds60,
+      repeats: true,
+      block: { [weak self] (timer) in
+        self?.fetchFlatformFee(timer)
       }
     )
   }
@@ -121,6 +132,8 @@ class KNRateCoordinator {
     self.cacheRateTimer = nil
     self.exchangeTokenRatesTimer?.invalidate()
     self.exchangeTokenRatesTimer = nil
+    self.flatformFeeTimer?.invalidate()
+    self.flatformFeeTimer = nil
     self.isLoadingExchangeTokenRates = false
   }
 
@@ -221,7 +234,7 @@ class KNRateCoordinator {
       }
     }
   }
-  
+
   @objc func fetchFlatformFee(_ sender: Any?) {
     self.userInfoProvider.request(.getFlatformFee) { [weak self] (response) in
       guard let _ = self else { return }
@@ -231,13 +244,16 @@ class KNRateCoordinator {
         do {
           let _ = try resp.filterSuccessfulStatusCodes()
           let json = try resp.mapJSON() as? JSONDictionary ?? [:]
-          if let isSuccess = json["success"] as? Bool, isSuccess == true, let fee = json["fee"] as? NSNumber {
-            UserDefaults.standard.set(fee.doubleValue, forKey: "flatform_fee")
+          if let isSuccess = json["success"] as? Bool,
+            isSuccess == true,
+            let fee = json["fee"] as? NSNumber {
+            UserDefaults.standard.set(fee.intValue, forKey: KNAppTracker.kFlatformFeeKey)
           }
         } catch {
+          UserDefaults.standard.removeObject(forKey: KNAppTracker.kFlatformFeeKey)
         }
-      case .failure(_):
-        break
+      case .failure:
+        UserDefaults.standard.removeObject(forKey: KNAppTracker.kFlatformFeeKey)
       }
     }
   }
@@ -286,7 +302,7 @@ class KNRateCoordinator {
               let json = try resp.mapJSON() as? JSONDictionary ?? [:]
               if let err = json["error"] as? Bool, !err, let value = json["data"] as? String, let amount = value.fullBigInt(decimals: from.decimals) {
                 // add platform fee
-                completion(.success(amount * BigInt(10000 + KNAppTracker.kPlatformFeeBps) / BigInt(10000)))
+                completion(.success(amount * BigInt(10000 + KNAppTracker.getFlatformFee()) / BigInt(10000)))
               } else {
                 completion(.success(nil))
               }
