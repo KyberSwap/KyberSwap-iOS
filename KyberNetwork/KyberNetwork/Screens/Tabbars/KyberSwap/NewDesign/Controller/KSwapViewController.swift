@@ -713,7 +713,7 @@ class KSwapViewController: KNBaseViewController {
     case 1:
       pointsAndRadius = [(CGPoint(x: 92, y: self.dataContainerView.frame.midY), 109)]
     case 2:
-      pointsAndRadius = [(self.equivalentUSDValueLabel.frame.origin, 108)]
+      pointsAndRadius = [(CGPoint(x: self.view.frame.size.width - 92, y: self.dataContainerView.frame.midY), 108)]
     case 3:
       pointsAndRadius = [(CGPoint(x: self.scrollContainerView.frame.midX - 60, y: self.view.frame.height - self.scrollContainerView.frame.size.height / 2), 167)]
       self.advancedSettingsView.displayViewButtonPressed(self)
