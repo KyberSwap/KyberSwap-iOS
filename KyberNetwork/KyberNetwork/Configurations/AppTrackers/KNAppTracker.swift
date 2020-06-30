@@ -14,7 +14,7 @@ class KNAppTracker {
 
   static let kPlatformFeeBps = 8 // 8 bps, 0.08%
   // Env
-  static let kFlatformFeeKey: String = "kFlatformFeeKey"
+  static let kPlatformFeeKey: String = "kPlatformFeeKey"
   static let kInternalTrackerEndpointKey: String = "kInternalTrackerEndpointKey"
   static let kExternalEnvironmentKey: String = "kExternalEnvironmentKey"
 
@@ -409,8 +409,8 @@ class KNAppTracker {
 
   static func isNightMode() -> Bool { return true }
 
-  static func getFlatformFee() -> Int {
-    if let fee = userDefaults.object(forKey: kFlatformFeeKey) as? Int {
+  static func getPlatformFee() -> Int {
+    if let fee = userDefaults.object(forKey: kPlatformFeeKey) as? Int {
       return fee
     } else {
       return kPlatformFeeBps
