@@ -10,6 +10,7 @@ public struct Constants {
     public static let isDoneShowQuickTutorialForBalanceView = "balance_tutorial_done"
     public static let isDoneShowQuickTutorialForSwapView = "swap_tutorial_done"
     public static let isDoneShowQuickTutorialForLimitOrderView = "lo_tutorial_done"
+    public static let isDoneShowQuickTutorialForHistoryView = "history_tutorial_done"
 }
 
 public struct UnitConfiguration {

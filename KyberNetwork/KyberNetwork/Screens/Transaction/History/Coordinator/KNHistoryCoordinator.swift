@@ -281,7 +281,26 @@ extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
         sendCancelTransactionFor(transaction)
     case .speedUpTransaction(let transaction):
         sendSpeedUpTransactionFor(transaction)
+    case .quickTutorial(let pointsAndRadius):
+      self.openQuickTutorial(controller, pointsAndRadius: pointsAndRadius)
     }
+  }
+
+  fileprivate func openQuickTutorial(_ controller: KNHistoryViewController, pointsAndRadius: [(CGPoint, CGFloat)]) {
+    let attributedString = NSMutableAttributedString(string: "Speed Up or Cancel transaction.".toBeLocalised(), attributes: [
+      .font: UIFont.Kyber.regular(with: 18),
+      .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
+      .kern: 0.0,
+    ])
+    let contentTopOffset: CGFloat = 496.0
+    let overlayer = controller.createOverlay(
+      frame: controller.tabBarController!.view.frame,
+      contentText: attributedString,
+      contentTopOffset: contentTopOffset,
+      pointsAndRadius: pointsAndRadius,
+      nextButtonTitle: "Got it".toBeLocalised()
+    )
+    controller.tabBarController!.view.addSubview(overlayer)
   }
 
   fileprivate func openEtherScanForTransaction(with hash: String) {

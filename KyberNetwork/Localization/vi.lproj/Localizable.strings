@@ -764,7 +764,7 @@
 
 //Quick tutorial
 "Total balance in your wallet\nYou can buy ETH here" = "Số dư tài khoản trong ví của bạn\nBạn có thể mua ETH tại đây";
-"Token balance in your wallet" = "Số dư tài khoản trong ví của bạn";
+"Token balance in your wallet" = "Số token trong ví của bạn";
 "Live token price along with 24h change." = "Giá token hiện tại cùng với thay đổi trong 24h";
 "Swipe right to set price alert.\nSwipe left to buy, sell or send tokens." = "Vuốt sang phải để đặt thông báo giá\nVuốt sang trái để mua, bán hoặc gửi token";
 "Got It" = "Đã rõ";
