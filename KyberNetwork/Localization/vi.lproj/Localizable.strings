@@ -769,3 +769,12 @@
 "Swipe right to set price alert.\nSwipe left to buy, sell or send tokens." = "Vuốt sang phải để đặt thông báo giá\nVuốt sang trái để mua, bán hoặc gửi token";
 "Got It" = "Đã rõ";
 "here" = "tại đây";
+
+"Step 1\nSelect tokens you want to swap." = "Bước 1\nChọn token mà bạn muốn swap";
+"Step 2\nEnter any amount manually or use quick select." = "Bước 2\nNhập số lượng mà bạn muốn hoặc dùng chọn nhanh";
+"Step 3 (optional)\nAdjust gas fees and slippage" = "Bước 3 (tùy chọn)\nĐiều chỉnh phí gas và tỷ lệ lệch giá";
+"Step 1\nSelect pair you want to trade" = "Bước 1\nChọn cặp token bạn muốn trao đổi";
+"Step 2\nSet your desired price. Press Buy/Sell and its done." = "Bước 2\nChọn giá mà bạn muốn. Bấm nút Mua / Bán để hoàn thành";
+"Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees." = "Không mất phí\nNếu bạn giữ 2000 KNC trong ví của bạn, bạn có thể tạo một lệnh Limit order mà không mất phí.";
+"Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "Quản lý lệnh\nKiểm tra lịch sử lệnh, lệnh đang chờ v.v… Bạn cũng có thể thay đổi lệnh này.";
+"Speed Up or Cancel transaction." = "Tăng tốc hoặc hủy giao dịch";
