@@ -409,7 +409,13 @@ class KNAppTracker {
 
   static func isNightMode() -> Bool { return true }
 
-  static func getPlatformFee() -> Int {
+  static func getPlatformFee(source: Address, dest: Address) -> Int {
+    let ethAddress = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
+    let wethAddress = "0xbCA556c912754Bc8E7D4Aad20Ad69a1B1444F42d"
+    if (source.description.lowercased() == ethAddress.lowercased() && dest.description.lowercased() == wethAddress.lowercased()) ||
+      (dest.description.lowercased() == ethAddress.lowercased() && source.description.lowercased() == wethAddress.lowercased()) {
+      return 0
+    }
     if let fee = userDefaults.object(forKey: kPlatformFeeKey) as? Int {
       return fee
     } else {

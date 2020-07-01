@@ -236,11 +236,10 @@ class KNRateCoordinator {
   }
 
   @objc func fetchPlatformFee(_ sender: Any?) {
-    self.userInfoProvider.request(.getFlatformFee) { [weak self] (response) in
+    self.userInfoProvider.request(.getPlatformFee) { [weak self] (response) in
       guard let _ = self else { return }
       switch response {
       case .success(let resp):
-        print(resp)
         do {
           let _ = try resp.filterSuccessfulStatusCodes()
           let json = try resp.mapJSON() as? JSONDictionary ?? [:]
@@ -250,10 +249,9 @@ class KNRateCoordinator {
             UserDefaults.standard.set(fee.intValue, forKey: KNAppTracker.kPlatformFeeKey)
           }
         } catch {
-          UserDefaults.standard.removeObject(forKey: KNAppTracker.kPlatformFeeKey)
         }
       case .failure:
-        UserDefaults.standard.removeObject(forKey: KNAppTracker.kPlatformFeeKey)
+        break
       }
     }
   }
@@ -302,7 +300,7 @@ class KNRateCoordinator {
               let json = try resp.mapJSON() as? JSONDictionary ?? [:]
               if let err = json["error"] as? Bool, !err, let value = json["data"] as? String, let amount = value.fullBigInt(decimals: from.decimals) {
                 // add platform fee
-                completion(.success(amount * BigInt(10000 + KNAppTracker.getPlatformFee()) / BigInt(10000)))
+                completion(.success(amount * BigInt(10000 + KNAppTracker.getPlatformFee(source: from.address, dest: to.address)) / BigInt(10000)))
               } else {
                 completion(.success(nil))
               }

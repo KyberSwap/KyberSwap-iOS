@@ -17,7 +17,7 @@ struct KNGetExpectedRateEncode: Web3Request {
   let amount: BigInt
 
   var type: Web3RequestType {
-    let platformBps: BigInt = BigInt(KNAppTracker.getPlatformFee())
+    let platformBps: BigInt = BigInt(KNAppTracker.getPlatformFee(source: self.source, dest: self.dest))
     let hint = "".hexEncoded
     let official = KNEnvironment.default == .ropsten ? amount : amount | BigInt(2).power(255) // using official Kyber's reserve
     let run: String = {
