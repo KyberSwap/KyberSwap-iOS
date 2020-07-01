@@ -30,7 +30,7 @@ struct KNExchangeRequestEncode: Web3Request {
     let run: String = {
       if KNEnvironment.default == .ropsten {
         let hint = "".hexEncoded
-        let platformFeeBps: BigInt = BigInt(KNAppTracker.getPlatformFee())
+        let platformFeeBps: BigInt = self.exchange.from.isETH && self.exchange.to.isWETH ? BigInt(0) : BigInt(KNAppTracker.getPlatformFee())
         return "web3.eth.abi.encodeFunctionCall(\(KNExchangeRequestEncode.newABI), [\"\(exchange.from.address.description)\", \"\(exchange.amount.description)\", \"\(exchange.to.address.description)\", \"\(destAddress)\", \"\(exchange.maxDestAmount.description)\", \"\(minRate.description)\", \"\(platformWallet)\", \"\(platformFeeBps.description)\", \"\(hint)\"])"
       }
       let hint = "PERM".hexEncoded
