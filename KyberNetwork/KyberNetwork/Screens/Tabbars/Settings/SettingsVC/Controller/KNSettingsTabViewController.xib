@@ -148,35 +148,35 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P8S-Nk-EbV">
-                    <rect key="frame" x="130" y="432.5" width="32" height="32"/>
+                    <rect key="frame" x="97" y="432.5" width="32" height="32"/>
                     <state key="normal" image="github"/>
                     <connections>
                         <action selector="githubButtonPressed:" destination="-1" eventType="touchUpInside" id="9gv-8L-EJL"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdX-Yv-Ujd">
-                    <rect key="frame" x="172" y="432" width="32" height="33"/>
+                    <rect key="frame" x="148" y="432" width="32" height="33"/>
                     <state key="normal" image="twitter"/>
                     <connections>
                         <action selector="twitterButtonPressed:" destination="-1" eventType="touchUpInside" id="UVE-ys-1R6"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dSF-Hs-lsq">
-                    <rect key="frame" x="214" y="432" width="32" height="33"/>
+                    <rect key="frame" x="199" y="432" width="32" height="33"/>
                     <state key="normal" image="facebook"/>
                     <connections>
                         <action selector="facebookButtonPressed:" destination="-1" eventType="touchUpInside" id="WRG-lA-KWI"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QlK-9e-kdZ">
-                    <rect key="frame" x="256" y="432" width="32" height="33"/>
+                    <rect key="frame" x="250" y="432" width="32" height="33"/>
                     <state key="normal" image="medium"/>
                     <connections>
                         <action selector="mediumButtonPressed:" destination="-1" eventType="touchUpInside" id="Ksb-1Y-6lt"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYu-os-Pb3">
-                    <rect key="frame" x="298" y="432" width="32" height="33"/>
+                    <rect key="frame" x="301" y="432" width="32" height="33"/>
                     <state key="normal" image="linkedin"/>
                     <connections>
                         <action selector="linkedInButtonPressed:" destination="-1" eventType="touchUpInside" id="otz-4A-UAR"/>
@@ -194,13 +194,6 @@
                     </state>
                     <connections>
                         <action selector="shareWithFriendButtonPressed:" destination="-1" eventType="touchUpInside" id="x8f-72-BNt"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80r-ho-KCH">
-                    <rect key="frame" x="88" y="432.5" width="32" height="32"/>
-                    <state key="normal" image="tele_dev_group"/>
-                    <connections>
-                        <action selector="telegramDevButtonPressed:" destination="-1" eventType="touchUpInside" id="0ze-VG-Xif"/>
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvF-yd-iWq">
@@ -301,12 +294,11 @@
                 <constraint firstItem="P8S-Nk-EbV" firstAttribute="centerY" secondItem="Pd0-VK-ek2" secondAttribute="centerY" id="8ns-Ya-Pg8"/>
                 <constraint firstItem="Z6O-Km-0S7" firstAttribute="trailing" secondItem="sSk-u8-Y8q" secondAttribute="trailing" id="9Go-rk-iEA"/>
                 <constraint firstItem="N5S-5z-7Ii" firstAttribute="top" secondItem="XDo-Po-iWz" secondAttribute="bottom" constant="8" id="APY-Ut-By2"/>
-                <constraint firstItem="tdX-Yv-Ujd" firstAttribute="leading" secondItem="P8S-Nk-EbV" secondAttribute="trailing" constant="10" id="BTn-Ua-GBZ"/>
+                <constraint firstItem="tdX-Yv-Ujd" firstAttribute="leading" secondItem="P8S-Nk-EbV" secondAttribute="trailing" constant="19" id="BTn-Ua-GBZ"/>
                 <constraint firstItem="N5S-5z-7Ii" firstAttribute="leading" secondItem="XDo-Po-iWz" secondAttribute="leading" id="CYv-Hc-6Z8"/>
                 <constraint firstItem="Z6O-Km-0S7" firstAttribute="leading" secondItem="sSk-u8-Y8q" secondAttribute="leading" id="DQg-sn-Dqe"/>
                 <constraint firstAttribute="trailing" secondItem="LAf-Nx-GiM" secondAttribute="trailing" id="ECK-0Y-Hux"/>
                 <constraint firstItem="XDo-Po-iWz" firstAttribute="trailing" secondItem="OVZ-jU-hlZ" secondAttribute="trailing" id="EwU-7q-Da8"/>
-                <constraint firstItem="P8S-Nk-EbV" firstAttribute="leading" secondItem="80r-ho-KCH" secondAttribute="trailing" constant="10" id="GE5-XZ-5CP"/>
                 <constraint firstItem="cYu-os-Pb3" firstAttribute="centerY" secondItem="QlK-9e-kdZ" secondAttribute="centerY" id="GSZ-uq-wU6"/>
                 <constraint firstItem="rGf-Ii-F5o" firstAttribute="leading" secondItem="Z6O-Km-0S7" secondAttribute="leading" constant="40" id="Hsd-ma-YXr"/>
                 <constraint firstItem="XDo-Po-iWz" firstAttribute="leading" secondItem="OVZ-jU-hlZ" secondAttribute="leading" id="JrF-tz-6Wh"/>
@@ -330,22 +322,21 @@
                 <constraint firstItem="LAf-Nx-GiM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ayY-28-rtZ"/>
                 <constraint firstItem="Pd0-VK-ek2" firstAttribute="top" secondItem="sSk-u8-Y8q" secondAttribute="bottom" constant="12" id="bM5-4x-Ld3"/>
                 <constraint firstItem="rGf-Ii-F5o" firstAttribute="top" secondItem="Pd0-VK-ek2" secondAttribute="bottom" constant="8" id="bsJ-IT-UXK"/>
-                <constraint firstItem="80r-ho-KCH" firstAttribute="centerY" secondItem="Pd0-VK-ek2" secondAttribute="centerY" id="cO0-Wt-ivJ"/>
                 <constraint firstItem="c9Z-ZK-Ucl" firstAttribute="trailing" secondItem="N5S-5z-7Ii" secondAttribute="trailing" id="eac-HY-dQQ"/>
-                <constraint firstItem="80r-ho-KCH" firstAttribute="leading" secondItem="Pd0-VK-ek2" secondAttribute="trailing" constant="10" id="gvn-9c-87f"/>
                 <constraint firstItem="sSk-u8-Y8q" firstAttribute="trailing" secondItem="0Wu-3X-xy0" secondAttribute="trailing" id="iAl-hq-TaO"/>
-                <constraint firstItem="dSF-Hs-lsq" firstAttribute="leading" secondItem="tdX-Yv-Ujd" secondAttribute="trailing" constant="10" id="jMz-at-VSR"/>
+                <constraint firstItem="dSF-Hs-lsq" firstAttribute="leading" secondItem="tdX-Yv-Ujd" secondAttribute="trailing" constant="19" id="jMz-at-VSR"/>
                 <constraint firstItem="Pd0-VK-ek2" firstAttribute="leading" secondItem="sSk-u8-Y8q" secondAttribute="leading" constant="22" id="jPe-po-0Zf"/>
                 <constraint firstItem="OVZ-jU-hlZ" firstAttribute="top" secondItem="LAf-Nx-GiM" secondAttribute="bottom" constant="24" id="lbc-Wh-kf2"/>
                 <constraint firstItem="QlK-9e-kdZ" firstAttribute="centerY" secondItem="dSF-Hs-lsq" secondAttribute="centerY" id="m0j-Lt-miy"/>
-                <constraint firstItem="cYu-os-Pb3" firstAttribute="leading" secondItem="QlK-9e-kdZ" secondAttribute="trailing" constant="10" id="nbE-lv-SSh"/>
+                <constraint firstItem="cYu-os-Pb3" firstAttribute="leading" secondItem="QlK-9e-kdZ" secondAttribute="trailing" constant="19" id="nbE-lv-SSh"/>
                 <constraint firstItem="AIi-Kr-wY4" firstAttribute="bottom" secondItem="KUg-Q7-n88" secondAttribute="bottom" constant="-50" id="noM-sh-Ogr"/>
                 <constraint firstItem="JvF-yd-iWq" firstAttribute="top" secondItem="Z6O-Km-0S7" secondAttribute="bottom" constant="8" id="oJM-F7-3Fj"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Z43-SL-69M" secondAttribute="trailing" constant="24" id="oh0-Yn-SKp"/>
                 <constraint firstItem="dSF-Hs-lsq" firstAttribute="centerY" secondItem="tdX-Yv-Ujd" secondAttribute="centerY" id="ojW-qs-WkJ"/>
                 <constraint firstItem="LAf-Nx-GiM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="or9-IV-hJj"/>
                 <constraint firstItem="0f5-D1-b9i" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="24" id="rvB-RT-5Tz"/>
-                <constraint firstItem="QlK-9e-kdZ" firstAttribute="leading" secondItem="dSF-Hs-lsq" secondAttribute="trailing" constant="10" id="vyO-U7-A4N"/>
+                <constraint firstItem="QlK-9e-kdZ" firstAttribute="leading" secondItem="dSF-Hs-lsq" secondAttribute="trailing" constant="19" id="vyO-U7-A4N"/>
+                <constraint firstItem="P8S-Nk-EbV" firstAttribute="leading" secondItem="Pd0-VK-ek2" secondAttribute="trailing" constant="19" id="zVq-gw-ij6"/>
                 <constraint firstItem="400-Y7-DXM" firstAttribute="top" secondItem="Z43-SL-69M" secondAttribute="bottom" constant="8" id="zmv-Zy-AFP"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -368,7 +359,6 @@
         <image name="settings_share" width="18" height="20"/>
         <image name="settings_support" width="22" height="21"/>
         <image name="settings_wallet" width="19" height="18"/>
-        <image name="tele_dev_group" width="32" height="32"/>
         <image name="telegram" width="32" height="33"/>
         <image name="twitter" width="32" height="33"/>
     </resources>

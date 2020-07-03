@@ -13,7 +13,6 @@ enum KNSettingsTabViewEvent {
   case community
   case shareWithFriends
   case telegram
-  case telegramDev
   case github
   case twitter
   case facebook
@@ -176,11 +175,6 @@ class KNSettingsTabViewController: KNBaseViewController {
   @IBAction func telegramButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "telegram group"])
     self.delegate?.settingsTabViewController(self, run: .telegram)
-  }
-
-  @IBAction func telegramDevButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "telegram channel"])
-    self.delegate?.settingsTabViewController(self, run: .telegramDev)
   }
 
   @IBAction func githubButtonPressed(_ sender: Any) {
