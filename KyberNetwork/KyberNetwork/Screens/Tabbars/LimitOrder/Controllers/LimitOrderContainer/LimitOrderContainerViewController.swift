@@ -86,7 +86,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
   }
 
   var isNeedShowTutorial: Bool {
-    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForLimitOrderView) == nil || KNEnvironment.default == .ropsten
+    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForLimitOrderView) == nil
   }
 
   func updateDoneTutorial() {
@@ -441,6 +441,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
     if self.currentTutorialStep == 4 {
       let firstPage = self.pages.first
       firstPage?.containerScrollView.setContentOffset(CGPoint.zero, animated: true)
+      self.updateDoneTutorial()
       KNCrashlyticsUtil.logCustomEvent(withName: "tut_lo_got_it_button_tapped", customAttributes: nil)
       return
     }

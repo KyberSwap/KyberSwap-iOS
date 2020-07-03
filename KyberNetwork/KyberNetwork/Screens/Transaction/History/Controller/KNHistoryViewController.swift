@@ -254,7 +254,7 @@ struct KNHistoryViewModel {
   var isShowingQuickTutorial: Bool = false
 
   var isNeedShowQuickTutorial: Bool {
-    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForHistoryView) == nil || KNEnvironment.default == .ropsten
+    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForHistoryView) == nil
   }
 
   func updateDoneTutorial() {
