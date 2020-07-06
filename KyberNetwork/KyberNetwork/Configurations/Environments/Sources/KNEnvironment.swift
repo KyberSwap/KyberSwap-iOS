@@ -98,10 +98,10 @@ enum KNEnvironment: Int {
     let baseString: String = {
       switch self {
       case .mainnetTest, .production: return "https://kyberswap.com/api/currencies"
-      case .staging: return "https://staging-kyberswap.knstats.com/api/currencies"
-      case .ropsten: return "https://dev-userdashboard.knstats.com/api/currencies"
-      case .rinkeby: return "https://rinkeby-api.kyber.network" + KNSecret.currencies
-      case .kovan: return "https://dev-kovan-api.knstats.com" + KNSecret.currencies
+      case .staging: return "\(KNSecret.stagingProfileURL)/api/currencies"
+      case .ropsten: return "\(KNSecret.debugProfileURL)/api/currencies"
+      case .rinkeby: return KNSecret.rinkebyApiURL + KNSecret.currencies
+      case .kovan: return KNSecret.kovanApiURL + KNSecret.currencies
       }
     }()
     return baseString
@@ -119,7 +119,7 @@ enum KNEnvironment: Int {
     switch KNEnvironment.default {
     case .mainnetTest, .production, .staging: return KNSecret.trackerURL
     case .ropsten, .rinkeby: return KNSecret.debugTrackerURL
-    case .kovan: return "https://dev-kovan-api.knstats.com"
+    case .kovan: return KNSecret.kovanApiURL
     }
   }
 
@@ -183,17 +183,17 @@ enum KNEnvironment: Int {
     switch KNEnvironment.default {
     case .mainnetTest, .production: return KNSecret.trackerURL
     case .staging: return KNSecret.stagingTrackerURL
-    case .kovan: return "https://dev-kovan-api.knstats.com"
+    case .kovan: return KNSecret.kovanApiURL
     default: return KNSecret.debugTrackerURL
     }
   }
 
   var expectedRateEndpoint: String {
     switch KNEnvironment.default {
-    case .staging: return "https://staging-kyberswap.knstats.com"
+    case .staging: return KNSecret.stagingProfileURL
     case .mainnetTest, .production: return "https://api.kyber.network"
-    case .kovan: return "https://dev-kovan-api.knstats.com"
-    default: return "https://dev-api.knstats.com/"
+    case .kovan: return KNSecret.kovanApiURL
+    default: return KNSecret.defaultDevApiURL
     }
   }
 
