@@ -190,7 +190,8 @@ enum KNEnvironment: Int {
 
   var expectedRateEndpoint: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production, .staging: return "https://api.kyber.network"
+    case .staging: return "https://staging-kyberswap.knstats.com"
+    case .mainnetTest, .production: return "https://api.kyber.network"
     case .kovan: return "https://dev-kovan-api.knstats.com"
     default: return "https://dev-api.knstats.com/"
     }
