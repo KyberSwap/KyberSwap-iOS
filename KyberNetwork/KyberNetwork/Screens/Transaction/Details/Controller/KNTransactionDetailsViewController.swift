@@ -30,7 +30,6 @@ class KNTransactionDetailsViewController: KNBaseViewController {
   @IBOutlet weak var rateTextLabel: UILabel!
 
   @IBOutlet var feeTopPaddingToSeparatorViewConstraint: NSLayoutConstraint!
-  @IBOutlet var feeTopPaddingToRateLabelConstraint: NSLayoutConstraint!
 
   @IBOutlet weak var feeTextLabel: UILabel!
   @IBOutlet weak var feeValueLabel: UILabel!
@@ -38,12 +37,17 @@ class KNTransactionDetailsViewController: KNBaseViewController {
   @IBOutlet weak var addressTextLabel: UILabel!
   @IBOutlet weak var addressValueLabel: UILabel!
 
-  @IBOutlet var txHashTopPaddingToAddressLabelConstraint: NSLayoutConstraint!
-  @IBOutlet var txHashTopPaddingToFeeLabelConstraint: NSLayoutConstraint!
+  @IBOutlet var txHashTopPaddingToGasPriceLabelConstraint: NSLayoutConstraint!
+  @IBOutlet weak var toAddressTopPaddingToGasPriceLabelContraint: NSLayoutConstraint!
 
   @IBOutlet weak var txHashLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   @IBOutlet weak var viewOnTextLabel: UILabel!
+  @IBOutlet weak var gasPriceTextLabel: UILabel!
+  @IBOutlet weak var gasPriceValueLabel: UILabel!
+  @IBOutlet weak var nonceTextLabel: UILabel!
+  @IBOutlet weak var nonceValueLabel: UILabel!
+  @IBOutlet weak var txStatusLabel: UILabel!
 
   init(viewModel: KNTransactionDetailsViewModel) {
     self.viewModel = viewModel
@@ -87,6 +91,11 @@ class KNTransactionDetailsViewController: KNBaseViewController {
     self.txTypeLabel.text = self.viewModel.displayTxTypeString
 
     self.feeValueLabel.text = self.viewModel.displayFee
+    self.gasPriceValueLabel.text = self.viewModel.displayGasPrice
+    self.txStatusLabel.text = self.viewModel.displayTxStatus
+    self.txStatusLabel.backgroundColor = self.viewModel.displayTxStatusColor.0
+    self.txStatusLabel.textColor = self.viewModel.displayTxStatusColor.1
+    self.txStatusLabel.rounded(radius: 3)
 
     let amountText = self.viewModel.displayedAmountString
     if self.viewModel.isSwap {
@@ -112,14 +121,36 @@ class KNTransactionDetailsViewController: KNBaseViewController {
       self.rateTextLabel.isHidden = false
       self.exchangeRateLabel.isHidden = false
 
-      self.feeTopPaddingToRateLabelConstraint.constant = 8.0
-      self.feeTopPaddingToRateLabelConstraint.isActive = true
-      self.feeTopPaddingToSeparatorViewConstraint.isActive = false
+      self.nonceValueLabel.text = self.viewModel.displayNonce
 
-      self.txHashTopPaddingToFeeLabelConstraint.isActive = true
-      self.txHashTopPaddingToFeeLabelConstraint.constant = 16.0
-      self.txHashTopPaddingToAddressLabelConstraint.isActive = false
+      self.nonceTextLabel.isHidden = false
+      self.nonceValueLabel.isHidden = false
+      self.txStatusLabel.isHidden = false
 
+      self.txHashTopPaddingToGasPriceLabelConstraint.constant = 79.0
+      self.feeTopPaddingToSeparatorViewConstraint.constant = 60
+    } else if self.viewModel.isSent {
+      self.amountLabel.text = amountText
+      self.leftAmountTextLabel.isHidden = true
+      self.rightAmountTextLabel.isHidden = true
+
+      self.rateTextLabel.isHidden = true
+      self.exchangeRateLabel.isHidden = true
+
+      self.addressTextLabel.isHidden = false
+      self.addressValueLabel.isHidden = false
+
+      self.addressTextLabel.text = self.viewModel.addressTextDisplay
+      self.addressValueLabel.attributedText = self.viewModel.addressAttributedString()
+
+      self.nonceValueLabel.text = self.viewModel.displayNonce
+      self.nonceTextLabel.isHidden = false
+      self.nonceValueLabel.isHidden = false
+      self.txStatusLabel.isHidden = false
+
+      self.feeTopPaddingToSeparatorViewConstraint.constant = 28
+      self.toAddressTopPaddingToGasPriceLabelContraint.constant = 89
+      self.txHashTopPaddingToGasPriceLabelConstraint.constant = 161
     } else {
       self.amountLabel.text = amountText
       self.leftAmountTextLabel.isHidden = true
@@ -134,13 +165,13 @@ class KNTransactionDetailsViewController: KNBaseViewController {
       self.addressTextLabel.text = self.viewModel.addressTextDisplay
       self.addressValueLabel.attributedText = self.viewModel.addressAttributedString()
 
-      self.feeTopPaddingToRateLabelConstraint.isActive = false
-      self.feeTopPaddingToSeparatorViewConstraint.isActive = true
-      self.feeTopPaddingToSeparatorViewConstraint.constant = 28
+      self.nonceTextLabel.isHidden = true
+      self.nonceValueLabel.isHidden = true
+      self.txStatusLabel.isHidden = true
 
-      self.txHashTopPaddingToFeeLabelConstraint.isActive = false
-      self.txHashTopPaddingToAddressLabelConstraint.isActive = true
-      self.txHashTopPaddingToAddressLabelConstraint.constant = 16.0
+      self.feeTopPaddingToSeparatorViewConstraint.constant = 28
+      self.toAddressTopPaddingToGasPriceLabelContraint.constant = 29
+      self.txHashTopPaddingToGasPriceLabelConstraint.constant = 101
     }
 
     self.txHashLabel.attributedText = self.viewModel.txHashAttributedString()

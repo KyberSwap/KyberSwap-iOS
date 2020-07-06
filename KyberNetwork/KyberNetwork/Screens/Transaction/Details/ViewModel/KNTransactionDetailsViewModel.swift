@@ -52,6 +52,53 @@ struct KNTransactionDetailsViewModel {
     return nil
   }
 
+  var displayNonce: String? {
+    return self.transaction?.nonce
+  }
+
+  var displayTxStatus: String {
+    guard let state = self.transaction?.state else { return "  ---  " }
+    var statusString = ""
+    switch state {
+    case .completed:
+      statusString = "mined".uppercased()
+    case .pending:
+      statusString = "pending".uppercased()
+    case .failed, .error:
+      statusString = "failed".uppercased()
+    default:
+      statusString = "---"
+    }
+    return "  \(statusString)  "
+  }
+
+  var displayTxStatusColor: (UIColor, UIColor) {
+    guard let state = self.transaction?.state else {
+      return (UIColor(red: 236, green: 235, blue: 235), UIColor(red: 20, green: 25, blue: 39))
+    }
+    switch state {
+    case .completed:
+      return (UIColor(red: 212, green: 254, blue: 229), UIColor(red: 0, green: 102, blue: 68))
+    case .pending:
+      return (UIColor(red: 255, green: 236, blue: 213), UIColor(red: 255, green: 144, blue: 8))
+    case .failed, .error:
+      return (UIColor(red: 255, green: 234, blue: 234), UIColor(red: 250, green: 101, blue: 102))
+    default:
+      return (UIColor(red: 236, green: 235, blue: 235), UIColor(red: 20, green: 25, blue: 39))
+    }
+  }
+
+  var displayGasPrice: String {
+    guard let gasPriceString = self.transaction?.gasPrice, let gasPriceBigNo = EtherNumberFormatter.full.number(from: gasPriceString, units: .wei) else {
+      return "---"
+    }
+
+    let displayETH = gasPriceBigNo.fullString(decimals: 18)
+    let displayGWei = gasPriceBigNo.fullString(units: .gwei)
+
+    return "\(displayETH) ETH (\(displayGWei) Gwei)"
+  }
+
   var displayRateTextString: String {
     if let symbols = self.transaction?.getTokenPair() {
       if symbols.0.isEmpty || symbols.1.isEmpty { return "" }
