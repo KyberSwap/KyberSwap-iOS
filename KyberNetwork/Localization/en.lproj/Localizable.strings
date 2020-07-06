@@ -75,6 +75,7 @@
 "log.out" = "Log Out";
 "unverified" = "Unverified";
 "pending" = "Pending";
+"mined" = "mined";
 "rejected" = "Rejected";
 "approved" = "Approved";
 "unknown" = "Unknown";

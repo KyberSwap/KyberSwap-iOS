@@ -75,6 +75,7 @@
 "log.out" = "Đăng xuất";
 "unverified" = "Chưa được xác minh";
 "pending" = "Đang chờ xử lý";
+"mined" = "Đã xác nhận";
 "rejected" = "Bị từ chối";
 "approved" = "Chấp thuận";
 "unknown" = "Không rõ";

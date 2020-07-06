@@ -75,6 +75,7 @@
 "log.out" = "登出";
 "unverified" = "未经验证";
 "pending" = "审核中";
+"mined" = "铸造";
 "rejected" = "已拒绝";
 "approved" = "已通过";
 "unknown" = "未知";

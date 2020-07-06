@@ -75,6 +75,7 @@
 "log.out" = "로그 아웃";
 "unverified" = "확인되지 않습니다";
 "pending" = "보류";
+"mined" = "채굴됨";
 "rejected" = "거부되었습니다";
 "approved" = "승인되었습니다";
 "unknown" = "알 수 없는";

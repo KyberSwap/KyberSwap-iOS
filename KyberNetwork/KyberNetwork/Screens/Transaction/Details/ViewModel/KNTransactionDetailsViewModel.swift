@@ -61,11 +61,11 @@ struct KNTransactionDetailsViewModel {
     var statusString = ""
     switch state {
     case .completed:
-      statusString = "mined".uppercased()
+      statusString = "mined".toBeLocalised().uppercased()
     case .pending:
-      statusString = "pending".uppercased()
+      statusString = "pending".toBeLocalised().uppercased()
     case .failed, .error:
-      statusString = "failed".uppercased()
+      statusString = "failed".toBeLocalised().uppercased()
     default:
       statusString = "---"
     }
