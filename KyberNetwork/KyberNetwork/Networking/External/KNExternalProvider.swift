@@ -308,7 +308,7 @@ class KNExternalProvider {
   func sendApproveERC20Token(exchangeTransaction: KNDraftExchangeTransaction, completion: @escaping (Result<Bool, AnyError>) -> Void) {
     self.sendApproveERCToken(
       for: exchangeTransaction.from,
-      value: BigInt(2).power(255),
+      value: BigInt(2).power(256) - BigInt(1),
       gasPrice: exchangeTransaction.gasPrice ?? KNGasCoordinator.shared.defaultKNGas,
       completion: completion
     )

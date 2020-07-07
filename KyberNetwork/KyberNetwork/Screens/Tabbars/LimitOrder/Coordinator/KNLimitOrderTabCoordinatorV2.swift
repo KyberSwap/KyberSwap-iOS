@@ -693,7 +693,7 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
         if isSuccess {
           self.session.externalProvider.sendApproveERCTokenLimitOrder(
             for: order.from,
-            value: BigInt(2).power(255),
+            value: BigInt(2).power(256) - BigInt(1),
             gasPrice: KNGasCoordinator.shared.fastKNGas,
             completion: completion
           )
