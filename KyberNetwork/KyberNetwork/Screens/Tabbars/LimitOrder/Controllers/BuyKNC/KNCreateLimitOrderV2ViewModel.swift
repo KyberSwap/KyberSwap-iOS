@@ -60,7 +60,7 @@ class KNCreateLimitOrderV2ViewModel {
   var targetPriceFromMarket: String {
     let marketPrice = (self.isBuy ? self.market?.buyPrice : self.market?.sellPrice) ?? 0
     if marketPrice == 0 { return "0" }
-    return BigInt(marketPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
+    return BigInt(marketPrice * pow(10.0, 18.0)).displayRate(decimals: 18).removeGroupSeparator()
   }
 
   func updatePair(name: String) -> Bool {
@@ -126,7 +126,7 @@ class KNCreateLimitOrderV2ViewModel {
   }
 
   func updateTargetPrice(_ price: String) {
-    self.targetPrice = price
+    self.targetPrice = price.removeGroupSeparator()
     if self.isBuy {
       self.updateAmountTo(self.amountTo)
     } else {
