@@ -168,7 +168,7 @@ class KNNotificationExtraData: Object {
   }
 
   func toDict() -> JSONDictionary {
-    return [
+    var result: JSONDictionary = [
       "base": self.base,
       "token": self.token,
       "order_id": self.orderId,
@@ -182,8 +182,11 @@ class KNNotificationExtraData: Object {
       "created_at": self.createAt,
       "updated_at": self.updatedAt,
       "receive": self.receive,
-      "tx_hash": self.txHash,
-      "side_trade": self.sideTrade ?? "sell"
+      "tx_hash": self.txHash
     ]
+    if self.sideTrade != nil {
+      result["side_trade"] = self.sideTrade
+    }
+    return result
   }
 }
