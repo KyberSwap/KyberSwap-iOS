@@ -39,7 +39,7 @@ class KNSearchTokenViewModel {
         return self.supportedTokens
       }
       return self.supportedTokens.filter({ return ($0.symbol + " " + $0.name).lowercased().contains(self.searchedText.lowercased()) }).filter({
-        if $0.extraData?.isListed == false { return false }
+        if $0.isListed == false { return false }
         return true
       })
     }()

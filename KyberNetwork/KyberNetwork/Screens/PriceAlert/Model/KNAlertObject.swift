@@ -23,6 +23,7 @@ class KNAlertObject: Object {
   @objc dynamic var updatedDate: TimeInterval = 0.0
   @objc dynamic var triggeredDate: TimeInterval = 0.0
   @objc dynamic var stateValue: Int = KNAlertState.active.rawValue
+  @objc dynamic var hasReward: Bool = false
 
   convenience init(token: String, currency: String, price: Double, currentPrice: Double, isAbove: Bool, type: String = "price") {
     self.init()
@@ -65,21 +66,7 @@ class KNAlertObject: Object {
       let date = DateFormatterUtil.shared.priceAlertAPIFormatter.date(from: string)
       return date?.timeIntervalSince1970 ?? 0.0
     }()
-    if let reward = json["reward"] as? String {
-      UserDefaults.standard.set(reward, forKey: "\(KNEnvironment.default.displayName)_alert_\(id)")
-    } else {
-      UserDefaults.standard.removeObject(forKey: "\(KNEnvironment.default.displayName)_alert_\(id)")
-    }
-    UserDefaults.standard.synchronize()
-  }
-
-  var hasReward: Bool {
-    return UserDefaults.standard.object(forKey: "\(KNEnvironment.default.displayName)_alert_\(id)") != nil
-  }
-
-  func removeRewardData() {
-    UserDefaults.standard.removeObject(forKey: "\(KNEnvironment.default.displayName)_alert_\(id)")
-    UserDefaults.standard.synchronize()
+    self.hasReward = json["reward"] != nil
   }
 
   var json: JSONDictionary {
@@ -94,6 +81,7 @@ class KNAlertObject: Object {
       "updated_at": self.updatedDate,
       "created_at": self.createdDate,
       "is_above": self.isAbove,
+      "has_reward": self.hasReward
     ]
   }
 

@@ -7,15 +7,23 @@ import TrustKeystore
 import TrustCore
 
 class TokenObject: Object {
-    @objc dynamic var contract: String = ""
-    @objc dynamic var name: String = ""
-    @objc dynamic var symbol: String = ""
-    @objc dynamic var decimals: Int = 0
-    @objc dynamic var value: String = ""
-    @objc dynamic var icon: String = ""
-    @objc dynamic var isCustom: Bool = false
-    @objc dynamic var isSupported: Bool = false
-    @objc dynamic var isDisabled: Bool = false
+  @objc dynamic var contract: String = ""
+  @objc dynamic var name: String = ""
+  @objc dynamic var symbol: String = ""
+  @objc dynamic var decimals: Int = 0
+  @objc dynamic var value: String = ""
+  @objc dynamic var icon: String = ""
+  @objc dynamic var isCustom: Bool = false
+  @objc dynamic var isSupported: Bool = false
+  @objc dynamic var isDisabled: Bool = false
+  @objc dynamic var address: String = ""
+  @objc dynamic var gasLimit: String = ""
+  @objc dynamic var gasApprove: Double = 0.0
+  @objc dynamic var listingTime: TimeInterval = 0.0
+  @objc dynamic var limitOrderEnabled: Bool = false
+  @objc dynamic var isQuote: Bool = false
+  @objc dynamic var isGasFixed: Bool = false
+  @objc dynamic var quotePriority: Int = 0
 
     convenience init(
         contract: String = "",
@@ -25,7 +33,15 @@ class TokenObject: Object {
         value: String,
         isCustom: Bool = false,
         isSupported: Bool = false,
-        isDisabled: Bool = false
+        isDisabled: Bool = false,
+        address: String = "",
+        gasLimit: String = "",
+        gasApprove: Double = 0.0,
+        listingTime: TimeInterval = 0.0,
+        limitOrderEnabled: Bool = false,
+        isQuote: Bool = false,
+        isGasFixed: Bool = false,
+        quotePriority: Int = 0
     ) {
         self.init()
         self.contract = contract
@@ -37,6 +53,14 @@ class TokenObject: Object {
         self.isCustom = isCustom
         self.isSupported = isSupported
         self.isDisabled = isDisabled
+      self.address = address
+      self.gasLimit = gasLimit
+      self.gasApprove = gasApprove
+      self.listingTime = listingTime
+      self.limitOrderEnabled = limitOrderEnabled
+      self.isQuote = isQuote
+      self.isGasFixed = isGasFixed
+      self.quotePriority = quotePriority
     }
 
     // init from local json
@@ -48,7 +72,14 @@ class TokenObject: Object {
       self.contract = (localDict["address"] as? String ?? "").lowercased()
       self.decimals = localDict["decimals"] as? Int ?? 0
       self.isSupported = true
-      self.addExtraData(json: localDict)
+      self.address = localDict["address"] as? String ?? ""
+      self.gasLimit = localDict["gasLimit"] as? String ?? ""
+      self.gasApprove = localDict["gasApprove"] as? Double ?? 0.0
+      self.listingTime = localDict["listing_time"] as? TimeInterval ?? 0.0
+      self.limitOrderEnabled = localDict["sp_limit_order"] as? Bool ?? false
+      self.isQuote = localDict["is_quote"] as? Bool ?? false
+      self.isGasFixed = localDict["is_gas_fixed"] as? Bool ?? false
+      self.quotePriority = localDict["quote_priority"] as? Int ?? 0
     }
 
     // init from public API
@@ -60,7 +91,14 @@ class TokenObject: Object {
       self.contract = (apiDict["address"] as? String ?? "").lowercased()
       self.decimals = apiDict["decimals"] as? Int ?? 0
       self.isSupported = true
-      self.addExtraData(json: apiDict)
+      self.address = apiDict["address"] as? String ?? ""
+      self.gasLimit = apiDict["gasLimit"] as? String ?? ""
+      self.gasApprove = apiDict["gasApprove"] as? Double ?? 0.0
+      self.listingTime = apiDict["listing_time"] as? TimeInterval ?? 0.0
+      self.limitOrderEnabled = apiDict["sp_limit_order"] as? Bool ?? false
+      self.isQuote = apiDict["is_quote"] as? Bool ?? false
+      self.isGasFixed = apiDict["is_gas_fixed"] as? Bool ?? false
+      self.quotePriority = apiDict["quote_priority"] as? Int ?? 0
     }
 
     var isETH: Bool {
@@ -104,7 +142,7 @@ class TokenObject: Object {
       return "\(self.symbol) - \(self.name)"
     }
 
-    var address: Address {
+    var addressObj: Address {
         return Address(string: contract)!
     }
 
@@ -145,15 +183,16 @@ class TokenObject: Object {
       value: self.value,
       isCustom: self.isCustom,
       isSupported: self.isSupported,
-      isDisabled: self.isDisabled
+      isDisabled: self.isDisabled,
+      address: self.address,
+      gasLimit: self.gasLimit,
+      gasApprove: self.gasApprove,
+      listingTime: self.listingTime,
+      limitOrderEnabled: self.limitOrderEnabled,
+      isQuote: self.isQuote,
+      isGasFixed: self.isGasFixed,
+      quotePriority: self.quotePriority
     )
-  }
-
-  func addExtraData(json: JSONDictionary) {
-    let extraData = TokenExtraData(dict: json)
-    let key = "\(KNEnvironment.default.displayName)_\(self.contract)"
-    UserDefaults.standard.set(extraData.json, forKey: key)
-    UserDefaults.standard.synchronize()
   }
 }
 
@@ -173,60 +212,6 @@ extension TokenObject {
     if text.isEmpty { return true }
     let desc = "\(symbol)\(name)".replacingOccurrences(of: " ", with: "").lowercased()
     return desc.contains(text.lowercased())
-  }
-
-  var extraData: TokenExtraData? {
-    let key = "\(KNEnvironment.default.displayName)_\(self.contract)"
-    if let object = UserDefaults.standard.object(forKey: key) as? JSONDictionary {
-      return TokenExtraData(dict: object)
-    }
-    return nil
-  }
-}
-
-class TokenExtraData: NSObject {
-  let address: String
-  let gasLimit: String
-  let gasApprove: Double
-  let listingTime: TimeInterval
-  let limitOrderEnabled: Bool
-  let isQuote: Bool
-  let isGasFixed: Bool
-  let quotePriority: Int
-
-  init(address: String, gasLimit: String, gasApprove: Double, listingTime: TimeInterval, limitOrderEnabled: Bool, isQuote: Bool, isGasFixed: Bool, quotePriority: Int) {
-    self.address = address
-    self.gasLimit = gasLimit
-    self.gasApprove = gasApprove
-    self.listingTime = listingTime
-    self.limitOrderEnabled = limitOrderEnabled
-    self.isQuote = isQuote
-    self.isGasFixed = isGasFixed
-    self.quotePriority = quotePriority
-  }
-
-  init(dict: JSONDictionary) {
-    self.address = dict["address"] as? String ?? ""
-    self.gasLimit = dict["gasLimit"] as? String ?? ""
-    self.gasApprove = dict["gasApprove"] as? Double ?? 0.0
-    self.listingTime = dict["listing_time"] as? TimeInterval ?? 0.0
-    self.limitOrderEnabled = dict["sp_limit_order"] as? Bool ?? false
-    self.isQuote = dict["is_quote"] as? Bool ?? false
-    self.isGasFixed = dict["is_gas_fixed"] as? Bool ?? false
-    self.quotePriority = dict["quote_priority"] as? Int ?? 0
-  }
-
-  var json: JSONDictionary {
-    return [
-      "address": address,
-      "gasLimit": gasLimit,
-      "gasApprove": gasApprove,
-      "listing_time": listingTime,
-      "sp_limit_order": self.limitOrderEnabled,
-      "is_quote": self.isQuote,
-      "is_gas_fixed": self.isGasFixed,
-      "quote_priority": self.quotePriority,
-    ]
   }
 
   var gasLimitDefault: BigInt? {

@@ -15,6 +15,7 @@ class KNNotification: Object {
   @objc dynamic var read: Bool = false
   @objc dynamic var createdDate: TimeInterval = 0.0
   @objc dynamic var updatedDate: TimeInterval = 0.0
+  @objc dynamic var extraData: KNNotificationExtraData?
 
   convenience init(
     id: Int,
@@ -66,23 +67,11 @@ class KNNotification: Object {
     self.updateExtraData(data: json["data"] as? JSONDictionary)
   }
 
-  var extraData: JSONDictionary? {
-    let key = "notifications_\(KNEnvironment.default.displayName)_\(id)_\(userID)"
-    if let data = UserDefaults.standard.object(forKey: key) as? Data {
-      return NSKeyedUnarchiver.unarchiveObject(with: data) as? JSONDictionary
-    }
-    return nil
-  }
-
   func updateExtraData(data: JSONDictionary?) {
-    let key = "notifications_\(KNEnvironment.default.displayName)_\(id)_\(userID)"
-    if let data = data {
-      let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
-      UserDefaults.standard.set(encodedData, forKey: key)
-    } else {
-      UserDefaults.standard.set(nil, forKey: key)
+    guard let extraData = data else {
+      return
     }
-    UserDefaults.standard.synchronize()
+    self.extraData = KNNotificationExtraData(json: extraData)
   }
 
   override class func primaryKey() -> String? {
@@ -101,7 +90,100 @@ class KNNotification: Object {
       read: self.read,
       createdDate: self.createdDate,
       updatedDate: self.updatedDate,
-      data: self.extraData
+      data: self.extraData?.toDict()
     )
+  }
+}
+
+class KNNotificationExtraData: Object {
+  @objc dynamic var base: String = ""
+  @objc dynamic var token: String = ""
+  @objc dynamic var orderId: Int = -1
+  @objc dynamic var srcToken: String?
+  @objc dynamic var dstToken: String?
+  @objc dynamic var minRate: Double = 0.0
+  @objc dynamic var srcAmount: Double = 0.0
+  @objc dynamic var fee: Double = 0.0
+  @objc dynamic var transferFee: Double = 0.0
+  @objc dynamic var sender: String = ""
+  @objc dynamic var createAt: Double = 0.0
+  @objc dynamic var updatedAt: Double = 0.0
+  @objc dynamic var receive: Double = 0.0
+  @objc dynamic var txHash: String = ""
+  @objc dynamic var sideTrade: String?
+
+  convenience init(json: JSONDictionary) {
+    self.init()
+    self.base = json["base"] as? String ?? ""
+    self.token = json["token"] as? String ?? ""
+    self.orderId = json["order_id"] as? Int ?? -1
+    self.srcToken = json["src_token"] as? String
+    self.dstToken = json["dst_token"] as? String
+    self.minRate = {
+      if let value = json["min_rate"] as? Double { return value }
+      if let valueStr = json["min_rate"] as? String, let value = Double(valueStr) {
+        return value
+      }
+      return 0.0
+    }()
+    self.srcAmount = {
+      if let value = json["src_amount"] as? Double { return value }
+      if let valueStr = json["src_amount"] as? String, let value = Double(valueStr) {
+        return value
+      }
+      return 0.0
+    }()
+    self.fee = {
+      if let value = json["fee"] as? Double { return value }
+      if let valueStr = json["fee"] as? String, let value = Double(valueStr) {
+        return value
+      }
+      return 0.0
+    }()
+    self.transferFee = {
+      if let value = json["transfer_fee"] as? Double { return value }
+      if let valueStr = json["transfer_fee"] as? String, let value = Double(valueStr) {
+        return value
+      }
+      return 0.0
+    }()
+    self.sender = json["sender"] as? String ?? ""
+    self.createAt = {
+      if let value = json["created_at"] as? Double { return value }
+      if let valueStr = json["created_at"] as? String, let value = Double(valueStr) {
+        return value
+      }
+      return Date().timeIntervalSince1970
+    }()
+    self.updatedAt = {
+      if let value = json["updated_at"] as? Double { return value }
+      if let valueStr = json["updated_at"] as? String, let value = Double(valueStr) {
+        return value
+      }
+      return Date().timeIntervalSince1970
+    }()
+    self.receive = json["receive"] as? Double ?? 0.0
+    self.txHash = json["tx_hash"] as? String ?? ""
+    self.sideTrade = json["side_trade"] as? String
+  }
+
+  func toDict() -> JSONDictionary {
+    return [
+      "base": self.base,
+      "token": self.token,
+      "order_id": self.orderId,
+      "src_token": self.srcToken ?? "",
+      "dst_token": self.dstToken ?? "",
+      "min_rate": self.minRate,
+      "src_amount": self.srcAmount,
+      "fee": self.fee,
+      "transfer_fee": self.transferFee,
+      "sender": self.sender,
+      "created_at": self.createAt,
+      "updated_at": self.updatedAt,
+      "receive": self.receive,
+      "tx_hash": self.txHash,
+      "side_trade": self.sideTrade ?? "sell"
+    ]
   }
 }

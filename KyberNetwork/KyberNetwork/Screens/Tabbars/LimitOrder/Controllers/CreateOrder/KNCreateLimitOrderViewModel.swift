@@ -287,7 +287,7 @@ class KNCreateLimitOrderViewModel {
   }
 
   var isShowingRevertRate: Bool {
-    return self.from.extraData?.isQuote == true
+    return self.from.isQuote == true
   }
 
   var revertCurrentExchangeRateString: String? {

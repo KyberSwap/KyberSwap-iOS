@@ -168,9 +168,9 @@ extension KNListNotificationViewController: UITableViewDelegate {
 
     if noti.scope == "personal" && noti.label == "alert" {
       // alert, open swap view
-      if let data = noti.extraData, let base = data["base"] as? String, let token = data["token"] as? String {
-        let from = base == "USD" ? "ETH" : token
-        let to = base == "USD" ? "KNC" : "ETH"
+      if let data = noti.extraData, !data.base.isEmpty, !data.token.isEmpty {
+        let from = data.base == "USD" ? "ETH" : data.token
+        let to = data.base == "USD" ? "KNC" : "ETH"
         self.delegate?.listNotificationViewController(self, run: .openSwap(from: from, to: to))
         return
       }
@@ -188,18 +188,18 @@ extension KNListNotificationViewController: UITableViewDelegate {
     }
 
     if noti.label == "new_listing" {
-      if let data = noti.extraData, let token = data["token"] as? String {
-        self.delegate?.listNotificationViewController(self, run: .openSwap(from: "ETH", to: token))
+      if let data = noti.extraData, !data.token.isEmpty {
+        self.delegate?.listNotificationViewController(self, run: .openSwap(from: "ETH", to: data.token))
         return
       }
     }
     if noti.label == "big_swing" {
-      if let data = noti.extraData, let token = data["token"] as? String {
-        if token != "ETH" && token != "WETH" {
-          self.delegate?.listNotificationViewController(self, run: .openSwap(from: "ETH", to: token))
+      if let data = noti.extraData, !data.token.isEmpty {
+        if data.token != "ETH" && data.token != "WETH" {
+          self.delegate?.listNotificationViewController(self, run: .openSwap(from: "ETH", to: data.token))
         } else {
           // eth or weth
-          self.delegate?.listNotificationViewController(self, run: .openSwap(from: "DAI", to: token))
+          self.delegate?.listNotificationViewController(self, run: .openSwap(from: "DAI", to: data.token))
         }
         return
       }
@@ -214,72 +214,27 @@ extension KNListNotificationViewController: UITableViewDelegate {
     self.present(alert, animated: true, completion: nil)
   }
 
-  fileprivate func openLimitOrderPopup(data: JSONDictionary) -> Bool {
-    guard let orderID = data["order_id"] as? Int,
-      let srcToken = data["src_token"] as? String,
-      let destToken = data["dst_token"] as? String else { return false }
-    let rate: Double = {
-      if let value = data["min_rate"] as? Double { return value }
-      if let valueStr = data["min_rate"] as? String, let value = Double(valueStr) {
-        return value
-      }
-      return 0.0
-    }()
-    let amount: Double = {
-      if let value = data["src_amount"] as? Double { return value }
-      if let valueStr = data["src_amount"] as? String, let value = Double(valueStr) {
-        return value
-      }
-      return 0.0
-    }()
-    let fee: Double = {
-      if let value = data["fee"] as? Double { return value }
-      if let valueStr = data["fee"] as? String, let value = Double(valueStr) {
-        return value
-      }
-      return 0.0
-    }()
-    let transferFee: Double = {
-      if let value = data["transfer_fee"] as? Double { return value }
-      if let valueStr = data["transfer_fee"] as? String, let value = Double(valueStr) {
-        return value
-      }
-      return 0.0
-    }()
-    let sender = data["sender"] as? String ?? ""
-    let createdDate: Double = {
-      if let value = data["created_at"] as? Double { return value }
-      if let valueStr = data["created_at"] as? String, let value = Double(valueStr) {
-        return value
-      }
-      return Date().timeIntervalSince1970
-    }()
-    let updatedDate: Double = {
-      if let value = data["updated_at"] as? Double { return value }
-      if let valueStr = data["updated_at"] as? String, let value = Double(valueStr) {
-        return value
-      }
-      return Date().timeIntervalSince1970
-    }()
-    let receive = data["receive"] as? Double ?? 0.0
-    let txHash = data["tx_hash"] as? String ?? ""
+  fileprivate func openLimitOrderPopup(data: KNNotificationExtraData) -> Bool {
+    guard data.orderId != -1,
+      let srcToken = data.srcToken,
+      let destToken = data.dstToken else { return false }
 
     let order = KNOrderObject(
-      id: orderID,
+      id: data.orderId,
       from: srcToken,
       to: destToken,
-      amount: amount,
-      price: rate,
-      fee: fee + transferFee,
+      amount: data.srcAmount,
+      price: data.minRate,
+      fee: data.fee + data.transferFee,
       nonce: "",
-      sender: sender,
-      sideTrade: data["side_trade"] as? String,
-      createdDate: createdDate,
-      filledDate: updatedDate,
+      sender: data.sender,
+      sideTrade: data.sideTrade,
+      createdDate: data.createAt,
+      filledDate: data.updatedAt,
       messages: "",
-      txHash: txHash,
+      txHash: data.txHash,
       stateValue: KNOrderState.filled.rawValue,
-      actualDestAmount: receive
+      actualDestAmount: data.receive
     )
     let controller = KNLimitOrderDetailsPopUp(order: order)
     controller.loadViewIfNeeded()

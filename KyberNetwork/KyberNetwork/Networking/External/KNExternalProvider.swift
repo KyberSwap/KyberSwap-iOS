@@ -563,7 +563,7 @@ class KNExternalProvider {
       switch transaction.transferType {
       case .ether: return transaction.to
       case .token(let token):
-        return token.address
+        return token.addressObj
       }
     }()
     return address

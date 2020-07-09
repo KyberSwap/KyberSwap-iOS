@@ -412,13 +412,13 @@ open class EtherKeystore: Keystore {
       while numberArr.count != 32 { numberArr.insert(0, at: 0) }
       data.append(contentsOf: numberArr)
       // src token
-      data.append(contentsOf: order.from.address.data.bytes)
+      data.append(contentsOf: order.from.addressObj.data.bytes)
       // src amount
       numberArr = BigUInt(order.srcAmount).serialize().bytes
       while numberArr.count != 32 { numberArr.insert(0, at: 0) }
       data.append(contentsOf: numberArr)
       // dest token
-      data.append(contentsOf: order.to.address.data.bytes)
+      data.append(contentsOf: order.to.addressObj.data.bytes)
       // dest address
       data.append(contentsOf: order.sender.data.bytes)
       // min rate

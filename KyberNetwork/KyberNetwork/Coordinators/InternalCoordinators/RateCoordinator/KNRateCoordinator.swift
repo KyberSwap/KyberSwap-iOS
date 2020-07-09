@@ -300,7 +300,7 @@ class KNRateCoordinator {
               let json = try resp.mapJSON() as? JSONDictionary ?? [:]
               if let err = json["error"] as? Bool, !err, let value = json["data"] as? String, let amount = value.fullBigInt(decimals: from.decimals) {
                 // add platform fee
-                completion(.success(amount * BigInt(10000 + KNAppTracker.getPlatformFee(source: from.address, dest: to.address)) / BigInt(10000)))
+                completion(.success(amount * BigInt(10000 + KNAppTracker.getPlatformFee(source: from.addressObj, dest: to.addressObj)) / BigInt(10000)))
               } else {
                 completion(.success(nil))
               }

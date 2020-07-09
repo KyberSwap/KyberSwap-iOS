@@ -49,12 +49,12 @@ struct KNBalanceTokenTableViewCellModel {
   }
 
   var isTokenLabelHidden: Bool {
-    if let isNew = token.extraData?.shouldShowAsNew, isNew { return false }
+    if token.shouldShowAsNew { return false }
     return true
   }
 
   var tokenLabelString: String {
-    if let isNew = token.extraData?.shouldShowAsNew, isNew {
+    if token.shouldShowAsNew {
       return NSLocalizedString("new", value: "New", comment: "").uppercased()
     }
     return ""

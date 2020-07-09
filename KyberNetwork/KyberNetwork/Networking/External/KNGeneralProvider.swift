@@ -486,7 +486,7 @@ class KNGeneralProvider {
 extension KNGeneralProvider {
   private func signTransactionData(forApproving token: TokenObject, account: Account, nonce: Int, data: Data, keystore: Keystore, gasPrice: BigInt, completion: @escaping (Result<Data, AnyError>) -> Void) {
     let gasLimit: BigInt = {
-      if let gasApprove = token.extraData?.gasApproveDefault { return gasApprove }
+      if let gasApprove = token.gasApproveDefault { return gasApprove }
       return KNGasConfiguration.approveTokenGasLimitDefault
     }()
     let signTransaction = SignTransaction(

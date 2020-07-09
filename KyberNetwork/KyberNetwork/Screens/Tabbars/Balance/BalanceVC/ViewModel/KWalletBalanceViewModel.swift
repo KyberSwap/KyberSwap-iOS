@@ -409,7 +409,7 @@ class KWalletBalanceViewModel: NSObject {
       if self.tabOption == .favourite && favouriteTokens.contains($0.contract.lowercased()) { return true }
       return false
     }).filter({
-      if $0.extraData?.isListed == false { return false }
+      if $0.isListed == false { return false }
       return true
     })
     self.displayedTokens = {
@@ -431,8 +431,8 @@ class KWalletBalanceViewModel: NSObject {
     let isRightFav = KNAppTracker.isTokenFavourite(right.contract.lowercased())
 
     if self.tokensDisplayType == .default {
-      if left.extraData?.shouldShowAsNew == true { return true }
-      if right.extraData?.shouldShowAsNew == true { return false }
+      if left.shouldShowAsNew == true { return true }
+      if right.shouldShowAsNew == true { return false }
       if isLeftFav { return true }
       if isRightFav { return false }
     }

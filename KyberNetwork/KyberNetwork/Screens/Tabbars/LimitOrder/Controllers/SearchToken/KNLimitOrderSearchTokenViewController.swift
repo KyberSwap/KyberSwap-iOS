@@ -31,7 +31,7 @@ class KNLimitOrderSearchTokenViewModel {
 
   init(isSource: Bool, supportedTokens: [TokenObject], address: String, pendingBalances: JSONDictionary) {
     self.supportedTokens = supportedTokens
-      .filter({ return !$0.isWETH && $0.extraData?.limitOrderEnabled == true })
+      .filter({ return !$0.isWETH && $0.limitOrderEnabled == true })
       .sorted(by: { return $0.symbol < $1.symbol })
     self.searchedText = ""
     self.displayedTokens = self.supportedTokens
@@ -47,7 +47,7 @@ class KNLimitOrderSearchTokenViewModel {
         return self.supportedTokens
       }
       return self.supportedTokens.filter({ return ($0.symbol + "* " + $0.name).lowercased().contains(self.searchedText.lowercased()) }).filter({
-        if $0.extraData?.isListed == false { return false }
+        if $0.isListed == false { return false }
         return true
       })
     }()

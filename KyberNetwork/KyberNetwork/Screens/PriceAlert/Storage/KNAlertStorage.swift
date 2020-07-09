@@ -50,7 +50,6 @@ class KNAlertStorage {
     // filter removed alerts
     let alertIDs = alerts.map({ return $0.id })
     let removedAlerts = self.alerts.filter({ return !alertIDs.contains($0.id) })
-    removedAlerts.forEach({ $0.removeRewardData() })
     self.realm.delete(removedAlerts)
     self.realm.add(alerts, update: .modified)
     try! self.realm.commitWrite()
@@ -70,7 +69,6 @@ class KNAlertStorage {
   func deleteAlerts(_ alerts: [KNAlertObject]) {
     if self.realm == nil { return }
     self.realm.beginWrite()
-    alerts.forEach({ $0.removeRewardData() })
     self.realm.delete(alerts)
     try! self.realm.commitWrite()
     KNNotificationUtil.postNotification(for: kUpdateListAlertsNotificationKey)
@@ -84,7 +82,6 @@ class KNAlertStorage {
   func deleteAll() {
     if self.realm == nil { return }
     self.realm.beginWrite()
-    self.alerts.forEach({ $0.removeRewardData() })
     self.realm.delete(self.alerts)
     try! self.realm.commitWrite()
     KNNotificationUtil.postNotification(for: kUpdateListAlertsNotificationKey)
@@ -94,7 +91,6 @@ class KNAlertStorage {
     if self.realm == nil { return }
     self.realm.beginWrite()
     let alerts = self.alerts.filter({ return $0.state != .active })
-    alerts.forEach({ $0.removeRewardData() })
     self.realm.delete(alerts)
     try! self.realm.commitWrite()
     KNNotificationUtil.postNotification(for: kUpdateListAlertsNotificationKey)

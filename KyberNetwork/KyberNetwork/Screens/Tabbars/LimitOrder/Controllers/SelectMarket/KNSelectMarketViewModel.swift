@@ -44,7 +44,7 @@ class KNSelectMarketViewModel {
 
   init() {
     let supportedTokens = KNSupportedTokenStorage.shared.supportedTokens
-      .filter({ return $0.extraData?.limitOrderEnabled == true })
+      .filter({ return $0.limitOrderEnabled == true })
       .map({ return $0.symbol })
     self.markets = KNRateCoordinator.shared.cachedMarket.filter {
       let firstSymbol = $0.pair.components(separatedBy: "_").first ?? ""
@@ -59,11 +59,11 @@ class KNSelectMarketViewModel {
     }
     self.displayCellViewModels = sorted
     let allQuotes = KNSupportedTokenStorage.shared.supportedTokens.filter {
-      $0.extraData?.isQuote == true && $0.extraData?.limitOrderEnabled == true
+      $0.isQuote == true && $0.limitOrderEnabled == true
     }
-    let maxPriority = allQuotes.map { $0.extraData?.quotePriority ?? 0 }.max()
-    let grouped = allQuotes.filter { return $0.extraData?.quotePriority == maxPriority }
-    let unGrouped = allQuotes.filter { return $0.extraData?.quotePriority != maxPriority && !$0.isETH }
+    let maxPriority = allQuotes.map { $0.quotePriority ?? 0 }.max()
+    let grouped = allQuotes.filter { return $0.quotePriority == maxPriority }
+    let unGrouped = allQuotes.filter { return $0.quotePriority != maxPriority && !$0.isETH }
 
     self.pickerViewData = grouped.map({ (token) -> String in
     if token.isWETH {
@@ -94,11 +94,11 @@ class KNSelectMarketViewModel {
     }
     self.displayCellViewModels = sorted
     let allQuotes = KNSupportedTokenStorage.shared.supportedTokens.filter {
-      $0.extraData?.isQuote == true && $0.extraData?.limitOrderEnabled == true
+      $0.isQuote == true && $0.limitOrderEnabled == true
     }
-    let maxPriority = allQuotes.map { $0.extraData?.quotePriority ?? 0 }.max()
-    let grouped = allQuotes.filter { return $0.extraData?.quotePriority == maxPriority }
-    let unGrouped = allQuotes.filter { return $0.extraData?.quotePriority != maxPriority && !$0.isETH }
+    let maxPriority = allQuotes.map { $0.quotePriority }.max()
+    let grouped = allQuotes.filter { return $0.quotePriority == maxPriority }
+    let unGrouped = allQuotes.filter { return $0.quotePriority != maxPriority && !$0.isETH }
 
     self.pickerViewData = grouped.map({ (token) -> String in
     if token.isWETH {
@@ -116,7 +116,7 @@ class KNSelectMarketViewModel {
 
   func updateMarketFromCoordinator() {
     let supportedTokens = KNSupportedTokenStorage.shared.supportedTokens
-      .filter({ return $0.extraData?.limitOrderEnabled == true })
+      .filter({ return $0.limitOrderEnabled == true })
       .map({ return $0.symbol })
     self.markets = KNRateCoordinator.shared.cachedMarket.filter {
       let firstSymbol = $0.pair.components(separatedBy: "_").first ?? ""

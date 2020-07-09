@@ -82,10 +82,6 @@ class KNLimitOrderDetailsPopUp: KNBaseViewController {
       self.fromValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: self.order.sourceAmount)) \(srcTokenSymbol)"
       self.toValueLabel.text = "\(NumberFormatterUtil.shared.displayLimitOrderValue(from: destAmountWithoutFee)) \(destTokenSymbol)"
     }
-    if self.order.sideTrade == nil {
-      let rate = BigInt(order.targetPrice * pow(10.0, 18.0)).displayRate(decimals: 18)
-      self.pairTextLabel.text = "\(srcTokenSymbol)/\(destTokenSymbol) >= \(rate)"
-    }
 
     self.dateLabel.text = DateFormatterUtil.shared.limitOrderFormatter.string(from: order.dateToDisplay)
     self.senderAddressLabel.text = "\(self.order.sender.prefix(8))...\(self.order.sender.suffix(4))"

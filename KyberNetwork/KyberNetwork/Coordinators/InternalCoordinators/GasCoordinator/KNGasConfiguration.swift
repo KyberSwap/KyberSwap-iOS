@@ -24,7 +24,7 @@ public struct KNGasConfiguration {
   static let extraGasPromoWallet: BigInt = EtherNumberFormatter.full.number(from: "2", units: UnitConfiguration.gasPriceUnit)!
 
   static func specialGasLimitDefault(from: TokenObject, to: TokenObject) -> BigInt? {
-    if from.extraData?.isGasFixed == true || to.extraData?.isGasFixed == true {
+    if from.isGasFixed == true || to.isGasFixed == true {
       return self.calculateDefaultGasLimit(from: from, to: to)
     }
     return nil
@@ -37,7 +37,7 @@ public struct KNGasConfiguration {
       return calculateDefaultGasLimitTransfer(token: from)
     }
     let gasSrcToETH: BigInt = {
-      if let gasLimit = from.extraData?.gasLimitDefault { return gasLimit }
+      if let gasLimit = from.gasLimitDefault { return gasLimit }
       if from.isETH { return BigInt(0) }
       if from.isDGX { return digixGasLimitDefault }
       if from.isDAI { return daiGasLimitDefault }
@@ -48,7 +48,7 @@ public struct KNGasConfiguration {
       return exchangeETHTokenGasLimitDefault
     }()
     let gasETHToDest: BigInt = {
-      if let gasLimit = to.extraData?.gasLimitDefault { return gasLimit }
+      if let gasLimit = to.gasLimitDefault { return gasLimit }
       if to.isETH { return BigInt(0) }
       if to.isDGX { return digixGasLimitDefault }
       if to.isDAI { return daiGasLimitDefault }

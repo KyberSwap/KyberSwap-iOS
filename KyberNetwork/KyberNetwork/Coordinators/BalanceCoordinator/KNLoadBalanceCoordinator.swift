@@ -162,7 +162,7 @@ class KNLoadBalanceCoordinator {
 
   fileprivate func loadBalanceForToken(_ token: String, completion: @escaping () -> Void) {
     let currentWallet = self.session.wallet
-    let address = self.ethToken.address
+    let address = self.ethToken.addressObj
     if token.lowercased() == self.ethToken.contract.lowercased() {
       self.session.externalProvider.getETHBalance { [weak self] result in
         guard let `self` = self else {

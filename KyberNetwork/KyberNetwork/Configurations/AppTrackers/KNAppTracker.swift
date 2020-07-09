@@ -412,8 +412,8 @@ class KNAppTracker {
   static func getPlatformFee(source: Address, dest: Address) -> Int {
     let eth = KNSupportedTokenStorage.shared.ethToken
     if let weth = KNSupportedTokenStorage.shared.wethToken {
-      let ethAddress = eth.address
-      let wethAddress = weth.address
+      let ethAddress = eth.addressObj
+      let wethAddress = weth.addressObj
       if (source == ethAddress && dest == wethAddress) ||
         (dest == ethAddress && source == wethAddress) {
         return 0
