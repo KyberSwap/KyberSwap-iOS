@@ -79,6 +79,9 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
+    self.view.endEditing(true)
+    self.updateFeeTimer?.invalidate()
+    self.updateFeeTimer = nil
   }
 
   fileprivate func bindMarketData() {
