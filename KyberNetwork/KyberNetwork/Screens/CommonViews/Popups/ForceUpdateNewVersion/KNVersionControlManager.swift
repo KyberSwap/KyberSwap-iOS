@@ -22,7 +22,7 @@ class KNVersionControlManager: NSObject {
 
     remoteConfig.fetch(withExpirationDuration: TimeInterval(expirationDuration)) { (status, error) -> Void in
       if status == .success {
-        remoteConfig.activate { error in
+        remoteConfig.activate { (_, error) in
           if error == nil {
             let key: String = {
               if KNEnvironment.default == .production { return "version_update" }
