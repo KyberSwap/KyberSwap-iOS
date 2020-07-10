@@ -160,14 +160,14 @@ class KSwapViewModel {
     if self.estimatedRateDouble == 0.0 { return 0.0 }
     let marketRateDouble = Double(rate) / pow(10.0, Double(self.to.decimals))
     let change = (self.estimatedRateDouble - marketRateDouble) / marketRateDouble * 100.0
-    if change > -0.1 { return 0.0 }
+    if change > -0.05 { return 0.0 }
     return change
   }
 
   var differentRatePercentageDisplay: String? {
     if self.amountFromBigInt.isZero { return nil }
     let change = self.percentageRateDiff
-    if change >= -0.1 { return nil }
+    if change >= -0.05 { return nil }
     let display = NumberFormatterUtil.shared.displayPercentage(from: fabs(change))
     return "\(display)%"
   }

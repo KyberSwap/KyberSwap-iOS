@@ -23,40 +23,51 @@ final class MoyaCacheablePlugin: PluginType {
   }
 }
 
-enum KyberNetworkService: String {
-  case getRate = "/token_price?currency=ETH"
-  case getCachedRate = "/rate"
-  case getRateUSD = "/token_price?currency=USD"
-  case getHistoryOneColumn = "/getHistoryOneColumn"
-  case getLatestBlock = "/latestBlock"
-  case getKyberEnabled = "/kyberEnabled"
-  case getMaxGasPrice = "/maxGasPrice"
-  case getGasPrice = "/gasPrice"
-  case supportedToken = ""
+enum KyberNetworkService {
+  case getRate
+  case getCachedRate
+  case getRateUSD
+  case getHistoryOneColumn
+  case getLatestBlock
+  case getKyberEnabled
+  case getMaxGasPrice
+  case getGasPrice
+  case supportedToken
+  case getReferencePrice(sym: String)
 }
 
 extension KyberNetworkService: TargetType {
 
   var baseURL: URL {
     let baseURLString: String = {
-      if case .getCachedRate = self {
+      switch self {
+      case .getRate:
+        return "\(KNEnvironment.default.kyberAPIEnpoint)/token_price?currency=ETH"
+      case .getCachedRate:
         return KNEnvironment.default.cachedRateURL
-      }
-      if case .supportedToken = self {
+      case .getRateUSD:
+        return "\(KNEnvironment.default.kyberAPIEnpoint)/token_price?currency=USD"
+      case .getHistoryOneColumn:
+        return "\(KNSecret.internalCachedEndpoint)/getHistoryOneColumn"
+      case .getLatestBlock:
+        return "\(KNSecret.internalCachedEndpoint)/latestBlock"
+      case .getKyberEnabled:
+        return "\(KNSecret.internalCachedEndpoint)/kyberEnabled"
+      case .getMaxGasPrice:
+        return "\(KNSecret.internalCachedEndpoint)/maxGasPrice"
+      case .getGasPrice:
+        return "\(KNSecret.internalCachedEndpoint)//gasPrice"
+      case .supportedToken:
         return KNEnvironment.default.supportedTokenEndpoint
+      case .getReferencePrice(sym: let sym):
+        return "\(KNSecret.internalCachedEndpoint)/refprice?base=\(sym)&quote=ETH"
       }
-      if case .getRate = self { return "\(KNEnvironment.default.kyberAPIEnpoint)\(self.rawValue)" }
-      if case .getRateUSD = self { return "\(KNEnvironment.default.kyberAPIEnpoint)\(self.rawValue)" }
-      if KNEnvironment.default == .staging { return KNSecret.internalStagingEndpoint }
-      return KNSecret.internalCachedEndpoint
     }()
     return URL(string: baseURLString)!
   }
 
   var path: String {
-    if case .getRate = self { return "" }
-    if case .getRateUSD = self { return "" }
-    return self.rawValue
+    return ""
   }
 
   var method: Moya.Method {

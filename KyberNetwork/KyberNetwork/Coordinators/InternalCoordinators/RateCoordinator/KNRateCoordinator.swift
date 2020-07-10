@@ -32,6 +32,7 @@ class KNRateCoordinator {
   fileprivate var platformFeeTimer: Timer?
 
   fileprivate var lastRefreshTime: Date = Date()
+  var currentSymPair: (String, String) = ("KNC", "ETH")
 
   func getRate(from: TokenObject, to: TokenObject) -> KNRate? {
     if from.isETH {
@@ -209,17 +210,8 @@ class KNRateCoordinator {
     group.notify(queue: .main) {
       KNNotificationUtil.postNotification(for: kExchangeTokenRateNotificationKey)
     }
-    KNInternalProvider.shared.getProductionCachedRate { [weak self] result in
-      guard let `self` = self else { return }
-      if case .success(let rates) = result {
-        rates.forEach({
-          self.cachedProdTokenRates["\($0.source)_\($0.dest)"] = $0
-        })
-        KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
-      } else {
-        KNNotificationUtil.postNotification(for: kProdCachedRateFailedToLoadNotiKey)
-      }
-    }
+
+    self.updateReferencePrice(fromSym: self.currentSymPair.0, toSym: self.currentSymPair.1)
 
     KNLimitOrderServerCoordinator.shared.getMarket { [weak self] result in
       guard let `self` = self else { return }
@@ -252,6 +244,76 @@ class KNRateCoordinator {
         }
       case .failure:
         break
+      }
+    }
+  }
+
+  func updateReferencePrice(fromSym: String, toSym: String) {
+    if toSym == "ETH" || fromSym == "ETH" {
+      var sym = ""
+      if toSym == "ETH" {
+        sym = fromSym
+      } else {
+        sym = toSym
+      }
+      KNInternalProvider.shared.getProductionChainLinkRate(sym: sym) { [weak self] result in
+        guard let `self` = self else { return }
+        if case .success(let rate) = result {
+          self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = rate
+          self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = rate
+          KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
+        } else {
+          self.updateListCacheRate()
+        }
+      }
+      return
+    }
+
+    var rateFrom: KNRate?
+    var rateTo: KNRate?
+    let group = DispatchGroup()
+    group.enter()
+    KNInternalProvider.shared.getProductionChainLinkRate(sym: fromSym) { result in
+      if case .success(let rate) = result {
+        rateFrom = rate
+      }
+      group.leave()
+    }
+    group.enter()
+    KNInternalProvider.shared.getProductionChainLinkRate(sym: toSym) { result in
+      if case .success(let rate) = result {
+        rateTo = rate
+      }
+      group.leave()
+    }
+
+    group.notify(queue: .main) {
+      if let notNilRateFrom = rateFrom, let notNilRateTo = rateTo {
+        if notNilRateTo.rate.isZero || notNilRateFrom.rate.isZero {
+          self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: fromSym, dest: toSym, rate: 0, decimals: 18)
+          KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
+          return
+        }
+        let finalRateValue = notNilRateFrom.rate.description.doubleValue / notNilRateTo.rate.description.doubleValue
+        let finalRate = KNRate(source: fromSym, dest: toSym, rate: finalRateValue, decimals: 18)
+        self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = finalRate
+        KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
+      } else {
+        self.updateListCacheRate()
+      }
+    }
+  }
+
+  fileprivate func updateListCacheRate() {
+    KNInternalProvider.shared.getProductionCachedRate { [weak self] result in
+      guard let `self` = self else { return }
+      if case .success(let rates) = result {
+        rates.forEach({
+          self.cachedProdTokenRates["\($0.source)_\($0.dest)"] = $0
+        })
+        KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
+      } else {
+        KNNotificationUtil.postNotification(for: kProdCachedRateFailedToLoadNotiKey)
       }
     }
   }

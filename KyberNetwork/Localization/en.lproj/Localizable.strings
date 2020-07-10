@@ -777,3 +777,5 @@
 "Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees." = "Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees.";
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well.";
 "Speed Up or Cancel transaction." = "Speed Up or Cancel transaction.";
+
+"There.is.a.difference.between.the.estimated.price" = "There is a %@ difference between the estimated price for your swap amount and the reference price.\nNote: Estimated price depends on your swap amount. Reference price is from Chainlink and Kyber Network.";

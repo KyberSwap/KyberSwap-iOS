@@ -779,3 +779,5 @@
 "Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees." = "0费用\n如果您的钱包中持有2000 KNC，则使用限价订单交易时无须交易费。";
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "管理订单\n检查您的订单历史记录、待处理订单等。您也可以对订单进行修改。";
 "Speed Up or Cancel transaction." = "加快交易速度或取消交易。";
+
+"There.is.a.difference.between.the.estimated.price" = "您要的兑换金额的估计价格与参考价格之间存在%@的差异。\n请注意：估计价格取决于您的兑换金额。参考价格来自Chainlink和Kyber Network。";

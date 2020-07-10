@@ -453,6 +453,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.exchangeButtonPressed(data: data)
     case .quickTutorial(let step, let pointsAndRadius):
       self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
+    case .referencePrice(let from, let to):
+      self.updateReferencePrice(from: from, to: to)
     }
   }
 
@@ -639,6 +641,10 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         )
       }
     }
+  }
+
+  fileprivate func updateReferencePrice(from: TokenObject, to: TokenObject) {
+    KNRateCoordinator.shared.updateReferencePrice(fromSym: from.symbol, toSym: to.symbol)
   }
 
   // Call contract to get estimate rate with src, dest, srcAmount

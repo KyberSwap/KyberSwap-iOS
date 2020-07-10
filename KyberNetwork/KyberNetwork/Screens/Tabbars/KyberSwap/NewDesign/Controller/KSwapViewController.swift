@@ -17,6 +17,7 @@ enum KSwapViewEvent {
   case swap(data: KNDraftExchangeTransaction)
   case showQRCode
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
+  case referencePrice(from: TokenObject, to: TokenObject)
 }
 
 protocol KSwapViewControllerDelegate: class {
@@ -154,6 +155,7 @@ class KSwapViewController: KNBaseViewController {
     // start update est rate
     self.estRateTimer?.invalidate()
     self.updateEstimatedRate(showError: true, showLoading: true)
+    self.updateReferencePrice()
     self.estRateTimer = Timer.scheduledTimer(
       withTimeInterval: KNLoadingInterval.seconds30,
       repeats: true,
@@ -400,7 +402,7 @@ class KSwapViewController: KNBaseViewController {
 
   @IBAction func warningRateButtonPressed(_ sender: Any) {
     guard let string = self.viewModel.differentRatePercentageDisplay else { return }
-    let message = String(format: NSLocalizedString("This rate is %@ lower than current Market", value: "This rate is %@ lower than current Market", comment: ""), string)
+    let message = String(format: "There.is.a.difference.between.the.estimated.price".toBeLocalised(), string)
     self.showTopBannerView(
       with: "",
       message: message,
@@ -550,6 +552,12 @@ class KSwapViewController: KNBaseViewController {
       amount: self.viewModel.amountToEstimate,
       showError: showError
     )
+    self.delegate?.kSwapViewController(self, run: event)
+  }
+
+  fileprivate func updateReferencePrice() {
+    KNRateCoordinator.shared.currentSymPair = (self.viewModel.from.symbol, self.viewModel.to.symbol)
+    let event = KSwapViewEvent.referencePrice(from: self.viewModel.from, to: self.viewModel.to)
     self.delegate?.kSwapViewController(self, run: event)
   }
 
@@ -770,7 +778,7 @@ extension KSwapViewController {
     self.viewModel.updateEstimatedRateFromCachedIfNeeded()
     // call update est rate from node
     self.updateEstimatedRate(showError: updatedFrom || updatedTo, showLoading: updatedFrom || updatedTo)
-
+    self.updateReferencePrice()
     self.balanceLabel.text = self.viewModel.balanceText
 
     self.updateExchangeRateField()

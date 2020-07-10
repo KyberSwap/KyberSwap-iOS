@@ -779,3 +779,5 @@
 "Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees." = "Không mất phí\nNếu bạn giữ 2000 KNC trong ví của bạn, bạn có thể tạo một lệnh Limit order mà không mất phí.";
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "Quản lý lệnh\nKiểm tra lịch sử lệnh, lệnh đang chờ v.v… Bạn cũng có thể thay đổi lệnh này.";
 "Speed Up or Cancel transaction." = "Tăng tốc hoặc hủy giao dịch";
+
+"There.is.a.difference.between.the.estimated.price" = "Có chênh lệch %@ giữa giá dự tính và giá tham khảo.\nLưu ý: giá dự tính phụ thuộc vào khối lượng mà bạn giao dịch. Giá tham khảo được lấy từ Chainlink và Kyber Network";
