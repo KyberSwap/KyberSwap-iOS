@@ -168,6 +168,8 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
       self.getPendingBalances(address: address)
     case .close:
       self.stop()
+    case .referencePrice(let from, let to):
+      self.updateReferencePrice(from: from, to: to)
     default: break
     }
   }
@@ -187,6 +189,10 @@ extension KNLimitOrderTabCoordinator: KNCreateLimitOrderViewControllerDelegate {
       self.convertVC?.updateAmountToConvert(amount)
       self.convertVC?.updatePendingWETHBalance(pendingWETH)
     })
+  }
+
+  fileprivate func updateReferencePrice(from: TokenObject, to: TokenObject) {
+    KNRateCoordinator.shared.updateReferencePrice(fromSym: from.symbol, toSym: to.symbol)
   }
 
   fileprivate func checkDataBeforeConfirmOrder(_ order: KNLimitOrder) {
