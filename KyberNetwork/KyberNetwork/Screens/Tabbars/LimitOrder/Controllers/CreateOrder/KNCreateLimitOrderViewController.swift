@@ -16,6 +16,7 @@ enum KNCreateLimitOrderViewEvent {
   case getPendingBalances(address: String)
   case changeMarket
   case close
+  case referencePrice(from: TokenObject, to: TokenObject)
 }
 
 protocol KNCreateLimitOrderViewControllerDelegate: class {

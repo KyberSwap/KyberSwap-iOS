@@ -54,13 +54,13 @@ struct KConfirmSwapViewModel {
     let marketRateDouble = Double(rate) / pow(10.0, Double(self.transaction.to.decimals))
     let estimatedRateDouble = Double(self.transaction.expectedRate) / pow(10.0, Double(self.transaction.to.decimals))
     let change = (estimatedRateDouble - marketRateDouble) / marketRateDouble * 100.0
-    if change >= -0.05 { return 0.0 }
+    if change >= -5.0 { return 0.0 }
     return change
   }
 
   var warningRateMessage: String? {
     let change = self.percentageRateDiff
-    if change > -0.5 { return nil }
+    if change > -5.0 { return nil }
     let display = NumberFormatterUtil.shared.displayPercentage(from: fabs(change))
     let percent = "\(display)%"
     let message = String(format: "There.is.a.difference.between.the.estimated.price".toBeLocalised(), percent)
