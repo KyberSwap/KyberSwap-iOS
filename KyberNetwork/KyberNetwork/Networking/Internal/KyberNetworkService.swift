@@ -56,7 +56,7 @@ extension KyberNetworkService: TargetType {
       case .getMaxGasPrice:
         return "\(KNSecret.internalCachedEndpoint)/maxGasPrice"
       case .getGasPrice:
-        return "\(KNSecret.internalCachedEndpoint)//gasPrice"
+        return "\(KNSecret.internalCachedEndpoint)/gasPrice"
       case .supportedToken:
         return KNEnvironment.default.supportedTokenEndpoint
       case .getReferencePrice(sym: let sym):
