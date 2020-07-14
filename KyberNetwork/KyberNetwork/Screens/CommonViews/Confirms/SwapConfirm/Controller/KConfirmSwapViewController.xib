@@ -215,7 +215,7 @@
                 <constraint firstItem="oao-ep-AZ6" firstAttribute="top" secondItem="gkk-HI-Saw" secondAttribute="bottom" constant="28" id="0Z7-5p-aFt"/>
                 <constraint firstItem="dDY-qI-vwz" firstAttribute="top" secondItem="4hI-jM-AkG" secondAttribute="bottom" constant="8" id="3Hn-FD-eQc"/>
                 <constraint firstItem="iK5-x6-6Wa" firstAttribute="top" secondItem="oao-ep-AZ6" secondAttribute="bottom" constant="24" id="3uR-lf-yu5"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="dDY-qI-vwz" secondAttribute="bottom" constant="40" id="4C1-Mf-bsy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="dDY-qI-vwz" secondAttribute="bottom" priority="996" constant="40" id="4C1-Mf-bsy"/>
                 <constraint firstItem="dDY-qI-vwz" firstAttribute="trailing" secondItem="4hI-jM-AkG" secondAttribute="trailing" id="5Tu-cB-EO9"/>
                 <constraint firstItem="9Hs-Gk-9ve" firstAttribute="centerY" secondItem="iK5-x6-6Wa" secondAttribute="centerY" id="AMu-4E-c1Y"/>
                 <constraint firstItem="oao-ep-AZ6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="AT3-j7-m31"/>
@@ -242,6 +242,7 @@
                 <constraint firstItem="yOL-vO-tt5" firstAttribute="top" secondItem="9Hs-Gk-9ve" secondAttribute="bottom" constant="1" id="bbC-dR-ABE"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4hI-jM-AkG" secondAttribute="trailing" constant="20" id="bsx-qJ-q7r"/>
                 <constraint firstItem="adQ-lx-4Ib" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="c6b-iX-U97"/>
+                <constraint firstItem="4hI-jM-AkG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vI4-hY-KzW" secondAttribute="bottom" constant="20" id="cds-86-Fx4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BcU-El-L4d" secondAttribute="trailing" constant="24" id="dc3-jU-TaP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gkk-HI-Saw" secondAttribute="trailing" constant="24" id="fxU-bw-p5l"/>
                 <constraint firstItem="84l-JF-Cy8" firstAttribute="trailing" secondItem="yOL-vO-tt5" secondAttribute="trailing" id="gFT-by-n2r"/>
