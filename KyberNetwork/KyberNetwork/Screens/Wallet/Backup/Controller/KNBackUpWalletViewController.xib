@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,12 +14,9 @@
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
         </array>
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
-        </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNBackUpWalletViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNBackUpWalletViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="backButton" destination="ohM-N6-z0S" id="hXQ-fb-jah"/>
                 <outlet property="backupWalletLabel" destination="v9Q-P1-pUP" id="wHn-vN-68j"/>
@@ -33,7 +28,6 @@
                 <outlet property="nextButton" destination="wMz-jJ-yOj" id="Qqk-Z8-d4E"/>
                 <outlet property="secondSeparatorView" destination="DC3-gH-rKU" id="SdU-6S-nXr"/>
                 <outlet property="secondWordTextField" destination="aiG-8k-JAO" id="m4o-Jw-sni"/>
-                <outlet property="skipWalletButton" destination="AE1-2n-5VU" id="cgB-zk-yUz"/>
                 <outlet property="titlelabel" destination="jjI-kU-ibR" id="5fQ-nm-dpr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="writeDownWordsTextLabel" destination="ZyO-Zr-cRC" id="xsg-5c-T0D"/>
@@ -52,7 +46,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup Your Wallet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9Q-P1-pUP">
-                            <rect key="frame" x="97.5" y="44" width="180" height="22"/>
+                            <rect key="frame" x="109.5" y="44" width="156.5" height="22"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -68,22 +62,10 @@
                                 <action selector="bacButtonPressed:" destination="-1" eventType="touchUpInside" id="Kwj-aW-JdK"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AE1-2n-5VU">
-                            <rect key="frame" x="313" y="35" width="46" height="40"/>
-                            <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                            <color key="tintColor" red="0.91372549020000005" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <inset key="contentEdgeInsets" minX="10" minY="10" maxX="0.0" maxY="10"/>
-                            <state key="normal" title="Skip"/>
-                            <connections>
-                                <action selector="skipButtonPressed:" destination="-1" eventType="touchUpInside" id="Ns7-y0-M28"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.99607843139999996" green="0.66274509800000003" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="ohM-N6-z0S" firstAttribute="leading" secondItem="EFQ-zS-3p3" secondAttribute="leading" constant="16" id="6SV-FI-Vsk"/>
-                        <constraint firstItem="AE1-2n-5VU" firstAttribute="centerY" secondItem="v9Q-P1-pUP" secondAttribute="centerY" id="6lO-sn-Ykv"/>
-                        <constraint firstAttribute="trailing" secondItem="AE1-2n-5VU" secondAttribute="trailing" constant="16" id="DYD-e3-Jz7"/>
                         <constraint firstAttribute="height" constant="82" id="GCv-Np-ZsN"/>
                         <constraint firstAttribute="bottom" secondItem="v9Q-P1-pUP" secondAttribute="bottom" constant="16" id="MpM-Xq-BsD"/>
                         <constraint firstItem="v9Q-P1-pUP" firstAttribute="centerX" secondItem="EFQ-zS-3p3" secondAttribute="centerX" id="SuV-Mm-8VW"/>
@@ -91,13 +73,13 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paper Only" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjI-kU-ibR">
-                    <rect key="frame" x="137" y="102" width="101.5" height="22"/>
+                    <rect key="frame" x="143.5" y="102" width="88" height="22"/>
                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                     <color key="textColor" red="0.1803921568627451" green="0.22352941176470587" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4M-eJ-doh">
-                    <rect key="frame" x="40" y="136" width="295" height="119.5"/>
+                    <rect key="frame" x="40" y="136" width="295" height="115"/>
                     <string key="text">We will give you a list of 12 random words. Please write them down on paper and keep safe.
 
 This paper key is the only way to restore your Kyber Wallet if you lose your phone or forget your password.</string>
@@ -106,31 +88,31 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write down the words from 1-4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZyO-Zr-cRC">
-                    <rect key="frame" x="40" y="280.5" width="221" height="17.5"/>
+                    <rect key="frame" x="40" y="276" width="193" height="16.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                     <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. chimney" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfr-Pf-WLO">
-                    <rect key="frame" x="80" y="308" width="77" height="17.5"/>
+                    <rect key="frame" x="80" y="302.5" width="69" height="16.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                     <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. peacock" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E4K-Cp-0tn">
-                    <rect key="frame" x="80" y="330.5" width="78" height="17.5"/>
+                    <rect key="frame" x="80" y="324" width="69" height="16.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                     <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. fire" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxk-M0-lif">
-                    <rect key="frame" x="80" y="353" width="41.5" height="17.5"/>
+                    <rect key="frame" x="80" y="345.5" width="37" height="16.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                     <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. tiger" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bq-7j-6SD">
-                    <rect key="frame" x="80" y="375.5" width="51" height="17.5"/>
+                    <rect key="frame" x="80" y="367" width="45" height="16.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="14"/>
                     <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -150,7 +132,7 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="word #12" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JWS-hb-jfT">
-                    <rect key="frame" x="35" y="275.5" width="305" height="44"/>
+                    <rect key="frame" x="35" y="271" width="305" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="MtF-tk-DaR"/>
@@ -160,7 +142,7 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="word #12" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aiG-8k-JAO">
-                    <rect key="frame" x="35" y="344.5" width="305" height="44"/>
+                    <rect key="frame" x="35" y="340" width="305" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="zU3-ca-cfr"/>
@@ -170,14 +152,14 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DC3-gH-rKU">
-                    <rect key="frame" x="35" y="376.5" width="305" height="1"/>
+                    <rect key="frame" x="35" y="372" width="305" height="1"/>
                     <color key="backgroundColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="o21-pY-Dcm"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeI-Ev-WnN">
-                    <rect key="frame" x="35" y="413.5" width="305" height="44"/>
+                    <rect key="frame" x="35" y="409" width="305" height="44"/>
                     <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="7if-Up-o9h"/>
@@ -191,7 +173,7 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8M2-i7-D42">
-                    <rect key="frame" x="35" y="307.5" width="305" height="1"/>
+                    <rect key="frame" x="35" y="303" width="305" height="1"/>
                     <color key="backgroundColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="ijZ-cj-xfg"/>

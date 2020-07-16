@@ -28,8 +28,6 @@ class KNBackUpWalletViewController: KNBaseViewController {
   @IBOutlet weak var secondSeparatorView: UIView!
   @IBOutlet weak var completeButton: UIButton!
 
-  @IBOutlet weak var skipWalletButton: UIButton!
-
   var isCompleteButtonEnabled: Bool {
     return self.firstWordTextField.text?.isEmpty == false && self.secondWordTextField.text?.isEmpty == false
   }
@@ -47,7 +45,6 @@ class KNBackUpWalletViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.skipWalletButton.setTitle(NSLocalizedString("skip", value: "Skip", comment: ""), for: .normal)
     let style = KNAppStyleType.current
     self.view.backgroundColor = style.mainBackgroundColor
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
@@ -135,7 +132,6 @@ class KNBackUpWalletViewController: KNBaseViewController {
 
         self.completeButton.isHidden = self.viewModel.isCompleteButtonHidden
         self.completeButton.isEnabled = self.isCompleteButtonEnabled
-        self.skipWalletButton.isHidden = self.viewModel.isCompleteButtonHidden
         if self.isCompleteButtonEnabled {
           self.completeButton.applyGradient()
         }
@@ -189,22 +185,6 @@ class KNBackUpWalletViewController: KNBaseViewController {
       return controller
     }()
     self.present(popupVC, animated: true, completion: nil)
-  }
-
-  @IBAction func skipButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "skip_button"])
-    let alert = KNPrettyAlertController(
-      title: "skip".toBeLocalised(),
-      message: "You may not be able to access your wallet if you don’t have backup phrases".toBeLocalised(),
-      secondButtonTitle: "continue".toBeLocalised(),
-      secondButtonAction: {
-        KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "skip_button_continue"])
-        DispatchQueue.main.async {
-          self.delegate?.backupWalletViewControllerDidConfirmSkipWallet()
-        }
-      },
-      firstButtonAction: nil)
-    self.present(alert, animated: true, completion: nil)
   }
 }
 

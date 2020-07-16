@@ -738,8 +738,6 @@
 "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "目前仅在KyberSwap的网页版上支持通过法币购买ETH。您想访问该网站吗？";
 "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️切勿与任何人（包括KyberSwap）分享密钥库/私钥/助记符。 这些数据会授予您所有资金的访问权限，可能有被盗風險。";
 
-"You may not be able to access your wallet if you don’t have backup phrases" = "如果您没有备用短语，您可能无法使用您的钱包";
-
 "Select higher gas price to accelerate your transaction processing time" = "选择较高的燃料价格，以加快您的交易处理时间";
 
 //Migration tutorial
