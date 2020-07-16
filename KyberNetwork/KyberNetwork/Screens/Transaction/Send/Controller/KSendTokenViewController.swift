@@ -313,12 +313,14 @@ class KSendTokenViewController: KNBaseViewController {
     self.amountTextField.resignFirstResponder()
     self.amountTextField.textColor = self.viewModel.amountTextColor
     self.shouldUpdateEstimatedGasLimit(nil)
-    if self.viewModel.from.isETH {
-      self.showSuccessTopBannerMessage(
-        with: "",
-        message: NSLocalizedString("a.small.amount.of.eth.is.used.for.transaction.fee", value: "A small amount of ETH will be used for transaction fee", comment: ""),
-        time: 1.5
-      )
+    if sender as? KSendTokenViewController != self {
+      if self.viewModel.from.isETH {
+        self.showSuccessTopBannerMessage(
+          with: "",
+          message: NSLocalizedString("a.small.amount.of.eth.is.used.for.transaction.fee", value: "A small amount of ETH will be used for transaction fee", comment: ""),
+          time: 1.5
+        )
+      }
     }
     self.viewModel.isSendAllBalanace = true
     self.view.layoutIfNeeded()
@@ -483,6 +485,7 @@ extension KSendTokenViewController {
   func coordinatorUpdateEstimatedGasLimit(_ gasLimit: BigInt, from: TokenObject, address: String) {
     if self.viewModel.updateEstimatedGasLimit(gasLimit, from: from, address: address) {
       self.updateAdvancedSettingsView()
+      self.keyboardSendAllButtonPressed(self)
     } else {
       // fail to update gas limit
       self.coordinatorFailedToUpdateEstimateGasLimit()
