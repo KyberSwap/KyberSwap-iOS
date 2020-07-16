@@ -520,13 +520,16 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
     self.updateTokensView()
     self.updateViewAmountDidChange()
-    if self.viewModel.from.isETH {
-      self.showSuccessTopBannerMessage(
-        with: "",
-        message: NSLocalizedString("a.small.amount.of.eth.is.used.for.transaction.fee", value: "A small amount of ETH will be used for transaction fee", comment: ""),
-        time: 1.5
-      )
+    if sender as? KSwapViewController != self {
+      if self.viewModel.from.isETH {
+        self.showSuccessTopBannerMessage(
+          with: "",
+          message: NSLocalizedString("a.small.amount.of.eth.is.used.for.transaction.fee", value: "A small amount of ETH will be used for transaction fee", comment: ""),
+          time: 1.5
+        )
+      }
     }
+
     self.viewModel.isSwapAllBalance = true
     self.view.layoutIfNeeded()
   }
@@ -928,6 +931,9 @@ extension KSwapViewController {
     self.updateAdvancedSettingsView()
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
     if updated { self.loadingRateIndicator.isHidden = true }
+    if self.viewModel.isSwapAllBalance {
+      self.keyboardSwapAllButtonPressed(self)
+    }
     self.view.layoutIfNeeded()
   }
 

@@ -69,8 +69,7 @@ class KSwapViewModel {
 
   // MARK: From Token
   var allETHBalanceFee: BigInt {
-    let gasLimit = KNGasConfiguration.calculateDefaultGasLimit(from: self.from, to: self.to) + BigInt(10_000)
-    return self.gasPrice * gasLimit
+    return self.gasPrice * self.estimateGasLimit
   }
 
   var allFromTokenBalanceString: String {
