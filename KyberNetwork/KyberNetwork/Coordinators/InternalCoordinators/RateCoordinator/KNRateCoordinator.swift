@@ -276,6 +276,8 @@ class KNRateCoordinator {
     KNInternalProvider.shared.getProductionChainLinkRate(sym: fromSym) { result in
       if case .success(let rate) = result {
         rateFrom = rate
+        self.cachedProdTokenRates["\(fromSym)_ETH"] = rate
+        self.cachedProdTokenRates["ETH_\(fromSym)"] = rate
       }
       group.leave()
     }
@@ -283,6 +285,8 @@ class KNRateCoordinator {
     KNInternalProvider.shared.getProductionChainLinkRate(sym: toSym) { result in
       if case .success(let rate) = result {
         rateTo = rate
+        self.cachedProdTokenRates["\(toSym)_ETH"] = rate
+        self.cachedProdTokenRates["ETH_\(toSym)"] = rate
       }
       group.leave()
     }
