@@ -126,6 +126,6 @@ class KNGasCoordinator {
 
   fileprivate func updateMaxGasPrice(dataJSON: JSONDictionary) {
     guard let data = dataJSON["data"] as? String else { return }
-    self.maxKNGas = data.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? KNGasConfiguration.gasPriceMax
+    self.maxKNGas = BigInt(data) ?? KNGasConfiguration.gasPriceMax
   }
 }
