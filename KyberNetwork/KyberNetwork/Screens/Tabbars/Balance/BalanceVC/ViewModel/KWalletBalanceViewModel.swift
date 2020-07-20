@@ -484,5 +484,6 @@ class KWalletBalanceViewModel: NSObject {
 
   func updateDoneTutorial() {
     UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForBalanceView)
+    UserDefaults.standard.synchronize()
   }
 }

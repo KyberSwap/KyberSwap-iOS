@@ -516,5 +516,6 @@ class KSwapViewModel {
 
   func updateDoneTutorial() {
     UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForSwapView)
+    UserDefaults.standard.synchronize()
   }
 }

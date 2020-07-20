@@ -91,6 +91,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   func updateDoneTutorial() {
     UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForLimitOrderView)
+    UserDefaults.standard.synchronize()
   }
 
   override func viewDidLoad() {

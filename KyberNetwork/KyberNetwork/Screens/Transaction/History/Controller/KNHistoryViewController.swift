@@ -259,6 +259,7 @@ struct KNHistoryViewModel {
 
   func updateDoneTutorial() {
     UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForHistoryView)
+    UserDefaults.standard.synchronize()
   }
 
   var timeForLongPendingTx: Double {
