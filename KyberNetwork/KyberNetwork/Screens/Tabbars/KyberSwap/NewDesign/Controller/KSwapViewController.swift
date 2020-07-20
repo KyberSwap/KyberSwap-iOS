@@ -407,7 +407,7 @@ class KSwapViewController: KNBaseViewController {
       with: "",
       message: message,
       icon: UIImage(named: "info_blue_icon"),
-      time: 2.0
+      time: 5.0
     )
   }
 
@@ -939,8 +939,9 @@ extension KSwapViewController {
     self.updateAdvancedSettingsView()
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
     if updated { self.loadingRateIndicator.isHidden = true }
-    if self.viewModel.isSwapAllBalance {
+    if self.viewModel.isTappedSwapAllBalance {
       self.keyboardSwapAllButtonPressed(self)
+      self.viewModel.isTappedSwapAllBalance = false
     }
     self.view.layoutIfNeeded()
   }

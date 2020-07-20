@@ -28,6 +28,7 @@ class KSwapViewModel {
   fileprivate(set) var minRatePercent: Double = 3.0
 
   var isSwapAllBalance: Bool = false
+  var isTappedSwapAllBalance: Bool = false
 
   var isSwapSuggestionShown: Bool {
     if let suggestions = self.swapSuggestion, !suggestions.isEmpty { return true }
