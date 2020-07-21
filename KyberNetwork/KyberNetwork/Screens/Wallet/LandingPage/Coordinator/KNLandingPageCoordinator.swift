@@ -94,6 +94,11 @@ class KNLandingPageCoordinator: NSObject, Coordinator {
       // In case user delete the app, wallets are removed but passcode is still save in keychain
       KNPasscodeUtil.shared.deletePasscode()
     }
+    if let wallet = self.newWallet {
+      self.createWalletCoordinator.updateNewWallet(wallet, name: "Untitled")
+      self.createWalletCoordinator.start()
+      return
+    }
     if let wallet = self.keystore.recentlyUsedWallet ?? self.keystore.wallets.first {
       if case .real(let account) = wallet.type {
          //In case backup with icloud/local backup there is no keychain so delete all keystore in keystore directory
@@ -121,6 +126,9 @@ class KNLandingPageCoordinator: NSObject, Coordinator {
     }
   }
 
+  func updateNewWallet(wallet: Wallet) {
+    self.newWallet = wallet
+  }
   func update(keystore: Keystore) {
     self.keystore = keystore
   }
