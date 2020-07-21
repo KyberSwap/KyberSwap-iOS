@@ -200,6 +200,8 @@ class KNSendTokenViewModel: NSObject {
     )
   }
 
+  var isNeedUpdateEstFeeForTransferingAllBalance: Bool = false
+
   // MARK: Update
   func updateSendToken(from token: TokenObject, balance: Balance?) {
     self.from = token.clone()

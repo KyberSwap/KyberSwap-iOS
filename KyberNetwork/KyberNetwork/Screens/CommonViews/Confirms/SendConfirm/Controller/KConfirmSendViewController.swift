@@ -141,6 +141,13 @@ class KConfirmSendViewController: KNBaseViewController {
     }
   }
 
+  @IBAction func helpGasFeeButtonTapped(_ sender: UIButton) {
+    self.showBottomBannerView(
+      message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
+      icon: UIImage(named: "help_icon_large") ?? UIImage()
+    )
+  }
+
   func updateActionButtonsSendingTransfer() {
     self.isConfirmed = true
     self.confirmButton.backgroundColor = UIColor.clear

@@ -259,7 +259,7 @@
 "importing.wallet" = "导入钱包";
 "confirm" = "确认";
 "rate" = "汇率";
-"transaction.fee" = "手续费";
+"transaction.fee" = "燃料费用";
 "version" = "版本";
 "fee" = "费用";
 "fast" = "快速";
@@ -779,3 +779,5 @@
 "Speed Up or Cancel transaction." = "加快交易速度或取消交易。";
 
 "There.is.a.difference.between.the.estimated.price" = "您要的兑换金额的估计价格与参考价格之间存在%@的差异。\n请注意：估计价格取决于您的兑换金额。参考价格来自Chainlink和Kyber Network。";
+
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "燃料费用费是您支付给矿工（而不是支付给KyberSwap）以在区块链上进行交易的费用。燃料的价格通常反映了您希望一笔交易的开采速度有多快。";

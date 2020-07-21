@@ -259,7 +259,7 @@
 "importing.wallet" = "Đang nhập ví";
 "confirm" = "Xác nhận";
 "rate" = "Tỷ Giá";
-"transaction.fee" = "Phí giao dịch";
+"transaction.fee" = "Phí gas";
 "version" = "Phiên bản";
 "fee" = "Phí";
 "fast" = "Nhanh";
@@ -779,3 +779,5 @@
 "Speed Up or Cancel transaction." = "Tăng tốc hoặc hủy giao dịch";
 
 "There.is.a.difference.between.the.estimated.price" = "Có chênh lệch %@ giữa giá dự tính và giá tham khảo.\nLưu ý: giá dự tính phụ thuộc vào khối lượng mà bạn giao dịch. Giá tham khảo được lấy từ Chainlink và Kyber Network";
+
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Phí gas là phí bạn phải trả cho miner (không phải KyberSwap) để họ xác nhận giao dịch của bạn trên blockchain. Phí gas bạn chọn sẽ ảnh hưởng đến tốc độ giao dịch.";

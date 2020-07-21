@@ -245,6 +245,7 @@ class KSendTokenViewController: KNBaseViewController {
 
   @objc func tokenBalanceLabelTapped(_ sender: Any) {
     self.keyboardSendAllButtonPressed(sender)
+    self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance = true
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
@@ -485,7 +486,10 @@ extension KSendTokenViewController {
   func coordinatorUpdateEstimatedGasLimit(_ gasLimit: BigInt, from: TokenObject, address: String) {
     if self.viewModel.updateEstimatedGasLimit(gasLimit, from: from, address: address) {
       self.updateAdvancedSettingsView()
-      self.keyboardSendAllButtonPressed(self)
+      if self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance {
+        self.keyboardSendAllButtonPressed(self)
+        self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance = false
+      }
     } else {
       // fail to update gas limit
       self.coordinatorFailedToUpdateEstimateGasLimit()
@@ -706,6 +710,7 @@ extension KSendTokenViewController: KNContactTableViewDelegate {
 extension KSendTokenViewController: KNCustomToolbarDelegate {
   func customToolbarLeftButtonPressed(_ toolbar: KNCustomToolbar) {
     self.keyboardSendAllButtonPressed(toolbar)
+    self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance = true
   }
 
   func customToolbarRightButtonPressed(_ toolbar: KNCustomToolbar) {
