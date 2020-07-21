@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -224,6 +224,14 @@
                                         <action selector="userTappedSlowFee:" destination="-1" eventType="touchUpInside" id="9Hg-kc-PlP"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Afg-7u-BqC">
+                                    <rect key="frame" x="102" y="-2" width="14" height="25"/>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="3"/>
+                                    <state key="normal" image="help_icon"/>
+                                    <connections>
+                                        <action selector="helpButtonTapped:" destination="-1" eventType="touchUpInside" id="1Oz-wZ-TV7"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -239,6 +247,7 @@
                                 <constraint firstItem="r6o-Vf-arG" firstAttribute="leading" secondItem="kG7-Qv-qcf" secondAttribute="leading" constant="16" id="8HL-eT-1Jo"/>
                                 <constraint firstItem="B9R-OM-hMT" firstAttribute="leading" secondItem="exC-DI-hNb" secondAttribute="leading" id="8Rl-oh-1r4"/>
                                 <constraint firstItem="6C2-5M-WJZ" firstAttribute="centerY" secondItem="fkj-Ra-RNo" secondAttribute="centerY" id="9lV-L5-HFy"/>
+                                <constraint firstItem="Afg-7u-BqC" firstAttribute="leading" secondItem="97u-A1-eZn" secondAttribute="trailing" constant="4" id="9uA-dz-XHH"/>
                                 <constraint firstItem="u0P-02-Yze" firstAttribute="bottom" secondItem="xcf-VA-gL3" secondAttribute="bottom" id="BXh-Di-sWm"/>
                                 <constraint firstItem="B9R-OM-hMT" firstAttribute="top" secondItem="exC-DI-hNb" secondAttribute="top" id="Bsq-j8-xnK"/>
                                 <constraint firstItem="Tc9-xF-0he" firstAttribute="top" secondItem="3B8-Dg-Kru" secondAttribute="top" id="Cka-H1-DgJ"/>
@@ -253,6 +262,7 @@
                                 <constraint firstItem="exC-DI-hNb" firstAttribute="centerY" secondItem="ahq-SV-UsD" secondAttribute="centerY" id="RBf-cy-zC7"/>
                                 <constraint firstItem="fkj-Ra-RNo" firstAttribute="centerX" secondItem="kG7-Qv-qcf" secondAttribute="centerX" constant="20" id="Rx5-a3-JHc"/>
                                 <constraint firstItem="97u-A1-eZn" firstAttribute="top" secondItem="kG7-Qv-qcf" secondAttribute="top" constant="8" id="STd-LM-qVP"/>
+                                <constraint firstItem="Afg-7u-BqC" firstAttribute="bottom" secondItem="97u-A1-eZn" secondAttribute="bottom" id="TYS-uR-RDW"/>
                                 <constraint firstItem="97u-A1-eZn" firstAttribute="leading" secondItem="kG7-Qv-qcf" secondAttribute="leading" constant="16" id="UOU-rL-NgB"/>
                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="u3V-BL-tUz" secondAttribute="trailing" constant="20" id="UvM-tq-S2j"/>
                                 <constraint firstItem="n6R-nG-h2A" firstAttribute="leading" secondItem="exC-DI-hNb" secondAttribute="leading" id="VjH-lB-Y1c"/>
@@ -404,5 +414,6 @@
     </objects>
     <resources>
         <image name="advanced_close_icon" width="15" height="15"/>
+        <image name="help_icon" width="14" height="14"/>
     </resources>
 </document>

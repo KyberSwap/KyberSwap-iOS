@@ -33,6 +33,7 @@ enum KAdvancedSettingsViewEvent {
   case displayButtonPressed
   case gasPriceChanged(type: KNSelectedGasPriceType, value: BigInt)
   case minRatePercentageChanged(percent: CGFloat)
+  case helpPressed
 }
 
 enum KAdvancedSettingsMinRateType {
@@ -555,6 +556,10 @@ class KAdvancedSettingsView: XibLoaderView {
     self.delegate?.kAdvancedSettingsView(self, run: .minRatePercentageChanged(percent: 3.0))
     self.updateMinRateUIs()
     KNCrashlyticsUtil.logCustomEvent(withName: "advanced_slippage_rate_custom", customAttributes: nil)
+  }
+
+  @IBAction func helpButtonTapped(_ sender: UIButton) {
+    self.delegate?.kAdvancedSettingsView(self, run: .helpPressed)
   }
 
   @objc func userTappedCustomRate(_ sender: Any) {
