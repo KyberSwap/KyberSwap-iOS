@@ -80,7 +80,7 @@ class KNInternalProvider {
     }
   }
 
-  func getProductionChainLinkRate(sym: String, completion: @escaping (Result<KNRate, AnyError>) -> Void) {
+  func getProductionChainLinkRate(sym: String, completion: @escaping (Result<String, AnyError>) -> Void) {
     DispatchQueue.global(qos: .background).async {
       self.provider.request(.getReferencePrice(sym: sym)) { [weak self] (result) in
         guard let _ = `self` else { return }
@@ -93,8 +93,7 @@ class KNInternalProvider {
               let success = json["success"] as? Bool ?? false
               let value = json["value"] as? String ?? ""
               if success && !value.isEmpty {
-                let rate = KNRate(source: sym, dest: "ETH", rate: value.doubleValue, decimals: 18)
-                completion(.success(rate))
+                completion(.success(value))
               } else {
                 completion(.failure(AnyError(NSError(domain: "", code: 404, userInfo: nil))))
               }
