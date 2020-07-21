@@ -258,10 +258,7 @@ class KNRateCoordinator {
       }
       KNInternalProvider.shared.getProductionChainLinkRate(sym: sym) { [weak self] result in
         guard let `self` = self else { return }
-        if case .success(let rate) = result {
-          guard rate.doubleValue > 0 else {
-            return
-          }
+        if case .success(let rate) = result, rate.doubleValue > 0 {
           if toSym == "ETH" {
             self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: sym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
             self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = KNRate(source: "ETH", dest: sym, rate: 1 / rate.doubleValue, decimals: 18)
@@ -283,10 +280,7 @@ class KNRateCoordinator {
     let group = DispatchGroup()
     group.enter()
     KNInternalProvider.shared.getProductionChainLinkRate(sym: fromSym) { result in
-      if case .success(let rate) = result {
-        guard rate.doubleValue > 0 else {
-          return
-        }
+      if case .success(let rate) = result, rate.doubleValue > 0 {
         rateFrom = KNRate(source: fromSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
         self.cachedProdTokenRates["\(fromSym)_ETH"] = KNRate(source: fromSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
         self.cachedProdTokenRates["ETH_\(fromSym)"] = KNRate(source: "ETH", dest: fromSym, rate: 1 / rate.doubleValue, decimals: 18)
@@ -295,10 +289,7 @@ class KNRateCoordinator {
     }
     group.enter()
     KNInternalProvider.shared.getProductionChainLinkRate(sym: toSym) { result in
-      if case .success(let rate) = result {
-        guard rate.doubleValue > 0 else {
-          return
-        }
+      if case .success(let rate) = result, rate.doubleValue > 0 {
         rateTo = KNRate(source: toSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
         self.cachedProdTokenRates["\(toSym)_ETH"] = KNRate(source: toSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
         self.cachedProdTokenRates["ETH_\(toSym)"] = KNRate(source: "ETH", dest: toSym, rate: 1 / rate.doubleValue, decimals: 18)
