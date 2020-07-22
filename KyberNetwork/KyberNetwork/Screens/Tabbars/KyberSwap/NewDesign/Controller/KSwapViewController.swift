@@ -1269,7 +1269,8 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
     case .helpPressed:
       self.showBottomBannerView(
         message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
-        icon: UIImage(named: "help_icon_large") ?? UIImage()
+        icon: UIImage(named: "help_icon_large") ?? UIImage(),
+        time: 3
       )
     }
   }

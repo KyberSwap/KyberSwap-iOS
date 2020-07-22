@@ -778,4 +778,4 @@
 
 "There.is.a.difference.between.the.estimated.price" = "There is a %@ difference between the estimated price for your swap amount and the reference price.\nNote: Estimated price depends on your swap amount. Reference price is from Chainlink and Kyber Network.";
 
-"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is the fee you pay to the miner (not to KyberSwap) to mine your transaction on blockchain. The price of gas generally reflect how fast you want a transaction mined.";
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is paid to miners (not Kyberswap) to facilitate transactions on the Ethereum blockchain. Generally, the higher the Gas price, the faster your transaction executes. Gas prices depend on how congested the blockchain is, and are not decided by KyberSwap.";
