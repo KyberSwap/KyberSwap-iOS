@@ -259,7 +259,7 @@
 "importing.wallet" = "지갑 가져 오기";
 "confirm" = "확인";
 "rate" = "교환 비율";
-"transaction.fee" = "거래 수수료";
+"transaction.fee" = "가스비";
 "version" = "버젼";
 "fee" = "수수료";
 "fast" = "빠른";
@@ -780,4 +780,4 @@
 
 "There.is.a.difference.between.the.estimated.price" = "교환하려는 토큰 양에 대한 추정 가격과 참고 가격 간 차이가  %@ 입니다.\n주의: 추정 가격은 교환하려는 토큰 양에 따라 다릅니다. 참고 가격은 Kyber Network와 Chainlink에서 가져옵니다.";
 
-"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is the fee you pay to the miner (not to KyberSwap) to mine your transaction on blockchain. The price of gas generally reflect how fast you want a transaction mined.";
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "가스비는 블록체인에서 거래를 채굴하기 위해 (카이버 스왑이 아닌) 채굴자에게 지불되는 비용입니다. 보통 가스의 가격은 원하는 거래 속도에 비례하여 반영됩니다.";
