@@ -315,7 +315,7 @@
 "copy.address" = "Sao chép địa chỉ";
 "export.at.your.own.risk" = "Bạn phải tự chịu rủi ro khi xuất ví!";
 "backup" = "Sao lưu";
-"share.with.friends.text" = "Tôi vừa tìm thấy một ứng dụng ví tuyệt vời. Kiểm tra ở đây https://apple.co/2USHOtx";
+"share.with.friends.text" = "Tôi vừa tìm thấy một ứng dụng ví tuyệt vời. Kiểm tra ở đây https://apps.apple.com/us/app/id1521778973";
 "transaction.being.broadcasted" = "Giao dịch đang được gửi";
 "can.not.create.transaction" = "Không thể tạo giao dịch";
 "transaction.being.mined" = "Giao dịch được mine";

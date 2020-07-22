@@ -161,7 +161,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     case .reportBugs:
       self.navigationController.openSafari(with: "https://goo.gl/forms/ZarhiV7MPE0mqr712")
     case .rateOurApp:
-      self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
+      self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1521778973")
     case .liveChat:
       Freshchat.sharedInstance().showConversations(self.navigationController)
     }
@@ -174,7 +174,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   fileprivate func openShareWithFriends() {
     let text = NSLocalizedString(
       "share.with.friends.text",
-      value: "I just found an awesome wallet app. Check out here https://apple.co/2USHOtx",
+      value: "I just found an awesome wallet app. Check out here https://apps.apple.com/us/app/id1521778973",
       comment: ""
     )
     let activitiy = UIActivityViewController(activityItems: [text], applicationActivities: nil)
