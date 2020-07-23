@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -235,6 +235,17 @@
                                                         <action selector="selectBoxButtonTapped:" destination="-1" eventType="touchUpInside" id="Dzc-uD-Nk7"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oH-vP-HcQ">
+                                                    <rect key="frame" x="102" y="3" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="aV8-9Z-9bL"/>
+                                                    </constraints>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="2"/>
+                                                    <state key="normal" image="help_icon"/>
+                                                    <connections>
+                                                        <action selector="helpButtonTapped:" destination="-1" eventType="touchUpInside" id="w98-W4-mIS"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -261,10 +272,12 @@
                                                 <constraint firstItem="t1L-H3-aNH" firstAttribute="leading" secondItem="F7v-0t-yFh" secondAttribute="trailing" constant="10" id="Rge-DB-aT2"/>
                                                 <constraint firstItem="5L2-xL-77j" firstAttribute="leading" secondItem="IIg-db-Krp" secondAttribute="leading" id="RhD-TO-sos"/>
                                                 <constraint firstItem="HV0-wN-tEt" firstAttribute="top" secondItem="XXI-Mx-BMc" secondAttribute="top" id="RyC-TF-x4Y"/>
+                                                <constraint firstItem="9oH-vP-HcQ" firstAttribute="centerY" secondItem="71p-yJ-ZSh" secondAttribute="centerY" id="Vxe-wg-CxX"/>
                                                 <constraint firstItem="XXI-Mx-BMc" firstAttribute="centerY" secondItem="wS9-lg-k6M" secondAttribute="centerY" id="Wh2-ll-CWT"/>
                                                 <constraint firstItem="HV0-wN-tEt" firstAttribute="bottom" secondItem="ccI-1A-W36" secondAttribute="bottom" id="Wrv-0G-Isf"/>
                                                 <constraint firstItem="eAl-0C-Vo3" firstAttribute="top" secondItem="KDu-pK-fWh" secondAttribute="bottom" constant="4" id="XFW-Nb-FoN"/>
                                                 <constraint firstItem="wS9-lg-k6M" firstAttribute="leading" secondItem="10M-Ft-vnH" secondAttribute="leading" constant="16" id="XoB-SB-rVY"/>
+                                                <constraint firstItem="9oH-vP-HcQ" firstAttribute="leading" secondItem="71p-yJ-ZSh" secondAttribute="trailing" constant="4" id="Yay-rQ-IXg"/>
                                                 <constraint firstItem="wS9-lg-k6M" firstAttribute="leading" secondItem="10M-Ft-vnH" secondAttribute="leading" constant="16" id="Z6S-XX-J8b"/>
                                                 <constraint firstItem="AHo-8w-kza" firstAttribute="centerY" secondItem="wS9-lg-k6M" secondAttribute="centerY" id="ZCe-uT-Gzu"/>
                                                 <constraint firstItem="HV0-wN-tEt" firstAttribute="trailing" secondItem="XXI-Mx-BMc" secondAttribute="trailing" id="Zqw-ca-qt0"/>
@@ -429,5 +442,6 @@
     </objects>
     <resources>
         <image name="back_white_icon" width="38" height="19"/>
+        <image name="help_icon" width="14" height="14"/>
     </resources>
 </document>
