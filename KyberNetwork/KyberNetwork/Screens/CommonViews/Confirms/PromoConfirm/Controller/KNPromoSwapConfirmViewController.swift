@@ -160,6 +160,7 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
   }
 
   @IBAction func helpButtonClicked(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "promoswap_gas_fee_info_tapped", customAttributes: nil)
     self.showBottomBannerView(
       message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
       icon: UIImage(named: "help_icon_large") ?? UIImage(),

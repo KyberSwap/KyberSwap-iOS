@@ -744,6 +744,7 @@ extension KSendTokenViewController: KAdvancedSettingsViewDelegate {
       self.viewModel.updateGasPrice(value)
       KNCrashlyticsUtil.logCustomEvent(withName: "transfer_advanced", customAttributes: ["gas_option": type.displayString(), "gas_value": value.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)])
     case .helpPressed:
+      KNCrashlyticsUtil.logCustomEvent(withName: "transfer_gas_fee_info_tapped", customAttributes: nil)
       self.showBottomBannerView(
         message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
         icon: UIImage(named: "help_icon_large") ?? UIImage(),

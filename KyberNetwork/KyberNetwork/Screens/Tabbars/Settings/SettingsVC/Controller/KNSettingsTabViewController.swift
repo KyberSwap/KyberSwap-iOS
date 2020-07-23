@@ -169,6 +169,7 @@ class KNSettingsTabViewController: KNBaseViewController {
   }
 
   @IBAction func shareWithFriendButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "setting_shareapp", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .shareWithFriends)
   }
 
@@ -207,6 +208,7 @@ class KNSettingsTabViewController: KNBaseViewController {
   }
 
   @IBAction func rateOurAppButtonPressed(_ sender: Any) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "setting_rating", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .rateOurApp)
   }
 
