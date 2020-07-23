@@ -159,6 +159,14 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
     self.delegate?.promoCodeSwapConfirmViewControllerDidBack()
   }
 
+  @IBAction func helpButtonClicked(_ sender: UIButton) {
+    self.showBottomBannerView(
+      message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
+      icon: UIImage(named: "help_icon_large") ?? UIImage(),
+      time: 3
+    )
+  }
+
   func updateActionButtonsSendingSwap() {
     self.isConfirmed = true
     self.confirmButton.removeSublayer(at: 0)
