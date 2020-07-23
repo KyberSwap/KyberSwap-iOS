@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -208,17 +208,30 @@
                     <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qh5-X6-gki">
+                    <rect key="frame" x="136.5" y="340" width="25" height="56.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="SU5-ux-UMJ"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="3"/>
+                    <state key="normal" image="help_icon"/>
+                    <connections>
+                        <action selector="helpButtonTapped:" destination="-1" eventType="touchUpInside" id="yz8-GY-aYW"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="oao-ep-AZ6" firstAttribute="top" secondItem="gkk-HI-Saw" secondAttribute="bottom" constant="28" id="0Z7-5p-aFt"/>
+                <constraint firstItem="qh5-X6-gki" firstAttribute="leading" secondItem="iK5-x6-6Wa" secondAttribute="trailing" constant="4" id="2i9-FB-TJZ"/>
                 <constraint firstItem="dDY-qI-vwz" firstAttribute="top" secondItem="4hI-jM-AkG" secondAttribute="bottom" constant="8" id="3Hn-FD-eQc"/>
                 <constraint firstItem="iK5-x6-6Wa" firstAttribute="top" secondItem="oao-ep-AZ6" secondAttribute="bottom" constant="24" id="3uR-lf-yu5"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="dDY-qI-vwz" secondAttribute="bottom" priority="996" constant="40" id="4C1-Mf-bsy"/>
                 <constraint firstItem="dDY-qI-vwz" firstAttribute="trailing" secondItem="4hI-jM-AkG" secondAttribute="trailing" id="5Tu-cB-EO9"/>
                 <constraint firstItem="9Hs-Gk-9ve" firstAttribute="centerY" secondItem="iK5-x6-6Wa" secondAttribute="centerY" id="AMu-4E-c1Y"/>
                 <constraint firstItem="oao-ep-AZ6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="AT3-j7-m31"/>
+                <constraint firstItem="qh5-X6-gki" firstAttribute="centerY" secondItem="iK5-x6-6Wa" secondAttribute="centerY" id="AoI-9o-3xM"/>
                 <constraint firstItem="gkf-4M-ngk" firstAttribute="top" secondItem="JeZ-f9-d1J" secondAttribute="bottom" constant="4" id="Bfa-3K-wos"/>
                 <constraint firstItem="8DI-gG-yMn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DN1-jv-eTP"/>
                 <constraint firstItem="c2k-AU-AQn" firstAttribute="trailing" secondItem="9Hs-Gk-9ve" secondAttribute="trailing" id="F3B-jA-PqB"/>
@@ -244,6 +257,7 @@
                 <constraint firstItem="adQ-lx-4Ib" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="c6b-iX-U97"/>
                 <constraint firstItem="4hI-jM-AkG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vI4-hY-KzW" secondAttribute="bottom" constant="20" id="cds-86-Fx4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BcU-El-L4d" secondAttribute="trailing" constant="24" id="dc3-jU-TaP"/>
+                <constraint firstItem="qh5-X6-gki" firstAttribute="top" secondItem="oao-ep-AZ6" secondAttribute="bottom" constant="4" id="eQ0-jV-HLn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gkk-HI-Saw" secondAttribute="trailing" constant="24" id="fxU-bw-p5l"/>
                 <constraint firstItem="84l-JF-Cy8" firstAttribute="trailing" secondItem="yOL-vO-tt5" secondAttribute="trailing" id="gFT-by-n2r"/>
                 <constraint firstItem="dDY-qI-vwz" firstAttribute="leading" secondItem="4hI-jM-AkG" secondAttribute="leading" id="h9h-gl-mL0"/>
@@ -280,6 +294,7 @@
     </objects>
     <resources>
         <image name="back_white_icon" width="38" height="19"/>
+        <image name="help_icon" width="14" height="14"/>
         <image name="info_red_icon" width="20" height="20"/>
         <image name="warning_swap_all_icon" width="16" height="13"/>
     </resources>
