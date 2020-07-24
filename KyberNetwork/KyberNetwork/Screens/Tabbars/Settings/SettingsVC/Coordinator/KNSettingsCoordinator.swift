@@ -235,8 +235,8 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     self.navigationController.present(alertController, animated: true, completion: nil)
   }
 
-  fileprivate func showActionSheetBackupPhrase(wallet: KNWalletObject) {
-    guard let wallet = self.session.keystore.wallets.first(where: { $0.address.description.lowercased() == wallet.address.lowercased() }) else { return }
+  fileprivate func showActionSheetBackupPhrase(walletObj: KNWalletObject) {
+    guard let wallet = self.session.keystore.wallets.first(where: { $0.address.description.lowercased() == walletObj.address.lowercased() }) else { return }
     self.navigationController.displayLoading()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
       let alertController = UIAlertController(
@@ -256,6 +256,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
         style: .default,
         handler: { _ in
           self.backupPrivateKey(wallet: wallet)
+          self.saveBackedUpWallet(wallet: wallet, name: walletObj.name)
         }
       ))
       if case .real(let account) = wallet.type, case .success = self.session.keystore.exportMnemonics(account: account) {
@@ -264,6 +265,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
           style: .default,
           handler: { _ in
             self.backupMnemonic(wallet: wallet)
+            self.saveBackedUpWallet(wallet: wallet, name: walletObj.name)
           }
         ))
       }
@@ -275,6 +277,15 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.navigationController.hideLoading()
       self.navigationController.topViewController?.present(alertController, animated: true, completion: nil)
     }
+  }
+  
+  fileprivate func saveBackedUpWallet(wallet: Wallet, name: String) {
+    let walletObject = KNWalletObject(
+      address: wallet.address.description,
+      name: name,
+      isBackedUp: true
+    )
+    KNWalletStorage.shared.add(wallets: [walletObject])
   }
 
   fileprivate func showAuthPasscode() {
@@ -367,6 +378,13 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
 extension KNSettingsCoordinator: KNCreatePasswordViewControllerDelegate {
   func createPasswordUserDidFinish(_ password: String, wallet: Wallet) {
     if case .real(let account) = wallet.type {
+      var name = "New Wallet"
+      if let walletObject = KNWalletStorage.shared.wallets.first(where: { (item) -> Bool in
+        return item.address.lowercased() == wallet.address.description.lowercased()
+      }) {
+        name = walletObject.name
+      }
+      self.saveBackedUpWallet(wallet: wallet, name: name)
       if let currentPassword = self.session.keystore.getPassword(for: account) {
         self.navigationController.topViewController?.displayLoading(text: "\(NSLocalizedString("preparing.data", value: "Preparing data", comment: ""))...", animated: true)
         self.session.keystore.export(account: account, password: currentPassword, newPassword: password, completion: { [weak self] result in
@@ -459,7 +477,7 @@ extension KNSettingsCoordinator: KNPasscodeCoordinatorDelegate {
     if case .verifyPasscode = self.passcodeCoordinator.type {
       self.passcodeCoordinator.stop {
         guard let wallet = self.selectedWallet else { return }
-        self.showActionSheetBackupPhrase(wallet: wallet)
+        self.showActionSheetBackupPhrase(walletObj: wallet)
         self.selectedWallet = nil
       }
     } else {
