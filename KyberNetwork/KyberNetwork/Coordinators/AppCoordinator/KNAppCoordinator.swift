@@ -107,7 +107,7 @@ class KNAppCoordinator: NSObject, Coordinator {
 
   fileprivate func showBackupWalletIfNeeded() -> Bool {
     let walletObject = KNWalletStorage.shared.wallets.first { (object) -> Bool in
-      return object.isBackedUp == false
+      return object.isBackedUp == false && object.address.lowercased() == self.keystore.recentlyUsedWallet?.address.description.lowercased()
     }
     if let unBackupWalletObj = walletObject {
       let wallet = self.keystore.wallets.first { (item) -> Bool in
