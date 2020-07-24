@@ -106,13 +106,9 @@ class KNAppCoordinator: NSObject, Coordinator {
   }
 
   fileprivate func showBackupWalletIfNeeded() -> Bool {
-    guard let walletObject = KNWalletStorage.shared.wallets.first(where: { (object) -> Bool in
-      return object.isBackedUp == false && object.address.lowercased() == self.keystore.recentlyUsedWallet?.address.description.lowercased()
-    }) else {
-      return false
-    }
-    guard let wallet = self.keystore.wallets.first(where: { (item) -> Bool in
-      return item.address.description.lowercased() == walletObject.address.lowercased()
+    guard let currentWallet = self.keystore.recentlyUsedWallet else { return false }
+    guard let _ = KNWalletStorage.shared.wallets.first(where: { (object) -> Bool in
+      return object.isBackedUp == false && object.address.lowercased() == currentWallet.address.description.lowercased()
     }) else {
       return false
     }
@@ -123,7 +119,7 @@ class KNAppCoordinator: NSObject, Coordinator {
         secondButtonTitle: "backup".toBeLocalised(),
         firstButtonTitle: "Later".toBeLocalised(),
         secondButtonAction: {
-          self.landingPageCoordinator.updateNewWallet(wallet: wallet)
+          self.landingPageCoordinator.updateNewWallet(wallet: currentWallet)
           self.addCoordinator(self.landingPageCoordinator)
           self.landingPageCoordinator.start()
         },
@@ -133,7 +129,7 @@ class KNAppCoordinator: NSObject, Coordinator {
       })
       return false
     } else {
-      self.landingPageCoordinator.updateNewWallet(wallet: wallet)
+      self.landingPageCoordinator.updateNewWallet(wallet: currentWallet)
       self.addCoordinator(self.landingPageCoordinator)
       self.landingPageCoordinator.start()
       return true
