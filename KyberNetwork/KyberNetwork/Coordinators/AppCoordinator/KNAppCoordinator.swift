@@ -106,39 +106,38 @@ class KNAppCoordinator: NSObject, Coordinator {
   }
 
   fileprivate func showBackupWalletIfNeeded() -> Bool {
-    let walletObject = KNWalletStorage.shared.wallets.first { (object) -> Bool in
+    guard let walletObject = KNWalletStorage.shared.wallets.first(where: { (object) -> Bool in
       return object.isBackedUp == false && object.address.lowercased() == self.keystore.recentlyUsedWallet?.address.description.lowercased()
+    }) else {
+      return false
     }
-    if let unBackupWalletObj = walletObject {
-      let wallet = self.keystore.wallets.first { (item) -> Bool in
-        return item.address.description.lowercased() == unBackupWalletObj.address.lowercased()
-      }
-      if let newWallet = wallet {
-        if self.keystore.wallets.count > 1 {
-          let alert = KNPrettyAlertController(
-            title: nil,
-            message: "Wallet.must.be.backed.up".toBeLocalised(),
-            secondButtonTitle: "backup".toBeLocalised(),
-            firstButtonTitle: "Later".toBeLocalised(),
-            secondButtonAction: {
-              self.landingPageCoordinator.updateNewWallet(wallet: newWallet)
-              self.addCoordinator(self.landingPageCoordinator)
-              self.landingPageCoordinator.start()
-            },
-            firstButtonAction: nil)
-          self.navigationController.present(alert, animated: true, completion: {
-            self.tabbarController = nil
-          })
-          return false
-        } else {
-          self.landingPageCoordinator.updateNewWallet(wallet: newWallet)
+    guard let wallet = self.keystore.wallets.first(where: { (item) -> Bool in
+      return item.address.description.lowercased() == walletObject.address.lowercased()
+    }) else {
+      return false
+    }
+    if self.keystore.wallets.count > 1 {
+      let alert = KNPrettyAlertController(
+        title: nil,
+        message: "Wallet.must.be.backed.up".toBeLocalised(),
+        secondButtonTitle: "backup".toBeLocalised(),
+        firstButtonTitle: "Later".toBeLocalised(),
+        secondButtonAction: {
+          self.landingPageCoordinator.updateNewWallet(wallet: wallet)
           self.addCoordinator(self.landingPageCoordinator)
           self.landingPageCoordinator.start()
-          return true
-        }
-      }
+        },
+        firstButtonAction: nil)
+      self.navigationController.present(alert, animated: true, completion: {
+        self.tabbarController = nil
+      })
+      return false
+    } else {
+      self.landingPageCoordinator.updateNewWallet(wallet: wallet)
+      self.addCoordinator(self.landingPageCoordinator)
+      self.landingPageCoordinator.start()
+      return true
     }
-    return false
   }
 }
 
