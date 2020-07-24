@@ -259,7 +259,7 @@
 "importing.wallet" = "Đang nhập ví";
 "confirm" = "Xác nhận";
 "rate" = "Tỷ Giá";
-"transaction.fee" = "Phí giao dịch";
+"transaction.fee" = "Phí gas";
 "version" = "Phiên bản";
 "fee" = "Phí";
 "fast" = "Nhanh";
@@ -315,7 +315,7 @@
 "copy.address" = "Sao chép địa chỉ";
 "export.at.your.own.risk" = "Bạn phải tự chịu rủi ro khi xuất ví!";
 "backup" = "Sao lưu";
-"share.with.friends.text" = "Tôi vừa tìm thấy một ứng dụng ví tuyệt vời. Kiểm tra ở đây https://apple.co/2USHOtx";
+"share.with.friends.text" = "Tôi vừa tìm thấy một ứng dụng ví tuyệt vời. Kiểm tra ở đây https://apps.apple.com/us/app/id1521778973";
 "transaction.being.broadcasted" = "Giao dịch đang được gửi";
 "can.not.create.transaction" = "Không thể tạo giao dịch";
 "transaction.being.mined" = "Giao dịch được mine";
@@ -780,5 +780,6 @@
 
 "There.is.a.difference.between.the.estimated.price" = "Có chênh lệch %@ giữa giá dự tính và giá tham khảo.\nLưu ý: giá dự tính phụ thuộc vào khối lượng mà bạn giao dịch. Giá tham khảo được lấy từ Chainlink và Kyber Network";
 
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Phí gas là phí bạn phải trả cho miner (không phải KyberSwap) để họ xác nhận giao dịch của bạn trên blockchain. Phí gas bạn chọn sẽ ảnh hưởng đến tốc độ giao dịch.";
 "Wallet.must.be.backed.up" = "Vui lòng sao lưu ví của bạn. Nó sẽ giúp bạn khôi phục lại ví nếu điện thoại của bạn bị hỏng, mất hoặc bị cướp.";
 "Later" = "Để sau";

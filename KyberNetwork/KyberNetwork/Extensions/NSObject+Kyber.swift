@@ -50,4 +50,34 @@ extension NSObject {
     }()
     SwiftMessages.show(config: config, view: view)
   }
+
+  func showBottomBannerView(with title: String = "", message: String = "", icon: UIImage = UIImage(), time: TimeInterval = 1.5, tapHandler: (() -> Void)? = nil) {
+    let view: MessageView = {
+      let view: MessageView = try! SwiftMessages.viewFromNib()
+      view.configureContent(title: title, body: message, iconImage: icon)
+      view.button?.isHidden = true
+      if title.isEmpty {
+        view.titleLabel?.isHidden = true
+      }
+      view.bodyLabel?.font = UIFont.Kyber.regular(with: 14)
+      view.configureTheme(backgroundColor: UIColor.white, foregroundColor: UIColor(red: 20, green: 25, blue: 39), iconImage: icon, iconText: nil)
+      return view
+    }()
+    view.tapHandler = { _ in
+      SwiftMessages.hide()
+      tapHandler?()
+    }
+
+    let config: SwiftMessages.Config = {
+      var config = SwiftMessages.defaultConfig
+      config.presentationStyle = .bottom
+      config.presentationContext = .window(windowLevel: UIWindowLevelStatusBar)
+      config.duration = time == -1 ? .forever : .seconds(seconds: time)
+      config.dimMode = .gray(interactive: true)
+      config.interactiveHide = true
+      config.preferredStatusBarStyle = .lightContent
+      return config
+    }()
+    SwiftMessages.show(config: config, view: view)
+  }
 }

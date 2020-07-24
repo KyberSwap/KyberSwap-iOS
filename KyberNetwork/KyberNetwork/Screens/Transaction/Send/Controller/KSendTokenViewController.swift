@@ -245,6 +245,7 @@ class KSendTokenViewController: KNBaseViewController {
 
   @objc func tokenBalanceLabelTapped(_ sender: Any) {
     self.keyboardSendAllButtonPressed(sender)
+    self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance = true
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
@@ -485,7 +486,10 @@ extension KSendTokenViewController {
   func coordinatorUpdateEstimatedGasLimit(_ gasLimit: BigInt, from: TokenObject, address: String) {
     if self.viewModel.updateEstimatedGasLimit(gasLimit, from: from, address: address) {
       self.updateAdvancedSettingsView()
-      self.keyboardSendAllButtonPressed(self)
+      if self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance {
+        self.keyboardSendAllButtonPressed(self)
+        self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance = false
+      }
     } else {
       // fail to update gas limit
       self.coordinatorFailedToUpdateEstimateGasLimit()
@@ -706,6 +710,7 @@ extension KSendTokenViewController: KNContactTableViewDelegate {
 extension KSendTokenViewController: KNCustomToolbarDelegate {
   func customToolbarLeftButtonPressed(_ toolbar: KNCustomToolbar) {
     self.keyboardSendAllButtonPressed(toolbar)
+    self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance = true
   }
 
   func customToolbarRightButtonPressed(_ toolbar: KNCustomToolbar) {
@@ -738,6 +743,13 @@ extension KSendTokenViewController: KAdvancedSettingsViewDelegate {
       self.viewModel.updateSelectedGasPriceType(type)
       self.viewModel.updateGasPrice(value)
       KNCrashlyticsUtil.logCustomEvent(withName: "transfer_advanced", customAttributes: ["gas_option": type.displayString(), "gas_value": value.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)])
+    case .helpPressed:
+      KNCrashlyticsUtil.logCustomEvent(withName: "transfer_gas_fee_info_tapped", customAttributes: nil)
+      self.showBottomBannerView(
+        message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
+        icon: UIImage(named: "help_icon_large") ?? UIImage(),
+        time: 3
+      )
     default: break
     }
   }

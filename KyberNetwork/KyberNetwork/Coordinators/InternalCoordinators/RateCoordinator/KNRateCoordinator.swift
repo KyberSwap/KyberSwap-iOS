@@ -258,9 +258,15 @@ class KNRateCoordinator {
       }
       KNInternalProvider.shared.getProductionChainLinkRate(sym: sym) { [weak self] result in
         guard let `self` = self else { return }
-        if case .success(let rate) = result {
-          self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = rate
-          self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = rate
+        if case .success(let rate) = result, rate.doubleValue > 0 {
+          if toSym == "ETH" {
+            self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: sym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
+            self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = KNRate(source: "ETH", dest: sym, rate: 1 / rate.doubleValue, decimals: 18)
+          } else {
+            self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: "ETH", dest: sym, rate: 1 / rate.doubleValue, decimals: 18)
+            self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = KNRate(source: sym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
+          }
+
           KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
         } else {
           self.updateListCacheRate()
@@ -274,19 +280,19 @@ class KNRateCoordinator {
     let group = DispatchGroup()
     group.enter()
     KNInternalProvider.shared.getProductionChainLinkRate(sym: fromSym) { result in
-      if case .success(let rate) = result {
-        rateFrom = rate
-        self.cachedProdTokenRates["\(fromSym)_ETH"] = rate
-        self.cachedProdTokenRates["ETH_\(fromSym)"] = rate
+      if case .success(let rate) = result, rate.doubleValue > 0 {
+        rateFrom = KNRate(source: fromSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
+        self.cachedProdTokenRates["\(fromSym)_ETH"] = KNRate(source: fromSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
+        self.cachedProdTokenRates["ETH_\(fromSym)"] = KNRate(source: "ETH", dest: fromSym, rate: 1 / rate.doubleValue, decimals: 18)
       }
       group.leave()
     }
     group.enter()
     KNInternalProvider.shared.getProductionChainLinkRate(sym: toSym) { result in
-      if case .success(let rate) = result {
-        rateTo = rate
-        self.cachedProdTokenRates["\(toSym)_ETH"] = rate
-        self.cachedProdTokenRates["ETH_\(toSym)"] = rate
+      if case .success(let rate) = result, rate.doubleValue > 0 {
+        rateTo = KNRate(source: toSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
+        self.cachedProdTokenRates["\(toSym)_ETH"] = KNRate(source: toSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
+        self.cachedProdTokenRates["ETH_\(toSym)"] = KNRate(source: "ETH", dest: toSym, rate: 1 / rate.doubleValue, decimals: 18)
       }
       group.leave()
     }
@@ -294,7 +300,7 @@ class KNRateCoordinator {
     group.notify(queue: .main) {
       if let notNilRateFrom = rateFrom, let notNilRateTo = rateTo {
         if notNilRateTo.rate.isZero || notNilRateFrom.rate.isZero {
-          self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: fromSym, dest: toSym, rate: 0, decimals: 18)
+          self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: fromSym, dest: toSym, rate: 0.0, decimals: 18)
           KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
           return
         }

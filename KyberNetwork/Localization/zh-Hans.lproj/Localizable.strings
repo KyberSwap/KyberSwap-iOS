@@ -259,7 +259,7 @@
 "importing.wallet" = "导入钱包";
 "confirm" = "确认";
 "rate" = "汇率";
-"transaction.fee" = "手续费";
+"transaction.fee" = "燃料费用";
 "version" = "版本";
 "fee" = "费用";
 "fast" = "快速";
@@ -315,7 +315,7 @@
 "copy.address" = "复制地址";
 "export.at.your.own.risk" = "导出风险自负！";
 "backup" = "备份";
-"share.with.friends.text" = "我刚刚找到一个很棒的钱包应用程序。在这里查看https://apple.co/2USHOtx";
+"share.with.friends.text" = "我刚刚找到一个很棒的钱包应用程序。在这里查看https://apps.apple.com/us/app/id1521778973";
 "transaction.being.broadcasted" = "正在广播交易";
 "can.not.create.transaction" = "无法创建交易";
 "transaction.being.mined" = "交易正在上链";
@@ -780,5 +780,6 @@
 
 "There.is.a.difference.between.the.estimated.price" = "您要的兑换金额的估计价格与参考价格之间存在%@的差异。\n请注意：估计价格取决于您的兑换金额。参考价格来自Chainlink和Kyber Network。";
 
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "燃料费用费是您支付给矿工（而不是支付给KyberSwap）以在区块链上进行交易的费用。燃料的价格通常反映了您希望一笔交易的开采速度有多快。";
 "Wallet.must.be.backed.up" = "Please backup your wallet. It will allow you to recover your wallet if your phone is damaged, lost or stolen";
 "Later" = "Later";
