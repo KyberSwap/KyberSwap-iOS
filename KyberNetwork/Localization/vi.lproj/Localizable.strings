@@ -779,3 +779,6 @@
 "Speed Up or Cancel transaction." = "Tăng tốc hoặc hủy giao dịch";
 
 "There.is.a.difference.between.the.estimated.price" = "Có chênh lệch %@ giữa giá dự tính và giá tham khảo.\nLưu ý: giá dự tính phụ thuộc vào khối lượng mà bạn giao dịch. Giá tham khảo được lấy từ Chainlink và Kyber Network";
+
+"Wallet.must.be.backed.up" = "Please backup your wallet. It will allow you to recover your wallet if your phone is damaged, lost or stolen";
+"Later" = "Later";

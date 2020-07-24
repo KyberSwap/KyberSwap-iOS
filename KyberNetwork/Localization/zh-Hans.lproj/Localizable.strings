@@ -779,3 +779,6 @@
 "Speed Up or Cancel transaction." = "加快交易速度或取消交易。";
 
 "There.is.a.difference.between.the.estimated.price" = "您要的兑换金额的估计价格与参考价格之间存在%@的差异。\n请注意：估计价格取决于您的兑换金额。参考价格来自Chainlink和Kyber Network。";
+
+"Wallet.must.be.backed.up" = "Please backup your wallet. It will allow you to recover your wallet if your phone is damaged, lost or stolen";
+"Later" = "Later";

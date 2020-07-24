@@ -67,7 +67,7 @@ class KNAppCoordinator: NSObject, Coordinator {
   func start() {
     self.addMissingWalletObjects()
     KNSupportedTokenStorage.shared.addLocalSupportedTokens()
-    guard !self.shouldShowBackupWallet() else {
+    guard !self.showBackupWalletIfNeeded() else {
       return
     }
     self.startLandingPageCoordinator()
@@ -105,19 +105,37 @@ class KNAppCoordinator: NSObject, Coordinator {
     }
   }
 
-  fileprivate func shouldShowBackupWallet() -> Bool {
+  fileprivate func showBackupWalletIfNeeded() -> Bool {
     let walletObject = KNWalletStorage.shared.wallets.first { (object) -> Bool in
       return object.isBackedUp == false
     }
     if let unBackupWalletObj = walletObject {
       let wallet = self.keystore.wallets.first { (item) -> Bool in
-        return item.address.description == unBackupWalletObj.address
+        return item.address.description.lowercased() == unBackupWalletObj.address.lowercased()
       }
       if let newWallet = wallet {
-        self.landingPageCoordinator.updateNewWallet(wallet: newWallet)
-        self.addCoordinator(self.landingPageCoordinator)
-        self.landingPageCoordinator.start()
-        return true
+        if self.keystore.wallets.count > 1 {
+          let alert = KNPrettyAlertController(
+            title: nil,
+            message: "Wallet.must.be.backed.up".toBeLocalised(),
+            secondButtonTitle: "backup".toBeLocalised(),
+            firstButtonTitle: "Later".toBeLocalised(),
+            secondButtonAction: {
+              self.landingPageCoordinator.updateNewWallet(wallet: newWallet)
+              self.addCoordinator(self.landingPageCoordinator)
+              self.landingPageCoordinator.start()
+            },
+            firstButtonAction: nil)
+          self.navigationController.present(alert, animated: true, completion: {
+            self.tabbarController = nil
+          })
+          return false
+        } else {
+          self.landingPageCoordinator.updateNewWallet(wallet: newWallet)
+          self.addCoordinator(self.landingPageCoordinator)
+          self.landingPageCoordinator.start()
+          return true
+        }
       }
     }
     return false
