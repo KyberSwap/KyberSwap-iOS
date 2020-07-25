@@ -260,10 +260,22 @@ class KNRateCoordinator {
         guard let `self` = self else { return }
         if case .success(let rate) = result, rate.doubleValue > 0 {
           if toSym == "ETH" {
+            var decimal = 18
+            if let fromToken = KNSupportedTokenStorage.shared.supportedTokens.first(where: { (token) -> Bool in
+              return token.symbol == fromSym
+            }) {
+              decimal = fromToken.decimals
+            }
             self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: sym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
-            self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = KNRate(source: "ETH", dest: sym, rate: 1 / rate.doubleValue, decimals: 18)
+            self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = KNRate(source: "ETH", dest: sym, rate: 1 / rate.doubleValue, decimals: decimal)
           } else {
-            self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: "ETH", dest: sym, rate: 1 / rate.doubleValue, decimals: 18)
+            var decimal = 18
+            if let toToken = KNSupportedTokenStorage.shared.supportedTokens.first(where: { (token) -> Bool in
+              return token.symbol == fromSym
+            }) {
+              decimal = toToken.decimals
+            }
+            self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = KNRate(source: "ETH", dest: sym, rate: 1 / rate.doubleValue, decimals: decimal)
             self.cachedProdTokenRates["\(toSym)_\(fromSym)"] = KNRate(source: sym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
           }
 
