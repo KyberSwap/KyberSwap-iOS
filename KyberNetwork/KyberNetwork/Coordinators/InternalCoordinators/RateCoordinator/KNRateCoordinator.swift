@@ -334,6 +334,7 @@ class KNRateCoordinator {
         }) {
           decimal = toToken.decimals
         }
+        guard notNilRateTo.rate.description.doubleValue != 0.0 else { return }
         let finalRateValue = notNilRateFrom.rate.description.doubleValue / notNilRateTo.rate.description.doubleValue
         let finalRate = KNRate(source: fromSym, dest: toSym, rate: finalRateValue, decimals: decimal)
         self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = finalRate
