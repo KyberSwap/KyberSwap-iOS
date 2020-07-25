@@ -271,7 +271,7 @@ class KNRateCoordinator {
           } else {
             var decimal = 18
             if let toToken = KNSupportedTokenStorage.shared.supportedTokens.first(where: { (token) -> Bool in
-              return token.symbol == fromSym
+              return token.symbol == toSym
             }) {
               decimal = toToken.decimals
             }
@@ -293,18 +293,30 @@ class KNRateCoordinator {
     group.enter()
     KNInternalProvider.shared.getProductionChainLinkRate(sym: fromSym) { result in
       if case .success(let rate) = result, rate.doubleValue > 0 {
+        var decimal = 18
+        if let fromToken = KNSupportedTokenStorage.shared.supportedTokens.first(where: { (token) -> Bool in
+          return token.symbol == fromSym
+        }) {
+          decimal = fromToken.decimals
+        }
         rateFrom = KNRate(source: fromSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
         self.cachedProdTokenRates["\(fromSym)_ETH"] = KNRate(source: fromSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
-        self.cachedProdTokenRates["ETH_\(fromSym)"] = KNRate(source: "ETH", dest: fromSym, rate: 1 / rate.doubleValue, decimals: 18)
+        self.cachedProdTokenRates["ETH_\(fromSym)"] = KNRate(source: "ETH", dest: fromSym, rate: 1 / rate.doubleValue, decimals: decimal)
       }
       group.leave()
     }
     group.enter()
     KNInternalProvider.shared.getProductionChainLinkRate(sym: toSym) { result in
       if case .success(let rate) = result, rate.doubleValue > 0 {
+        var decimal = 18
+        if let toToken = KNSupportedTokenStorage.shared.supportedTokens.first(where: { (token) -> Bool in
+          return token.symbol == toSym
+        }) {
+          decimal = toToken.decimals
+        }
         rateTo = KNRate(source: toSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
         self.cachedProdTokenRates["\(toSym)_ETH"] = KNRate(source: toSym, dest: "ETH", rate: rate.doubleValue, decimals: 18)
-        self.cachedProdTokenRates["ETH_\(toSym)"] = KNRate(source: "ETH", dest: toSym, rate: 1 / rate.doubleValue, decimals: 18)
+        self.cachedProdTokenRates["ETH_\(toSym)"] = KNRate(source: "ETH", dest: toSym, rate: 1 / rate.doubleValue, decimals: decimal)
       }
       group.leave()
     }
@@ -316,8 +328,14 @@ class KNRateCoordinator {
           KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
           return
         }
+        var decimal = 18
+        if let toToken = KNSupportedTokenStorage.shared.supportedTokens.first(where: { (token) -> Bool in
+          return token.symbol == toSym
+        }) {
+          decimal = toToken.decimals
+        }
         let finalRateValue = notNilRateFrom.rate.description.doubleValue / notNilRateTo.rate.description.doubleValue
-        let finalRate = KNRate(source: fromSym, dest: toSym, rate: finalRateValue, decimals: 18)
+        let finalRate = KNRate(source: fromSym, dest: toSym, rate: finalRateValue, decimals: decimal)
         self.cachedProdTokenRates["\(fromSym)_\(toSym)"] = finalRate
         KNNotificationUtil.postNotification(for: kProdCachedRateSuccessToLoadNotiKey)
       } else {
