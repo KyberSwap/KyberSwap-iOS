@@ -126,9 +126,8 @@ class KWalletBalanceViewController: KNBaseViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if self.viewModel.isNeedShowTutorial {
+    if NSObject.isNeedShowTutorial(for: Constants.isDoneShowQuickTutorialForBalanceView) {
       KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_show_quick_tutorial", customAttributes: nil)
-      self.viewModel.updateDoneTutorial()
       self.viewModel.currentTutorialStep = 1
       let event = KWalletBalanceViewEvent.quickTutorial(
         step: 1,
@@ -378,6 +377,7 @@ class KWalletBalanceViewController: KNBaseViewController {
     if self.viewModel.currentTutorialStep == 4 {
       KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_got_it_button_tapped", customAttributes: nil)
       self.viewModel.isShowingQuickTutorial = false
+      NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForBalanceView)
       return
     }
     KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_next_button_tapped", customAttributes: ["step": self.viewModel.currentTutorialStep])
