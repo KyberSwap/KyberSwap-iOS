@@ -337,8 +337,8 @@ extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
       case .failure:
         KNNotificationUtil.postNotification(
           for: kTransactionDidUpdateNotificationKey,
-          object: [Constants.transactionIsCancel: TransactionType.cancel],
-          userInfo: nil
+          object: nil,
+          userInfo: [Constants.transactionIsCancel: TransactionType.cancel]
         )
       }
     })
@@ -402,8 +402,8 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
       case .failure:
         KNNotificationUtil.postNotification(
           for: kTransactionDidUpdateNotificationKey,
-          object: [Constants.transactionIsCancel: TransactionType.speedup],
-          userInfo: nil
+          object: nil,
+          userInfo: [Constants.transactionIsCancel: TransactionType.speedup]
         )
       }
     })
@@ -441,8 +441,8 @@ extension KNHistoryCoordinator: SpeedUpCustomGasSelectDelegate {
           case .failure:
             KNNotificationUtil.postNotification(
               for: kTransactionDidUpdateNotificationKey,
-              object: [Constants.transactionIsCancel: TransactionType.speedup],
-              userInfo: nil
+              object: nil,
+              userInfo: [Constants.transactionIsCancel: TransactionType.speedup]
             )
           }
         }
