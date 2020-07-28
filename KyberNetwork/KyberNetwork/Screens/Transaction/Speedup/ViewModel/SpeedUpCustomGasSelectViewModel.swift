@@ -140,6 +140,6 @@ class SpeedUpCustomGasSelectViewModel {
   func isNewGasPriceValid() -> Bool {
     let newValue = getNewTransactionGasPriceETH()
     let oldValue = EtherNumberFormatter.full.number(from: transaction.gasPrice, decimals: 0) ?? BigInt(0)
-    return newValue > ( oldValue * (BigInt(120) / BigInt (100)) )
+    return newValue > ( oldValue * BigInt(11) / BigInt (10) )
   }
 }
