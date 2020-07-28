@@ -118,9 +118,9 @@ class KNGasCoordinator {
       case .success(let gasPrice):
         guard let value = BigInt(gasPrice.drop0x, radix: 16) else { return }
         self.defaultKNGas = min(value, self.maxKNGas)
-        self.lowKNGas = self.defaultKNGas * BigInt(10) / BigInt(12)
-        self.fastKNGas = self.defaultKNGas * BigInt(12) / BigInt(10)
-        self.standardKNGas = self.defaultKNGas
+        self.lowKNGas = min(self.defaultKNGas * BigInt(10) / BigInt(12), self.maxKNGas)
+        self.fastKNGas = min(self.defaultKNGas * BigInt(12) / BigInt(10), self.maxKNGas)
+        self.standardKNGas = min(self.defaultKNGas, self.maxKNGas)
       default:
         break
       }
