@@ -38,6 +38,7 @@ class KNGasCoordinator {
   fileprivate var isLoadingGasPrice: Bool = false
   fileprivate var knMaxGasPriceFetchTimer: Timer?
   fileprivate var isLoadingMaxGasPrice: Bool = false
+  fileprivate var lastGasPriceLoadedSuccessTimeStamp: TimeInterval = 0
 
   init() {}
 
@@ -85,6 +86,10 @@ class KNGasCoordinator {
           self.isLoadingGasPrice = false
           if case .success(let data) = result {
             try? self.updateGasPrice(dataJSON: data)
+          } else {
+            if Date().timeIntervalSince1970 - self.lastGasPriceLoadedSuccessTimeStamp >= KNLoadingInterval.minutes5 {
+              self.fetchGasPriceFromNode()
+            }
           }
         }
       }
@@ -107,6 +112,21 @@ class KNGasCoordinator {
     }
   }
 
+  func fetchGasPriceFromNode() {
+    KNGeneralProvider.shared.getGasPrice { (result) in
+      switch result {
+      case .success(let gasPrice):
+        guard let value = BigInt(gasPrice.drop0x, radix: 16) else { return }
+        self.defaultKNGas = min(value, self.maxKNGas)
+        self.lowKNGas = self.defaultKNGas * BigInt(10) / BigInt(12)
+        self.fastKNGas = self.defaultKNGas * BigInt(12) / BigInt(10)
+        self.standardKNGas = self.defaultKNGas
+      default:
+        break
+      }
+    }
+  }
+
   fileprivate func updateGasPrice(dataJSON: JSONDictionary) throws {
     guard let data = dataJSON["data"] as? JSONDictionary else { return }
     let stringDefault: String = data["default"] as? String ?? ""
@@ -122,10 +142,11 @@ class KNGasCoordinator {
     let updateFastKNGas = stringFast.shortBigInt(units: UnitConfiguration.gasPriceUnit) ?? self.fastKNGas
     self.fastKNGas = min(updateFastKNGas, self.maxKNGas)
     KNNotificationUtil.postNotification(for: kGasPriceDidUpdateNotificationKey)
+    self.lastGasPriceLoadedSuccessTimeStamp = Date().timeIntervalSince1970
   }
 
   fileprivate func updateMaxGasPrice(dataJSON: JSONDictionary) {
     guard let data = dataJSON["data"] as? String else { return }
-    self.maxKNGas = BigInt(data) ?? KNGasConfiguration.gasPriceMax
+    self.maxKNGas = BigInt(data) ?? self.maxKNGas
   }
 }

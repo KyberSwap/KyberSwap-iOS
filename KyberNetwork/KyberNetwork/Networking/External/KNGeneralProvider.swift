@@ -69,6 +69,20 @@ class KNGeneralProvider {
     }
   }
 
+  func getGasPrice(completion: @escaping (Result<String, AnyError>) -> Void) {
+    let request = EtherServiceAlchemyRequest(batch: BatchFactory().create(GasPriceRequest()))
+    Session.send(request) { result in
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let gasPrice):
+          completion(.success(gasPrice))
+        case .failure(let error):
+          completion(.failure(AnyError(error)))
+        }
+      }
+    }
+  }
+
   func getTokenBalance(for address: Address, contract: Address, completion: @escaping (Result<BigInt, AnyError>) -> Void) {
     self.getTokenBalanceEncodeData(for: address) { [weak self] encodeResult in
       guard let `self` = self else { return }
