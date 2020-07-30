@@ -541,6 +541,9 @@
 		8B67BA07556BB623E015CA60 /* Pods_KyberNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A95682795E696525B3A48A /* Pods_KyberNetwork.framework */; };
 		938288E2ED2CF2CECDBAEA28 /* Pods_KyberNetworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
+		C30978C124D11FCE00FE2392 /* KNExploreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30978C024D11FCE00FE2392 /* KNExploreCoordinator.swift */; };
+		C30978C424D1280300FE2392 /* KNExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30978C224D1280300FE2392 /* KNExploreViewController.swift */; };
+		C30978C524D1280300FE2392 /* KNExploreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C30978C324D1280300FE2392 /* KNExploreViewController.xib */; };
 		C3114370249B1C2300084CD8 /* KNMigrationTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */; };
 		C3114371249B1C2300084CD8 /* KNMigrationTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311436F249B1C2300084CD8 /* KNMigrationTutorialViewController.xib */; };
 		C315AD5E240F845200620096 /* CustomAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C315AD5D240F845200620096 /* CustomAxisValueFormatter.swift */; };
@@ -1203,6 +1206,9 @@
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
+		C30978C024D11FCE00FE2392 /* KNExploreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNExploreCoordinator.swift; sourceTree = "<group>"; };
+		C30978C224D1280300FE2392 /* KNExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNExploreViewController.swift; sourceTree = "<group>"; };
+		C30978C324D1280300FE2392 /* KNExploreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNExploreViewController.xib; sourceTree = "<group>"; };
 		C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNMigrationTutorialViewController.swift; sourceTree = "<group>"; };
 		C311436F249B1C2300084CD8 /* KNMigrationTutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNMigrationTutorialViewController.xib; sourceTree = "<group>"; };
 		C315AD5D240F845200620096 /* CustomAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAxisValueFormatter.swift; sourceTree = "<group>"; };
@@ -2167,6 +2173,7 @@
 		25682B6D20EE0365009738C4 /* Tabbars */ = {
 			isa = PBXGroup;
 			children = (
+				C30978BD24D11EE100FE2392 /* Explore */,
 				25377B0822842A980012178F /* LimitOrder */,
 				254CD0DB2148F0FE0079EA7A /* Profile */,
 				255DC60A20A9495F002C2BBF /* Balance */,
@@ -3961,6 +3968,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C30978BD24D11EE100FE2392 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				C30978BF24D11F1600FE2392 /* Controllers */,
+				C30978BE24D11F0C00FE2392 /* Coordinator */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		C30978BE24D11F0C00FE2392 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C30978C024D11FCE00FE2392 /* KNExploreCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C30978BF24D11F1600FE2392 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C30978C224D1280300FE2392 /* KNExploreViewController.swift */,
+				C30978C324D1280300FE2392 /* KNExploreViewController.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		C31B1DBE241A3692000A0C0A /* NotificationSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -4551,6 +4584,7 @@
 				25929C5D20DA5C760045CFA3 /* SF-Pro-Display-Black.otf in Resources */,
 				255A70EB214F9ECE005D7A6A /* KNSettingsTabViewController.xib in Resources */,
 				253F50E821E5B5290068813D /* KNPromoCodeViewController.xib in Resources */,
+				C30978C524D1280300FE2392 /* KNExploreViewController.xib in Resources */,
 				25929C6820DA5C760045CFA3 /* SF-Pro-Display-Light.otf in Resources */,
 				2502AC19209475BE007F23CD /* KNListWalletsTableViewCell.xib in Resources */,
 				25929C5220DA5C760045CFA3 /* SF-Pro-Text-BoldItalic.otf in Resources */,
@@ -4991,6 +5025,7 @@
 				2546C6D92211871F0076E52B /* TrustDocumentPickerViewController.swift in Sources */,
 				25CC0A8E2057D0410009D0D5 /* KNSession.swift in Sources */,
 				29FA00CC201CA63C002F7DC5 /* Method.swift in Sources */,
+				C30978C124D11FCE00FE2392 /* KNExploreCoordinator.swift in Sources */,
 				257A37A0205CFEF300E86794 /* KNTransactionReceipt.swift in Sources */,
 				2963A28A1FC402940095447D /* LocalizedOperationObject.swift in Sources */,
 				254CD0D921425F300079EA7A /* KNBalanceTokenTableViewCell.swift in Sources */,
@@ -5016,6 +5051,7 @@
 				29C80D371FB2CD230037B1E0 /* PendingTransaction.swift in Sources */,
 				25117D432248D6B000B5C495 /* KNLeaderBoardCollectionViewCell.swift in Sources */,
 				251ABCA620578E630069687F /* KNNotificationUtil.swift in Sources */,
+				C30978C424D1280300FE2392 /* KNExploreViewController.swift in Sources */,
 				259925B920EF2D4900CCF2D6 /* KNContactTableViewCell.swift in Sources */,
 				C356C011243DC6E7007E419B /* KNSelectMarketViewModel.swift in Sources */,
 				2561455B20C795AF00FB00CF /* KNChartObject.swift in Sources */,
