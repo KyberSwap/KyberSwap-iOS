@@ -26,6 +26,7 @@
                 <outlet property="historyButton" destination="lp4-JK-3PI" id="PPQ-ow-gLi"/>
                 <outlet property="loginButton" destination="uI5-1x-xzc" id="hXf-tM-OOl"/>
                 <outlet property="notificationButton" destination="cfE-Kr-V1z" id="cpb-MU-rDR"/>
+                <outlet property="unreadNotiLabel" destination="5my-Pr-iPY" id="P3v-V1-3mC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -131,6 +132,16 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  3  " textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5my-Pr-iPY">
+                    <rect key="frame" x="60.999999999999993" y="340" width="15.666666666666664" height="14"/>
+                    <color key="backgroundColor" red="0.97254901959999995" green="0.62352941179999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="14" id="MVN-Gw-Kqr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -141,15 +152,17 @@
                 <constraint firstItem="kzk-nv-IEs" firstAttribute="top" secondItem="ITa-jS-EgX" secondAttribute="bottom" constant="43" id="FUh-co-UBr"/>
                 <constraint firstItem="lhp-UB-ao5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Hgp-DA-HiL"/>
                 <constraint firstItem="xo1-VS-tT2" firstAttribute="top" secondItem="ITa-jS-EgX" secondAttribute="bottom" id="Mky-te-1uA"/>
+                <constraint firstItem="5my-Pr-iPY" firstAttribute="top" secondItem="cfE-Kr-V1z" secondAttribute="top" constant="15" id="Nbu-Ge-1KB"/>
                 <constraint firstItem="kzk-nv-IEs" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-11" id="SBV-rP-R4O"/>
                 <constraint firstItem="lhp-UB-ao5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Vnq-5i-rDk"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cRb-Rd-BGA"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="top" secondItem="lhp-UB-ao5" secondAttribute="bottom" id="fA9-dP-5ik"/>
+                <constraint firstItem="5my-Pr-iPY" firstAttribute="leading" secondItem="cfE-Kr-V1z" secondAttribute="leading" constant="50" id="kXK-wG-MJz"/>
                 <constraint firstItem="xo1-VS-tT2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="r4v-0Q-AaC"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="132" y="145.27736131934034"/>
+            <point key="canvasLocation" x="132" y="144.82758620689657"/>
         </view>
     </objects>
     <resources>

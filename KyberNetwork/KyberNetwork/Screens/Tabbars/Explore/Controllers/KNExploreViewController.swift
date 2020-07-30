@@ -33,6 +33,7 @@ class KNExploreViewController: KNBaseViewController {
   @IBOutlet weak var loginButton: UIButton!
   @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var headerTitleLabel: UILabel!
+  @IBOutlet weak var unreadNotiLabel: UILabel!
 
   var viewModel: KNExploreViewModel
   weak var delegate: KNExploreViewControllerDelegate?
@@ -44,6 +45,11 @@ class KNExploreViewController: KNBaseViewController {
 
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+
+  deinit {
+    let name = Notification.Name(kUpdateListNotificationsKey)
+    NotificationCenter.default.removeObserver(self, name: name, object: nil)
   }
 
   override func viewDidLoad() {
@@ -61,6 +67,15 @@ class KNExploreViewController: KNBaseViewController {
     self.alertButton.setTitle("Alert".toBeLocalised(), for: .normal)
     self.historyButton.setTitle("History".toBeLocalised(), for: .normal)
     self.loginButton.setTitle("profile".toBeLocalised(), for: .normal)
+    self.unreadNotiLabel.rounded(radius: 7)
+    let name = Notification.Name(kUpdateListNotificationsKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.notificationDidUpdate(_:)),
+      name: name,
+      object: nil
+    )
+    self.notificationDidUpdate(nil)
     self.delegate?.kExploreViewController(self, run: .getListMobileBanner)
   }
 
@@ -98,6 +113,19 @@ class KNExploreViewController: KNBaseViewController {
     default:
       break
     }
+  }
+
+  @objc func notificationDidUpdate(_ sender: Any?) {
+    let numUnread: Int = {
+      if IEOUserStorage.shared.user == nil { return 0 }
+      return KNNotificationCoordinator.shared.numberUnread
+    }()
+    self.update(notificationsCount: numUnread)
+  }
+
+  func update(notificationsCount: Int) {
+    self.unreadNotiLabel.isHidden = notificationsCount == 0
+    self.unreadNotiLabel.text = "  \(notificationsCount)  "
   }
 }
 
