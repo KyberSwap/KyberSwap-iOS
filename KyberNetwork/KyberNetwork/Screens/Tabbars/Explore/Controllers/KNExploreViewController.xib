@@ -25,7 +25,6 @@
                 <outlet property="headerTitleLabel" destination="fRO-Rk-z2y" id="4UY-io-E6R"/>
                 <outlet property="historyButton" destination="lp4-JK-3PI" id="PPQ-ow-gLi"/>
                 <outlet property="loginButton" destination="uI5-1x-xzc" id="hXf-tM-OOl"/>
-                <outlet property="noDataLabel" destination="y46-Yg-MkS" id="aTI-YV-esX"/>
                 <outlet property="notificationButton" destination="cfE-Kr-V1z" id="cpb-MU-rDR"/>
                 <outlet property="unreadNotiLabel" destination="5my-Pr-iPY" id="P3v-V1-3mC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -143,18 +142,11 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No data to show right now" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y46-Yg-MkS">
-                    <rect key="frame" x="94.000000000000014" y="172.66666666666666" width="187.33333333333337" height="19"/>
-                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                    <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="kzk-nv-IEs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="11" id="6wK-B0-hkh"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="7Ca-Y2-k8y"/>
-                <constraint firstItem="y46-Yg-MkS" firstAttribute="centerX" secondItem="ITa-jS-EgX" secondAttribute="centerX" id="8YJ-l6-FMI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lhp-UB-ao5" secondAttribute="trailing" id="8fA-Gr-vSv"/>
                 <constraint firstItem="xo1-VS-tT2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9xu-Nu-fzX"/>
                 <constraint firstItem="kzk-nv-IEs" firstAttribute="top" secondItem="ITa-jS-EgX" secondAttribute="bottom" constant="43" id="FUh-co-UBr"/>
@@ -164,7 +156,6 @@
                 <constraint firstItem="kzk-nv-IEs" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-11" id="SBV-rP-R4O"/>
                 <constraint firstItem="lhp-UB-ao5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Vnq-5i-rDk"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cRb-Rd-BGA"/>
-                <constraint firstItem="y46-Yg-MkS" firstAttribute="centerY" secondItem="ITa-jS-EgX" secondAttribute="centerY" id="ckg-nK-sm1"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="top" secondItem="lhp-UB-ao5" secondAttribute="bottom" id="fA9-dP-5ik"/>
                 <constraint firstItem="5my-Pr-iPY" firstAttribute="leading" secondItem="cfE-Kr-V1z" secondAttribute="leading" constant="50" id="kXK-wG-MJz"/>
                 <constraint firstItem="xo1-VS-tT2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="r4v-0Q-AaC"/>

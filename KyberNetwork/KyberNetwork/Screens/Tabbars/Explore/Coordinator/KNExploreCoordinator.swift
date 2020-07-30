@@ -64,6 +64,10 @@ extension KNExploreCoordinator: KNExploreViewControllerDelegate {
       self.profileCoordinator.start()
     case .openBannerLink(let link):
       self.rootViewController.openSafari(with: link)
+    case .navigateSwap:
+      self.rootViewController.tabBarController?.selectedIndex = 1
+    case .navigateLO:
+      self.rootViewController.tabBarController?.selectedIndex = 2
     }
   }
 

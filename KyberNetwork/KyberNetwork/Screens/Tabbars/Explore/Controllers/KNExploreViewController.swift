@@ -11,9 +11,17 @@ enum KNExploreViewEvent {
   case openHistory
   case openLogin
   case openBannerLink(link: String)
+  case navigateSwap
+  case navigateLO
 }
 
 class KNExploreViewModel {
+  static let defaultBanner = [
+    ["image_url": "explore_default_banner_1", "link": "swap"],
+    ["image_url": "explore_default_banner_2", "link": "https://www.kyber.org"],
+    ["image_url": "explore_default_banner_3", "link": "lo"],
+  ]
+
   var bannerItems: [[String: String]] = []
 }
 
@@ -35,7 +43,6 @@ class KNExploreViewController: KNBaseViewController {
   @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var headerTitleLabel: UILabel!
   @IBOutlet weak var unreadNotiLabel: UILabel!
-  @IBOutlet weak var noDataLabel: UILabel!
 
   var viewModel: KNExploreViewModel
   weak var delegate: KNExploreViewControllerDelegate?
@@ -69,7 +76,6 @@ class KNExploreViewController: KNBaseViewController {
     self.alertButton.setTitle("Alert".toBeLocalised(), for: .normal)
     self.historyButton.setTitle("History".toBeLocalised(), for: .normal)
     self.loginButton.setTitle("profile".toBeLocalised(), for: .normal)
-    self.noDataLabel.text = "No data to show right now".toBeLocalised()
     self.unreadNotiLabel.rounded(radius: 7)
     let name = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.addObserver(
@@ -98,9 +104,12 @@ class KNExploreViewController: KNBaseViewController {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
   func coordinatorUpdateBannerImages(items: [[String: String]]) {
-    self.noDataLabel.isHidden = !items.isEmpty
     self.viewModel.bannerItems = items
-    self.bannerPagerControl.numberOfPages = self.viewModel.bannerItems.count
+    if items.isEmpty {
+      self.bannerPagerControl.numberOfPages = KNExploreViewModel.defaultBanner.count
+    } else {
+      self.bannerPagerControl.numberOfPages = self.viewModel.bannerItems.count
+    }
     self.bannerPagerControl.currentPage = 0
     self.bannerPagerView.reloadData()
   }
@@ -140,13 +149,18 @@ class KNExploreViewController: KNBaseViewController {
 
 extension KNExploreViewController: FSPagerViewDataSource {
   public func numberOfItems(in pagerView: FSPagerView) -> Int {
-    return self.viewModel.bannerItems.count
+    return self.viewModel.bannerItems.isEmpty ? KNExploreViewModel.defaultBanner.count : self.viewModel.bannerItems.count
   }
 
   public func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
     let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
-    let url = URL(string: self.viewModel.bannerItems[index]["image_url"] ?? "")
-    cell.imageView?.kf.setImage(with: url)
+    if self.viewModel.bannerItems.isEmpty {
+      let imgName = KNExploreViewModel.defaultBanner[index]["image_url"]!
+      cell.imageView?.image = UIImage(named: imgName)
+    } else {
+      let url = URL(string: self.viewModel.bannerItems[index]["image_url"] ?? "")
+      cell.imageView?.kf.setImage(with: url)
+    }
     cell.imageView?.contentMode = .scaleAspectFill
     cell.imageView?.clipsToBounds = true
     return cell
@@ -157,9 +171,25 @@ extension KNExploreViewController: FSPagerViewDelegate {
   func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
     pagerView.deselectItem(at: index, animated: true)
     pagerView.scrollToItem(at: index, animated: true)
-    if let link = self.viewModel.bannerItems[index]["link"] {
-      KNCrashlyticsUtil.logCustomEvent(withName: "explore_click_banner", customAttributes: ["link": link])
-      self.delegate?.kExploreViewController(self, run: .openBannerLink(link: link))
+    if self.viewModel.bannerItems.isEmpty {
+      switch index {
+      case 0:
+        self.delegate?.kExploreViewController(self, run: .navigateSwap)
+      case 1:
+        if let link = KNExploreViewModel.defaultBanner[index]["link"] {
+          KNCrashlyticsUtil.logCustomEvent(withName: "explore_click_banner", customAttributes: ["link": link])
+          self.delegate?.kExploreViewController(self, run: .openBannerLink(link: link))
+        }
+      case 2:
+        self.delegate?.kExploreViewController(self, run: .navigateLO)
+      default:
+        break
+      }
+    } else {
+      if let link = self.viewModel.bannerItems[index]["link"] {
+        KNCrashlyticsUtil.logCustomEvent(withName: "explore_click_banner", customAttributes: ["link": link])
+        self.delegate?.kExploreViewController(self, run: .openBannerLink(link: link))
+      }
     }
   }
 
