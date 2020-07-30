@@ -35,6 +35,7 @@ class KNExploreViewController: KNBaseViewController {
   @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var headerTitleLabel: UILabel!
   @IBOutlet weak var unreadNotiLabel: UILabel!
+  @IBOutlet weak var noDataLabel: UILabel!
 
   var viewModel: KNExploreViewModel
   weak var delegate: KNExploreViewControllerDelegate?
@@ -68,6 +69,7 @@ class KNExploreViewController: KNBaseViewController {
     self.alertButton.setTitle("Alert".toBeLocalised(), for: .normal)
     self.historyButton.setTitle("History".toBeLocalised(), for: .normal)
     self.loginButton.setTitle("profile".toBeLocalised(), for: .normal)
+    self.noDataLabel.text = "No data to show right now".toBeLocalised()
     self.unreadNotiLabel.rounded(radius: 7)
     let name = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.addObserver(
@@ -78,6 +80,7 @@ class KNExploreViewController: KNBaseViewController {
     )
     self.notificationDidUpdate(nil)
     self.delegate?.kExploreViewController(self, run: .getListMobileBanner)
+    self.displayLoading()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -95,6 +98,7 @@ class KNExploreViewController: KNBaseViewController {
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
   func coordinatorUpdateBannerImages(items: [[String: String]]) {
+    self.noDataLabel.isHidden = !items.isEmpty
     self.viewModel.bannerItems = items
     self.bannerPagerControl.numberOfPages = self.viewModel.bannerItems.count
     self.bannerPagerControl.currentPage = 0

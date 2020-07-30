@@ -71,6 +71,7 @@ extension KNExploreCoordinator: KNExploreViewControllerDelegate {
     DispatchQueue.global(qos: .background).async {
       let provider = MoyaProvider<UserInfoService>()
       provider.request(.getMobileBanner) { (result) in
+        self.rootViewController.hideLoading()
         switch result {
         case .success(let resp):
           do {
@@ -82,12 +83,32 @@ extension KNExploreCoordinator: KNExploreViewControllerDelegate {
               self.rootViewController.coordinatorUpdateBannerImages(items: data)
             }
           } catch {
+            self.rootViewController.coordinatorUpdateBannerImages(items: [])
+            self.showRetryAlert()
           }
-        case .failure(let error):
-          print(error.errorDescription)
+        case .failure:
+          self.rootViewController.coordinatorUpdateBannerImages(items: [])
+          self.showRetryAlert()
         }
       }
     }
+  }
+
+  fileprivate func showRetryAlert() {
+    let alert = KNPrettyAlertController(
+      title: nil,
+      message: "something.went.wrong.please.try.again".toBeLocalised(),
+      secondButtonTitle: "try.again".toBeLocalised(),
+      firstButtonTitle: "cancel".toBeLocalised(),
+      secondButtonAction: {
+        self.fetchBannerImages()
+        KNCrashlyticsUtil.logCustomEvent(withName: "explore_retry_alert_retry_tapped", customAttributes: nil)
+      },
+      firstButtonAction: {
+        KNCrashlyticsUtil.logCustomEvent(withName: "explore_retry_alert_cancel_tapped", customAttributes: nil)
+      }
+    )
+    self.rootViewController.present(alert, animated: true, completion: nil)
   }
 
   fileprivate func openNotificationSettingScreen() {
