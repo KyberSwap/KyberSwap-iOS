@@ -781,3 +781,7 @@
 "Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is paid to miners (not Kyberswap) to facilitate transactions on the Ethereum blockchain. Generally, the higher the Gas price, the faster your transaction executes. Gas prices depend on how congested the blockchain is, and are not decided by KyberSwap.";
 "Wallet.must.be.backed.up" = "Please backup your wallet. It will allow you to recover your wallet if your phone is damaged, lost or stolen";
 "Later" = "Later";
+
+"Explore" = "Explore";
+"Alert" = "Alert";
+"History" = "History";

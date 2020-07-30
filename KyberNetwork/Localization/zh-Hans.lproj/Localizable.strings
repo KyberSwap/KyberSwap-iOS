@@ -783,3 +783,7 @@
 "Gas.fee.is.the.fee.you.pay.to.the.miner" = "燃料费用费是您支付给矿工（而不是支付给KyberSwap）以在区块链上进行交易的费用。燃料的价格通常反映了您希望一笔交易的开采速度有多快。";
 "Wallet.must.be.backed.up" = "请备份您的钱包。以便在手机发生损坏、丢失或被盗的情况下，能帮助您找回钱包.";
 "Later" = "以后";
+
+"Explore" = "探索";
+"Alert" = "价格警报";
+"History" = "历史纪录";

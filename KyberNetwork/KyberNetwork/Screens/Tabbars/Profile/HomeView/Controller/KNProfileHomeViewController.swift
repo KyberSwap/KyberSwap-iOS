@@ -325,6 +325,10 @@ class KNProfileHomeViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "profile_leader_board", customAttributes: nil)
     self.delegate?.profileHomeViewController(self, run: .leaderBoard)
   }
+
+  @IBAction func backButtonPressed(_ sender: UIButton) {
+    self.navigationController?.popViewController(animated: true)
+  }
 }
 
 extension KNProfileHomeViewController {

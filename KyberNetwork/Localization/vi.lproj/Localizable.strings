@@ -783,3 +783,7 @@
 "Gas.fee.is.the.fee.you.pay.to.the.miner" = "Phí gas là phí bạn phải trả cho miner (không phải KyberSwap) để họ xác nhận giao dịch của bạn trên blockchain. Phí gas bạn chọn sẽ ảnh hưởng đến tốc độ giao dịch.";
 "Wallet.must.be.backed.up" = "Vui lòng sao lưu ví của bạn. Nó sẽ giúp bạn khôi phục lại ví nếu điện thoại của bạn bị hỏng, mất hoặc bị cướp.";
 "Later" = "Để sau";
+
+"Explore" = "Khám phá";
+"Alert" = "Thông báo";
+"History" = "Lịch sử";

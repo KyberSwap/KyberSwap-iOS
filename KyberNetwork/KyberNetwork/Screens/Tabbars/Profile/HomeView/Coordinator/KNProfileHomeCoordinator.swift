@@ -59,16 +59,7 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
   }
 
   func start() {
-    self.navigationController.viewControllers = [self.rootViewController]
-    self.timerAccessTokenExpired()
-    let cookieJar = HTTPCookieStorage.shared
-    for cookie in (cookieJar.cookies ?? []) {
-      cookieJar.deleteCookie(cookie)
-    }
-    if IEOUserStorage.shared.user != nil {
-      if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.resume() }
-      self.timerLoadUserInfo()
-    }
+    self.navigationController.pushViewController(self.rootViewController, animated: true)
   }
 
   func stop() {
@@ -85,6 +76,18 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
     self.loadUserInfoTimer = nil
     self.signUpViewController = nil
     self.confirmSignUpVC = nil
+  }
+
+  func startUserTrackingTimer() {
+    self.timerAccessTokenExpired()
+    let cookieJar = HTTPCookieStorage.shared
+    for cookie in (cookieJar.cookies ?? []) {
+      cookieJar.deleteCookie(cookie)
+    }
+    if IEOUserStorage.shared.user != nil {
+      if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.resume() }
+      self.timerLoadUserInfo()
+    }
   }
 
   internal func timerAccessTokenExpired() {
@@ -150,7 +153,6 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
   // MARK: Update from app coordinator
   func updateSession(_ session: KNSession) {
     self.session = session
-    self.navigationController.popToRootViewController(animated: false)
   }
 
   func appCoordinatorDidUpdateWalletObjects() {

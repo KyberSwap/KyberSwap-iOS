@@ -92,7 +92,7 @@ extension KNAppCoordinator: KNSettingsCoordinatorDelegate {
     self.balanceTabCoordinator?.appCoordinatorDidUpdateWalletObjects()
     self.exchangeCoordinator?.appCoordinatorDidUpdateWalletObjects()
     self.limitOrderCoordinator?.appCoordinatorDidUpdateWalletObjects()
-    self.profileCoordinator?.appCoordinatorDidUpdateWalletObjects()
+    self.exploreCoordinator?.appCoordinatorDidUpdateWalletObjects()
   }
 
   func settingsCoordinatorUserDidSelectExit() {

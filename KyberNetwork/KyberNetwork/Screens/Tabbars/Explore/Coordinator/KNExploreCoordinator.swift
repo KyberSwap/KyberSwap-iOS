@@ -1,0 +1,136 @@
+// Copyright SIX DAY LLC. All rights reserved.
+
+import Foundation
+import Moya
+
+class KNExploreCoordinator: NSObject, Coordinator {
+  let navigationController: UINavigationController
+  var coordinators: [Coordinator] = []
+  private(set) var session: KNSession
+  fileprivate var historyCoordinator: KNHistoryCoordinator?
+
+  lazy var rootViewController: KNExploreViewController = {
+    let viewModel = KNExploreViewModel()
+    let controller = KNExploreViewController(viewModel: viewModel)
+    controller.delegate = self
+    return controller
+  }()
+
+  lazy var profileCoordinator: KNProfileHomeCoordinator = {
+    let coordinator = KNProfileHomeCoordinator(navigationController: self.navigationController, session: self.session)
+    return coordinator
+  }()
+
+  fileprivate var manageAlertCoordinator: KNManageAlertCoordinator?
+
+  init(navigationController: UINavigationController = UINavigationController(), session: KNSession) {
+    self.navigationController = navigationController
+    self.session = session
+    self.navigationController.setNavigationBarHidden(true, animated: false)
+  }
+
+  func start() {
+    self.navigationController.viewControllers = [self.rootViewController]
+    self.profileCoordinator.startUserTrackingTimer()
+  }
+
+  func stop() {
+    self.navigationController.popToRootViewController(animated: false)
+    self.profileCoordinator.stop()
+  }
+
+  func updateSession(_ session: KNSession) {
+    self.session = session
+    self.navigationController.popToRootViewController(animated: false)
+    self.profileCoordinator.updateSession(session)
+  }
+
+  func appCoordinatorDidUpdateWalletObjects() {
+  }
+}
+
+extension KNExploreCoordinator: KNExploreViewControllerDelegate {
+  func kExploreViewController(_ controller: KNExploreViewController, run event: KNExploreViewEvent) {
+    switch event {
+    case .getListMobileBanner:
+      self.fetchBannerImages()
+    case .openNotification:
+      self.openNotificationSettingScreen()
+    case .openAlert:
+      self.openManageAlert()
+    case .openHistory:
+      self.openHistoryTransactionView()
+    case .openLogin:
+      self.profileCoordinator.start()
+    }
+  }
+
+  fileprivate func fetchBannerImages() {
+    DispatchQueue.global(qos: .background).async {
+      let provider = MoyaProvider<UserInfoService>()
+      provider.request(.getMobileBanner) { (result) in
+        switch result {
+        case .success(let resp):
+          do {
+            _ = try resp.filterSuccessfulStatusCodes()
+            let json = try resp.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
+            let success = json["success"] as? Bool ?? false
+            let data = json["data"] as? [[String: String]] ?? []
+            if success {
+              self.rootViewController.coordinatorUpdateBannerImages(items: data)
+            }
+          } catch {
+          }
+        case .failure(let error):
+          print(error.errorDescription)
+        }
+      }
+    }
+  }
+
+  fileprivate func openNotificationSettingScreen() {
+    self.navigationController.displayLoading()
+    KNNotificationCoordinator.shared.getListSubcriptionTokens { (message, result) in
+      self.navigationController.hideLoading()
+      if let errorMessage = message {
+        self.navigationController.showErrorTopBannerMessage(message: errorMessage)
+      } else if let symbols = result {
+        let viewModel = KNNotificationSettingViewModel(tokens: symbols.0, selected: symbols.1, notiStatus: symbols.2)
+        let viewController = KNNotificationSettingViewController(viewModel: viewModel)
+        viewController.delegate = self
+        self.navigationController.pushViewController(viewController, animated: true)
+      }
+    }
+  }
+
+  fileprivate func openHistoryTransactionView() {
+    if let topVC = self.navigationController.topViewController, topVC is KNHistoryViewController { return }
+    self.historyCoordinator = nil
+    self.historyCoordinator = KNHistoryCoordinator(
+      navigationController: self.navigationController,
+      session: self.session
+    )
+    self.historyCoordinator?.delegate = self
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
+    self.historyCoordinator?.start()
+  }
+
+  fileprivate func openManageAlert() {
+    if let topVC = self.navigationController.topViewController, topVC is KNManageAlertsViewController { return }
+    self.manageAlertCoordinator = KNManageAlertCoordinator(navigationController: self.navigationController)
+    self.manageAlertCoordinator?.start()
+  }
+}
+
+extension KNExploreCoordinator: KNNotificationSettingViewControllerDelegate {
+  func notificationSettingViewControllerDidApply(_ controller: KNNotificationSettingViewController) {
+    self.navigationController.popViewController(animated: true) {
+      self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
+    }
+  }
+}
+
+extension KNExploreCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidClose() {
+  }
+}
