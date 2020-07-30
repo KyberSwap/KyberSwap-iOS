@@ -10,6 +10,7 @@ enum KNExploreViewEvent {
   case openAlert
   case openHistory
   case openLogin
+  case openBannerLink(link: String)
 }
 
 class KNExploreViewModel {
@@ -103,12 +104,16 @@ class KNExploreViewController: KNBaseViewController {
   @IBAction func menuButtonTapped(_ sender: UIButton) {
     switch sender.tag {
     case 1:
+      KNCrashlyticsUtil.logCustomEvent(withName: "explore_notification_tapped", customAttributes: nil)
       self.delegate?.kExploreViewController(self, run: .openNotification)
     case 2:
+      KNCrashlyticsUtil.logCustomEvent(withName: "explore_alert_tapped", customAttributes: nil)
       self.delegate?.kExploreViewController(self, run: .openAlert)
     case 3:
+      KNCrashlyticsUtil.logCustomEvent(withName: "explore_history_tapped", customAttributes: nil)
       self.delegate?.kExploreViewController(self, run: .openHistory)
     case 4:
+      KNCrashlyticsUtil.logCustomEvent(withName: "explore_profile_tapped", customAttributes: nil)
       self.delegate?.kExploreViewController(self, run: .openLogin)
     default:
       break
@@ -148,6 +153,10 @@ extension KNExploreViewController: FSPagerViewDelegate {
   func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
     pagerView.deselectItem(at: index, animated: true)
     pagerView.scrollToItem(at: index, animated: true)
+    if let link = self.viewModel.bannerItems[index]["link"] {
+      KNCrashlyticsUtil.logCustomEvent(withName: "explore_click_banner", customAttributes: ["link": link])
+      self.delegate?.kExploreViewController(self, run: .openBannerLink(link: link))
+    }
   }
 
   func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {

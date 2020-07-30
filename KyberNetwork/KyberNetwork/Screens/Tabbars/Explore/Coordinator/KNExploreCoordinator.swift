@@ -62,6 +62,8 @@ extension KNExploreCoordinator: KNExploreViewControllerDelegate {
       self.openHistoryTransactionView()
     case .openLogin:
       self.profileCoordinator.start()
+    case .openBannerLink(let link):
+      self.rootViewController.openSafari(with: link)
     }
   }
 
