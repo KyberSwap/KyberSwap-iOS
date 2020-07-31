@@ -84,10 +84,8 @@ class KNProfileHomeCoordinator: NSObject, Coordinator {
     for cookie in (cookieJar.cookies ?? []) {
       cookieJar.deleteCookie(cookie)
     }
-    if IEOUserStorage.shared.user != nil {
-      if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.resume() }
-      self.timerLoadUserInfo()
-    }
+    if KNAppTracker.isPriceAlertEnabled { KNPriceAlertCoordinator.shared.resume() }
+    self.timerLoadUserInfo()
   }
 
   internal func timerAccessTokenExpired() {

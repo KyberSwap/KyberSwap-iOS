@@ -46,6 +46,36 @@ class KNExploreCoordinator: NSObject, Coordinator {
   }
 
   func appCoordinatorDidUpdateWalletObjects() {
+    self.historyCoordinator?.appCoordinatorDidUpdateWalletObjects()
+  }
+
+  func appCoordinatorPendingTransactionsDidUpdate(transactions: [KNTransaction]) {
+    self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate(transactions)
+  }
+
+  func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
+    if self.navigationController.viewControllers.first(where: { $0 is KNHistoryViewController }) == nil {
+      self.historyCoordinator = nil
+      self.historyCoordinator = KNHistoryCoordinator(
+        navigationController: self.navigationController,
+        session: self.session
+      )
+    }
+    self.historyCoordinator?.delegate = self
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(session)
+  }
+
+  func appCoordinatorGasPriceCachedDidUpdate() {
+    self.historyCoordinator?.coordinatorGasPriceCachedDidUpdate()
+  }
+
+  func appCoordinatorTokensTransactionsDidUpdate() {
+    self.historyCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
+  }
+
+  func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
+    if self.historyCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) == true { return true }
+    return false
   }
 }
 

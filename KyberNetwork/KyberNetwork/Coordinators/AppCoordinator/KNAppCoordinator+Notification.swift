@@ -247,6 +247,7 @@ extension KNAppCoordinator {
       let transactions = self.session.transactionStorage.kyberPendingTransactions
       self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
       self.balanceTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
+      self.exploreCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
       return
     }
     guard let trans = transaction else {
@@ -256,7 +257,8 @@ extension KNAppCoordinator {
         let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
         let updateLO = self.limitOrderCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
         let updateSettings = self.settingsCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
-        if !(updateBalance || updateExchange || updateLO || updateSettings) {
+        let updateExplore = self.exploreCoordinator?.appCoordinatorUpdateTransaction(nil, txID: txHash) ?? false
+        if !(updateBalance || updateExchange || updateLO || updateSettings || updateExplore) {
           var popupMessage = "Your transaction might be lost, dropped or replaced. Please check Etherscan for more information".toBeLocalised()
           if let isLost = info["is_lost"] as? TransactionType {
             switch isLost {
@@ -292,17 +294,19 @@ extension KNAppCoordinator {
       let transactions = self.session.transactionStorage.kyberPendingTransactions
       self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
       self.balanceTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
+      self.exploreCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
       return
     }
     let updateBalance = self.balanceTabCoordinator?.appCoordinatorUpdateTransaction(trans, txID: trans.id) ?? false
     let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(trans, txID: trans.id) ?? false
     let updateLO = self.limitOrderCoordinator?.appCoordinatorUpdateTransaction(trans, txID: trans.id) ?? false
     let updateSettings = self.settingsCoordinator?.appCoordinatorUpdateTransaction(trans, txID: trans.id) ?? false
+    let updateExplore = self.exploreCoordinator?.appCoordinatorUpdateTransaction(trans, txID: trans.id) ?? false
 
     if trans.state == .pending {
       // just sent
     } else if trans.state == .completed {
-      if !(updateBalance || updateExchange || updateLO || updateSettings) {
+      if !(updateBalance || updateExchange || updateLO || updateSettings || updateExplore) {
         let message = trans.type == .cancel ? "Your transaction has been cancelled successfully".toBeLocalised() : trans.getDetails()
         self.navigationController.showSuccessTopBannerMessage(
           with: NSLocalizedString("success", value: "Success", comment: ""),
@@ -371,6 +375,7 @@ extension KNAppCoordinator {
     self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
     self.balanceTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
     self.limitOrderCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
+    self.exploreCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
   }
 
   @objc func tokenTransactionListDidUpdate(_ sender: Any?) {
@@ -379,6 +384,7 @@ extension KNAppCoordinator {
     self.limitOrderCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
     self.balanceTabCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
     self.loadBalanceCoordinator?.forceUpdateBalanceTransactionsCompleted()
+    self.exploreCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
   }
 
   @objc func tokenObjectListDidUpdate(_ sender: Any?) {
@@ -396,6 +402,7 @@ extension KNAppCoordinator {
     self.exchangeCoordinator?.appCoordinatorGasPriceCachedDidUpdate()
     self.limitOrderCoordinator?.appCoordinatorGasPriceCachedDidUpdate()
     self.balanceTabCoordinator?.appCoordinatorGasPriceCachedDidUpdate()
+    self.exploreCoordinator?.appCoordinatorGasPriceCachedDidUpdate()
   }
 
   @objc func openExchangeTokenView(_ sender: Any?) {

@@ -181,6 +181,10 @@ extension KNAppCoordinator {
         self.session,
         resetRoot: true
       )
+      self.exploreCoordinator?.appCoordinatorDidUpdateNewSession(
+        self.session,
+        resetRoot: true
+      )
       self.balanceTabCoordinator?.appCoordinatorDidUpdateNewSession(
         self.session,
         resetRoot: true
@@ -202,6 +206,9 @@ extension KNAppCoordinator {
         transactions: transactions
       )
       self.limitOrderCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
+        transactions: transactions
+      )
+      self.exploreCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
         transactions: transactions
       )
       if isLoading { self.navigationController.hideLoading() }
