@@ -722,7 +722,7 @@
 "No order found" = "Không có dữ liệu";
 
 //Notifications
-"Notifications" = "Thông báo";
+"Notifications" = "Notifications";
 "Setting" = "Cài đặt";
 "Mark all read" = "Đã đọc tất cả";
 "hour ago" = "giờ trước";
@@ -785,5 +785,5 @@
 "Later" = "Để sau";
 
 "Explore" = "Khám phá";
-"Alert" = "Thông báo";
+"Alert" = "Alert";
 "History" = "Lịch sử";
