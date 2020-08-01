@@ -121,6 +121,7 @@ class KNGasCoordinator {
         self.lowKNGas = min(self.defaultKNGas * BigInt(10) / BigInt(12), self.maxKNGas)
         self.fastKNGas = min(self.defaultKNGas * BigInt(12) / BigInt(10), self.maxKNGas)
         self.standardKNGas = min(self.defaultKNGas, self.maxKNGas)
+        self.lastGasPriceLoadedSuccessTimeStamp = Date().timeIntervalSince1970
       default:
         break
       }
