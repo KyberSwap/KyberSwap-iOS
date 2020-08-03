@@ -397,7 +397,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
 
   @IBAction func suggestBuyTokenButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "lo1_suggest_buy_tapped", customAttributes: nil)
-    let url = "\(KNEnvironment.default.profileURL)/faq#I-have-KNC-in-my-wallet-Do-I-get-any-discount-on-trading-fees"
+    let url = "\(KNEnvironment.default.kyberswapURL)/faq#I-have-KNC-in-my-wallet-Do-I-get-any-discount-on-trading-fees"
     self.navigationController?.openSafari(with: url)
   }
 
@@ -531,7 +531,7 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
 
   @IBAction func reasonCancellingOrderButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "lo1_cancelling_why_btn_tapped", customAttributes: nil)
-    let url = "\(KNEnvironment.default.profileURL)/faq#can-I-submit-multiple-limit-orders-for-same-token-pair"
+    let url = "\(KNEnvironment.default.kyberswapURL)/faq#can-I-submit-multiple-limit-orders-for-same-token-pair"
     self.navigationController?.openSafari(with: url)
   }
 

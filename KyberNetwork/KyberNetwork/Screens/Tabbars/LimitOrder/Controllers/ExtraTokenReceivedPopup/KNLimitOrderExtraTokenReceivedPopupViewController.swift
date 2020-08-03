@@ -65,7 +65,7 @@ class KNLimitOrderExtraTokenReceivedPopupViewController: KNBaseViewController {
   }
 
   @IBAction func whyButtonPressed(_ sender: Any) {
-    let url = "\(KNEnvironment.default.profileURL)/faq#Why-received-amount-is-higher-than-estimated-amount"
+    let url = "\(KNEnvironment.default.kyberswapURL)/faq#Why-received-amount-is-higher-than-estimated-amount"
     self.openSafari(with: url)
   }
 }

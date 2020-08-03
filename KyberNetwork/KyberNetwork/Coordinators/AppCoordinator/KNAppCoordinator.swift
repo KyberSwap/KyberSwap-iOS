@@ -198,7 +198,7 @@ extension KNAppCoordinator {
               customAttributes: nil
             )
             DispatchQueue.main.async {
-              self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
+              self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1521778973")
             }
           }, firstButtonAction: {
             KNCrashlyticsUtil.logCustomEvent(
@@ -227,7 +227,7 @@ extension KNAppCoordinator {
               customAttributes: nil
             )
             DispatchQueue.main.async {
-              self.navigationController.openSafari(with: "https://apps.apple.com/us/app/kyberswap-crypto-exchange/id1453691309")
+              self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1521778973")
             }
           }
         )

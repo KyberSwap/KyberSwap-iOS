@@ -33,14 +33,6 @@ enum KNEnvironment: Int {
     ]
   }
 
-  static let internalBaseEndpoint: String = {
-    return KNAppTracker.internalCachedEnpoint()
-  }()
-
-  static let internalTrackerEndpoint: String = {
-    return KNAppTracker.internalTrackerEndpoint()
-  }()
-
   static var `default`: KNEnvironment {
     return KNAppTracker.externalEnvironment()
   }
@@ -97,9 +89,9 @@ enum KNEnvironment: Int {
   var supportedTokenEndpoint: String {
     let baseString: String = {
       switch self {
-      case .mainnetTest, .production: return "https://kyberswap.com/api/currencies"
-      case .staging: return "\(KNSecret.stagingProfileURL)/api/currencies"
-      case .ropsten: return "\(KNSecret.debugProfileURL)/api/currencies"
+      case .mainnetTest, .production: return "\(KNSecret.prodKyberSwapURL)/api/currencies"
+      case .staging: return "\(KNSecret.stagingKyberSwapURL)/api/currencies"
+      case .ropsten: return "\(KNSecret.devKyberSwapURL)/api/currencies"
       case .rinkeby: return KNSecret.rinkebyApiURL + KNSecret.currencies
       case .kovan: return KNSecret.kovanApiURL + KNSecret.currencies
       }
@@ -107,25 +99,26 @@ enum KNEnvironment: Int {
     return baseString
   }
 
-  var profileURL: String {
+  var kyberswapURL: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production: return KNSecret.kyberswapProfileURL
-    case .ropsten, .rinkeby, .kovan: return KNSecret.debugProfileURL
-    case .staging: return KNSecret.stagingProfileURL
+    case .mainnetTest, .production: return KNSecret.prodKyberSwapURL
+    case .ropsten, .rinkeby, .kovan: return KNSecret.devKyberSwapURL
+    case .staging: return KNSecret.stagingKyberSwapURL
     }
   }
 
   var kyberAPIEnpoint: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production, .staging: return KNSecret.trackerURL
-    case .ropsten, .rinkeby: return KNSecret.debugTrackerURL
+    case .mainnetTest, .production, .staging: return KNSecret.prodApiURL
+    case .ropsten: return KNSecret.ropstenApiURL
     case .kovan: return KNSecret.kovanApiURL
+    default: return KNSecret.devApiURL
     }
   }
 
   var oneSignAppID: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production: return KNSecret.oneSignalAppID
+    case .mainnetTest, .production: return KNSecret.oneSignalAppIDProd
     case .ropsten, .rinkeby, .kovan: return KNSecret.oneSignalAppIDDev
     case .staging: return KNSecret.oneSignalAppIDStaging
     }
@@ -159,21 +152,21 @@ enum KNEnvironment: Int {
 
   var cachedRateURL: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production, .staging: return KNSecret.prodCachedRateURL
-    case .ropsten, .rinkeby, .kovan: return KNSecret.devCachedRateURL
+    case .mainnetTest, .production, .staging: return "\(KNSecret.prodCacheURL)/rate"
+    case .ropsten, .rinkeby, .kovan: return "\(KNSecret.ropstenCacheURL)/rate"
     }
   }
 
   var cachedSourceAmountRateURL: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production, .staging: return KNSecret.trackerURL
-    default: return KNSecret.debugTrackerURL
+    case .mainnetTest, .production, .staging: return KNSecret.prodApiURL
+    default: return KNSecret.ropstenApiURL
     }
   }
 
   var cachedUserCapURL: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production: return KNSecret.userCapURL
+    case .mainnetTest, .production: return KNSecret.prodCacheUserCapURL
     case .staging: return KNSecret.stagingCacheCapURL
     default: return KNSecret.ropstenCacheCapURL
     }
@@ -181,19 +174,21 @@ enum KNEnvironment: Int {
 
   var gasLimitEnpoint: String {
     switch KNEnvironment.default {
-    case .mainnetTest, .production: return KNSecret.trackerURL
-    case .staging: return KNSecret.stagingTrackerURL
+    case .mainnetTest, .production: return KNSecret.prodApiURL
+    case .staging: return KNSecret.stagingApiURL
+    case .ropsten: return KNSecret.ropstenApiURL
     case .kovan: return KNSecret.kovanApiURL
-    default: return KNSecret.debugTrackerURL
+    default: return KNSecret.ropstenApiURL
     }
   }
 
   var expectedRateEndpoint: String {
     switch KNEnvironment.default {
-    case .staging: return KNSecret.stagingProfileURL
-    case .mainnetTest, .production: return "https://api.kyber.network"
+    case .mainnetTest, .production: return KNSecret.prodApiURL
+    case .staging: return KNSecret.stagingApiURL
+    case .ropsten: return KNSecret.ropstenApiURL
     case .kovan: return KNSecret.kovanApiURL
-    default: return KNSecret.defaultDevApiURL
+    default: return KNSecret.devApiURL
     }
   }
 }

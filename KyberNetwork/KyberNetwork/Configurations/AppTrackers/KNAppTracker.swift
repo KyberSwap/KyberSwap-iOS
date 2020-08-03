@@ -65,14 +65,6 @@ class KNAppTracker {
   static let maximumPriceAlertPercent: Double = 10000.0
   static let timeToAuthenticate: Double = 60.0 // 1 minute
 
-  static func internalCachedEnpoint() -> String {
-    return KNSecret.internalCachedEndpoint
-  }
-
-  static func internalTrackerEndpoint() -> String {
-    return KNEnvironment.default.kyberAPIEnpoint
-  }
-
   static func updateInternalTrackerEndpoint(value: String) {
     userDefaults.set(value, forKey: kInternalTrackerEndpointKey)
     userDefaults.synchronize()
@@ -182,7 +174,7 @@ class KNAppTracker {
 
   // MARK: Profile base string
   static func getKyberProfileBaseString() -> String {
-    return KNEnvironment.default.profileURL
+    return KNEnvironment.default.kyberswapURL
   }
 
   // MARK: App style
