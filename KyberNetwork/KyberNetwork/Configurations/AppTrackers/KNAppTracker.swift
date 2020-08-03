@@ -291,8 +291,16 @@ class KNAppTracker {
   }
 
   static func getListFavouriteTokens() -> [String] {
-    let key = "\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey)"
-    return userDefaults.object(forKey: key) as? [String] ?? []
+    KNAppTracker.migrationFavoriteFromPreviousVersion()
+    let filename = NSObject.getDocumentsDirectory().appendingPathComponent("\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey).txt")
+
+    let saved = try? String(contentsOf: filename)
+    if let savedString = saved {
+      let addresses = savedString.components(separatedBy: ", ")
+      return addresses
+    } else {
+      return []
+    }
   }
 
   static func isTokenFavourite(_ address: String) -> Bool {
@@ -300,15 +308,38 @@ class KNAppTracker {
   }
 
   static func updateFavouriteToken(_ address: String, add: Bool) {
-    let key = "\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey)"
-    var addresses = userDefaults.object(forKey: key) as? [String] ?? []
-    if add {
-      if !addresses.contains(address.lowercased()) { addresses.append(address) }
-    } else if let id = addresses.index(of: address.lowercased()) {
-      addresses.remove(at: id)
+    KNAppTracker.migrationFavoriteFromPreviousVersion()
+    let filename = NSObject.getDocumentsDirectory().appendingPathComponent("\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey).txt")
+    do {
+      let saved = try? String(contentsOf: filename)
+      if let savedString = saved {
+        var addresses = savedString.components(separatedBy: ", ")
+        if add {
+          if !addresses.contains(address.lowercased()) { addresses.append(address) }
+        } else if let id = addresses.index(of: address.lowercased()) {
+          addresses.remove(at: id)
+        }
+        let result = addresses.joined(separator: ", ")
+        try result.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+      } else {
+        if add {
+          try address.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+        }
+      }
+    } catch {
     }
-    userDefaults.set(addresses, forKey: key)
-    userDefaults.synchronize()
+  }
+
+  static func migrationFavoriteFromPreviousVersion() {
+    let key = "\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey)"
+    if let addresses = userDefaults.object(forKey: key) as? [String] {
+      let filename = NSObject.getDocumentsDirectory().appendingPathComponent("\(KNEnvironment.default.displayName)-\(kFavouriteTokensKey).txt")
+      let result = addresses.joined(separator: ", ")
+      do {
+        try result.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+      } catch {}
+      userDefaults.removeObject(forKey: key)
+    }
   }
 
   static func getListFavouriteMarkets() -> [String] {

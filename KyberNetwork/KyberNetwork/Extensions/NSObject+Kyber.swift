@@ -85,7 +85,7 @@ extension NSObject {
       let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
       return paths[0]
   }
-  
+
   static func isNeedShowTutorial(for key: String) -> Bool {
     NSObject.migrationUserDefaultShowTutorial(for: key)
     let filename = NSObject.getDocumentsDirectory().appendingPathComponent("quick_tutorial.txt")
@@ -96,7 +96,7 @@ extension NSObject {
       return true
     }
   }
-  
+
   static func updateDoneTutorial(for key: String, duplicateCheck: Bool = false) {
     let filename = NSObject.getDocumentsDirectory().appendingPathComponent("quick_tutorial.txt")
     do {
