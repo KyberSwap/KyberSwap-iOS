@@ -257,7 +257,9 @@ struct KNHistoryViewModel {
     return KNEnvironment.default == .ropsten ? 30.0 : 300
   }
 
-  var isShowQuickTutorialForLongPendingTx: Bool = false
+  var isShowQuickTutorialForLongPendingTx: Bool {
+    return UserDefaults.standard.bool(forKey: Constants.kisShowQuickTutorialForLongPendingTx)
+  }
 }
 
 class KNHistoryViewController: KNBaseViewController {
@@ -333,10 +335,13 @@ class KNHistoryViewController: KNBaseViewController {
           self.showQuickTutorial()
           self.quickTutorialTimer?.invalidate()
           self.quickTutorialTimer = nil
-          self.viewModel.isShowQuickTutorialForLongPendingTx = true
+          UserDefaults.standard.set(true, forKey: Constants.kisShowQuickTutorialForLongPendingTx)
           KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_show_after_over_5_min_tx", customAttributes: nil)
         }
       })
+    } else {
+      self.quickTutorialTimer?.invalidate()
+      self.quickTutorialTimer = nil
     }
   }
 

@@ -11,6 +11,7 @@ public struct Constants {
     public static let isDoneShowQuickTutorialForSwapView = "swap_tutorial_done"
     public static let isDoneShowQuickTutorialForLimitOrderView = "lo_tutorial_done"
     public static let isDoneShowQuickTutorialForHistoryView = "history_tutorial_done"
+    public static let kisShowQuickTutorialForLongPendingTx = "kisShowQuickTutorialForLongPendingTx"
 }
 
 public struct UnitConfiguration {
