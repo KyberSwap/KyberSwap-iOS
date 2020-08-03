@@ -253,15 +253,6 @@ struct KNHistoryViewModel {
 
   var isShowingQuickTutorial: Bool = false
 
-  var isNeedShowQuickTutorial: Bool {
-    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForHistoryView) == nil
-  }
-
-  func updateDoneTutorial() {
-    UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForHistoryView)
-    UserDefaults.standard.synchronize()
-  }
-
   var timeForLongPendingTx: Double {
     return KNEnvironment.default == .ropsten ? 30.0 : 300
   }
@@ -331,8 +322,8 @@ class KNHistoryViewController: KNBaseViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if !self.viewModel.pendingTxData.isEmpty && self.viewModel.isNeedShowQuickTutorial {
-      self.viewModel.updateDoneTutorial()
+    if !self.viewModel.pendingTxData.isEmpty && NSObject.isNeedShowTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView) {
+      NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView, duplicateCheck: true)
       self.showQuickTutorial()
       KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_startup_quick_tutorial", customAttributes: nil)
     }

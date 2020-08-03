@@ -68,7 +68,7 @@ class KNCancelSuggestOrdersViewController: KNBaseViewController {
 
   @IBAction func whyButtonTapped(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "cancelsuggestorder_why_button_clicked", customAttributes: nil)
-    let url = "\(KNEnvironment.default.profileURL)/faq#can-I-submit-multiple-limit-orders-for-same-token-pair"
+    let url = "\(KNEnvironment.default.kyberswapURL)/faq#can-I-submit-multiple-limit-orders-for-same-token-pair"
     self.navigationController?.openSafari(with: url)
   }
 

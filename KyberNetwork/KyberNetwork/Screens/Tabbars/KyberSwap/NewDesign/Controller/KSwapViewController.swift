@@ -179,7 +179,7 @@ class KSwapViewController: KNBaseViewController {
 
     self.loadSwapSuggestionIfNeeded()
 
-    if self.viewModel.isNeedShowTutorial {
+    if NSObject.isNeedShowTutorial(for: Constants.isDoneShowQuickTutorialForSwapView) {
       self.viewModel.currentTutorialStep = 1
       self.showQuickTutorial()
     }
@@ -739,7 +739,7 @@ class KSwapViewController: KNBaseViewController {
     self.dismissTutorialOverlayer()
     if self.viewModel.currentTutorialStep == 3 {
       self.advancedSettingsView.displayViewButtonPressed(self)
-      self.viewModel.updateDoneTutorial()
+      NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForSwapView)
       KNCrashlyticsUtil.logCustomEvent(withName: "tut_swap_got_it_button_tapped", customAttributes: nil)
       return
     }

@@ -85,15 +85,6 @@ class LimitOrderContainerViewController: KNBaseViewController {
     NotificationCenter.default.removeObserver(self, name: name, object: nil)
   }
 
-  var isNeedShowTutorial: Bool {
-    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForLimitOrderView) == nil
-  }
-
-  func updateDoneTutorial() {
-    UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForLimitOrderView)
-    UserDefaults.standard.synchronize()
-  }
-
   override func viewDidLoad() {
     super.viewDidLoad()
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
@@ -130,7 +121,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    if self.isNeedShowTutorial {
+    if NSObject.isNeedShowTutorial(for: Constants.isDoneShowQuickTutorialForLimitOrderView) {
       self.currentTutorialStep = 1
       self.showQuickTutorial()
     }
@@ -442,7 +433,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
     if self.currentTutorialStep == 4 {
       let firstPage = self.pages.first
       firstPage?.containerScrollView.setContentOffset(CGPoint.zero, animated: true)
-      self.updateDoneTutorial()
+      NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForLimitOrderView)
       KNCrashlyticsUtil.logCustomEvent(withName: "tut_lo_got_it_button_tapped", customAttributes: nil)
       return
     }

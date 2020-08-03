@@ -80,4 +80,44 @@ extension NSObject {
     }()
     SwiftMessages.show(config: config, view: view)
   }
+
+  static func getDocumentsDirectory() -> URL {
+      let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+      return paths[0]
+  }
+  
+  static func isNeedShowTutorial(for key: String) -> Bool {
+    NSObject.migrationUserDefaultShowTutorial(for: key)
+    let filename = NSObject.getDocumentsDirectory().appendingPathComponent("quick_tutorial.txt")
+    do {
+      let saved = try String(contentsOf: filename)
+      return !saved.contains(key)
+    } catch {
+      return true
+    }
+  }
+  
+  static func updateDoneTutorial(for key: String, duplicateCheck: Bool = false) {
+    let filename = NSObject.getDocumentsDirectory().appendingPathComponent("quick_tutorial.txt")
+    do {
+      let saved = try? String(contentsOf: filename)
+      var appended = " "
+      if let savedString = saved {
+        if savedString.contains(key) && duplicateCheck {
+          return
+        }
+        appended = savedString + " "
+      }
+      appended += key
+      try appended.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
+    } catch {
+    }
+  }
+
+  static func migrationUserDefaultShowTutorial(for key: String) {
+    if UserDefaults.standard.object(forKey: key) != nil {
+      NSObject.updateDoneTutorial(for: key)
+      UserDefaults.standard.removeObject(forKey: key)
+    }
+  }
 }

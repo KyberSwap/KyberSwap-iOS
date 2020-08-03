@@ -48,19 +48,19 @@ extension KyberNetworkService: TargetType {
       case .getRateUSD:
         return "\(KNEnvironment.default.kyberAPIEnpoint)/token_price?currency=USD"
       case .getHistoryOneColumn:
-        return "\(KNSecret.internalCachedEndpoint)/getHistoryOneColumn"
+        return "\(KNSecret.prodCacheURL)/getHistoryOneColumn"
       case .getLatestBlock:
-        return "\(KNSecret.internalCachedEndpoint)/latestBlock"
+        return "\(KNSecret.prodCacheURL)/latestBlock"
       case .getKyberEnabled:
-        return "\(KNSecret.internalCachedEndpoint)/kyberEnabled"
+        return "\(KNSecret.prodCacheURL)/kyberEnabled"
       case .getMaxGasPrice:
-        return "\(KNSecret.internalCachedEndpoint)/maxGasPrice"
+        return "\(KNSecret.prodCacheURL)/maxGasPrice"
       case .getGasPrice:
-        return "\(KNSecret.internalCachedEndpoint)/gasPrice"
+        return "\(KNSecret.prodCacheURL)/gasPrice"
       case .supportedToken:
         return KNEnvironment.default.supportedTokenEndpoint
       case .getReferencePrice(sym: let sym):
-        return "\(KNSecret.internalCachedEndpoint)/refprice?base=\(sym)&quote=ETH"
+        return "\(KNSecret.prodCacheURL)/refprice?base=\(sym)&quote=ETH"
       }
     }()
     return URL(string: baseURLString)!
@@ -103,7 +103,7 @@ enum KNTrackerService {
 
 extension KNTrackerService: TargetType {
   var baseURL: URL {
-    let baseURLString = KNEnvironment.internalTrackerEndpoint
+    let baseURLString = KNEnvironment.default.kyberAPIEnpoint
     switch self {
     case .getChartHistory(let symbol, let resolution, let from, let to, let rateType):
       let url = "\(KNSecret.getChartHistory)?symbol=\(symbol)&resolution=\(resolution)&from=\(from)&to=\(to)&rateType=\(rateType)"

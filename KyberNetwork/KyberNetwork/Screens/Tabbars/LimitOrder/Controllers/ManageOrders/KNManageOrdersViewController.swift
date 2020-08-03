@@ -334,7 +334,7 @@ class KNManageOrdersViewController: KNBaseViewController {
 
   @IBAction func openFAQButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "manageorder_faq_button_tapped", customAttributes: nil)
-    let url = "\(KNEnvironment.default.profileURL)/faq#I-submitted-the-limit-order-but-it-was-not-triggered-even-though-my-desired-price-was-hit"
+    let url = "\(KNEnvironment.default.kyberswapURL)/faq#I-submitted-the-limit-order-but-it-was-not-triggered-even-though-my-desired-price-was-hit"
     self.navigationController?.openSafari(with: url)
   }
 

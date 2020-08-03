@@ -477,13 +477,4 @@ class KWalletBalanceViewModel: NSObject {
   // MARK: TUTORIAL
   var currentTutorialStep: Int = 1
   var isShowingQuickTutorial: Bool = false
-
-  var isNeedShowTutorial: Bool {
-    return UserDefaults.standard.object(forKey: Constants.isDoneShowQuickTutorialForBalanceView) == nil
-  }
-
-  func updateDoneTutorial() {
-    UserDefaults.standard.set(true, forKey: Constants.isDoneShowQuickTutorialForBalanceView)
-    UserDefaults.standard.synchronize()
-  }
 }

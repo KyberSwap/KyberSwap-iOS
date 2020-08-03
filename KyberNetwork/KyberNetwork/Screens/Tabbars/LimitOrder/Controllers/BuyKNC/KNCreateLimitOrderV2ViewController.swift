@@ -190,7 +190,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
 
   @IBAction func learnMoreButtonTapped(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "lo_learnmore", customAttributes: nil)
-    let url = "\(KNEnvironment.default.profileURL)/faq#I-have-KNC-in-my-wallet-Do-I-get-any-discount-on-trading-fees"
+    let url = "\(KNEnvironment.default.kyberswapURL)/faq#I-have-KNC-in-my-wallet-Do-I-get-any-discount-on-trading-fees"
     self.navigationController?.openSafari(with: url)
   }
 
