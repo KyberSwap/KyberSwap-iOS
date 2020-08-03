@@ -14,6 +14,12 @@ class KNGasCoordinator {
   static let shared: KNGasCoordinator = KNGasCoordinator()
   fileprivate let provider = MoyaProvider<KyberNetworkService>()
 
+  static let ksavedDefaultGas = "ksavedDefaultGas"
+  static let ksavedStandartGas = "ksavedStandartGas"
+  static let ksavedLowGas = "ksavedLowGas"
+  static let ksavedFastGas = "ksavedFastGas"
+   static let ksavedMaxGas = "ksavedMaxGas"
+
   lazy var numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.minimumFractionDigits = 0
@@ -43,6 +49,8 @@ class KNGasCoordinator {
   init() {}
 
   func resume() {
+    self.loadMaxGasPrice()
+    self.loadGasValues()
     knGasPriceFetchTimer?.invalidate()
     knMaxGasPriceFetchTimer?.invalidate()
     isLoadingGasPrice = false
@@ -122,6 +130,7 @@ class KNGasCoordinator {
         self.fastKNGas = min(self.defaultKNGas * BigInt(12) / BigInt(10), self.maxKNGas)
         self.standardKNGas = min(self.defaultKNGas, self.maxKNGas)
         self.lastGasPriceLoadedSuccessTimeStamp = Date().timeIntervalSince1970
+        self.saveGasValues()
       default:
         break
       }
@@ -144,10 +153,59 @@ class KNGasCoordinator {
     self.fastKNGas = min(updateFastKNGas, self.maxKNGas)
     KNNotificationUtil.postNotification(for: kGasPriceDidUpdateNotificationKey)
     self.lastGasPriceLoadedSuccessTimeStamp = Date().timeIntervalSince1970
+    self.saveGasValues()
   }
 
   fileprivate func updateMaxGasPrice(dataJSON: JSONDictionary) {
     guard let data = dataJSON["data"] as? String else { return }
     self.maxKNGas = BigInt(data) ?? self.maxKNGas
+    self.saveMaxGasPrice()
+  }
+
+  fileprivate func saveGasValues() {
+    UserDefaults.standard.set(self.defaultKNGas.description, forKey: KNGasCoordinator.ksavedDefaultGas)
+    UserDefaults.standard.set(self.standardKNGas.description, forKey: KNGasCoordinator.ksavedStandartGas)
+    UserDefaults.standard.set(self.lowKNGas.description, forKey: KNGasCoordinator.ksavedLowGas)
+    UserDefaults.standard.set(self.fastKNGas.description, forKey: KNGasCoordinator.ksavedFastGas)
+  }
+
+  fileprivate func loadGasValues() {
+    guard let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedDefaultGas),
+      let defaultGasBigInt = BigInt(defaultGasString)
+      else {
+      return
+    }
+    guard let standartGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedStandartGas),
+      let standartGasBigInt = BigInt(standartGasString)
+      else {
+      return
+    }
+    guard let lowGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedLowGas),
+      let lowGasBigInt = BigInt(lowGasString)
+      else {
+      return
+    }
+    guard let fastGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedFastGas),
+      let fastGasBigInt = BigInt(fastGasString)
+      else {
+      return
+    }
+    self.defaultKNGas = defaultGasBigInt
+    self.standardKNGas = standartGasBigInt
+    self.lowKNGas = lowGasBigInt
+    self.fastKNGas = fastGasBigInt
+  }
+
+  fileprivate func saveMaxGasPrice() {
+    UserDefaults.standard.set(self.maxKNGas.description, forKey: KNGasCoordinator.ksavedMaxGas)
+  }
+
+  fileprivate func loadMaxGasPrice() {
+    guard let maxGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedMaxGas),
+      let maxGasBigInt = BigInt(maxGasString)
+      else {
+      return
+    }
+    self.maxKNGas = maxGasBigInt
   }
 }
