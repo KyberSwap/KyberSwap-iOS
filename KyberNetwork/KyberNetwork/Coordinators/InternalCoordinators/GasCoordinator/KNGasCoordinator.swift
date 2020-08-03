@@ -14,11 +14,11 @@ class KNGasCoordinator {
   static let shared: KNGasCoordinator = KNGasCoordinator()
   fileprivate let provider = MoyaProvider<KyberNetworkService>()
 
-  static let ksavedDefaultGas = "ksavedDefaultGas"
-  static let ksavedStandartGas = "ksavedStandartGas"
-  static let ksavedLowGas = "ksavedLowGas"
-  static let ksavedFastGas = "ksavedFastGas"
-   static let ksavedMaxGas = "ksavedMaxGas"
+  static let kSavedDefaultGas = "kSavedDefaultGas"
+  static let kSavedStandardGas = "kSavedStandardGas"
+  static let kSavedLowGas = "kSavedLowGas"
+  static let kSavedFastGas = "kSavedFastGas"
+  static let kSavedMaxGas = "kSavedMaxGas"
 
   lazy var numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
@@ -33,7 +33,7 @@ class KNGasCoordinator {
   var fastKNGas: BigInt = KNGasConfiguration.gasPriceMax
   var superFastKNGas: BigInt {
     if fastKNGas < EtherNumberFormatter.full.number(from: "10", units: UnitConfiguration.gasPriceUnit)! {
-      return EtherNumberFormatter.full.number(from: "20", units: UnitConfiguration.gasPriceUnit)! // Min fask gas
+      return EtherNumberFormatter.full.number(from: "20", units: UnitConfiguration.gasPriceUnit)! // Min fast gas
     }
     return min(fastKNGas * BigInt(2), self.maxKNGas)
   }
@@ -163,29 +163,29 @@ class KNGasCoordinator {
   }
 
   fileprivate func saveGasValues() {
-    UserDefaults.standard.set(self.defaultKNGas.description, forKey: KNGasCoordinator.ksavedDefaultGas)
-    UserDefaults.standard.set(self.standardKNGas.description, forKey: KNGasCoordinator.ksavedStandartGas)
-    UserDefaults.standard.set(self.lowKNGas.description, forKey: KNGasCoordinator.ksavedLowGas)
-    UserDefaults.standard.set(self.fastKNGas.description, forKey: KNGasCoordinator.ksavedFastGas)
+    UserDefaults.standard.set(self.defaultKNGas.description, forKey: KNGasCoordinator.kSavedDefaultGas)
+    UserDefaults.standard.set(self.standardKNGas.description, forKey: KNGasCoordinator.kSavedStandardGas)
+    UserDefaults.standard.set(self.lowKNGas.description, forKey: KNGasCoordinator.kSavedLowGas)
+    UserDefaults.standard.set(self.fastKNGas.description, forKey: KNGasCoordinator.kSavedFastGas)
   }
 
   fileprivate func loadGasValues() {
-    guard let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedDefaultGas),
+    guard let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedDefaultGas),
       let defaultGasBigInt = BigInt(defaultGasString)
       else {
       return
     }
-    guard let standartGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedStandartGas),
+    guard let standartGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedStandardGas),
       let standartGasBigInt = BigInt(standartGasString)
       else {
       return
     }
-    guard let lowGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedLowGas),
+    guard let lowGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedLowGas),
       let lowGasBigInt = BigInt(lowGasString)
       else {
       return
     }
-    guard let fastGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedFastGas),
+    guard let fastGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedFastGas),
       let fastGasBigInt = BigInt(fastGasString)
       else {
       return
@@ -197,11 +197,11 @@ class KNGasCoordinator {
   }
 
   fileprivate func saveMaxGasPrice() {
-    UserDefaults.standard.set(self.maxKNGas.description, forKey: KNGasCoordinator.ksavedMaxGas)
+    UserDefaults.standard.set(self.maxKNGas.description, forKey: KNGasCoordinator.kSavedMaxGas)
   }
 
   fileprivate func loadMaxGasPrice() {
-    guard let maxGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.ksavedMaxGas),
+    guard let maxGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedMaxGas),
       let maxGasBigInt = BigInt(maxGasString)
       else {
       return
