@@ -60,6 +60,7 @@ extension KNAppCoordinator {
 
     self.exploreCoordinator = {
       let coordinator = KNExploreCoordinator(session: self.session)
+      coordinator.delegate = self
       return coordinator
     }()
     self.exploreCoordinator?.start()

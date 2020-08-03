@@ -197,3 +197,15 @@ extension KNAppCoordinator: KNPasscodeCoordinatorDelegate {
     self.authenticationCoordinator.stop {}
   }
 }
+
+extension KNAppCoordinator: KNExploreCoordinatorDelegate {
+  func exploreCoordinatorOpenManageOrder() {
+    self.tabbarController.selectedIndex = 2
+    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
+  }
+
+  func exploreCoordinatorOpenSwap(from: String, to: String) {
+    self.tabbarController.selectedIndex = 1
+    self.exchangeCoordinator?.appCoordinatorPushNotificationOpenSwap(from: from, to: to)
+  }
+}

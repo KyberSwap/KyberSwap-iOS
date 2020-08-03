@@ -23,6 +23,7 @@ class KNExploreViewModel {
   ]
 
   var bannerItems: [[String: String]] = []
+  var pendingTransactions: [KNTransaction] = []
 }
 
 protocol KNExploreViewControllerDelegate: class {
@@ -43,6 +44,7 @@ class KNExploreViewController: KNBaseViewController {
   @IBOutlet weak var headerContainerView: UIView!
   @IBOutlet weak var headerTitleLabel: UILabel!
   @IBOutlet weak var unreadNotiLabel: UILabel!
+  @IBOutlet weak var pendingTxLabel: UILabel!
 
   var viewModel: KNExploreViewModel
   weak var delegate: KNExploreViewControllerDelegate?
@@ -66,17 +68,19 @@ class KNExploreViewController: KNBaseViewController {
     self.bannerPagerControl.setFillColor(UIColor.Kyber.orange, for: .selected)
     self.bannerPagerControl.setFillColor(UIColor.Kyber.lightPeriwinkle, for: .normal)
     self.bannerPagerControl.numberOfPages = 0
-    self.notificationButton.centerVertically(padding: 10)
-    self.alertButton.centerVertically(padding: 10)
-    self.historyButton.centerVertically(padding: 10)
-    self.loginButton.centerVertically(padding: 10)
     self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.headerTitleLabel.text = "Explore".toBeLocalised()
     self.notificationButton.setTitle("Notifications".toBeLocalised(), for: .normal)
     self.alertButton.setTitle("Alert".toBeLocalised(), for: .normal)
-    self.historyButton.setTitle("History".toBeLocalised(), for: .normal)
+    self.historyButton.setTitle("transactions".toBeLocalised(), for: .normal)
     self.loginButton.setTitle("profile".toBeLocalised(), for: .normal)
     self.unreadNotiLabel.rounded(radius: 7)
+    self.pendingTxLabel.rounded(radius: 7)
+    self.notificationButton.centerVertically(padding: 10)
+    self.alertButton.centerVertically(padding: 10)
+    self.historyButton.centerVertically(padding: 10)
+    self.loginButton.centerVertically(padding: 10)
+    self.update(transactions: self.viewModel.pendingTransactions)
     let name = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.addObserver(
       self,
@@ -144,6 +148,15 @@ class KNExploreViewController: KNBaseViewController {
   func update(notificationsCount: Int) {
     self.unreadNotiLabel.isHidden = notificationsCount == 0
     self.unreadNotiLabel.text = "  \(notificationsCount)  "
+  }
+
+  func update(transactions: [KNTransaction]) {
+    self.viewModel.pendingTransactions = transactions
+    guard self.pendingTxLabel != nil else {
+      return
+    }
+    self.pendingTxLabel.text = "  \(transactions.count)  "
+    self.pendingTxLabel.isHidden = transactions.isEmpty
   }
 }
 

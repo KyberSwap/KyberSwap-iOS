@@ -11,9 +11,6 @@
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
         </array>
-        <array key="Roboto-Regular.ttf">
-            <string>Roboto-Regular</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNExploreViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
@@ -26,6 +23,7 @@
                 <outlet property="historyButton" destination="lp4-JK-3PI" id="PPQ-ow-gLi"/>
                 <outlet property="loginButton" destination="uI5-1x-xzc" id="hXf-tM-OOl"/>
                 <outlet property="notificationButton" destination="cfE-Kr-V1z" id="cpb-MU-rDR"/>
+                <outlet property="pendingTxLabel" destination="Gr9-Gd-spS" id="h7b-IM-N0a"/>
                 <outlet property="unreadNotiLabel" destination="5my-Pr-iPY" id="P3v-V1-3mC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -107,7 +105,7 @@
                                 <constraint firstAttribute="height" constant="88" id="glJ-6A-uEw"/>
                                 <constraint firstAttribute="width" constant="88" id="pCh-64-1cU"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="12"/>
                             <state key="normal" title="History" image="history_explore_icon">
                                 <color key="titleColor" red="0.33725490196078434" green="0.33725490196078434" blue="0.33725490196078434" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -136,7 +134,19 @@
                     <rect key="frame" x="60.999999999999993" y="340" width="15.666666666666664" height="14"/>
                     <color key="backgroundColor" red="0.97254901959999995" green="0.62352941179999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="EPt-zP-zud"/>
                         <constraint firstAttribute="height" constant="14" id="MVN-Gw-Kqr"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="10"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  3  " textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gr9-Gd-spS" userLabel="3">
+                    <rect key="frame" x="237.66666666666666" y="340" width="15.666666666666657" height="14"/>
+                    <color key="backgroundColor" red="0.97254901959999995" green="0.62352941179999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="FYZ-mx-1qC"/>
+                        <constraint firstAttribute="height" constant="14" id="xKg-WY-KHM"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="10"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -153,7 +163,9 @@
                 <constraint firstItem="lhp-UB-ao5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Hgp-DA-HiL"/>
                 <constraint firstItem="xo1-VS-tT2" firstAttribute="top" secondItem="ITa-jS-EgX" secondAttribute="bottom" id="Mky-te-1uA"/>
                 <constraint firstItem="5my-Pr-iPY" firstAttribute="top" secondItem="cfE-Kr-V1z" secondAttribute="top" constant="15" id="Nbu-Ge-1KB"/>
+                <constraint firstItem="Gr9-Gd-spS" firstAttribute="leading" secondItem="lp4-JK-3PI" secondAttribute="leading" constant="50" id="OTQ-nd-IXz"/>
                 <constraint firstItem="kzk-nv-IEs" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" constant="-11" id="SBV-rP-R4O"/>
+                <constraint firstItem="Gr9-Gd-spS" firstAttribute="top" secondItem="lp4-JK-3PI" secondAttribute="top" constant="15" id="VLH-GB-OUe"/>
                 <constraint firstItem="lhp-UB-ao5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Vnq-5i-rDk"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cRb-Rd-BGA"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="top" secondItem="lhp-UB-ao5" secondAttribute="bottom" id="fA9-dP-5ik"/>

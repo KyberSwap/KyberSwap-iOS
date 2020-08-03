@@ -358,7 +358,6 @@ class KNCreateLimitOrderViewController: KNBaseViewController {
     self.updateRelatedOrdersFromServer()
 
     self.updateEstimateRateFromNetwork(showWarning: true)
-    
     self.updateReferencePrice()
   }
 

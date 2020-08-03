@@ -3,11 +3,17 @@
 import Foundation
 import Moya
 
+protocol KNExploreCoordinatorDelegate: class {
+  func exploreCoordinatorOpenManageOrder()
+  func exploreCoordinatorOpenSwap(from: String, to: String)
+}
+
 class KNExploreCoordinator: NSObject, Coordinator {
   let navigationController: UINavigationController
   var coordinators: [Coordinator] = []
   private(set) var session: KNSession
   fileprivate var historyCoordinator: KNHistoryCoordinator?
+  weak var delegate: KNExploreCoordinatorDelegate?
 
   lazy var rootViewController: KNExploreViewController = {
     let viewModel = KNExploreViewModel()
@@ -51,6 +57,7 @@ class KNExploreCoordinator: NSObject, Coordinator {
 
   func appCoordinatorPendingTransactionsDidUpdate(transactions: [KNTransaction]) {
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate(transactions)
+    self.rootViewController.update(transactions: transactions)
   }
 
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
@@ -85,8 +92,16 @@ extension KNExploreCoordinator: KNExploreViewControllerDelegate {
     case .getListMobileBanner:
       self.fetchBannerImages()
     case .openNotification:
-      self.openNotificationSettingScreen()
+      self.openListNotifications()
     case .openAlert:
+      guard IEOUserStorage.shared.user != nil else {
+        self.navigationController.showWarningTopBannerMessage(
+          with: NSLocalizedString("error", value: "Error", comment: ""),
+          message: NSLocalizedString("You must sign in to use Price Alert feature", comment: ""),
+          time: 1.5
+        )
+        return
+      }
       self.openManageAlert()
     case .openHistory:
       self.openHistoryTransactionView()
@@ -145,6 +160,13 @@ extension KNExploreCoordinator: KNExploreViewControllerDelegate {
     self.rootViewController.present(alert, animated: true, completion: nil)
   }
 
+  fileprivate func openListNotifications() {
+    let viewController = KNListNotificationViewController()
+    viewController.loadViewIfNeeded()
+    viewController.delegate = self
+    self.navigationController.pushViewController(viewController, animated: true)
+  }
+
   fileprivate func openNotificationSettingScreen() {
     self.navigationController.displayLoading()
     KNNotificationCoordinator.shared.getListSubcriptionTokens { (message, result) in
@@ -189,5 +211,19 @@ extension KNExploreCoordinator: KNNotificationSettingViewControllerDelegate {
 
 extension KNExploreCoordinator: KNHistoryCoordinatorDelegate {
   func historyCoordinatorDidClose() {
+  }
+}
+
+extension KNExploreCoordinator: KNListNotificationViewControllerDelegate {
+  func listNotificationViewController(_ controller: KNListNotificationViewController, run event: KNListNotificationViewEvent) {
+    switch event {
+    case .openSwap(let from, let to):
+      self.delegate?.exploreCoordinatorOpenSwap(from: from, to: to)
+    case .openManageOrder:
+      if IEOUserStorage.shared.user == nil { return }
+      self.delegate?.exploreCoordinatorOpenManageOrder()
+    case .openSetting:
+      self.openNotificationSettingScreen()
+    }
   }
 }

@@ -473,9 +473,9 @@ extension KNProfileHomeCoordinator {
       return date?.timeIntervalSince1970 ?? 0.0
     }()
 
-    if self.navigationController.viewControllers.count > 1 {
+    if self.navigationController.viewControllers.count > 2 {
       // back to root view when user signed in successfully
-      self.navigationController.popToRootViewController(animated: true)
+      self.navigationController.popToViewController(self.rootViewController, animated: true)
     }
     // create and update user info
     let user = IEOUser(dict: userInfo)
@@ -586,7 +586,7 @@ extension KNProfileHomeCoordinator: KNConfirmSignUpViewControllerDelegate {
   func confirmSignUpViewController(_ controller: KNConfirmSignUpViewController, run event: KNConfirmSignUpViewEvent) {
     switch event {
     case .back: self.navigationController.popViewController(animated: true)
-    case .alreadyMemberSignIn: self.navigationController.popToRootViewController(animated: true)
+    case .alreadyMemberSignIn: self.navigationController.popToViewController(self.rootViewController, animated: true)
     case .confirmSignUp(let accountType, let isSubscribe):
       switch accountType {
       case .facebook(let name, let email, let icon, let accessToken):
@@ -622,7 +622,7 @@ extension KNProfileHomeCoordinator: KNConfirmSignUpViewControllerDelegate {
               message: "You've successfully sign up".toBeLocalised(),
               time: 1.5
             )
-            self.navigationController.popToRootViewController(animated: true)
+            self.navigationController.popToViewController(self.rootViewController, animated: true)
             self.userDidSignInWithData(data, isSignUp: true)
           } else {
             self.navigationController.showWarningTopBannerMessage(
