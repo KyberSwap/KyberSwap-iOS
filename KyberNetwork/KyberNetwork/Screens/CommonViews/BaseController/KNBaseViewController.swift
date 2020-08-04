@@ -14,6 +14,7 @@ class KNBaseViewController: UIViewController {
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     NSLog("Did dismiss: \(self.className)")
+    self.dismissTutorialOverlayer()
   }
 }
 
