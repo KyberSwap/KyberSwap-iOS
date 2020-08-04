@@ -157,6 +157,14 @@ enum KNEnvironment: Int {
     }
   }
 
+  var cachedURL: String {
+    switch KNEnvironment.default {
+    case .mainnetTest, .production: return KNSecret.prodCacheURL
+    case .staging: return KNSecret.staggingCacheURL
+    case .ropsten, .rinkeby, .kovan: return KNSecret.ropstenCacheURL
+    }
+  }
+
   var cachedSourceAmountRateURL: String {
     switch KNEnvironment.default {
     case .mainnetTest, .production, .staging: return KNSecret.prodApiURL

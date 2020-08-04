@@ -48,19 +48,19 @@ extension KyberNetworkService: TargetType {
       case .getRateUSD:
         return "\(KNEnvironment.default.kyberAPIEnpoint)/token_price?currency=USD"
       case .getHistoryOneColumn:
-        return "\(KNSecret.prodCacheURL)/getHistoryOneColumn"
+        return "\(KNEnvironment.default.cachedURL)/getHistoryOneColumn"
       case .getLatestBlock:
-        return "\(KNSecret.prodCacheURL)/latestBlock"
+        return "\(KNEnvironment.default.cachedURL)/latestBlock"
       case .getKyberEnabled:
-        return "\(KNSecret.prodCacheURL)/kyberEnabled"
+        return "\(KNEnvironment.default.cachedURL)/kyberEnabled"
       case .getMaxGasPrice:
-        return "\(KNSecret.prodCacheURL)/maxGasPrice"
+        return "\(KNEnvironment.default.cachedURL)/maxGasPrice"
       case .getGasPrice:
-        return "\(KNSecret.prodCacheURL)/gasPrice"
+        return "\(KNEnvironment.default.cachedURL)/gasPrice"
       case .supportedToken:
         return KNEnvironment.default.supportedTokenEndpoint
       case .getReferencePrice(sym: let sym):
-        return "\(KNSecret.prodCacheURL)/refprice?base=\(sym)&quote=ETH"
+        return "\(KNEnvironment.default.cachedURL)/refprice?base=\(sym)&quote=ETH"
       }
     }()
     return URL(string: baseURLString)!
