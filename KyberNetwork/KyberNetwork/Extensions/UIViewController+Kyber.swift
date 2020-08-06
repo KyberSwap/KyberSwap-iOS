@@ -41,7 +41,7 @@ extension UIViewController {
   }
 
   func openSafari(with string: String) {
-    guard let url = URL(string: string) else { return }
+    guard let url = URL(string: string), UIApplication.shared.canOpenURL(url) else { return }
     self.openSafari(with: url)
   }
 

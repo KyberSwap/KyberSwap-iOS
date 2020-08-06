@@ -108,9 +108,6 @@ extension KNExploreCoordinator: KNExploreViewControllerDelegate {
     case .openLogin:
       self.profileCoordinator.start()
     case .openBannerLink(let link):
-      guard link.contains("http:'//") || link.contains("https://") else {
-        return
-      }
       self.rootViewController.openSafari(with: link)
     case .navigateSwap:
       self.rootViewController.tabBarController?.selectedIndex = 1
