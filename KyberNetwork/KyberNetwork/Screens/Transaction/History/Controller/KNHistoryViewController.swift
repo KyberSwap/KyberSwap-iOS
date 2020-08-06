@@ -286,6 +286,7 @@ class KNHistoryViewController: KNBaseViewController {
   @IBOutlet weak var transactionCollectionView: UICollectionView!
   @IBOutlet weak var transactionCollectionViewBottomConstraint: NSLayoutConstraint!
   fileprivate var quickTutorialTimer: Timer?
+  var animatingCell: UICollectionViewCell?
 
   init(viewModel: KNHistoryViewModel) {
     self.viewModel = viewModel
@@ -375,6 +376,7 @@ class KNHistoryViewController: KNBaseViewController {
     guard let firstCell = self.transactionCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else { return }
     let speedupLabel = UILabel(frame: CGRect(x: firstCell.frame.size.width, y: 0, width: 77, height: 60))
     let cancelLabel = UILabel(frame: CGRect(x: firstCell.frame.size.width + 77, y: 0, width: 77, height: 60))
+    self.animatingCell = firstCell
     firstCell.clipsToBounds = false
 
     speedupLabel.text = "speed up".toBeLocalised()
@@ -399,7 +401,7 @@ class KNHistoryViewController: KNBaseViewController {
   }
 
   fileprivate func animateResetReviewCellActionForTutorial() {
-    guard let firstCell = self.transactionCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) else { return }
+    guard let firstCell = self.animatingCell else { return }
     let speedupLabel = firstCell.viewWithTag(101)
     let cancelLabel = firstCell.viewWithTag(102)
     UIView.animate(withDuration: 0.3, animations: {
@@ -407,6 +409,7 @@ class KNHistoryViewController: KNBaseViewController {
     }, completion: { _ in
       speedupLabel?.removeFromSuperview()
       cancelLabel?.removeFromSuperview()
+      self.animatingCell = nil
     })
   }
 
