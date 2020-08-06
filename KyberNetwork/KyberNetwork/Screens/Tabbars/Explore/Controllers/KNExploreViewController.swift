@@ -174,7 +174,7 @@ extension KNExploreViewController: FSPagerViewDataSource {
       let url = URL(string: self.viewModel.bannerItems[index]["image_url"] ?? "")
       cell.imageView?.kf.setImage(with: url)
     }
-    cell.imageView?.contentMode = .scaleAspectFill
+    cell.imageView?.contentMode = .scaleToFill
     cell.imageView?.clipsToBounds = true
     return cell
   }

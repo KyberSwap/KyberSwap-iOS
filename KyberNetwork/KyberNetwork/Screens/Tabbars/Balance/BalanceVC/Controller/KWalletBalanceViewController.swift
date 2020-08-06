@@ -67,6 +67,8 @@ class KWalletBalanceViewController: KNBaseViewController {
 
   fileprivate var viewModel: KWalletBalanceViewModel
   weak var delegate: KWalletBalanceViewControllerDelegate?
+  var firstAnimatingCell: UITableViewCell?
+  var secondAnimatingCell: UITableViewCell?
 
   lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
     let viewModel = KNBalanceTabHamburgerMenuViewModel(
@@ -423,6 +425,8 @@ class KWalletBalanceViewController: KNBaseViewController {
       else {
         return
     }
+    self.firstAnimatingCell = firstCell
+    self.secondAnimatingCell = secondCell
     let alertImageView = UIImageView(frame: CGRect(x: -64, y: 0, width: 64, height: 64))
 
     let buyLabel = UILabel(frame: CGRect(x: secondCell.bounds.size.width, y: 0, width: 64, height: 64))
@@ -466,8 +470,8 @@ class KWalletBalanceViewController: KNBaseViewController {
   }
 
   func animateResetReviewCellActionForTutorial() {
-    guard let firstCell = self.tokensBalanceTableView.cellForRow(at: IndexPath(row: 0, section: 0)),
-      let secondCell = self.tokensBalanceTableView.cellForRow(at: IndexPath(row: 1, section: 0))
+    guard let firstCell = self.firstAnimatingCell,
+    let secondCell = self.secondAnimatingCell
       else {
         return
     }
@@ -484,6 +488,8 @@ class KWalletBalanceViewController: KNBaseViewController {
       buyLabel?.removeFromSuperview()
       sellLabel?.removeFromSuperview()
       transferLabel?.removeFromSuperview()
+      self.firstAnimatingCell = nil
+      self.secondAnimatingCell = nil
     }
   }
 
