@@ -780,6 +780,8 @@ class KNTokenChartViewController: KNBaseViewController {
         allConstraints += horizontalContraints
         allConstraints += verticalContraints
         NSLayoutConstraint.activate(allConstraints)
+      } else {
+        self.sendButton.isHidden = true
       }
     }
     self.noDataLabel.addLetterSpacing()
