@@ -763,7 +763,24 @@ class KNTokenChartViewController: KNBaseViewController {
       self.chartView.isHidden = true
       self.buyButton.isHidden = true
       self.sellButton.isHidden = true
-      self.sendButton.isHidden = true
+      if self.viewModel.chartDataLO == nil { // Is from balance view
+        self.buyButton.removeFromSuperview()
+        self.sellButton.removeFromSuperview()
+        self.sendButton.removeConstraints(self.sendButton.constraints)
+        let views: [String: Any] = ["sendButton": self.sendButton, "chartView": self.chartView]
+        var allConstraints: [NSLayoutConstraint] = []
+        let horizontalContraints = NSLayoutConstraint.constraints(
+          withVisualFormat: "H:|-16-[sendButton]-16-|",
+          metrics: nil,
+          views: views)
+        let verticalContraints = NSLayoutConstraint.constraints(
+          withVisualFormat: "V:[chartView]-16-[sendButton(45)]",
+          metrics: nil,
+          views: views)
+        allConstraints += horizontalContraints
+        allConstraints += verticalContraints
+        NSLayoutConstraint.activate(allConstraints)
+      }
     }
     self.noDataLabel.addLetterSpacing()
 
