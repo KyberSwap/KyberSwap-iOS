@@ -258,6 +258,7 @@ class KNLoadBalanceCoordinator {
             self.fetchOtherTokenBalances(addresses: addresses)
           }
         case .failure:
+          self.fetchOtherTokenBalances(addresses: addresses)
           KNCrashlyticsUtil.logCustomEvent(
             withName: "load_balance_load_token_chucked_failure",
             customAttributes: nil
@@ -349,6 +350,7 @@ class KNLoadBalanceCoordinator {
           self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
         }
       case .failure:
+        self.fetchNonSupportedTokensBalancesChunked()
         KNCrashlyticsUtil.logCustomEvent(
           withName: "load_balance_load_unsupported_token_failure",
           customAttributes: nil
@@ -378,6 +380,7 @@ class KNLoadBalanceCoordinator {
             self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
           }
         case .failure:
+          self.fetchNonSupportedTokensBalance(nil)
           KNCrashlyticsUtil.logCustomEvent(
             withName: "load_balance_load_unsupported_token_chunked_failure",
             customAttributes: nil
