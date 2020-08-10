@@ -257,12 +257,13 @@ class KNLoadBalanceCoordinator {
           if !isLoaded {
             self.fetchOtherTokenBalances(addresses: addresses)
           }
-        case .failure:
-          self.fetchOtherTokenBalances(addresses: addresses)
+        case .failure(let error):
           KNCrashlyticsUtil.logCustomEvent(
             withName: "load_balance_load_token_chucked_failure",
             customAttributes: nil
           )
+          if error.code == NSURLErrorNotConnectedToInternet { return }
+          self.fetchOtherTokenBalances(addresses: addresses)
         }
       }
     }
@@ -349,12 +350,13 @@ class KNLoadBalanceCoordinator {
           let tokens = self.session.tokenStorage.tokens.filter({ return !$0.isSupported && $0.valueBigInt == BigInt(0) })
           self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
         }
-      case .failure:
-        self.fetchNonSupportedTokensBalancesChunked()
+      case .failure(let error):
         KNCrashlyticsUtil.logCustomEvent(
           withName: "load_balance_load_unsupported_token_failure",
           customAttributes: nil
         )
+        if error.code == NSURLErrorNotConnectedToInternet { return }
+        self.fetchNonSupportedTokensBalancesChunked()
       }
     }
   }
@@ -379,12 +381,13 @@ class KNLoadBalanceCoordinator {
             let tokens = self.session.tokenStorage.tokens.filter({ return !$0.isSupported && $0.valueBigInt == BigInt(0) })
             self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
           }
-        case .failure:
-          self.fetchNonSupportedTokensBalance(nil)
+        case .failure(let error):
           KNCrashlyticsUtil.logCustomEvent(
             withName: "load_balance_load_unsupported_token_chunked_failure",
             customAttributes: nil
           )
+          if error.code == NSURLErrorNotConnectedToInternet { return }
+          self.fetchNonSupportedTokensBalance(nil)
         }
       }
     }
