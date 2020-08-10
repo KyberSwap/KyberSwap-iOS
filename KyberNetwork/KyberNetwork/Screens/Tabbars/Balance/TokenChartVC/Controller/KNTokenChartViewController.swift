@@ -769,8 +769,9 @@ class KNTokenChartViewController: KNBaseViewController {
         self.sendButton.removeConstraints(self.sendButton.constraints)
         let views: [String: Any] = ["sendButton": self.sendButton, "chartView": self.chartView]
         var allConstraints: [NSLayoutConstraint] = []
+        let horizontalPadding = self.view.frame.size.width / 3
         let horizontalContraints = NSLayoutConstraint.constraints(
-          withVisualFormat: "H:|-16-[sendButton]-16-|",
+          withVisualFormat: "H:|-\(Int(horizontalPadding))-[sendButton]-\(Int(horizontalPadding))-|",
           metrics: nil,
           views: views)
         let verticalContraints = NSLayoutConstraint.constraints(
