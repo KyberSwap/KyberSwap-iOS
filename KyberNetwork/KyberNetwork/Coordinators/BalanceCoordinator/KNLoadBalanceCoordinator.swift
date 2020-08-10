@@ -371,6 +371,7 @@ class KNLoadBalanceCoordinator {
     let chunkedAddress = sortedAddress.chunked(into: chunkedNum)
     let group = DispatchGroup()
     chunkedAddress.forEach { (addresses) in
+      group.enter()
       self.fetchTokenBalances(tokens: addresses) { [weak self] result in
         guard let `self` = self else { return }
         switch result {
@@ -389,6 +390,7 @@ class KNLoadBalanceCoordinator {
           if error.code == NSURLErrorNotConnectedToInternet { return }
           self.fetchNonSupportedTokensBalances(addresses: addresses)
         }
+        group.leave()
       }
     }
     group.notify(queue: .main) {
@@ -406,6 +408,7 @@ class KNLoadBalanceCoordinator {
     var zeroBalanceAddresses: [String] = []
     let group = DispatchGroup()
     var delay = 0.2
+    self.isFetchNonSupportedBalance = true
     addresses.forEach { (address) in
       group.enter()
       DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
