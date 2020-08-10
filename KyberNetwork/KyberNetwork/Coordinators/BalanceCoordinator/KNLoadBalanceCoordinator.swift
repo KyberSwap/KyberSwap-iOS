@@ -376,7 +376,7 @@ class KNLoadBalanceCoordinator {
         switch result {
         case .success(let isLoaded):
           if !isLoaded {
-            self.fetchNonSupportedTokensBalance(nil)
+            self.fetchNonSupportedTokensBalances(addresses: addresses)
           } else {
             let tokens = self.session.tokenStorage.tokens.filter({ return !$0.isSupported && $0.valueBigInt == BigInt(0) })
             self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
@@ -387,7 +387,7 @@ class KNLoadBalanceCoordinator {
             customAttributes: nil
           )
           if error.code == NSURLErrorNotConnectedToInternet { return }
-          self.fetchNonSupportedTokensBalance(nil)
+          self.fetchNonSupportedTokensBalances(addresses: addresses)
         }
       }
     }
@@ -396,48 +396,42 @@ class KNLoadBalanceCoordinator {
     }
   }
 
-  @objc func fetchNonSupportedTokensBalance(_ sender: Any?) {
-    if self.isFetchNonSupportedBalance { return }
-    self.isFetchNonSupportedBalance = true
+  func fetchNonSupportedTokensBalances(addresses: [Address]) {
+    KNCrashlyticsUtil.logCustomEvent(
+      withName: "load_balance_load_unsupported_token_balance_one_by_one",
+      customAttributes: nil
+    )
     var isBalanceChanged: Bool = false
-    let tokenContracts = self.session.tokenStorage.tokens.filter({ return !$0.isETH && !$0.isSupported }).map({ $0.contract })
     let currentWallet = self.session.wallet
-    let group = DispatchGroup()
-    var counter = 0
-    var delay = 0.2
     var zeroBalanceAddresses: [String] = []
-    for contract in tokenContracts {
-      if let contractAddress = Address(string: contract) {
-        group.enter()
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-          if self.session == nil { group.leave(); return }
-          self.session.externalProvider.getTokenBalance(for: contractAddress, completion: { [weak self] result in
-            guard let `self` = self else { group.leave(); return }
-            if self.session == nil || currentWallet != self.session.wallet { group.leave(); return }
-            switch result {
-            case .success(let bigInt):
-              let balance = Balance(value: bigInt)
-              if self.otherTokensBalance[contract.lowercased()] == nil || self.otherTokensBalance[contract.lowercased()]!.value != bigInt {
-                isBalanceChanged = true
-              }
-              self.otherTokensBalance[contract.lowercased()] = balance
-              self.session.tokenStorage.updateBalance(for: contractAddress, balance: bigInt)
-              if bigInt == BigInt(0) { zeroBalanceAddresses.append(contract.lowercased()) }
-              NSLog("---- Balance: Fetch token balance for contract \(contract) successfully: \(bigInt.shortString(decimals: 0))")
-            case .failure(let error):
-              NSLog("---- Balance: Fetch token balance failed with error: \(error.description). ----")
+    let group = DispatchGroup()
+    var delay = 0.2
+    addresses.forEach { (address) in
+      group.enter()
+      DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+        if self.session == nil { group.leave(); return }
+        self.session.externalProvider.getTokenBalance(for: address, completion: { [weak self] result in
+          guard let `self` = self else { group.leave(); return }
+          if self.session == nil || currentWallet != self.session.wallet { group.leave(); return }
+          switch result {
+          case .success(let bigInt):
+            let balance = Balance(value: bigInt)
+            if self.otherTokensBalance[address.description.lowercased()] == nil || self.otherTokensBalance[address.description.lowercased()]!.value != bigInt {
+              isBalanceChanged = true
             }
-            counter += 1
-            if counter % 32 == 0 && isBalanceChanged {
-              KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
-            }
-            group.leave()
-          })
-        }
-        delay += 0.2
+            self.otherTokensBalance[address.description.lowercased()] = balance
+            self.session.tokenStorage.updateBalance(for: address, balance: bigInt)
+            if bigInt == BigInt(0) { zeroBalanceAddresses.append(address.description.lowercased()) }
+            NSLog("---- Balance: Fetch token balance for contract \(address.description) successfully: \(bigInt.shortString(decimals: 0))")
+          case .failure(let error):
+            NSLog("---- Balance: Fetch token balance failed with error: \(error.description). ----")
+          }
+          group.leave()
+        })
       }
+      delay += 0.2
     }
-    // notify when all load balances are done
+
     group.notify(queue: .main) {
       self.isFetchNonSupportedBalance = false
       if isBalanceChanged {
