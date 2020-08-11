@@ -430,6 +430,7 @@ class KSwapViewController: KNBaseViewController {
   @IBAction func continueButtonPressed(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_tapped", customAttributes: nil)
     self.validateDataBeforeContinuing(hasCallValidateRate: false)
+    self.updateEstimatedGasLimit()
   }
 
   fileprivate func validateDataBeforeContinuing(hasCallValidateRate: Bool) {
