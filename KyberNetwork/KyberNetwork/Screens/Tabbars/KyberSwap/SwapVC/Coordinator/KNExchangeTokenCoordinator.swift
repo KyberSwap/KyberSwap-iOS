@@ -571,6 +571,14 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         group.leave()
       }
     }
+
+    if self.rootViewController.isNeedToReloadGasLimit() {
+      group.enter()
+      self.updateEstimatedGasLimit(from: data.from, to: data.to, amount: data.amount, gasPrice: data.gasPrice ?? KNGasCoordinator.shared.fastKNGas) {
+        group.leave()
+      }
+    }
+
     group.notify(queue: .main) {
       self.navigationController.hideLoading()
       if let message = errorMessage {
@@ -758,7 +766,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     }
   }
 
-  func updateEstimatedGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt) {
+  func updateEstimatedGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, completion: @escaping () -> Void = {} ) {
     let group = DispatchGroup()
 
     var defaultGasValue: BigInt?
@@ -809,6 +817,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           amount: amount,
           gasLimit: self.rootViewController.coordinatorRetryDefaultGasLimit(for: from, to: to)
         )
+        completion()
         return
       }
       var gasValue = BigInt()
@@ -823,6 +832,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         amount: amount,
         gasLimit: gasValue
       )
+      completion()
     }
   }
 

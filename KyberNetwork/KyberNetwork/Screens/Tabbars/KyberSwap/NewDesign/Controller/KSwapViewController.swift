@@ -168,7 +168,7 @@ class KSwapViewController: KNBaseViewController {
     self.estGasLimitTimer?.invalidate()
     self.updateEstimatedGasLimit()
     self.estGasLimitTimer = Timer.scheduledTimer(
-      withTimeInterval: KNLoadingInterval.minutes1,
+      withTimeInterval: KNLoadingInterval.seconds60,
       repeats: true,
       block: { [weak self] _ in
         self?.updateEstimatedGasLimit()
@@ -430,9 +430,6 @@ class KSwapViewController: KNBaseViewController {
   @IBAction func continueButtonPressed(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_tapped", customAttributes: nil)
     self.validateDataBeforeContinuing(hasCallValidateRate: false)
-    if Date().timeIntervalSince1970 - self.viewModel.lastSuccessLoadGasLimitTimeStamp > KNLoadingInterval.minutes1 {
-      self.updateEstimatedGasLimit()
-    }
   }
 
   fileprivate func validateDataBeforeContinuing(hasCallValidateRate: Bool) {
@@ -750,6 +747,10 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.currentTutorialStep += 1
     self.showQuickTutorial()
     KNCrashlyticsUtil.logCustomEvent(withName: "tut_swap_next_button_tapped", customAttributes: nil)
+  }
+
+  func isNeedToReloadGasLimit() -> Bool {
+    return Date().timeIntervalSince1970 - self.viewModel.lastSuccessLoadGasLimitTimeStamp > KNLoadingInterval.seconds60
   }
 }
 
