@@ -442,7 +442,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     case .estimateComparedRate(let from, let to):
       self.updateComparedEstimateRate(from: from, to: to)
     case .estimateGas(let from, let to, let amount, let gasPrice):
-      self.updateEstimatedGasLimitFromAPIIfNeeded(from: from, to: to, amount: amount, gasPrice: gasPrice)
+      self.updateEstimatedGasLimit(from: from, to: to, amount: amount, gasPrice: gasPrice)
     case .showQRCode:
       self.showWalletQRCode()
     case .setGasPrice(let gasPrice, let gasLimit):
@@ -759,6 +759,28 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
   }
 
   func updateEstimatedGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt) {
+    let group = DispatchGroup()
+
+    var defaultGasValue: BigInt?
+    var estGasValue: BigInt?
+
+    let src = from.contract.lowercased()
+    let dest = to.contract.lowercased()
+    let amt = Double(amount) / Double(BigInt(10).power(from.decimals))
+
+    group.enter()
+    let provider = MoyaProvider<KNTrackerService>(plugins: [MoyaCacheablePlugin()])
+    provider.request(.getGasLimit(src: src, dest: dest, amount: amt)) { result in
+      if case .success(let resp) = result,
+        let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
+        let data = json["data"] as? Int {
+        defaultGasValue = BigInt(data)
+      } else {
+        defaultGasValue = KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
+      }
+      group.leave()
+    }
+    group.enter()
     let exchangeTx = KNDraftExchangeTransaction(
       from: from,
       to: to,
@@ -770,44 +792,35 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       gasLimit: .none,
       expectedReceivedString: nil
     )
-    self.session.externalProvider.getEstimateGasLimit(for: exchangeTx) { [weak self] result in
+    self.session.externalProvider.getEstimateGasLimit(for: exchangeTx) { result in
       if case .success(let estimate) = result {
-        self?.rootViewController.coordinatorDidUpdateEstimateGasUsed(
+        estGasValue = estimate
+      }
+      group.leave()
+    }
+
+    group.notify(queue: .main) {
+      guard let defaultValue = defaultGasValue, let estValue = estGasValue else {
+        self.rootViewController.coordinatorDidUpdateEstimateGasUsed(
           from: from,
           to: to,
           amount: amount,
-          gasLimit: estimate
+          gasLimit: KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
         )
+        return
       }
-    }
-  }
-
-  func updateEstimatedGasLimitFromAPIIfNeeded(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt) {
-    let src = from.contract.lowercased()
-    let dest = to.contract.lowercased()
-    let amt = Double(amount) / Double(BigInt(10).power(from.decimals))
-
-    DispatchQueue.global(qos: .background).async {
-      let provider = MoyaProvider<KNTrackerService>(plugins: [MoyaCacheablePlugin()])
-      provider.request(.getGasLimit(src: src, dest: dest, amount: amt)) { [weak self] result in
-        guard let `self` = self else { return }
-        if case .success(let resp) = result,
-          let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
-          let data = json["data"] as? Int {
-          DispatchQueue.main.async {
-            self.rootViewController.coordinatorDidUpdateEstimateGasUsed(
-              from: from,
-              to: to,
-              amount: amount,
-              gasLimit: BigInt(data)
-            )
-          }
-        } else {
-          DispatchQueue.main.async {
-            self.updateEstimatedGasLimit(from: from, to: to, amount: amount, gasPrice: gasPrice)
-          }
-        }
+      var gasValue = BigInt()
+      if from.isGasFixed || to.isGasFixed {
+        gasValue = max(defaultValue, estValue)
+      } else {
+        gasValue = min(defaultValue, estValue)
       }
+      self.rootViewController.coordinatorDidUpdateEstimateGasUsed(
+        from: from,
+        to: to,
+        amount: amount,
+        gasLimit: gasValue
+      )
     }
   }
 

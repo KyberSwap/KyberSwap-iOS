@@ -168,7 +168,7 @@ class KSwapViewController: KNBaseViewController {
     self.estGasLimitTimer?.invalidate()
     self.updateEstimatedGasLimit()
     self.estGasLimitTimer = Timer.scheduledTimer(
-      withTimeInterval: KNLoadingInterval.seconds30,
+      withTimeInterval: KNLoadingInterval.minutes1,
       repeats: true,
       block: { [weak self] _ in
         self?.updateEstimatedGasLimit()
@@ -398,6 +398,7 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.updateAmount("", isSource: true)
     self.viewModel.updateAmount("", isSource: false)
     self.updateTokensView()
+    self.updateEstimatedGasLimit()
   }
 
   @IBAction func warningRateButtonPressed(_ sender: Any) {
@@ -962,20 +963,6 @@ extension KSwapViewController {
   }
 
   /*
-   Update estimate gas limit from API (currently for DAI), check if the from, to, amount are all the same as current value in the model    Update UIs according to new values
-   */
-  func coordinatorDidUpdateEstimateGasFromAPI(from: TokenObject, to: TokenObject, amount: BigInt, gasLimit: BigInt) {
-    self.viewModel.updateEstimateGasLimit(
-      for: from,
-      to: to,
-      amount: amount,
-      gasLimit: gasLimit
-    )
-    if self.isViewSetup {
-      self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
-    }
-  }
-  /*
    Update selected token
    - token: New selected token
    - isSource: true if selected token is from, otherwise it is to
@@ -1018,6 +1005,7 @@ extension KSwapViewController {
     if isSource && !self.viewModel.isFocusingFromAmount {
       self.updateRateDestAmountDidChangeIfNeeded(prevDest: BigInt(0), isForceLoad: true)
     }
+    self.updateEstimatedGasLimit()
     self.view.layoutIfNeeded()
   }
 
