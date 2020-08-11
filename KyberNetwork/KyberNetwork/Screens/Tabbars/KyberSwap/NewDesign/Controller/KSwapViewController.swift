@@ -430,7 +430,9 @@ class KSwapViewController: KNBaseViewController {
   @IBAction func continueButtonPressed(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_tapped", customAttributes: nil)
     self.validateDataBeforeContinuing(hasCallValidateRate: false)
-    self.updateEstimatedGasLimit()
+    if Date().timeIntervalSince1970 - self.viewModel.lastSuccessLoadGasLimitTimeStamp > KNLoadingInterval.minutes1 {
+      self.updateEstimatedGasLimit()
+    }
   }
 
   fileprivate func validateDataBeforeContinuing(hasCallValidateRate: Bool) {
@@ -958,9 +960,18 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasLimit
     )
+    self.viewModel.lastSuccessLoadGasLimitTimeStamp = Date().timeIntervalSince1970
     if self.isViewSetup {
       self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
     }
+  }
+
+  func coordinatorDidUpdateDefaultGasLimit(from: TokenObject, to: TokenObject, gasLimit: BigInt) {
+    self.viewModel.updateDefaultGasLimit(
+      for: from,
+      to: to,
+      gasLimit: gasLimit
+    )
   }
 
   /*
@@ -1072,6 +1083,10 @@ extension KSwapViewController {
     self.hamburgerMenu.update(transactions: transactions)
     self.hasPendingTxView.isHidden = transactions.isEmpty
     self.view.layoutIfNeeded()
+  }
+
+  func coordinatorRetryDefaultGasLimit(for from: TokenObject, to: TokenObject) -> BigInt {
+    return self.viewModel.getDefaultGasLimit(for: from, to: to)
   }
 }
 

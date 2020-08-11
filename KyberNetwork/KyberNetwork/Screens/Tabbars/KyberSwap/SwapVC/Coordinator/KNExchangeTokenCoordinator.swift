@@ -770,13 +770,15 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
     group.enter()
     let provider = MoyaProvider<KNTrackerService>(plugins: [MoyaCacheablePlugin()])
-    provider.request(.getGasLimit(src: src, dest: dest, amount: amt)) { result in
+    provider.request(.getGasLimit(src: src, dest: dest, amount: amt)) { [weak self] result in
+      guard let `self` = self else { return }
       if case .success(let resp) = result,
         let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
         let data = json["data"] as? Int {
         defaultGasValue = BigInt(data)
+        self.rootViewController.coordinatorDidUpdateDefaultGasLimit(from: from, to: to, gasLimit: BigInt(data))
       } else {
-        defaultGasValue = KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
+        defaultGasValue = self.rootViewController.coordinatorRetryDefaultGasLimit(for: from, to: to)
       }
       group.leave()
     }
@@ -805,7 +807,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           from: from,
           to: to,
           amount: amount,
-          gasLimit: KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
+          gasLimit: self.rootViewController.coordinatorRetryDefaultGasLimit(for: from, to: to)
         )
         return
       }
