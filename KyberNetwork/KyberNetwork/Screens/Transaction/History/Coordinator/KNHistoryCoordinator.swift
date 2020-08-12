@@ -89,7 +89,7 @@ class KNHistoryCoordinator: Coordinator {
   }
 
   func appCoordinatorTokensTransactionsDidUpdate(showLoading: Bool = false) {
-    var transactions: [Transaction] = Array(self.session.transactionStorage.transferNonePendingObjects.prefix(1000)).map({ return $0.clone() })
+    var transactions: [Transaction] = Array(self.session.transactionStorage.transferNonePendingObjects.prefix(Constants.klimitNumberOfTransactionInDB)).map({ return $0.clone() })
     let addressToSymbol: [String: String] = {
       var maps: [String: String] = [:]
       KNSupportedTokenStorage.shared.supportedTokens.forEach({

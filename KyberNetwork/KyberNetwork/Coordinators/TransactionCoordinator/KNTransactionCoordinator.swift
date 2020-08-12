@@ -319,13 +319,6 @@ extension KNTransactionCoordinator {
     if transactions.isEmpty { return }
     self.handleReceiveEtherOrToken(transactions)
     self.transactionStorage.add(transactions)
-    if self.transactionStorage.transferNonePendingObjects.count > 1000 {
-      let sortedTxObjects = self.transactionStorage.transferNonePendingObjects.sorted { (left, right) -> Bool in
-        return left.date > right.date
-      }
-      let suffixedObject = sortedTxObjects.suffix(from: 1000)
-      self.transactionStorage.delete(Array(suffixedObject))
-    }
     KNNotificationUtil.postNotification(for: kTokenTransactionListDidUpdateNotificationKey)
     var tokenObjects: [TokenObject] = []
     let savedTokens: [TokenObject] = self.tokenStorage.tokens

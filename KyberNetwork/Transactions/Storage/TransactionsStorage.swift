@@ -45,6 +45,7 @@ class TransactionsStorage {
         realm.beginWrite()
         realm.add(items, update: .modified)
         try! realm.commitWrite()
+        self.deleteOutOfDateTransactionIfNeeded()
         return items
     }
 
@@ -81,6 +82,16 @@ class TransactionsStorage {
       if realm.objects(Transaction.self).isInvalidated { return }
       try! realm.write {
         realm.delete(realm.objects(Transaction.self))
+      }
+    }
+
+    func deleteOutOfDateTransactionIfNeeded() {
+      if self.transferNonePendingObjects.count > Constants.klimitNumberOfTransactionInDB {
+        let sortedTxObjects = self.transferNonePendingObjects.sorted { (left, right) -> Bool in
+          return left.date > right.date
+        }
+        let suffixedObject = sortedTxObjects.suffix(from: Constants.klimitNumberOfTransactionInDB)
+        self.delete(Array(suffixedObject))
       }
     }
 }
