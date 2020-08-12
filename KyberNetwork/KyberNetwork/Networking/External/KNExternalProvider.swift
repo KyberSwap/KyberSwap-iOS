@@ -435,7 +435,9 @@ class KNExternalProvider {
           var limit = BigInt(value.drop0x, radix: 16) ?? BigInt()
           // Used  120% of estimated gas for safer
           limit += (limit * 20 / 100)
-          limit += isSwap ? 100000 : 20000 // add 100k if it is a swap, otherwise 20k
+          if !isSwap && !data.isEmpty { // Add buffer for transfer token only
+            limit += 20000
+          }
           return isSwap ? limit : min(limit, defaultGasLimit)
         }()
         NSLog("------ Estimate gas used: \(gasLimit.fullString(units: .wei)) ------")
