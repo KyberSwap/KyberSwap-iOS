@@ -1113,6 +1113,7 @@ extension KSwapViewController: UITextFieldDelegate {
     self.viewModel.isSwapAllBalance = false
     self.updateViewAmountDidChange()
     self.updateEstimatedRate(showError: true, showLoading: true)
+    self.updateEstimatedGasLimit()
     return false
   }
 
@@ -1172,6 +1173,7 @@ extension KSwapViewController: UITextFieldDelegate {
       self.fromAmountTextField.textColor = UIColor.Kyber.mirage
     }
     self.updateEstimatedRate(showError: true)
+    self.updateEstimatedGasLimit()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
       _ = self.showWarningDataInvalidIfNeeded()
     }
@@ -1186,7 +1188,6 @@ extension KSwapViewController: UITextFieldDelegate {
       self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
     }
     self.updateEstimatedRate(showLoading: true)
-    self.updateEstimatedGasLimit()
     if !self.fromAmountTextField.isEditing && self.viewModel.isFocusingFromAmount {
       self.fromAmountTextField.textColor = self.viewModel.amountTextFieldColor
       self.toAmountTextField.textColor = UIColor.Kyber.mirage
