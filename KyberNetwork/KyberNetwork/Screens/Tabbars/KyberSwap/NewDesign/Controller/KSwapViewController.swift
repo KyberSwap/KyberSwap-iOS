@@ -954,12 +954,20 @@ extension KSwapViewController {
   /*
    Update estimate gas limit, check if the from, to, amount are all the same as current value in the model    Update UIs according to new values
    */
-  func coordinatorDidUpdateEstimateGasUsed(from: TokenObject, to: TokenObject, amount: BigInt, gasLimit: BigInt) {
+  func coordinatorDidUpdateEstimateGasUsed(from: TokenObject, to: TokenObject, amount: BigInt) {
+    let defaultValue = self.viewModel.getDefaultGasLimit(for: from, to: to)
+    let estValue = self.viewModel.getEstValueGasLimit(for: from, to: to, amount: amount)
+    var gasValue = BigInt()
+    if from.isGasFixed || to.isGasFixed {
+      gasValue = max(defaultValue, estValue)
+    } else {
+      gasValue = min(defaultValue, estValue)
+    }
     self.viewModel.updateEstimateGasLimit(
       for: from,
       to: to,
       amount: amount,
-      gasLimit: gasLimit
+      gasLimit: gasValue
     )
     self.viewModel.lastSuccessLoadGasLimitTimeStamp = Date().timeIntervalSince1970
     if self.isViewSetup {
@@ -971,6 +979,15 @@ extension KSwapViewController {
     self.viewModel.updateDefaultGasLimit(
       for: from,
       to: to,
+      gasLimit: gasLimit
+    )
+  }
+
+  func coordinatorDidUpdateEstValueGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasLimit: BigInt) {
+    self.viewModel.updateEstValueGasLimit(
+      for: from,
+      to: to,
+      amount: amount,
       gasLimit: gasLimit
     )
   }
@@ -1084,10 +1101,6 @@ extension KSwapViewController {
     self.hamburgerMenu.update(transactions: transactions)
     self.hasPendingTxView.isHidden = transactions.isEmpty
     self.view.layoutIfNeeded()
-  }
-
-  func coordinatorRetryDefaultGasLimit(for from: TokenObject, to: TokenObject) -> BigInt {
-    return self.viewModel.getDefaultGasLimit(for: from, to: to)
   }
 }
 

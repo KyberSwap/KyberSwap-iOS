@@ -46,6 +46,7 @@ class KSwapViewModel {
 
   fileprivate(set) var estimateGasLimit: BigInt = KNGasConfiguration.exchangeTokensGasLimitDefault
   fileprivate(set) var defaultGasLimit: (TokenObject, TokenObject, BigInt)
+  fileprivate(set) var estValueGasLimit: (TokenObject, TokenObject, BigInt, BigInt)
   var lastSuccessLoadGasLimitTimeStamp: TimeInterval = 0
 
   init(wallet: Wallet,
@@ -59,6 +60,7 @@ class KSwapViewModel {
     self.from = from.clone()
     self.to = to.clone()
     self.defaultGasLimit = (self.from, self.to, KNGasConfiguration.exchangeTokensGasLimitDefault)
+    self.estValueGasLimit = (self.from, self.to, BigInt(0), KNGasConfiguration.exchangeTokensGasLimitDefault)
     self.supportedTokens = supportedTokens.map({ return $0.clone() })
     self.updateProdCachedRate()
     self.updateRelatedOrders()
@@ -516,6 +518,19 @@ class KSwapViewModel {
   func getDefaultGasLimit(for from: TokenObject, to: TokenObject) -> BigInt {
     if from == self.defaultGasLimit.0, to == self.defaultGasLimit.1 {
       return self.defaultGasLimit.2
+    }
+    return KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
+  }
+
+  func updateEstValueGasLimit(for from: TokenObject, to: TokenObject, amount: BigInt, gasLimit: BigInt) {
+    if from == self.from, to == self.to, amount != self.estValueGasLimit.2 {
+      self.estValueGasLimit = (from, to, amount, gasLimit)
+    }
+  }
+
+  func getEstValueGasLimit(for from: TokenObject, to: TokenObject, amount: BigInt) -> BigInt {
+    if from == self.estValueGasLimit.0, to == self.estValueGasLimit.1, amount == self.estValueGasLimit.2 {
+      return self.self.estValueGasLimit.3
     }
     return KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
   }

@@ -6,16 +6,16 @@ import BigInt
 public struct KNGasConfiguration {
   static let digixGasLimitDefault = BigInt(1_140_000)
   static let exchangeTokensGasLimitDefault = BigInt(1_140_000)
-  static let exchangeETHTokenGasLimitDefault = BigInt(650_000)
+  static let exchangeETHTokenGasLimitDefault = BigInt(884_000)
   static let approveTokenGasLimitDefault = BigInt(160_000)
   static let transferTokenGasLimitDefault = BigInt(180_000)
   static let transferETHGasLimitDefault = BigInt(120_000)
   static let buytokenSaleByETHGasLimitDefault = BigInt(550_000)
   static let buyTokenSaleByTokenGasLimitDefault = BigInt(700_000)
-  static let daiGasLimitDefault = BigInt(800_000)
-  static let makerGasLimitDefault = BigInt(700_000)
-  static let propyGasLimitDefault = BigInt(800_000)
-  static let promotionTokenGasLimitDefault = BigInt(650_00)
+  static let daiGasLimitDefault = BigInt(884_000)
+  static let makerGasLimitDefault = BigInt(884_000)
+  static let propyGasLimitDefault = BigInt(884_000)
+  static let promotionTokenGasLimitDefault = BigInt(884_000)
   static let trueUSDTokenGasLimitDefault = BigInt(870_000)
 
   static let gasPriceDefault: BigInt = EtherNumberFormatter.full.number(from: "50", units: UnitConfiguration.gasPriceUnit)!

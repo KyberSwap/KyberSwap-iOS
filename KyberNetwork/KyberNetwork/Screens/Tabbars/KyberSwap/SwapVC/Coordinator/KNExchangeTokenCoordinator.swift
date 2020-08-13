@@ -766,12 +766,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     }
   }
 
-  func updateEstimatedGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, completion: @escaping () -> Void = {} ) {
+  func updateEstimatedGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, completion: @escaping () -> Void = {}) {
     let group = DispatchGroup()
-
-    var defaultGasValue: BigInt?
-    var estGasValue: BigInt?
-
     let src = from.contract.lowercased()
     let dest = to.contract.lowercased()
     let amt = Double(amount) / Double(BigInt(10).power(from.decimals))
@@ -782,11 +778,9 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       guard let `self` = self else { return }
       if case .success(let resp) = result,
         let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
+        (json["error"] as? Bool ?? false) == false,
         let data = json["data"] as? Int {
-        defaultGasValue = BigInt(data)
         self.rootViewController.coordinatorDidUpdateDefaultGasLimit(from: from, to: to, gasLimit: BigInt(data))
-      } else {
-        defaultGasValue = self.rootViewController.coordinatorRetryDefaultGasLimit(for: from, to: to)
       }
       group.leave()
     }
@@ -804,33 +798,21 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     )
     self.session.externalProvider.getEstimateGasLimit(for: exchangeTx) { result in
       if case .success(let estimate) = result {
-        estGasValue = estimate
+        self.rootViewController.coordinatorDidUpdateEstValueGasLimit(
+          from: from,
+          to: to,
+          amount: amount,
+          gasLimit: estimate
+        )
       }
       group.leave()
     }
 
     group.notify(queue: .main) {
-      guard let defaultValue = defaultGasValue, let estValue = estGasValue else {
-        self.rootViewController.coordinatorDidUpdateEstimateGasUsed(
-          from: from,
-          to: to,
-          amount: amount,
-          gasLimit: self.rootViewController.coordinatorRetryDefaultGasLimit(for: from, to: to)
-        )
-        completion()
-        return
-      }
-      var gasValue = BigInt()
-      if from.isGasFixed || to.isGasFixed {
-        gasValue = max(defaultValue, estValue)
-      } else {
-        gasValue = min(defaultValue, estValue)
-      }
       self.rootViewController.coordinatorDidUpdateEstimateGasUsed(
         from: from,
         to: to,
-        amount: amount,
-        gasLimit: gasValue
+        amount: amount
       )
       completion()
     }
