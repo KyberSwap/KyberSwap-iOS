@@ -450,9 +450,6 @@ extension KNTransactionCoordinator {
         }
         if newTx.isInvalidated { return }
         self?.transactionStorage.addKyberTransactions([newTx])
-        if newTx.state == .error || newTx.state == .failed {
-          self?.transactionStorage.add([newTx.toTransaction()])
-        }
         KNNotificationUtil.postNotification(
           for: kTransactionDidUpdateNotificationKey,
           object: newTx.id,
