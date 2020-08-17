@@ -272,7 +272,7 @@ extension Transaction {
           let string = NumberFormatterUtil.shared.swapAmountFormatter.string(from: NSNumber(value: double)) {
           return string
         }
-        return String(self.value.prefix(12))
+        return String(self.value.prefix(15))
       }()
       let fromText: String = "\(amountFrom) \(localObject.symbol ?? "")"
 
@@ -281,7 +281,7 @@ extension Transaction {
           let string = NumberFormatterUtil.shared.swapAmountFormatter.string(from: NSNumber(value: double)) {
           return string
         }
-        return String(localObject.value.prefix(12))
+        return String(localObject.value.prefix(15))
       }()
       let toText = "\(amountTo) \(localObject.name ?? "")"
 
@@ -304,7 +304,7 @@ extension Transaction {
           let string = NumberFormatterUtil.shared.swapAmountFormatter.string(from: NSNumber(value: double)) {
           return string
         }
-        return String(self.value.prefix(12))
+        return String(self.value.prefix(15))
       }()
       let fromText: String = "\(amountFrom) \(localObject.symbol ?? "")"
 
@@ -313,7 +313,7 @@ extension Transaction {
           let string = NumberFormatterUtil.shared.swapAmountFormatter.string(from: NSNumber(value: double)) {
           return string
         }
-        return String(localObject.value.prefix(12))
+        return String(localObject.value.prefix(15))
       }()
       let toText = "\(amountTo) \(localObject.name ?? "")"
 

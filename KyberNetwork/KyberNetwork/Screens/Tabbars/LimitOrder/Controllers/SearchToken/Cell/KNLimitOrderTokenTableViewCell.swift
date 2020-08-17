@@ -36,7 +36,7 @@ class KNLimitOrderTokenTableViewCell: UITableViewCell {
       if let val = value, let double = Double(val), double == 0 { return "0" }
       return value ?? ""
     }()
-    self.tokenBalanceLabel.text = "\(balText.prefix(12))"
+    self.tokenBalanceLabel.text = "\(balText.prefix(15))"
     self.tokenBalanceLabel.addLetterSpacing()
     self.layoutIfNeeded()
   }

@@ -28,7 +28,7 @@ extension KNDraftExchangeTransaction {
 
   func displayExpectedReceive(short: Bool = true) -> String {
     if let string = self.expectedReceivedString {
-      return "\(string.prefix(12))"
+      return "\(string.prefix(15))"
     }
     return short ? expectedReceive.shortString(decimals: to.decimals) : expectedReceive.fullString(decimals: to.decimals)
   }

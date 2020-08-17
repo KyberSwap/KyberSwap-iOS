@@ -31,7 +31,7 @@ class KNSearchTokenTableViewCell: UITableViewCell {
       if let val = value, let double = Double(val.removeGroupSeparator()), double == 0 { return "0" }
       return value ?? ""
     }()
-    self.balanceLabel.text = "\(balText.prefix(12))"
+    self.balanceLabel.text = "\(balText.prefix(15))"
     self.balanceLabel.addLetterSpacing()
     self.layoutIfNeeded()
   }

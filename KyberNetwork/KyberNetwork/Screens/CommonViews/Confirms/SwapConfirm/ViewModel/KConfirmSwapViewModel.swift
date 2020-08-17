@@ -19,7 +19,7 @@ struct KConfirmSwapViewModel {
 
   var leftAmountString: String {
     let amountString = self.transaction.amount.displayRate(decimals: transaction.from.decimals)
-    return "\(amountString.prefix(12)) \(self.transaction.from.symbol)"
+    return "\(amountString.prefix(15)) \(self.transaction.from.symbol)"
   }
 
   var equivalentUSDAmount: BigInt? {
@@ -38,7 +38,7 @@ struct KConfirmSwapViewModel {
 
   var rightAmountString: String {
     let receivedAmount = self.transaction.displayExpectedReceive(short: false)
-    return "\(receivedAmount.prefix(12)) \(self.transaction.to.symbol)"
+    return "\(receivedAmount.prefix(15)) \(self.transaction.to.symbol)"
   }
 
   var displayEstimatedRate: String {

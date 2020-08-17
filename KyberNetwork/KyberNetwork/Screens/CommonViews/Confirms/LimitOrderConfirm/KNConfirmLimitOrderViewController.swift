@@ -59,7 +59,7 @@ class KNConfirmLimitOrderViewController: KNBaseViewController {
       decimals: from.decimals,
       minFractionDigits: 0,
       maxFractionDigits: min(from.decimals, 6)
-    ).prefix(12)
+    ).prefix(15)
 
     let text = "Your transaction will be broadcasted when rate of %@".toBeLocalised()
     let condition = "\(from.symbol)/\(to.symbol) (for \(srcAmountString) \(from.symbol)) >= \(targetRate.displayRate(decimals: to.decimals))"
@@ -72,7 +72,7 @@ class KNConfirmLimitOrderViewController: KNBaseViewController {
       decimals: from.decimals,
       minFractionDigits: 0,
       maxFractionDigits: min(from.decimals, 6)
-    ).prefix(12)
+    ).prefix(15)
     let rateString = targetRate.displayRate(decimals: to.decimals)
     let receivedAmount: BigInt = {
       let srcAfterFee = max(BigInt(0), srcAmount - fee)
@@ -82,7 +82,7 @@ class KNConfirmLimitOrderViewController: KNBaseViewController {
       decimals: to.decimals,
       minFractionDigits: 0,
       maxFractionDigits: min(to.decimals, 6)
-    ).prefix(12)
+    ).prefix(15)
     self.destDataLabel.text = "\(receiveAmountStr) \(to.symbol)"
     self.explainDestAmountLabel.text = "(\(srcAmountString) - \(feeAmountString)) \(from.symbol) * \(rateString) = \(receiveAmountStr) \(to.symbol)"
 

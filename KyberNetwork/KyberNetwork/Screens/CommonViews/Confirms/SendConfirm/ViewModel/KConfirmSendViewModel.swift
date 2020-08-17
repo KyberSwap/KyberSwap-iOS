@@ -46,7 +46,7 @@ struct KConfirmSendViewModel {
       minFractionDigits: 0,
       maxFractionDigits: min(self.token.decimals, 6)
     )
-    return "\(string.prefix(12)) \(self.token.symbol)"
+    return "\(string.prefix(15)) \(self.token.symbol)"
   }
 
   var usdValueString: String {

@@ -66,9 +66,9 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
     self.quantityTextLabel.text = "Amount".toBeLocalised()
     self.quantityValueLabel.text = {
       if self.order.isBuy == true {
-        return "\(self.confirmData.amount.prefix(12)) \(self.order.to.symbolLODisplay)"
+        return "\(self.confirmData.amount.prefix(15)) \(self.order.to.symbolLODisplay)"
       }
-      return "\(self.confirmData.amount.prefix(12)) \(self.order.from.symbolLODisplay)"
+      return "\(self.confirmData.amount.prefix(15)) \(self.order.from.symbolLODisplay)"
     }()
 
     self.yourPriceTextLabel.text = "Your price".toBeLocalised()
@@ -91,17 +91,17 @@ class PreviewLimitOrderV2ViewController: KNBaseViewController {
     self.totalTextLabel.text = "Total".toBeLocalised()
     let totalAmountString: String = {
       if self.order.isBuy == true {
-        return "\(self.confirmData.totalAmount.prefix(12)) \(self.order.from.symbolLODisplay)"
+        return "\(self.confirmData.totalAmount.prefix(15)) \(self.order.from.symbolLODisplay)"
       }
-      return "\(self.confirmData.totalAmount.prefix(12)) \(self.order.to.symbolLODisplay)"
+      return "\(self.confirmData.totalAmount.prefix(15)) \(self.order.to.symbolLODisplay)"
     }()
     self.totalValueLabel.text = totalAmountString
 
     let sourceAmount: String = {
       if self.order.isBuy == true {
-        return "\(self.confirmData.totalAmount.prefix(12)) \(self.order.from.symbolLODisplay)"
+        return "\(self.confirmData.totalAmount.prefix(15)) \(self.order.from.symbolLODisplay)"
       }
-      return "\(self.confirmData.amount.prefix(12)) \(self.order.from.symbolLODisplay)"
+      return "\(self.confirmData.amount.prefix(15)) \(self.order.from.symbolLODisplay)"
     }()
     let pairString: String = {
       if self.order.isBuy == true { return "\(self.order.to.symbolLODisplay)/\(self.order.from.symbolLODisplay)" }

@@ -190,7 +190,7 @@ class KNCreateLimitOrderViewModel {
       maxFractionDigits: min(self.from.decimals, 6)
     )
     if let double = Double(string), double == 0 { return "0" }
-    return "\(string.prefix(12))"
+    return "\(string.prefix(15))"
   }
 
   var balanceTextString: String {
@@ -432,7 +432,7 @@ class KNCreateLimitOrderViewModel {
     let feeDouble = Double(self.amountFromBigInt) * (self.feePercentage + transferFeePercent) / pow(10.0, Double(self.from.decimals))
     let feeDisplay = NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)
     let fromSymbol = self.fromSymbol
-    let string = "\(feeDisplay.prefix(12)) \(fromSymbol)"
+    let string = "\(feeDisplay.prefix(15)) \(fromSymbol)"
     if self.isShowingDiscount || self.amountFromBigInt.isZero { return string }
     let percentage = NumberFormatterUtil.shared.displayPercentage(from: (self.feePercentage + self.transferFeePercent) * 100.0)
     return "\(string) (\(percentage)%)"
@@ -447,7 +447,7 @@ class KNCreateLimitOrderViewModel {
     let feeDouble = Double(self.amountFromBigInt) * (self.feeBeforeDiscount + self.transferFeePercent) / pow(10.0, Double(self.from.decimals))
     let feeDisplay = NumberFormatterUtil.shared.displayLimitOrderValue(from: feeDouble)
     let fromSymbol = self.fromSymbol
-    return "\(feeDisplay.prefix(12)) \(fromSymbol)"
+    return "\(feeDisplay.prefix(15)) \(fromSymbol)"
   }
 
   var suggestBuyText: NSAttributedString {

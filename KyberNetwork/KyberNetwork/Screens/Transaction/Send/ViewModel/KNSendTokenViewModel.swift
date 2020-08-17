@@ -107,7 +107,7 @@ class KNSendTokenViewModel: NSObject {
       maxFractionDigits: min(self.from.decimals, 6)
     )
     if let double = Double(string.removeGroupSeparator()), double == 0 { return "0" }
-    return "\(string.prefix(12))"
+    return "\(string.prefix(15))"
   }
 
   var placeHolderEnterAddress: String {
