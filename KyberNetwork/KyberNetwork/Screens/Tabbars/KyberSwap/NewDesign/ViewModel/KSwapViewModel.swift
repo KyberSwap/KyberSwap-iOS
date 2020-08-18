@@ -447,7 +447,6 @@ class KSwapViewModel {
   func updateAmount(_ amount: String, isSource: Bool) {
     if isSource {
       self.amountFrom = amount
-      self.isSwapAllBalance = false
     } else {
       self.amountTo = amount
     }

@@ -224,7 +224,6 @@ class KNSendTokenViewModel: NSObject {
 
   func updateAmount(_ amount: String) {
     self.amount = amount
-    self.isSendAllBalanace = false
   }
 
   func updateGasPrice(_ gasPrice: BigInt) {
