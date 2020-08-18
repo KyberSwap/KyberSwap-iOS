@@ -515,12 +515,16 @@ class KSwapViewController: KNBaseViewController {
     _ = self.showWarningDataInvalidIfNeeded()
   }
 
+  fileprivate func updateFromAmountUI() {
+    self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
+    self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
+  }
+
   @objc func keyboardSwapAllButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_all", customAttributes: nil)
     self.view.endEditing(true)
     self.viewModel.updateFocusingField(true)
-    self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
-    self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
+    self.updateFromAmountUI()
     self.updateTokensView()
     self.updateViewAmountDidChange()
     if sender as? KSwapViewController != self {
@@ -545,6 +549,7 @@ class KSwapViewController: KNBaseViewController {
   func coordinatorUpdateGasPriceCached() {
     self.viewModel.updateSelectedGasPriceType(self.viewModel.selectedGasPriceType)
     self.updateAdvancedSettingsView()
+    self.updateFromAmountUI()
   }
 
   fileprivate func updateEstimatedRate(showError: Bool = false, showLoading: Bool = false) {
@@ -902,6 +907,7 @@ extension KSwapViewController {
 
   func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
     self.viewModel.updateBalance(balances)
+    self.updateFromAmountUI()
     self.balanceLabel.text = self.viewModel.balanceText
     if !self.fromAmountTextField.isEditing && self.viewModel.isFocusingFromAmount {
       self.fromAmountTextField.textColor = self.viewModel.amountTextFieldColor
@@ -969,6 +975,7 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasValue
     )
+    self.updateFromAmountUI()
     self.viewModel.lastSuccessLoadGasLimitTimeStamp = Date().timeIntervalSince1970
     if self.isViewSetup {
       self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
@@ -1093,6 +1100,7 @@ extension KSwapViewController {
   func coordinatorExchangeTokenDidUpdateGasPrice(_ gasPrice: BigInt?) {
     if let gasPrice = gasPrice {
       self.viewModel.updateGasPrice(gasPrice)
+      self.updateFromAmountUI()
     }
     self.view.layoutIfNeeded()
   }
@@ -1270,6 +1278,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
     case .gasPriceChanged(let type, let value):
       self.viewModel.updateSelectedGasPriceType(type)
       self.viewModel.updateGasPrice(value)
+      self.updateFromAmountUI()
       KNCrashlyticsUtil.logCustomEvent(withName: "advanced", customAttributes: ["gas_option": type.displayString(), "gas_value": self.viewModel.gasPriceText, "slippage": self.viewModel.slippageRateText ?? "0.0"])
     case .minRatePercentageChanged(let percent):
       self.viewModel.updateExchangeMinRatePercent(Double(percent))
