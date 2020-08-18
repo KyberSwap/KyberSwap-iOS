@@ -318,7 +318,11 @@ class KSendTokenViewController: KNBaseViewController {
   @objc func keyboardSendAllButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "transfer_send_all", customAttributes: nil)
     self.viewModel.isSendAllBalanace = true
-    self.updateAmountFieldUIForTransferAllIfNeeded()
+    self.amountTextField.text = self.viewModel.allTokenBalanceString.removeGroupSeparator()
+    self.viewModel.updateAmount(self.amountTextField.text ?? "")
+    self.equivalentUSDLabel.text = self.viewModel.displayEquivalentUSDAmount
+    self.amountTextField.resignFirstResponder()
+    self.amountTextField.textColor = self.viewModel.amountTextColor
     self.shouldUpdateEstimatedGasLimit(nil)
     if sender as? KSendTokenViewController != self {
       if self.viewModel.from.isETH {
@@ -483,6 +487,7 @@ extension KSendTokenViewController {
     // Reset exchange amount
     self.amountTextField.text = ""
     self.viewModel.updateAmount("")
+    self.viewModel.isSendAllBalanace = false
     self.equivalentUSDLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.shouldUpdateEstimatedGasLimit(nil)
     self.view.layoutIfNeeded()

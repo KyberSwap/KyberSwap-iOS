@@ -224,6 +224,10 @@ class KNSendTokenViewModel: NSObject {
 
   func updateAmount(_ amount: String) {
     self.amount = amount
+    let isSendAllETH = self.isSendAllBalanace && self.from.isETH
+    if !isSendAllETH {
+      self.isSendAllBalanace = false
+    }
   }
 
   func updateGasPrice(_ gasPrice: BigInt) {

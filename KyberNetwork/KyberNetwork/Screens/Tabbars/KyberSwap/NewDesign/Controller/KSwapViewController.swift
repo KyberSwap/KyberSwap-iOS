@@ -525,7 +525,8 @@ class KSwapViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_all", customAttributes: nil)
     self.view.endEditing(true)
     self.viewModel.updateFocusingField(true)
-    self.updateFromAmountUIForSwapAllBalanceIfNeeded()
+    self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
+    self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
     self.updateTokensView()
     self.updateViewAmountDidChange()
     if sender as? KSwapViewController != self {
@@ -908,7 +909,6 @@ extension KSwapViewController {
 
   func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
     self.viewModel.updateBalance(balances)
-    self.updateFromAmountUIForSwapAllBalanceIfNeeded()
     self.balanceLabel.text = self.viewModel.balanceText
     if !self.fromAmountTextField.isEditing && self.viewModel.isFocusingFromAmount {
       self.fromAmountTextField.textColor = self.viewModel.amountTextFieldColor
@@ -1075,6 +1075,7 @@ extension KSwapViewController {
     self.fromAmountTextField.text = ""
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.updateExchangeRateField()
+    self.viewModel.isSwapAllBalance = false
     self.view.layoutIfNeeded()
   }
 
