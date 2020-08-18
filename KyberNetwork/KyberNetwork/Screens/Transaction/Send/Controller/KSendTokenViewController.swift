@@ -735,6 +735,7 @@ extension KSendTokenViewController: KAdvancedSettingsViewDelegate {
               x: 0,
               y: self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 188.0
             )
+            guard bottomOffset.y > 100 else { return } // add content offset when recent contact has 2 element
             self.scrollContainerView.setContentOffset(bottomOffset, animated: true)
           }
         }
