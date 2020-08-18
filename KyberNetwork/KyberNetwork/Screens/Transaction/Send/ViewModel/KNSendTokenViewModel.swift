@@ -222,12 +222,12 @@ class KNSendTokenViewModel: NSObject {
     }
   }
 
-  func updateAmount(_ amount: String) {
+  func updateAmount(_ amount: String, forSendAllETH: Bool = false) {
     self.amount = amount
-    let isSendAllETH = self.isSendAllBalanace && self.from.isETH
-    if !isSendAllETH {
-      self.isSendAllBalanace = false
+    guard !forSendAllETH else {
+      return
     }
+    self.isSendAllBalanace = false
   }
 
   func updateGasPrice(_ gasPrice: BigInt) {

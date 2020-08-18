@@ -518,7 +518,7 @@ class KSwapViewController: KNBaseViewController {
   fileprivate func updateFromAmountUIForSwapAllBalanceIfNeeded() {
     guard self.viewModel.isSwapAllBalance, self.viewModel.from.isETH else { return }
     self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
-    self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
+    self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true, forSwapAllETH: true)
   }
 
   @objc func keyboardSwapAllButtonPressed(_ sender: Any) {
@@ -526,7 +526,7 @@ class KSwapViewController: KNBaseViewController {
     self.view.endEditing(true)
     self.viewModel.updateFocusingField(true)
     self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
-    self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
+    self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true, forSwapAllETH: self.viewModel.from.isETH)
     self.updateTokensView()
     self.updateViewAmountDidChange()
     if sender as? KSwapViewController != self {
@@ -1075,7 +1075,6 @@ extension KSwapViewController {
     self.fromAmountTextField.text = ""
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.updateExchangeRateField()
-    self.viewModel.isSwapAllBalance = false
     self.view.layoutIfNeeded()
   }
 

@@ -309,7 +309,7 @@ class KSendTokenViewController: KNBaseViewController {
   fileprivate func updateAmountFieldUIForTransferAllIfNeeded() {
     guard self.viewModel.isSendAllBalanace, self.viewModel.from.isETH else { return }
     self.amountTextField.text = self.viewModel.allTokenBalanceString.removeGroupSeparator()
-    self.viewModel.updateAmount(self.amountTextField.text ?? "")
+    self.viewModel.updateAmount(self.amountTextField.text ?? "", forSendAllETH: true)
     self.equivalentUSDLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.amountTextField.resignFirstResponder()
     self.amountTextField.textColor = self.viewModel.amountTextColor
@@ -319,7 +319,7 @@ class KSendTokenViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "transfer_send_all", customAttributes: nil)
     self.viewModel.isSendAllBalanace = true
     self.amountTextField.text = self.viewModel.allTokenBalanceString.removeGroupSeparator()
-    self.viewModel.updateAmount(self.amountTextField.text ?? "")
+    self.viewModel.updateAmount(self.amountTextField.text ?? "", forSendAllETH: self.viewModel.from.isETH)
     self.equivalentUSDLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.amountTextField.resignFirstResponder()
     self.amountTextField.textColor = self.viewModel.amountTextColor
@@ -487,7 +487,6 @@ extension KSendTokenViewController {
     // Reset exchange amount
     self.amountTextField.text = ""
     self.viewModel.updateAmount("")
-    self.viewModel.isSendAllBalanace = false
     self.equivalentUSDLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.shouldUpdateEstimatedGasLimit(nil)
     self.view.layoutIfNeeded()
