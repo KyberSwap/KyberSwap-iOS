@@ -519,6 +519,7 @@ class KSwapViewController: KNBaseViewController {
     guard self.viewModel.isSwapAllBalance, self.viewModel.from.isETH else { return }
     self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
     self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true, forSwapAllETH: true)
+    self.updateViewAmountDidChange()
   }
 
   @objc func keyboardSwapAllButtonPressed(_ sender: Any) {
