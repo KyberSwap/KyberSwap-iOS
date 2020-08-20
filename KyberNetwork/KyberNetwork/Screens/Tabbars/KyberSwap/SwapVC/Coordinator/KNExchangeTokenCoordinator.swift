@@ -455,6 +455,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
     case .referencePrice(let from, let to):
       self.updateReferencePrice(from: from, to: to)
+    case .swapHint(let from, let to, let amount):
+      self.updateSwapHint(from: from.address, to: to.address, amount: amount)
     }
   }
 
@@ -647,6 +649,25 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           to: to,
           rate: data.0
         )
+      }
+    }
+  }
+
+  fileprivate func updateSwapHint(from: String, to: String, amount: String?) {
+    DispatchQueue.global(qos: .background).async {
+      let provider = MoyaProvider<UserInfoService>()
+      provider.request(.getSwapHint(from: from, to: to, amount: amount)) { [weak self] result in
+        guard let `self` = self else { return }
+        if case .success(let resp) = result,
+          let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
+          (json["error"] as? Bool ?? false) == false,
+          let hint = json["hint"] as? String {
+          DispatchQueue.main.async {
+            self.rootViewController.coordinatorDidUpdateSwapHint(from: from, to: to, hint: hint)
+          }
+        } else {
+          //TODO: handle fail case
+        }
       }
     }
   }

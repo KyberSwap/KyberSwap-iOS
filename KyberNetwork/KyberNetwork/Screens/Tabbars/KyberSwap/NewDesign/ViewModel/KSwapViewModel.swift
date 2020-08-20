@@ -48,6 +48,7 @@ class KSwapViewModel {
   fileprivate(set) var defaultGasLimit: (TokenObject, TokenObject, BigInt)
   fileprivate(set) var estValueGasLimit: (TokenObject, TokenObject, BigInt, BigInt)
   var lastSuccessLoadGasLimitTimeStamp: TimeInterval = 0
+  var swapHint = ""
 
   init(wallet: Wallet,
        from: TokenObject,

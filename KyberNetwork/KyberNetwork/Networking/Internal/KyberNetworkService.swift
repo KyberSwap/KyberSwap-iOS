@@ -185,6 +185,7 @@ enum UserInfoService {
   case updateMarketFavouriteStatus(accessToken: String, base: String, quote: String, status: Bool)
   case getPlatformFee
   case getMobileBanner
+  case getSwapHint(from: String, to: String, amount: String?)
 }
 
 extension UserInfoService: MoyaCacheable {
@@ -239,6 +240,8 @@ extension UserInfoService: TargetType {
       return URL(string: "\(baseString)/api/swap_fee")!
     case .getMobileBanner:
       return URL(string: "\(baseString)/api/mobile_banners")!
+    case .getSwapHint:
+      return URL(string: "\(baseString)/api/swap_hint")!
     }
   }
 
@@ -246,7 +249,7 @@ extension UserInfoService: TargetType {
 
   var method: Moya.Method {
     switch self {
-    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet, .getListSubscriptionTokens, .getListFavouriteMarket, .getPlatformFee, .getMobileBanner: return .get
+    case .getListAlerts, .getListAlertMethods, .getLeaderBoardData, .getLatestCampaignResult, .getNotification, .getPreScreeningWallet, .getListSubscriptionTokens, .getListFavouriteMarket, .getPlatformFee, .getMobileBanner, .getSwapHint: return .get
     case .removeAnAlert, .deleteAllTriggerdAlerts: return .delete
     case .addPushToken, .updateAlert, .togglePriceNotification: return .patch
     case .markAsRead, .updateMarketFavouriteStatus: return .put
@@ -317,6 +320,15 @@ extension UserInfoService: TargetType {
       ]
       let data = try! JSONSerialization.data(withJSONObject: json, options: [])
       return .requestData(data)
+    case .getSwapHint(let from, let to, let amount):
+      var json: JSONDictionary = [
+        "src": from,
+        "dst": to,
+      ]
+      if let amountNotNil = amount {
+        json["amount"] = amountNotNil
+      }
+      return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
     }
   }
   var sampleData: Data { return Data() }
@@ -367,7 +379,7 @@ extension UserInfoService: TargetType {
       json["Authorization"] = accessToken
     case .updateMarketFavouriteStatus(let accessToken, _, _, _):
       json["Authorization"] = accessToken
-    case .getPlatformFee, .getMobileBanner:
+    case .getPlatformFee, .getMobileBanner, .getSwapHint:
       break
     }
     return json

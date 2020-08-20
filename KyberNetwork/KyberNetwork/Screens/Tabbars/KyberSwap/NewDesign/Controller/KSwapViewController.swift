@@ -18,6 +18,7 @@ enum KSwapViewEvent {
   case showQRCode
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
   case referencePrice(from: TokenObject, to: TokenObject)
+  case swapHint(from: TokenObject, to: TokenObject, amount: String?)
 }
 
 protocol KSwapViewControllerDelegate: class {
@@ -156,6 +157,7 @@ class KSwapViewController: KNBaseViewController {
     self.estRateTimer?.invalidate()
     self.updateEstimatedRate(showError: true, showLoading: true)
     self.updateReferencePrice()
+    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
     self.estRateTimer = Timer.scheduledTimer(
       withTimeInterval: KNLoadingInterval.seconds30,
       repeats: true,
@@ -399,6 +401,7 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.updateAmount("", isSource: false)
     self.updateTokensView()
     self.updateEstimatedGasLimit()
+    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: nil)
   }
 
   @IBAction func warningRateButtonPressed(_ sender: Any) {
@@ -570,6 +573,11 @@ class KSwapViewController: KNBaseViewController {
   fileprivate func updateReferencePrice() {
     KNRateCoordinator.shared.currentSymPair = (self.viewModel.from.symbol, self.viewModel.to.symbol)
     let event = KSwapViewEvent.referencePrice(from: self.viewModel.from, to: self.viewModel.to)
+    self.delegate?.kSwapViewController(self, run: event)
+  }
+
+  fileprivate func updateSwapHint(from: TokenObject, to: TokenObject, amount: String?) {
+    let event = KSwapViewEvent.swapHint(from: from, to: to, amount: amount)
     self.delegate?.kSwapViewController(self, run: event)
   }
 
@@ -1045,6 +1053,7 @@ extension KSwapViewController {
       self.updateRateDestAmountDidChangeIfNeeded(prevDest: BigInt(0), isForceLoad: true)
     }
     self.updateEstimatedGasLimit()
+    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
     self.view.layoutIfNeeded()
   }
 
@@ -1111,6 +1120,12 @@ extension KSwapViewController {
     self.hamburgerMenu.update(transactions: transactions)
     self.hasPendingTxView.isHidden = transactions.isEmpty
     self.view.layoutIfNeeded()
+  }
+
+  func coordinatorDidUpdateSwapHint(from: String, to: String, hint: String) {
+    if from == self.viewModel.from.address && to == self.viewModel.to.address {
+      self.viewModel.swapHint = hint
+    }
   }
 }
 
