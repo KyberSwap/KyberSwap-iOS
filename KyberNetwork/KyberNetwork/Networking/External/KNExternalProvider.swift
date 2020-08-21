@@ -159,12 +159,12 @@ class KNExternalProvider {
     }
   }
 
-  func exchange(exchange: KNDraftExchangeTransaction, completion: @escaping (Result<String, AnyError>) -> Void) {
+  func exchange(exchange: KNDraftExchangeTransaction, hint: String = "", completion: @escaping (Result<String, AnyError>) -> Void) {
     self.getTransactionCount { [weak self] txCountResult in
       guard let `self` = self else { return }
       switch txCountResult {
       case .success:
-        self.requestDataForTokenExchange(exchange, completion: { [weak self] dataResult in
+        self.requestDataForTokenExchange(exchange, hint: hint, completion: { [weak self] dataResult in
           guard let `self` = self else { return }
           switch dataResult {
           case .success(let data):
@@ -357,11 +357,12 @@ class KNExternalProvider {
   }
 
   // MARK: Rate
-  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
+  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
     KNGeneralProvider.shared.getExpectedRate(
       from: from,
       to: to,
       amount: amount,
+      hint: hint,
       completion: completion
     )
   }
@@ -392,14 +393,14 @@ class KNExternalProvider {
     }
   }
 
-  func getEstimateGasLimit(for exchangeTransaction: KNDraftExchangeTransaction, completion: @escaping (Result<BigInt, AnyError>) -> Void) {
+  func getEstimateGasLimit(for exchangeTransaction: KNDraftExchangeTransaction, hint: String = "", completion: @escaping (Result<BigInt, AnyError>) -> Void) {
     let value: BigInt = exchangeTransaction.from.isETH ? exchangeTransaction.amount : BigInt(0)
 
     let defaultGasLimit: BigInt = {
       return KNGasConfiguration.calculateDefaultGasLimit(from: exchangeTransaction.from, to: exchangeTransaction.to)
     }()
 
-    self.requestDataForTokenExchange(exchangeTransaction) { [weak self] dataResult in
+    self.requestDataForTokenExchange(exchangeTransaction, hint: hint) { [weak self] dataResult in
       guard let `self` = self else { return }
       switch dataResult {
       case .success(let data):
@@ -542,8 +543,8 @@ class KNExternalProvider {
     }
   }
 
-  func requestDataForTokenExchange(_ exchange: KNDraftExchangeTransaction, completion: @escaping (Result<Data, AnyError>) -> Void) {
-    let encodeRequest = KNExchangeRequestEncode(exchange: exchange, address: self.account.address)
+  func requestDataForTokenExchange(_ exchange: KNDraftExchangeTransaction, hint: String, completion: @escaping (Result<Data, AnyError>) -> Void) {
+    let encodeRequest = KNExchangeRequestEncode(exchange: exchange, address: self.account.address, hint: hint)
     self.web3Swift.request(request: encodeRequest) { result in
       switch result {
       case .success(let res):

@@ -11,9 +11,9 @@ enum KSwapViewEvent {
   case searchToken(from: TokenObject, to: TokenObject, isSource: Bool)
   case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, showError: Bool)
   case estimateComparedRate(from: TokenObject, to: TokenObject) // compare to show warning
-  case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt)
+  case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, hint: String)
   case setGasPrice(gasPrice: BigInt, gasLimit: BigInt)
-  case validateRate(data: KNDraftExchangeTransaction)
+  case validateRate(data: KNDraftExchangeTransaction, hint: String)
   case swap(data: KNDraftExchangeTransaction)
   case showQRCode
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
@@ -467,7 +467,7 @@ class KSwapViewController: KNBaseViewController {
       expectedReceivedString: self.viewModel.amountTo
     )
     if !hasCallValidateRate {
-      self.delegate?.kSwapViewController(self, run: .validateRate(data: exchange))
+      self.delegate?.kSwapViewController(self, run: .validateRate(data: exchange, hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)))
     } else {
       self.delegate?.kSwapViewController(self, run: .swap(data: exchange))
     }
@@ -590,7 +590,8 @@ class KSwapViewController: KNBaseViewController {
       from: self.viewModel.from,
       to: self.viewModel.to,
       amount: self.viewModel.amountToEstimate,
-      gasPrice: self.viewModel.gasPrice
+      gasPrice: self.viewModel.gasPrice,
+      hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)
     )
     self.delegate?.kSwapViewController(self, run: event)
   }
@@ -1124,7 +1125,10 @@ extension KSwapViewController {
 
   func coordinatorDidUpdateSwapHint(from: String, to: String, hint: String) {
     if from == self.viewModel.from.address && to == self.viewModel.to.address {
-      self.viewModel.swapHint = hint
+      self.viewModel.swapHint = (from, to, hint)
+      if self.advancedSettingsView.updateIsAbleToUseReverseRouting(value: self.viewModel.isAbleToUseReverseRouting) && self.advancedSettingsView.isExpanded {
+        self.advancedSettingsView.displayViewButtonPressed(self)
+      }
     }
   }
 }
@@ -1274,7 +1278,8 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
       if self.advancedSettingsView.isExpanded && self.scrollContainerView.contentSize.height > self.scrollContainerView.bounds.size.height {
         let offSetY: CGFloat = {
           if self.viewModel.isSwapSuggestionShown {
-            return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 210.0
+            let reverseRoutingSpace: CGFloat = self.viewModel.isAbleToUseReverseRouting ? 46.0 : 0.0
+            return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height - 210.0 - reverseRoutingSpace
           }
           return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height
         }()
@@ -1318,6 +1323,8 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
         icon: UIImage(named: "help_icon_large") ?? UIImage(),
         time: 3
       )
+    case .changeIsUserReverseRouting(let value):
+      self.viewModel.updateUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address, value: value)
     }
   }
 }

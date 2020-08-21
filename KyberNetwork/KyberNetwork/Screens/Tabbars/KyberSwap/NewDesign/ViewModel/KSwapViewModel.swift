@@ -48,7 +48,11 @@ class KSwapViewModel {
   fileprivate(set) var defaultGasLimit: (TokenObject, TokenObject, BigInt)
   fileprivate(set) var estValueGasLimit: (TokenObject, TokenObject, BigInt, BigInt)
   var lastSuccessLoadGasLimitTimeStamp: TimeInterval = 0
-  var swapHint = ""
+  var swapHint: (String, String, String) = ("", "", "")
+  var isAbleToUseReverseRouting: Bool {
+    guard self.swapHint.0 == self.from.address, self.swapHint.1 == self.to.address else { return false }
+    return self.swapHint.2 != "" && self.swapHint.2 != "0x"
+  }
 
   init(wallet: Wallet,
        from: TokenObject,
@@ -535,6 +539,27 @@ class KSwapViewModel {
       return self.self.estValueGasLimit.3
     }
     return KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
+  }
+
+  func getHint(from: String, to: String) -> String {
+    guard from == self.swapHint.0, to == self.swapHint.1, self.isAbleToUseReverseRouting, self.getUserSelectionToUseReverseRouting(from: from, to: to) else {
+      return ""
+    }
+    return self.swapHint.2
+  }
+
+  func updateUserSelectionToUseReverseRouting(from: String, to: String, value: Bool) {
+    let key = "\(from)-\(to)"
+    UserDefaults.standard.set(value, forKey: key)
+  }
+
+  func getUserSelectionToUseReverseRouting(from: String, to: String) -> Bool {
+    let key = "\(from)-\(to)"
+    if let value = UserDefaults.standard.value(forKey: key) as? Bool {
+      return value
+    } else {
+      return true
+    }
   }
 
   // MARK: TUTORIAL
