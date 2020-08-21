@@ -14,7 +14,7 @@ enum KSwapViewEvent {
   case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, hint: String)
   case setGasPrice(gasPrice: BigInt, gasLimit: BigInt)
   case validateRate(data: KNDraftExchangeTransaction, hint: String)
-  case swap(data: KNDraftExchangeTransaction)
+  case swap(data: KNDraftExchangeTransaction, hint: String)
   case showQRCode
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
   case referencePrice(from: TokenObject, to: TokenObject)
@@ -469,7 +469,7 @@ class KSwapViewController: KNBaseViewController {
     if !hasCallValidateRate {
       self.delegate?.kSwapViewController(self, run: .validateRate(data: exchange, hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)))
     } else {
-      self.delegate?.kSwapViewController(self, run: .swap(data: exchange))
+      self.delegate?.kSwapViewController(self, run: .swap(data: exchange, hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)))
     }
   }
 

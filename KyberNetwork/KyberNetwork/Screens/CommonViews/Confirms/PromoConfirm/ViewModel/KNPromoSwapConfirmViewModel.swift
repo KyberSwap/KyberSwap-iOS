@@ -8,12 +8,14 @@ class KNPromoSwapConfirmViewModel: NSObject {
   let srcWallet: String
   let destWallet: String
   let expiredDate: Date
+  let hint: String
 
-  init(transaction: KNDraftExchangeTransaction, srcWallet: String, destWallet: String, expiredDate: Date) {
+  init(transaction: KNDraftExchangeTransaction, srcWallet: String, destWallet: String, expiredDate: Date, hint: String) {
     self.transaction = transaction
     self.srcWallet = srcWallet
     self.destWallet = destWallet
     self.expiredDate = expiredDate
+    self.hint = hint
   }
 
   var titleString: String {

@@ -34,6 +34,9 @@ class KConfirmSwapViewController: KNBaseViewController {
 
   @IBOutlet weak var confirmButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
+  @IBOutlet weak var reserveRoutingMessageContainer: UIView!
+  @IBOutlet weak var reserveRoutingMessageLabel: UILabel!
+  @IBOutlet weak var reserveRountingContainerTopConstraint: NSLayoutConstraint!
 
   fileprivate var viewModel: KConfirmSwapViewModel
   weak var delegate: KConfirmSwapViewControllerDelegate?
@@ -126,6 +129,15 @@ class KConfirmSwapViewController: KNBaseViewController {
     self.warningETHBalImageView.isHidden = !warningBalShown
     self.warningETHBalanceLabel.text = "After this swap you will not have enough ETH for further transactions.".toBeLocalised()
 
+    if self.viewModel.hint != "" && self.viewModel.hint != "0x" {
+      self.reserveRoutingMessageContainer.isHidden = false
+      if !warningBalShown {
+        self.reserveRountingContainerTopConstraint.constant = 20
+      }
+    } else {
+      self.reserveRoutingMessageContainer.isHidden = true
+    }
+
     self.view.layoutIfNeeded()
   }
 
@@ -162,7 +174,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "confirmed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
-    let event = KConfirmViewEvent.confirm(type: KNTransactionType.exchange(self.viewModel.transaction))
+    let event = KConfirmViewEvent.confirmWithHint(type: KNTransactionType.exchange(self.viewModel.transaction), hint: self.viewModel.hint)
     self.updateActionButtonsSendingSwap()
     self.delegate?.kConfirmSwapViewController(self, run: event)
   }

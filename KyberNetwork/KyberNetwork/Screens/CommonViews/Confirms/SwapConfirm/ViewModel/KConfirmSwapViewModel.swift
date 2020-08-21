@@ -7,10 +7,12 @@ struct KConfirmSwapViewModel {
 
   let transaction: KNDraftExchangeTransaction
   let ethBalance: BigInt
+  let hint: String
 
-  init(transaction: KNDraftExchangeTransaction, ethBalance: BigInt) {
+  init(transaction: KNDraftExchangeTransaction, ethBalance: BigInt, hint: String) {
     self.transaction = transaction
     self.ethBalance = ethBalance
+    self.hint = hint
   }
 
   var titleString: String {

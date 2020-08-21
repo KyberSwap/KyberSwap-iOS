@@ -549,12 +549,12 @@ class KSwapViewModel {
   }
 
   func updateUserSelectionToUseReverseRouting(from: String, to: String, value: Bool) {
-    let key = "\(from)-\(to)"
+    let key = "swap-hint-\(from)-\(to)"
     UserDefaults.standard.set(value, forKey: key)
   }
 
   func getUserSelectionToUseReverseRouting(from: String, to: String) -> Bool {
-    let key = "\(from)-\(to)"
+    let key = "swap-hint-\(from)-\(to)"
     if let value = UserDefaults.standard.value(forKey: key) as? Bool {
       return value
     } else {
