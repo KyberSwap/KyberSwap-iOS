@@ -10,7 +10,7 @@ import Moya
 enum KSwapViewEvent {
   case searchToken(from: TokenObject, to: TokenObject, isSource: Bool)
   case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, showError: Bool)
-  case estimateComparedRate(from: TokenObject, to: TokenObject) // compare to show warning
+  case estimateComparedRate(from: TokenObject, to: TokenObject, hint: String) // compare to show warning
   case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, hint: String)
   case setGasPrice(gasPrice: BigInt, gasLimit: BigInt)
   case validateRate(data: KNDraftExchangeTransaction, hint: String)
@@ -418,7 +418,8 @@ class KSwapViewController: KNBaseViewController {
   @objc func prodCachedRateFailedToLoad(_ sender: Any?) {
     let event = KSwapViewEvent.estimateComparedRate(
       from: self.viewModel.from,
-      to: self.viewModel.to
+      to: self.viewModel.to,
+      hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)
     )
     self.delegate?.kSwapViewController(self, run: event)
   }

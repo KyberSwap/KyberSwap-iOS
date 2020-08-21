@@ -439,8 +439,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.openSearchToken(from: from, to: to, isSource: isSource)
     case .estimateRate(let from, let to, let amount, let showError):
       self.updateExpectedRateFromAPIIfNeeded(from: from, to: to, amount: amount, showError: showError)
-    case .estimateComparedRate(let from, let to):
-      self.updateComparedEstimateRate(from: from, to: to)
+    case .estimateComparedRate(let from, let to, let hint):
+      self.updateComparedEstimateRate(from: from, to: to, hint: hint)
     case .estimateGas(let from, let to, let amount, let gasPrice, let hint):
       self.updateEstimatedGasLimit(from: from, to: to, amount: amount, gasPrice: gasPrice, hint: hint)
     case .showQRCode:
@@ -632,7 +632,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
   // Update compared rate from node when prod cached failed to load
   // This rate is to compare with current rate to show warning
-  fileprivate func updateComparedEstimateRate(from: TokenObject, to: TokenObject) {
+  fileprivate func updateComparedEstimateRate(from: TokenObject, to: TokenObject, hint: String) {
     // Using default amount equivalent to 0.5 ETH
     let amount: BigInt = {
       if from.isETH { return BigInt(10).power(from.decimals) / BigInt(2) }
@@ -643,7 +643,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       }
       return BigInt(10).power(from.decimals / 2)
     }()
-    self.getExpectedExchangeRate(from: from, to: to, amount: amount) { [weak self] result in
+    self.getExpectedExchangeRate(from: from, to: to, amount: amount, hint: hint) { [weak self] result in
       if case .success(let data) = result, !data.0.isZero {
         self?.rootViewController.coordinatorUpdateComparedRateFromNode(
           from: from,
