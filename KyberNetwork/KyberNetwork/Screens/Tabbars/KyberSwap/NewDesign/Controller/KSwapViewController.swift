@@ -13,8 +13,8 @@ enum KSwapViewEvent {
   case estimateComparedRate(from: TokenObject, to: TokenObject, hint: String) // compare to show warning
   case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, hint: String)
   case setGasPrice(gasPrice: BigInt, gasLimit: BigInt)
-  case validateRate(data: KNDraftExchangeTransaction, hint: String)
-  case swap(data: KNDraftExchangeTransaction, hint: String)
+  case validateRate(data: KNDraftExchangeTransaction)
+  case swap(data: KNDraftExchangeTransaction)
   case showQRCode
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
   case referencePrice(from: TokenObject, to: TokenObject)
@@ -465,12 +465,13 @@ class KSwapViewController: KNBaseViewController {
       minRate: self.viewModel.minRate,
       gasPrice: self.viewModel.gasPrice,
       gasLimit: self.viewModel.estimateGasLimit,
-      expectedReceivedString: self.viewModel.amountTo
+      expectedReceivedString: self.viewModel.amountTo,
+      hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)
     )
     if !hasCallValidateRate {
-      self.delegate?.kSwapViewController(self, run: .validateRate(data: exchange, hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)))
+      self.delegate?.kSwapViewController(self, run: .validateRate(data: exchange))
     } else {
-      self.delegate?.kSwapViewController(self, run: .swap(data: exchange, hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)))
+      self.delegate?.kSwapViewController(self, run: .swap(data: exchange))
     }
   }
 

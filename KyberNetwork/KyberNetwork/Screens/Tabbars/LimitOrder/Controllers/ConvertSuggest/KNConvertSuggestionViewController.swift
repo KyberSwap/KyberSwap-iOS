@@ -205,7 +205,8 @@ class KNConvertSuggestionViewController: KNBaseViewController {
       minRate: BigInt(10).power(18) * BigInt(97) / BigInt(100),
       gasPrice: KNGasCoordinator.shared.fastKNGas,
       gasLimit: self.estGasLimit,
-      expectedReceivedString: self.amountTextField.text?.removeGroupSeparator()
+      expectedReceivedString: self.amountTextField.text?.removeGroupSeparator(),
+      hint: nil
     )
     self.delegate?.convertSuggestionViewController(
       self,

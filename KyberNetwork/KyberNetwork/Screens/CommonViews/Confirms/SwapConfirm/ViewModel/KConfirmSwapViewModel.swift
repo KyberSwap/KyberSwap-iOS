@@ -7,12 +7,10 @@ struct KConfirmSwapViewModel {
 
   let transaction: KNDraftExchangeTransaction
   let ethBalance: BigInt
-  let hint: String
 
-  init(transaction: KNDraftExchangeTransaction, ethBalance: BigInt, hint: String) {
+  init(transaction: KNDraftExchangeTransaction, ethBalance: BigInt) {
     self.transaction = transaction
     self.ethBalance = ethBalance
-    self.hint = hint
   }
 
   var titleString: String {
@@ -115,5 +113,9 @@ struct KConfirmSwapViewModel {
     let gasLimitText = EtherNumberFormatter.short.string(from: gasLimit, decimals: 0)
     let labelText = String(format: NSLocalizedString("%@ (Gas Price) * %@ (Gas Limit)", comment: ""), gasPriceText, gasLimitText)
     return labelText
+  }
+
+  var hint: String {
+    return self.transaction.hint ?? ""
   }
 }

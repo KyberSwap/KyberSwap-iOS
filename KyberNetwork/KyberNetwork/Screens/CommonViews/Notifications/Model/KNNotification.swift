@@ -182,7 +182,7 @@ class KNNotificationExtraData: Object {
       "created_at": self.createAt,
       "updated_at": self.updatedAt,
       "receive": self.receive,
-      "tx_hash": self.txHash
+      "tx_hash": self.txHash,
     ]
     if self.sideTrade != nil {
       result["side_trade"] = self.sideTrade

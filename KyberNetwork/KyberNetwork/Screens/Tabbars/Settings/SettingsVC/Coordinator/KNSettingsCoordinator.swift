@@ -278,7 +278,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.navigationController.topViewController?.present(alertController, animated: true, completion: nil)
     }
   }
-  
+
   fileprivate func saveBackedUpWallet(wallet: Wallet, name: String) {
     let walletObject = KNWalletObject(
       address: wallet.address.description,

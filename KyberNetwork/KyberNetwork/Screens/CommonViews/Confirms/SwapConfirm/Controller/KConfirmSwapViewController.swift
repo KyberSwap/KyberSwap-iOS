@@ -172,7 +172,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "confirmed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
-    let event = KConfirmViewEvent.confirmWithHint(type: KNTransactionType.exchange(self.viewModel.transaction), hint: self.viewModel.hint)
+    let event = KConfirmViewEvent.confirm(type: KNTransactionType.exchange(self.viewModel.transaction))
     self.updateActionButtonsSendingSwap()
     self.delegate?.kConfirmSwapViewController(self, run: event)
   }

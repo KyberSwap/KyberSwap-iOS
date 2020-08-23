@@ -37,11 +37,11 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var bottomPaddingCancelButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var transactionGasPriceLabel: UILabel!
-  
+
   @IBOutlet weak var reserseRoutingMessageContainer: UIView!
   @IBOutlet weak var reserseRoutingMessageLabel: UILabel!
   @IBOutlet weak var confirmButtonTopContraint: NSLayoutConstraint!
-  
+
   fileprivate let viewModel: KNPromoSwapConfirmViewModel
 
   fileprivate var isConfirmed: Bool = false

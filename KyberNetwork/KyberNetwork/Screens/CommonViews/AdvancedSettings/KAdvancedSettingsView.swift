@@ -248,7 +248,7 @@ class KAdvancedSettingsViewModel: NSObject {
   func updateIsUseReverseRouting(value: Bool) {
     self.isUseReverseRouting = value
   }
-  
+
   func updateIsAbleToUseReverseRouting(value: Bool) {
     self.isAbleToUseReverseRouting = value
   }
@@ -294,7 +294,6 @@ class KAdvancedSettingsView: XibLoaderView {
   @IBOutlet weak var reserseRoutingCheckBoxContainer: UIView!
   @IBOutlet weak var enableReverseRoutingButton: UIButton!
   @IBOutlet weak var reverseRoutingInfoLabel: UILabel!
-  
 
   fileprivate var isPromo: Bool = false
   fileprivate(set) var viewModel: KAdvancedSettingsViewModel!
@@ -431,7 +430,7 @@ class KAdvancedSettingsView: XibLoaderView {
     self.updateConstraints()
     self.layoutSubviews()
   }
-  
+
   fileprivate func updateIsUseReverseRoutingCheckBox() {
     self.enableReverseRoutingButton.rounded(
       color: self.viewModel.isUseReverseRouting ? UIColor.clear : UIColor.Kyber.border,
@@ -610,7 +609,6 @@ class KAdvancedSettingsView: XibLoaderView {
 
   @IBAction func reverseRoutingHelpButtonTapped(_ sender: UIButton) {
   }
-  
 }
 
 extension KAdvancedSettingsView: UITextFieldDelegate {

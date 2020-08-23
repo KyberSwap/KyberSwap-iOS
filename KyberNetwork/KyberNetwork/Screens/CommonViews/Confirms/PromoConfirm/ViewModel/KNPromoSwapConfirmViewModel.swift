@@ -8,14 +8,12 @@ class KNPromoSwapConfirmViewModel: NSObject {
   let srcWallet: String
   let destWallet: String
   let expiredDate: Date
-  let hint: String
 
-  init(transaction: KNDraftExchangeTransaction, srcWallet: String, destWallet: String, expiredDate: Date, hint: String) {
+  init(transaction: KNDraftExchangeTransaction, srcWallet: String, destWallet: String, expiredDate: Date) {
     self.transaction = transaction
     self.srcWallet = srcWallet
     self.destWallet = destWallet
     self.expiredDate = expiredDate
-    self.hint = hint
   }
 
   var titleString: String {
@@ -76,5 +74,9 @@ class KNPromoSwapConfirmViewModel: NSObject {
     let gasLimitText = EtherNumberFormatter.short.string(from: gasLimit, decimals: 0)
     let labelText = String(format: NSLocalizedString("%@ (Gas Price) * %@ (Gas Limit)", comment: ""), gasPriceText, gasLimitText)
     return labelText
+  }
+  
+  var hint: String {
+    return self.transaction.hint ?? ""
   }
 }

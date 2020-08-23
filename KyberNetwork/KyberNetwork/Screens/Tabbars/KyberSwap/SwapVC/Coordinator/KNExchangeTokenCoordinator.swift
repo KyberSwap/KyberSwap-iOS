@@ -220,7 +220,7 @@ extension KNExchangeTokenCoordinator {
 
 // MARK: Network requests
 extension KNExchangeTokenCoordinator {
-  fileprivate func didConfirmSendExchangeTransaction(_ exchangeTransaction: KNDraftExchangeTransaction, hint: String) {
+  fileprivate func didConfirmSendExchangeTransaction(_ exchangeTransaction: KNDraftExchangeTransaction) {
     self.rootViewController.coordinatorExchangeTokenUserDidConfirmTransaction()
     KNNotificationUtil.postNotification(for: kTransactionDidUpdateNotificationKey)
     var fee = BigInt(0)
@@ -232,7 +232,7 @@ extension KNExchangeTokenCoordinator {
       switch getAllowanceResult {
       case .success(let res):
         if res >= exchangeTransaction.amount {
-          self.sendExchangeTransaction(exchangeTransaction, hint: hint)
+          self.sendExchangeTransaction(exchangeTransaction)
         } else {
           self.sendApproveForExchangeTransaction(exchangeTransaction, remain: res)
         }
@@ -258,12 +258,12 @@ extension KNExchangeTokenCoordinator {
     }
   }
 
-  fileprivate func sendExchangeTransaction(_ exchage: KNDraftExchangeTransaction, hint: String = "") {
+  fileprivate func sendExchangeTransaction(_ exchage: KNDraftExchangeTransaction) {
     var fee = BigInt(0)
     if let gasPrice = exchage.gasPrice, let gasLimit = exchage.gasLimit {
       fee = gasPrice * gasLimit
     }
-    self.session.externalProvider.exchange(exchange: exchage, hint: hint) { [weak self] result in
+    self.session.externalProvider.exchange(exchange: exchage) { [weak self] result in
       guard let `self` = self else { return }
       switch result {
       case .success(let txHash):
@@ -414,15 +414,15 @@ extension KNExchangeTokenCoordinator: KNPromoSwapConfirmViewControllerDelegate {
   }
 
   func promoCodeSwapConfirmViewController(_ controller: KNPromoSwapConfirmViewController, transaction: KNDraftExchangeTransaction, destAddress: String, hint: String) {
-    self.didConfirmSendExchangeTransaction(transaction, hint: hint)
+    self.didConfirmSendExchangeTransaction(transaction)
   }
 }
 
 // MARK: Confirm transaction
 extension KNExchangeTokenCoordinator: KConfirmSwapViewControllerDelegate {
   func kConfirmSwapViewController(_ controller: KConfirmSwapViewController, run event: KConfirmViewEvent) {
-    if case .confirmWithHint(let type, let hint) = event, case .exchange(let exchangeTransaction) = type {
-      self.didConfirmSendExchangeTransaction(exchangeTransaction, hint: hint)
+    if case .confirm(let type) = event, case .exchange(let exchangeTransaction) = type {
+      self.didConfirmSendExchangeTransaction(exchangeTransaction)
     } else {
       self.navigationController.popViewController(animated: true) {
         self.confirmSwapVC = nil
@@ -447,10 +447,10 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.showWalletQRCode()
     case .setGasPrice(let gasPrice, let gasLimit):
       self.openSetGasPrice(gasPrice: gasPrice, estGasLimit: gasLimit)
-    case .validateRate(let data, let hint):
-      self.validateRateBeforeSwapping(data: data, hint: hint)
-    case .swap(let data, let hint):
-      self.exchangeButtonPressed(data: data, hint: hint)
+    case .validateRate(let data):
+      self.validateRateBeforeSwapping(data: data)
+    case .swap(let data):
+      self.exchangeButtonPressed(data: data)
     case .quickTutorial(let step, let pointsAndRadius):
       self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
     case .referencePrice(let from, let to):
@@ -550,12 +550,12 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     self.searchTokensViewController?.updateBalances(self.balances)
   }
 
-  fileprivate func validateRateBeforeSwapping(data: KNDraftExchangeTransaction, hint: String) {
+  fileprivate func validateRateBeforeSwapping(data: KNDraftExchangeTransaction) {
     self.navigationController.displayLoading(text: NSLocalizedString("checking", value: "Checking", comment: ""), animated: true)
     var errorMessage: String?
     let group = DispatchGroup()
     group.enter()
-    self.updateEstimatedRate(from: data.from, to: data.to, amount: data.amount, hint: hint, showError: false) { error in
+    self.updateEstimatedRate(from: data.from, to: data.to, amount: data.amount, hint: data.hint ?? "", showError: false) { error in
       if let err = error { errorMessage = err.prettyError }
       group.leave()
     }
@@ -576,7 +576,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
     if self.rootViewController.isNeedToReloadGasLimit() {
       group.enter()
-      self.updateEstimatedGasLimit(from: data.from, to: data.to, amount: data.amount, gasPrice: data.gasPrice ?? KNGasCoordinator.shared.fastKNGas, hint: hint) {
+      self.updateEstimatedGasLimit(from: data.from, to: data.to, amount: data.amount, gasPrice: data.gasPrice ?? KNGasCoordinator.shared.fastKNGas, hint: data.hint ?? "") {
         group.leave()
       }
     }
@@ -595,7 +595,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     }
   }
 
-  fileprivate func exchangeButtonPressed(data: KNDraftExchangeTransaction, hint: String) {
+  fileprivate func exchangeButtonPressed(data: KNDraftExchangeTransaction) {
     if KNWalletPromoInfoStorage.shared.getDestinationToken(from: self.session.wallet.address.description) != nil {
       if let topVC = self.navigationController.topViewController, topVC is KNPromoSwapConfirmViewController { return }
       let address = self.session.wallet.address.description
@@ -609,8 +609,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         transaction: data,
         srcWallet: self.session.wallet.address.description,
         destWallet: destWallet,
-        expiredDate: expiredDate,
-        hint: hint
+        expiredDate: expiredDate
       )
       self.promoConfirmSwapVC = KNPromoSwapConfirmViewController(viewModel: viewModel)
       self.promoConfirmSwapVC?.loadViewIfNeeded()
@@ -620,7 +619,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       if let topVC = self.navigationController.topViewController, topVC is KConfirmSwapViewController { return }
       self.confirmSwapVC = {
         let ethBal = self.balances[KNSupportedTokenStorage.shared.ethToken.contract]?.value ?? BigInt(0)
-        let viewModel = KConfirmSwapViewModel(transaction: data, ethBalance: ethBal, hint: hint)
+        let viewModel = KConfirmSwapViewModel(transaction: data, ethBalance: ethBal)
         let controller = KConfirmSwapViewController(viewModel: viewModel)
         controller.loadViewIfNeeded()
         controller.delegate = self
@@ -677,7 +676,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
   // Call contract to get estimate rate with src, dest, srcAmount
   fileprivate func updateEstimatedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", showError: Bool, completion: ((Error?) -> Void)? = nil) {
-    self.getExpectedExchangeRate(from: from, to: to, amount: amount) { [weak self] result in
+    self.getExpectedExchangeRate(from: from, to: to, amount: amount, hint: hint) { [weak self] result in
       guard let `self` = self else { return }
       switch result {
       case .success(let data):
@@ -816,9 +815,10 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       minRate: .none,
       gasPrice: gasPrice,
       gasLimit: .none,
-      expectedReceivedString: nil
+      expectedReceivedString: nil,
+      hint: hint
     )
-    self.session.externalProvider.getEstimateGasLimit(for: exchangeTx, hint: hint) { result in
+    self.session.externalProvider.getEstimateGasLimit(for: exchangeTx) { result in
       if case .success(let estimate) = result {
         self.rootViewController.coordinatorDidUpdateEstValueGasLimit(
           from: from,

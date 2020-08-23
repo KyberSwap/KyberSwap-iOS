@@ -3,7 +3,6 @@
 import UIKit
 
 enum KConfirmViewEvent {
-  case confirmWithHint(type: KNTransactionType, hint: String)
   case confirm(type: KNTransactionType)
   case cancel
 }

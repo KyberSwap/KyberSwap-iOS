@@ -15,7 +15,6 @@ struct KNExchangeRequestEncode: Web3Request {
 
   let exchange: KNDraftExchangeTransaction
   let address: Address
-  let hint: String
 
   var type: Web3RequestType {
     let minRate: BigInt = {
@@ -28,6 +27,7 @@ struct KNExchangeRequestEncode: Web3Request {
       if let destAddr = KNWalletPromoInfoStorage.shared.getDestWallet(from: address.description), let wallet = Address(string: destAddr) { return wallet.description }
       return address.description
     }()
+    let hint = self.exchange.hint ?? ""
     let run: String = {
       let platformFeeBps: BigInt = BigInt(KNAppTracker.getPlatformFee(source: self.exchange.from.addressObj, dest: self.exchange.to.addressObj))
       return "web3.eth.abi.encodeFunctionCall(\(KNExchangeRequestEncode.newABI), [\"\(exchange.from.address.description)\", \"\(exchange.amount.description)\", \"\(exchange.to.address.description)\", \"\(destAddress)\", \"\(exchange.maxDestAmount.description)\", \"\(minRate.description)\", \"\(platformWallet)\", \"\(platformFeeBps.description)\", \"\(hint.hexEncoded)\"])"
