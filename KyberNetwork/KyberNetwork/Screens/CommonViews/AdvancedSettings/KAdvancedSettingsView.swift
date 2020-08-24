@@ -34,6 +34,8 @@ enum KAdvancedSettingsViewEvent {
   case gasPriceChanged(type: KNSelectedGasPriceType, value: BigInt)
   case minRatePercentageChanged(percent: CGFloat)
   case helpPressed
+  case changeIsUsingReverseRouting(value: Bool)
+  case reverseRoutingHelpPress
 }
 
 enum KAdvancedSettingsMinRateType {
@@ -77,6 +79,8 @@ class KAdvancedSettingsViewModel: NSObject {
   fileprivate(set) var pairToken: String = ""
   fileprivate(set) var isPromoWallet: Bool = false
   fileprivate(set) var gasLimit: BigInt
+  fileprivate(set) var isUsingReverseRouting: Bool = true
+  fileprivate(set) var isAbleToUseReverseRouting: Bool = false
 
   init(hasMinRate: Bool, isPromo: Bool, gasLimit: BigInt) {
     self.hasMinRate = hasMinRate
@@ -86,7 +90,8 @@ class KAdvancedSettingsViewModel: NSObject {
 
   var advancedSettingsHeight: CGFloat {
     if self.isViewHidden { return 0.0 }
-    return self.hasMinRate ? kAdvancedSettingsHasMinRateHeight : kAdvancedSettingsNoMinRateHeight
+    let reverseRoutingSpace: CGFloat = self.isAbleToUseReverseRouting ? 46.0 : 0.0
+    return self.hasMinRate ? kAdvancedSettingsHasMinRateHeight + reverseRoutingSpace : kAdvancedSettingsNoMinRateHeight + reverseRoutingSpace
   }
 
   var isGasPriceViewHidden: Bool { return self.isViewHidden }
@@ -240,6 +245,14 @@ class KAdvancedSettingsViewModel: NSObject {
   func updateGasLimit(value: BigInt) {
     self.gasLimit = value
   }
+
+  func updateIsUsingReverseRouting(value: Bool) {
+    self.isUsingReverseRouting = value
+  }
+
+  func updateIsAbleToUseReverseRouting(value: Bool) {
+    self.isAbleToUseReverseRouting = value
+  }
 }
 
 class KAdvancedSettingsView: XibLoaderView {
@@ -279,6 +292,9 @@ class KAdvancedSettingsView: XibLoaderView {
   @IBOutlet weak var regularEstimateFeeLabel: UILabel!
   @IBOutlet weak var slowEstimateFeeLabel: UILabel!
   @IBOutlet weak var estimateFeeNoteLabel: UILabel!
+  @IBOutlet weak var reserseRoutingCheckBoxContainer: UIView!
+  @IBOutlet weak var enableReverseRoutingButton: UIButton!
+  @IBOutlet weak var reverseRoutingInfoLabel: UILabel!
 
   fileprivate var isPromo: Bool = false
   fileprivate(set) var viewModel: KAdvancedSettingsViewModel!
@@ -305,6 +321,7 @@ class KAdvancedSettingsView: XibLoaderView {
     )
     self.estimateFeeNoteLabel.text = "Select higher gas price to accelerate your transaction processing time".toBeLocalised()
     self.gasFeeGweiTextLabel.text = NSLocalizedString("gas.fee.gwei", value: "GAS fee (Gwei)", comment: "")
+    self.reverseRoutingInfoLabel.text = "Use reserve routing to enjoy gas savings".toBeLocalised()
     self.customRateTextField.delegate = self
     self.advancedContainerView.rounded(radius: 5.0)
     self.superFastGasButton.backgroundColor = .white
@@ -416,6 +433,23 @@ class KAdvancedSettingsView: XibLoaderView {
     self.layoutSubviews()
   }
 
+  fileprivate func updateIsUsingReverseRoutingCheckBox() {
+    self.enableReverseRoutingButton.rounded(
+      color: self.viewModel.isUsingReverseRouting ? UIColor.clear : UIColor.Kyber.border,
+      width: 1.0,
+      radius: 2.5
+    )
+    self.enableReverseRoutingButton.setImage(
+      self.viewModel.isUsingReverseRouting ? UIImage(named: "check_box_icon") : nil,
+      for: .normal
+    )
+  }
+
+  func updateIsUsingReverseRoutingStatus(value: Bool) {
+    self.viewModel.updateIsUsingReverseRouting(value: value)
+    self.updateIsUsingReverseRoutingCheckBox()
+  }
+
   func updatePairToken(_ value: String) {
     if self.viewModel == nil { return }
     self.viewModel.updatePairToken(value)
@@ -463,6 +497,13 @@ class KAdvancedSettingsView: XibLoaderView {
     self.fastEstimateFeeLabel.text = self.viewModel.estimateFeeFastString
     self.regularEstimateFeeLabel.text = self.viewModel.estimateRegularFeeString
     self.slowEstimateFeeLabel.text = self.viewModel.estimateSlowFeeString
+  }
+
+  func updateIsAbleToUseReverseRouting(value: Bool) -> Bool {
+    guard value != self.viewModel.isAbleToUseReverseRouting else { return false }
+    self.viewModel.updateIsAbleToUseReverseRouting(value: value)
+    self.reserseRoutingCheckBoxContainer.isHidden = !self.viewModel.isAbleToUseReverseRouting
+    return true
   }
 
   @IBAction func displayViewButtonPressed(_ sender: Any) {
@@ -565,6 +606,16 @@ class KAdvancedSettingsView: XibLoaderView {
   @objc func userTappedCustomRate(_ sender: Any) {
     self.customRateButtonPressed(sender)
     KNCrashlyticsUtil.logCustomEvent(withName: "advanced_slippage_rate_custom", customAttributes: nil)
+  }
+
+  @IBAction func enableReverseRoutingTapped(_ sender: UIButton) {
+    self.viewModel.updateIsUsingReverseRouting(value: !self.viewModel.isUsingReverseRouting)
+    self.updateIsUsingReverseRoutingCheckBox()
+    self.delegate?.kAdvancedSettingsView(self, run: .changeIsUsingReverseRouting(value: self.viewModel.isUsingReverseRouting))
+  }
+
+  @IBAction func reverseRoutingHelpButtonTapped(_ sender: UIButton) {
+    self.delegate?.kAdvancedSettingsView(self, run: .reverseRoutingHelpPress)
   }
 }
 

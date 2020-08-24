@@ -413,7 +413,7 @@ extension KNExchangeTokenCoordinator: KNPromoSwapConfirmViewControllerDelegate {
     }
   }
 
-  func promoCodeSwapConfirmViewController(_ controller: KNPromoSwapConfirmViewController, transaction: KNDraftExchangeTransaction, destAddress: String) {
+  func promoCodeSwapConfirmViewController(_ controller: KNPromoSwapConfirmViewController, transaction: KNDraftExchangeTransaction, destAddress: String, hint: String) {
     self.didConfirmSendExchangeTransaction(transaction)
   }
 }
@@ -439,10 +439,10 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.openSearchToken(from: from, to: to, isSource: isSource)
     case .estimateRate(let from, let to, let amount, let showError):
       self.updateExpectedRateFromAPIIfNeeded(from: from, to: to, amount: amount, showError: showError)
-    case .estimateComparedRate(let from, let to):
-      self.updateComparedEstimateRate(from: from, to: to)
-    case .estimateGas(let from, let to, let amount, let gasPrice):
-      self.updateEstimatedGasLimit(from: from, to: to, amount: amount, gasPrice: gasPrice)
+    case .estimateComparedRate(let from, let to, let hint):
+      self.updateComparedEstimateRate(from: from, to: to, hint: hint)
+    case .estimateGas(let from, let to, let amount, let gasPrice, let hint):
+      self.updateEstimatedGasLimit(from: from, to: to, amount: amount, gasPrice: gasPrice, hint: hint)
     case .showQRCode:
       self.showWalletQRCode()
     case .setGasPrice(let gasPrice, let gasLimit):
@@ -455,6 +455,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
     case .referencePrice(let from, let to):
       self.updateReferencePrice(from: from, to: to)
+    case .swapHint(let from, let to, let amount):
+      self.updateSwapHint(from: from.address, to: to.address, amount: amount)
     }
   }
 
@@ -553,7 +555,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     var errorMessage: String?
     let group = DispatchGroup()
     group.enter()
-    self.updateEstimatedRate(from: data.from, to: data.to, amount: data.amount, showError: false) { error in
+    self.updateEstimatedRate(from: data.from, to: data.to, amount: data.amount, hint: data.hint ?? "", showError: false) { error in
       if let err = error { errorMessage = err.prettyError }
       group.leave()
     }
@@ -574,7 +576,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
     if self.rootViewController.isNeedToReloadGasLimit() {
       group.enter()
-      self.updateEstimatedGasLimit(from: data.from, to: data.to, amount: data.amount, gasPrice: data.gasPrice ?? KNGasCoordinator.shared.fastKNGas) {
+      self.updateEstimatedGasLimit(from: data.from, to: data.to, amount: data.amount, gasPrice: data.gasPrice ?? KNGasCoordinator.shared.fastKNGas, hint: data.hint ?? "") {
         group.leave()
       }
     }
@@ -629,7 +631,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
   // Update compared rate from node when prod cached failed to load
   // This rate is to compare with current rate to show warning
-  fileprivate func updateComparedEstimateRate(from: TokenObject, to: TokenObject) {
+  fileprivate func updateComparedEstimateRate(from: TokenObject, to: TokenObject, hint: String) {
     // Using default amount equivalent to 0.5 ETH
     let amount: BigInt = {
       if from.isETH { return BigInt(10).power(from.decimals) / BigInt(2) }
@@ -640,7 +642,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       }
       return BigInt(10).power(from.decimals / 2)
     }()
-    self.getExpectedExchangeRate(from: from, to: to, amount: amount) { [weak self] result in
+    self.getExpectedExchangeRate(from: from, to: to, amount: amount, hint: hint) { [weak self] result in
       if case .success(let data) = result, !data.0.isZero {
         self?.rootViewController.coordinatorUpdateComparedRateFromNode(
           from: from,
@@ -651,13 +653,30 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     }
   }
 
+  fileprivate func updateSwapHint(from: String, to: String, amount: String?) {
+    DispatchQueue.global(qos: .background).async {
+      let provider = MoyaProvider<UserInfoService>()
+      provider.request(.getSwapHint(from: from, to: to, amount: amount)) { [weak self] result in
+        guard let `self` = self else { return }
+        if case .success(let resp) = result,
+          let json = try? resp.mapJSON() as? JSONDictionary ?? [:],
+          (json["error"] as? Bool ?? false) == false,
+          let hint = json["hint"] as? String {
+          DispatchQueue.main.async {
+            self.rootViewController.coordinatorDidUpdateSwapHint(from: from, to: to, hint: hint)
+          }
+        }
+      }
+    }
+  }
+
   fileprivate func updateReferencePrice(from: TokenObject, to: TokenObject) {
     KNRateCoordinator.shared.updateReferencePrice(fromSym: from.symbol, toSym: to.symbol)
   }
 
   // Call contract to get estimate rate with src, dest, srcAmount
-  fileprivate func updateEstimatedRate(from: TokenObject, to: TokenObject, amount: BigInt, showError: Bool, completion: ((Error?) -> Void)? = nil) {
-    self.getExpectedExchangeRate(from: from, to: to, amount: amount) { [weak self] result in
+  fileprivate func updateEstimatedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", showError: Bool, completion: ((Error?) -> Void)? = nil) {
+    self.getExpectedExchangeRate(from: from, to: to, amount: amount, hint: hint) { [weak self] result in
       guard let `self` = self else { return }
       switch result {
       case .success(let data):
@@ -697,7 +716,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     }
   }
 
-  fileprivate func getExpectedExchangeRate(from: TokenObject, to: TokenObject, amount: BigInt, completion: ((Result<(BigInt, BigInt), AnyError>) -> Void)? = nil) {
+  fileprivate func getExpectedExchangeRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", completion: ((Result<(BigInt, BigInt), AnyError>) -> Void)? = nil) {
     if from == to {
       let rate = BigInt(10).power(from.decimals)
       let slippageRate = rate * BigInt(97) / BigInt(100)
@@ -707,7 +726,9 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     self.session.externalProvider.getExpectedRate(
       from: from,
       to: to,
-      amount: amount) { (result) in
+      amount: amount,
+      hint: hint
+    ) { (result) in
         var estRate: BigInt = BigInt(0)
         var slippageRate: BigInt = BigInt(0)
         switch result {
@@ -766,7 +787,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     }
   }
 
-  func updateEstimatedGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, completion: @escaping () -> Void = {}) {
+  func updateEstimatedGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, hint: String, completion: @escaping () -> Void = {}) {
     let group = DispatchGroup()
     let src = from.contract.lowercased()
     let dest = to.contract.lowercased()
@@ -794,7 +815,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       minRate: .none,
       gasPrice: gasPrice,
       gasLimit: .none,
-      expectedReceivedString: nil
+      expectedReceivedString: nil,
+      hint: hint
     )
     self.session.externalProvider.getEstimateGasLimit(for: exchangeTx) { result in
       if case .success(let estimate) = result {

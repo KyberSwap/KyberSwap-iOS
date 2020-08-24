@@ -15,6 +15,7 @@ struct KNDraftExchangeTransaction {
   let gasPrice: BigInt?
   let gasLimit: BigInt?
   let expectedReceivedString: String?
+  let hint: String?
 }
 
 extension KNDraftExchangeTransaction {
@@ -85,7 +86,8 @@ extension KNDraftExchangeTransaction {
       minRate: self.minRate,
       gasPrice: self.gasPrice,
       gasLimit: gasLimit ?? self.gasLimit,
-      expectedReceivedString: (expectedRate * amount / BigInt(10).power(self.from.decimals)).fullString(decimals: self.to.decimals)
+      expectedReceivedString: (expectedRate * amount / BigInt(10).power(self.from.decimals)).fullString(decimals: self.to.decimals),
+      hint: self.hint
     )
   }
 

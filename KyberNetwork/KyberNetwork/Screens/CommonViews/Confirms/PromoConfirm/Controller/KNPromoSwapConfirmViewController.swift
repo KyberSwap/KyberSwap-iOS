@@ -4,7 +4,7 @@ import UIKit
 
 protocol KNPromoSwapConfirmViewControllerDelegate: class {
   func promoCodeSwapConfirmViewControllerDidBack()
-  func promoCodeSwapConfirmViewController(_ controller: KNPromoSwapConfirmViewController, transaction: KNDraftExchangeTransaction, destAddress: String)
+  func promoCodeSwapConfirmViewController(_ controller: KNPromoSwapConfirmViewController, transaction: KNDraftExchangeTransaction, destAddress: String, hint: String)
 }
 
 class KNPromoSwapConfirmViewController: KNBaseViewController {
@@ -37,6 +37,11 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var bottomPaddingCancelButtonConstraint: NSLayoutConstraint!
     @IBOutlet weak var transactionGasPriceLabel: UILabel!
+
+  @IBOutlet weak var reserseRoutingMessageContainer: UIView!
+  @IBOutlet weak var reserseRoutingMessageLabel: UILabel!
+  @IBOutlet weak var confirmButtonTopContraint: NSLayoutConstraint!
+
   fileprivate let viewModel: KNPromoSwapConfirmViewModel
 
   fileprivate var isConfirmed: Bool = false
@@ -137,6 +142,14 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
     })
 
     self.bottomPaddingCancelButtonConstraint.constant = 32.0 + self.bottomPaddingSafeArea()
+
+    if self.viewModel.hint != "" && self.viewModel.hint != "0x" {
+      self.reserseRoutingMessageContainer.isHidden = false
+    } else {
+      self.reserseRoutingMessageContainer.isHidden = true
+      self.confirmButtonTopContraint.constant = 55.0
+    }
+
     self.view.layoutIfNeeded()
   }
 
@@ -150,7 +163,8 @@ class KNPromoSwapConfirmViewController: KNBaseViewController {
     self.delegate?.promoCodeSwapConfirmViewController(
       self,
       transaction: self.viewModel.transaction,
-      destAddress: self.viewModel.destWallet
+      destAddress: self.viewModel.destWallet,
+      hint: self.viewModel.hint
     )
   }
 

@@ -30,6 +30,7 @@
                 <outlet property="customRateTextField" destination="MEN-YX-m2w" id="kM4-Vc-VlI"/>
                 <outlet property="customTextLabel" destination="qb1-dP-hFg" id="gaq-Ih-xtc"/>
                 <outlet property="displayViewButton" destination="kC4-al-Lim" id="eNx-qY-2k3"/>
+                <outlet property="enableReverseRoutingButton" destination="D0P-NQ-g4U" id="YfY-83-T2o"/>
                 <outlet property="estimateFeeNoteLabel" destination="VoF-hh-hL0" id="hER-K4-lwe"/>
                 <outlet property="fasGasButton" destination="fkj-Ra-RNo" id="szT-ss-F40"/>
                 <outlet property="fasGasValueLabel" destination="6C2-5M-WJZ" id="XmJ-c9-mUp"/>
@@ -40,6 +41,8 @@
                 <outlet property="mediumGasValueLabel" destination="3B8-Dg-Kru" id="Ed3-Gr-UCd"/>
                 <outlet property="minRateContainerView" destination="c6p-fF-IU1" id="taQ-0M-STT"/>
                 <outlet property="regularEstimateFeeLabel" destination="ZtM-AO-JDM" id="JBn-Ql-Obi"/>
+                <outlet property="reserseRoutingCheckBoxContainer" destination="nNy-bf-3b9" id="pb0-h2-Don"/>
+                <outlet property="reverseRoutingInfoLabel" destination="YPj-CI-65n" id="nLa-HU-qp5"/>
                 <outlet property="slowEstimateFeeLabel" destination="n6R-nG-h2A" id="Wli-TO-lYe"/>
                 <outlet property="slowGasButton" destination="ahq-SV-UsD" id="Zjo-Cb-b3g"/>
                 <outlet property="slowGasValueLabel" destination="exC-DI-hNb" id="k9V-Ua-JH5"/>
@@ -71,7 +74,7 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fc-IL-piw">
-                    <rect key="frame" x="20" y="60" width="335" height="370"/>
+                    <rect key="frame" x="20" y="60" width="335" height="394"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUw-vt-Mjy">
                             <rect key="frame" x="303" y="8" width="24" height="24"/>
@@ -385,16 +388,87 @@
                                 <constraint firstItem="MEN-YX-m2w" firstAttribute="centerY" secondItem="qb1-dP-hFg" secondAttribute="centerY" id="zPz-ot-aaZ"/>
                             </constraints>
                         </view>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNy-bf-3b9">
+                            <rect key="frame" x="16" y="341" width="303" height="33"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51f-Mb-oii">
+                                    <rect key="frame" x="0.0" y="0.0" width="303" height="1"/>
+                                    <color key="backgroundColor" red="0.88235294119999996" green="0.89411764709999997" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="1" id="3Q9-xG-gbD"/>
+                                    </constraints>
+                                </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D0P-NQ-g4U">
+                                    <rect key="frame" x="1" y="12" width="12" height="12"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="7tm-1i-3v3"/>
+                                        <constraint firstAttribute="width" constant="12" id="RVl-mg-VQ5"/>
+                                    </constraints>
+                                    <state key="normal" image="check_box_icon"/>
+                                    <connections>
+                                        <action selector="enableReverseRoutingTapped:" destination="-1" eventType="touchUpInside" id="meG-xk-n1J"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use reserve routing to enjoy gas savings" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPj-CI-65n">
+                                    <rect key="frame" x="21" y="3" width="218" height="30"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="12"/>
+                                    <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDI-wB-bec">
+                                    <rect key="frame" x="243" y="6" width="24" height="24"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="24" id="XxM-Re-fgh"/>
+                                    </constraints>
+                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="2"/>
+                                    <state key="normal" image="help_icon"/>
+                                    <connections>
+                                        <action selector="reverseRoutingHelpButtonTapped:" destination="-1" eventType="touchUpInside" id="wNc-QL-NAj"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSj-AO-zUs">
+                                    <rect key="frame" x="21" y="3" width="218" height="30"/>
+                                    <connections>
+                                        <action selector="enableReverseRoutingTapped:" destination="-1" eventType="touchUpInside" id="3Xj-Xh-caP"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="LDI-wB-bec" firstAttribute="centerY" secondItem="YPj-CI-65n" secondAttribute="centerY" id="1Ie-3R-lKL"/>
+                                <constraint firstItem="D0P-NQ-g4U" firstAttribute="top" secondItem="51f-Mb-oii" secondAttribute="bottom" constant="11" id="4Yh-ym-2wM"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="top" secondItem="YPj-CI-65n" secondAttribute="top" id="94w-Oe-eiE"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="trailing" secondItem="YPj-CI-65n" secondAttribute="trailing" id="AzW-uC-eiE"/>
+                                <constraint firstAttribute="height" constant="33" id="DYr-nd-Fal"/>
+                                <constraint firstItem="D0P-NQ-g4U" firstAttribute="leading" secondItem="nNy-bf-3b9" secondAttribute="leading" constant="1" id="QN2-n2-wKG"/>
+                                <constraint firstItem="LDI-wB-bec" firstAttribute="leading" secondItem="YPj-CI-65n" secondAttribute="trailing" constant="4" id="SJg-tp-Hzg"/>
+                                <constraint firstItem="51f-Mb-oii" firstAttribute="top" secondItem="nNy-bf-3b9" secondAttribute="top" id="XFR-ta-qVs"/>
+                                <constraint firstItem="YPj-CI-65n" firstAttribute="leading" secondItem="D0P-NQ-g4U" secondAttribute="trailing" constant="8" id="YL9-RQ-akv"/>
+                                <constraint firstItem="51f-Mb-oii" firstAttribute="leading" secondItem="nNy-bf-3b9" secondAttribute="leading" id="ejY-Rk-4bc"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="leading" secondItem="YPj-CI-65n" secondAttribute="leading" id="fmz-ai-n7T"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="bottom" secondItem="YPj-CI-65n" secondAttribute="bottom" id="hPN-re-8Eo"/>
+                                <constraint firstItem="YPj-CI-65n" firstAttribute="centerY" secondItem="D0P-NQ-g4U" secondAttribute="centerY" id="nJG-xl-zJm"/>
+                                <constraint firstAttribute="trailing" secondItem="51f-Mb-oii" secondAttribute="trailing" id="vFV-bh-c1k"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="370" id="0H8-iR-5Lo"/>
+                        <constraint firstAttribute="height" constant="394" id="0H8-iR-5Lo"/>
+                        <constraint firstAttribute="trailing" secondItem="Xeg-5A-3c6" secondAttribute="trailing" constant="16" id="0Zl-ux-KJW"/>
+                        <constraint firstItem="Xeg-5A-3c6" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" constant="16" id="6ai-cY-Huo"/>
+                        <constraint firstItem="nNy-bf-3b9" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" constant="16" id="95O-Fz-uxT"/>
                         <constraint firstItem="c6p-fF-IU1" firstAttribute="top" secondItem="kG7-Qv-qcf" secondAttribute="bottom" id="AkV-BE-AEj"/>
+                        <constraint firstItem="Xeg-5A-3c6" firstAttribute="top" secondItem="6fc-IL-piw" secondAttribute="top" constant="226" id="EBh-Wh-RmE"/>
                         <constraint firstItem="c6p-fF-IU1" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" id="PgM-9x-65J"/>
                         <constraint firstItem="LUw-vt-Mjy" firstAttribute="top" secondItem="6fc-IL-piw" secondAttribute="top" constant="8" id="Q5u-RI-lBL"/>
                         <constraint firstItem="kG7-Qv-qcf" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" id="RWL-ny-BdK"/>
+                        <constraint firstAttribute="trailing" secondItem="nNy-bf-3b9" secondAttribute="trailing" constant="16" id="Sp9-Y8-oed"/>
                         <constraint firstItem="kG7-Qv-qcf" firstAttribute="centerX" secondItem="6fc-IL-piw" secondAttribute="centerX" id="TUr-Vz-4RF"/>
+                        <constraint firstItem="nNy-bf-3b9" firstAttribute="top" secondItem="oEr-DN-fk8" secondAttribute="bottom" constant="13" id="Uaz-N2-ndX"/>
                         <constraint firstAttribute="trailing" secondItem="c6p-fF-IU1" secondAttribute="trailing" id="bVX-kM-7ts"/>
+                        <constraint firstItem="Pzw-d7-yvQ" firstAttribute="top" secondItem="Xeg-5A-3c6" secondAttribute="bottom" constant="16" id="kQa-ac-fI7"/>
                         <constraint firstItem="kG7-Qv-qcf" firstAttribute="top" secondItem="LUw-vt-Mjy" secondAttribute="bottom" constant="8" id="q6b-Ba-Weh"/>
                         <constraint firstAttribute="trailing" secondItem="LUw-vt-Mjy" secondAttribute="trailing" constant="8" id="quo-pk-MUK"/>
                         <constraint firstAttribute="trailing" secondItem="kG7-Qv-qcf" secondAttribute="trailing" id="yvj-4n-Bgq"/>
@@ -417,6 +491,7 @@
     </objects>
     <resources>
         <image name="advanced_close_icon" width="15" height="15"/>
+        <image name="check_box_icon" width="24" height="24"/>
         <image name="help_icon" width="14" height="14"/>
     </resources>
 </document>

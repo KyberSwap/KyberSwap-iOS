@@ -357,11 +357,12 @@ class KNExternalProvider {
   }
 
   // MARK: Rate
-  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
+  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
     KNGeneralProvider.shared.getExpectedRate(
       from: from,
       to: to,
       amount: amount,
+      hint: hint,
       completion: completion
     )
   }

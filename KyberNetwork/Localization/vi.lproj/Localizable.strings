@@ -787,3 +787,7 @@
 "Explore" = "Khám phá";
 "Alert" = "Alert";
 "History" = "Lịch sử";
+
+"Use reserve routing to enjoy gas savings" = "Sử dụng Reserve routing để giảm thiểu phí gas";
+"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "Giảm phí gas bằng cách giao dịch với các quỹ được chọn trước. Đây là tùy chọn mặc định cho các giao dịch < 20 ETH";
+"Reserve routing is used in this transaction to reduce gas costs" = "Reserve routing được sử dụng trong giao dịch này để giảm phí gas";

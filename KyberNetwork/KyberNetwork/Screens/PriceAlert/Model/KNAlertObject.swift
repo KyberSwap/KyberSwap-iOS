@@ -81,7 +81,7 @@ class KNAlertObject: Object {
       "updated_at": self.updatedDate,
       "created_at": self.createdDate,
       "is_above": self.isAbove,
-      "has_reward": self.hasReward
+      "has_reward": self.hasReward,
     ]
   }
 

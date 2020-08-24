@@ -29,8 +29,7 @@ class KNSendTokenViewModel: NSObject {
   var isSendAllBalanace: Bool = false
 
   var allETHBalanceFee: BigInt {
-    let gasLimit = max(self.gasLimit, KNGasConfiguration.transferETHGasLimitDefault)
-    return self.gasPrice * gasLimit
+    return self.gasPrice * self.gasLimit
   }
 
   var allTokenBalanceString: String {
@@ -223,8 +222,11 @@ class KNSendTokenViewModel: NSObject {
     }
   }
 
-  func updateAmount(_ amount: String) {
+  func updateAmount(_ amount: String, forSendAllETH: Bool = false) {
     self.amount = amount
+    guard !forSendAllETH else {
+      return
+    }
     self.isSendAllBalanace = false
   }
 

@@ -34,6 +34,9 @@ class KConfirmSwapViewController: KNBaseViewController {
 
   @IBOutlet weak var confirmButton: UIButton!
   @IBOutlet weak var cancelButton: UIButton!
+  @IBOutlet weak var reserveRoutingMessageContainer: UIView!
+  @IBOutlet weak var reserveRoutingMessageLabel: UILabel!
+  @IBOutlet weak var reserveRountingContainerTopConstraint: NSLayoutConstraint!
 
   fileprivate var viewModel: KConfirmSwapViewModel
   weak var delegate: KConfirmSwapViewControllerDelegate?
@@ -125,6 +128,15 @@ class KConfirmSwapViewController: KNBaseViewController {
     self.warningETHBalanceLabel.isHidden = !warningBalShown
     self.warningETHBalImageView.isHidden = !warningBalShown
     self.warningETHBalanceLabel.text = "After this swap you will not have enough ETH for further transactions.".toBeLocalised()
+
+    self.reserveRoutingMessageContainer.isHidden = self.viewModel.hint == "" || self.viewModel.hint == "0x"
+    if !warningBalShown {
+      self.reserveRountingContainerTopConstraint.constant = 20
+    } else {
+      self.reserveRountingContainerTopConstraint.constant = 50
+    }
+
+    self.reserveRoutingMessageLabel.text = "Reserve routing is used in this transaction to reduce gas costs".toBeLocalised()
 
     self.view.layoutIfNeeded()
   }

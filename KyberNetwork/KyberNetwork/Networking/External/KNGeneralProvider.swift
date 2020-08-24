@@ -186,10 +186,10 @@ class KNGeneralProvider {
     }
   }
 
-  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
+  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
     let source: Address = Address(string: from.contract)!
     let dest: Address = Address(string: to.contract)!
-    self.getExpectedRateEncodeData(source: source, dest: dest, amount: amount) { [weak self] dataResult in
+    self.getExpectedRateEncodeData(source: source, dest: dest, amount: amount, hint: hint) { [weak self] dataResult in
       guard let `self` = self else { return }
       switch dataResult {
       case .success(let data):
@@ -567,8 +567,8 @@ extension KNGeneralProvider {
     }
   }
 
-  fileprivate func getExpectedRateEncodeData(source: Address, dest: Address, amount: BigInt, completion: @escaping (Result<String, AnyError>) -> Void) {
-    let encodeRequest = KNGetExpectedRateEncode(source: source, dest: dest, amount: amount)
+  fileprivate func getExpectedRateEncodeData(source: Address, dest: Address, amount: BigInt, hint: String = "", completion: @escaping (Result<String, AnyError>) -> Void) {
+    let encodeRequest = KNGetExpectedRateEncode(source: source, dest: dest, amount: amount, hint: hint)
     self.web3Swift.request(request: encodeRequest) { (encodeResult) in
       switch encodeResult {
       case .success(let data):

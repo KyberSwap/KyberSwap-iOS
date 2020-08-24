@@ -306,10 +306,20 @@ class KSendTokenViewController: KNBaseViewController {
     self.delegate?.kSendTokenViewController(self, run: event)
   }
 
+  fileprivate func updateAmountFieldUIForTransferAllIfNeeded() {
+    guard self.viewModel.isSendAllBalanace, self.viewModel.from.isETH else { return }
+    self.amountTextField.text = self.viewModel.allTokenBalanceString.removeGroupSeparator()
+    self.viewModel.updateAmount(self.amountTextField.text ?? "", forSendAllETH: true)
+    self.equivalentUSDLabel.text = self.viewModel.displayEquivalentUSDAmount
+    self.amountTextField.resignFirstResponder()
+    self.amountTextField.textColor = self.viewModel.amountTextColor
+  }
+
   @objc func keyboardSendAllButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "transfer_send_all", customAttributes: nil)
+    self.viewModel.isSendAllBalanace = true
     self.amountTextField.text = self.viewModel.allTokenBalanceString.removeGroupSeparator()
-    self.viewModel.updateAmount(self.amountTextField.text ?? "")
+    self.viewModel.updateAmount(self.amountTextField.text ?? "", forSendAllETH: self.viewModel.from.isETH)
     self.equivalentUSDLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.amountTextField.resignFirstResponder()
     self.amountTextField.textColor = self.viewModel.amountTextColor
@@ -323,7 +333,6 @@ class KSendTokenViewController: KNBaseViewController {
         )
       }
     }
-    self.viewModel.isSendAllBalanace = true
     self.view.layoutIfNeeded()
   }
 
@@ -485,6 +494,7 @@ extension KSendTokenViewController {
 
   func coordinatorUpdateEstimatedGasLimit(_ gasLimit: BigInt, from: TokenObject, address: String) {
     if self.viewModel.updateEstimatedGasLimit(gasLimit, from: from, address: address) {
+      self.updateAmountFieldUIForTransferAllIfNeeded()
       self.updateAdvancedSettingsView()
       if self.viewModel.isNeedUpdateEstFeeForTransferingAllBalance {
         self.keyboardSendAllButtonPressed(self)
@@ -742,6 +752,7 @@ extension KSendTokenViewController: KAdvancedSettingsViewDelegate {
     case .gasPriceChanged(let type, let value):
       self.viewModel.updateSelectedGasPriceType(type)
       self.viewModel.updateGasPrice(value)
+      self.updateAmountFieldUIForTransferAllIfNeeded()
       KNCrashlyticsUtil.logCustomEvent(withName: "transfer_advanced", customAttributes: ["gas_option": type.displayString(), "gas_value": value.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)])
     case .helpPressed:
       KNCrashlyticsUtil.logCustomEvent(withName: "transfer_gas_fee_info_tapped", customAttributes: nil)

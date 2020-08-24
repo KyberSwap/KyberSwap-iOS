@@ -886,7 +886,8 @@ extension KNLimitOrderTabCoordinatorV2: KNConvertSuggestionViewControllerDelegat
       minRate: .none,
       gasPrice: KNGasConfiguration.exchangeETHTokenGasLimitDefault,
       gasLimit: .none,
-      expectedReceivedString: nil
+      expectedReceivedString: nil,
+      hint: nil
     )
     self.session.externalProvider.getEstimateGasLimit(for: exchangeTx) { [weak self] result in
       if case .success(let estimate) = result {

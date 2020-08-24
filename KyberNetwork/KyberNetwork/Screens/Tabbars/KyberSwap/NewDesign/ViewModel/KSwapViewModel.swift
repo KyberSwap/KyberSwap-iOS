@@ -29,6 +29,7 @@ class KSwapViewModel {
 
   var isSwapAllBalance: Bool = false
   var isTappedSwapAllBalance: Bool = false
+  var isUsingReverseRouting: Bool = true
 
   var isSwapSuggestionShown: Bool {
     if let suggestions = self.swapSuggestion, !suggestions.isEmpty { return true }
@@ -48,6 +49,11 @@ class KSwapViewModel {
   fileprivate(set) var defaultGasLimit: (TokenObject, TokenObject, BigInt)
   fileprivate(set) var estValueGasLimit: (TokenObject, TokenObject, BigInt, BigInt)
   var lastSuccessLoadGasLimitTimeStamp: TimeInterval = 0
+  var swapHint: (String, String, String) = ("", "", "")
+  var isAbleToUseReverseRouting: Bool {
+    guard self.swapHint.0 == self.from.address, self.swapHint.1 == self.to.address else { return false }
+    return self.swapHint.2 != "" && self.swapHint.2 != "0x"
+  }
 
   init(wallet: Wallet,
        from: TokenObject,
@@ -444,9 +450,10 @@ class KSwapViewModel {
     self.isFocusingFromAmount = isSource
   }
 
-  func updateAmount(_ amount: String, isSource: Bool) {
+  func updateAmount(_ amount: String, isSource: Bool, forSwapAllETH: Bool = false) {
     if isSource {
       self.amountFrom = amount
+      guard !forSwapAllETH else { return }
       self.isSwapAllBalance = false
     } else {
       self.amountTo = amount
@@ -533,6 +540,13 @@ class KSwapViewModel {
       return self.self.estValueGasLimit.3
     }
     return KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
+  }
+
+  func getHint(from: String, to: String) -> String {
+    guard from == self.swapHint.0, to == self.swapHint.1, self.isAbleToUseReverseRouting, self.isUsingReverseRouting else {
+      return ""
+    }
+    return self.swapHint.2
   }
 
   // MARK: TUTORIAL

@@ -75,4 +75,8 @@ class KNPromoSwapConfirmViewModel: NSObject {
     let labelText = String(format: NSLocalizedString("%@ (Gas Price) * %@ (Gas Limit)", comment: ""), gasPriceText, gasLimitText)
     return labelText
   }
+  
+  var hint: String {
+    return self.transaction.hint ?? ""
+  }
 }

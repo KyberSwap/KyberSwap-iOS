@@ -787,3 +787,7 @@
 "Explore" = "둘러보기";
 "Alert" = "주의";
 "History" = "거래내역";
+
+"Use reserve routing to enjoy gas savings" = "가스비 절약을 위해 리저브 라우팅을 사용하세요";
+"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "미리 지정된 리저브로 거래를 라우팅하여 가스비를 절감하세요. 20이더 미만의 거래는 해당 옵션이 기본적으로 적용됩니다.";
+"Reserve routing is used in this transaction to reduce gas costs" = "가스비 절감을 위해 당 거래에서는 리저브 라우팅이 사용됩니다.";
