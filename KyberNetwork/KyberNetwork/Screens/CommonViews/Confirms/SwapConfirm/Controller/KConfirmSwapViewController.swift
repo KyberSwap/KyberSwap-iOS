@@ -136,6 +136,8 @@ class KConfirmSwapViewController: KNBaseViewController {
       self.reserveRountingContainerTopConstraint.constant = 50
     }
 
+    self.reserveRoutingMessageLabel.text = "Reserve routing is used in this transaction to reduce gas costs".toBeLocalised()
+
     self.view.layoutIfNeeded()
   }
 

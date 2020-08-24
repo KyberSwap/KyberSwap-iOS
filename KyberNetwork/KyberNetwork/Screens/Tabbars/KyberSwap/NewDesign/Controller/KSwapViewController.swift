@@ -264,7 +264,8 @@ class KSwapViewController: KNBaseViewController {
     self.heightConstraintForAdvacedSettingsView.constant = self.advancedSettingsView.height
     self.advancedSettingsView.delegate = self
     self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
-    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
+    self.advancedSettingsView.updateIsUsingReverseRoutingStatus(value: true)
+    self.viewModel.isUsingReverseRouting = true
     self.view.setNeedsUpdateConstraints()
     self.view.updateConstraints()
   }
@@ -403,7 +404,8 @@ class KSwapViewController: KNBaseViewController {
     self.updateTokensView()
     self.updateEstimatedGasLimit()
     self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: nil)
-    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
+    self.advancedSettingsView.updateIsUsingReverseRoutingStatus(value: true)
+    self.viewModel.isUsingReverseRouting = true
   }
 
   @IBAction func warningRateButtonPressed(_ sender: Any) {
@@ -1059,7 +1061,8 @@ extension KSwapViewController {
     }
     self.updateEstimatedGasLimit()
     self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
-    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
+    self.advancedSettingsView.updateIsUsingReverseRoutingStatus(value: true)
+    self.viewModel.isUsingReverseRouting = true
     self.view.layoutIfNeeded()
   }
 
@@ -1328,8 +1331,8 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
         icon: UIImage(named: "help_icon_large") ?? UIImage(),
         time: 3
       )
-    case .changeIsUserReverseRouting(let value):
-      self.viewModel.updateUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address, value: value)
+    case .changeIsUsingReverseRouting(let value):
+      self.viewModel.isUsingReverseRouting = value
     case .reverseRoutingHelpPress:
       self.showBottomBannerView(
         message: "Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves".toBeLocalised(),

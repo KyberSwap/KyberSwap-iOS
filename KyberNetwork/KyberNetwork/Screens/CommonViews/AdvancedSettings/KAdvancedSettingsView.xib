@@ -411,7 +411,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use reserve routing to enjoy gas savings" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPj-CI-65n">
-                                    <rect key="frame" x="21" y="11" width="218" height="14.5"/>
+                                    <rect key="frame" x="21" y="3" width="218" height="30"/>
                                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="12"/>
                                     <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -427,17 +427,27 @@
                                         <action selector="reverseRoutingHelpButtonTapped:" destination="-1" eventType="touchUpInside" id="wNc-QL-NAj"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bSj-AO-zUs">
+                                    <rect key="frame" x="21" y="3" width="218" height="30"/>
+                                    <connections>
+                                        <action selector="enableReverseRoutingTapped:" destination="-1" eventType="touchUpInside" id="3Xj-Xh-caP"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstItem="LDI-wB-bec" firstAttribute="centerY" secondItem="YPj-CI-65n" secondAttribute="centerY" id="1Ie-3R-lKL"/>
                                 <constraint firstItem="D0P-NQ-g4U" firstAttribute="top" secondItem="51f-Mb-oii" secondAttribute="bottom" constant="11" id="4Yh-ym-2wM"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="top" secondItem="YPj-CI-65n" secondAttribute="top" id="94w-Oe-eiE"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="trailing" secondItem="YPj-CI-65n" secondAttribute="trailing" id="AzW-uC-eiE"/>
                                 <constraint firstAttribute="height" constant="33" id="DYr-nd-Fal"/>
                                 <constraint firstItem="D0P-NQ-g4U" firstAttribute="leading" secondItem="nNy-bf-3b9" secondAttribute="leading" constant="1" id="QN2-n2-wKG"/>
                                 <constraint firstItem="LDI-wB-bec" firstAttribute="leading" secondItem="YPj-CI-65n" secondAttribute="trailing" constant="4" id="SJg-tp-Hzg"/>
                                 <constraint firstItem="51f-Mb-oii" firstAttribute="top" secondItem="nNy-bf-3b9" secondAttribute="top" id="XFR-ta-qVs"/>
                                 <constraint firstItem="YPj-CI-65n" firstAttribute="leading" secondItem="D0P-NQ-g4U" secondAttribute="trailing" constant="8" id="YL9-RQ-akv"/>
                                 <constraint firstItem="51f-Mb-oii" firstAttribute="leading" secondItem="nNy-bf-3b9" secondAttribute="leading" id="ejY-Rk-4bc"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="leading" secondItem="YPj-CI-65n" secondAttribute="leading" id="fmz-ai-n7T"/>
+                                <constraint firstItem="bSj-AO-zUs" firstAttribute="bottom" secondItem="YPj-CI-65n" secondAttribute="bottom" id="hPN-re-8Eo"/>
                                 <constraint firstItem="YPj-CI-65n" firstAttribute="centerY" secondItem="D0P-NQ-g4U" secondAttribute="centerY" id="nJG-xl-zJm"/>
                                 <constraint firstAttribute="trailing" secondItem="51f-Mb-oii" secondAttribute="trailing" id="vFV-bh-c1k"/>
                             </constraints>

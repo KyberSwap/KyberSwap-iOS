@@ -29,6 +29,7 @@ class KSwapViewModel {
 
   var isSwapAllBalance: Bool = false
   var isTappedSwapAllBalance: Bool = false
+  var isUsingReverseRouting: Bool = true
 
   var isSwapSuggestionShown: Bool {
     if let suggestions = self.swapSuggestion, !suggestions.isEmpty { return true }
@@ -542,24 +543,10 @@ class KSwapViewModel {
   }
 
   func getHint(from: String, to: String) -> String {
-    guard from == self.swapHint.0, to == self.swapHint.1, self.isAbleToUseReverseRouting, self.getUserSelectionToUseReverseRouting(from: from, to: to) else {
+    guard from == self.swapHint.0, to == self.swapHint.1, self.isAbleToUseReverseRouting, self.isUsingReverseRouting else {
       return ""
     }
     return self.swapHint.2
-  }
-
-  func updateUserSelectionToUseReverseRouting(from: String, to: String, value: Bool) {
-    let key = "swap-hint-\(from)-\(to)"
-    UserDefaults.standard.set(value, forKey: key)
-  }
-
-  func getUserSelectionToUseReverseRouting(from: String, to: String) -> Bool {
-    let key = "swap-hint-\(from)-\(to)"
-    if let value = UserDefaults.standard.value(forKey: key) as? Bool {
-      return value
-    } else {
-      return true
-    }
   }
 
   // MARK: TUTORIAL

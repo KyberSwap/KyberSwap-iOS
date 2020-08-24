@@ -34,7 +34,7 @@ enum KAdvancedSettingsViewEvent {
   case gasPriceChanged(type: KNSelectedGasPriceType, value: BigInt)
   case minRatePercentageChanged(percent: CGFloat)
   case helpPressed
-  case changeIsUserReverseRouting(value: Bool)
+  case changeIsUsingReverseRouting(value: Bool)
   case reverseRoutingHelpPress
 }
 
@@ -79,7 +79,7 @@ class KAdvancedSettingsViewModel: NSObject {
   fileprivate(set) var pairToken: String = ""
   fileprivate(set) var isPromoWallet: Bool = false
   fileprivate(set) var gasLimit: BigInt
-  fileprivate(set) var isUseReverseRouting: Bool = true
+  fileprivate(set) var isUsingReverseRouting: Bool = true
   fileprivate(set) var isAbleToUseReverseRouting: Bool = false
 
   init(hasMinRate: Bool, isPromo: Bool, gasLimit: BigInt) {
@@ -246,8 +246,8 @@ class KAdvancedSettingsViewModel: NSObject {
     self.gasLimit = value
   }
 
-  func updateIsUseReverseRouting(value: Bool) {
-    self.isUseReverseRouting = value
+  func updateIsUsingReverseRouting(value: Bool) {
+    self.isUsingReverseRouting = value
   }
 
   func updateIsAbleToUseReverseRouting(value: Bool) {
@@ -321,6 +321,7 @@ class KAdvancedSettingsView: XibLoaderView {
     )
     self.estimateFeeNoteLabel.text = "Select higher gas price to accelerate your transaction processing time".toBeLocalised()
     self.gasFeeGweiTextLabel.text = NSLocalizedString("gas.fee.gwei", value: "GAS fee (Gwei)", comment: "")
+    self.reverseRoutingInfoLabel.text = "Use reserve routing to enjoy gas savings".toBeLocalised()
     self.customRateTextField.delegate = self
     self.advancedContainerView.rounded(radius: 5.0)
     self.superFastGasButton.backgroundColor = .white
@@ -432,21 +433,21 @@ class KAdvancedSettingsView: XibLoaderView {
     self.layoutSubviews()
   }
 
-  fileprivate func updateIsUseReverseRoutingCheckBox() {
+  fileprivate func updateIsUsingReverseRoutingCheckBox() {
     self.enableReverseRoutingButton.rounded(
-      color: self.viewModel.isUseReverseRouting ? UIColor.clear : UIColor.Kyber.border,
+      color: self.viewModel.isUsingReverseRouting ? UIColor.clear : UIColor.Kyber.border,
       width: 1.0,
       radius: 2.5
     )
     self.enableReverseRoutingButton.setImage(
-      self.viewModel.isUseReverseRouting ? UIImage(named: "check_box_icon") : nil,
+      self.viewModel.isUsingReverseRouting ? UIImage(named: "check_box_icon") : nil,
       for: .normal
     )
   }
 
-  func updateIsUseReverseRoutingStatus(value: Bool) {
-    self.viewModel.updateIsUseReverseRouting(value: value)
-    self.updateIsUseReverseRoutingCheckBox()
+  func updateIsUsingReverseRoutingStatus(value: Bool) {
+    self.viewModel.updateIsUsingReverseRouting(value: value)
+    self.updateIsUsingReverseRoutingCheckBox()
   }
 
   func updatePairToken(_ value: String) {
@@ -608,9 +609,9 @@ class KAdvancedSettingsView: XibLoaderView {
   }
 
   @IBAction func enableReverseRoutingTapped(_ sender: UIButton) {
-    self.viewModel.updateIsUseReverseRouting(value: !self.viewModel.isUseReverseRouting)
-    self.updateIsUseReverseRoutingCheckBox()
-    self.delegate?.kAdvancedSettingsView(self, run: .changeIsUserReverseRouting(value: self.viewModel.isUseReverseRouting))
+    self.viewModel.updateIsUsingReverseRouting(value: !self.viewModel.isUsingReverseRouting)
+    self.updateIsUsingReverseRoutingCheckBox()
+    self.delegate?.kAdvancedSettingsView(self, run: .changeIsUsingReverseRouting(value: self.viewModel.isUsingReverseRouting))
   }
 
   @IBAction func reverseRoutingHelpButtonTapped(_ sender: UIButton) {
