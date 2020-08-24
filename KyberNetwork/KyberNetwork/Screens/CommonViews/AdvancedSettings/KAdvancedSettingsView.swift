@@ -443,7 +443,7 @@ class KAdvancedSettingsView: XibLoaderView {
       for: .normal
     )
   }
-  
+
   func updateIsUseReverseRoutingStatus(value: Bool) {
     self.viewModel.updateIsUseReverseRouting(value: value)
     self.updateIsUseReverseRoutingCheckBox()

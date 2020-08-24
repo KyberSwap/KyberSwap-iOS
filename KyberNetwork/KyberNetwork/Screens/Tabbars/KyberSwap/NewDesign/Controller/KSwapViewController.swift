@@ -849,7 +849,6 @@ extension KSwapViewController {
       slow: KNGasCoordinator.shared.lowKNGas,
       superFast: KNGasCoordinator.shared.superFastKNGas
     )
-    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
     self.view.layoutIfNeeded()
   }
 
@@ -1060,6 +1059,7 @@ extension KSwapViewController {
     }
     self.updateEstimatedGasLimit()
     self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
+    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
     self.view.layoutIfNeeded()
   }
 
