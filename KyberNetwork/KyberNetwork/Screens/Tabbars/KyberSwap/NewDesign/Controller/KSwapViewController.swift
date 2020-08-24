@@ -264,6 +264,7 @@ class KSwapViewController: KNBaseViewController {
     self.heightConstraintForAdvacedSettingsView.constant = self.advancedSettingsView.height
     self.advancedSettingsView.delegate = self
     self.advancedSettingsView.updateGasLimit(self.viewModel.estimateGasLimit)
+    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
     self.view.setNeedsUpdateConstraints()
     self.view.updateConstraints()
   }
@@ -402,6 +403,7 @@ class KSwapViewController: KNBaseViewController {
     self.updateTokensView()
     self.updateEstimatedGasLimit()
     self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: nil)
+    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
   }
 
   @IBAction func warningRateButtonPressed(_ sender: Any) {
@@ -847,6 +849,7 @@ extension KSwapViewController {
       slow: KNGasCoordinator.shared.lowKNGas,
       superFast: KNGasCoordinator.shared.superFastKNGas
     )
+    self.advancedSettingsView.updateIsUseReverseRoutingStatus(value: self.viewModel.getUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address))
     self.view.layoutIfNeeded()
   }
 
