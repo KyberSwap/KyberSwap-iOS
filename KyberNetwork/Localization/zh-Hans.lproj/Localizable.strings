@@ -787,3 +787,7 @@
 "Explore" = "探索";
 "Alert" = "价格警报";
 "History" = "历史纪录";
+
+"Use reserve routing to enjoy gas savings" = "使用储备库路由来节省gas费用";
+"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "通过将您的交易发送到预定义的储备库来降低gas费用。这是所有小于20 ETH交易的默认选项";
+"Reserve routing is used in this transaction to reduce gas costs" = "在该笔交易中使用储备库路由来降低gas费用";
