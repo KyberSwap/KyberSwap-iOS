@@ -785,3 +785,7 @@
 "Explore" = "Explore";
 "Alert" = "Alert";
 "History" = "History";
+
+"Use reserve routing to enjoy gas savings" = "Use reserve routing to enjoy gas savings";
+"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "Reduce gas costs by routing your trade to predefined reserves. This is the default option for all trades <20 ETH";
+"Reserve routing is used in this transaction to reduce gas costs" = "Reserve routing is used in this transaction to reduce gas costs";

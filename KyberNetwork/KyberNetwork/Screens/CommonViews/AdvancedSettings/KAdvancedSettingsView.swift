@@ -35,6 +35,7 @@ enum KAdvancedSettingsViewEvent {
   case minRatePercentageChanged(percent: CGFloat)
   case helpPressed
   case changeIsUserReverseRouting(value: Bool)
+  case reverseRoutingHelpPress
 }
 
 enum KAdvancedSettingsMinRateType {
@@ -608,6 +609,7 @@ class KAdvancedSettingsView: XibLoaderView {
   }
 
   @IBAction func reverseRoutingHelpButtonTapped(_ sender: UIButton) {
+    self.delegate?.kAdvancedSettingsView(self, run: .reverseRoutingHelpPress)
   }
 }
 

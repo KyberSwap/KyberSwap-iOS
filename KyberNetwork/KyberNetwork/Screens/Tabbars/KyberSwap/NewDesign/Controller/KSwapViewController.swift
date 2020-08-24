@@ -1327,6 +1327,12 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
       )
     case .changeIsUserReverseRouting(let value):
       self.viewModel.updateUserSelectionToUseReverseRouting(from: self.viewModel.from.address, to: self.viewModel.to.address, value: value)
+    case .reverseRoutingHelpPress:
+      self.showBottomBannerView(
+        message: "Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves".toBeLocalised(),
+        icon: UIImage(named: "help_icon_large") ?? UIImage(),
+        time: 3
+      )
     }
   }
 }
