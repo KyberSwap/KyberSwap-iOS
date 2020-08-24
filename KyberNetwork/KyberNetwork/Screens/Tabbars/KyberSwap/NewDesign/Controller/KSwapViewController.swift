@@ -1291,6 +1291,9 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
           }
           return self.scrollContainerView.contentSize.height - self.scrollContainerView.bounds.size.height
         }()
+        guard offSetY > 0 else {
+          return
+        }
         let bottomOffset = CGPoint(
           x: 0,
           y: offSetY

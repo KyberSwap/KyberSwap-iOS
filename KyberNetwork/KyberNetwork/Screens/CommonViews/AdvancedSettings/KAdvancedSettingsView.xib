@@ -76,21 +76,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fc-IL-piw">
                     <rect key="frame" x="20" y="60" width="335" height="394"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUw-vt-Mjy">
-                            <rect key="frame" x="303" y="8" width="24" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="24" id="Efo-G3-mMS"/>
-                                <constraint firstAttribute="width" constant="24" id="upW-hS-VJR"/>
-                            </constraints>
-                            <state key="normal" image="advanced_close_icon">
-                                <color key="titleColor" red="0.83137254901960778" green="0.88235294117647056" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="displayViewButtonPressed:" destination="-1" eventType="touchUpInside" id="ydn-Si-dkc"/>
-                            </connections>
-                        </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kG7-Qv-qcf">
-                            <rect key="frame" x="0.0" y="40" width="335" height="170"/>
+                            <rect key="frame" x="0.0" y="8" width="335" height="170"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GAS fee (Gwei)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="97u-A1-eZn">
                                     <rect key="frame" x="16" y="8" width="82" height="14"/>
@@ -300,7 +287,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c6p-fF-IU1">
-                            <rect key="frame" x="0.0" y="210" width="335" height="150"/>
+                            <rect key="frame" x="0.0" y="178" width="335" height="150"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Still proceed if GIF-ETH rate goes down by:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xeg-5A-3c6">
                                     <rect key="frame" x="16" y="16" width="303" height="14.5"/>
@@ -389,7 +376,7 @@
                             </constraints>
                         </view>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNy-bf-3b9">
-                            <rect key="frame" x="16" y="341" width="303" height="33"/>
+                            <rect key="frame" x="16" y="309" width="303" height="33"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51f-Mb-oii">
                                     <rect key="frame" x="0.0" y="0.0" width="303" height="1"/>
@@ -452,6 +439,19 @@
                                 <constraint firstAttribute="trailing" secondItem="51f-Mb-oii" secondAttribute="trailing" id="vFV-bh-c1k"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUw-vt-Mjy">
+                            <rect key="frame" x="303" y="8" width="24" height="24"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="Efo-G3-mMS"/>
+                                <constraint firstAttribute="width" constant="24" id="upW-hS-VJR"/>
+                            </constraints>
+                            <state key="normal" image="advanced_close_icon">
+                                <color key="titleColor" red="0.83137254901960778" green="0.88235294117647056" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="displayViewButtonPressed:" destination="-1" eventType="touchUpInside" id="ydn-Si-dkc"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -460,7 +460,6 @@
                         <constraint firstItem="Xeg-5A-3c6" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" constant="16" id="6ai-cY-Huo"/>
                         <constraint firstItem="nNy-bf-3b9" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" constant="16" id="95O-Fz-uxT"/>
                         <constraint firstItem="c6p-fF-IU1" firstAttribute="top" secondItem="kG7-Qv-qcf" secondAttribute="bottom" id="AkV-BE-AEj"/>
-                        <constraint firstItem="Xeg-5A-3c6" firstAttribute="top" secondItem="6fc-IL-piw" secondAttribute="top" constant="226" id="EBh-Wh-RmE"/>
                         <constraint firstItem="c6p-fF-IU1" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" id="PgM-9x-65J"/>
                         <constraint firstItem="LUw-vt-Mjy" firstAttribute="top" secondItem="6fc-IL-piw" secondAttribute="top" constant="8" id="Q5u-RI-lBL"/>
                         <constraint firstItem="kG7-Qv-qcf" firstAttribute="leading" secondItem="6fc-IL-piw" secondAttribute="leading" id="RWL-ny-BdK"/>
@@ -468,8 +467,8 @@
                         <constraint firstItem="kG7-Qv-qcf" firstAttribute="centerX" secondItem="6fc-IL-piw" secondAttribute="centerX" id="TUr-Vz-4RF"/>
                         <constraint firstItem="nNy-bf-3b9" firstAttribute="top" secondItem="oEr-DN-fk8" secondAttribute="bottom" constant="13" id="Uaz-N2-ndX"/>
                         <constraint firstAttribute="trailing" secondItem="c6p-fF-IU1" secondAttribute="trailing" id="bVX-kM-7ts"/>
+                        <constraint firstItem="kG7-Qv-qcf" firstAttribute="top" secondItem="6fc-IL-piw" secondAttribute="top" constant="8" id="dzZ-WP-P3I"/>
                         <constraint firstItem="Pzw-d7-yvQ" firstAttribute="top" secondItem="Xeg-5A-3c6" secondAttribute="bottom" constant="16" id="kQa-ac-fI7"/>
-                        <constraint firstItem="kG7-Qv-qcf" firstAttribute="top" secondItem="LUw-vt-Mjy" secondAttribute="bottom" constant="8" id="q6b-Ba-Weh"/>
                         <constraint firstAttribute="trailing" secondItem="LUw-vt-Mjy" secondAttribute="trailing" constant="8" id="quo-pk-MUK"/>
                         <constraint firstAttribute="trailing" secondItem="kG7-Qv-qcf" secondAttribute="trailing" id="yvj-4n-Bgq"/>
                         <constraint firstItem="c6p-fF-IU1" firstAttribute="centerX" secondItem="6fc-IL-piw" secondAttribute="centerX" id="zhZ-4a-l0Y"/>

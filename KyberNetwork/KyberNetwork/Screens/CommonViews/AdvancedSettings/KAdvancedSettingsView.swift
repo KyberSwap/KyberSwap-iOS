@@ -60,8 +60,8 @@ class KAdvancedSettingsViewModel: NSObject {
 
   private let kGasPriceContainerHeight: CGFloat = 80.0
   private let kMinRateContainerHeight: CGFloat = 140.0
-  private let kAdvancedSettingsHasMinRateHeight: CGFloat = 360.0
-  private let kAdvancedSettingsNoMinRateHeight: CGFloat = 218.0
+  private let kAdvancedSettingsHasMinRateHeight: CGFloat = 328.0
+  private let kAdvancedSettingsNoMinRateHeight: CGFloat = 186.0
 
   fileprivate(set) var fast: BigInt = KNGasCoordinator.shared.fastKNGas
   fileprivate(set) var medium: BigInt = KNGasCoordinator.shared.standardKNGas
