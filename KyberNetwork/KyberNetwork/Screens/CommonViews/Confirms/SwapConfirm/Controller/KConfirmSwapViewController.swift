@@ -129,7 +129,7 @@ class KConfirmSwapViewController: KNBaseViewController {
     self.warningETHBalImageView.isHidden = !warningBalShown
     self.warningETHBalanceLabel.text = "After this swap you will not have enough ETH for further transactions.".toBeLocalised()
 
-    self.reserveRoutingMessageContainer.isHidden = self.viewModel.hint == "" && self.viewModel.hint == "0x"
+    self.reserveRoutingMessageContainer.isHidden = self.viewModel.hint == "" || self.viewModel.hint == "0x"
     if !warningBalShown {
       self.reserveRountingContainerTopConstraint.constant = 20
     } else {
