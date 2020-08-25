@@ -530,7 +530,12 @@ class KSwapViewModel {
   }
 
   func updateEstValueGasLimit(for from: TokenObject, to: TokenObject, amount: BigInt, gasLimit: BigInt) {
-    if from == self.from, to == self.to, amount != self.estValueGasLimit.2 {
+    let isAmountChanged: Bool = {
+      if self.amountFromBigInt == amount { return false }
+      let doubleValue = Double(amount) / pow(10.0, Double(self.from.decimals))
+      return !(self.amountFromBigInt.isZero && doubleValue == 0.001)
+    }()
+    if from == self.from, to == self.to, !isAmountChanged {
       self.estValueGasLimit = (from, to, amount, gasLimit)
     }
   }
