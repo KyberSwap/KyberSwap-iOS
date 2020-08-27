@@ -789,7 +789,7 @@
 "History" = "Lịch sử";
 
 "Use reserve routing to enjoy gas savings" = "Sử dụng Reserve routing để giảm thiểu phí gas";
-"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "Giảm phí gas bằng cách giao dịch với các quỹ được chọn trước. Đây là tùy chọn mặc định cho các giao dịch < 20 ETH";
+"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "Giảm chi phí gas bằng cách giao dịch với các quỹ dự trữ được chọn sẵn. Đây là bước mặc định cho mọi giao dịch";
 "Reserve routing is used in this transaction to reduce gas costs" = "Reserve routing được sử dụng trong giao dịch này để giảm phí gas";
-"Maximum gas fee" = "Maximum gas fee";
-"The.actual.cost.of.the.transaction.is.generally.lower" = "The actual cost of the transaction is generally lower than the maximum estimated cost.";
+"Maximum gas fee" = "Phí gas tối đa";
+"The.actual.cost.of.the.transaction.is.generally.lower" = "Chi phí thực tế của giao dịch thông thường sẽ thấp hơn chi phí ước tính tối đa.";
