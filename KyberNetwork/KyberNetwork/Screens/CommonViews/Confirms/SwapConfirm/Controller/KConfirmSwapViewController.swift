@@ -120,7 +120,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
     self.toTextLabel.text = NSLocalizedString("transaction.to.text", value: "To", comment: "")
     self.minAcceptableRateTextLabel.text = NSLocalizedString("min.acceptable.rate", value: "Min Acceptable Rate", comment: "")
-    self.transactionFeeTextLabel.text = NSLocalizedString("transaction.fee", value: "Transaction Fee", comment: "")
+    self.transactionFeeTextLabel.text = "Maximum gas fee".toBeLocalised()
     self.transactionFeeTextLabel.addLetterSpacing()
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
 
@@ -195,7 +195,7 @@ class KConfirmSwapViewController: KNBaseViewController {
   @IBAction func helpButtonTapped(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_gas_fee_info_tapped", customAttributes: nil)
     self.showBottomBannerView(
-      message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
+      message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
       icon: UIImage(named: "help_icon_large") ?? UIImage(),
       time: 3
     )
