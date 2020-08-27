@@ -780,7 +780,7 @@
 
 "There.is.a.difference.between.the.estimated.price" = "您要的兑换金额的估计价格与参考价格之间存在%@的差异。\n请注意：估计价格取决于您的兑换金额。参考价格来自Chainlink和Kyber Network。";
 
-"Gas.fee.is.the.fee.you.pay.to.the.miner" = "燃料费用费是您支付给矿工（而不是支付给KyberSwap）以在区块链上进行交易的费用。燃料的价格通常反映了您希望一笔交易的开采速度有多快。";
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas费用是您支付给矿工的费用（并非Kyberswap），以在区块链上进行交易。 gas费用的高低反映了交易打包出块的优先级。";
 "Wallet.must.be.backed.up" = "请备份您的钱包。以便在手机发生损坏、丢失或被盗的情况下，能帮助您找回钱包.";
 "Later" = "以后";
 
@@ -789,7 +789,7 @@
 "History" = "历史纪录";
 
 "Use reserve routing to enjoy gas savings" = "使用储备库路由来节省gas费用";
-"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "通过将您的交易发送到预定义的储备库来降低gas费用。这是所有小于20 ETH交易的默认选项";
+"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "通过将您的交易发送到预定义的储备库来降低gas费用。这是所有交易的默认选项。";
 "Reserve routing is used in this transaction to reduce gas costs" = "在该笔交易中使用储备库路由来降低gas费用";
-"Maximum gas fee" = "Maximum gas fee";
-"The.actual.cost.of.the.transaction.is.generally.lower" = "The actual cost of the transaction is generally lower than the maximum estimated cost.";
+"Maximum gas fee" = "最高的gas费用。";
+"The.actual.cost.of.the.transaction.is.generally.lower" = "交易的实际费用一般低于最高估计费用。";

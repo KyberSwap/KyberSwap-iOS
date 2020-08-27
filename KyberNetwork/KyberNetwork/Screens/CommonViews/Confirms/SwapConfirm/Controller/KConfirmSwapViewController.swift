@@ -197,7 +197,7 @@ class KConfirmSwapViewController: KNBaseViewController {
     self.showBottomBannerView(
       message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
       icon: UIImage(named: "help_icon_large") ?? UIImage(),
-      time: 3
+      time: 10
     )
   }
 

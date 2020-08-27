@@ -1332,7 +1332,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
       self.showBottomBannerView(
         message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
         icon: UIImage(named: "help_icon_large") ?? UIImage(),
-        time: 3
+        time: 10
       )
     case .changeIsUsingReverseRouting(let value):
       self.viewModel.isUsingReverseRouting = value
@@ -1340,7 +1340,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
       self.showBottomBannerView(
         message: "Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves".toBeLocalised(),
         icon: UIImage(named: "help_icon_large") ?? UIImage(),
-        time: 3
+        time: 10
       )
     }
   }
