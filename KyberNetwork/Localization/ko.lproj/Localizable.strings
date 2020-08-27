@@ -780,7 +780,7 @@
 
 "There.is.a.difference.between.the.estimated.price" = "교환하려는 토큰 양에 대한 추정 가격과 참고 가격 간 차이가  %@ 입니다.\n주의: 추정 가격은 교환하려는 토큰 양에 따라 다릅니다. 참고 가격은 Kyber Network와 Chainlink에서 가져옵니다.";
 
-"Gas.fee.is.the.fee.you.pay.to.the.miner" = "가스비는 블록체인에서 거래를 채굴하기 위해 (카이버 스왑이 아닌) 채굴자에게 지불되는 비용입니다. 보통 가스의 가격은 원하는 거래 속도에 비례하여 반영됩니다.";
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "가스비는 (카이버 스왑이 아닌) 블록체인 상의 트랜잭션을 채굴하는 채굴자에게 지불하는 비용입니다.  가스의 가격은 보통 얼마나 빠르게 트랜잭션이 채굴되기 원하는 지에 따라 책정됩니다.";
 "Wallet.must.be.backed.up" = "지갑을 다른 곳에 백업해 주세요. 지갑이 백업되어 있으면 핸드폰의 고장, 분실, 도난의 경우 복원이 가능합니다.";
 "Later" = "나중에";
 
@@ -789,7 +789,8 @@
 "History" = "거래내역";
 
 "Use reserve routing to enjoy gas savings" = "가스비 절약을 위해 리저브 라우팅을 사용하세요";
-"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = "미리 지정된 리저브로 거래를 라우팅하여 가스비를 절감하세요. 20이더 미만의 거래는 해당 옵션이 기본적으로 적용됩니다.";
+"Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves" = " 미리 지정된 리저브에 거래를 라우팅 시킴으로서 가스비를 줄일 수 있습니다. 이 옵션은 모든 거래에 기본으로 설정됩니다.";
 "Reserve routing is used in this transaction to reduce gas costs" = "가스비 절감을 위해 당 거래에서는 리저브 라우팅이 사용됩니다.";
 
-"The.actual.cost.of.the.transaction.is.generally.lower" = "The actual cost of the transaction is generally lower than the maximum estimated cost.";
+"Maximum gas fee" = "최대 가스비";
+"The.actual.cost.of.the.transaction.is.generally.lower" = "트랜잭션의 실제 비용은 보통 최대치로 계산된 비용보다 낮습니다.";
