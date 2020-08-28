@@ -106,7 +106,7 @@ class KConfirmSendViewController: KNBaseViewController {
 
     self.amountToSendTextLabel.text = NSLocalizedString("amount.to.send", value: "Amount To Transfer", comment: "").uppercased()
     self.amountToSendTextLabel.addLetterSpacing()
-    self.transactionFeeTextLabel.text = NSLocalizedString("transaction.fee", value: "Transaction Fee", comment: "")
+    self.transactionFeeTextLabel.text = NSLocalizedString("Maximum gas fee", value: "Transaction Fee", comment: "")
     self.transactionFeeTextLabel.addLetterSpacing()
   }
 
@@ -144,7 +144,7 @@ class KConfirmSendViewController: KNBaseViewController {
   @IBAction func helpGasFeeButtonTapped(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "transferconfirm_gas_fee_info_tapped", customAttributes: nil)
     self.showBottomBannerView(
-      message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
+      message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
       icon: UIImage(named: "help_icon_large") ?? UIImage(),
       time: 3
     )
