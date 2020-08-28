@@ -20,6 +20,7 @@ class Transaction: Object {
     @objc dynamic var internalType: Int = TransactionType.normal.rawValue
     var localizedOperations = List<LocalizedOperationObject>()
     @objc dynamic var compoundKey: String = ""
+    @objc dynamic var input: String = ""
 
     convenience init(
         id: String,
@@ -34,7 +35,8 @@ class Transaction: Object {
         date: Date,
         localizedOperations: [LocalizedOperationObject],
         state: TransactionState,
-        type: TransactionType
+        type: TransactionType,
+        input: String = ""
     ) {
 
         self.init()
@@ -58,6 +60,7 @@ class Transaction: Object {
 
         self.localizedOperations = list
         self.compoundKey = "\(id)\(from)\(to)"
+        self.input = input
     }
 
     convenience init(
@@ -98,7 +101,8 @@ class Transaction: Object {
       date: self.date,
       localizedOperations: Array(self.localizedOperations).map({ return $0.clone() }),
       state: self.state,
-      type: self.type
+      type: self.type,
+      input: self.input
     )
   }
 
@@ -116,7 +120,8 @@ class Transaction: Object {
       date: self.date,
       localizedOperations: Array(self.localizedOperations).map({ return $0.clone() }),
       state: self.state,
-      type: .speedup
+      type: .speedup,
+      input: self.input
     )
   }
 }
@@ -259,7 +264,8 @@ extension Transaction {
       date: sendTx.date,
       localizedOperations: [localObject],
       state: .completed,
-      type: type
+      type: type,
+      input: sendTx.input
     )
   }
 
