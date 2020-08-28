@@ -794,3 +794,5 @@
 
 "Maximum gas fee" = "최대 가스비";
 "The.actual.cost.of.the.transaction.is.generally.lower" = "트랜잭션의 실제 비용은 보통 최대치로 계산된 비용보다 낮습니다.";
+
+"Contract Interaction" = "Contract Interaction";

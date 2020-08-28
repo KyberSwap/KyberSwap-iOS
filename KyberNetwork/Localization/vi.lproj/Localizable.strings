@@ -793,3 +793,5 @@
 "Reserve routing is used in this transaction to reduce gas costs" = "Reserve routing được sử dụng trong giao dịch này để giảm phí gas";
 "Maximum gas fee" = "Phí gas tối đa";
 "The.actual.cost.of.the.transaction.is.generally.lower" = "Chi phí thực tế của giao dịch thông thường sẽ thấp hơn chi phí ước tính tối đa.";
+
+"Contract Interaction" = "Tương tác hợp đồng thông minh";

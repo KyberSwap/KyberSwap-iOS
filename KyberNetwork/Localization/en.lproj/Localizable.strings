@@ -791,3 +791,5 @@
 "Reserve routing is used in this transaction to reduce gas costs" = "Reserve routing is used in this transaction to reduce gas costs";
 "Maximum gas fee" = "Maximum gas fee";
 "The.actual.cost.of.the.transaction.is.generally.lower" = "The actual cost of the transaction is generally lower than the maximum estimated cost.";
+
+"Contract Interaction" = "Contract Interaction";

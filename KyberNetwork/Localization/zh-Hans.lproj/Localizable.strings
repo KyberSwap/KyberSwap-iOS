@@ -793,3 +793,5 @@
 "Reserve routing is used in this transaction to reduce gas costs" = "在该笔交易中使用储备库路由来降低gas费用";
 "Maximum gas fee" = "最高的gas费用。";
 "The.actual.cost.of.the.transaction.is.generally.lower" = "交易的实际费用一般低于最高估计费用。";
+
+"Contract Interaction" = "合约交互";
