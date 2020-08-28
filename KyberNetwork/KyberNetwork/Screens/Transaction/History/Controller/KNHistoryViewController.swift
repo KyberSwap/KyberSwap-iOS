@@ -222,6 +222,8 @@ struct KNHistoryViewModel {
       if !self.filters.isSend && tx.from.lowercased() == self.currentWallet.address.lowercased() { return false }
       // not include receive, but it is a receive tx
       if !self.filters.isReceive && tx.to.lowercased() == self.currentWallet.address.lowercased() { return false }
+      let symbol = tx.localizedOperations.first?.symbol?.uppercased() ?? ""
+      if symbol.isEmpty && ( tx.state == .error || tx.state == .failed ) { return true }
       isTokenIncluded = self.filters.tokens.contains(tx.localizedOperations.first?.symbol?.uppercased() ?? "")
     }
     return isTokenIncluded

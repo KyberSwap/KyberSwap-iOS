@@ -298,7 +298,8 @@ extension Transaction {
       return self.from.lowercased() == curWallet.lowercased()
     }()
     let sign: String = isSent ? "-" : "+"
-    return "\(sign)\(self.value.prefix(9)) \(localObject.symbol ?? "")"
+    let symbol = localObject.symbol ?? ""
+    return "\(sign)\(self.value.prefix(9)) \(!symbol.isEmpty ? symbol : "ETH")"
   }
 
   func displayedAmountStringDetailsView(curWallet: String) -> String {
