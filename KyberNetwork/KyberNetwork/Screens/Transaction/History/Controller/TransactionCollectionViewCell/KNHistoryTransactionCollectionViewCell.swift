@@ -51,6 +51,10 @@ struct KNHistoryTransactionCollectionViewModel {
     return false
   }
 
+  var isSelf: Bool {
+    return self.transaction.from.lowercased() == self.transaction.to.lowercased()
+  }
+
   var transactionStatusString: String {
     if isError { return NSLocalizedString("failed", value: "Failed", comment: "") }
     return ""
@@ -58,6 +62,7 @@ struct KNHistoryTransactionCollectionViewModel {
 
   var transactionTypeString: String {
     let typeString: String = {
+      if self.isSelf { return "Self" }
       if self.isContractInteraction && self.isError { return "Contract Interaction".toBeLocalised() }
       if self.isSwap { return NSLocalizedString("swap", value: "Swap", comment: "") }
       return self.isSent ? NSLocalizedString("transfer", value: "Transfer", comment: "") : NSLocalizedString("receive", value: "Receive", comment: "")
