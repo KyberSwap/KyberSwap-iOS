@@ -528,7 +528,7 @@ class KSwapViewController: KNBaseViewController {
     guard self.viewModel.isSwapAllBalance, self.viewModel.from.isETH else { return }
     self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
     self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true, forSwapAllETH: true)
-    self.updateViewAmountDidChange()
+    self.updateViewAmountDidChange(needUpdateEstRate: false)
   }
 
   @objc func keyboardSwapAllButtonPressed(_ sender: Any) {
@@ -1216,7 +1216,7 @@ extension KSwapViewController: UITextFieldDelegate {
     }
   }
 
-  fileprivate func updateViewAmountDidChange() {
+  fileprivate func updateViewAmountDidChange(needUpdateEstRate: Bool = true) {
     if self.viewModel.isFocusingFromAmount {
       self.toAmountTextField.text = self.viewModel.expectedReceivedAmountText
       self.viewModel.updateAmount(self.toAmountTextField.text ?? "", isSource: false)
@@ -1224,7 +1224,7 @@ extension KSwapViewController: UITextFieldDelegate {
       self.fromAmountTextField.text = self.viewModel.expectedExchangeAmountText
       self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
     }
-    self.updateEstimatedRate(showLoading: true)
+    if needUpdateEstRate { self.updateEstimatedRate(showLoading: true) }
     if !self.fromAmountTextField.isEditing && self.viewModel.isFocusingFromAmount {
       self.fromAmountTextField.textColor = self.viewModel.amountTextFieldColor
       self.toAmountTextField.textColor = UIColor.Kyber.mirage
