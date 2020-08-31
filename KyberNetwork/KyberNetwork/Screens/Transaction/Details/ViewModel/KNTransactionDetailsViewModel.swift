@@ -31,7 +31,38 @@ struct KNTransactionDetailsViewModel {
     return transaction.from.lowercased() == self.currentWallet.address.lowercased()
   }
 
+  var isContractInteraction: Bool {
+    guard let notNilTransaction = self.transaction else {
+      return false
+    }
+    if !notNilTransaction.input.isEmpty && notNilTransaction.input != "0x" {
+      return true
+    }
+    return false
+  }
+
+  var isError: Bool {
+    guard let notNilTransaction = self.transaction else {
+      return false
+    }
+    if notNilTransaction.state == .error || notNilTransaction.state == .failed {
+      return true
+    }
+    return false
+  }
+
+  var isSelf: Bool {
+    guard let notNilTransaction = self.transaction else {
+      return false
+    }
+    return notNilTransaction.from.lowercased() == notNilTransaction.to.lowercased()
+  }
+
   var displayTxTypeString: String {
+    if self.isSelf { return "Self" }
+    if self.isContractInteraction && self.isError {
+      return "Contract Interaction".toBeLocalised()
+    }
     if self.isSwap {
       return NSLocalizedString("swap", value: "Swap", comment: "").uppercased()
     }
