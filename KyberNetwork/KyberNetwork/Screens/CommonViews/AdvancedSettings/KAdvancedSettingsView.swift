@@ -446,6 +446,7 @@ class KAdvancedSettingsView: XibLoaderView {
   }
 
   func updateIsUsingReverseRoutingStatus(value: Bool) {
+    guard self.viewModel != nil else { return }
     self.viewModel.updateIsUsingReverseRouting(value: value)
     self.updateIsUsingReverseRoutingCheckBox()
   }
