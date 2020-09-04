@@ -20,20 +20,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.62352941179999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_1" translatesAutoresizingMaskIntoConstraints="NO" id="zOh-l1-bXX">
-                                <rect key="frame" x="127.5" y="205.5" width="120" height="216"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zOh-l1-bXX" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-20" id="3JT-AZ-bem"/>
                             <constraint firstItem="4Ps-dU-H5X" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="8sx-ab-w1i"/>
                             <constraint firstItem="4Ps-dU-H5X" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="JqO-Bb-qd7"/>
                             <constraint firstItem="4Ps-dU-H5X" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="YrL-aI-zMy"/>
                             <constraint firstItem="4Ps-dU-H5X" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rfe-T5-1Yd"/>
                             <constraint firstItem="4Ps-dU-H5X" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="tHK-ru-xUh"/>
                             <constraint firstItem="4Ps-dU-H5X" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="vos-gS-PMJ"/>
-                            <constraint firstItem="zOh-l1-bXX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="wZG-Qy-agk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
@@ -45,6 +40,5 @@
     </scenes>
     <resources>
         <image name="gradient_bg" width="375" height="667"/>
-        <image name="logo_1" width="120" height="216"/>
     </resources>
 </document>
