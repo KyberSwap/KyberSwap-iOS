@@ -613,6 +613,7 @@ class KAdvancedSettingsView: XibLoaderView {
     self.viewModel.updateIsUsingReverseRouting(value: !self.viewModel.isUsingReverseRouting)
     self.updateIsUsingReverseRoutingCheckBox()
     self.delegate?.kAdvancedSettingsView(self, run: .changeIsUsingReverseRouting(value: self.viewModel.isUsingReverseRouting))
+    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_reverse-routing_select", customAttributes: ["value": self.viewModel.isUsingReverseRouting])
   }
 
   @IBAction func reverseRoutingHelpButtonTapped(_ sender: UIButton) {

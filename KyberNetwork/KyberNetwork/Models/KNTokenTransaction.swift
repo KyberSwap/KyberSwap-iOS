@@ -74,7 +74,8 @@ class KNTokenTransaction: Object {
     self.cumulativeGasUsed = internalDict["cumulativeGasUsed"] as? String ?? ""
     self.confirmations = internalDict["confirmations"] as? String ?? ""
     self.compoundKey = "\(id)\(from)\(to)\(tokenSymbol)"
-    if contractAddress.isEmpty {
+    let isError = internalDict["isError"] as? String ?? "0"
+    if (contractAddress.isEmpty && self.value != "0") || (self.input == "0x") || (isError != "0") {
       // ETH Transfer
       self.contractAddress = eth.contract
       self.tokenName = eth.name
