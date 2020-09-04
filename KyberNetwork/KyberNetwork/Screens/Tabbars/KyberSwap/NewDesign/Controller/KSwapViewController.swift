@@ -1336,6 +1336,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
       )
     case .changeIsUsingReverseRouting(let value):
       self.viewModel.isUsingReverseRouting = value
+      self.updateEstimatedGasLimit()
     case .reverseRoutingHelpPress:
       self.showBottomBannerView(
         message: "Reduce.gas.costs.by.routing.your.trade.to.predefined.reserves".toBeLocalised(),
