@@ -11,6 +11,9 @@ enum KNTransactionLoadState: Int {
 }
 
 class KNAppTracker {
+  
+  var favedTokens: [String] = KNAppTracker.getListFavouriteTokens()
+  static let shared = KNAppTracker()
 
   static let kPlatformFeeBps = 8 // 8 bps, 0.08%
   // Env
@@ -304,7 +307,7 @@ class KNAppTracker {
   }
 
   static func isTokenFavourite(_ address: String) -> Bool {
-    return self.getListFavouriteTokens().contains(address.lowercased())
+    return KNAppTracker.shared.favedTokens.contains(address.lowercased())
   }
 
   static func updateFavouriteToken(_ address: String, add: Bool) {
@@ -328,6 +331,7 @@ class KNAppTracker {
       }
     } catch {
     }
+    KNAppTracker.shared.favedTokens = KNAppTracker.getListFavouriteTokens()
   }
 
   static func migrationFavoriteFromPreviousVersion() {
