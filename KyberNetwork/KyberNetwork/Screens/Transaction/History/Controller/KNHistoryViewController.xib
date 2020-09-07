@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,7 +13,7 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNHistoryViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNHistoryViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="bottomPaddingConstraintForRateMightChange" destination="Na8-5b-l4C" id="ku1-nH-Z1H"/>
                 <outlet property="completedButton" destination="3dw-WK-nbk" id="DbB-HB-QVH"/>
@@ -43,7 +41,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transactions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYJ-ao-QW0">
-                            <rect key="frame" x="129.5" y="46" width="116.5" height="22"/>
+                            <rect key="frame" x="135" y="46" width="105" height="22"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -92,24 +90,6 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38H-s2-1f5">
-                    <rect key="frame" x="0.0" y="140" width="375" height="527"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You do not have any pending transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bv9-ei-Ioj">
-                            <rect key="frame" x="44" y="90" width="287" height="34.5"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
-                            <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstItem="bv9-ei-Ioj" firstAttribute="top" secondItem="38H-s2-1f5" secondAttribute="top" constant="90" id="GWs-5I-L8S"/>
-                        <constraint firstAttribute="trailing" secondItem="bv9-ei-Ioj" secondAttribute="trailing" constant="44" id="H5D-8F-Jt0"/>
-                        <constraint firstItem="bv9-ei-Ioj" firstAttribute="centerX" secondItem="38H-s2-1f5" secondAttribute="centerX" id="rfJ-2B-791"/>
-                        <constraint firstItem="bv9-ei-Ioj" firstAttribute="leading" secondItem="38H-s2-1f5" secondAttribute="leading" constant="44" id="uqa-W7-QHB"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cib-c5-K25">
                     <rect key="frame" x="0.0" y="475" width="375" height="192"/>
                     <subviews>
@@ -121,13 +101,13 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rates might change" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTR-To-g6P">
-                            <rect key="frame" x="74" y="42" width="165.5" height="20"/>
+                            <rect key="frame" x="74" y="42.5" width="143" height="19"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                             <color key="textColor" red="0.1803921568627451" green="0.22352941176470587" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rates for token swap are not final until swapping transactions are completed (mined)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2F0-jD-9pg">
-                            <rect key="frame" x="74" y="67" width="267" height="51.5"/>
+                            <rect key="frame" x="74" y="66.5" width="267" height="49.5"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                             <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -169,7 +149,7 @@
                     <rect key="frame" x="0.0" y="140" width="375" height="32"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0x274516cdcbd2bca7cf2ce0fa392172a2c3fd24fasfd2503a" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afa-NJ-YRJ">
-                            <rect key="frame" x="18" y="8.5" width="339" height="15"/>
+                            <rect key="frame" x="27" y="8.5" width="321" height="15"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="12"/>
                             <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -183,7 +163,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoN-3A-sl3">
-                    <rect key="frame" x="12" y="96" width="70" height="32"/>
+                    <rect key="frame" x="12" y="96" width="59" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="bso-gc-hgA"/>
                     </constraints>
@@ -196,7 +176,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dw-WK-nbk">
-                    <rect key="frame" x="98" y="96" width="91" height="32"/>
+                    <rect key="frame" x="87" y="96" width="79" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="wkB-0B-Vcb"/>
                     </constraints>
@@ -208,6 +188,62 @@
                         <action selector="completedButtonPressed:" destination="-1" eventType="touchUpInside" id="S3p-up-jyj"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38H-s2-1f5">
+                    <rect key="frame" x="0.0" y="140" width="375" height="527"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You do not have any pending transactions." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bv9-ei-Ioj">
+                            <rect key="frame" x="44" y="90" width="287" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                            <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something is wrong? View your wallet on" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGt-LK-JUP">
+                            <rect key="frame" x="44" y="106.5" width="287" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                            <color key="textColor" red="0.18039215689999999" green="0.22352941179999999" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AjJ-wN-a0c">
+                            <rect key="frame" x="139.5" y="131" width="32" height="45"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="32" id="ODL-1h-Pbb"/>
+                                <constraint firstAttribute="height" constant="45" id="pCn-q4-Mgd"/>
+                            </constraints>
+                            <state key="normal" image="etherscan_icon">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="emptyStateEtherScanButtonTapped:" destination="-1" eventType="touchUpInside" id="PCi-e4-X1Y"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORq-qg-cSn">
+                            <rect key="frame" x="203.5" y="131.5" width="32" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="32" id="Iuf-sY-Co9"/>
+                                <constraint firstAttribute="height" constant="44" id="t9C-6O-tb8"/>
+                            </constraints>
+                            <state key="normal" image="kyber_enjin_icon"/>
+                            <connections>
+                                <action selector="emptyStateKyberButtonTapped:" destination="-1" eventType="touchUpInside" id="dma-LU-H0X"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="AjJ-wN-a0c" firstAttribute="centerX" secondItem="38H-s2-1f5" secondAttribute="centerX" constant="-32" id="2bF-bf-dNC"/>
+                        <constraint firstItem="fGt-LK-JUP" firstAttribute="top" secondItem="bv9-ei-Ioj" secondAttribute="bottom" id="CPN-Jw-sZd"/>
+                        <constraint firstItem="fGt-LK-JUP" firstAttribute="leading" secondItem="bv9-ei-Ioj" secondAttribute="leading" id="F5u-fo-gCF"/>
+                        <constraint firstItem="bv9-ei-Ioj" firstAttribute="top" secondItem="38H-s2-1f5" secondAttribute="top" constant="90" id="GWs-5I-L8S"/>
+                        <constraint firstAttribute="trailing" secondItem="bv9-ei-Ioj" secondAttribute="trailing" constant="44" id="H5D-8F-Jt0"/>
+                        <constraint firstItem="ORq-qg-cSn" firstAttribute="leading" secondItem="AjJ-wN-a0c" secondAttribute="trailing" constant="32" id="VGm-jf-0Qt"/>
+                        <constraint firstItem="bv9-ei-Ioj" firstAttribute="centerX" secondItem="38H-s2-1f5" secondAttribute="centerX" id="rfJ-2B-791"/>
+                        <constraint firstItem="AjJ-wN-a0c" firstAttribute="top" secondItem="fGt-LK-JUP" secondAttribute="bottom" constant="8" id="rmH-Ru-jbF"/>
+                        <constraint firstItem="ORq-qg-cSn" firstAttribute="centerY" secondItem="AjJ-wN-a0c" secondAttribute="centerY" id="rwC-dc-cxg"/>
+                        <constraint firstItem="fGt-LK-JUP" firstAttribute="trailing" secondItem="bv9-ei-Ioj" secondAttribute="trailing" id="uf1-Tb-mSG"/>
+                        <constraint firstItem="bv9-ei-Ioj" firstAttribute="leading" secondItem="38H-s2-1f5" secondAttribute="leading" constant="44" id="uqa-W7-QHB"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
@@ -253,7 +289,9 @@
     </objects>
     <resources>
         <image name="back_white_icon" width="38" height="19"/>
+        <image name="etherscan_icon" width="23" height="23"/>
         <image name="filter_icon" width="16" height="16"/>
         <image name="info_blue_icon" width="19" height="18"/>
+        <image name="kyber_enjin_icon" width="17" height="24"/>
     </resources>
 </document>

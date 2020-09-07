@@ -10,6 +10,8 @@ enum KNHistoryViewEvent {
   case cancelTransaction(transaction: Transaction)
   case speedUpTransaction(transaction: Transaction)
   case quickTutorial(pointsAndRadius: [(CGPoint, CGFloat)])
+  case openEtherScanWalletPage
+  case openKyberWalletPage
 }
 
 protocol KNHistoryViewControllerDelegate: class {
@@ -521,6 +523,14 @@ class KNHistoryViewController: KNBaseViewController {
     self.viewModel.updateIsShowingPending(false)
     self.updateUIWhenDataDidChange()
     KNCrashlyticsUtil.logCustomEvent(withName: self.viewModel.isShowingPending ? "txhistory_pending_tx" : "txhistory_mined_tx", customAttributes: nil)
+  }
+  
+  @IBAction func emptyStateEtherScanButtonTapped(_ sender: UIButton) {
+    self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openEtherScanWalletPage)
+  }
+
+  @IBAction func emptyStateKyberButtonTapped(_ sender: UIButton) {
+    self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openKyberWalletPage)
   }
 }
 

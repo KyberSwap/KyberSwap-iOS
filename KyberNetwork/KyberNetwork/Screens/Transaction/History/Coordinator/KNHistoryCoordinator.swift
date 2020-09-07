@@ -23,6 +23,8 @@ class KNHistoryCoordinator: Coordinator {
   var coordinators: [Coordinator] = []
   weak var delegate: KNHistoryCoordinatorDelegate?
   fileprivate var transactionStatusVC: KNTransactionStatusPopUp?
+  let etherScanURL: String = KNEnvironment.default.etherScanIOURLString
+  let enjinScanURL: String = KNEnvironment.default.enjinXScanIOURLString
 
   lazy var rootViewController: KNHistoryViewController = {
     let viewModel = KNHistoryViewModel(
@@ -283,6 +285,12 @@ extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
         sendSpeedUpTransactionFor(transaction)
     case .quickTutorial(let pointsAndRadius):
       self.openQuickTutorial(controller, pointsAndRadius: pointsAndRadius)
+    case .openEtherScanWalletPage:
+      let urlString = "\(self.etherScanURL)address/\(self.session.wallet.address.description)"
+      self.rootViewController.openSafari(with: urlString)
+    case .openKyberWalletPage:
+      let urlString = "\(self.enjinScanURL)eth/address/\(self.session.wallet.address.description)"
+      self.rootViewController.openSafari(with: urlString)
     }
   }
 
