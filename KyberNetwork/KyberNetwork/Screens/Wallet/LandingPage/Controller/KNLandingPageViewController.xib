@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +19,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNLandingPageViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="createWalletButton" destination="7nN-NM-xeF" id="IIN-sb-ImQ"/>
-                <outlet property="debugButton" destination="0di-8l-vR4" id="ZJz-BO-5dG"/>
                 <outlet property="importWalletButton" destination="hSF-ar-Svx" id="qW5-Nd-Q2c"/>
                 <outlet property="promoCodeButton" destination="LIp-Wc-Zua" id="nIa-Hg-XQo"/>
                 <outlet property="termAndConditionButton" destination="y2C-Xx-uQV" id="uZP-3S-nhg"/>
@@ -55,16 +54,6 @@
                     </state>
                     <connections>
                         <action selector="termAndConditionButtonPressed:" destination="-1" eventType="touchUpInside" id="bFH-li-6Cc"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0di-8l-vR4">
-                    <rect key="frame" x="312" y="628" width="43" height="29"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="Debug">
-                        <color key="titleColor" red="0.19215686269999999" green="0.79607843140000001" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="debugPressed:" destination="-1" eventType="touchUpInside" id="frG-ca-60L"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFk-DS-wvQ" customClass="KNWelcomeScreenCollectionView" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
@@ -111,12 +100,10 @@
                 <constraint firstItem="tFk-DS-wvQ" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-100" id="JMe-mh-dhI"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="centerY" secondItem="7nN-NM-xeF" secondAttribute="centerY" id="Npm-AH-g0a"/>
                 <constraint firstItem="7nN-NM-xeF" firstAttribute="top" secondItem="LIp-Wc-Zua" secondAttribute="bottom" constant="20" id="QlA-f3-59T"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0di-8l-vR4" secondAttribute="trailing" constant="20" id="RP4-xf-y34"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="height" secondItem="7nN-NM-xeF" secondAttribute="height" id="StO-e9-Tbf"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hSF-ar-Svx" secondAttribute="trailing" constant="35" id="Wgf-Of-pa0"/>
                 <constraint firstItem="tFk-DS-wvQ" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XMu-FQ-vgN"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="width" secondItem="7nN-NM-xeF" secondAttribute="width" id="j9g-cw-ZX6"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0di-8l-vR4" secondAttribute="bottom" constant="10" id="ji3-dn-2C2"/>
                 <constraint firstItem="y2C-Xx-uQV" firstAttribute="top" secondItem="hSF-ar-Svx" secondAttribute="bottom" constant="14" id="ks2-I0-iHf"/>
                 <constraint firstItem="LIp-Wc-Zua" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="nbp-23-7yF"/>
                 <constraint firstItem="7nN-NM-xeF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="wIo-Vy-VEy"/>

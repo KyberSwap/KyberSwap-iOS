@@ -19,7 +19,6 @@ class KNLandingPageViewController: KNBaseViewController {
   weak var delegate: KNLandingPageViewControllerDelegate?
 
   @IBOutlet weak var welcomeScreenCollectionView: KNWelcomeScreenCollectionView!
-  @IBOutlet weak var debugButton: UIButton!
   @IBOutlet weak var promoCodeButton: UIButton!
   @IBOutlet weak var createWalletButton: UIButton!
   @IBOutlet weak var importWalletButton: UIButton!
@@ -82,8 +81,6 @@ class KNLandingPageViewController: KNBaseViewController {
       attributeString.addAttribute(.font, value: UIFont.Kyber.bold(with: 15), range: r)
     }
     self.termAndConditionButton.setAttributedTitle(attributeString, for: .normal)
-
-    self.debugButton.isHidden = true
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -114,10 +111,5 @@ class KNLandingPageViewController: KNBaseViewController {
 
   @IBAction func termAndConditionButtonPressed(_ sender: Any) {
     self.delegate?.landinagePageViewController(self, run: .openTermAndCondition)
-  }
-
-  @IBAction func debugPressed(_ sender: Any) {
-    let debugVC = KNDebugMenuViewController()
-    self.present(debugVC, animated: true, completion: nil)
   }
 }
