@@ -21,6 +21,7 @@
                 <outlet property="currentAddressLabel" destination="afa-NJ-YRJ" id="Erd-Le-Xrc"/>
                 <outlet property="emptyStateContainerView" destination="38H-s2-1f5" id="bfP-jC-EnZ"/>
                 <outlet property="emptyStateDescLabel" destination="bv9-ei-Ioj" id="w0I-rt-Qt3"/>
+                <outlet property="emptyStateInfoLabel" destination="fGt-LK-JUP" id="aEE-Lj-ILx"/>
                 <outlet property="headerContainerView" destination="gaQ-YO-jy8" id="h9d-J7-cNA"/>
                 <outlet property="pendingButton" destination="qoN-3A-sl3" id="1dT-L1-KPP"/>
                 <outlet property="rateMightChangeContainerView" destination="Cib-c5-K25" id="gqz-Jg-Jq7"/>
