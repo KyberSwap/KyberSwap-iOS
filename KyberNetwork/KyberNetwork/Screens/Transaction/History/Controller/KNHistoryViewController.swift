@@ -529,10 +529,12 @@ class KNHistoryViewController: KNBaseViewController {
 
   @IBAction func emptyStateEtherScanButtonTapped(_ sender: UIButton) {
     self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openEtherScanWalletPage)
+    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_empty_state_etherscan_tapped", customAttributes: nil)
   }
 
   @IBAction func emptyStateKyberButtonTapped(_ sender: UIButton) {
     self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openKyberWalletPage)
+    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_empty_state_enjin_tapped", customAttributes: nil)
   }
 }
 

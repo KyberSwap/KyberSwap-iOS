@@ -796,5 +796,5 @@
 
 "Contract Interaction" = "合约交互";
 
-"send.only.ERC20.tokens.to.this.address" = "仅将ERC20代币或ETH发送到该地址。\n *如果将ERC20代币或ETH以外的代币发送到该地址可能会导致您的财产损失。";
+"send.only.ERC20.tokens.to.this.address" = "仅将ERC20代币或ETH发送到该地址。\n\n *如果将ERC20代币或ETH以外的代币发送到该地址可能会导致您的财产损失。";
 "Something is wrong? View your wallet on" = "出什么状况了吗？请查看您的钱包确认。";

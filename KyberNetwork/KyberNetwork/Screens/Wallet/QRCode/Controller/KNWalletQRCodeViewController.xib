@@ -41,7 +41,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="My Ethereum wallet address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6US-bk-Sk8">
-                    <rect key="frame" x="24" y="329" width="327" height="16.5"/>
+                    <rect key="frame" x="32" y="329" width="311" height="16.5"/>
                     <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                     <color key="textColor" red="0.078431372549019607" green="0.098039215686274508" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -130,7 +130,7 @@
                 <constraint firstItem="9wd-Gg-Jw3" firstAttribute="top" secondItem="ayx-K1-otl" secondAttribute="bottom" constant="60" id="OHW-Ak-oXs"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="soD-bJ-naO" secondAttribute="trailing" constant="26" id="Otu-jW-Wcl"/>
                 <constraint firstItem="JIX-CP-yTw" firstAttribute="height" secondItem="soD-bJ-naO" secondAttribute="height" id="SRB-eM-8qB"/>
-                <constraint firstItem="6US-bk-Sk8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="gG8-g7-PB4"/>
+                <constraint firstItem="6US-bk-Sk8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="gG8-g7-PB4"/>
                 <constraint firstItem="6US-bk-Sk8" firstAttribute="top" secondItem="9wd-Gg-Jw3" secondAttribute="bottom" constant="20" id="pyT-Hn-dZW"/>
                 <constraint firstItem="JIX-CP-yTw" firstAttribute="width" secondItem="soD-bJ-naO" secondAttribute="width" id="sdp-ir-Zws"/>
                 <constraint firstItem="rTe-ow-Na9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="tTP-kQ-EJl"/>

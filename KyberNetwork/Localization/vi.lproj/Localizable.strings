@@ -796,5 +796,5 @@
 
 "Contract Interaction" = "Contract Interaction";
 
-"send.only.ERC20.tokens.to.this.address" = "Chỉ gửi token ERC20 hoặc ETH đến địa chỉ này.\n*Nếu bạn gửi token khác ERC20 hoặc ETH đến địa chỉ này, tài sản của bạn có thể bị mất.";
+"send.only.ERC20.tokens.to.this.address" = "Chỉ gửi token ERC20 hoặc ETH đến địa chỉ này.\n\n*Nếu bạn gửi token khác ERC20 hoặc ETH đến địa chỉ này, tài sản của bạn có thể bị mất.";
 "Something is wrong? View your wallet on" = "Kiểm tra ví của bạn tại đây?";
