@@ -459,7 +459,9 @@ extension KNBalanceTabCoordinator: KNTokenChartCoordinatorDelegate {
   }
 
   func tokenChartCoordinatorShouldBack() {
-    self.navigationController.popToRootViewController(animated: true)
+    self.navigationController.popToRootViewController(animated: true) {
+      self.tokenChartCoordinator = nil
+    }
   }
 }
 
