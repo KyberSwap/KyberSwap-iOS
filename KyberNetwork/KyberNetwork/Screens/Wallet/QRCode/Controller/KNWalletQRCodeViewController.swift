@@ -80,18 +80,7 @@ class KNWalletQRCodeViewController: KNBaseViewController {
       .foregroundColor: UIColor(red: 20, green: 25, blue: 39),
       .kern: 0.0,
     ])
-    let rangeERC20 = attributedString.string.ranges(of: "ERC20")
-    rangeERC20.forEach { (range) in
-      let r = NSRange(range, in: attributedString.string)
-      attributedString.addAttribute(.font, value: UIFont.Kyber.medium(with: 14), range: r)
-    }
-    let rangeETH = attributedString.string.ranges(of: "ETH")
-    rangeETH.forEach { (range) in
-      let r = NSRange(range, in: attributedString.string)
-      attributedString.addAttribute(.font, value: UIFont.Kyber.medium(with: 14), range: r)
-    }
-    let rangeAddress = attributedString.string.ranges(of: "address".toBeLocalised().lowercased())
-    rangeAddress.forEach { (range) in
+    if let range = attributedString.string.range(of: "only.send.ETH.or.any.ERC-20".toBeLocalised()) {
       let r = NSRange(range, in: attributedString.string)
       attributedString.addAttribute(.font, value: UIFont.Kyber.medium(with: 14), range: r)
     }

@@ -793,5 +793,6 @@
 "The.actual.cost.of.the.transaction.is.generally.lower" = "The actual cost of the transaction is generally lower than the maximum estimated cost.";
 
 "Contract Interaction" = "Contract Interaction";
-"send.only.ERC20.tokens.to.this.address" = "Send only ERC20 tokens or ETH to this address.\n\n*Sending tokens other than ERC20 tokens or ETH to this address may result in loss of your funds";
+"send.only.ERC20.tokens.to.this.address" = "Only send ETH or any ERC-20 token to this address\n\n*Sending any other tokens may result in loss of your funds";
 "Something is wrong? View your wallet on" = "Something is wrong? View your wallet on";
+"only.send.ETH.or.any.ERC-20" = "Only send ETH or any ERC-20 token to this address";
