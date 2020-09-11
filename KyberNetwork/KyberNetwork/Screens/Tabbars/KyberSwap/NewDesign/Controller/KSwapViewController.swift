@@ -981,7 +981,7 @@ extension KSwapViewController {
     let defaultValue = self.viewModel.getDefaultGasLimit(for: from, to: to)
     let estValue = self.viewModel.getEstValueGasLimit(for: from, to: to, amount: amount)
     var gasValue = BigInt()
-    if from.isGasFixed || to.isGasFixed {
+    if (from.isGasFixed || to.isGasFixed) && !self.viewModel.isAbleToUseReverseRouting && !self.viewModel.isUsingReverseRouting {
       gasValue = max(defaultValue, estValue)
     } else {
       gasValue = min(defaultValue, estValue)
