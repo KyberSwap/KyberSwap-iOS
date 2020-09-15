@@ -665,6 +665,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           DispatchQueue.main.async {
             self.rootViewController.coordinatorDidUpdateSwapHint(from: from, to: to, hint: hint)
           }
+        } else {
+          self.rootViewController.coordinatorFailUpdateSwapHint(from: from, to: to)
         }
       }
     }

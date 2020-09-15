@@ -738,6 +738,13 @@ class KSwapViewController: KNBaseViewController {
     self.update(notificationsCount: numUnread)
   }
 
+  @objc func notificationReachabilityDidUpdate(notification: Notification) {
+    guard self.isViewSetup else {
+      return
+    }
+    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: nil)
+  }
+
   func update(notificationsCount: Int) {
     self.hasUnreadNotification.isHidden = notificationsCount == 0
   }
@@ -876,6 +883,13 @@ extension KSwapViewController {
       name: nameUpdateListNotificationKey,
       object: nil
     )
+    let notiReachabilityName = Notification.Name(rawValue: KNReachability.kNetworkReachableNotificationKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.notificationReachabilityDidUpdate(notification:)),
+      name: notiReachabilityName,
+      object: nil
+    )
   }
 
   fileprivate func removeObserveNotification() {
@@ -884,6 +898,9 @@ extension KSwapViewController {
 
     let nameUpdateListNotificationKey = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.removeObserver(self, name: nameUpdateListNotificationKey, object: nil)
+
+    let notiReachabilityName = Notification.Name(rawValue: KNReachability.kNetworkReachableNotificationKey)
+    NotificationCenter.default.removeObserver(self, name: notiReachabilityName, object: nil)
   }
 }
 
@@ -1134,6 +1151,15 @@ extension KSwapViewController {
   func coordinatorDidUpdateSwapHint(from: String, to: String, hint: String) {
     if from == self.viewModel.from.address && to == self.viewModel.to.address {
       self.viewModel.swapHint = (from, to, hint)
+      if self.advancedSettingsView.updateIsAbleToUseReverseRouting(value: self.viewModel.isAbleToUseReverseRouting) && self.advancedSettingsView.isExpanded {
+        self.advancedSettingsView.displayViewButtonPressed(self)
+      }
+    }
+  }
+
+  func coordinatorFailUpdateSwapHint(from: String, to: String) {
+    if self.viewModel.swapHint.0 != from || self.viewModel.swapHint.1 != to {
+      self.viewModel.swapHint = (from, to, "")
       if self.advancedSettingsView.updateIsAbleToUseReverseRouting(value: self.viewModel.isAbleToUseReverseRouting) && self.advancedSettingsView.isExpanded {
         self.advancedSettingsView.displayViewButtonPressed(self)
       }
