@@ -742,7 +742,7 @@ class KSwapViewController: KNBaseViewController {
     guard self.isViewSetup else {
       return
     }
-    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: nil)
+    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
   }
 
   func update(notificationsCount: Int) {
