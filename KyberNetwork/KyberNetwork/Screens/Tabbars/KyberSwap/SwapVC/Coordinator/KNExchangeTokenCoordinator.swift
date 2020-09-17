@@ -755,7 +755,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.updateExpectedRateFromAPIIfNeeded(from: from, to: to, amount: amount, showError: showError)
     } else {
       DispatchQueue.main.async {
-        self.updateEstimatedRate(from: from, to: to, amount: amount, showError: showError, withKyber: true)
+        self.updateEstimatedRate(from: from, to: to, amount: amount, hint: hint, showError: showError, withKyber: true)
       }
     }
   }
