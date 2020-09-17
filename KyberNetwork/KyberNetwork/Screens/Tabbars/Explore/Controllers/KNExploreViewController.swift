@@ -48,6 +48,7 @@ class KNExploreViewController: KNBaseViewController {
 
   var viewModel: KNExploreViewModel
   weak var delegate: KNExploreViewControllerDelegate?
+  fileprivate var isViewSetup: Bool = false
 
   init(viewModel: KNExploreViewModel) {
     self.viewModel = viewModel
@@ -61,6 +62,8 @@ class KNExploreViewController: KNBaseViewController {
   deinit {
     let name = Notification.Name(kUpdateListNotificationsKey)
     NotificationCenter.default.removeObserver(self, name: name, object: nil)
+    let notiReachabilityName = Notification.Name(rawValue: KNReachability.kNetworkReachableNotificationKey)
+    NotificationCenter.default.removeObserver(self, name: notiReachabilityName, object: nil)
   }
 
   override func viewDidLoad() {
@@ -88,6 +91,13 @@ class KNExploreViewController: KNBaseViewController {
       name: name,
       object: nil
     )
+    let notiReachabilityName = Notification.Name(rawValue: KNReachability.kNetworkReachableNotificationKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.notificationReachabilityDidUpdate(notification:)),
+      name: notiReachabilityName,
+      object: nil
+    )
     self.notificationDidUpdate(nil)
     self.delegate?.kExploreViewController(self, run: .getListMobileBanner)
     self.displayLoading()
@@ -95,6 +105,9 @@ class KNExploreViewController: KNBaseViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    if !self.isViewSetup {
+      self.isViewSetup = true
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -157,6 +170,14 @@ class KNExploreViewController: KNBaseViewController {
     }
     self.pendingTxLabel.text = "  \(transactions.count)  "
     self.pendingTxLabel.isHidden = transactions.isEmpty
+  }
+
+  @objc func notificationReachabilityDidUpdate(notification: Notification) {
+    guard self.isViewSetup else {
+      return
+    }
+    self.delegate?.kExploreViewController(self, run: .getListMobileBanner)
+    self.displayLoading()
   }
 }
 
