@@ -691,7 +691,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         )
         completion?(nil)
       case .failure(let error):
-        if showError {
+        if showError && !withKyber {
           if case let err as APIKit.SessionTaskError = error.error, case .connectionError = err {
             self.navigationController.showErrorTopBannerMessage(
               with: NSLocalizedString("error", value: "Error", comment: ""),
@@ -712,6 +712,9 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
             rate: BigInt(0),
             slippageRate: BigInt(0)
           )
+        }
+        if withKyber {
+          self.updateExpectedRateFromAPIIfNeeded(from: from, to: to, amount: amount, showError: showError)
         }
         completion?(error)
       }
