@@ -542,6 +542,7 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true, forSwapAllETH: self.viewModel.from.isETH)
     self.updateTokensView()
     self.updateViewAmountDidChange()
+    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFromStringParameter)
     if sender as? KSwapViewController != self {
       if self.viewModel.from.isETH {
         self.showSuccessTopBannerMessage(
@@ -1235,11 +1236,11 @@ extension KSwapViewController: UITextFieldDelegate {
     if self.viewModel.isFocusingFromAmount {
       self.fromAmountTextField.textColor = self.viewModel.amountTextFieldColor
       self.toAmountTextField.textColor = UIColor.Kyber.mirage
-      self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFromStringParameter)
     } else {
       self.toAmountTextField.textColor = self.viewModel.amountTextFieldColor
       self.fromAmountTextField.textColor = UIColor.Kyber.mirage
     }
+    self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFromStringParameter)
     self.updateEstimatedRate(showError: true)
     self.updateEstimatedGasLimit()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
