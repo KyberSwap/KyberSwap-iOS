@@ -451,12 +451,16 @@ class KSwapViewModel {
   }
 
   func updateAmount(_ amount: String, isSource: Bool, forSwapAllETH: Bool = false) {
+    var newAmount = amount
+    if amount.contains(",") {
+      newAmount = amount.replacingOccurrences(of: ",", with: ".")
+    }
     if isSource {
-      self.amountFrom = amount
+      self.amountFrom = newAmount
       guard !forSwapAllETH else { return }
       self.isSwapAllBalance = false
     } else {
-      self.amountTo = amount
+      self.amountTo = newAmount
     }
   }
 
