@@ -162,7 +162,9 @@ class KSwapViewController: KNBaseViewController {
       withTimeInterval: KNLoadingInterval.seconds30,
       repeats: true,
       block: { [weak self] _ in
-        self?.updateEstimatedRate()
+        guard let `self` = self else { return }
+        self.updateEstimatedRate()
+        self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
       }
     )
 
@@ -1232,6 +1234,7 @@ extension KSwapViewController: UITextFieldDelegate {
     if self.viewModel.isFocusingFromAmount {
       self.fromAmountTextField.textColor = self.viewModel.amountTextFieldColor
       self.toAmountTextField.textColor = UIColor.Kyber.mirage
+      self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
     } else {
       self.toAmountTextField.textColor = self.viewModel.amountTextFieldColor
       self.fromAmountTextField.textColor = UIColor.Kyber.mirage
