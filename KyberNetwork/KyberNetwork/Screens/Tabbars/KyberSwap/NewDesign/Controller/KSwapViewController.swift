@@ -164,7 +164,6 @@ class KSwapViewController: KNBaseViewController {
       block: { [weak self] _ in
         guard let `self` = self else { return }
         self.updateEstimatedRate()
-        self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
       }
     )
 
@@ -175,7 +174,9 @@ class KSwapViewController: KNBaseViewController {
       withTimeInterval: KNLoadingInterval.seconds60,
       repeats: true,
       block: { [weak self] _ in
-        self?.updateEstimatedGasLimit()
+        guard let `self` = self else { return }
+        self.updateEstimatedGasLimit()
+        self.updateSwapHint(from: self.viewModel.from, to: self.viewModel.to, amount: self.viewModel.amountFrom)
       }
     )
 
