@@ -9,7 +9,7 @@ import Moya
 
 enum KSwapViewEvent {
   case searchToken(from: TokenObject, to: TokenObject, isSource: Bool)
-  case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, showError: Bool)
+  case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String, showError: Bool)
   case estimateComparedRate(from: TokenObject, to: TokenObject, hint: String) // compare to show warning
   case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, hint: String)
   case setGasPrice(gasPrice: BigInt, gasLimit: BigInt)
@@ -571,6 +571,7 @@ class KSwapViewController: KNBaseViewController {
       from: self.viewModel.from,
       to: self.viewModel.to,
       amount: self.viewModel.amountToEstimate,
+      hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address),
       showError: showError
     )
     self.delegate?.kSwapViewController(self, run: event)

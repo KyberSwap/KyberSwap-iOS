@@ -23,7 +23,7 @@ class KNGeneralProvider {
   }()
 
   lazy var web3SwiftKyber: Web3Swift = {
-    if let customRPC = KNEnvironment.default.customRPC, let path = URL(string: customRPC.endpointKyber + KNEnvironment.default.nodeEndpoint) {
+    if let path = URL(string: KNEnvironment.default.kyberEndpointURL + KNEnvironment.default.nodeEndpoint) {
       return Web3Swift(url: path)
     } else {
       return Web3Swift()
@@ -186,7 +186,7 @@ class KNGeneralProvider {
     }
   }
 
-  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
+  func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", withKyber: Bool = false, completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
     let source: Address = Address(string: from.contract)!
     let dest: Address = Address(string: to.contract)!
     self.getExpectedRateEncodeData(source: source, dest: dest, amount: amount, hint: hint) { [weak self] dataResult in
@@ -194,16 +194,33 @@ class KNGeneralProvider {
       switch dataResult {
       case .success(let data):
         let callRequest = CallRequest(to: self.networkAddress.description, data: data)
-        let getRateRequest = EtherServiceAlchemyRequest(batch: BatchFactory().create(callRequest))
-        DispatchQueue.global().async {
-          Session.send(getRateRequest) { [weak self] getRateResult in
-            guard let `self` = self else { return }
-            DispatchQueue.main.async {
-              switch getRateResult {
-              case .success(let rateData):
-                self.getExpectedRateDecodeData(rateData: rateData, completion: completion)
-              case .failure(let error):
-                completion(.failure(AnyError(error)))
+        if withKyber {
+          let getRateRequest = EtherServiceKyberRequest(batch: BatchFactory().create(callRequest))
+          DispatchQueue.global().async {
+            Session.send(getRateRequest) { [weak self] getRateResult in
+              guard let `self` = self else { return }
+              DispatchQueue.main.async {
+                switch getRateResult {
+                case .success(let rateData):
+                  self.getExpectedRateDecodeData(rateData: rateData, completion: completion)
+                case .failure(let error):
+                  completion(.failure(AnyError(error)))
+                }
+              }
+            }
+          }
+        } else {
+          let getRateRequest = EtherServiceAlchemyRequest(batch: BatchFactory().create(callRequest))
+          DispatchQueue.global().async {
+            Session.send(getRateRequest) { [weak self] getRateResult in
+              guard let `self` = self else { return }
+              DispatchQueue.main.async {
+                switch getRateResult {
+                case .success(let rateData):
+                  self.getExpectedRateDecodeData(rateData: rateData, completion: completion)
+                case .failure(let error):
+                  completion(.failure(AnyError(error)))
+                }
               }
             }
           }

@@ -198,4 +198,11 @@ enum KNEnvironment: Int {
     default: return KNSecret.devApiURL
     }
   }
+
+  var kyberEndpointURL: String {
+    switch KNEnvironment.default {
+    case .mainnetTest, .production, .staging: return KNSecret.mainnetKyberNodeURL
+    default: return KNSecret.ropstenKyberNodeURL
+    }
+  }
 }
