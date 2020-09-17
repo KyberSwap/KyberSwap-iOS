@@ -360,6 +360,15 @@ class KSwapViewModel {
     return ethBal >= fee
   }
 
+  var amountFromStringParameter: String {
+    var param = self.amountFrom.removeGroupSeparator()
+    let decimals: Character = EtherNumberFormatter.short.decimalSeparator.first!
+    if String(decimals) != "." {
+      param = param.replacingOccurrences(of: String(decimals), with: ".")
+    }
+    return param
+  }
+
   // MARK: Update data
   func updateWallet(_ wallet: Wallet) {
     self.wallet = wallet
@@ -451,16 +460,12 @@ class KSwapViewModel {
   }
 
   func updateAmount(_ amount: String, isSource: Bool, forSwapAllETH: Bool = false) {
-    var newAmount = amount
-    if amount.contains(",") {
-      newAmount = amount.replacingOccurrences(of: ",", with: ".")
-    }
     if isSource {
-      self.amountFrom = newAmount
+      self.amountFrom = amount
       guard !forSwapAllETH else { return }
       self.isSwapAllBalance = false
     } else {
-      self.amountTo = newAmount
+      self.amountTo = amount
     }
   }
 

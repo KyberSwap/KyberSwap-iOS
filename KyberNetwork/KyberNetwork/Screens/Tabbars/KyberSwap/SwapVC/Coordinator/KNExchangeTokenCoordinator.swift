@@ -705,9 +705,6 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
               time: 1.5
             )
           }
-          if withKyber { // Fallback method when load fail with kyber node
-            self.updateExpectedRateFromAPIIfNeeded(from: from, to: to, amount: amount, showError: showError)
-          }
           self.rootViewController.coordinatorDidUpdateEstimateRate(
             from: from,
             to: to,
