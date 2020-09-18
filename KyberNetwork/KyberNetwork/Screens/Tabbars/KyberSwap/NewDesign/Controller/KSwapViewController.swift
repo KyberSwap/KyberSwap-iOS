@@ -1155,7 +1155,13 @@ extension KSwapViewController {
 
   func coordinatorDidUpdateSwapHint(from: String, to: String, hint: String) {
     if from == self.viewModel.from.address && to == self.viewModel.to.address {
+      let isHintChanged = hint != self.viewModel.swapHint.2
       self.viewModel.swapHint = (from, to, hint)
+      if isHintChanged {
+        // reload rate and gas limit when hint is changed
+        self.updateEstimatedRate(showError: false, showLoading: true)
+        self.updateEstimatedGasLimit()
+      }
       if self.advancedSettingsView.updateIsAbleToUseReverseRouting(value: self.viewModel.isAbleToUseReverseRouting) && self.advancedSettingsView.isExpanded {
         self.advancedSettingsView.displayViewButtonPressed(self)
       }
@@ -1164,7 +1170,13 @@ extension KSwapViewController {
 
   func coordinatorFailUpdateSwapHint(from: String, to: String) {
     if self.viewModel.swapHint.0 != from || self.viewModel.swapHint.1 != to {
+      let isHintChanged = "" != self.viewModel.swapHint.2 && "0x" != self.viewModel.swapHint.2
       self.viewModel.swapHint = (from, to, "")
+      if isHintChanged {
+        // reload rate and gas limit when hint is changed
+        self.updateEstimatedRate(showError: false, showLoading: true)
+        self.updateEstimatedGasLimit()
+      }
       if self.advancedSettingsView.updateIsAbleToUseReverseRouting(value: self.viewModel.isAbleToUseReverseRouting) && self.advancedSettingsView.isExpanded {
         self.advancedSettingsView.displayViewButtonPressed(self)
       }

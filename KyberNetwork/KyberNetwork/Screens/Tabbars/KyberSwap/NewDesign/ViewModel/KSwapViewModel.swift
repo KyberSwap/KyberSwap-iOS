@@ -515,12 +515,7 @@ class KSwapViewModel {
   }
 
   func updateEstimateGasLimit(for from: TokenObject, to: TokenObject, amount: BigInt, gasLimit: BigInt) {
-    let isAmountChanged: Bool = {
-      if self.amountFromBigInt == amount { return false }
-      let doubleValue = Double(amount) / pow(10.0, Double(self.from.decimals))
-      return !(self.amountFromBigInt.isZero && doubleValue == 0.001)
-    }()
-    if from == self.from, to == self.to, !isAmountChanged {
+    if from == self.from, to == self.to, !self.isAmountFromChanged(newAmount: amount, oldAmount: self.amountFromBigInt) {
       self.estimateGasLimit = gasLimit
     }
   }
@@ -538,19 +533,23 @@ class KSwapViewModel {
     return KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
   }
 
+  // if different less than 3%, consider as no changes
+  private func isAmountFromChanged(newAmount: BigInt, oldAmount: BigInt) -> Bool {
+    if oldAmount == newAmount { return false }
+    let different = abs(oldAmount - newAmount)
+    if different <= oldAmount * BigInt(3) / BigInt(100) { return false }
+    let doubleValue = Double(newAmount) / pow(10.0, Double(self.from.decimals))
+    return !(oldAmount.isZero && doubleValue == 0.001)
+  }
+
   func updateEstValueGasLimit(for from: TokenObject, to: TokenObject, amount: BigInt, gasLimit: BigInt) {
-    let isAmountChanged: Bool = {
-      if self.amountFromBigInt == amount { return false }
-      let doubleValue = Double(amount) / pow(10.0, Double(self.from.decimals))
-      return !(self.amountFromBigInt.isZero && doubleValue == 0.001)
-    }()
-    if from == self.from, to == self.to, !isAmountChanged {
+    if from == self.from, to == self.to, !self.isAmountFromChanged(newAmount: amount, oldAmount: self.amountFromBigInt) {
       self.estValueGasLimit = (from, to, amount, gasLimit)
     }
   }
 
   func getEstValueGasLimit(for from: TokenObject, to: TokenObject, amount: BigInt) -> BigInt {
-    if from == self.estValueGasLimit.0, to == self.estValueGasLimit.1, amount == self.estValueGasLimit.2 {
+    if from == self.estValueGasLimit.0, to == self.estValueGasLimit.1, !self.isAmountFromChanged(newAmount: amount, oldAmount: self.estValueGasLimit.2) {
       return self.self.estValueGasLimit.3
     }
     return KNGasConfiguration.calculateDefaultGasLimit(from: from, to: to)
