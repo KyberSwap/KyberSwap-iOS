@@ -7,7 +7,7 @@ import Moya
 
 //swiftlint:disable file_length
 
-enum KSwapViewEvent {
+enum KSwapViewEvent: Equatable {
   case searchToken(from: TokenObject, to: TokenObject, isSource: Bool)
   case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String, showError: Bool)
   case estimateComparedRate(from: TokenObject, to: TokenObject, hint: String) // compare to show warning
@@ -19,6 +19,15 @@ enum KSwapViewEvent {
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
   case referencePrice(from: TokenObject, to: TokenObject)
   case swapHint(from: TokenObject, to: TokenObject, amount: String?)
+
+  static public func == (left: KSwapViewEvent, right: KSwapViewEvent) -> Bool {
+    switch (left, right) {
+    case let (.estimateGas(fromL, toL, amountL, gasPriceL, hintL), .estimateGas(fromR, toR, amountR, gasPriceR, hintR)):
+      return fromL == fromR && toL == toR && amountL == amountR && gasPriceL == gasPriceR && hintL == hintR
+    default:
+      return false //Not implement
+    }
+  }
 }
 
 protocol KSwapViewControllerDelegate: class {
@@ -82,6 +91,8 @@ class KSwapViewController: KNBaseViewController {
   @IBOutlet weak var hasUnreadNotification: UIView!
   fileprivate var estRateTimer: Timer?
   fileprivate var estGasLimitTimer: Timer?
+  fileprivate var previousCallEvent: KSwapViewEvent?
+  fileprivate var previousCallTimeStamp: TimeInterval = 0
 
   lazy var hamburgerMenu: KNBalanceTabHamburgerMenuViewController = {
     let viewModel = KNBalanceTabHamburgerMenuViewModel(
@@ -604,6 +615,12 @@ class KSwapViewController: KNBaseViewController {
       gasPrice: self.viewModel.gasPrice,
       hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address)
     )
+    //Dismiss event call if the same parameter call within 5 sec
+    if let previousEvent = self.previousCallEvent, previousEvent == event, Date().timeIntervalSince1970 - self.previousCallTimeStamp < 5 {
+      return
+    }
+    self.previousCallEvent = event
+    self.previousCallTimeStamp = Date().timeIntervalSince1970
     self.delegate?.kSwapViewController(self, run: event)
   }
   /*
