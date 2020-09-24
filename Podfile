@@ -8,7 +8,7 @@ target 'KyberNetwork' do
   pod 'BigInt', '~> 3.1.0'
   pod 'JSONRPCKit', '~> 3.0.0' #:git=> 'https://github.com/bricklife/JSONRPCKit.git'
   pod 'APIKit', '~> 3.2.1'
-  pod 'Eureka', '~> 5.2.1'
+  pod 'Eureka', '~> 5.3.0'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'StatefulViewController', '~> 3.0'
   pod 'QRCodeReaderViewController', '~> 4.0.2' #:git=>'https://github.com/yannickl/QRCodeReaderViewController.git', :branch=>'master'
