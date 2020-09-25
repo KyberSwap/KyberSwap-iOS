@@ -39,7 +39,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   var detailsAttributes: [NSAttributedStringKey: Any] {
     return [
       NSAttributedStringKey.foregroundColor: UIColor(red: 20, green: 25, blue: 39),
-      NSAttributedStringKey.font: self.transaction.state == .pending ? UIFont.Kyber.medium(with: 12) : UIFont.Kyber.medium(with: 14),
+      NSAttributedStringKey.font: UIFont.Kyber.medium(with: 14),
     ]
   }
 
@@ -116,10 +116,10 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
       self.transferButton.isHidden = true
       self.swapButton.isHidden = true
-      self.rateValueLabel.isHidden = true
+      self.rateValueLabel.isHidden = rate == nil ? true : false
 
       self.actionButtonHeightConstraints.forEach({ $0.constant = 0.0 })
-      self.bottomPaddingBroadcastConstraint.constant = 32.0
+      self.bottomPaddingBroadcastConstraint.constant = 64.0
       self.view.layoutSubviews()
     } else if self.transaction.state == .completed {
       self.titleIconImageView.image = UIImage(named: "tx_success_icon")

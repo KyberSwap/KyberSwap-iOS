@@ -254,13 +254,10 @@ extension KNTransaction {
       return .unknown
     }()
     let (details, rate): (String, String?) = {
-      if status == .pending {
-        return ("Waiting for the transaction to be mined".toBeLocalised(), nil)
-      }
       if status == .failed {
         return ("\(self.id.prefix(12))...\(self.id.suffix(10))", nil)
       }
-      guard let object = self.localizedOperations.first, status == .failed || status == .success else { return (status.statusDetails, nil) }
+      guard let object = self.localizedOperations.first, status == .failed || status == .success || status == .pending else { return (status.statusDetails, nil) }
       let storage: KNTokenStorage? = {
         do {
           let keystore = try EtherKeystore()
