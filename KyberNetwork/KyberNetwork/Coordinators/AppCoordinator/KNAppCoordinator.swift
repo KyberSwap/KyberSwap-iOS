@@ -123,13 +123,13 @@ class KNAppCoordinator: NSObject, Coordinator {
         secondButtonTitle: "backup".toBeLocalised(),
         firstButtonTitle: "Later".toBeLocalised(),
         secondButtonAction: {
+          self.tabbarController = nil
           self.landingPageCoordinator.updateNewWallet(wallet: currentWallet)
           self.addCoordinator(self.landingPageCoordinator)
           self.landingPageCoordinator.start()
         },
         firstButtonAction: nil)
       self.navigationController.present(alert, animated: true, completion: {
-        self.tabbarController = nil
       })
       return false
     } else {
