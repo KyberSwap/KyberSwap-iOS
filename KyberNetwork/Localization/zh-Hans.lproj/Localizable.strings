@@ -778,7 +778,7 @@
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "管理订单\n检查您的订单历史记录、待处理订单等。您也可以对订单进行修改。";
 "Speed Up or Cancel transaction." = "加快交易速度或取消交易。";
 
-"There.is.a.difference.between.the.estimated.price" = "您要的兑换金额的估计价格与参考价格之间存在%@的差异。\n请注意：估计价格取决于您的兑换金额。参考价格来自Chainlink和Kyber Network。";
+"There.is.a.difference.between.the.estimated.price" = "您兑换金额的估计价格与参考价格之间存在%@的差异。\ n注意：估计价格取决于您的兑换金额。参考价格来自Chainlink、Band protocol 和Kyber Network。";
 
 "Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas费用是您支付给矿工的费用（并非Kyberswap），以在区块链上进行交易。 gas费用的高低反映了交易打包出块的优先级。";
 "Wallet.must.be.backed.up" = "请备份您的钱包。以便在手机发生损坏、丢失或被盗的情况下，能帮助您找回钱包.";

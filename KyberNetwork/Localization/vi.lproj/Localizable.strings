@@ -778,7 +778,7 @@
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "Quản lý lệnh\nKiểm tra lịch sử lệnh, lệnh đang chờ v.v… Bạn cũng có thể thay đổi lệnh này.";
 "Speed Up or Cancel transaction." = "Tăng tốc hoặc hủy giao dịch";
 
-"There.is.a.difference.between.the.estimated.price" = "Có chênh lệch %@ giữa giá dự tính và giá tham khảo.\nLưu ý: giá dự tính phụ thuộc vào khối lượng mà bạn giao dịch. Giá tham khảo được lấy từ Chainlink và Kyber Network";
+"There.is.a.difference.between.the.estimated.price" = "Có chênh lệch %@ giữa giá dự tính và giá tham khảo.\nLưu ý: giá dự tính phụ thuộc vào khối lượng mà bạn giao dịch. Giá tham khảo được lấy từ Chainlink, Band protocol và Kyber Network";
 
 "Gas.fee.is.the.fee.you.pay.to.the.miner" = "Phí gas là phí bạn phải trả cho miner (không phải KyberSwap) để họ xác nhận giao dịch của bạn trên blockchain. Phí gas bạn chọn sẽ ảnh hưởng đến tốc độ giao dịch.";
 "Wallet.must.be.backed.up" = "Vui lòng sao lưu ví của bạn. Nó sẽ giúp bạn khôi phục lại ví nếu điện thoại của bạn bị hỏng, mất hoặc bị cướp.";

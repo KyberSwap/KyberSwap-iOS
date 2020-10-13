@@ -778,7 +778,7 @@
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "오더(주문) 관리\n오더 내역과 펜딩 내역 등을 확인할 수 있습니다. 오더를 수정하기도 가능합니다.";
 "Speed Up or Cancel transaction." = "거래 속도를 높이거나 거래를 취소할 수 있습니다.";
 
-"There.is.a.difference.between.the.estimated.price" = "교환하려는 토큰 양에 대한 추정 가격과 참고 가격 간 차이가  %@ 입니다.\n주의: 추정 가격은 교환하려는 토큰 양에 따라 다릅니다. 참고 가격은 Kyber Network와 Chainlink에서 가져옵니다.";
+"There.is.a.difference.between.the.estimated.price" = "교환하려는 양에 대한 예상 가격과 참고 가격이 %@ 만큼 차이납니다. \n참고: 예상가격은 교환 양에 따라 달라집니다. 참고 가격은 Chainlink, Band protocol 그리고 Kyber Network에서 가져옵니다.";
 
 "Gas.fee.is.the.fee.you.pay.to.the.miner" = "가스비는 (카이버 스왑이 아닌) 블록체인 상의 트랜잭션을 채굴하는 채굴자에게 지불하는 비용입니다.  가스의 가격은 보통 얼마나 빠르게 트랜잭션이 채굴되기 원하는 지에 따라 책정됩니다.";
 "Wallet.must.be.backed.up" = "지갑을 다른 곳에 백업해 주세요. 지갑이 백업되어 있으면 핸드폰의 고장, 분실, 도난의 경우 복원이 가능합니다.";
