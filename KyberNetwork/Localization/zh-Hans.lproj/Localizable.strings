@@ -774,7 +774,6 @@
 "Step 3 (optional)\nAdjust gas fees and slippage" = " 第3步骤（可选）\n调整燃料费用和滑点";
 "Step 1\nSelect pair you want to trade" = "第1步骤\n选择您要交易的代币对";
 "Step 2\nSet your desired price. Press Buy/Sell and its done." = "第2步骤\n设置您期望的价格。点击买/卖选项并完成。";
-"Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees." = "0费用\n如果您的钱包中持有2000 KNC，则使用限价订单交易时无须交易费。";
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "管理订单\n检查您的订单历史记录、待处理订单等。您也可以对订单进行修改。";
 "Speed Up or Cancel transaction." = "加快交易速度或取消交易。";
 

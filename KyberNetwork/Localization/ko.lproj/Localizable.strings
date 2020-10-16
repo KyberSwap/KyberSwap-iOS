@@ -774,7 +774,6 @@
 "Step 3 (optional)\nAdjust gas fees and slippage" = "3 단계 (선택사항)\n가스비와 슬리피지를 조정합니다.";
 "Step 1\nSelect pair you want to trade" = "1 단계\n거래 하고자 하는 쌍(페어)를 선택합니다.";
 "Step 2\nSet your desired price. Press Buy/Sell and its done." = "2 단계\n원하는 가격을 설정합니다. 매도/매수를 클릭하면 거래가 완료됩니다.";
-"Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees." = "수수료 없음\n지갑에 2,000KNC 이상 소유하고 있는 경우, 수수료 없이 리밋오더 거래를 만들 수 있습니다.";
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "오더(주문) 관리\n오더 내역과 펜딩 내역 등을 확인할 수 있습니다. 오더를 수정하기도 가능합니다.";
 "Speed Up or Cancel transaction." = "거래 속도를 높이거나 거래를 취소할 수 있습니다.";
 

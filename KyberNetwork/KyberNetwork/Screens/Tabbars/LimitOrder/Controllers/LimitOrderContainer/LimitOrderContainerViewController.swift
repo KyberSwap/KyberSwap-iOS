@@ -412,8 +412,6 @@ class LimitOrderContainerViewController: KNBaseViewController {
     case 2:
       pointsAndRadius = [(CGPoint(x: 102.0, y: firstPage.comparePriceLabel.frame.midY + contentOrigin.y), 111)]
     case 3:
-      pointsAndRadius = [(CGPoint(x: firstPage.feeLabel.frame.origin.x, y: firstPage.feeLabel.frame.midY + contentOrigin.y), 72.5)]
-    case 4:
       let bottomOffset = CGPoint(x: 0, y: firstPage.containerScrollView.contentSize.height - firstPage.containerScrollView.bounds.size.height)
       if bottomOffset.y > 0 {
         pointsAndRadius = [(CGPoint(x: firstPage.mainManageOrdersButton.frame.midX, y: self.view.frame.size.height - 24 - 49), 70.5)]
@@ -430,7 +428,7 @@ class LimitOrderContainerViewController: KNBaseViewController {
 
   override func quickTutorialNextAction() {
     self.dismissTutorialOverlayer()
-    if self.currentTutorialStep == 4 {
+    if self.currentTutorialStep == 3 {
       let firstPage = self.pages.first
       firstPage?.containerScrollView.setContentOffset(CGPoint.zero, animated: true)
       NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForLimitOrderView)

@@ -316,17 +316,6 @@ extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegat
       ])
       contentTopOffset = 422
     case 3:
-      attributedString = NSMutableAttributedString(string: "Zero Fees\nIf you hold 2000 KNC in your wallet, you can make limit order trades with 0 trading fees.".toBeLocalised(), attributes: [
-        .font: UIFont.Kyber.regular(with: 18),
-        .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
-        .kern: 0.0,
-      ])
-      if let range = attributedString.string.range(of: "Zero Fees".toBeLocalised()) {
-        let r = NSRange(range, in: attributedString.string)
-        attributedString.addAttribute(.font, value: UIFont.Kyber.medium(with: 18), range: r)
-      }
-      contentTopOffset = 172
-    case 4:
       attributedString = NSMutableAttributedString(string: "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well.".toBeLocalised(), attributes: [
         .font: UIFont.Kyber.regular(with: 18),
         .foregroundColor: UIColor(white: 1.0, alpha: 1.0),
