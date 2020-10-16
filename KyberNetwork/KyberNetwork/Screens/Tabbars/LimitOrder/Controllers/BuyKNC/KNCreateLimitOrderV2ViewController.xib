@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -33,6 +32,7 @@
                 <outlet property="discountPercentContainerView" destination="Q3x-cw-BJl" id="4Fy-gd-MOB"/>
                 <outlet property="feeLabel" destination="w93-ly-3v6" id="45x-RM-Fg5"/>
                 <outlet property="feeTextLabel" destination="nHX-1G-BQB" id="KPn-dg-BiO"/>
+                <outlet property="learnMoreButton" destination="J2i-XH-xTw" id="tME-8g-Hn5"/>
                 <outlet property="mainManageOrdersButton" destination="0CU-e3-57j" id="lpf-fF-H1z"/>
                 <outlet property="mainManagerOrderButtonHeightContraint" destination="m1z-9c-dJJ" id="XOe-Ir-V38"/>
                 <outlet property="priceField" destination="u6a-j7-MXP" id="BiV-Cv-Mgh"/>
@@ -71,7 +71,7 @@
                                             <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AaF-FI-Nql">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AaF-FI-Nql">
                                             <rect key="frame" x="0.0" y="0.0" width="90" height="48"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
@@ -107,7 +107,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="oAE-lN-bdT" secondAttribute="bottom" id="2bh-eD-FRh"/>
                                 <constraint firstItem="akA-2Z-PbE" firstAttribute="centerY" secondItem="bZa-6n-jh8" secondAttribute="centerY" id="ApO-k4-vTw"/>
@@ -166,7 +166,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstItem="ljB-ID-F8A" firstAttribute="centerY" secondItem="vty-AQ-Ibr" secondAttribute="centerY" id="Efn-At-yFS"/>
                                 <constraint firstItem="5EL-QX-h9b" firstAttribute="leading" secondItem="vty-AQ-Ibr" secondAttribute="leading" id="TuH-0F-DaX"/>
@@ -185,7 +185,7 @@
                             <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mne-4R-iNo">
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mne-4R-iNo">
                             <rect key="frame" x="307" y="187" width="50" height="36"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -200,7 +200,7 @@
                                 <action selector="quickFillAmountButtonTapped:" destination="-1" eventType="touchUpInside" id="CvO-DT-gxk"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlA-gO-EWe">
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlA-gO-EWe">
                             <rect key="frame" x="250" y="187" width="50" height="36"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -215,7 +215,7 @@
                                 <action selector="quickFillAmountButtonTapped:" destination="-1" eventType="touchUpInside" id="g5e-KN-3fu"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lek-GO-7FX">
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lek-GO-7FX">
                             <rect key="frame" x="193" y="187" width="50" height="36"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -236,7 +236,7 @@
                             <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXi-aC-RXT">
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXi-aC-RXT">
                             <rect key="frame" x="18" y="187" width="118" height="36"/>
                             <connections>
                                 <action selector="quickFillAmountButtonTapped:" destination="-1" eventType="touchUpInside" id="Vwh-sT-lnp"/>
@@ -248,6 +248,16 @@
                             <color key="textColor" red="0.3529411764705882" green="0.36862745098039218" blue="0.40392156862745099" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J2i-XH-xTw">
+                            <rect key="frame" x="295" y="304" width="62" height="27"/>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="12"/>
+                            <state key="normal" title="Learn more">
+                                <color key="titleColor" red="0.97254901959999995" green="0.62352941179999999" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="learnMoreButtonTapped:" destination="-1" eventType="touchUpInside" id="I7v-5U-62Z"/>
+                            </connections>
+                        </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w93-ly-3v6">
                             <rect key="frame" x="59.5" y="317.5" width="0.0" height="0.0"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
@@ -279,7 +289,7 @@
                                 <constraint firstAttribute="bottom" secondItem="BM7-kR-srb" secondAttribute="bottom" constant="5" id="yz6-bU-tWd"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAl-Dw-MWf">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAl-Dw-MWf">
                             <rect key="frame" x="18" y="378" width="339" height="45"/>
                             <color key="backgroundColor" red="0.19215686274509802" green="0.79607843137254897" blue="0.61960784313725492" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -293,7 +303,7 @@
                                 <action selector="sumitButtonTapped:" destination="-1" eventType="touchUpInside" id="58R-E2-3HV"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CU-e3-57j">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0CU-e3-57j">
                             <rect key="frame" x="18" y="431" width="339" height="45"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -344,7 +354,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="X98-Gd-TOp" secondAttribute="bottom" id="0kE-mv-gqZ"/>
                                 <constraint firstItem="X98-Gd-TOp" firstAttribute="leading" secondItem="wx0-v5-8Mb" secondAttribute="leading" id="cFM-GX-S0A"/>
@@ -369,7 +379,7 @@
                                     <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwF-tE-rhQ">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwF-tE-rhQ">
                                     <rect key="frame" x="258" y="0.0" width="97" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="nhi-En-g9C"/>
@@ -424,11 +434,13 @@
                         <constraint firstItem="sBz-ns-jKw" firstAttribute="leading" secondItem="w93-ly-3v6" secondAttribute="leading" id="AQI-Eo-64k"/>
                         <constraint firstItem="IHa-BU-feb" firstAttribute="top" secondItem="vty-AQ-Ibr" secondAttribute="bottom" constant="17" id="B2U-qh-SLn"/>
                         <constraint firstItem="cH9-QG-LFW" firstAttribute="top" secondItem="0CU-e3-57j" secondAttribute="bottom" constant="8" id="DiU-5e-X1U"/>
+                        <constraint firstAttribute="trailing" secondItem="J2i-XH-xTw" secondAttribute="trailing" constant="18" id="DmZ-Ir-Q6b"/>
                         <constraint firstItem="mne-4R-iNo" firstAttribute="leading" secondItem="YlA-gO-EWe" secondAttribute="trailing" constant="7" id="F8J-Za-GkL"/>
                         <constraint firstItem="6E7-fa-WNi" firstAttribute="leading" secondItem="BXf-zL-WBp" secondAttribute="leading" constant="18" id="FuC-58-Vj4"/>
                         <constraint firstItem="uAl-Dw-MWf" firstAttribute="top" secondItem="wx0-v5-8Mb" secondAttribute="bottom" constant="90" id="HVQ-FI-jAF"/>
                         <constraint firstItem="Lek-GO-7FX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ls4-gj-7NW" secondAttribute="trailing" constant="8" id="IZJ-jy-U2u"/>
                         <constraint firstItem="0CU-e3-57j" firstAttribute="leading" secondItem="BXf-zL-WBp" secondAttribute="leading" constant="18" id="Kg3-24-zbE"/>
+                        <constraint firstItem="J2i-XH-xTw" firstAttribute="centerY" secondItem="nHX-1G-BQB" secondAttribute="centerY" id="Kwc-pj-Eub"/>
                         <constraint firstItem="w93-ly-3v6" firstAttribute="centerY" secondItem="nHX-1G-BQB" secondAttribute="centerY" id="LO1-0d-SzN"/>
                         <constraint firstAttribute="trailing" secondItem="0CU-e3-57j" secondAttribute="trailing" constant="18" id="LSy-aP-qAu"/>
                         <constraint firstItem="YlA-gO-EWe" firstAttribute="leading" secondItem="Lek-GO-7FX" secondAttribute="trailing" constant="7" id="Men-6b-P5S"/>
@@ -464,7 +476,6 @@
                     </constraints>
                 </scrollView>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="BXf-zL-WBp" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="4gf-oy-Myv"/>
@@ -472,6 +483,7 @@
                 <constraint firstItem="BXf-zL-WBp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SMp-yX-3cu"/>
                 <constraint firstItem="BXf-zL-WBp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VSX-P1-UXi"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.40000000000001" y="116.49175412293854"/>
         </view>
         <tapGestureRecognizer id="jaJ-3b-udF">
@@ -480,9 +492,4 @@
             </connections>
         </tapGestureRecognizer>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

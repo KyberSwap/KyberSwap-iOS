@@ -30,6 +30,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
   @IBOutlet weak var availableBalanceTextLabel: UILabel!
   @IBOutlet weak var feeTextLabel: UILabel!
   @IBOutlet weak var totalTextLabel: UILabel!
+  @IBOutlet weak var learnMoreButton: UIButton!
   @IBOutlet weak var containerScrollView: UIScrollView!
 
   fileprivate var updateFeeTimer: Timer?
@@ -124,6 +125,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     self.totalTextLabel.text = "Total".toBeLocalised().uppercased()
     self.availableBalanceTextLabel.text = "Available Balance".toBeLocalised().uppercased()
     self.feeTextLabel.text = NSLocalizedString("fee", value: "Fee", comment: "")
+    self.learnMoreButton.setTitle("Learn more".toBeLocalised(), for: .normal)
     self.mainManageOrdersButton.setTitle("Manage Orders".toBeLocalised(), for: .normal)
     self.relatedManageOrderButton.setTitle("Manage Orders".toBeLocalised(), for: .normal)
     self.relatedOrderTextLabel.text = "Related Orders".toBeLocalised().uppercased()
@@ -184,6 +186,12 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
       destAmount: self.viewModel.amountToDouble
     )
     self.delegate?.kCreateLimitOrderViewController(self, run: event)
+  }
+
+  @IBAction func learnMoreButtonTapped(_ sender: UIButton) {
+    KNCrashlyticsUtil.logCustomEvent(withName: "lo_learnmore", customAttributes: nil)
+    let url = "https://support.kyberswap.com/support/solutions/articles/47001142525-what-are-the-limit-order-trading-fees-do-i-need-to-pay-gas-fees-for-token-swaps-"
+    self.navigationController?.openSafari(with: url)
   }
 
   @IBAction func quickFillAmountButtonTapped(_ sender: UIButton) {
