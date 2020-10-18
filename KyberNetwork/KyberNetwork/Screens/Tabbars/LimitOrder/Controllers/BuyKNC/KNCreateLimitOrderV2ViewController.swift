@@ -276,7 +276,7 @@ class KNCreateLimitOrderV2ViewController: KNBaseViewController {
     guard !(self.viewModel.isAmountTooSmall && !self.viewModel.amountFrom.isEmpty && !self.viewModel.amountTo.isEmpty) else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
-        message: "Amount is too small. Limit order only support min 0.1 ETH equivalent order".toBeLocalised(),
+        message: "Amount is too small. Limit order only support min 1 ETH equivalent order".toBeLocalised(),
         time: 1.5
       )
       return false

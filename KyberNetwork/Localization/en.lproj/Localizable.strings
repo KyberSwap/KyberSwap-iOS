@@ -611,7 +611,7 @@
 "Limit Order" = "Limit Order";
 "Current Rate" = "Current Rate";
 "Source token must be different from dest token" = "Source token must be different from dest token";
-"Amount is too small. Limit order only support min 0.1 ETH equivalent order" = "Amount is too small. Limit order only support min 0.1 ETH equivalent order";
+"Amount is too small. Limit order only support min 1 ETH equivalent order" = "Amount is too small. Limit order only support min 1 ETH equivalent order";
 "Amount is too big. Limit order only support max 10 ETH equivalent order" = "Amount is too big. Limit order only support max 10 ETH equivalent order";
 "Your balance is insufficent for the order. Please check your balance and your pending order" = "Your balance is insufficent for the order. Please check your balance and your pending order";
 "Your balance is insufficient for transaction" = "Your balance is insufficient for transaction";

@@ -614,7 +614,7 @@
 "Limit Order" = "Lệnh giao dịch";
 "Current Rate" = "Tỉ giá hiện tại";
 "Source token must be different from dest token" = "Vui lòng chọn hai loại token khác nhau";
-"Amount is too small. Limit order only support min 0.1 ETH equivalent order" = "Lượng giao dịch quá nhỏ. Lệnh giao dịch chỉ hỗ trợ lượng giao dịch tối thiểu 0.1 ETH.";
+"Amount is too small. Limit order only support min 1 ETH equivalent order" = "Lượng giao dịch quá nhỏ. Lệnh giao dịch chỉ hỗ trợ lượng giao dịch tối thiểu 1 ETH.";
 "Amount is too big. Limit order only support max 10 ETH equivalent order" = "Lượng giao dịch quá lớn. Lệnh giao dịch chỉ hỗ trợ lượng giao dịch tối đa 10 ETH.";
 "Your balance is insufficent for the order. Please check your balance and your pending order" = "Tài khoản của bạn không đủ để đặt lệnh. Vui lòng kiểm tra số dư của bạn và các lệnh đã đặt";
 "Your balance is insufficient for transaction" = "Tài khoản của bạn không đủ để thực hiện giao dịch";

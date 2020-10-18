@@ -614,7 +614,7 @@
 "Limit Order" = "리밋 주문";
 "Current Rate" = "현재 가격";
 "Source token must be different from dest token" = "공급 토큰은 대상 토큰과 달라야 합니다.";
-"Amount is too small. Limit order only support min 0.1 ETH equivalent order" = "금액이 너무 적습니다. 리밋 주문은 최소 0.1이더 상당의 금액만 지원합니다";
+"Amount is too small. Limit order only support min 1 ETH equivalent order" = "금액이 너무 적습니다. 리밋 주문은 최소 1이더 상당의 금액만 지원합니다";
 "Amount is too big. Limit order only support max 10 ETH equivalent order" = "금액이 너무 큽니다. 리밋 주문은 최대 10이더 상당의 금액만 지원합니다";
 "Your balance is insufficent for the order. Please check your balance and your pending order" = "주문을 위한 잔액이 부족합니다. 잔액과 대기 중인 주문을 확인해주세요";
 "Your balance is insufficient for transaction" = "거래를 위한 잔액이 부족합니다. ";

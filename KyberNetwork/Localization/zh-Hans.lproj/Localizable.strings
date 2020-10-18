@@ -613,7 +613,7 @@
 "Limit Order" = "限价订单";
 "Current Rate" = "当前汇率";
 "Source token must be different from dest token" = "起始代币必须不同于目标代币";
-"Amount is too small. Limit order only support min 0.1 ETH equivalent order" = "数量太小。限价订单仅支持0.1ETH以上的订单";
+"Amount is too small. Limit order only support min 1 ETH equivalent order" = "数量太小。限价订单仅支持1ETH以上的订单";
 "Amount is too big. Limit order only support max 10 ETH equivalent order" = "数量太大。限价订单仅支持10ETH以下的订单";
 "Your balance is insufficent for the order. Please check your balance and your pending order" = "您的余额不足。请检查您的余额和正在缓冲的订单。";
 "Your balance is insufficient for transaction" = "您的余额不足以支持这笔交易";
