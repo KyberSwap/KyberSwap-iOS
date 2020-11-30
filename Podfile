@@ -46,7 +46,7 @@ target 'KyberNetwork' do
   pod 'FirebaseRemoteConfig', '~> 4.4'
   pod 'SwipeCellKit'
   pod 'Charts'
-  pod 'FreshchatSDK'
+  pod 'FreshchatSDK', '~> 4.0'
   pod 'FSPagerView'
 
   target 'KyberNetworkTests' do

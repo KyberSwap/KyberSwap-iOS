@@ -111,6 +111,7 @@ class KNLandingPageCoordinator: NSObject, Coordinator {
                     let keyPath = URL(fileURLWithPath: keystore.keysDirectory.path).appendingPathComponent(filePath).absoluteURL
                     try fileManager.removeItem(at: keyPath)
                 }
+              self.keystore = try EtherKeystore()
             } catch {
                 print("Could not clear keystore folder: \(error)")
             }

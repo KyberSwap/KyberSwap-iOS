@@ -14,7 +14,7 @@ PODS:
   - Charts/Core (3.5.0)
   - CryptoSwift (0.10.0)
   - EasyTipView (2.0.4)
-  - Eureka (5.2.1)
+  - Eureka (5.3.0)
   - FBSDKCoreKit (6.5.2):
     - FBSDKCoreKit/Basics (= 6.5.2)
     - FBSDKCoreKit/Core (= 6.5.2)
@@ -81,7 +81,7 @@ PODS:
     - FirebaseInstallations (~> 1.1)
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
-  - FreshchatSDK (3.7.0)
+  - FreshchatSDK (4.0.1)
   - FSPagerView (0.8.3)
   - GoogleAppMeasurement (6.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
@@ -200,14 +200,14 @@ DEPENDENCIES:
   - Charts
   - CryptoSwift (~> 0.10.0)
   - EasyTipView (~> 2.0.1)
-  - Eureka (~> 5.2.1)
+  - Eureka (~> 5.3.0)
   - FBSDKLoginKit/Swift
   - Firebase (~> 6.26)
   - FirebaseAnalytics (~> 6.6)
   - FirebaseCore (~> 6.7)
   - FirebaseCrashlytics (~> 4.1)
   - FirebaseRemoteConfig (~> 4.4)
-  - FreshchatSDK
+  - FreshchatSDK (~> 4.0)
   - FSPagerView
   - GoogleSignIn (~> 5.0.2)
   - IQKeyboardManager (~> 6.5)
@@ -319,7 +319,7 @@ SPEC CHECKSUMS:
   Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
-  Eureka: c883105488e05bc65539f583246ecf9657cabbfe
+  Eureka: 49239596c9d2eed9ab523990c34de62b6feac9f0
   FBSDKCoreKit: ada5c8a05188daefc9addb985c52b8a1b26da519
   FBSDKLoginKit: caa165495afa29a12324cb2307fe6e5b33783142
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
@@ -332,7 +332,7 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: a87cce5746d3335995bd18b1b60d073cd05a6920
   FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
   FirebaseRemoteConfig: 1725314c4b89d8853c876099ded037f11bee26db
-  FreshchatSDK: 57920fd6cfb3b071bdf5cf48342f5a04e457764d
+  FreshchatSDK: bb28b28abb4e5e19267fe604797ef37a88166472
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GoogleAppMeasurement: 67458367830514fb20fd9e233496f1eef9d90185
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
@@ -376,6 +376,6 @@ SPEC CHECKSUMS:
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
   WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: 27356ded4ce52db624e8b40af28dd97a5e164380
+PODFILE CHECKSUM: fad03d28c1216c493bb6b52ff3126b3981ba2b88
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0.rc.1
