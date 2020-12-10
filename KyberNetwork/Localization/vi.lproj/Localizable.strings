@@ -389,7 +389,7 @@
 "regular" = "Thường";
 "still.proceed.if.rate.goes.down.by" = "Vẫn tiếp tục nếu %@ giảm xuống:";
 "transaction.will.be.reverted.if.rate.lower.than" = "Giao dịch sẽ huỷ bỏ nếu tỷ giá %@ thấp hơn %@ (Tỷ giá hiện tại %@)";
-"can.not.handle.your.amount" = "Quỹ dự trữ của token này không thể xử lý khối lượng giao dịch của bạn. Vui lòng chia nhỏ giao dịch hoặc chờ cho thanh khoản được bổ sung bởi bên thứ 3. <Tìm hiểu thêm>";
+"can.not.handle.your.amount" = "Quỹ dự trữ của token này không thể xử lý khối lượng giao dịch của bạn. Vui lòng chia nhỏ giao dịch hoặc chờ cho thanh khoản được bổ sung bởi bên thứ 3. Tìm hiểu thêm";
 "advanced.optional" = "Nâng cao (tuỳ chọn)";
 "kybercode" = "KyberCode";
 "your.kybercode" = "KyberCode của bạn";
@@ -449,7 +449,7 @@
 
 "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail." = "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail.";
 
-"This token pair is temporarily under maintenance" = "Token này hiện đang được bảo trì. Nguồn thanh khoản của token này được quản lý bởi bên thứ 3. <Tìm hiểu thêm>";
+"This token pair is temporarily under maintenance" = "Token này hiện đang được bảo trì. Nguồn thanh khoản của token này được quản lý bởi bên thứ 3. Tìm hiểu thêm";
 
 "can.not.decode.data" = "Không thể giải mã dữ liệu";
 "something.went.wrong.please.try.again" = "Đã xảy ra lỗi, vui lòng thử lại";

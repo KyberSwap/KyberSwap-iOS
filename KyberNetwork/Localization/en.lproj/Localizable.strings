@@ -389,7 +389,7 @@
 "regular" = "Regular";
 "still.proceed.if.rate.goes.down.by" = "Still proceed if %@ goes down by:";
 "transaction.will.be.reverted.if.rate.lower.than" = "Transaction will be reverted if rate of %@ is lower than %@ (Current rate %@)";
-"can.not.handle.your.amount" = "This token reserve currently cannot handle your trade amount. Please make a smaller trade or wait for liquidity to be added by the external party. <Learn more>";
+"can.not.handle.your.amount" = "This token reserve currently cannot handle your trade amount. Please make a smaller trade or wait for liquidity to be added by the external party. Learn more";
 "advanced.optional" = "Advanced (optional)";
 "kybercode" = "KyberCode";
 "your.kybercode" = "Your KyberCode";
@@ -488,7 +488,7 @@
 
 "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail." = "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail.";
 
-"This token pair is temporarily under maintenance" = "This token pair is temporarily under maintenance. Liquidity is managed by an external party. <Learn more>";
+"This token pair is temporarily under maintenance" = "This token pair is temporarily under maintenance. Liquidity is managed by an external party. Learn more";
 
 "Filter" = "Filter";
 "Time" = "Time";

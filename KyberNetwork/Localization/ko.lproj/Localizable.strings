@@ -482,7 +482,7 @@
 
 "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail." = "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail.";
 
-"This token pair is temporarily under maintenance" = "이 토큰 페어는 일시적으로 유지보수 중입니다. 유동성은 외부 당사자가 관리합니다. <자세히 알아보기>";
+"This token pair is temporarily under maintenance" = "이 토큰 페어는 일시적으로 유지보수 중입니다. 유동성은 외부 당사자가 관리합니다. 자세히 알아보기";
 
 
 "can.not.decode.data" = "데이터를 디코딩 할 수 없습니다.";
