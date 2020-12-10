@@ -457,6 +457,9 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       self.updateReferencePrice(from: from, to: to)
     case .swapHint(let from, let to, let amount):
       self.updateSwapHint(from: from.address, to: to.address, amount: amount)
+    case .openExplainPage:
+      let url = "https://support.kyberswap.com/support/solutions/articles/47001143483-the-token-is-under-maintenance-what-does-it-mean-"
+      self.navigationController.openSafari(with: url)
     }
   }
 

@@ -389,7 +389,7 @@
 "regular" = "Regular";
 "still.proceed.if.rate.goes.down.by" = "%@이 내려가도 거래를 진행";
 "transaction.will.be.reverted.if.rate.lower.than" = "%@의 교환비가 %@보다 낮아진다면 거래는 취소됩니다. (현재 교환비 %@)";
-"can.not.handle.your.amount" = "금액을 처리 할 수 없음";
+"can.not.handle.your.amount" = "이 토큰 리저브는 현재 귀하의 거래량을 처리할 수 없습니다. 더 적은 양으로 거래하거나 외부에서 유동성을 추가할 때 까지 기다려주세요.";
 "advanced.optional" = "고급 (선택 사항)";
 "kybercode" = "KyberCode";
 "your.kybercode" = "귀하의 KyberCode";
@@ -482,7 +482,7 @@
 
 "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail." = "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail.";
 
-"This token pair is temporarily under maintenance" = "이 토큰 쌍은 일시적으로 유지 보수 중입니다";
+"This token pair is temporarily under maintenance" = "이 토큰 페어는 일시적으로 유지보수 중입니다. 유동성은 외부 당사자가 관리합니다. <자세히 알아보기>";
 
 
 "can.not.decode.data" = "데이터를 디코딩 할 수 없습니다.";

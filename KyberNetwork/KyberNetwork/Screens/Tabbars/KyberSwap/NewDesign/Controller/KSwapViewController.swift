@@ -19,6 +19,7 @@ enum KSwapViewEvent: Equatable {
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
   case referencePrice(from: TokenObject, to: TokenObject)
   case swapHint(from: TokenObject, to: TokenObject, amount: String?)
+  case openExplainPage
 
   static public func == (left: KSwapViewEvent, right: KSwapViewEvent) -> Bool {
     switch (left, right) {
@@ -650,16 +651,22 @@ class KSwapViewController: KNBaseViewController {
     if self.viewModel.isPairUnderMaintenance {
       self.showWarningTopBannerMessage(
         with: "",
-        message: NSLocalizedString("This token pair is temporarily under maintenance", value: "This token pair is temporarily under maintenance", comment: "")
-      )
+        message: NSLocalizedString("This token pair is temporarily under maintenance", value: "This token pair is temporarily under maintenance", comment: ""),
+        time: 3
+      ) {
+        self.delegate?.kSwapViewController(self, run: .openExplainPage)
+      }
       KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "This token pair is temporarily under maintenance".toBeLocalised()])
       return true
     }
     if self.viewModel.estRate?.isZero == true {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
-        message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: "")
-      )
+        message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: ""),
+        time: 3
+      ) {
+        self.delegate?.kSwapViewController(self, run: .openExplainPage)
+      }
       KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.handle.your.amount".toBeLocalised()])
       return true
     }
@@ -692,8 +699,11 @@ class KSwapViewController: KNBaseViewController {
       guard self.viewModel.isSlippageRateValid else {
         self.showWarningTopBannerMessage(
           with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
-          message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: "")
-        )
+          message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: ""),
+          time: 3
+        ) {
+          self.delegate?.kSwapViewController(self, run: .openExplainPage)
+        }
         KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.handle.your.amount".toBeLocalised()])
         return true
       }

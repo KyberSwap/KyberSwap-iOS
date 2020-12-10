@@ -389,7 +389,7 @@
 "regular" = "定期";
 "still.proceed.if.rate.goes.down.by" = "仍然继续，即便%@下降：";
 "transaction.will.be.reverted.if.rate.lower.than" = "如果费率%@低于%@ （当前费率%@ ），那么交易将被退回";
-"can.not.handle.your.amount" = "无法处理您的数量";
+"can.not.handle.your.amount" = "该代币储备库目前无法处理您的交易金额。 请进行金额较小的交易，或等待外部机构增加流动性。  <了解更多>";
 "advanced.optional" = "高级 (可选)";
 "kybercode" = "KyberCode";
 "your.kybercode" = "你的KyberCode";
@@ -472,7 +472,7 @@
 
 "Your configured minimal rate is higher than what is recommended by KyberNetwork. Your swap has high chance to fail." = "您设置的最低可接受汇率高于KyberNetwork的建议汇率。您的兑换很可能失败。";
 
-"This token pair is temporarily under maintenance" = "此对正在暂时维修中";
+"This token pair is temporarily under maintenance" = "该代币对暂时处于维护状态。 流动性是由外部机构管理。  <了解更多>";
 
 "can.not.decode.data" = "无法解码数据";
 "something.went.wrong.please.try.again" = "出了点问题，请再试一次";
