@@ -69,6 +69,22 @@ class KNGeneralProvider {
     }
   }
 
+  func getEstimateGas(from: Address, to: Address, data: Data, completion: @escaping (Result<String, AnyError>) -> Void) {
+    DispatchQueue.global().async {
+      let request = EtherServiceAlchemyRequest(batch: BatchFactory().create(EstimateGasRequest(from: from, to: to, data: data)))
+      Session.send(request) { result in
+        DispatchQueue.main.async {
+          switch result {
+          case .success(let est):
+            completion(.success(est))
+          case .failure(let error):
+            completion(.failure(AnyError(error)))
+          }
+        }
+      }
+    }
+  }
+
   func getGasPrice(completion: @escaping (Result<String, AnyError>) -> Void) {
     let request = EtherServiceAlchemyRequest(batch: BatchFactory().create(GasPriceRequest()))
     Session.send(request) { result in

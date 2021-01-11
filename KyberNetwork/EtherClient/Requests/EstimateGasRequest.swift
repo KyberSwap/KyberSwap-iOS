@@ -11,7 +11,7 @@ struct EstimateGasRequest: JSONRPCKit.Request {
 
     let from: Address
     let to: Address?
-    let value: BigInt
+//    let value: BigInt
     let data: Data
 
     var method: String {
