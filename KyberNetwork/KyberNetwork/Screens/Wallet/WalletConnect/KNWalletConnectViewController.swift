@@ -337,7 +337,12 @@ class KNWalletConnectViewController: KNBaseViewController {
         }
         return address
       }()
-      return "You need to grant permission for \(contractName) to interact with \(token.symbol)"
+      var defaultKNGas: BigInt = KNGasConfiguration.gasPriceDefault
+      if let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedDefaultGas), let defaultGasBigInt = BigInt(defaultGasString) {
+        defaultKNGas = defaultGasBigInt
+      }
+      let gasPriceString = defaultKNGas.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)
+      return "You need to grant permission for \(contractName) to interact with \(token.symbol)\nGas price: \(gasPriceString) gwei"
     }
     if data.starts(with: kTransferPrefix),
       let token = self.knSession.tokenStorage.tokens.first(where: { return $0.contract.lowercased() == to }) {
