@@ -191,7 +191,7 @@ class KNExternalProvider {
   }
 
   func sendTxWalletConnect(txData: JSONDictionary, completion: @escaping (Result<String?, AnyError>) -> Void) {
-    guard let from = txData["from"] as? String, let to = txData["to"] as? String else {
+    guard let from = txData["from"] as? String, let to = txData["to"] as? String, let fromAddress = Address(string: from), let toAddress = Address(string: to) else {
       completion(.success(nil))
       return
     }
@@ -207,7 +207,7 @@ class KNExternalProvider {
       return
     }
     let gasLimit = (txData["gasLimit"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
-    if gasLimit.isZero, let fromAddress = Address(string: from), let toAddress = Address(string: to) {
+    if gasLimit.isZero {
       let dataString = txData["data"] as? String ?? "0x"
       KNGeneralProvider.shared.getEstimateGas(from: fromAddress, to: toAddress, data: Data(hex: dataString.drop0x)) { [weak self] result in
         guard let `self` = self else { return }
@@ -227,7 +227,6 @@ class KNExternalProvider {
       }
       return
     }
-    
     let value = (txData["value"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
 
     // Parse data from hex string
