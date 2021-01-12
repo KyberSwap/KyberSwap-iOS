@@ -133,6 +133,9 @@ class TokenObject: Object {
     var isPRO: Bool { return self.symbol == "PRO" }
     var isPT: Bool { return self.symbol == "PT" }
     var isTUSD: Bool { return self.symbol == "TUSD" && self.name.lowercased() == "trueusd" }
+    var isCOMP: Bool { return self.symbol == "COMP" }
+    var isAAVE: Bool { return self.symbol == "AAVE" }
+    var isBZRX: Bool { return self.symbol == "BZRX" }
 
     var isKNC: Bool {
       return self.symbol == "KNC" && self.name.replacingOccurrences(of: " ", with: "").lowercased() == "kybernetwork"

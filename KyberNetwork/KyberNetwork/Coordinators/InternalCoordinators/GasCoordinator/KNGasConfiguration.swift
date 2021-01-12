@@ -17,6 +17,7 @@ public struct KNGasConfiguration {
   static let propyGasLimitDefault = BigInt(884_000)
   static let promotionTokenGasLimitDefault = BigInt(884_000)
   static let trueUSDTokenGasLimitDefault = BigInt(870_000)
+  static let transferSpecialTokenGasLimitDefault = BigInt(400_000)
 
   static let gasPriceDefault: BigInt = EtherNumberFormatter.full.number(from: "50", units: UnitConfiguration.gasPriceUnit)!
   static let gasPriceMin: BigInt = EtherNumberFormatter.full.number(from: "20", units: UnitConfiguration.gasPriceUnit)!
@@ -62,6 +63,9 @@ public struct KNGasConfiguration {
   }
 
   static func calculateDefaultGasLimitTransfer(token: TokenObject) -> BigInt {
+    if token.isCOMP || token.isAAVE || token.isBZRX {
+      return transferSpecialTokenGasLimitDefault
+    }
     return token.isETH ? transferETHGasLimitDefault : transferTokenGasLimitDefault
   }
 }
