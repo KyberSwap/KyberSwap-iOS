@@ -191,44 +191,44 @@ class KNExternalProvider {
   }
 
   func sendTxWalletConnect(txData: JSONDictionary, completion: @escaping (Result<String?, AnyError>) -> Void) {
-    guard let value = (txData["value"] as? String ?? "").fullBigInt(decimals: 0),
-      let from = txData["from"] as? String, let to = txData["to"] as? String,
-      let gasPrice = (txData["gasPrice"] as? String ?? "").fullBigInt(decimals: 0),
-      let gasLimit = (txData["gasLimit"] as? String ?? "").fullBigInt(decimals: 0),
-      from.lowercased() == self.account.address.description.lowercased(),
-      !gasPrice.isZero, !gasLimit.isZero else {
-
-      if let fromString = txData["from"] as? String,
-         let toString = txData["to"] as? String,
-         let fromAddress = Address(string: fromString),
-         let toAddress = Address(string: toString),
-         let dataString = txData["data"] as? String
-      {
-        var defaultKNGas: BigInt = KNGasConfiguration.gasPriceDefault
-        if let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedDefaultGas), let defaultGasBigInt = BigInt(defaultGasString) {
-          defaultKNGas = defaultGasBigInt
-        }
-        KNGeneralProvider.shared.getEstimateGas(from: fromAddress, to: toAddress, data: Data(hex: dataString.drop0x)) { [weak self] result in
-          guard let `self` = self else { return }
-          switch result {
-          case .success(let est):
-            var txDict: JSONDictionary = [:]
-            txDict["from"] = fromString
-            txDict["to"] = toString
-            txDict["value"] = "0"
-            txDict["gasPrice"] = defaultKNGas.description
-            txDict["gasLimit"] = est
-            txDict["data"] = dataString
-            self.sendTxWalletConnect(txData: txDict, completion: completion)
-          default:
-            completion(.success(nil))
-          }
-        }
-        return
-      }
+    guard let from = txData["from"] as? String, let to = txData["to"] as? String else {
       completion(.success(nil))
       return
     }
+    let gasPrice = (txData["gasPrice"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
+    if gasPrice.isZero {
+      var txDict = txData
+      var defaultKNGas: BigInt = KNGasConfiguration.gasPriceDefault
+      if let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedDefaultGas), let defaultGasBigInt = BigInt(defaultGasString) {
+        defaultKNGas = defaultGasBigInt
+      }
+      txDict["gasPrice"] = defaultKNGas.description
+      self.sendTxWalletConnect(txData: txDict, completion: completion)
+      return
+    }
+    let gasLimit = (txData["gasLimit"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
+    if gasLimit.isZero, let fromAddress = Address(string: from), let toAddress = Address(string: to) {
+      let dataString = txData["data"] as? String ?? "0x"
+      KNGeneralProvider.shared.getEstimateGas(from: fromAddress, to: toAddress, data: Data(hex: dataString.drop0x)) { [weak self] result in
+        guard let `self` = self else { return }
+        switch result {
+        case .success(let est):
+          guard let gasLimitBigInt = BigInt(est.drop0x, radix: 16) else {
+            completion(.success(nil))
+            return
+          }
+          let buffered = gasLimitBigInt * BigInt(120) / BigInt(100)
+          var txDict: JSONDictionary = txData
+          txDict["gasLimit"] = buffered.description
+          self.sendTxWalletConnect(txData: txDict, completion: completion)
+        default:
+          completion(.success(nil))
+        }
+      }
+      return
+    }
+    
+    let value = (txData["value"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
 
     // Parse data from hex string
     let dataParse: Data? = (txData["data"] as? String ?? "").dataFromHex()
