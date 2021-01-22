@@ -195,6 +195,12 @@ class KNExternalProvider {
       completion(.success(nil))
       return
     }
+    // Parse data from hex string
+    let dataParse: Data? = (txData["data"] as? String ?? "").dataFromHex()
+    guard let data = dataParse else {
+      completion(.success(nil))
+      return
+    }
     let gasPrice = (txData["gasPrice"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
     if gasPrice.isZero {
       var txDict = txData
@@ -208,8 +214,7 @@ class KNExternalProvider {
     }
     let gasLimit = (txData["gasLimit"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
     if gasLimit.isZero {
-      let dataString = txData["data"] as? String ?? "0x"
-      KNGeneralProvider.shared.getEstimateGas(from: fromAddress, to: toAddress, data: Data(hex: dataString.drop0x)) { [weak self] result in
+      KNGeneralProvider.shared.getEstimateGas(from: fromAddress, to: toAddress, data: data) { [weak self] result in
         guard let `self` = self else { return }
         switch result {
         case .success(let est):
@@ -228,13 +233,6 @@ class KNExternalProvider {
       return
     }
     let value = (txData["value"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
-
-    // Parse data from hex string
-    let dataParse: Data? = (txData["data"] as? String ?? "").dataFromHex()
-    guard let data = dataParse else {
-      completion(.success(nil))
-      return
-    }
 
     guard let toAddr = Address(string: to) else {
       completion(.success(nil))
