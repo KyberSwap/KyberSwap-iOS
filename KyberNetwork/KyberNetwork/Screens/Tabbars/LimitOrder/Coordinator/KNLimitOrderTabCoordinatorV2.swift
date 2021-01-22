@@ -228,6 +228,11 @@ extension KNLimitOrderTabCoordinatorV2 {
       })
     }
   }
+
+  func appCoordinatorDidUpdateGasWarningLimit() {
+    self.tokenChartCoordinator?.coordinatorDidUpdateGasWarningLimit()
+    self.sendTokenCoordinator?.coordinatorDidUpdateGasWarningLimit()
+  }
 }
 
 extension KNLimitOrderTabCoordinatorV2: LimitOrderContainerViewControllerDelegate {

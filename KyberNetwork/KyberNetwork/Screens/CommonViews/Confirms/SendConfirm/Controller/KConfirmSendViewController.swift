@@ -1,6 +1,7 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
+import BigInt
 
 enum KConfirmViewEvent {
   case confirm(type: KNTransactionType)
@@ -35,6 +36,10 @@ class KConfirmSendViewController: KNBaseViewController {
   @IBOutlet weak var amountToSendTextLabel: UILabel!
   @IBOutlet weak var transactionFeeTextLabel: UILabel!
   @IBOutlet weak var gasPriceTextLabel: UILabel!
+  @IBOutlet weak var gasWarningTextLabel: UILabel!
+  @IBOutlet weak var gasWarningContainerView: UIView!
+  @IBOutlet weak var confirmButtonTopContraint: NSLayoutConstraint!
+
   fileprivate let viewModel: KConfirmSendViewModel
   weak var delegate: KConfirmSendViewControllerDelegate?
 
@@ -108,6 +113,7 @@ class KConfirmSendViewController: KNBaseViewController {
     self.amountToSendTextLabel.addLetterSpacing()
     self.transactionFeeTextLabel.text = NSLocalizedString("Maximum gas fee", value: "Transaction Fee", comment: "")
     self.transactionFeeTextLabel.addLetterSpacing()
+    self.updateGasWarningUI()
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
@@ -177,5 +183,26 @@ class KConfirmSendViewController: KNBaseViewController {
       NSLocalizedString("cancel", value: "Cancel", comment: ""),
       for: .normal
     )
+  }
+  
+  fileprivate func updateGasWarningUI() {
+    let currentGasPrice = self.viewModel.transaction.gasPrice ?? KNGasCoordinator.shared.fastKNGas
+    let gasLimit: BigInt = self.viewModel.transaction.gasLimit ?? KNGasConfiguration.exchangeTokensGasLimitDefault
+    var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
+    if limit <= 0 { limit = 200 }
+    let limitBigInit = EtherNumberFormatter.full.number(from: limit.description, units: UnitConfiguration.gasPriceUnit)!
+    let isShowWarning = currentGasPrice > limitBigInit
+    self.confirmButtonTopContraint.constant = isShowWarning ? 88 : 32
+    self.gasWarningContainerView.isHidden = !isShowWarning
+    if isShowWarning {
+      let estFee = limitBigInit * gasLimit
+      let feeString: String = estFee.displayRate(decimals: 18)
+      let warningText = String(format: "High network congestion. Please double check gas fee (~%@ ETH) before confirmation.".toBeLocalised(), feeString)
+      self.gasWarningTextLabel.text = warningText
+    }
+  }
+
+  func coordinatorUpdateGasWaringLimit() {
+    self.updateGasWarningUI()
   }
 }

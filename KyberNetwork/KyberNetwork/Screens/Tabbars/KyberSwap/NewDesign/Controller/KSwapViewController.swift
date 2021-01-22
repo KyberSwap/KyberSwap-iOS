@@ -90,6 +90,11 @@ class KSwapViewController: KNBaseViewController {
   @IBOutlet weak var thirdSuggestButton: UIButton!
   @IBOutlet weak var thirdSuggestType: UIButton!
   @IBOutlet weak var hasUnreadNotification: UIView!
+  @IBOutlet weak var advanceSettingTopContraint: NSLayoutConstraint!
+  @IBOutlet weak var gasWarningTextLabel: UILabel!
+  @IBOutlet weak var gasWarningContainerView: UIView!
+  @IBOutlet weak var gasWarningContainerViewHieghtContraint: NSLayoutConstraint!
+
   fileprivate var estRateTimer: Timer?
   fileprivate var estGasLimitTimer: Timer?
   fileprivate var previousCallEvent: KSwapViewEvent?
@@ -578,6 +583,7 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.updateSelectedGasPriceType(self.viewModel.selectedGasPriceType)
     self.updateAdvancedSettingsView()
     self.updateFromAmountUIForSwapAllBalanceIfNeeded()
+    self.updateGasWarningUI()
   }
 
   fileprivate func updateEstimatedRate(showError: Bool = false, showLoading: Bool = false) {
@@ -893,6 +899,34 @@ extension KSwapViewController {
     self.view.layoutIfNeeded()
   }
 
+  fileprivate func updateGasWarningUI() {
+    var currentGasPrice = KNGasCoordinator.shared.standardKNGas
+    switch self.viewModel.selectedGasPriceType {
+    case .superFast:
+      currentGasPrice = KNGasCoordinator.shared.superFastKNGas
+    case .fast:
+      currentGasPrice = KNGasCoordinator.shared.fastKNGas
+    case .medium:
+      currentGasPrice = KNGasCoordinator.shared.standardKNGas
+    case .slow:
+      currentGasPrice = KNGasCoordinator.shared.lowKNGas
+    default:
+      break
+    }
+    var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
+    if limit <= 0 { limit = 200 }
+    let limitBigInit = EtherNumberFormatter.full.number(from: limit.description, units: UnitConfiguration.gasPriceUnit)!
+    let isShowWarning = currentGasPrice > limitBigInit
+    self.advanceSettingTopContraint.constant = isShowWarning ? 86 : 24
+    self.gasWarningContainerView.isHidden = !isShowWarning
+    if isShowWarning {
+      let estFee = limitBigInit * self.viewModel.estimateGasLimit
+      let feeString: String = estFee.displayRate(decimals: 18)
+      let warningText = String(format: "High network congestion. Please double check gas fee (~%@ ETH) before confirmation.".toBeLocalised(), feeString)
+      self.gasWarningTextLabel.text = warningText
+    }
+  }
+
   @objc func balanceLabelTapped(_ sender: Any) {
     self.keyboardSwapAllButtonPressed(sender)
   }
@@ -951,6 +985,7 @@ extension KSwapViewController {
     self.updateTokensView()
     self.updateViewAmountDidChange()
     self.updateAdvancedSettingsView()
+    self.updateGasWarningUI()
     let isPromo = KNWalletPromoInfoStorage.shared.getDestinationToken(from: wallet.address.description) != nil
     self.advancedSettingsView.updateIsPromoWallet(isPromo)
     self.hamburgerMenu.update(
@@ -1149,6 +1184,10 @@ extension KSwapViewController {
   func coordinatorTrackerRateDidUpdate() {
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
     self.updateExchangeRateField()
+  }
+  
+  func coordinatorUpdateGasWarningLimit() {
+    self.updateGasWarningUI()
   }
 
   func coordinatorUpdateProdCachedRates() {

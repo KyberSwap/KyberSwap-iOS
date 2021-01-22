@@ -97,6 +97,10 @@ class KNTokenChartCoordinator: Coordinator {
     guard let newMarket = KNRateCoordinator.shared.cachedMarket.first(where: { return $0.pair == curMarket.pair }) else { return }
     self.rootViewController.coordinatorUpdateMarketPair(market: newMarket)
   }
+  
+  func coordinatorDidUpdateGasWarningLimit() {
+    self.sendTokenCoordinator?.coordinatorDidUpdateGasWarningLimit()
+  }
 }
 
 extension KNTokenChartCoordinator: KNTokenChartViewControllerDelegate {

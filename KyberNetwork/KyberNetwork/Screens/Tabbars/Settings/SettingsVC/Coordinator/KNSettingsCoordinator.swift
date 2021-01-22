@@ -9,6 +9,7 @@ protocol KNSettingsCoordinatorDelegate: class {
   func settingsCoordinatorUserDidRemoveWallet(_ wallet: Wallet)
   func settingsCoordinatorUserDidUpdateWalletObjects()
   func settingsCoordinatorUserDidSelectAddWallet()
+  func settingCoordinatorUserDidUpdateGasWarningLimit()
 }
 
 class KNSettingsCoordinator: NSObject, Coordinator {
@@ -96,6 +97,10 @@ class KNSettingsCoordinator: NSObject, Coordinator {
   func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
     return self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) ?? false
   }
+
+  func appCoordinatorDidUpdateGasWarningLimit() {
+    self.sendTokenCoordinator?.coordinatorDidUpdateGasWarningLimit()
+  }
 }
 
 extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
@@ -164,7 +169,17 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1521778973")
     case .liveChat:
       Freshchat.sharedInstance().showConversations(self.navigationController)
+    case .gasWarning:
+      self.openGasWarningScreen()
     }
+  }
+
+  fileprivate func openGasWarningScreen() {
+    let vc = KNGasWarningViewController()
+    vc.modalTransitionStyle = .crossDissolve
+    vc.modalPresentationStyle = .overCurrentContext
+    vc.delegate = self
+    self.navigationController.present(vc, animated: true, completion: nil)
   }
 
   fileprivate func openCommunityURL(_ url: String) {
@@ -533,5 +548,11 @@ extension KNSettingsCoordinator: MFMailComposeViewControllerDelegate {
       KNCrashlyticsUtil.logCustomEvent(withName: "setting_support_email_sent", customAttributes: nil)
     }
     controller.dismiss(animated: true, completion: nil)
+  }
+}
+
+extension KNSettingsCoordinator: KNGasWarningViewControllerDelegate {
+  func gasWarningViewControllerDidUpdateLimitValue(_ controller: KNGasWarningViewController) {
+    self.delegate?.settingCoordinatorUserDidUpdateGasWarningLimit()
   }
 }

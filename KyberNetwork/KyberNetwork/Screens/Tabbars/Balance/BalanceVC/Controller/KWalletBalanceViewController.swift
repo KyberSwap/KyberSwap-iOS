@@ -16,6 +16,7 @@ enum KWalletBalanceViewEvent {
   case buyETH
   case copyAddress
   case quickTutorial(step: Int, pointsAndRadius: [(CGPoint, CGFloat)])
+  case checkShowGasWaring
 }
 
 protocol KWalletBalanceViewControllerDelegate: class {
@@ -137,6 +138,8 @@ class KWalletBalanceViewController: KNBaseViewController {
       )
       self.delegate?.kWalletBalanceViewController(self, run: event)
       self.viewModel.isShowingQuickTutorial = true
+    } else {
+      self.showGasWaringPopUpIfNeed()
     }
   }
 
@@ -380,6 +383,7 @@ class KWalletBalanceViewController: KNBaseViewController {
       KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_got_it_button_tapped", customAttributes: nil)
       self.viewModel.isShowingQuickTutorial = false
       NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForBalanceView)
+      self.delegate?.kWalletBalanceViewController(self, run: .checkShowGasWaring)
       return
     }
     KNCrashlyticsUtil.logCustomEvent(withName: "tut_balance_next_button_tapped", customAttributes: ["step": self.viewModel.currentTutorialStep])
@@ -511,6 +515,10 @@ class KWalletBalanceViewController: KNBaseViewController {
 
   func update(notificationsCount: Int) {
     self.hasUnreadNotification.isHidden = notificationsCount == 0
+  }
+  
+  fileprivate func showGasWaringPopUpIfNeed() {
+    self.delegate?.kWalletBalanceViewController(self, run: .checkShowGasWaring)
   }
 }
 

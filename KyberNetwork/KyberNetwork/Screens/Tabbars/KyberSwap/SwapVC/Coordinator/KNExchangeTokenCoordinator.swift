@@ -128,6 +128,12 @@ extension KNExchangeTokenCoordinator {
     self.historyCoordinator?.appCoordinatorDidUpdateWalletObjects()
   }
 
+  func appCoordinatorDidUpdateGasWarningLimit() {
+    self.rootViewController.coordinatorUpdateGasWarningLimit()
+    self.confirmSwapVC?.coordinatorUpdateGasWaringLimit()
+    self.sendTokenCoordinator?.coordinatorDidUpdateGasWarningLimit()
+  }
+
   func appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, otherTokensBalance: [String: Balance]) {
     self.rootViewController.coordinatorUpdateTokenBalance(otherTokensBalance)
     otherTokensBalance.forEach { self.balances[$0.key] = $0.value }

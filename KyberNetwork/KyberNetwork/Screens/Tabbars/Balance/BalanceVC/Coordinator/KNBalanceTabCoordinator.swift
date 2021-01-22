@@ -13,6 +13,7 @@ protocol KNBalanceTabCoordinatorDelegate: class {
   func balanceTabCoordinatorDidSelectPromoCode()
   func balanceTabCoordinatorOpenManageOrder()
   func balanceTabCoordinatorOpenSwap(from: String, to: String)
+  func balanceTabCoordinatorUserDidUpdateGasWarningLimit()
 }
 
 class KNBalanceTabCoordinator: NSObject, Coordinator {
@@ -204,6 +205,11 @@ extension KNBalanceTabCoordinator {
       topVC.applicationDidEnterBackground()
     }
   }
+
+  func appCoordinatorDidUpdateGasWarningLimit() {
+    self.sendTokenCoordinator?.coordinatorDidUpdateGasWarningLimit()
+    self.tokenChartCoordinator?.coordinatorDidUpdateGasWarningLimit()
+  }
 }
 
 // MARK: New Design K Wallet Balance delegation
@@ -237,6 +243,8 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       )
     case .quickTutorial(let step, let pointsAndRadius):
       self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
+    case .checkShowGasWaring:
+      self.checkShowGasWaringIfNeeded()
     }
   }
 
@@ -323,6 +331,17 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       nextButtonTitle: nextButtonText
     )
     controller.tabBarController!.view.addSubview(overlayer)
+  }
+  
+  fileprivate func checkShowGasWaringIfNeeded() {
+    let gasWarningLimit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
+    if gasWarningLimit <= 0 {
+      let vc = KNGasWarningViewController()
+      vc.modalTransitionStyle = .crossDissolve
+      vc.modalPresentationStyle = .overCurrentContext
+      vc.delegate = self
+      self.navigationController.present(vc, animated: true, completion: nil)
+    }
   }
 
   fileprivate func openTokenChartView(for tokenObject: TokenObject) {
@@ -514,5 +533,11 @@ extension KNBalanceTabCoordinator: KNNotificationSettingViewControllerDelegate {
     self.navigationController.popViewController(animated: true) {
       self.showSuccessTopBannerMessage(message: "Updated subscription tokens".toBeLocalised())
     }
+  }
+}
+
+extension KNBalanceTabCoordinator: KNGasWarningViewControllerDelegate {
+  func gasWarningViewControllerDidUpdateLimitValue(_ controller: KNGasWarningViewController) {
+    self.delegate?.balanceTabCoordinatorUserDidUpdateGasWarningLimit()
   }
 }

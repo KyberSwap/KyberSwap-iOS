@@ -582,15 +582,18 @@
 		C399118C249B553100A7C251 /* KNTutorialPagerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399118A249B553100A7C251 /* KNTutorialPagerCell.swift */; };
 		C399118D249B553100A7C251 /* KNTutorialPagerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C399118B249B553100A7C251 /* KNTutorialPagerCell.xib */; };
 		C39A7EED24778B03003EA57D /* (null) in Sources */ = {isa = PBXBuildFile; };
+		C3BC3F7F24AC984000B1ADFE /* KNSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BC3F7E24AC984000B1ADFE /* KNSecret.swift */; };
+		C3BC3F8124AC985900B1ADFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3BC3F8024AC985900B1ADFE /* GoogleService-Info.plist */; };
 		C3C4DAB22446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C4DAB02446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift */; };
 		C3C4DAB32446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3C4DAB12446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib */; };
 		C3E401D7242B048D00F31372 /* LimitOrderContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E401D5242B048D00F31372 /* LimitOrderContainerViewController.swift */; };
 		C3E401D8242B048D00F31372 /* LimitOrderContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E401D6242B048D00F31372 /* LimitOrderContainerViewController.xib */; };
 		C3E401DE242B458200F31372 /* KNCreateLimitOrderV2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E401DC242B458200F31372 /* KNCreateLimitOrderV2ViewController.swift */; };
 		C3E401DF242B458200F31372 /* KNCreateLimitOrderV2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E401DD242B458200F31372 /* KNCreateLimitOrderV2ViewController.xib */; };
+		C3E8D86425B9316900FDA2AB /* KNGasWarningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E8D86225B9316900FDA2AB /* KNGasWarningViewController.swift */; };
+		C3E8D86525B9316900FDA2AB /* KNGasWarningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3E8D86325B9316900FDA2AB /* KNGasWarningViewController.xib */; };
 		C60BB88C239596D5006FE37D /* KNGetResolverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BB88B239596D5006FE37D /* KNGetResolverRequest.swift */; };
 		C60BB88E23959794006FE37D /* KNGetAddressFromResolverRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60BB88D23959794006FE37D /* KNGetAddressFromResolverRequest.swift */; };
-		C61BAE4F24D7CA2400BC4705 /* KNSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61BAE4E24D7CA2300BC4705 /* KNSecret.swift */; };
 		C625CF6F243F221D00511A90 /* PreviewLimitOrderV2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625CF6D243F221D00511A90 /* PreviewLimitOrderV2ViewController.swift */; };
 		C625CF70243F221D00511A90 /* PreviewLimitOrderV2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C625CF6E243F221D00511A90 /* PreviewLimitOrderV2ViewController.xib */; };
 		C625CF72243F2D6700511A90 /* KNLimitOrderTabCoordinatorV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625CF71243F2D6700511A90 /* KNLimitOrderTabCoordinatorV2.swift */; };
@@ -602,7 +605,6 @@
 		C680C1202382958700A621CB /* KNVersionControlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C680C11F2382958700A621CB /* KNVersionControlManager.swift */; };
 		C68AA276237A6BE900B9EC35 /* KNTransactionStatusPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AA274237A6BE900B9EC35 /* KNTransactionStatusPopUp.swift */; };
 		C68AA277237A6BE900B9EC35 /* KNTransactionStatusPopUp.xib in Resources */ = {isa = PBXBuildFile; fileRef = C68AA275237A6BE900B9EC35 /* KNTransactionStatusPopUp.xib */; };
-		C69830DF24AC4E5B007D79AF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C69830DE24AC4E5A007D79AF /* GoogleService-Info.plist */; };
 		C6AA667A23A761A80050C610 /* KNNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AA667923A761A80050C610 /* KNNotification.swift */; };
 		C6AA667D23A764620050C610 /* KNNotificationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AA667C23A764620050C610 /* KNNotificationStorage.swift */; };
 		C6AA668023A76B4C0050C610 /* KNNotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6AA667F23A76B4C0050C610 /* KNNotificationCoordinator.swift */; };
@@ -1247,15 +1249,18 @@
 		C37CC091245803C90081FB32 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		C399118A249B553100A7C251 /* KNTutorialPagerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNTutorialPagerCell.swift; sourceTree = "<group>"; };
 		C399118B249B553100A7C251 /* KNTutorialPagerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNTutorialPagerCell.xib; sourceTree = "<group>"; };
+		C3BC3F7E24AC984000B1ADFE /* KNSecret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KNSecret.swift; path = KyberNetwork/KyberNetwork/Configurations/Environments/KNSecret.swift; sourceTree = SOURCE_ROOT; };
+		C3BC3F8024AC985900B1ADFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "KyberNetwork/Configurations/Environments/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3C4DAB02446FA5500CA4206 /* KNCancelSuggestOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNCancelSuggestOrdersViewController.swift; sourceTree = "<group>"; };
 		C3C4DAB12446FA5500CA4206 /* KNCancelSuggestOrdersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNCancelSuggestOrdersViewController.xib; sourceTree = "<group>"; };
 		C3E401D5242B048D00F31372 /* LimitOrderContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitOrderContainerViewController.swift; sourceTree = "<group>"; };
 		C3E401D6242B048D00F31372 /* LimitOrderContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LimitOrderContainerViewController.xib; sourceTree = "<group>"; };
 		C3E401DC242B458200F31372 /* KNCreateLimitOrderV2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNCreateLimitOrderV2ViewController.swift; sourceTree = "<group>"; };
 		C3E401DD242B458200F31372 /* KNCreateLimitOrderV2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNCreateLimitOrderV2ViewController.xib; sourceTree = "<group>"; };
+		C3E8D86225B9316900FDA2AB /* KNGasWarningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNGasWarningViewController.swift; sourceTree = "<group>"; };
+		C3E8D86325B9316900FDA2AB /* KNGasWarningViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNGasWarningViewController.xib; sourceTree = "<group>"; };
 		C60BB88B239596D5006FE37D /* KNGetResolverRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNGetResolverRequest.swift; sourceTree = "<group>"; };
 		C60BB88D23959794006FE37D /* KNGetAddressFromResolverRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNGetAddressFromResolverRequest.swift; sourceTree = "<group>"; };
-		C61BAE4E24D7CA2300BC4705 /* KNSecret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KNSecret.swift; sourceTree = "<group>"; };
 		C625CF6D243F221D00511A90 /* PreviewLimitOrderV2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewLimitOrderV2ViewController.swift; sourceTree = "<group>"; };
 		C625CF6E243F221D00511A90 /* PreviewLimitOrderV2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviewLimitOrderV2ViewController.xib; sourceTree = "<group>"; };
 		C625CF71243F2D6700511A90 /* KNLimitOrderTabCoordinatorV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNLimitOrderTabCoordinatorV2.swift; sourceTree = "<group>"; };
@@ -1268,7 +1273,6 @@
 		C68AA274237A6BE900B9EC35 /* KNTransactionStatusPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNTransactionStatusPopUp.swift; sourceTree = "<group>"; };
 		C68AA275237A6BE900B9EC35 /* KNTransactionStatusPopUp.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNTransactionStatusPopUp.xib; sourceTree = "<group>"; };
 		C69830DB24AC3C51007D79AF /* KyberSwap - Crypto ExchangeRelease.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = "KyberSwap - Crypto ExchangeRelease.entitlements"; sourceTree = "<group>"; };
-		C69830DE24AC4E5A007D79AF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		C6AA667923A761A80050C610 /* KNNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotification.swift; sourceTree = "<group>"; };
 		C6AA667C23A764620050C610 /* KNNotificationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotificationStorage.swift; sourceTree = "<group>"; };
 		C6AA667F23A76B4C0050C610 /* KNNotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNNotificationCoordinator.swift; sourceTree = "<group>"; };
@@ -1601,7 +1605,7 @@
 		2537431C20ECEA52002C29FC /* Secret */ = {
 			isa = PBXGroup;
 			children = (
-				C61BAE4E24D7CA2300BC4705 /* KNSecret.swift */,
+				C3BC3F7E24AC984000B1ADFE /* KNSecret.swift */,
 			);
 			path = Secret;
 			sourceTree = "<group>";
@@ -2517,6 +2521,7 @@
 		257C9FCB2078FB2000EE0128 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				C3E8D86125B92F7700FDA2AB /* GasWarning */,
 				250EE8DF2221A3E700121138 /* BackUpData */,
 				255A70EC214FB8F3005D7A6A /* EditWallet */,
 				25BE32952090961600D760FB /* ListWalletsVC */,
@@ -3431,11 +3436,11 @@
 				257B84AE2074D7B8003DD40E /* Assets.xcassets */,
 				2912CCF81F6A830700C6CBE3 /* AppDelegate.swift */,
 				2912CD061F6A830700C6CBE3 /* Info.plist */,
-				C69830DE24AC4E5A007D79AF /* GoogleService-Info.plist */,
 				C69830DB24AC3C51007D79AF /* KyberSwap - Crypto ExchangeRelease.entitlements */,
 				29AD8A071F93E1F0008E10E7 /* KyberNetwork.entitlements */,
 				296106CD1F777E410006164B /* LaunchScreen.storyboard */,
 				C364819324726B1200137596 /* KyberSwap-Bridging-Header.h */,
+				C3BC3F8024AC985900B1ADFE /* GoogleService-Info.plist */,
 				C3357DB424768C400028F4A9 /* CustomFCTheme.plist */,
 			);
 			path = KyberNetwork;
@@ -4142,6 +4147,15 @@
 			path = BuyKNC;
 			sourceTree = "<group>";
 		};
+		C3E8D86125B92F7700FDA2AB /* GasWarning */ = {
+			isa = PBXGroup;
+			children = (
+				C3E8D86225B9316900FDA2AB /* KNGasWarningViewController.swift */,
+				C3E8D86325B9316900FDA2AB /* KNGasWarningViewController.xib */,
+			);
+			path = GasWarning;
+			sourceTree = "<group>";
+		};
 		C625CF6C243F21F500511A90 /* PreviewOrderV2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -4478,6 +4492,7 @@
 				25929C9520DA5CC10045CFA3 /* SFCompactText-Heavy.otf in Resources */,
 				25F1BAD921BBA7D200A36900 /* config_env_ropsten2.json in Resources */,
 				25929C5920DA5C760045CFA3 /* SF-Pro-Display-BoldItalic.otf in Resources */,
+				C3E8D86525B9316900FDA2AB /* KNGasWarningViewController.xib in Resources */,
 				25C45AC420AC3D9F00CDA1FF /* KNLandingPageViewController.xib in Resources */,
 				25929C6220DA5C760045CFA3 /* SF-Pro-Text-Bold.otf in Resources */,
 				25968732211DEC1D0080A33F /* KConfirmSwapViewController.xib in Resources */,
@@ -4573,7 +4588,7 @@
 				25929C8920DA5CC10045CFA3 /* SFCompactDisplay-Light.otf in Resources */,
 				257A37A6205D187100E86794 /* KNTransactionStatusViewController.xib in Resources */,
 				254A88B6229BDBEC00AA6BBA /* KNLimitOrderSearchTokenViewController.xib in Resources */,
-				C69830DF24AC4E5B007D79AF /* GoogleService-Info.plist in Resources */,
+				C3BC3F8124AC985900B1ADFE /* GoogleService-Info.plist in Resources */,
 				25073D22211AF20D00833C92 /* Montserrat-Italic.ttf in Resources */,
 				C37CC09C245803CA0081FB32 /* Roboto-Bold.ttf in Resources */,
 				251ABCB520578F6E0069687F /* config_env_staging.json in Resources */,
@@ -4690,7 +4705,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-resources.sh",
 				"${PODS_ROOT}/FreshchatSDK/FreshchatSDK/FCResources.bundle",
 				"${PODS_ROOT}/FreshchatSDK/FreshchatSDK/FreshchatModels.bundle",
 				"${PODS_ROOT}/FreshchatSDK/FreshchatSDK/FCLocalization.bundle",
@@ -4707,7 +4722,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EB2D49CBEF37022D8861D8E0 /* [CP] Check Pods Manifest.lock */ = {
@@ -4734,7 +4749,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/APIKit/APIKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
@@ -4831,7 +4846,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KyberNetwork/Pods-KyberNetwork-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F48CC1C9F6D4FAE6EF587C03 /* [CP] Check Pods Manifest.lock */ = {
@@ -4919,6 +4934,7 @@
 				29FC9BC61F830899000209CD /* MirgrationInitializer.swift in Sources */,
 				25E9E1EF208DE24F00A9090D /* BigInt.swift in Sources */,
 				25696F5720BD2B81002CC53F /* KNDataDetailsView.swift in Sources */,
+				C3BC3F7F24AC984000B1ADFE /* KNSecret.swift in Sources */,
 				291F52B91F6B880F00B369AB /* EtherKeystore.swift in Sources */,
 				2545577D20ABD9A200012692 /* KNSupportedTokenStorage.swift in Sources */,
 				296106D01F778A8D0006164B /* TransferType.swift in Sources */,
@@ -5006,7 +5022,6 @@
 				250343FF20DA37F700528810 /* KNSaveContactViewController.swift in Sources */,
 				298542F91FBE9A0100CB5081 /* CryptoAddressValidator.swift in Sources */,
 				258C47EC2081F22C00BD4068 /* KNReachability.swift in Sources */,
-				C61BAE4F24D7CA2400BC4705 /* KNSecret.swift in Sources */,
 				251ABCBF205790B10069687F /* KNJSONLoaderUtil.swift in Sources */,
 				2561454420C6442400FB00CF /* KNContact.swift in Sources */,
 				294DFBAE1FE6F254004CEB56 /* TokenObject.swift in Sources */,
@@ -5101,6 +5116,7 @@
 				C31F152923F549F6006CCACE /* SpeedUpCustomGasSelectViewController.swift in Sources */,
 				254A70192296ADC700890B8F /* KNConvertSuggestionViewController.swift in Sources */,
 				25CC0AB02059191C0009D0D5 /* KNInternalProvider.swift in Sources */,
+				C3E8D86425B9316900FDA2AB /* KNGasWarningViewController.swift in Sources */,
 				2542604F21218EF40015ECC7 /* KMinAcceptableRatePopupViewController.swift in Sources */,
 				255A70EA214F9ECE005D7A6A /* KNSettingsTabViewController.swift in Sources */,
 				C65D31EA21D4DCD1005D0B04 /* UITextField+Kyber.swift in Sources */,
@@ -5438,22 +5454,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = KyberNetwork/KyberNetwork.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyberswap.ios.bvi;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "e5075762-0411-4d14-9957-1b8590f82682";
-				PROVISIONING_PROFILE_SPECIFIER = "KyberSwap iOS Development New";
+				PROVISIONING_PROFILE_SPECIFIER = development_profile;
 				SWIFT_OBJC_BRIDGING_HEADER = "KyberNetwork/KyberSwap-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -5471,18 +5487,18 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.8;
+				MARKETING_VERSION = 1.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyberswap.ios.bvi;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "d08d5f84-6398-4202-b037-8e45e693b687";
-				PROVISIONING_PROFILE_SPECIFIER = "KyberSwap iOS AppStore New";
+				PROVISIONING_PROFILE_SPECIFIER = "KyberSwap iOS Adhoc New";
 				SWIFT_OBJC_BRIDGING_HEADER = "KyberNetwork/KyberSwap-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
@@ -5500,7 +5516,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 7N9YDG6SF9;
+				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				INFOPLIST_FILE = KyberNetworkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyberswap.ios.KyberNetworkTests;
@@ -5517,9 +5533,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 7N9YDG6SF9;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = KyberNetworkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyberswap.ios.KyberNetworkTests;

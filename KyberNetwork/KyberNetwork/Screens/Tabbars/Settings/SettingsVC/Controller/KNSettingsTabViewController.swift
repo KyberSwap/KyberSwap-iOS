@@ -22,6 +22,7 @@ enum KNSettingsTabViewEvent {
   case reportBugs
   case rateOurApp
   case liveChat
+  case gasWarning
 }
 
 protocol KNSettingsTabViewControllerDelegate: class {
@@ -215,6 +216,10 @@ class KNSettingsTabViewController: KNBaseViewController {
   @IBAction func liveChatButtonPressed(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "setting_livechat", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .liveChat)
+  }
+  
+  @IBAction func gasWarningButtonPressed(_ sender: UIButton) {
+    self.delegate?.settingsTabViewController(self, run: .gasWarning)
   }
 
   fileprivate func checkUnreadMessage() {

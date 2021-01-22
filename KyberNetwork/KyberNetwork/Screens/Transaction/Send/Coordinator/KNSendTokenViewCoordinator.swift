@@ -105,6 +105,11 @@ extension KNSendTokenViewCoordinator {
     }
     return false
   }
+  
+  func coordinatorDidUpdateGasWarningLimit() {
+    self.rootViewController.coordinatorUpdateGasWarningLimit()
+    self.confirmVC?.coordinatorUpdateGasWaringLimit()
+  }
 }
 
 // MARK: Send Token View Controller Delegate

@@ -88,6 +88,13 @@ extension KNAppCoordinator: KNLimitOrderTabCoordinatorV2Delegate {
 
 // MARK: Settings Coordinator Delegate
 extension KNAppCoordinator: KNSettingsCoordinatorDelegate {
+  func settingCoordinatorUserDidUpdateGasWarningLimit() {
+    self.exchangeCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+    self.balanceTabCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+    self.settingsCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+    self.limitOrderCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+  }
+
   func settingsCoordinatorUserDidUpdateWalletObjects() {
     self.balanceTabCoordinator?.appCoordinatorDidUpdateWalletObjects()
     self.exchangeCoordinator?.appCoordinatorDidUpdateWalletObjects()
@@ -114,6 +121,13 @@ extension KNAppCoordinator: KNSettingsCoordinatorDelegate {
 
 // MARK: Balance Tab Coordinator Delegate
 extension KNAppCoordinator: KNBalanceTabCoordinatorDelegate {
+  func balanceTabCoordinatorUserDidUpdateGasWarningLimit() {
+    self.exchangeCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+    self.balanceTabCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+    self.settingsCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+    self.limitOrderCoordinator?.appCoordinatorDidUpdateGasWarningLimit()
+  }
+
   func balanceTabCoordinatorShouldOpenExchange(for tokenObject: TokenObject, isReceived: Bool) {
     self.exchangeCoordinator?.appCoordinatorShouldOpenExchangeForToken(tokenObject, isReceived: isReceived)
     self.tabbarController.selectedIndex = 1
