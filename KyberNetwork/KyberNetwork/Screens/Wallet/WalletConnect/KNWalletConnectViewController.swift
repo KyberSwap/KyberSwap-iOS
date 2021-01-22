@@ -318,11 +318,16 @@ class KNWalletConnectViewController: KNBaseViewController {
   }
 
   fileprivate func tryParseTransactionData(_ json: JSONDictionary) -> String? {
+    var defaultKNGas: BigInt = KNGasConfiguration.gasPriceDefault
+    if let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedDefaultGas), let defaultGasBigInt = BigInt(defaultGasString) {
+      defaultKNGas = defaultGasBigInt
+    }
+    let gasPriceString = defaultKNGas.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)
     let data = (json["data"] as? String ?? "").drop0x
     let to = (json["to"] as? String ?? "").lowercased()
     let value = (json["value"] as? String ?? "").fullBigInt(decimals: 0) ?? BigInt(0)
     if data.isEmpty {
-      return "Transfer \(value.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)) ETH to \(to)"
+      return "Transfer \(value.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)) ETH to \(to)\nGas price: \(gasPriceString) gwei"
     }
     if data.starts(with: kApprovePrefix),
       let token = self.knSession.tokenStorage.tokens.first(where: { return $0.contract.lowercased() == to }) {
@@ -330,18 +335,13 @@ class KNWalletConnectViewController: KNBaseViewController {
       let address = data.substring(to: 72).substring(from: 32).add0x.lowercased()
       let contractName: String = {
         if let networkAddr = KNEnvironment.default.knCustomRPC?.networkAddress, networkAddr.lowercased() == address {
-          return "Kyber Network Proxy"
+          return "Kyber Network Proxy\nGas price: \(gasPriceString) gwei"
         }
         if let limitOrder = KNEnvironment.default.knCustomRPC?.limitOrderAddress, limitOrder.lowercased() == address {
-          return "KyberSwap Limit Order"
+          return "KyberSwap Limit Order\nGas price: \(gasPriceString) gwei"
         }
         return address
       }()
-      var defaultKNGas: BigInt = KNGasConfiguration.gasPriceDefault
-      if let defaultGasString = UserDefaults.standard.string(forKey: KNGasCoordinator.kSavedDefaultGas), let defaultGasBigInt = BigInt(defaultGasString) {
-        defaultKNGas = defaultGasBigInt
-      }
-      let gasPriceString = defaultKNGas.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)
       return "You need to grant permission for \(contractName) to interact with \(token.symbol)\nGas price: \(gasPriceString) gwei"
     }
     if data.starts(with: kTransferPrefix),
@@ -349,7 +349,7 @@ class KNWalletConnectViewController: KNBaseViewController {
       KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_type_transfer", customAttributes: nil)
       let address = data.substring(to: 72).substring(from: 32).add0x.lowercased()
       let amount = data.substring(from: 72).add0x.fullBigInt(decimals: 0) ?? BigInt(0)
-      return "Transfer \(amount.string(decimals: token.decimals, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))) \(token.symbol) to \(address)"
+      return "Transfer \(amount.string(decimals: token.decimals, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))) \(token.symbol) to \(address)\nGas price: \(gasPriceString) gwei"
     }
     if data.starts(with: kTradeWithHintPrefix),
       let networkAddr = KNEnvironment.default.knCustomRPC?.networkAddress, networkAddr.lowercased() == to {
@@ -362,7 +362,7 @@ class KNWalletConnectViewController: KNBaseViewController {
         let to = self.knSession.tokenStorage.tokens.first(where: { return $0.contract.lowercased() == toToken }) else {
           return nil
       }
-      return "Swap \(fromAmount.string(decimals: from.decimals, minFractionDigits: 0, maxFractionDigits: min(6, from.decimals))) \(from.symbol) to \(to.symbol)"
+      return "Swap \(fromAmount.string(decimals: from.decimals, minFractionDigits: 0, maxFractionDigits: min(6, from.decimals))) \(from.symbol) to \(to.symbol)\nGas price: \(gasPriceString) gwei"
     }
     KNCrashlyticsUtil.logCustomEvent(withName: "wallet_connect_transaction_type_unknown", customAttributes: nil)
     return nil
