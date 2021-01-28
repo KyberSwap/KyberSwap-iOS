@@ -468,8 +468,6 @@ extension KSendTokenViewController {
       currentGasPrice = KNGasCoordinator.shared.standardKNGas
     case .slow:
       currentGasPrice = KNGasCoordinator.shared.lowKNGas
-    default:
-      break
     }
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if limit <= 0 { limit = 200 }
@@ -478,7 +476,7 @@ extension KSendTokenViewController {
     self.advanceSettingTopContraint.constant = isShowWarning ? 88 : 32
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {
-      let estFee = limitBigInit * self.viewModel.gasLimit
+      let estFee = currentGasPrice * self.viewModel.gasLimit
       let feeString: String = estFee.displayRate(decimals: 18)
       let warningText = String(format: "High network congestion. Please double check gas fee (~%@ ETH) before confirmation.".toBeLocalised(), feeString)
       self.gasWarningTextLabel.text = warningText

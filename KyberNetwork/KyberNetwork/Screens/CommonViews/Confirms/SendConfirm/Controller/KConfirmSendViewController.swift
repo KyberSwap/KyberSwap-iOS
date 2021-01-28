@@ -195,7 +195,7 @@ class KConfirmSendViewController: KNBaseViewController {
     self.confirmButtonTopContraint.constant = isShowWarning ? 88 : 32
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {
-      let estFee = limitBigInit * gasLimit
+      let estFee = currentGasPrice * gasLimit
       let feeString: String = estFee.displayRate(decimals: 18)
       let warningText = String(format: "High network congestion. Please double check gas fee (~%@ ETH) before confirmation.".toBeLocalised(), feeString)
       self.gasWarningTextLabel.text = warningText

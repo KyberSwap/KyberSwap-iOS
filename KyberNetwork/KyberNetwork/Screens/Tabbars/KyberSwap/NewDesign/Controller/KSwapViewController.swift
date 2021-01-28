@@ -915,8 +915,6 @@ extension KSwapViewController {
       currentGasPrice = KNGasCoordinator.shared.standardKNGas
     case .slow:
       currentGasPrice = KNGasCoordinator.shared.lowKNGas
-    default:
-      break
     }
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if limit <= 0 { limit = 200 }
@@ -925,7 +923,7 @@ extension KSwapViewController {
     self.advanceSettingTopContraint.constant = isShowWarning ? 86 : 24
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {
-      let estFee = limitBigInit * self.viewModel.estimateGasLimit
+      let estFee = currentGasPrice * self.viewModel.estimateGasLimit
       let feeString: String = estFee.displayRate(decimals: 18)
       let warningText = String(format: "High network congestion. Please double check gas fee (~%@ ETH) before confirmation.".toBeLocalised(), feeString)
       self.gasWarningTextLabel.text = warningText
