@@ -4,10 +4,13 @@ import UIKit
 import BigInt
 import JdenticonSwift
 
-struct KConfirmSendViewModel {
+class KConfirmSendViewModel {
 
   let transaction: UnconfirmedTransaction
   let ens: String?
+  var isCloseGasWarningPopup: Bool {
+    return UserDefaults.standard.bool(forKey: Constants.gasWarningClosedValueKey)
+  }
 
   init(transaction: UnconfirmedTransaction, ens: String?) {
     self.transaction = transaction
@@ -95,5 +98,9 @@ struct KConfirmSendViewModel {
     let gasLimitText = EtherNumberFormatter.short.string(from: gasLimit, decimals: 0)
     let labelText = String(format: NSLocalizedString("%@ (Gas Price) * %@ (Gas Limit)", comment: ""), gasPriceText, gasLimitText)
     return labelText
+  }
+  
+  func saveCloseGasWarningState() {
+    UserDefaults.standard.set(true, forKey: Constants.gasWarningClosedValueKey)
   }
 }

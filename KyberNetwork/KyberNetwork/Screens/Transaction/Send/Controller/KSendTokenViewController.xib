@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -276,6 +276,18 @@
                                     <color key="textColor" red="1" green="0.56470588239999997" blue="0.031372549020000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Bi-RG-Kt5">
+                                    <rect key="frame" x="304" y="20.5" width="15" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="15" id="nc2-Tv-QSY"/>
+                                        <constraint firstAttribute="height" constant="15" id="xXq-ix-4yY"/>
+                                    </constraints>
+                                    <color key="tintColor" red="1" green="0.56470588239999997" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" image="close_template"/>
+                                    <connections>
+                                        <action selector="closeGasWarningPopupTapped:" destination="-1" eventType="touchUpInside" id="tJV-Rw-FmO"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -284,7 +296,9 @@
                                 <constraint firstItem="6uF-dQ-wjr" firstAttribute="centerY" secondItem="yiZ-9W-VE1" secondAttribute="centerY" id="FmJ-cr-E3C"/>
                                 <constraint firstItem="6uF-dQ-wjr" firstAttribute="leading" secondItem="1Zk-H8-n6S" secondAttribute="trailing" constant="14" id="K13-Sk-eZF"/>
                                 <constraint firstAttribute="height" constant="56" id="Poh-oS-aVg"/>
+                                <constraint firstAttribute="trailing" secondItem="3Bi-RG-Kt5" secondAttribute="trailing" constant="8" id="QNr-8g-yvT"/>
                                 <constraint firstAttribute="trailing" secondItem="6uF-dQ-wjr" secondAttribute="trailing" constant="28" id="cbI-7J-Ewm"/>
+                                <constraint firstItem="3Bi-RG-Kt5" firstAttribute="centerY" secondItem="yiZ-9W-VE1" secondAttribute="centerY" id="qbS-TY-6lk"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -352,6 +366,7 @@
     </objects>
     <resources>
         <image name="back_white_icon" width="38" height="19"/>
+        <image name="close_template" width="24" height="24"/>
         <image name="knc" width="36" height="36"/>
         <image name="qr_code_icon" width="22" height="22"/>
         <image name="warning_swap_all_icon" width="16" height="13"/>

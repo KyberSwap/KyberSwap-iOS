@@ -308,6 +308,11 @@ class KSendTokenViewController: KNBaseViewController {
     self.delegate?.kSendTokenViewController(self, run: event)
   }
 
+  @IBAction func closeGasWarningPopupTapped(_ sender: UIButton) {
+    self.viewModel.saveCloseGasWarningState()
+    self.updateGasWarningUI()
+  }
+
   fileprivate func updateAmountFieldUIForTransferAllIfNeeded() {
     guard self.viewModel.isSendAllBalanace, self.viewModel.from.isETH else { return }
     self.amountTextField.text = self.viewModel.allTokenBalanceString.removeGroupSeparator()
@@ -469,7 +474,7 @@ extension KSendTokenViewController {
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if limit <= 0 { limit = 200 }
     let limitBigInit = EtherNumberFormatter.full.number(from: limit.description, units: UnitConfiguration.gasPriceUnit)!
-    let isShowWarning = currentGasPrice > limitBigInit
+    let isShowWarning = (currentGasPrice > limitBigInit) && !self.viewModel.isCloseGasWarningPopup
     self.advanceSettingTopContraint.constant = isShowWarning ? 88 : 32
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {

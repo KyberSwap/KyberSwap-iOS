@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -254,6 +254,12 @@
                         <constraint firstItem="1LF-pz-Dvk" firstAttribute="leading" secondItem="OBt-LS-t3j" secondAttribute="leading" constant="12" id="sf7-hc-PHE"/>
                         <constraint firstItem="Hwk-JP-91t" firstAttribute="top" secondItem="1LF-pz-Dvk" secondAttribute="top" id="vgk-Om-W45"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTb-a0-heH">
                     <rect key="frame" x="21" y="501" width="333" height="56"/>
@@ -271,10 +277,24 @@
                             <color key="textColor" red="1" green="0.56470588239999997" blue="0.031372549020000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="shc-z1-RqD">
+                            <rect key="frame" x="310" y="20.5" width="15" height="15"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="15" id="2nu-Id-hyE"/>
+                                <constraint firstAttribute="height" constant="15" id="Z92-WL-eca"/>
+                            </constraints>
+                            <color key="tintColor" red="1" green="0.56470588239999997" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" image="close_template"/>
+                            <connections>
+                                <action selector="closeGasWarningPopupTapped:" destination="-1" eventType="touchUpInside" id="jFN-oF-3Qt"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="5Jv-4d-YAw" firstAttribute="centerY" secondItem="hTb-a0-heH" secondAttribute="centerY" id="2cQ-xq-qHf"/>
+                        <constraint firstItem="shc-z1-RqD" firstAttribute="centerY" secondItem="hTb-a0-heH" secondAttribute="centerY" id="7by-Pt-XPg"/>
+                        <constraint firstAttribute="trailing" secondItem="shc-z1-RqD" secondAttribute="trailing" constant="8" id="ARF-np-fx9"/>
                         <constraint firstItem="aO8-nB-zRs" firstAttribute="centerY" secondItem="hTb-a0-heH" secondAttribute="centerY" id="aua-Mn-HSR"/>
                         <constraint firstItem="5Jv-4d-YAw" firstAttribute="leading" secondItem="aO8-nB-zRs" secondAttribute="trailing" constant="14" id="evY-yx-Ixu"/>
                         <constraint firstAttribute="trailing" secondItem="5Jv-4d-YAw" secondAttribute="trailing" constant="28" id="hRr-QP-y0l"/>
@@ -372,6 +392,7 @@
     </objects>
     <resources>
         <image name="back_white_icon" width="38" height="19"/>
+        <image name="close_template" width="24" height="24"/>
         <image name="help_icon" width="14" height="14"/>
         <image name="info_red_icon" width="20" height="20"/>
         <image name="saving_icon" width="16" height="16"/>

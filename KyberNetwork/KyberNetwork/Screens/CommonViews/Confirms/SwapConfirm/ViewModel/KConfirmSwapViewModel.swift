@@ -7,6 +7,9 @@ struct KConfirmSwapViewModel {
 
   let transaction: KNDraftExchangeTransaction
   let ethBalance: BigInt
+  var isCloseGasWarningPopup: Bool {
+    return UserDefaults.standard.bool(forKey: Constants.gasWarningClosedValueKey)
+  }
 
   init(transaction: KNDraftExchangeTransaction, ethBalance: BigInt) {
     self.transaction = transaction
@@ -117,5 +120,9 @@ struct KConfirmSwapViewModel {
 
   var hint: String {
     return self.transaction.hint ?? ""
+  }
+
+  func saveCloseGasWarningState() {
+    UserDefaults.standard.set(true, forKey: Constants.gasWarningClosedValueKey)
   }
 }

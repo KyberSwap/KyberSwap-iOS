@@ -182,6 +182,9 @@ extension KNAppCoordinator {
     // reset history filter every time open app
     KNAppTracker.removeHistoryFilterData()
     KNAppTracker.updateShouldShowUserTranserConsentPopUp(true)
+
+    //Reset close gas warning value
+    UserDefaults.standard.set(false, forKey: Constants.gasWarningClosedValueKey)
   }
 
   func appDidBecomeActive() {

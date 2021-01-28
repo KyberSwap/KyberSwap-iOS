@@ -820,6 +820,11 @@ class KSwapViewController: KNBaseViewController {
   func isNeedToReloadGasLimit() -> Bool {
     return Date().timeIntervalSince1970 - self.viewModel.lastSuccessLoadGasLimitTimeStamp > KNLoadingInterval.seconds60
   }
+
+  @IBAction func closeGasWarningPopupTapped(_ sender: UIButton) {
+    self.viewModel.saveCloseGasWarningState()
+    self.updateGasWarningUI()
+  }
 }
 
 // MARK: Update UIs
@@ -916,7 +921,7 @@ extension KSwapViewController {
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if limit <= 0 { limit = 200 }
     let limitBigInit = EtherNumberFormatter.full.number(from: limit.description, units: UnitConfiguration.gasPriceUnit)!
-    let isShowWarning = currentGasPrice > limitBigInit
+    let isShowWarning = (currentGasPrice > limitBigInit) && !self.viewModel.isCloseGasWarningPopup
     self.advanceSettingTopContraint.constant = isShowWarning ? 86 : 24
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {

@@ -30,6 +30,9 @@ class KSwapViewModel {
   var isSwapAllBalance: Bool = false
   var isTappedSwapAllBalance: Bool = false
   var isUsingReverseRouting: Bool = true
+  var isCloseGasWarningPopup: Bool {
+    return UserDefaults.standard.bool(forKey: Constants.gasWarningClosedValueKey)
+  }
 
   var isSwapSuggestionShown: Bool {
     if let suggestions = self.swapSuggestion, !suggestions.isEmpty { return true }
@@ -246,6 +249,10 @@ class KSwapViewModel {
     attributedString.append(NSAttributedString(string: symbol, attributes: symbolAttributes))
     attributedString.append(NSAttributedString(string: "\n\(name)", attributes: nameAttributes))
     return attributedString
+  }
+  
+  func saveCloseGasWarningState() {
+    UserDefaults.standard.set(true, forKey: Constants.gasWarningClosedValueKey)
   }
 
   // MARK: Balance

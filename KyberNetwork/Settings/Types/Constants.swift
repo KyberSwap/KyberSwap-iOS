@@ -14,6 +14,7 @@ public struct Constants {
     public static let kisShowQuickTutorialForLongPendingTx = "kisShowQuickTutorialForLongPendingTx"
     public static let klimitNumberOfTransactionInDB = 1000
     public static let gasWarningValueKey = "gas_warning_value"
+    public static let gasWarningClosedValueKey = "gas_warning_is_closed_value"
 }
 
 public struct UnitConfiguration {

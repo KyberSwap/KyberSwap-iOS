@@ -206,6 +206,11 @@ class KConfirmSwapViewController: KNBaseViewController {
     )
   }
 
+  @IBAction func closeGasWarningPopupTapped(_ sender: UIButton) {
+    self.viewModel.saveCloseGasWarningState()
+    self.updateGasWarningUI()
+  }
+
   func updateActionButtonsSendingSwap() {
     self.isConfirmed = true
     self.confirmButton.removeSublayer(at: 0)
@@ -242,7 +247,7 @@ class KConfirmSwapViewController: KNBaseViewController {
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if limit <= 0 { limit = 200 }
     let limitBigInit = EtherNumberFormatter.full.number(from: limit.description, units: UnitConfiguration.gasPriceUnit)!
-    let isShowWarning = currentGasPrice > limitBigInit
+    let isShowWarning = (currentGasPrice > limitBigInit) && !self.viewModel.isCloseGasWarningPopup
     self.confirmButtonTopContraintWithReverseRoutingLabel.constant = isShowWarning ? 76 : 20
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {

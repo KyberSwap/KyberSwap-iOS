@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -433,12 +433,26 @@
                                     <color key="textColor" red="1" green="0.56470588235294117" blue="0.031372549019607843" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVU-dv-i8I">
+                                    <rect key="frame" x="312" y="20.5" width="15" height="15"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="aux-db-DRN"/>
+                                        <constraint firstAttribute="width" constant="15" id="tZC-wh-EyL"/>
+                                    </constraints>
+                                    <color key="tintColor" red="1" green="0.56470588239999997" blue="0.031372549020000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" image="close_template"/>
+                                    <connections>
+                                        <action selector="closeGasWarningPopupTapped:" destination="-1" eventType="touchUpInside" id="Xr6-1D-2Cy"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="HvE-at-ENt" firstAttribute="centerY" secondItem="JiC-IN-X8B" secondAttribute="centerY" id="0Kv-Ho-7SM"/>
+                                <constraint firstAttribute="trailing" secondItem="yVU-dv-i8I" secondAttribute="trailing" constant="8" id="DRM-ke-HVb"/>
                                 <constraint firstItem="aXl-3P-IQQ" firstAttribute="leading" secondItem="JiC-IN-X8B" secondAttribute="leading" constant="16" id="Wxr-Jy-ehA"/>
                                 <constraint firstItem="HvE-at-ENt" firstAttribute="leading" secondItem="aXl-3P-IQQ" secondAttribute="trailing" constant="14" id="ZZh-eT-jNn"/>
+                                <constraint firstItem="yVU-dv-i8I" firstAttribute="centerY" secondItem="JiC-IN-X8B" secondAttribute="centerY" id="b3G-iK-gRA"/>
                                 <constraint firstItem="aXl-3P-IQQ" firstAttribute="centerY" secondItem="JiC-IN-X8B" secondAttribute="centerY" id="eu6-xb-22Q"/>
                                 <constraint firstAttribute="height" constant="56" id="h1V-t0-5yd"/>
                                 <constraint firstAttribute="trailing" secondItem="HvE-at-ENt" secondAttribute="trailing" constant="28" id="wG3-Ak-Kx4"/>
@@ -524,6 +538,7 @@
     <resources>
         <image name="best_rate_icon" width="8" height="9"/>
         <image name="change_down" width="12" height="12"/>
+        <image name="close_template" width="24" height="24"/>
         <image name="eth" width="32" height="32"/>
         <image name="info_blue_icon" width="19" height="18"/>
         <image name="knc" width="36" height="36"/>
