@@ -1427,6 +1427,7 @@ extension KSwapViewController: KAdvancedSettingsViewDelegate {
       self.viewModel.updateSelectedGasPriceType(type)
       self.viewModel.updateGasPrice(value)
       self.updateFromAmountUIForSwapAllBalanceIfNeeded()
+      self.updateGasWarningUI()
       KNCrashlyticsUtil.logCustomEvent(withName: "advanced", customAttributes: ["gas_option": type.displayString(), "gas_value": self.viewModel.gasPriceText, "slippage": self.viewModel.slippageRateText ?? "0.0"])
     case .minRatePercentageChanged(let percent):
       self.viewModel.updateExchangeMinRatePercent(Double(percent))

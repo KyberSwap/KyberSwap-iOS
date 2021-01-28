@@ -8,7 +8,6 @@ enum KNSelectedGasPriceType: Int {
   case medium = 1
   case slow = 2
   case superFast = 3
-  case custom
 }
 
 extension KNSelectedGasPriceType {
@@ -22,8 +21,6 @@ extension KNSelectedGasPriceType {
       return "slow"
     case .superFast:
       return "super fast"
-    case .custom:
-      return "custom"
     }
   }
 }

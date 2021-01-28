@@ -797,6 +797,7 @@ extension KSendTokenViewController: KAdvancedSettingsViewDelegate {
       self.viewModel.updateSelectedGasPriceType(type)
       self.viewModel.updateGasPrice(value)
       self.updateAmountFieldUIForTransferAllIfNeeded()
+      self.updateGasWarningUI()
       KNCrashlyticsUtil.logCustomEvent(withName: "transfer_advanced", customAttributes: ["gas_option": type.displayString(), "gas_value": value.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)])
     case .helpPressed:
       KNCrashlyticsUtil.logCustomEvent(withName: "transfer_gas_fee_info_tapped", customAttributes: nil)

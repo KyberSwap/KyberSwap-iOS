@@ -499,7 +499,6 @@ class KSwapViewModel {
   // update when set gas price
   func updateGasPrice(_ gasPrice: BigInt) {
     self.gasPrice = gasPrice
-    self.selectedGasPriceType = .custom
   }
 
   @discardableResult

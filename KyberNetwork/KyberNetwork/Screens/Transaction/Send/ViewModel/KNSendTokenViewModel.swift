@@ -235,7 +235,6 @@ class KNSendTokenViewModel: NSObject {
 
   func updateGasPrice(_ gasPrice: BigInt) {
     self.gasPrice = gasPrice
-    self.selectedGasPriceType = .custom
   }
 
   func updateSelectedGasPriceType(_ type: KNSelectedGasPriceType) {
