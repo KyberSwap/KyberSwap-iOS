@@ -799,3 +799,8 @@
 "send.only.ERC20.tokens.to.this.address" = "이 주소로는 ETH 혹은 ERC20토큰만 전송하세요.\n\n* 그 외 토큰 전송 시 토큰이 손실될 수 있습니다.";
 "Something is wrong? View your wallet on" = "문제가 있나요? 아래에서 지갑 보기";
 "only.send.ETH.or.any.ERC-20" = "이 주소로는 ETH 혹은 ERC20토큰만 전송하세요.";
+
+"Save.gas.fees" = "Save gas fees. Get an extra warning on trade confirmation screen when gas price is high. Simply set up your alert below.\nShow me a warning if gas price is:";
+"Enter your own" = "Enter your own";
+"Gas Warning" = "Gas Warning";
+"High network congestion. Please double check gas fee (~%@ ETH) before confirmation." = "High network congestion. Please double check gas fee (~%@ ETH) before confirmation.";

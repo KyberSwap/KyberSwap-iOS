@@ -332,7 +332,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
     )
     controller.tabBarController!.view.addSubview(overlayer)
   }
-  
+
   fileprivate func checkShowGasWaringIfNeeded() {
     let gasWarningLimit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if gasWarningLimit <= 0 {
@@ -340,7 +340,7 @@ extension KNBalanceTabCoordinator: KWalletBalanceViewControllerDelegate {
       vc.modalTransitionStyle = .crossDissolve
       vc.modalPresentationStyle = .overCurrentContext
       vc.delegate = self
-      self.navigationController.present(vc, animated: true, completion: nil)
+      self.navigationController.tabBarController?.present(vc, animated: true, completion: nil)
     }
   }
 

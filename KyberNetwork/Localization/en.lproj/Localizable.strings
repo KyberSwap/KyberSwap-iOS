@@ -795,3 +795,8 @@
 "send.only.ERC20.tokens.to.this.address" = "Only send ETH or any ERC-20 token to this address\n\n*Sending any other tokens may result in loss of your funds";
 "Something is wrong? View your wallet on" = "Something is wrong? View your wallet on";
 "only.send.ETH.or.any.ERC-20" = "Only send ETH or any ERC-20 token to this address";
+
+"Save.gas.fees" = "Save gas fees. Get an extra warning on trade confirmation screen when gas price is high. Simply set up your alert below.\nShow me a warning if gas price is:";
+"Enter your own" = "Enter your own";
+"Gas Warning" = "Gas Warning";
+"High network congestion. Please double check gas fee (~%@ ETH) before confirmation." = "High network congestion. Please double check gas fee (~%@ ETH) before confirmation.";

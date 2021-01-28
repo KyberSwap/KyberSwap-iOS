@@ -63,6 +63,8 @@ class KNGasWarningViewController: KNBaseViewController {
   @IBOutlet weak var checkBox4TextField: UITextField!
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var confirmButton: UIButton!
+  @IBOutlet weak var enterYourOwnLabel: UILabel!
+
   let viewModel = KNGasWarningViewModel()
   weak var delegate: KNGasWarningViewControllerDelegate?
 
@@ -77,6 +79,11 @@ class KNGasWarningViewController: KNBaseViewController {
     self.checkBox4TextFieldContainerView.rounded(color: UIColor(red: 232, green: 232, blue: 232), width: 1, radius: 3)
     self.confirmButton.rounded(radius: 5)
     self.confirmButton.applyGradient()
+    self.titleLabel.text = "Gas Warning".toBeLocalised()
+    self.subTitleLabel.text = "Save.gas.fees".toBeLocalised()
+    self.enterYourOwnLabel.text = "Enter your own".toBeLocalised()
+    self.cancelButton.setTitle("cancel".toBeLocalised(), for: .normal)
+    self.confirmButton.setTitle("confirm".toBeLocalised(), for: .normal)
   }
 
   override func viewDidLayoutSubviews() {

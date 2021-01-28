@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,6 +27,7 @@
                 <outlet property="checkBox4TextField" destination="o3W-LP-dJz" id="RHG-lk-eFG"/>
                 <outlet property="checkBox4TextFieldContainerView" destination="gqb-DR-eBX" id="SJH-fi-mOB"/>
                 <outlet property="confirmButton" destination="VVj-VB-w3j" id="uXF-1M-ZUX"/>
+                <outlet property="enterYourOwnLabel" destination="LVg-Yf-1ax" id="xxL-jO-gVZ"/>
                 <outlet property="subTitleLabel" destination="cEA-CZ-Fhs" id="bXt-go-L6G"/>
                 <outlet property="titleLabel" destination="2OR-3t-kXR" id="gJ1-K8-OVU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -41,13 +42,13 @@
                     <rect key="frame" x="18" y="114" width="378" height="448"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gas Warning" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OR-3t-kXR">
-                            <rect key="frame" x="137" y="36" width="104" height="21"/>
+                            <rect key="frame" x="138" y="36" width="102.5" height="21"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VVj-VB-w3j">
-                            <rect key="frame" x="204" y="335.5" width="144" height="45"/>
+                            <rect key="frame" x="204" y="336" width="144" height="45"/>
                             <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="uY4-qR-8LT"/>
@@ -61,7 +62,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEA-CZ-Fhs">
-                            <rect key="frame" x="30" y="75" width="318" height="65.5"/>
+                            <rect key="frame" x="30" y="75" width="318" height="66"/>
                             <string key="text">Save gas fees. Get an extra warning on trade confirmation screen when gas price is high. Simply set up your alert below.
 Show me a warning if gas price is:</string>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
@@ -69,7 +70,7 @@ Show me a warning if gas price is:</string>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvq-gV-sNb">
-                            <rect key="frame" x="30" y="335.5" width="144" height="45"/>
+                            <rect key="frame" x="30" y="336" width="144" height="45"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="GJF-pu-bG8"/>
@@ -83,7 +84,7 @@ Show me a warning if gas price is:</string>
                             </connections>
                         </button>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfE-B6-zX3">
-                            <rect key="frame" x="45" y="160.5" width="20" height="20"/>
+                            <rect key="frame" x="45" y="161" width="20" height="20"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="G43-ad-vvm"/>
@@ -94,13 +95,13 @@ Show me a warning if gas price is:</string>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt; 500 Gwei" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2hZ-p6-vcE">
-                            <rect key="frame" x="75" y="162.5" width="71.5" height="16.5"/>
+                            <rect key="frame" x="75" y="163" width="69.5" height="16.5"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                             <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oyc-Km-Agv">
-                            <rect key="frame" x="45" y="200.5" width="20" height="20"/>
+                            <rect key="frame" x="45" y="201" width="20" height="20"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="DWW-Uj-1JL"/>
@@ -111,13 +112,13 @@ Show me a warning if gas price is:</string>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt; 200 Gwei" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J46-d0-HL5">
-                            <rect key="frame" x="75" y="202.5" width="71.5" height="16.5"/>
+                            <rect key="frame" x="75" y="203" width="69.5" height="16.5"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                             <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Al8-0H-j19">
-                            <rect key="frame" x="45" y="240.5" width="20" height="20"/>
+                            <rect key="frame" x="45" y="241" width="20" height="20"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="6rs-t7-7pj"/>
@@ -128,13 +129,13 @@ Show me a warning if gas price is:</string>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt; 100 Gwei" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uz8-g2-xxZ">
-                            <rect key="frame" x="75" y="242.5" width="71.5" height="16.5"/>
+                            <rect key="frame" x="75" y="243" width="69.5" height="16.5"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                             <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTO-qQ-QXg">
-                            <rect key="frame" x="45" y="280.5" width="20" height="20"/>
+                            <rect key="frame" x="45" y="281" width="20" height="20"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="20" id="NhW-hf-Obw"/>
@@ -145,16 +146,16 @@ Show me a warning if gas price is:</string>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" text="Enter your own" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVg-Yf-1ax">
-                            <rect key="frame" x="75" y="282.5" width="95" height="16.5"/>
+                            <rect key="frame" x="75" y="283" width="93.5" height="16.5"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                             <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqb-DR-eBX">
-                            <rect key="frame" x="178" y="272.5" width="170" height="36"/>
+                            <rect key="frame" x="176.5" y="273" width="171.5" height="36"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o3W-LP-dJz">
-                                    <rect key="frame" x="24.5" y="0.0" width="137.5" height="36"/>
+                                    <rect key="frame" x="24.5" y="0.0" width="139" height="36"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     <connections>

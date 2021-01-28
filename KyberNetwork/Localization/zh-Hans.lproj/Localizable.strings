@@ -798,3 +798,8 @@
 "send.only.ERC20.tokens.to.this.address" = "仅将ETH或ERC-20代币发送到该地址\n\n*发送其他类型的代币可能会导致您的代币遗失";
 "Something is wrong? View your wallet on" = "出什么状况了吗？请查看您的钱包确认。";
 "only.send.ETH.or.any.ERC-20" = "仅将ETH或ERC-20代币发送到该地址";
+
+"Save.gas.fees" = "节省gas费用。当gas价格昂贵时，会在交易确认画面上显示额外的警告。只需在下面设置您的警报即可触发。 \n如果gas价格达到以下所选标准，请向我显示警告：";
+"Enter your own" = "输入您想设置的标准";
+"Gas Warning" = "Gas警告";
+"High network congestion. Please double check gas fee (~%@ ETH) before confirmation." = "网络非常拥挤。请在确认之前仔细检查gas费用（〜%@ ETH）。";

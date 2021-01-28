@@ -179,7 +179,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     vc.modalTransitionStyle = .crossDissolve
     vc.modalPresentationStyle = .overCurrentContext
     vc.delegate = self
-    self.navigationController.present(vc, animated: true, completion: nil)
+    self.rootViewController.tabBarController?.present(vc, animated: true, completion: nil)
   }
 
   fileprivate func openCommunityURL(_ url: String) {
