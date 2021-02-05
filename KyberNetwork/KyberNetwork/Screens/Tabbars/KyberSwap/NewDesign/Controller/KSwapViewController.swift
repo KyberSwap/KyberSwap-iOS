@@ -921,8 +921,8 @@ extension KSwapViewController {
     }
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if limit <= 0 { limit = 200 }
-    let limitBigInit = BigInt(limit * pow(10, 9))
-    let isShowWarning = (currentGasPrice > limitBigInit) && !self.viewModel.isCloseGasWarningPopup
+    let limitBigInt = BigInt(limit * pow(10, 9))
+    let isShowWarning = (currentGasPrice > limitBigInt) && !self.viewModel.isCloseGasWarningPopup
     self.advanceSettingTopContraint.constant = isShowWarning ? 86 : 24
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {
