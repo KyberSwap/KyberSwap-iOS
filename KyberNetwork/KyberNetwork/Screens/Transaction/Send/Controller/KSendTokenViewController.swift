@@ -474,9 +474,8 @@ extension KSendTokenViewController {
     }
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
     if limit <= 0 { limit = 200 }
-    let currentGasPriceStringValue = EtherNumberFormatter.full.string(from: currentGasPrice, units: UnitConfiguration.gasPriceUnit)
-    let currentGasPriceDouble = Double(currentGasPriceStringValue.cleanDoubleSeparator()) ?? 50.0
-    let isShowWarning = (currentGasPriceDouble > limit) && !self.viewModel.isCloseGasWarningPopup
+    let limitBigInit = BigInt(limit * pow(10, 9))
+    let isShowWarning = (currentGasPrice > limitBigInit) && !self.viewModel.isCloseGasWarningPopup
     self.advanceSettingTopContraint.constant = isShowWarning ? 88 : 32
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {

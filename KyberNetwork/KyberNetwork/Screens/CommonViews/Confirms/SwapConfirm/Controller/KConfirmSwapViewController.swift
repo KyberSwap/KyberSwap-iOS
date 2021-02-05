@@ -256,10 +256,9 @@ class KConfirmSwapViewController: KNBaseViewController {
     let currentGasPrice = self.viewModel.transaction.gasPrice ?? KNGasCoordinator.shared.fastKNGas
     let gasLimit: BigInt = self.viewModel.transaction.gasLimit ?? KNGasConfiguration.exchangeTokensGasLimitDefault
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
-    let currentGasPriceStringValue = EtherNumberFormatter.full.string(from: currentGasPrice, units: UnitConfiguration.gasPriceUnit)
-    let currentGasPriceDouble = Double(currentGasPriceStringValue.cleanDoubleSeparator()) ?? 50.0
     if limit <= 0 { limit = 200 }
-    let isShowWarning = (currentGasPriceDouble > limit) && !self.viewModel.isCloseGasWarningPopup
+    let limitBigInit = BigInt(limit * pow(10, 9))
+    let isShowWarning = (currentGasPrice > limitBigInit) && !self.viewModel.isCloseGasWarningPopup
     self.confirmButtonTopContraintWithReverseRoutingLabel.constant = isShowWarning ? 76 : 20
     self.gasWarningContainerView.isHidden = !isShowWarning
     if isShowWarning {

@@ -155,8 +155,4 @@ extension String {
     }
     return "\(left)_\(right)"
   }
-
-  func cleanDoubleSeparator() -> String {
-    return self.replacingOccurrences(of: ",", with: ".")
-  }
 }
