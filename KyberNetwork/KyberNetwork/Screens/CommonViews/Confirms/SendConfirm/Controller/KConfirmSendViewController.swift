@@ -56,13 +56,13 @@ class KConfirmSendViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.setupUI()
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     if !self.isViewSetup {
       self.isViewSetup = true
+      self.setupUI()
     }
   }
 
