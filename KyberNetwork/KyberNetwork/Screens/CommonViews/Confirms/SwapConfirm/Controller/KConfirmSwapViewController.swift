@@ -41,6 +41,7 @@ class KConfirmSwapViewController: KNBaseViewController {
   @IBOutlet weak var gasWarningTextLabel: UILabel!
   @IBOutlet weak var gasWarningContainerView: UIView!
   @IBOutlet weak var confirmButtonTopContraintWithReverseRoutingLabel: NSLayoutConstraint!
+  fileprivate var isViewSetup: Bool = false
 
   fileprivate var viewModel: KConfirmSwapViewModel
   weak var delegate: KConfirmSwapViewControllerDelegate?
@@ -59,6 +60,13 @@ class KConfirmSwapViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    if !self.isViewSetup {
+      self.isViewSetup = true
+    }
   }
 
   override func viewDidLayoutSubviews() {
@@ -242,6 +250,9 @@ class KConfirmSwapViewController: KNBaseViewController {
   }
 
   fileprivate func updateGasWarningUI() {
+    guard self.isViewSetup else {
+      return
+    }
     let currentGasPrice = self.viewModel.transaction.gasPrice ?? KNGasCoordinator.shared.fastKNGas
     let gasLimit: BigInt = self.viewModel.transaction.gasLimit ?? KNGasConfiguration.exchangeTokensGasLimitDefault
     var limit = UserDefaults.standard.double(forKey: Constants.gasWarningValueKey)
@@ -261,7 +272,7 @@ class KConfirmSwapViewController: KNBaseViewController {
   func coordinatorUpdateCurrentMarketRate() {
     self.warningMessageLabel.text = self.viewModel.warningRateMessage
   }
-  
+
   func coordinatorUpdateGasWaringLimit() {
     self.updateGasWarningUI()
   }

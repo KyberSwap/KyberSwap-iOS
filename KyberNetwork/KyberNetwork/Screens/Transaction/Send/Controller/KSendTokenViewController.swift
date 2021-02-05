@@ -458,6 +458,9 @@ extension KSendTokenViewController {
   }
 
   fileprivate func updateGasWarningUI() {
+    guard self.isViewSetup else {
+      return
+    }
     var currentGasPrice = KNGasCoordinator.shared.standardKNGas
     switch self.viewModel.selectedGasPriceType {
     case .superFast:
