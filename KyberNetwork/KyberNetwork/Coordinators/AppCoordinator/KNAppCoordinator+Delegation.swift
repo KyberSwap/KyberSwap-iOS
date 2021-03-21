@@ -4,6 +4,10 @@ import UIKit
 
 // MARK: Landing Page Coordinator Delegate
 extension KNAppCoordinator: KNLandingPageCoordinatorDelegate {
+  func landingPageCoordinatorDidSendRefCode(_ code: String) {
+    self.sendRefCode(code)
+  }
+  
   func landingPageCoordinator(import wallet: Wallet) {
     if self.tabbarController == nil {
       self.startNewSession(with: wallet)
@@ -36,6 +40,10 @@ extension KNAppCoordinator: KNSessionDelegate {
 
 // MARK: Exchange Token Coordinator Delegate
 extension KNAppCoordinator: KNExchangeTokenCoordinatorDelegate {
+  func exchangeTokenCoodinatorDidSendRefCode(_ code: String) {
+    self.sendRefCode(code)
+  }
+  
   func exchangeTokenCoordinatorDidSelectManageWallet() {
     self.tabbarController.selectedIndex = 4
     self.settingsCoordinator?.settingsViewControllerWalletsButtonPressed()
@@ -60,14 +68,13 @@ extension KNAppCoordinator: KNExchangeTokenCoordinatorDelegate {
   }
 
   func exchangeTokenCoordinatorOpenManageOrder() {
-    self.tabbarController.selectedIndex = 2
-    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
+//    self.tabbarController.selectedIndex = 2
+//    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
   }
 
   func exchangeTokenCoordinatorDidUpdateWalletObjects() {
 //    self.balanceTabCoordinator?.appCoordinatorDidUpdateWalletObjects()
     self.exchangeCoordinator?.appCoordinatorDidUpdateWalletObjects()
-    self.limitOrderCoordinator?.appCoordinatorDidUpdateWalletObjects()
     
   }
 
@@ -116,33 +123,20 @@ extension KNAppCoordinator: OverviewCoordinatorDelegate {
     self.tabbarController.selectedIndex = 4
     self.settingsCoordinator?.settingsViewControllerWalletsButtonPressed()
   }
-  
-  
 }
 
-// MARK: Limit Order Coordinator Delegate
-extension KNAppCoordinator: KNLimitOrderTabCoordinatorV2Delegate {
-  func limitOrderTabCoordinatorDidSelectWallet(_ wallet: KNWalletObject) {
-    guard let wallet = self.keystore.wallets.first(where: { $0.address.description.lowercased() == wallet.address.lowercased() }) else { return }
-    if let recentWallet = self.keystore.recentlyUsedWallet, recentWallet == wallet { return }
-    self.restartNewSession(wallet)
-  }
-
-  func limitOrderTabCoordinatorRemoveWallet(_ wallet: Wallet) {
-    self.removeWallet(wallet)
-  }
-
-  func limitOrderTabCoordinatorDidSelectAddWallet() {
+extension KNAppCoordinator: KrytalCoordinatorDelegate {
+  func krytalCoordinatorDidSelectAddWallet() {
     self.addNewWallet(type: .full)
   }
-
-  func limitOrderTabCoordinatorDidSelectPromoCode() {
-    self.addPromoCode()
+  
+  func krytalCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.restartNewSession(wallet)
   }
-
-  func limitOrderTabCoordinatorOpenExchange(from: String, to: String) {
-    self.tabbarController.selectedIndex = 1
-    self.exchangeCoordinator?.appCoordinatorPushNotificationOpenSwap(from: from, to: to)
+  
+  func krytalCoordinatorDidSelectManageWallet() {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.settingsViewControllerWalletsButtonPressed()
   }
 }
 
@@ -151,8 +145,6 @@ extension KNAppCoordinator: KNSettingsCoordinatorDelegate {
   func settingsCoordinatorUserDidUpdateWalletObjects() {
 //    self.balanceTabCoordinator?.appCoordinatorDidUpdateWalletObjects()
     self.exchangeCoordinator?.appCoordinatorDidUpdateWalletObjects()
-    self.limitOrderCoordinator?.appCoordinatorDidUpdateWalletObjects()
-    
   }
 
   func settingsCoordinatorUserDidSelectExit() {
@@ -172,56 +164,7 @@ extension KNAppCoordinator: KNSettingsCoordinatorDelegate {
   }
 }
 
-// MARK: Balance Tab Coordinator Delegate
-extension KNAppCoordinator: KNBalanceTabCoordinatorDelegate {
-  func balanceTabCoordinatorDidSelectManageWallet() {
-    self.tabbarController.selectedIndex = 4
-    self.settingsCoordinator?.settingsViewControllerWalletsButtonPressed()
-  }
-  
-  func balanceTabCoordinatorDidSelectRemoveWallet(_ wallet: Wallet) {
-    self.removeWallet(wallet)
-  }
 
-  func balanceTabCoordinatorDidSelectWallet(_ wallet: Wallet) {
-    self.restartNewSession(wallet)
-  }
-
-  func balanceTabCoordinatorShouldOpenExchange(for tokenObject: TokenObject, isReceived: Bool) {
-    self.exchangeCoordinator?.appCoordinatorShouldOpenExchangeForToken(tokenObject, isReceived: isReceived)
-    self.tabbarController.selectedIndex = 1
-  }
-
-  func balanceTabCoordinatorDidSelect(walletObject: KNWalletObject) {
-    guard let wallet = self.keystore.wallets.first(where: { $0.address.description.lowercased() == walletObject.address.lowercased() }) else { return }
-    self.restartNewSession(wallet)
-  }
-
-  func balanceTabCoordinatorDidSelectAddWallet() {
-    self.addNewWallet(type: .full)
-  }
-
-  func balanceTabCoordinatorDidSelectPromoCode() {
-    self.addPromoCode()
-  }
-
-  func balanceTabCoordinatorOpenManageOrder() {
-    self.tabbarController.selectedIndex = 2
-    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
-  }
-
-  func balanceTabCoordinatorOpenSwap(from: String, to: String) {
-    self.tabbarController.selectedIndex = 1
-    self.exchangeCoordinator?.appCoordinatorPushNotificationOpenSwap(from: from, to: to)
-  }
-
-  func balanceTabCoordinatorDidUpdateWalletObjects() {
-//    self.balanceTabCoordinator?.appCoordinatorDidUpdateWalletObjects()
-    self.exchangeCoordinator?.appCoordinatorDidUpdateWalletObjects()
-    self.limitOrderCoordinator?.appCoordinatorDidUpdateWalletObjects()
-    
-  }
-}
 
 // MARK: Transaction Status Delegate
 extension KNAppCoordinator: KNTransactionStatusCoordinatorDelegate {
@@ -234,6 +177,10 @@ extension KNAppCoordinator: KNTransactionStatusCoordinatorDelegate {
 
 // MARK: Add wallet coordinator delegate
 extension KNAppCoordinator: KNAddNewWalletCoordinatorDelegate {
+  func addNewWalletCoordinatorDidSendRefCode(_ code: String) {
+    self.sendRefCode(code)
+  }
+  
   func addNewWalletCoordinator(add wallet: Wallet) {
     // reset loading state
     KNAppTracker.updateAllTransactionLastBlockLoad(0, for: wallet.address)
@@ -279,8 +226,8 @@ extension KNAppCoordinator: KNPasscodeCoordinatorDelegate {
 
 extension KNAppCoordinator: KNExploreCoordinatorDelegate {
   func exploreCoordinatorOpenManageOrder() {
-    self.tabbarController.selectedIndex = 2
-    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
+//    self.tabbarController.selectedIndex = 2
+//    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
   }
 
   func exploreCoordinatorOpenSwap(from: String, to: String) {

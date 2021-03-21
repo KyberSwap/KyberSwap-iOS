@@ -4,7 +4,7 @@ import UIKit
 import BigInt
 
 enum SpeedUpCustomGasSelectViewEvent {
-  case done(transaction: Transaction, newGasPrice: BigInt)
+  case done(transaction: InternalHistoryTransaction, newGasPrice: BigInt)
   case invaild
 }
 
@@ -116,7 +116,6 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
   }
 
   @IBAction func doneButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_done_button_in_custom_gas_price_select_screen", customAttributes: ["transactionHash": self.viewModel.transaction.id])
     if self.viewModel.isNewGasPriceValid() {
       self.dismiss(animated: true) {
         self.delegate?.speedUpCustomGasSelectViewController(self, run: .done(transaction: self.viewModel.transaction, newGasPrice: self.viewModel.getNewTransactionGasPriceETH()))
@@ -128,7 +127,6 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
 
   @IBAction func selectBoxButtonTapped(_ sender: UIButton) {
     guard let type = KNSelectedGasPriceType(rawValue: sender.tag) else { return }
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_option_button_in_custom_gas_price_select_screen", customAttributes: ["transactionHash": self.viewModel.transaction.id, "option": type])
     self.handleGasFeeChange(type)
   }
 

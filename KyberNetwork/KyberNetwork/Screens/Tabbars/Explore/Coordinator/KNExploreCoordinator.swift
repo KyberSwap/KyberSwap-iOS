@@ -80,8 +80,8 @@ class KNExploreCoordinator: NSObject, Coordinator {
     self.historyCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
   }
 
-  func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
-    if self.historyCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) == true { return true }
+  func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
+    if self.historyCoordinator?.coordinatorDidUpdateTransaction(tx) == true { return true }
     return false
   }
 }

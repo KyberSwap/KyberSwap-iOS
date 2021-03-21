@@ -4,6 +4,7 @@ import Foundation
 import BigInt
 import TrustCore
 import TrustKeystore
+import Result
 
 public struct SignTransaction {
     let value: BigInt
@@ -18,7 +19,25 @@ public struct SignTransaction {
 
 extension SignTransaction {
   func toSignTransactionObject() -> SignTransactionObject {
-    return SignTransactionObject(value: self.value.description, to: self.to?.description, nonce: self.nonce, data: self.data, gasPrice: self.gasPrice.description, gasLimit: self.gasLimit.description, chainID: self.chainID)
+    return SignTransactionObject(value: self.value.description, from: self.account.address.description, to: self.to?.description, nonce: self.nonce, data: self.data, gasPrice: self.gasPrice.description, gasLimit: self.gasLimit.description, chainID: self.chainID)
+  }
+  
+  func send(provider: KNExternalProvider, completion: @escaping (Result<String, AnyError>) -> Void) {
+    provider.signTransactionData(from: self) { (result) in
+      switch result {
+      case .success((let signData, _)):
+        KNGeneralProvider.shared.sendSignedTransactionData(signData) { (sendResult) in
+          switch sendResult {
+          case .success(let hash):
+            completion(.success(hash))
+          case .failure(let sendError):
+            completion(.failure(sendError))
+          }
+        }
+      case .failure(let error):
+        completion(.failure(error))
+      }
+    }
   }
 }
 

@@ -155,4 +155,8 @@ extension String {
     }
     return "\(left)_\(right)"
   }
+  
+  func paddingString() -> String {
+    return " " + self + " "
+  }
 }

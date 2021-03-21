@@ -187,10 +187,18 @@ class EarnSwapConfirmViewController: KNBaseViewController {
   
   @IBAction func sendButtonTapped(_ sender: UIButton) {
     self.dismiss(animated: true) {
-      let transactionHistory = InternalHistoryTransaction(type: .earn, state: .pending, fromSymbol: self.viewModel.toToken.symbol, toSymbol: self.viewModel.earnTokenSymbol, transactionDescription: "\(self.viewModel.toAmountString) -> \(self.viewModel.earnAmountString)", transactionDetailDescription: "")
-      
+      let transactionHistory = InternalHistoryTransaction(type: .earn, state: .pending, fromSymbol: self.viewModel.toToken.symbol, toSymbol: self.viewModel.earnTokenSymbol, transactionDescription: "\(self.viewModel.toAmountString) -> \(self.viewModel.earnAmountString)", transactionDetailDescription: "", transactionObj: self.viewModel.transaction.toSignTransactionObject())
+      transactionHistory.transactionSuccessDescription = "\(self.viewModel.earnAmountString) with \(self.viewModel.netAPYString) APY"
       self.delegate?.earnConfirmViewController(self, didConfirm: self.viewModel.transaction, amount: self.viewModel.toAmountString, netAPY: self.viewModel.netAPYString, platform: self.viewModel.platform, historyTransaction: transactionHistory)
     }
+  }
+  
+  @IBAction func helpButtonTapped(_ sender: UIButton) {
+    self.showBottomBannerView(
+      message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
+      icon: UIImage(named: "help_icon_large") ?? UIImage(),
+      time: 3
+    )
   }
 }
 

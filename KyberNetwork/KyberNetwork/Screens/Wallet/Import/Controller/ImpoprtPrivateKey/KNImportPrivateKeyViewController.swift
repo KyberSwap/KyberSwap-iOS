@@ -5,6 +5,8 @@ import QRCodeReaderViewController
 
 protocol KNImportPrivateKeyViewControllerDelegate: class {
   func importPrivateKeyViewControllerDidPressNext(sender: KNImportPrivateKeyViewController, privateKey: String, name: String?)
+  func importPrivateKeyViewController(controller: KNImportPrivateKeyViewController, send refCode: String)
+  func importPrivateKeyControllerDidSelectQRCode(controller: KNImportPrivateKeyViewController)
 }
 
 class KNImportPrivateKeyViewController: KNBaseViewController {
@@ -20,6 +22,7 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
   @IBOutlet weak var privateKeyFieldContainer: UIView!
 
   @IBOutlet weak var nextButton: UIButton!
+  @IBOutlet weak var refCodeField: UITextField!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -113,6 +116,24 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
       privateKey: privateKey,
       name: self.walletNameTextField.text
     )
+    
+    if let text = self.refCodeField.text, !text.isEmpty {
+      self.delegate?.importPrivateKeyViewController(controller: self, send: text)
+    }
+  }
+  
+  @IBAction func pasteButtonTapped(_ sender: UIButton) {
+    if let string = UIPasteboard.general.string {
+      self.refCodeField.text = string
+    }
+  }
+  
+  @IBAction func qrCodeButtonTapped(_ sender: UIButton) {
+    self.delegate?.importPrivateKeyControllerDidSelectQRCode(controller: self)
+  }
+  
+  func containerViewDidUpdateRefCode(_ refCode: String) {
+    self.refCodeField.text = refCode
   }
 }
 

@@ -25,6 +25,7 @@
                 <outlet property="decimalsField" destination="mmn-6o-dhI" id="OXI-Xm-IeI"/>
                 <outlet property="doneButton" destination="sSh-ox-nfP" id="nPI-kW-dnc"/>
                 <outlet property="symbolField" destination="YCD-po-quv" id="d1y-Nq-rrt"/>
+                <outlet property="titleHeader" destination="xXP-3m-yG8" id="moG-eI-ljf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -213,7 +214,7 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="21"/>
+                            <integer key="value" value="16"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>

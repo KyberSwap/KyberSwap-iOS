@@ -29,6 +29,8 @@ public struct Constants {
   public static let etherscanInternalTransactionsStoreFileName = "-etherscan-internal-transaction.data"
   public static let etherscanTransactionsStoreFileName = "-etherscan-transaction.data"
   public static let customFilterOptionFileName = "custom-filter-option.data"
+  public static let marketingAssetsStoreFileName = "marketing-assets.data"
+  public static let referralOverviewStoreFileName = "referral-overview.data"
 }
 
 public struct UnitConfiguration {

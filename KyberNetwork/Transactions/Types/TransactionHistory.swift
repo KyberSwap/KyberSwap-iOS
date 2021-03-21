@@ -23,6 +23,7 @@ struct TxObject: Codable {
 
 struct SignTransactionObject: Codable {
   let value: String
+  let from: String
   let to: String?
   let nonce: Int
   let data: Data
@@ -33,7 +34,53 @@ struct SignTransactionObject: Codable {
 
 extension SignTransactionObject {
   func toSignTransaction(account: Account) -> SignTransaction {
-    return SignTransaction(value: BigInt(self.value) ?? BigInt(0), account: account, to: Address(string: self.to ?? ""), nonce: self.nonce, data: self.data, gasPrice: BigInt(gasPrice) ?? BigInt(0), gasLimit: BigInt(gasLimit) ?? BigInt(0), chainID: self.chainID)
+    return SignTransaction(
+      value: BigInt(self.value) ?? BigInt(0),
+      account: account,
+      to: Address(string: self.to ?? ""),
+      nonce: self.nonce,
+      data: self.data,
+      gasPrice: BigInt(gasPrice) ?? BigInt(0),
+      gasLimit: BigInt(gasLimit) ?? BigInt(0),
+      chainID: self.chainID
+    )
+  }
+  
+  func gasPriceForCancelTransaction() -> BigInt {
+    guard
+      let currentGasPrice = BigInt(self.gasPrice)
+    else
+    {
+      return KNGasConfiguration.gasPriceMax
+    }
+    let gasPrice = max(currentGasPrice * BigInt(1.2 * pow(10.0, 18.0)) / BigInt(10).power(18), KNGasConfiguration.gasPriceMax)
+    return gasPrice
+  }
+  
+  func toSpeedupTransaction(account: Account, gasPrice: BigInt) -> SignTransaction {
+    return SignTransaction(
+      value: BigInt(self.value) ?? BigInt(0),
+      account: account,
+      to: Address(string: self.to ?? ""),
+      nonce: self.nonce,
+      data: self.data,
+      gasPrice: gasPrice,
+      gasLimit: BigInt(gasLimit) ?? BigInt(0),
+      chainID: self.chainID
+    )
+  }
+  
+  func toCancelTransaction(account: Account) -> SignTransaction {
+    return SignTransaction(
+      value: BigInt(0),
+      account: account,
+      to: account.address,
+      nonce: self.nonce,
+      data: Data(),
+      gasPrice: self.gasPriceForCancelTransaction(),
+      gasLimit: KNGasConfiguration.transferETHGasLimitDefault,
+      chainID: self.chainID
+    )
   }
 }
 
@@ -230,15 +277,17 @@ class InternalHistoryTransaction: Codable {
   let toSymbol: String?
   let transactionDescription: String
   let transactionDetailDescription: String
-//  var transactionObject: TxObject
-  
-  init(type: HistoryModelType, state: InternalTransactionState, fromSymbol: String?, toSymbol: String?, transactionDescription: String, transactionDetailDescription: String) {
+  var transactionSuccessDescription: String?
+  var transactionObject: SignTransactionObject
+
+  init(type: HistoryModelType, state: InternalTransactionState, fromSymbol: String?, toSymbol: String?, transactionDescription: String, transactionDetailDescription: String, transactionObj: SignTransactionObject) {
     self.type = type
     self.state = state
     self.fromSymbol = fromSymbol
     self.toSymbol = toSymbol
     self.transactionDescription = transactionDescription
     self.transactionDetailDescription = transactionDetailDescription
+    self.transactionObject = transactionObj
   }
 }
 
@@ -249,7 +298,7 @@ struct HistoryTransaction {
   let internalTransactions: [EtherscanInternalTransaction]
   let tokenTransactions: [EtherscanTokenTransaction]
   let wallet: String
-  
+
   var date: Date {
     return Date(timeIntervalSince1970: Double(self.timestamp) ?? 0)
   }

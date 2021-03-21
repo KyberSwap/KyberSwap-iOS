@@ -9,8 +9,8 @@ class SpeedUpCustomGasSelectViewModel {
   fileprivate(set) var medium: BigInt = KNGasCoordinator.shared.standardKNGas
   fileprivate(set) var slow: BigInt = KNGasCoordinator.shared.lowKNGas
   fileprivate(set) var superFast: BigInt = KNGasCoordinator.shared.superFastKNGas
-  let transaction: Transaction
-  init(transaction: Transaction) {
+  let transaction: InternalHistoryTransaction
+  init(transaction: InternalHistoryTransaction) {
       self.transaction = transaction
   }
 
@@ -68,7 +68,7 @@ class SpeedUpCustomGasSelectViewModel {
 
   fileprivate func formatFeeStringFor(gasPrice: BigInt) -> String {
     let fee: BigInt? = {
-      guard let gasLimit = EtherNumberFormatter.full.number(from: transaction.gasUsed, decimals: 0)
+      guard let gasLimit = BigInt(self.transaction.transactionObject.gasLimit)
         else { return nil }
       return gasPrice * gasLimit
     }()
@@ -96,8 +96,8 @@ class SpeedUpCustomGasSelectViewModel {
 
   var currentTransactionFeeETHString: String {
     let fee: BigInt? = {
-      guard let gasPrice = EtherNumberFormatter.full.number(from: transaction.gasPrice, decimals: 0),
-        let gasLimit = EtherNumberFormatter.full.number(from: transaction.gasUsed, decimals: 0)
+      guard let gasPrice = BigInt(self.transaction.transactionObject.gasPrice),
+        let gasLimit = BigInt(self.transaction.transactionObject.gasLimit)
         else { return nil }
       return gasPrice * gasLimit
     }()
@@ -127,7 +127,7 @@ class SpeedUpCustomGasSelectViewModel {
   func getNewTransactionFeeETH() -> BigInt {
     let gasPrice = getNewTransactionGasPriceETH()
     let fee: BigInt? = {
-      guard let gasLimit = EtherNumberFormatter.full.number(from: transaction.gasUsed, decimals: 0) else { return nil }
+      guard let gasLimit = BigInt(self.transaction.transactionObject.gasLimit) else { return nil }
       return gasPrice * gasLimit
     }()
     return fee ?? BigInt(0)
@@ -139,7 +139,7 @@ class SpeedUpCustomGasSelectViewModel {
 
   func isNewGasPriceValid() -> Bool {
     let newValue = getNewTransactionGasPriceETH()
-    let oldValue = EtherNumberFormatter.full.number(from: transaction.gasPrice, decimals: 0) ?? BigInt(0)
+    let oldValue = BigInt(self.transaction.transactionObject.gasPrice) ?? BigInt(0)
     return newValue > ( oldValue * BigInt(11) / BigInt (10) )
   }
 }

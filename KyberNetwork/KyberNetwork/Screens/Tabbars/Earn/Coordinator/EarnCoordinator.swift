@@ -151,8 +151,8 @@ class EarnCoordinator: NSObject, Coordinator {
     self.balances = [:]
   }
 
-  func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
-    if let txHash = self.transactionStatusVC?.transaction.id, txHash == txID {
+  func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
+    if let txHash = self.transactionStatusVC?.transaction.hash, txHash == tx.hash {
       self.transactionStatusVC?.updateView(with: tx)
       return true
     }
@@ -502,20 +502,16 @@ extension EarnCoordinator: EarnConfirmViewControllerDelegate {
       guard let `self` = self else { return }
       switch result {
       case .success(let signedData):
-        KNGeneralProvider.shared.sendSignedTransactionData(signedData, completion: { sendResult in
+        KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
           self.navigationController.hideLoading()
           switch sendResult {
           case .success(let hash):
             print(hash)
-            //TODO: remove old realm logic
-            let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description)
-            self.session.addNewPendingTransaction(tx)
-            self.openTransactionStatusPopUp(transaction: tx)
-            
             historyTransaction.hash = hash
             historyTransaction.time = Date()
             historyTransaction.nonce = transaction.nonce
             EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
+            self.openTransactionStatusPopUp(transaction: historyTransaction)
             
             self.transactionStatusVC?.earnAmountString = amount
             self.transactionStatusVC?.netAPYEarnString = netAPY
@@ -530,9 +526,8 @@ extension EarnCoordinator: EarnConfirmViewControllerDelegate {
     }
   }
 
-  fileprivate func openTransactionStatusPopUp(transaction: Transaction) {
-    let trans = KNTransaction.from(transaction: transaction)
-    let controller = KNTransactionStatusPopUp(transaction: trans)
+  fileprivate func openTransactionStatusPopUp(transaction: InternalHistoryTransaction) {
+    let controller = KNTransactionStatusPopUp(transaction: transaction)
     controller.delegate = self
     self.navigationController.present(controller, animated: true, completion: nil)
     self.transactionStatusVC = controller
@@ -557,7 +552,7 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
     }
   }
 
-  fileprivate func openTransactionSpeedUpViewController(transaction: Transaction) {
+  fileprivate func openTransactionSpeedUpViewController(transaction: InternalHistoryTransaction) {
     let viewModel = SpeedUpCustomGasSelectViewModel(transaction: transaction)
     let controller = SpeedUpCustomGasSelectViewController(viewModel: viewModel)
     controller.loadViewIfNeeded()
@@ -565,7 +560,7 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
     navigationController.present(controller, animated: true)
   }
 
-  fileprivate func openTransactionCancelConfirmPopUpFor(transaction: Transaction) {
+  fileprivate func openTransactionCancelConfirmPopUpFor(transaction: InternalHistoryTransaction) {
     let viewModel = KNConfirmCancelTransactionViewModel(transaction: transaction)
     let confirmPopup = KNConfirmCancelTransactionPopUp(viewModel: viewModel)
     confirmPopup.delegate = self
@@ -573,26 +568,16 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
   }
 
   fileprivate func openSendTokenView() {
-    if let topVC = self.navigationController.topViewController, topVC is KSendTokenViewController { return }
-    if self.session.transactionStorage.kyberPendingTransactions.isEmpty {
-      let from: TokenObject = {
-        return self.session.tokenStorage.ethToken
-      }()
-      let coordinator = KNSendTokenViewCoordinator(
-        navigationController: self.navigationController,
-        session: self.session,
-        balances: self.balances,
-        from: from
-      )
-      coordinator.start()
-    } else {
-      let message = NSLocalizedString("Please wait for other transactions to be mined before making a transfer", comment: "")
-      self.navigationController.showWarningTopBannerMessage(
-        with: "",
-        message: message,
-        time: 2.0
-      )
-    }
+    let from: TokenObject = {
+      return self.session.tokenStorage.ethToken
+    }()
+    let coordinator = KNSendTokenViewCoordinator(
+      navigationController: self.navigationController,
+      session: self.session,
+      balances: self.balances,
+      from: from
+    )
+    coordinator.start()
   }
 }
 
@@ -600,8 +585,30 @@ extension EarnCoordinator: SpeedUpCustomGasSelectDelegate {
   func speedUpCustomGasSelectViewController(_ controller: SpeedUpCustomGasSelectViewController, run event: SpeedUpCustomGasSelectViewEvent) {
     switch event {
     case .done(let transaction, let newValue):
-      let tokenObjects: [TokenObject] = self.session.tokenStorage.tokens
-      self.sendSpeedUpSwapTransactionFor(transaction: transaction, availableTokens: tokenObjects, newPrice: newValue)
+      if case .real(let account) = self.session.wallet.type, let provider = self.session.externalProvider {
+        let savedTx = EtherscanTransactionStorage.shared.getInternalHistoryTransactionWithHash(transaction.hash)
+        savedTx?.state = .speedup
+        let speedupTx = transaction.transactionObject.toSpeedupTransaction(account: account, gasPrice: newValue)
+        speedupTx.send(provider: provider) { (result) in
+          switch result {
+          case .success(let hash):
+            savedTx?.hash = hash
+            if let unwrapped = savedTx {
+              self.openTransactionStatusPopUp(transaction: unwrapped)
+              KNNotificationUtil.postNotification(
+                for: kTransactionDidUpdateNotificationKey,
+                object: unwrapped,
+                userInfo: nil
+              )
+            }
+            
+          case .failure(let error):
+            self.navigationController.showTopBannerView(message: error.description)
+          }
+        }
+      } else {
+        self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+      }
     case .invaild:
       self.navigationController.showErrorTopBannerMessage(
         with: NSLocalizedString("error", value: "Error", comment: ""),
@@ -640,7 +647,7 @@ extension EarnCoordinator: SpeedUpCustomGasSelectDelegate {
           case .success(let txHash):
             let tx = transaction.convertToSpeedUpTransaction(newHash: txHash, newGasPrice: newPrice.displayRate(decimals: 0).removeGroupSeparator())
             self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, state: .speedingUp, completion: {
-              self.openTransactionStatusPopUp(transaction: tx)
+//              self.openTransactionStatusPopUp(transaction: tx)
             })
           case .failure:
             KNNotificationUtil.postNotification(
@@ -656,38 +663,32 @@ extension EarnCoordinator: SpeedUpCustomGasSelectDelegate {
 }
 
 extension EarnCoordinator: KNConfirmCancelTransactionPopUpDelegate {
-  func didConfirmCancelTransactionPopup(_ controller: KNConfirmCancelTransactionPopUp, transaction: Transaction) {
-    self.didConfirmTransfer(transaction)
-  }
-
-  fileprivate func didConfirmTransfer(_ transaction: Transaction) {
-    guard let provider = self.session.externalProvider else {
-      return
-    }
-    guard let unconfirmTx = transaction.makeCancelTransaction() else {
-      return
-    }
-    provider.speedUpTransferTransaction(transaction: unconfirmTx, completion: { [weak self] sendResult in
-      guard let `self` = self else { return }
-      switch sendResult {
-      case .success(let txHash):
-        let tx: Transaction = unconfirmTx.toTransaction(
-          wallet: self.session.wallet,
-          hash: txHash,
-          nounce: provider.minTxCount - 1,
-          type: .cancel
-        )
-        self.session.updatePendingTransactionWithHash(hashTx: transaction.id, ultiTransaction: tx, completion: {
-          self.openTransactionStatusPopUp(transaction: tx)
-        })
-      case .failure:
-        KNNotificationUtil.postNotification(
-          for: kTransactionDidUpdateNotificationKey,
-          object: nil,
-          userInfo: [Constants.transactionIsCancel: TransactionType.cancel]
-        )
+  func didConfirmCancelTransactionPopup(_ controller: KNConfirmCancelTransactionPopUp, transaction: InternalHistoryTransaction) {
+    if case .real(let account) = self.session.wallet.type, let provider = self.session.externalProvider {
+      let cancelTx = transaction.transactionObject.toCancelTransaction(account: account)
+      let saved = EtherscanTransactionStorage.shared.getInternalHistoryTransactionWithHash(transaction.hash)
+      saved?.state = .cancel
+      cancelTx.send(provider: provider) { (result) in
+        switch result {
+        case .success(let hash):
+          saved?.hash = hash
+          if let unwrapped = saved {
+            self.openTransactionStatusPopUp(transaction: unwrapped)
+            KNNotificationUtil.postNotification(
+              for: kTransactionDidUpdateNotificationKey,
+              object: unwrapped,
+              userInfo: nil
+            )
+          }
+        
+          
+        case .failure(let error):
+          self.navigationController.showTopBannerView(message: error.description)
+        }
       }
-    })
+    } else {
+      self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+    }
   }
 }
 

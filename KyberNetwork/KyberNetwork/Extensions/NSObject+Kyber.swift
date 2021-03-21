@@ -87,14 +87,15 @@ extension NSObject {
   }
 
   static func isNeedShowTutorial(for key: String) -> Bool {
-    NSObject.migrationUserDefaultShowTutorial(for: key)
-    let filename = NSObject.getDocumentsDirectory().appendingPathComponent("quick_tutorial.txt")
-    do {
-      let saved = try String(contentsOf: filename)
-      return !saved.contains(key)
-    } catch {
-      return true
-    }
+//    NSObject.migrationUserDefaultShowTutorial(for: key)
+//    let filename = NSObject.getDocumentsDirectory().appendingPathComponent("quick_tutorial.txt")
+//    do {
+//      let saved = try String(contentsOf: filename)
+//      return !saved.contains(key)
+//    } catch {
+//      return true
+//    }
+    return false
   }
 
   static func updateDoneTutorial(for key: String, duplicateCheck: Bool = false) {

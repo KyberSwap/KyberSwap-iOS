@@ -4,27 +4,23 @@ import UIKit
 import BigInt
 
 protocol KNConfirmCancelTransactionPopUpDelegate: class {
-  func didConfirmCancelTransactionPopup(_ controller: KNConfirmCancelTransactionPopUp, transaction: Transaction)
+  func didConfirmCancelTransactionPopup(_ controller: KNConfirmCancelTransactionPopUp, transaction: InternalHistoryTransaction)
 }
 
 struct KNConfirmCancelTransactionViewModel {
-  let transaction: Transaction
+  let transaction: InternalHistoryTransaction
 
-  init(transaction: Transaction) {
+  init(transaction: InternalHistoryTransaction) {
     self.transaction = transaction
   }
 
   var transactionFeeETHString: String {
-    if let cancelTransaction = transaction.makeCancelTransaction() {
-      let fee: BigInt? = {
-        guard let gasPrice = cancelTransaction.gasPrice, let gasLimit = cancelTransaction.gasLimit else { return nil }
-        return gasPrice * gasLimit
-      }()
-      let feeString: String = fee?.displayRate(decimals: 18) ?? "---"
-      return "\(feeString) ETH"
-    } else {
-      return ""
-    }
+    let fee: BigInt? = {
+      let gasPrice = self.transaction.transactionObject.gasPriceForCancelTransaction()
+      return gasPrice * KNGasConfiguration.transferETHGasLimitDefault
+    }()
+    let feeString: String = fee?.displayRate(decimals: 18) ?? "---"
+    return "\(feeString) ETH"
   }
 }
 
@@ -77,13 +73,12 @@ class KNConfirmCancelTransactionPopUp: KNBaseViewController {
   }
 
   @IBAction func yesButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_yes_button_on_cancel_tx_confirm_popup", customAttributes: ["transactionHash": viewModel.transaction.id])
+    
     delegate?.didConfirmCancelTransactionPopup(self, transaction: viewModel.transaction)
     dismiss(animated: true, completion: nil)
   }
 
   @IBAction func noButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "tap_no_button_on_cancel_tx_confirm_popup", customAttributes: ["transactionHash": viewModel.transaction.id])
     dismiss(animated: true, completion: nil)
   }
 }

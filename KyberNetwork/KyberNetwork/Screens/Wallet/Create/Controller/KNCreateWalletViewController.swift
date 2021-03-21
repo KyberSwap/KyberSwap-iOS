@@ -5,6 +5,8 @@ import UIKit
 enum KNCreateWalletViewEvent {
   case back
   case next(name: String)
+  case openQR
+  case sendRefCode(code: String)
 }
 
 protocol KNCreateWalletViewControllerDelegate: class {
@@ -19,6 +21,7 @@ class KNCreateWalletViewController: KNBaseViewController {
   @IBOutlet weak var confirmButton: UIButton!
   @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
   @IBOutlet weak var contentView: UIView!
+  @IBOutlet weak var refCodeField: UITextField!
   let transitor = TransitionDelegate()
 
   weak var delegate: KNCreateWalletViewControllerDelegate?
@@ -70,8 +73,24 @@ class KNCreateWalletViewController: KNBaseViewController {
   }
   
   @IBAction func confirmButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "create_wallet_confirm", customAttributes: nil)
+    if let text = self.refCodeField.text, !text.isEmpty {
+      self.delegate?.createWalletViewController(self, run: .sendRefCode(code: text))
+    }
     self.delegate?.createWalletViewController(self, run: .next(name: "New Wallet"))
+  }
+  
+  @IBAction func pasteButtonTapped(_ sender: UIButton) {
+    if let string = UIPasteboard.general.string {
+      self.refCodeField.text = string
+    }
+  }
+  
+  @IBAction func qrCodeButtonTapped(_ sender: UIButton) {
+    self.delegate?.createWalletViewController(self, run: .openQR)
+  }
+  
+  func containerViewDidUpdateRefCode(_ refCode: String) {
+    self.refCodeField.text = refCode
   }
 }
 

@@ -146,8 +146,8 @@ class KConfirmSwapViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "confirmed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
     self.dismiss(animated: true, completion: nil)
     
-    let internalHistory = InternalHistoryTransaction(type: .swap, state: .pending, fromSymbol: self.viewModel.transaction.from.symbol, toSymbol: self.viewModel.transaction.to.symbol, transactionDescription: "\(self.viewModel.rightAmountString) -> \(self.viewModel.leftAmountString)", transactionDetailDescription: self.viewModel.displayEstimatedRate)
-    
+    let internalHistory = InternalHistoryTransaction(type: .swap, state: .pending, fromSymbol: self.viewModel.transaction.from.symbol, toSymbol: self.viewModel.transaction.to.symbol, transactionDescription: "\(self.viewModel.leftAmountString) -> \(self.viewModel.rightAmountString)", transactionDetailDescription: self.viewModel.displayEstimatedRate, transactionObj: self.viewModel.signTransaction.toSignTransactionObject())
+    internalHistory.transactionSuccessDescription = "\(self.viewModel.leftAmountString) -> \(self.viewModel.rightAmountString)"
     self.delegate?.kConfirmSwapViewController(self, confirm: self.viewModel.transaction, signTransaction: self.viewModel.signTransaction, internalHistoryTransaction: internalHistory)
   }
 

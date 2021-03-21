@@ -51,7 +51,7 @@ class DateFormatterUtil {
    
   lazy var historyTransactionDateFormatter: DateFormatter = {
     let formatter = DateFormatter()
-    formatter.dateFormat = "HH:mm a"
+    formatter.dateFormat = "hh:mm a"
     return formatter
   }()
 }

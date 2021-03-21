@@ -8,29 +8,32 @@ class KNTransactionDetailsCoordinator: Coordinator {
   let navigationController: UINavigationController
   let etherScanURL: String = KNEnvironment.default.etherScanIOURLString
   let enjinScanURL: String = KNEnvironment.default.enjinXScanIOURLString
-  fileprivate var transaction: Transaction?
-  fileprivate var currentWallet: KNWalletObject
   var coordinators: [Coordinator] = []
 
-  lazy var rootViewController: KNTransactionDetailsViewController = {
-    let viewModel = KNTransactionDetailsViewModel(
-      transaction: self.transaction,
-      currentWallet: self.currentWallet
-    )
-    let controller = KNTransactionDetailsViewController(viewModel: viewModel)
-    controller.loadViewIfNeeded()
-    controller.delegate = self
-    return controller
-  }()
+  var rootViewController: KNTransactionDetailsViewController
 
   init(
     navigationController: UINavigationController,
-    transaction: Transaction?,
-    currentWallet: KNWalletObject
+    transaction: InternalHistoryTransaction
     ) {
     self.navigationController = navigationController
-    self.transaction = transaction
-    self.currentWallet = currentWallet
+    let viewModel = InternalTransactionDetailViewModel(transaction: transaction)
+    let controller = KNTransactionDetailsViewController(viewModel: viewModel)
+    self.rootViewController = controller
+    controller.loadViewIfNeeded()
+    controller.delegate = self
+  }
+  
+  init(
+    navigationController: UINavigationController,
+    data: CompletedHistoryTransactonViewModel
+    ) {
+    self.navigationController = navigationController
+    let viewModel = EtherscanTransactionDetailViewModel(data: data)
+    let controller = KNTransactionDetailsViewController(viewModel: viewModel)
+    self.rootViewController = controller
+    controller.loadViewIfNeeded()
+    controller.delegate = self
   }
 
   func start() {
@@ -42,15 +45,15 @@ class KNTransactionDetailsCoordinator: Coordinator {
   }
 
   func update(transaction: Transaction, currentWallet: KNWalletObject) {
-    self.transaction = transaction
-    self.rootViewController.coordinator(update: transaction, currentWallet: currentWallet)
+//    self.transaction = transaction
+//    self.rootViewController.coordinator(update: transaction, currentWallet: currentWallet)
   }
-
+//
   func updatePendingTransactions(_ transactions: [KNTransaction], currentWallet: KNWalletObject) {
-    guard let tran = transactions.map({ $0.toTransaction() }).first(where: { $0.compoundKey == (self.transaction?.compoundKey ?? "") }) else {
-      return
-    }
-    self.rootViewController.coordinator(update: tran, currentWallet: currentWallet)
+//    guard let tran = transactions.map({ $0.toTransaction() }).first(where: { $0.compoundKey == (self.transaction?.compoundKey ?? "") }) else {
+//      return
+//    }
+//    self.rootViewController.coordinator(update: tran, currentWallet: currentWallet)
   }
 }
 
@@ -58,12 +61,11 @@ extension KNTransactionDetailsCoordinator: KNTransactionDetailsViewControllerDel
   func transactionDetailsViewController(_ controller: KNTransactionDetailsViewController, run event: KNTransactionDetailsViewEvent) {
     switch event {
     case .back: self.stop()
-    case .openEtherScan:
-      let urlString = "\(self.etherScanURL)tx/\(self.transaction?.id ?? "")"
+    case .openEtherScan(let hash):
+      let urlString = "\(self.etherScanURL)tx/\(hash)"
       self.rootViewController.openSafari(with: urlString)
     case .openEnjinXScan:
-      let urlString = "\(self.enjinScanURL)eth/transaction/\(self.transaction?.id ?? "")"
-      self.rootViewController.openSafari(with: urlString)
+      break
     }
   }
 }

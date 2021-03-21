@@ -158,9 +158,8 @@ class KNSupportedTokenStorage {
   }
   
   func saveCustomToken(_ token: Token) {
-    var tokens = self.getCustomToken()
-    tokens.append(token)
-    Storage.store(tokens, as: Constants.customTokenStoreFileName)
+    self.customTokens.append(token)
+    Storage.store(self.customTokens, as: Constants.customTokenStoreFileName)
   }
 
   func isTokenSaved(_ token: Token) -> Bool {
@@ -168,11 +167,33 @@ class KNSupportedTokenStorage {
     let saved = tokens.first { (item) -> Bool in
       return item.address.lowercased() == token.address.lowercased()
     }
-    
+  
     return saved != nil
   }
 
   func getCustomToken() -> [Token] {
-    Storage.retrieve(Constants.customTokenStoreFileName, as: [Token].self) ?? []
+    return self.customTokens
+  }
+  
+  func getCustomTokenWith(address: String) -> Token? {
+    return self.customTokens.first { (token) -> Bool in
+      return token.address.lowercased() == address.lowercased()
+    }
+  }
+  
+  func deleteCustomToken(address: String) {
+    guard let index = self.customTokens.firstIndex(where: { (token) -> Bool in
+      return token.address.lowercased() == address.lowercased()
+    }) else { return }
+    self.customTokens.remove(at: index)
+    Storage.store(self.customTokens, as: Constants.customTokenStoreFileName)
+  }
+  
+  func editCustomToken(address: String, newAddress: String, symbol: String, decimal: Int) {
+    guard let token = self.getCustomTokenWith(address: address) else { return }
+    token.address = newAddress
+    token.symbol = symbol
+    token.decimals = decimal
+    Storage.store(self.customTokens, as: Constants.customTokenStoreFileName)
   }
 }

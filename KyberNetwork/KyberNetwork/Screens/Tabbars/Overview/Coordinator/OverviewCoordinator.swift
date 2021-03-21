@@ -100,8 +100,8 @@ class OverviewCoordinator: NSObject, Coordinator {
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
   }
   
-  func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
-    return self.withdrawCoordinator?.appCoordinatorUpdateTransaction(tx, txID: txID) ?? false
+  func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
+    return self.withdrawCoordinator?.appCoordinatorUpdateTransaction(tx) ?? false
   }
 }
 
@@ -179,31 +179,21 @@ extension OverviewCoordinator: ChartViewControllerDelegate {
   }
 
   fileprivate func openSendTokenView(_ token: Token?) {
-    if let topVC = self.navigationController.topViewController, topVC is KSendTokenViewController { return }
-    if self.session.transactionStorage.kyberPendingTransactions.isEmpty {
-      let from: TokenObject = {
-        if let unwrapped = token, let fromTokenObj = self.session.tokenStorage.get(forPrimaryKey: unwrapped.address) {
-          return fromTokenObj
-        }
-        return self.session.tokenStorage.ethToken
-      }()
-      self.sendCoordinator = nil
-      let coordinator = KNSendTokenViewCoordinator(
-        navigationController: self.navigationController,
-        session: self.session,
-        balances: self.balances,
-        from: from
-      )
-      coordinator.start()
-      self.sendCoordinator = coordinator
-    } else {
-      let message = NSLocalizedString("Please wait for other transactions to be mined before making a transfer", comment: "")
-      self.navigationController.showWarningTopBannerMessage(
-        with: "",
-        message: message,
-        time: 2.0
-      )
-    }
+    let from: TokenObject = {
+      if let unwrapped = token, let fromTokenObj = self.session.tokenStorage.get(forPrimaryKey: unwrapped.address) {
+        return fromTokenObj
+      }
+      return self.session.tokenStorage.ethToken
+    }()
+    self.sendCoordinator = nil
+    let coordinator = KNSendTokenViewCoordinator(
+      navigationController: self.navigationController,
+      session: self.session,
+      balances: self.balances,
+      from: from
+    )
+    coordinator.start()
+    self.sendCoordinator = coordinator
   }
   
   fileprivate func openSwapView(token: Token, isBuy: Bool) {

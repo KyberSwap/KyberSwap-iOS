@@ -360,30 +360,56 @@ class KNGeneralProvider {
         completion(.failure(AnyError(error)))
         return
       }
-      self.signTransactionData(
-        forApproving: token,
-        account: account,
-        nonce: txCount,
-        data: encodeData,
-        keystore: keystore,
-        gasPrice: gasPrice,
-        completion: { [weak self] result in
-          guard let `self` = self else { return }
-          switch result {
-          case .success(let signData):
-            self.sendSignedTransactionData(signData, completion: { sendResult in
-              switch sendResult {
-              case .success:
-                completion(.success(txCount + 1))
-              case .failure(let error):
-                completion(.failure(error))
+//      self.signTransactionData(
+//        forApproving: token,
+//        account: account,
+//        nonce: txCount,
+//        data: encodeData,
+//        keystore: keystore,
+//        gasPrice: gasPrice,
+//        completion: { [weak self] result in
+//          guard let `self` = self else { return }
+//          switch result {
+//          case .success(let signData):
+//            self.sendSignedTransactionData(signData, completion: { sendResult in
+//              switch sendResult {
+//              case .success:
+//                completion(.success(txCount + 1))
+//              case .failure(let error):
+//                completion(.failure(error))
+//              }
+//            })
+//          case .failure(let error):
+//            completion(.failure(error))
+//          }
+//        }
+//      )
+      guard let tokenAddress = Address(string: token.contract) else { return }
+      self.signTransactionData(forApproving: tokenAddress, account: account, nonce: txCount, data: encodeData, keystore: keystore, gasPrice: gasPrice) { [weak self] result in
+        guard let `self` = self else { return }
+        switch result {
+        case .success(let signData):
+          self.sendSignedTransactionData(signData.0, completion: { sendResult in
+            switch sendResult {
+            case .success(let hash):
+              var symbol = KNSupportedTokenStorage.shared.getTokenWith(address: tokenAddress.description.lowercased())?.name ?? "Token"
+              if tokenAddress.description.lowercased() == Constants.gasTokenAddress {
+                symbol = "CHI"
               }
-            })
-          case .failure(let error):
-            completion(.failure(error))
-          }
+              let historyTransaction = InternalHistoryTransaction(type: .allowance, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: symbol, transactionDetailDescription: "", transactionObj: signData.1.toSignTransactionObject())
+              historyTransaction.hash = hash
+              historyTransaction.time = Date()
+              historyTransaction.nonce = txCount
+              EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
+              completion(.success(txCount + 1))
+            case .failure(let error):
+              completion(.failure(error))
+            }
+          })
+        case .failure(let error):
+          completion(.failure(error))
         }
-      )
+      }
     }
   }
   
@@ -423,9 +449,18 @@ class KNGeneralProvider {
         guard let `self` = self else { return }
         switch result {
         case .success(let signData):
-          self.sendSignedTransactionData(signData, completion: { sendResult in
+          self.sendSignedTransactionData(signData.0, completion: { sendResult in
             switch sendResult {
-            case .success:
+            case .success(let hash):
+              var symbol = KNSupportedTokenStorage.shared.getTokenWith(address: tokenAddress.description.lowercased())?.name ?? "Token"
+              if tokenAddress.description.lowercased() == Constants.gasTokenAddress {
+                symbol = "CHI"
+              }
+              let historyTransaction = InternalHistoryTransaction(type: .allowance, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: symbol, transactionDetailDescription: "", transactionObj: signData.1.toSignTransactionObject())
+              historyTransaction.hash = hash
+              historyTransaction.time = Date()
+              historyTransaction.nonce = txCount
+              EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
               completion(.success(txCount + 1))
             case .failure(let error):
               completion(.failure(error))
@@ -598,8 +633,8 @@ extension KNGeneralProvider {
       completion(.failure(AnyError(error)))
     }
   }
-  
-  private func signTransactionData(forApproving tokenAddress: Address, account: Account, nonce: Int, data: Data, keystore: Keystore, gasPrice: BigInt, completion: @escaping (Result<Data, AnyError>) -> Void) {
+
+  private func signTransactionData(forApproving tokenAddress: Address, account: Account, nonce: Int, data: Data, keystore: Keystore, gasPrice: BigInt, completion: @escaping (Result<(Data, SignTransaction), AnyError>) -> Void) {
     let gasLimit: BigInt = KNGasConfiguration.approveTokenGasLimitDefault
     let signTransaction = SignTransaction(
       value: BigInt(0),
@@ -614,7 +649,7 @@ extension KNGeneralProvider {
     let signResult = keystore.signTransaction(signTransaction)
     switch signResult {
     case .success(let data):
-      completion(.success(data))
+      completion(.success((data, signTransaction)))
     case .failure(let error):
       completion(.failure(AnyError(error)))
     }

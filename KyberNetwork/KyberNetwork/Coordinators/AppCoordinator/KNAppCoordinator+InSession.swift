@@ -55,7 +55,7 @@ extension KNAppCoordinator {
     }()
     
     self.investCoordinator = {
-      let coordinator = InvestCoordinator()
+      let coordinator = InvestCoordinator(session: self.session)
       return coordinator
     }()
     self.investCoordinator?.start()
@@ -153,8 +153,6 @@ extension KNAppCoordinator {
     self.exchangeCoordinator = nil
 //    self.balanceTabCoordinator?.stop()
 //    self.balanceTabCoordinator = nil
-    self.limitOrderCoordinator?.stop()
-    self.limitOrderCoordinator = nil
     self.settingsCoordinator?.stop()
     self.settingsCoordinator = nil
     IEOUserStorage.shared.signedOut()
@@ -185,15 +183,6 @@ extension KNAppCoordinator {
         resetRoot: true
       )
       
-//      self.balanceTabCoordinator?.appCoordinatorDidUpdateNewSession(
-//        self.session,
-//        resetRoot: true
-//      )
-      self.limitOrderCoordinator?.appCoordinatorDidUpdateNewSession(
-        self.session,
-        resetRoot: true
-      )
-      
       self.earnCoordinator?.appCoordinatorDidUpdateNewSession(
         self.session,
         resetRoot: true
@@ -208,13 +197,9 @@ extension KNAppCoordinator {
       self.addObserveNotificationFromSession()
       self.updateLocalData()
       KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
-      let transactions = self.session.transactionStorage.kyberPendingTransactions
       self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
       )
       self.overviewTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
-      )
-      self.limitOrderCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
-        transactions: transactions
       )
       
       if isLoading { self.navigationController.hideLoading() }
@@ -254,14 +239,7 @@ extension KNAppCoordinator {
           self.session,
           resetRoot: isRemovingCurrentWallet
         )
-//        self.balanceTabCoordinator?.appCoordinatorDidUpdateNewSession(
-//          self.session,
-//          resetRoot: isRemovingCurrentWallet
-//        )
-        self.limitOrderCoordinator?.appCoordinatorDidUpdateNewSession(
-          self.session,
-          resetRoot: isRemovingCurrentWallet
-        )
+
         self.settingsCoordinator?.appCoordinatorDidUpdateNewSession(
           self.session,
           resetRoot: isRemovingCurrentWallet

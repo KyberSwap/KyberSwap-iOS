@@ -3,14 +3,17 @@
 import UIKit
 import TrustKeystore
 import TrustCore
+import QRCodeReaderViewController
+import WalletConnect
 
 protocol KNCreateWalletCoordinatorDelegate: class {
   func createWalletCoordinatorCancelCreateWallet(_ wallet: Wallet)
   func createWalletCoordinatorDidCreateWallet(_ wallet: Wallet?, name: String?)
   func createWalletCoordinatorDidClose()
+  func createWalletCoordinatorDidSendRefCode(_ code: String)
 }
 
-class KNCreateWalletCoordinator: Coordinator {
+class KNCreateWalletCoordinator: NSObject, Coordinator {
 
   let navigationController: UINavigationController
   var coordinators: [Coordinator] = []
@@ -19,6 +22,7 @@ class KNCreateWalletCoordinator: Coordinator {
   fileprivate var newWallet: Wallet?
   fileprivate var name: String?
   weak var delegate: KNCreateWalletCoordinatorDelegate?
+  var createWalletController: KNCreateWalletViewController?
 
   fileprivate var isCreating: Bool = false
 
@@ -46,6 +50,7 @@ class KNCreateWalletCoordinator: Coordinator {
       createWalletVC.modalTransitionStyle = .crossDissolve
       createWalletVC.modalPresentationStyle = .overCurrentContext
       self.navigationController.present(createWalletVC, animated: true, completion: nil)
+      self.createWalletController = createWalletVC
     }
   }
 
@@ -121,6 +126,12 @@ extension KNCreateWalletCoordinator: KNBackUpWalletViewControllerDelegate {
     KNWalletStorage.shared.add(wallets: [walletObject])
     self.delegate?.createWalletCoordinatorDidCreateWallet(wallet, name: self.name)
   }
+  
+  fileprivate func openQRCode() {
+    let qrcode = QRCodeReaderViewController()
+    qrcode.delegate = self
+    self.navigationController.present(qrcode, animated: true, completion: nil)
+  }
 }
 
 extension KNCreateWalletCoordinator: KNCreateWalletViewControllerDelegate {
@@ -148,6 +159,22 @@ extension KNCreateWalletCoordinator: KNCreateWalletViewControllerDelegate {
           }
         }
       }
+    case .openQR:
+      self.openQRCode()
+    case .sendRefCode(code: let code):
+      self.delegate?.createWalletCoordinatorDidSendRefCode(code)
+    }
+  }
+}
+
+extension KNCreateWalletCoordinator: QRCodeReaderDelegate {
+  func readerDidCancel(_ reader: QRCodeReaderViewController!) {
+    reader.dismiss(animated: true, completion: nil)
+  }
+
+  func reader(_ reader: QRCodeReaderViewController!, didScanResult result: String!) {
+    reader.dismiss(animated: true) {
+      self.createWalletController?.containerViewDidUpdateRefCode(result)
     }
   }
 }

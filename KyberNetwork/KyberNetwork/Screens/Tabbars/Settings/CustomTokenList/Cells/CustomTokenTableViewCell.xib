@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomTokenTableViewCell" rowHeight="56" id="KGk-i7-Jjw" customClass="CustomTokenTableViewCell" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="knc" translatesAutoresizingMaskIntoConstraints="NO" id="Vqe-IX-OwR">
+                        <rect key="frame" x="35" y="6" width="17" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="9Mi-9F-GmW"/>
+                            <constraint firstAttribute="width" constant="17" id="j81-IQ-4tT"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KNC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jle-LT-1K6">
+                        <rect key="frame" x="55" y="8" width="26" height="15"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="82,499.85" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NwC-7R-ZGP">
+                        <rect key="frame" x="55" y="25" width="54" height="15"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- - / - -" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KkV-Qd-NMA">
+                        <rect key="frame" x="254.5" y="8" width="30.5" height="15"/>
+                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="jle-LT-1K6" firstAttribute="leading" secondItem="Vqe-IX-OwR" secondAttribute="trailing" constant="3" id="1Pi-TM-hGD"/>
+                    <constraint firstItem="Vqe-IX-OwR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="35" id="2QS-7f-fFk"/>
+                    <constraint firstItem="KkV-Qd-NMA" firstAttribute="centerY" secondItem="jle-LT-1K6" secondAttribute="centerY" id="AEK-j0-eRh"/>
+                    <constraint firstItem="NwC-7R-ZGP" firstAttribute="top" secondItem="jle-LT-1K6" secondAttribute="bottom" constant="2" id="DPr-Cl-QDF"/>
+                    <constraint firstItem="NwC-7R-ZGP" firstAttribute="leading" secondItem="jle-LT-1K6" secondAttribute="leading" id="GbZ-hz-3du"/>
+                    <constraint firstAttribute="trailing" secondItem="KkV-Qd-NMA" secondAttribute="trailing" constant="35" id="H0W-0Y-cDW"/>
+                    <constraint firstItem="Vqe-IX-OwR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="6" id="YAY-Ds-fFT"/>
+                    <constraint firstItem="jle-LT-1K6" firstAttribute="bottom" secondItem="Vqe-IX-OwR" secondAttribute="bottom" id="i7W-Ts-CCc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="balanceLabel" destination="NwC-7R-ZGP" id="PrK-iO-i8I"/>
+                <outlet property="imageIcon" destination="Vqe-IX-OwR" id="BEY-Fj-Y1j"/>
+                <outlet property="rateLabel" destination="KkV-Qd-NMA" id="Ria-KK-6k7"/>
+                <outlet property="tokenNameLabel" destination="jle-LT-1K6" id="IX2-hd-h76"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="53.571428571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="knc" width="36" height="36"/>
+    </resources>
+</document>

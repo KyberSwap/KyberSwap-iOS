@@ -185,7 +185,7 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
     self.viewModel.currencyType = type
     self.reloadUI()
   }
-  
+
   func coordinatorDidUpdateDidUpdateTokenList() {
     guard self.isViewLoaded else { return }
     self.viewModel.reloadAllData()

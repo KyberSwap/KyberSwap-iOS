@@ -21,7 +21,6 @@ class KNAppCoordinator: NSObject, Coordinator {
 //  internal var balanceTabCoordinator: KNBalanceTabCoordinator?
   internal var overviewTabCoordinator: OverviewCoordinator?
   internal var settingsCoordinator: KNSettingsCoordinator?
-  internal var limitOrderCoordinator: KNLimitOrderTabCoordinatorV2?
   internal var earnCoordinator: EarnCoordinator?
   internal var investCoordinator: InvestCoordinator?
 
@@ -147,6 +146,32 @@ class KNAppCoordinator: NSObject, Coordinator {
       return true
     }
   }
+  
+  func sendRefCode(_ code: String) {
+    let data = Data(code.utf8)
+    let prefix = "\u{19}Ethereum Signed Message:\n\(data.count)".data(using: .utf8)!
+    let sendData = prefix + data
+    if case .real(let account) = self.session.wallet.type {
+      let result = self.session.keystore.signMessage(sendData, for: account)
+      switch result {
+      case .success(let signedData):
+        let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+        provider.request(.registerReferrer(address: self.session.wallet.address.description, referralCode: code, signature: signedData.hexEncoded)) { (result) in
+          if case .success(let data) = result, let json = try? data.mapJSON() as? JSONDictionary ?? [:] {
+            if let isSuccess = json["success"] as? Bool, isSuccess {
+              self.tabbarController.showTopBannerView(message: "Success register referral code")
+            } else if let error = json["error"] as? String {
+              self.tabbarController.showTopBannerView(message: error)
+            } else {
+              self.tabbarController.showTopBannerView(message: "Fail to register referral code")
+            }
+          }
+        }
+      case .failure(let error):
+        print("[Send ref code] \(error.localizedDescription)")
+      }
+    }
+  }
 }
 
 // Application state
@@ -256,7 +281,6 @@ extension KNAppCoordinator {
     }
 //    self.balanceTabCoordinator?.appCoordinatorWillEnterForeground()
     self.exchangeCoordinator?.appCoordinatorWillEnterForeground()
-    self.limitOrderCoordinator?.appCoordinatorWillEnterForeground()
   }
 
   func appDidEnterBackground() {
@@ -265,13 +289,11 @@ extension KNAppCoordinator {
     self.loadBalanceCoordinator?.pause()
 //    self.balanceTabCoordinator?.appCoordinatorDidEnterBackground()
     self.exchangeCoordinator?.appCoordinatorDidEnterBackground()
-    self.limitOrderCoordinator?.appCoordinatorDidEnterBackground()
   }
 
   func appWillTerminate() {
 //    self.balanceTabCoordinator?.appCoordinatorWillTerminate()
     self.exchangeCoordinator?.appCoordinatorWillTerminate()
-    self.limitOrderCoordinator?.appCoordinatorWillTerminate()
   }
 
   func appDidReceiveLocalNotification(transactionHash: String) {

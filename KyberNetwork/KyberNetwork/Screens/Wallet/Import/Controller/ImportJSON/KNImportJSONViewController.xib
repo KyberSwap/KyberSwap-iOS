@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,6 +32,7 @@
                 <outlet property="nameWalletTextField" destination="iET-Mn-45p" id="nzd-Oi-pbV"/>
                 <outlet property="nextButton" destination="6bU-jo-KwQ" id="GbB-ut-Cna"/>
                 <outlet property="passwordFieldContainer" destination="ARt-9j-4Vp" id="lZP-vf-Bjo"/>
+                <outlet property="refCodeField" destination="hVz-Pk-opY" id="bkn-dw-oxE"/>
                 <outlet property="secureTextButton" destination="1UL-D2-Ny2" id="GqO-Cc-CuF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -172,6 +173,9 @@
                                 <constraint firstAttribute="width" constant="24" id="Wog-hp-sFN"/>
                             </constraints>
                             <state key="normal" image="qr_code_blue_icon"/>
+                            <connections>
+                                <action selector="qrCodeButtonTapped:" destination="-1" eventType="touchUpInside" id="52S-ht-rxH"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCV-g9-mo1">
                             <rect key="frame" x="222" y="12" width="35" height="18"/>
@@ -187,6 +191,9 @@
                                     <integer key="value" value="3"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="pasteButtonTapped:" destination="-1" eventType="touchUpInside" id="cdP-js-lVi"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

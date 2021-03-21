@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Token: Codable {
-  let address: String
-  let name: String
-  let symbol: String
-  let decimals: Int
-  let logo: String
+class Token: Codable {
+  var address: String
+  var name: String
+  var symbol: String
+  var decimals: Int
+  var logo: String
 
   init(dictionary: JSONDictionary) {
     self.name = dictionary["name"] as? String ?? ""

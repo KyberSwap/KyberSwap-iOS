@@ -18,13 +18,24 @@ class AddTokenCoordinator: NSObject, Coordinator {
     return controller
   }()
   
+  lazy var listTokenViewController: CustomTokenListViewController = {
+    let controller = CustomTokenListViewController()
+    controller.delegate = self
+    return controller
+  }()
+  
   init(navigationController: UINavigationController = UINavigationController()) {
     self.navigationController = navigationController
     self.navigationController.setNavigationBarHidden(true, animated: false)
   }
   
-  func start() {
-    self.navigationController.pushViewController(self.rootViewController, animated: true)
+  func start(showList: Bool = false, token: Token? = nil) {
+    if showList {
+      self.navigationController.pushViewController(self.listTokenViewController, animated: true)
+    } else {
+      self.rootViewController.token = token
+      self.navigationController.pushViewController(self.rootViewController, animated: true)
+    }
   }
   
   func stop() {
@@ -56,9 +67,19 @@ extension AddTokenCoordinator: AddTokenViewControllerDelegate {
           message: NSLocalizedString("New token has been added successfully!", comment: ""),
           time: 1.0
         )
+        self.listTokenViewController.coordinatorDidUpdateTokenList()
         self.navigationController.popViewController(animated: true)
       }
       
+    case .doneEdit(address: let address, newAddress: let newAddress, symbol: let symbol, decimals: let decimals):
+      KNSupportedTokenStorage.shared.editCustomToken(address: address, newAddress: newAddress, symbol: symbol, decimal: decimals)
+      self.showSuccessTopBannerMessage(
+        with: NSLocalizedString("success", value: "Success", comment: ""),
+        message: NSLocalizedString("New token has been edited successfully!", comment: ""),
+        time: 1.0
+      )
+      self.listTokenViewController.coordinatorDidUpdateTokenList()
+      self.navigationController.popViewController(animated: true)
     }
   }
 }
@@ -78,6 +99,20 @@ extension AddTokenCoordinator: QRCodeReaderDelegate {
         return result
       }()
       self.rootViewController.coordinatorDidUpdateQRCode(address: address)
+    }
+  }
+}
+
+extension AddTokenCoordinator: CustomTokenListViewControllerDelegate {
+  func customTokenListViewController(_ controller: CustomTokenListViewController, run event: CustomTokenListViewEvent) {
+    switch event {
+    case .edit(token: let token):
+      self.start(showList: false, token: token)
+    case .delete(token: let token):
+      KNSupportedTokenStorage.shared.deleteCustomToken(address: token.address)
+      self.listTokenViewController.coordinatorDidUpdateTokenList()
+    case .add:
+      self.start()
     }
   }
 }

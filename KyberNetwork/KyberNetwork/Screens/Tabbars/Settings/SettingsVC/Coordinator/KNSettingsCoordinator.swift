@@ -51,6 +51,11 @@ class KNSettingsCoordinator: NSObject, Coordinator {
     coordinator.delegate = self
     return coordinator
   }()
+  
+  lazy var customTokenCoordinator: AddTokenCoordinator = {
+    let coordinator = AddTokenCoordinator(navigationController: self.navigationController)
+    return coordinator
+  }()
 
   fileprivate var sendTokenCoordinator: KNSendTokenViewCoordinator?
   fileprivate var manageAlertCoordinator: KNManageAlertCoordinator?
@@ -93,8 +98,8 @@ class KNSettingsCoordinator: NSObject, Coordinator {
     self.sendTokenCoordinator?.coordinatorTokenObjectListDidUpdate(tokenObjects)
   }
 
-  func appCoordinatorUpdateTransaction(_ tx: KNTransaction?, txID: String) -> Bool {
-    return self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx, txID: txID) ?? false
+  func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
+    return self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx) ?? false
   }
 }
 
@@ -164,6 +169,10 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1521778973")
     case .liveChat:
       Freshchat.sharedInstance().showConversations(self.navigationController)
+    case .addCustomToken:
+      self.customTokenCoordinator.start()
+    case .manangeCustomToken:
+      self.customTokenCoordinator.start(showList: true)
     }
   }
 

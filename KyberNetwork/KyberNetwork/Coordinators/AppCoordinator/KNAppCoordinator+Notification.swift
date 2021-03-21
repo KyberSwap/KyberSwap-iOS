@@ -79,13 +79,6 @@ extension KNAppCoordinator {
       name: gasPriceName,
       object: nil
     )
-    let marketDataName = Notification.Name(kMarketSuccessToLoadNotiKey)
-    NotificationCenter.default.addObserver(
-      self,
-      selector: #selector(self.marketDataDidUpdate(_:)),
-      name: marketDataName,
-      object: nil
-    )
 
     NotificationCenter.default.addObserver(
       self,
@@ -192,14 +185,7 @@ extension KNAppCoordinator {
       totalBalanceInUSD: totalUSD,
       totalBalanceInETH: totalETH
     )
-    self.limitOrderCoordinator?.appCoordinatorUSDRateDidUpdate(
-      totalBalanceInUSD: totalUSD,
-      totalBalanceInETH: totalETH
-    )
-//    self.balanceTabCoordinator?.appCoordinatorExchangeRateDidUpdate(
-//      totalBalanceInUSD: totalUSD,
-//      totalBalanceInETH: totalETH
-//    )
+
     self.settingsCoordinator?.appCoordinatorUSDRateUpdate()
   }
 
@@ -215,19 +201,12 @@ extension KNAppCoordinator {
       totalBalanceInETH: totalETH,
       otherTokensBalance: otherTokensBalance
     )
-//    self.balanceTabCoordinator?.appCoordinatorTokenBalancesDidUpdate(
-//      totalBalanceInUSD: totalUSD,
-//      totalBalanceInETH: totalETH,
-//      otherTokensBalance: otherTokensBalance
-//    )
-    self.limitOrderCoordinator?.appCoordinatorTokenBalancesDidUpdate(
-      totalBalanceInUSD: totalUSD,
-      totalBalanceInETH: totalETH,
-      otherTokensBalance: otherTokensBalance
-    )
+
     self.settingsCoordinator?.appCoordinatorTokenBalancesDidUpdate(balances: otherTokensBalance)
     
     self.earnCoordinator?.appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: totalUSD, totalBalanceInETH: totalETH, otherTokensBalance: otherTokensBalance)
+    
+    self.investCoordinator?.appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: totalUSD, totalBalanceInETH: totalETH, otherTokensBalance: otherTokensBalance)
     
     self.overviewTabCoordinator?.appCoordinatorDidUpdateTokenList()
   }
@@ -240,8 +219,24 @@ extension KNAppCoordinator {
     self.overviewTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
     self.earnCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
     
-//    let updateOverview = self.overviewTabCoordinator?.appCoordinatorUpdateTransaction(nil, txID: nil) ?? false
-//    let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(nil, txID: nil) ?? false
+    let updateOverview = self.overviewTabCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
+    let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
+    let updateEarn = self.earnCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
+    if updateOverview || updateExchange || updateEarn {
+      if transaction.state == .done {
+        self.navigationController.showSuccessTopBannerMessage(
+          with: NSLocalizedString("success", value: "Success", comment: ""),
+          message: "Transaction is success",
+          time: 3
+        )
+      } else if transaction.state == .drop || transaction.state == .error {
+        self.navigationController.showErrorTopBannerMessage(
+        with: NSLocalizedString("failed", value: "Failed", comment: ""),
+        message: "Transaction is failure",
+        time: 3
+        )
+      }
+    }
    
     
     //TODO: update status view
@@ -390,7 +385,6 @@ extension KNAppCoordinator {
   @objc func tokenTransactionListDidUpdate(_ sender: Any?) {
     if self.session == nil { return }
     self.exchangeCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
-    self.limitOrderCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
 //    self.balanceTabCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
     self.loadBalanceCoordinator?.forceUpdateBalanceTransactionsCompleted()
     self.overviewTabCoordinator?.appCoordinatorDidUpdateTokenList()
@@ -403,7 +397,6 @@ extension KNAppCoordinator {
     self.session.tokenStorage.addKyberSupportedTokens()
     let tokenObjects: [TokenObject] = self.session.tokenStorage.tokens
 //    self.balanceTabCoordinator?.appCoordinatorTokenObjectListDidUpdate(tokenObjects)
-    self.limitOrderCoordinator?.appCoordinatorTokenObjectListDidUpdate(tokenObjects)
     self.exchangeCoordinator?.appCoordinatorTokenObjectListDidUpdate(tokenObjects)
     self.settingsCoordinator?.appCoordinatorTokenObjectListDidUpdate(tokenObjects)
   }
@@ -411,7 +404,6 @@ extension KNAppCoordinator {
   @objc func gasPriceCachedDidUpdate(_ sender: Any?) {
     if self.session == nil { return }
     self.exchangeCoordinator?.appCoordinatorGasPriceCachedDidUpdate()
-    self.limitOrderCoordinator?.appCoordinatorGasPriceCachedDidUpdate()
 //    self.balanceTabCoordinator?.appCoordinatorGasPriceCachedDidUpdate()
   }
 
@@ -419,10 +411,6 @@ extension KNAppCoordinator {
     if self.session == nil { return }
     self.tabbarController.selectedIndex = 1
     self.exchangeCoordinator?.navigationController.popToRootViewController(animated: true)
-  }
-
-  @objc func marketDataDidUpdate(_ sender: Any?) {
-    self.limitOrderCoordinator?.appCoordinatorMarketCachedDidUpdate()
   }
 
   @objc func userRestoreIdReceived() {

@@ -8,8 +8,8 @@ enum KNTransactionStatusPopUpEvent {
   case transfer
   case tryAgain
   case openLink(url: String)
-  case speedUp(tx: Transaction)
-  case cancel(tx: Transaction)
+  case speedUp(tx: InternalHistoryTransaction)
+  case cancel(tx: InternalHistoryTransaction)
   case goToSupport
   case backToInvest
 }
@@ -39,7 +39,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
   weak var delegate: KNTransactionStatusPopUpDelegate?
 
-  fileprivate(set) var transaction: KNTransaction
+  fileprivate(set) var transaction: InternalHistoryTransaction
   let transitor = TransitionDelegate()
   
   var earnAmountString: String?
@@ -49,7 +49,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   var withdrawAmount: String?
   var withdrawTokenSym: String?
 
-  init(transaction: KNTransaction) {
+  init(transaction: InternalHistoryTransaction) {
     self.transaction = transaction
     super.init(nibName: KNTransactionStatusPopUp.className, bundle: nil)
     self.modalPresentationStyle = .custom
@@ -95,13 +95,12 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
     self.secondButton.setTitle(NSLocalizedString("swap", comment: ""), for: .normal)
     self.secondButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.secondButton.frame.size.height / 2)
-    self.txHashLabel.text = self.transaction.id
+    self.txHashLabel.text = self.transaction.hash
     self.view.isUserInteractionEnabled = true
   }
 
   fileprivate func updateViewTransactionDidChange() {
-    let (id, rate) = self.transaction.getNewTxDetails()
-    self.txHashLabel.text = id
+    self.txHashLabel.text = self.transaction.hash
 
     if self.transaction.state == .pending {
       self.titleIconImageView.image = UIImage(named: "tx_broadcasted_icon")
@@ -118,15 +117,15 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       self.secondButton.setTitle("cancel".toBeLocalised(), for: .normal)
 
       self.view.layoutSubviews()
-    } else if self.transaction.state == .completed {
+    } else if self.transaction.state == .done {
       self.titleIconImageView.image = UIImage(named: "tx_success_icon")
       self.titleLabel.text = "Done!".toBeLocalised().uppercased()
       self.subTitleLabel.text = {
-        if transaction.type == .cancel {
+        if transaction.state == .cancel {
           return "Your transaction has been cancelled successfully".toBeLocalised()
-        } else if transaction.type == .speedup {
+        } else if transaction.state == .speedup {
           return "Your transaction has been speeded up successfully".toBeLocalised()
-        } else if self.transaction.isTransfer {
+        } else if self.transaction.type == .transferETH || self.transaction.type == .transferToken {
           return "Transferred successfully".toBeLocalised()
         } else if self.transaction.type == .earn {
           return "Successfully saved".toBeLocalised()
@@ -137,16 +136,10 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       }()
       self.subTitleLabelCenterContraint.constant = 0
       self.subTitleTopContraint.constant = 20
-      var subTitleText = rate
-      if self.transaction.type == .earn {
-        subTitleText = "\(self.earnAmountString ?? "") \("with".toBeLocalised()) \(self.netAPYEarnString ?? "") APY"
-      } else if self.transaction.type == .withdraw {
-        subTitleText = "\(self.withdrawAmount ?? "") \(self.withdrawTokenSym ?? "")"
-      }
-      //TODO: improve status popup with data get for event obj
+      
       self.subTitleDetailLabel.isHidden = true
       self.subTitleDetailLabel.isHidden = false
-      self.subTitleDetailLabel.text = subTitleText?.uppercased()
+      self.subTitleDetailLabel.text = self.transaction.transactionSuccessDescription?.uppercased()
       self.subTitleDetailLabel.font = UIFont.Kyber.latoRegular(with: 16)
 
       self.loadingImageView.stopRotating()
@@ -164,12 +157,12 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       }
 
       self.view.layoutSubviews()
-    } else if self.transaction.state == .error || self.transaction.state == .failed {
+    } else if self.transaction.state == .error || self.transaction.state == .drop {
       self.titleIconImageView.image = UIImage(named: "tx_failed_icon")
       self.titleLabel.text = "Failed!".toBeLocalised().uppercased()
       if self.transaction.state == .error {
         var errorTitle = ""
-        switch transaction.type {
+        switch transaction.state {
         case .cancel:
           errorTitle = "Your cancel transaction might be lost".toBeLocalised()
         case .speedup:
@@ -195,12 +188,8 @@ class KNTransactionStatusPopUp: KNBaseViewController {
     }
   }
 
-  func updateView(with transaction: KNTransaction?) {
-    if let trans = transaction {
-      self.transaction = trans
-    } else {
-      self.transaction.internalState = TransactionState.error.rawValue
-    }
+  func updateView(with transaction: InternalHistoryTransaction) {
+    self.transaction = transaction
     self.updateViewTransactionDidChange()
   }
 
@@ -212,7 +201,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
   @IBAction func openTransactionDetailsPressed(_ sender: Any) {
     self.dismiss(animated: true) {
-      let urlString = KNEnvironment.default.etherScanIOURLString + "tx/\(self.transaction.id)"
+      let urlString = KNEnvironment.default.etherScanIOURLString + "tx/\(self.transaction.hash)"
       self.delegate?.transactionStatusPopUp(self, action: .openLink(url: urlString))
     }
   }
@@ -220,11 +209,11 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   @IBAction func firstButtonPressed(_ sender: Any) {
     self.dismiss(animated: true) {
       if self.transaction.state == .pending {
-        self.delegate?.transactionStatusPopUp(self, action: .speedUp(tx: self.transaction.toTransaction()))
-      } else if self.transaction.state == .completed {
+        self.delegate?.transactionStatusPopUp(self, action: .speedUp(tx: self.transaction))
+      } else if self.transaction.state == .done {
         guard self.transaction.type != .earn else { return }
         self.delegate?.transactionStatusPopUp(self, action: .transfer)
-      } else if self.transaction.state == .error || self.transaction.state == .failed {
+      } else if self.transaction.state == .error || self.transaction.state == .drop {
         self.delegate?.transactionStatusPopUp(self, action: .dismiss)
       }
     }
@@ -233,14 +222,14 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   @IBAction func secondButtonPressed(_ sender: Any) {
     self.dismiss(animated: true) {
       if self.transaction.state == .pending {
-        self.delegate?.transactionStatusPopUp(self, action: .cancel(tx: self.transaction.toTransaction()))
-      } else if self.transaction.state == .completed {
+        self.delegate?.transactionStatusPopUp(self, action: .cancel(tx: self.transaction))
+      } else if self.transaction.state == .done {
         if self.transaction.type == .earn {
           self.delegate?.transactionStatusPopUp(self, action: .backToInvest)
         } else {
           self.delegate?.transactionStatusPopUp(self, action: .swap)
         }
-      } else if self.transaction.state == .error || self.transaction.state == .failed {
+      } else if self.transaction.state == .error || self.transaction.state == .drop {
         self.delegate?.transactionStatusPopUp(self, action: .goToSupport)
       }
     }

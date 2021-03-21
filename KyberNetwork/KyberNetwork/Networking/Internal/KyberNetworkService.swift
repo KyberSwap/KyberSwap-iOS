@@ -862,6 +862,10 @@ enum KrytalService {
   case getLendingDistributionBalance(lendingPlatform: String, address: String)
   case getWithdrawableAmount(platform: String, userAddress: String, token: String)
   case buildWithdrawTx(platform: String, userAddress: String, token: String, amount: String, gasPrice: String, nonce: Int, useGasToken: Bool)
+  case getMarketingAssets
+  case getReferralOverview(address: String)
+  case registerReferrer(address: String, referralCode: String, signature: String)
+  case getRewardHistory(address: String, from: Int, to: Int, offset: Int, limit: Int)
 }
 
 extension KrytalService: TargetType {
@@ -917,11 +921,25 @@ extension KrytalService: TargetType {
       return "/v1/lending/withdrawableAmount"
     case .buildWithdrawTx:
       return "/v1/lending/buildWithdrawTx"
+    case .getMarketingAssets:
+      return "/v1/mkt/assets"
+    case .getReferralOverview:
+      return "/v1/account/referralOverview"
+    
+    case .registerReferrer:
+      return "/v1/account/registerReferrer"
+    case .getRewardHistory:
+      return "/v1/account/rewardHistory"
     }
   }
 
   var method: Moya.Method {
-    return .get
+    switch self {
+    case .registerReferrer:
+      return .post
+    default:
+      return .get
+    }
   }
 
   var sampleData: Data {
@@ -1029,6 +1047,30 @@ extension KrytalService: TargetType {
         "nonce": nonce,
         "useGasToken": useGasToken,
         "userAddress": userAddress
+      ]
+      return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
+    case .getMarketingAssets:
+      return .requestPlain
+    case .getReferralOverview(address: let address):
+      let json: JSONDictionary = [
+        "address": address
+      ]
+      return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
+    case .registerReferrer(address: let address, referralCode: let referralCode, signature: let signature):
+      let json: JSONDictionary = [
+        "address": address,
+        "referralCode": referralCode,
+        "signature": signature
+      ]
+      let data = try! JSONSerialization.data(withJSONObject: json, options: [])
+      return .requestData(data)
+    case .getRewardHistory(address: let address, from: let from, to: let to, offset: let offset, limit: let limit):
+      let json: JSONDictionary = [
+        "address": address,
+        "from": from,
+        "to": to,
+        "offset": offset,
+        "limit": limit
       ]
       return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
     }

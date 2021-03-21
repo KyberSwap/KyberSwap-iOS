@@ -5,6 +5,7 @@ import UIKit
 protocol KNImportWalletCoordinatorDelegate: class {
   func importWalletCoordinatorDidImport(wallet: Wallet, name: String?)
   func importWalletCoordinatorDidClose()
+  func importWalletCoordinatorDidSendRefCode(_ code: String)
 }
 
 class KNImportWalletCoordinator: Coordinator {
@@ -55,6 +56,8 @@ extension KNImportWalletCoordinator: KNImportWalletViewControllerDelegate {
     case .importSeeds(let seeds, let name):
       KNCrashlyticsUtil.logCustomEvent(withName: "screen_import_wallet", customAttributes: ["action": "import_Seeds"])
       self.importWallet(with: .mnemonic(words: seeds, password: ""), name: name)
+    case .sendRefCode(code: let code):
+      self.delegate?.importWalletCoordinatorDidSendRefCode(code)
     }
   }
 

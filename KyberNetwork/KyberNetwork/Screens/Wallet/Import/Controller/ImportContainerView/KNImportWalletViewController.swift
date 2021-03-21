@@ -1,12 +1,15 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
+import QRCodeReaderViewController
+import WalletConnect
 
 enum KNImportWalletViewEvent {
   case back
   case importJSON(json: String, password: String, name: String?)
   case importPrivateKey(privateKey: String, name: String?)
   case importSeeds(seeds: [String], name: String?)
+  case sendRefCode(code: String)
 }
 
 protocol KNImportWalletViewControllerDelegate: class {
@@ -206,6 +209,12 @@ class KNImportWalletViewController: KNBaseViewController {
       self.view.layoutIfNeeded()
     }
   }
+  
+  fileprivate func openQRCode() {
+    let qrcode = QRCodeReaderViewController()
+    qrcode.delegate = self
+    self.present(qrcode, animated: true, completion: nil)
+  }
 }
 
 extension KNImportWalletViewController: UIScrollViewDelegate {
@@ -216,6 +225,14 @@ extension KNImportWalletViewController: UIScrollViewDelegate {
 }
 
 extension KNImportWalletViewController: KNImportJSONViewControllerDelegate {
+  func importJSONControllerDidSelectQRCode(controller: KNImportJSONViewController) {
+    self.openQRCode()
+  }
+  
+  func importJSONViewController(controller: KNImportJSONViewController, send refCode: String) {
+    self.delegate?.importWalletViewController(self, run: .sendRefCode(code: refCode))
+  }
+  
   func importJSONViewControllerDidPressNext(sender: KNImportJSONViewController, json: String, password: String, name: String?) {
     self.delegate?.importWalletViewController(
       self,
@@ -227,6 +244,14 @@ extension KNImportWalletViewController: KNImportJSONViewControllerDelegate {
 }
 
 extension KNImportWalletViewController: KNImportPrivateKeyViewControllerDelegate {
+  func importPrivateKeyControllerDidSelectQRCode(controller: KNImportPrivateKeyViewController) {
+    self.openQRCode()
+  }
+  
+  func importPrivateKeyViewController(controller: KNImportPrivateKeyViewController, send refCode: String) {
+    self.delegate?.importWalletViewController(self, run: .sendRefCode(code: refCode))
+  }
+  
   func importPrivateKeyViewControllerDidPressNext(sender: KNImportPrivateKeyViewController, privateKey: String, name: String?) {
     self.delegate?.importWalletViewController(
       self,
@@ -236,7 +261,29 @@ extension KNImportWalletViewController: KNImportPrivateKeyViewControllerDelegate
 }
 
 extension KNImportWalletViewController: KNImportSeedsViewControllerDelegate {
+  func importSeedsViewControllerDidSelectQRCode(controller: KNImportSeedsViewController) {
+    self.openQRCode()
+  }
+  
+  func importSeedsViewController(controller: KNImportSeedsViewController, send refCode: String) {
+    self.delegate?.importWalletViewController(self, run: .sendRefCode(code: refCode))
+  }
+  
   func importSeedsViewControllerDidPressNext(sender: KNImportSeedsViewController, seeds: [String], name: String?) {
     self.delegate?.importWalletViewController(self, run: .importSeeds(seeds: seeds, name: name))
+  }
+}
+
+extension KNImportWalletViewController: QRCodeReaderDelegate {
+  func readerDidCancel(_ reader: QRCodeReaderViewController!) {
+    reader.dismiss(animated: true, completion: nil)
+  }
+
+  func reader(_ reader: QRCodeReaderViewController!, didScanResult result: String!) {
+    reader.dismiss(animated: true) {
+      self.importJSONVC?.containerViewDidUpdateRefCode(result)
+      self.importSeedsVC?.containerViewDidUpdateRefCode(result)
+      self.importPrivateKeyVC?.containerViewDidUpdateRefCode(result)
+    }
   }
 }

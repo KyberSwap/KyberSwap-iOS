@@ -195,6 +195,11 @@ class EtherscanTransactionStorage {
   
   func appendInternalHistoryTransaction(_ tx: InternalHistoryTransaction) {
     self.internalHistoryTransactions.append(tx)
+    KNNotificationUtil.postNotification(
+      for: kTransactionDidUpdateNotificationKey,
+      object: tx,
+      userInfo: nil
+    )
   }
   
   func getInternalHistoryTransactionWithHash(_ hash: String) -> InternalHistoryTransaction? {

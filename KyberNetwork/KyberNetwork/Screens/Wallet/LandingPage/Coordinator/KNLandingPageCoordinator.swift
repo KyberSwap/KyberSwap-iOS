@@ -9,6 +9,7 @@ import MessageUI
 protocol KNLandingPageCoordinatorDelegate: class {
   func landingPageCoordinator(import wallet: Wallet)
   func landingPageCoordinator(remove wallet: Wallet)
+  func landingPageCoordinatorDidSendRefCode(_ code: String)
 }
 
 /**
@@ -199,6 +200,10 @@ extension KNLandingPageCoordinator: KNLandingPageViewControllerDelegate {
 }
 
 extension KNLandingPageCoordinator: KNImportWalletCoordinatorDelegate {
+  func importWalletCoordinatorDidSendRefCode(_ code: String) {
+    self.delegate?.landingPageCoordinatorDidSendRefCode(code)
+  }
+  
   func importWalletCoordinatorDidImport(wallet: Wallet, name: String?) {
     self.addNewWallet(wallet, isCreate: false, name: name)
   }
@@ -227,6 +232,10 @@ extension KNLandingPageCoordinator: KNPasscodeCoordinatorDelegate {
 }
 
 extension KNLandingPageCoordinator: KNCreateWalletCoordinatorDelegate {
+  func createWalletCoordinatorDidSendRefCode(_ code: String) {
+    self.delegate?.landingPageCoordinatorDidSendRefCode(code)
+  }
+  
   func createWalletCoordinatorDidClose() {
   }
 

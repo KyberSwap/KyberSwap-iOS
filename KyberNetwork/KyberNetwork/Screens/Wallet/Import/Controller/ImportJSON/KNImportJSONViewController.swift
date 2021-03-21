@@ -4,6 +4,8 @@ import UIKit
 
 protocol KNImportJSONViewControllerDelegate: class {
   func importJSONViewControllerDidPressNext(sender: KNImportJSONViewController, json: String, password: String, name: String?)
+  func importJSONViewController(controller: KNImportJSONViewController, send refCode: String)
+  func importJSONControllerDidSelectQRCode(controller: KNImportJSONViewController)
 }
 
 class KNImportJSONViewController: KNBaseViewController {
@@ -25,6 +27,8 @@ class KNImportJSONViewController: KNBaseViewController {
   @IBOutlet weak var passwordFieldContainer: UIView!
 
   @IBOutlet weak var nextButton: UIButton!
+  @IBOutlet weak var refCodeField: UITextField!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
@@ -113,6 +117,24 @@ class KNImportJSONViewController: KNBaseViewController {
       password: password,
       name: self.nameWalletTextField.text
     )
+    
+    if let text = self.refCodeField.text, !text.isEmpty {
+      self.delegate?.importJSONViewController(controller: self, send: text)
+    }
+  }
+  
+  @IBAction func pasteButtonTapped(_ sender: UIButton) {
+    if let string = UIPasteboard.general.string {
+      self.refCodeField.text = string
+    }
+  }
+  
+  @IBAction func qrCodeButtonTapped(_ sender: UIButton) {
+    self.delegate?.importJSONControllerDidSelectQRCode(controller: self)
+  }
+  
+  func containerViewDidUpdateRefCode(_ refCode: String) {
+    self.refCodeField.text = refCode
   }
 }
 

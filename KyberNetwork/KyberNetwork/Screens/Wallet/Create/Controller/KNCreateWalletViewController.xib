@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,6 +33,7 @@
                 <outlet property="contentView" destination="UUg-NH-uqh" id="TC3-RL-VCe"/>
                 <outlet property="contentViewTopContraint" destination="6gt-mv-QQ9" id="I1t-uD-9po"/>
                 <outlet property="descLabel" destination="Rv2-pO-lJc" id="XSH-y7-lVi"/>
+                <outlet property="refCodeField" destination="2uD-j5-XKo" id="giy-WZ-mGu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -99,6 +100,9 @@
                                         <constraint firstAttribute="width" constant="24" id="9KP-M6-IMr"/>
                                     </constraints>
                                     <state key="normal" image="qr_code_blue_icon"/>
+                                    <connections>
+                                        <action selector="qrCodeButtonTapped:" destination="-1" eventType="touchUpInside" id="xnM-6n-0Eq"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jcx-HH-jW3">
                                     <rect key="frame" x="222" y="12" width="35" height="18"/>
@@ -114,6 +118,9 @@
                                             <integer key="value" value="3"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="pasteButtonTapped:" destination="-1" eventType="touchUpInside" id="hsl-cF-zmo"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

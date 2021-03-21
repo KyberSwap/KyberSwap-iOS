@@ -8,6 +8,7 @@ import BigInt
 protocol KNAddNewWalletCoordinatorDelegate: class {
   func addNewWalletCoordinator(add wallet: Wallet)
   func addNewWalletCoordinator(remove wallet: Wallet)
+  func addNewWalletCoordinatorDidSendRefCode(_ code: String)
 }
 
 enum AddNewWalletType {
@@ -97,6 +98,10 @@ class KNAddNewWalletCoordinator: Coordinator {
 }
 
 extension KNAddNewWalletCoordinator: KNCreateWalletCoordinatorDelegate {
+  func createWalletCoordinatorDidSendRefCode(_ code: String) {
+    self.delegate?.addNewWalletCoordinatorDidSendRefCode(code)
+  }
+  
   func createWalletCoordinatorDidCreateWallet(_ wallet: Wallet?, name: String?) {
     guard let wallet = wallet else { return }
     self.navigationController.dismiss(animated: true) {
@@ -131,6 +136,10 @@ extension KNAddNewWalletCoordinator: KNCreateWalletCoordinatorDelegate {
 }
 
 extension KNAddNewWalletCoordinator: KNImportWalletCoordinatorDelegate {
+  func importWalletCoordinatorDidSendRefCode(_ code: String) {
+    self.delegate?.addNewWalletCoordinatorDidSendRefCode(code)
+  }
+  
   func importWalletCoordinatorDidImport(wallet: Wallet, name: String?) {
     self.navigationController.dismiss(animated: true) {
       //TODO: add type to wallet firebase obj

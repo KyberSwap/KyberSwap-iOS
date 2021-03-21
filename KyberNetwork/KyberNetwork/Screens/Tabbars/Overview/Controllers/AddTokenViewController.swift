@@ -10,6 +10,7 @@ import UIKit
 enum AddTokenViewEvent {
   case openQR
   case done(address: String, symbol: String, decimals: Int)
+  case doneEdit(address: String, newAddress: String, symbol: String, decimals: Int)
 }
 
 protocol AddTokenViewControllerDelegate: class {
@@ -21,17 +22,39 @@ class AddTokenViewController: KNBaseViewController {
   @IBOutlet weak var symbolField: UITextField!
   @IBOutlet weak var decimalsField: UITextField!
   @IBOutlet weak var doneButton: UIButton!
+  @IBOutlet weak var titleHeader: UILabel!
+  
   weak var delegate: AddTokenViewControllerDelegate?
+  var token: Token?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    if let unwrapped = self.token {
+      self.titleHeader.text = "Edit custom token".toBeLocalised()
+      self.updateUI(unwrapped)
+    } else {
+      self.titleHeader.text = "Add custom token".toBeLocalised()
+      self.addressField.text = ""
+      self.symbolField.text = ""
+      self.decimalsField.text = ""
+    }
+  }
+  
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.doneButton.removeSublayer(at: 0)
     self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+  }
+  
+  fileprivate func updateUI(_ token: Token) {
+    self.addressField.text = token.address
+    self.symbolField.text = token.symbol
+    self.decimalsField.text = "\(token.decimals)"
   }
   
   @IBAction func backButtonTapped(_ sender: UIButton) {
@@ -51,7 +74,12 @@ class AddTokenViewController: KNBaseViewController {
     guard self.validateFields() else {
       return
     }
-    self.delegate?.addTokenViewController(self, run: .done(address: self.addressField.text ?? "", symbol: self.symbolField.text ?? "", decimals: Int(self.decimalsField.text ?? "") ?? 6))
+    if let unwrapped = self.token {
+      self.delegate?.addTokenViewController(self, run: .doneEdit(address: unwrapped.address, newAddress: self.addressField.text ?? "", symbol: self.symbolField.text ?? "", decimals: Int(self.decimalsField.text ?? "") ?? 6))
+    } else {
+      self.delegate?.addTokenViewController(self, run: .done(address: self.addressField.text ?? "", symbol: self.symbolField.text ?? "", decimals: Int(self.decimalsField.text ?? "") ?? 6))
+    }
+    
   }
   
   fileprivate func validateFields() -> Bool {

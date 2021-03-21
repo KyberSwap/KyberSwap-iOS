@@ -4,9 +4,6 @@ import UIKit
 import SwipeCellKit
 import BigInt
 
-protocol KNHistoryTransactionCollectionViewCellDelegate: class {
-  func historyTransactionCollectionViewCell(_ cell: KNHistoryTransactionCollectionViewCell, openDetails transaction: Transaction)
-}
 
 protocol AbstractHistoryTransactionViewModel: class {
   var index: Int { get }
@@ -292,7 +289,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     case .swap:
       return UIImage()
     case .withdraw:
-      return UIImage(named: "history_approve_icon")!
+      return UIImage()
     case .transferETH:
       return UIImage(named: "history_send_icon")!
     case .receiveETH:
@@ -304,7 +301,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     case .allowance:
       return UIImage(named: "history_approve_icon")!
     case .earn:
-      return UIImage(named: "history_approve_icon")!
+      return UIImage()
     case .contractInteraction:
       return UIImage(named: "history_contract_interaction_icon")!
     case .selfTransfer:
@@ -355,6 +352,17 @@ class PendingInternalHistoryTransactonViewModel: AbstractHistoryTransactionViewM
   }
   
   var transactionTypeString: String {
+    guard self.internalTransaction.state == .pending else {
+      switch self.internalTransaction.state {
+      case .speedup:
+        return "SPEED UP"
+      case .cancel:
+        return "CANCEL"
+      default:
+        return ""
+      }
+    }
+    
     switch self.internalTransaction.type {
     case .swap:
       return "SWAP"
@@ -569,7 +577,6 @@ class KNHistoryTransactionCollectionViewCell: SwipeCollectionViewCell {
   static let cellID: String = "kHistoryTransactionCellID"
   static let height: CGFloat = 46.0
 
-  weak var actionDelegate: KNHistoryTransactionCollectionViewCellDelegate?
   fileprivate var viewModel: AbstractHistoryTransactionViewModel!
 
   @IBOutlet weak var transactionAmountLabel: UILabel!

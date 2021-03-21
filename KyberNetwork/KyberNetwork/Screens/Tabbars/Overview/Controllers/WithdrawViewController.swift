@@ -223,7 +223,8 @@ class WithdrawViewController: KNBaseViewController {
   
   fileprivate func buildTx() {
     let description = "\(self.viewModel.displayAmount) \(self.viewModel.balance.interestBearingTokenSymbol) -> \(self.viewModel.displayAmount) \(self.viewModel.balance.symbol)"
-    let historyTransaction = InternalHistoryTransaction(type: .withdraw, state: .pending, fromSymbol: self.viewModel.balance.symbol, toSymbol: self.viewModel.balance.interestBearingTokenSymbol, transactionDescription: description, transactionDetailDescription: "")
+    let historyTransaction = InternalHistoryTransaction(type: .withdraw, state: .pending, fromSymbol: self.viewModel.balance.symbol, toSymbol: self.viewModel.balance.interestBearingTokenSymbol, transactionDescription: description, transactionDetailDescription: "", transactionObj: SignTransactionObject(value: "",from: "", to: "", nonce: 0, data: Data(), gasPrice: "", gasLimit: "", chainID: 0))
+    historyTransaction.transactionSuccessDescription = "\(self.viewModel.displayAmount) \(self.viewModel.balance.symbol)"
     
     self.delegate?.withdrawViewController(self, run: .buildWithdrawTx(platform: self.viewModel.platform, token: self.viewModel.balance.address, amount: self.viewModel.amountBigInt.description, gasPrice: self.viewModel.gasPrice.description, useGasToken: true, historyTransaction: historyTransaction))
   }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,6 +32,7 @@
                 <outlet property="nextButton" destination="FCx-Sw-ble" id="FNG-h0-zZ7"/>
                 <outlet property="privateKeyFieldContainer" destination="7qz-Hf-Jyx" id="fnU-uU-jcb"/>
                 <outlet property="privateKeyNoteLabel" destination="Uw1-5o-rqh" id="XWH-qp-D4O"/>
+                <outlet property="refCodeField" destination="te6-jn-Nf7" id="kvv-00-3Jf"/>
                 <outlet property="secureTextButton" destination="U3Y-4S-pW7" id="R0J-Vr-j2A"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walletNameTextField" destination="AJn-1q-kYb" id="xc0-Uv-Rfb"/>
@@ -157,6 +158,9 @@
                                 <constraint firstAttribute="height" constant="24" id="oaZ-m9-hOK"/>
                             </constraints>
                             <state key="normal" image="qr_code_blue_icon"/>
+                            <connections>
+                                <action selector="qrCodeButtonTapped:" destination="-1" eventType="touchUpInside" id="UWC-Ty-Ybc"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7I-30-Y1D">
                             <rect key="frame" x="222" y="12" width="35" height="18"/>
@@ -172,6 +176,9 @@
                                     <integer key="value" value="3"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="pasteButtonTapped:" destination="-1" eventType="touchUpInside" id="kfH-wo-LyD"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

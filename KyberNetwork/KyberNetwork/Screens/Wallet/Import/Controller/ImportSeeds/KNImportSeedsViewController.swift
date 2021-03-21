@@ -7,6 +7,8 @@ import QRCodeReaderViewController
 
 protocol KNImportSeedsViewControllerDelegate: class {
   func importSeedsViewControllerDidPressNext(sender: KNImportSeedsViewController, seeds: [String], name: String?)
+  func importSeedsViewController(controller: KNImportSeedsViewController, send refCode: String)
+  func importSeedsViewControllerDidSelectQRCode(controller: KNImportSeedsViewController)
 }
 
 class KNImportSeedsViewController: KNBaseViewController {
@@ -22,7 +24,8 @@ class KNImportSeedsViewController: KNBaseViewController {
   @IBOutlet weak var qrcodeButton: UIButton!
   @IBOutlet weak var seedsFieldContainer: UIView!
   @IBOutlet weak var nextButton: UIButton!
-
+  @IBOutlet weak var refCodeField: UITextField!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.seedsTextField.delegate = self
@@ -113,6 +116,24 @@ class KNImportSeedsViewController: KNBaseViewController {
         with: NSLocalizedString("field.required", value: "Field Required", comment: ""),
         message: NSLocalizedString("please.check.your.input.data", value: "Please check your input data", comment: ""))
     }
+    
+    if let text = self.refCodeField.text, !text.isEmpty {
+      self.delegate?.importSeedsViewController(controller: self, send: text)
+    }
+  }
+  
+  @IBAction func pasteButtonTapped(_ sender: UIButton) {
+    if let string = UIPasteboard.general.string {
+      self.refCodeField.text = string
+    }
+  }
+  
+  @IBAction func qrCodeButtonTapped(_ sender: UIButton) {
+    self.delegate?.importSeedsViewControllerDidSelectQRCode(controller: self)
+  }
+  
+  func containerViewDidUpdateRefCode(_ refCode: String) {
+    self.refCodeField.text = refCode
   }
 }
 

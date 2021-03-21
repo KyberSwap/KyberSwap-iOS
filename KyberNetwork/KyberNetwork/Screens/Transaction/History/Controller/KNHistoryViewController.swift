@@ -6,10 +6,11 @@ import BetterSegmentedControl
 
 //swiftlint:disable file_length
 enum KNHistoryViewEvent {
-  case selectTransaction(transaction: Transaction)
+  case selectPendingTransaction(transaction: InternalHistoryTransaction)
+  case selectCompletedTransaction(data: CompletedHistoryTransactonViewModel)
   case dismiss
-  case cancelTransaction(transaction: Transaction)
-  case speedUpTransaction(transaction: Transaction)
+  case cancelTransaction(transaction: InternalHistoryTransaction)
+  case speedUpTransaction(transaction: InternalHistoryTransaction)
   case quickTutorial(pointsAndRadius: [(CGPoint, CGFloat)])
   case openEtherScanWalletPage
   case openKyberWalletPage
@@ -258,7 +259,14 @@ struct KNHistoryViewModel {
     if tx.type == .transferETH || tx.type == .receiveETH {
       tokenMatched = self.filters.tokens.contains("ETH")
     } else {
-      tokenMatched = Set(transactionToken).isSubset(of: Set(self.filters.tokens))
+      let allSymbols = KNSupportedTokenStorage.shared.allTokens.map { (token) -> String in
+        return token.symbol
+      }
+      if !Set(transactionToken).isSubset(of: Set(allSymbols)) {
+        tokenMatched = true
+      } else {
+        tokenMatched = Set(transactionToken).isSubset(of: Set(self.filters.tokens))
+      }
     }
     return tokenMatched && matchedType
   }
@@ -353,35 +361,35 @@ class KNHistoryViewController: KNBaseViewController {
   }
 
   fileprivate func showQuickTutorial() {
-    let collectionViewOrigin = self.transactionCollectionView.frame.origin
-    let collectionViewSize = self.transactionCollectionView.frame.size
-    let event = KNHistoryViewEvent.quickTutorial(pointsAndRadius: [(CGPoint(x: collectionViewOrigin.x + collectionViewSize.width - 77 * 1.5, y: collectionViewOrigin.y + 30 + 44), 115)])
-    self.delegate?.historyViewController(self, run: event)
-    self.animateReviewCellActionForTutorial()
-    self.viewModel.isShowingQuickTutorial = true
+//    let collectionViewOrigin = self.transactionCollectionView.frame.origin
+//    let collectionViewSize = self.transactionCollectionView.frame.size
+//    let event = KNHistoryViewEvent.quickTutorial(pointsAndRadius: [(CGPoint(x: collectionViewOrigin.x + collectionViewSize.width - 77 * 1.5, y: collectionViewOrigin.y + 30 + 44), 115)])
+//    self.delegate?.historyViewController(self, run: event)
+//    self.animateReviewCellActionForTutorial()
+//    self.viewModel.isShowingQuickTutorial = true
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    if !self.viewModel.pendingTxData.isEmpty && NSObject.isNeedShowTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView) {
-      NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView, duplicateCheck: true)
-      self.showQuickTutorial()
-      KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_startup_quick_tutorial", customAttributes: nil)
-    }
-    if !self.viewModel.isShowQuickTutorialForLongPendingTx {
-      self.quickTutorialTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (_) in
-        if self.checkHavePendingTxOver5Min() && self.viewModel.isShowingQuickTutorial == false {
-          self.showQuickTutorial()
-          self.quickTutorialTimer?.invalidate()
-          self.quickTutorialTimer = nil
-          UserDefaults.standard.set(true, forKey: Constants.kisShowQuickTutorialForLongPendingTx)
-          KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_show_after_over_5_min_tx", customAttributes: nil)
-        }
-      })
-    } else {
-      self.quickTutorialTimer?.invalidate()
-      self.quickTutorialTimer = nil
-    }
+//    if !self.viewModel.pendingTxData.isEmpty && NSObject.isNeedShowTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView) {
+//      NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView, duplicateCheck: true)
+//      self.showQuickTutorial()
+//      KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_startup_quick_tutorial", customAttributes: nil)
+//    }
+//    if !self.viewModel.isShowQuickTutorialForLongPendingTx {
+//      self.quickTutorialTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (_) in
+//        if self.checkHavePendingTxOver5Min() && self.viewModel.isShowingQuickTutorial == false {
+//          self.showQuickTutorial()
+//          self.quickTutorialTimer?.invalidate()
+//          self.quickTutorialTimer = nil
+//          UserDefaults.standard.set(true, forKey: Constants.kisShowQuickTutorialForLongPendingTx)
+//          KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_show_after_over_5_min_tx", customAttributes: nil)
+//        }
+//      })
+//    } else {
+//      self.quickTutorialTimer?.invalidate()
+//      self.quickTutorialTimer = nil
+//    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -603,11 +611,10 @@ extension KNHistoryViewController: UICollectionViewDelegate {
     KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_selected_tx", customAttributes: nil)
     if self.viewModel.isShowingPending {
       guard let transaction = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section) else { return }
-//      self.delegate?.historyViewController(self, run: .selectTransaction(transaction: transaction))
+      self.delegate?.historyViewController(self, run: .selectPendingTransaction(transaction: transaction.internalTransaction))
     } else {
       guard let transaction = self.viewModel.completedTransaction(for: indexPath.row, at: indexPath.section) else { return }
-//      self.delegate?.historyViewController(self, run: .selectTransaction(transaction: transaction))
-      //TODO: update new data type
+      self.delegate?.historyViewController(self, run: .selectCompletedTransaction(data: transaction))
     }
   }
 }
@@ -648,15 +655,8 @@ extension KNHistoryViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: KNHistoryTransactionCollectionViewCell.cellID, for: indexPath) as! KNHistoryTransactionCollectionViewCell
     cell.delegate = self
-    cell.actionDelegate = self
     if self.viewModel.isShowingPending {
       guard let model = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section) else { return cell }
-//      let model = PendingHistoryTransactonViewModel(
-//        transaction: tx,
-//        ownerAddress: self.viewModel.currentWallet.address,
-//        ownerWalletName: self.viewModel.currentWallet.name,
-//        index: indexPath.row
-//      )
       cell.updateCell(with: model)
     } else {
       guard let model = self.viewModel.completedTransaction(for: indexPath.row, at: indexPath.section) else { return cell }
@@ -678,12 +678,6 @@ extension KNHistoryViewController: UICollectionViewDataSource {
   }
 }
 
-extension KNHistoryViewController: KNHistoryTransactionCollectionViewCellDelegate {
-  func historyTransactionCollectionViewCell(_ cell: KNHistoryTransactionCollectionViewCell, openDetails transaction: Transaction) {
-    self.delegate?.historyViewController(self, run: .selectTransaction(transaction: transaction))
-  }
-}
-
 extension KNHistoryViewController: KNTransactionFilterViewControllerDelegate {
   func transactionFilterViewController(_ controller: KNTransactionFilterViewController, apply filter: KNTransactionFilter) {
     self.viewModel.updateFilters(filter)
@@ -699,31 +693,28 @@ extension KNHistoryViewController: SwipeCollectionViewCellDelegate {
     guard orientation == .right else {
       return nil
     }
-    //TODO: implement speed up cancel for new tran
-//    guard let transaction = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section), transaction.type == .normal else { return nil }
-//    let speedUp = SwipeAction(style: .default, title: nil) { (_, _) in
-//      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_speedup", customAttributes: nil)
-//      self.delegate?.historyViewController(self, run: .speedUpTransaction(transaction: transaction))
-//    }
-//    speedUp.hidesWhenSelected = true
-//    speedUp.title = NSLocalizedString("speed up", value: "Speed Up", comment: "").uppercased()
-//    speedUp.textColor = UIColor.Kyber.SWYellow
-//    speedUp.font = UIFont.Kyber.latoBold(with: 10)
-//    let bgImg = UIImage(named: "history_cell_edit_bg")!
-//    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 46))!
-//    speedUp.backgroundColor = UIColor(patternImage: resized)
-//    let cancel = SwipeAction(style: .destructive, title: nil) { _, _ in
-//      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_cancel", customAttributes: nil)
-//      self.delegate?.historyViewController(self, run: .cancelTransaction(transaction: transaction))
-//    }
-//
-//    cancel.title = NSLocalizedString("cancel", value: "Cancel", comment: "").uppercased()
-//    cancel.textColor = UIColor.Kyber.SWYellow
-//    cancel.font = UIFont.Kyber.latoBold(with: 10)
-//    cancel.backgroundColor = UIColor(patternImage: resized)
-//    return [cancel, speedUp]
-    
-    return nil
+    guard let transaction = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section)  else { return nil }
+    let speedUp = SwipeAction(style: .default, title: nil) { (_, _) in
+      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_speedup", customAttributes: nil)
+      self.delegate?.historyViewController(self, run: .speedUpTransaction(transaction: transaction.internalTransaction))
+    }
+    speedUp.hidesWhenSelected = true
+    speedUp.title = NSLocalizedString("speed up", value: "Speed Up", comment: "").uppercased()
+    speedUp.textColor = UIColor.Kyber.SWYellow
+    speedUp.font = UIFont.Kyber.latoBold(with: 10)
+    let bgImg = UIImage(named: "history_cell_edit_bg")!
+    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 46))!
+    speedUp.backgroundColor = UIColor(patternImage: resized)
+    let cancel = SwipeAction(style: .destructive, title: nil) { _, _ in
+      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_cancel", customAttributes: nil)
+      self.delegate?.historyViewController(self, run: .cancelTransaction(transaction: transaction.internalTransaction))
+    }
+
+    cancel.title = NSLocalizedString("cancel", value: "Cancel", comment: "").uppercased()
+    cancel.textColor = UIColor.Kyber.SWYellow
+    cancel.font = UIFont.Kyber.latoBold(with: 10)
+    cancel.backgroundColor = UIColor(patternImage: resized)
+    return [cancel, speedUp]
   }
 
   func collectionView(_ collectionView: UICollectionView, editActionsOptionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {

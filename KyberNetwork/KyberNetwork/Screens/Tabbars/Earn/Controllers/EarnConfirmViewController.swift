@@ -182,7 +182,8 @@ class EarnConfirmViewController: KNBaseViewController {
   
   @IBAction func sendButtonTapped(_ sender: UIButton) {
     self.dismiss(animated: true) {
-      let historyTransaction = InternalHistoryTransaction(type: .earn, state: .pending, fromSymbol: self.viewModel.token.symbol, toSymbol: self.viewModel.toTokenSym, transactionDescription: "\(self.viewModel.amountString) -> \(self.viewModel.toAmountString)", transactionDetailDescription: "")
+      let historyTransaction = InternalHistoryTransaction(type: .earn, state: .pending, fromSymbol: self.viewModel.token.symbol, toSymbol: self.viewModel.toTokenSym, transactionDescription: "\(self.viewModel.amountString) -> \(self.viewModel.toAmountString)", transactionDetailDescription: "", transactionObj: self.viewModel.transaction.toSignTransactionObject())
+      historyTransaction.transactionSuccessDescription = "\(self.viewModel.amountString) with \(self.viewModel.netAPYString) APY"
       
       self.delegate?.earnConfirmViewController(self, didConfirm: self.viewModel.transaction, amount: self.viewModel.amountString, netAPY: self.viewModel.netAPYString, platform: self.viewModel.platform, historyTransaction: historyTransaction)
     }

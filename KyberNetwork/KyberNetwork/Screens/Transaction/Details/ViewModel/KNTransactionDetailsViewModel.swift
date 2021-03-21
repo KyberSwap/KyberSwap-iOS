@@ -205,3 +205,331 @@ struct KNTransactionDetailsViewModel {
     self.currentWallet = currentWallet
   }
 }
+
+protocol TransactionDetailsViewModel {
+  var displayTxStatus: String { get }
+  var displayTxStatusColor: (UIColor, UIColor) { get }
+  var displayTxTypeString: String { get }
+  var displayDateString: String { get }
+  var displayAmountString: String { get }
+  var displayFromAddress: String { get }
+  var displayToAddress: String { get }
+  var displayGasFee: String { get }
+  var displayHash: String { get }
+  var fromIconSymbol: String { get }
+  var toIconSymbol: String { get }
+  var fromFieldTitle: String { get }
+  var toFieldTitle: String { get }
+  var transactionTypeImage: UIImage { get }
+}
+
+struct InternalTransactionDetailViewModel: TransactionDetailsViewModel {
+  var transactionTypeImage: UIImage {
+    switch self.transaction.type {
+    case .swap:
+      return UIImage()
+    case .withdraw:
+      return UIImage()
+    case .transferETH:
+      return UIImage(named: "history_send_icon")!
+    case .receiveETH:
+      return UIImage(named: "history_receive_icon")!
+    case .transferToken:
+      return UIImage(named: "history_send_icon")!
+    case .receiveToken:
+      return UIImage(named: "history_receive_icon")!
+    case .allowance:
+      return UIImage(named: "history_approve_icon")!
+    case .earn:
+      return UIImage()
+    case .contractInteraction:
+      return UIImage(named: "history_contract_interaction_icon")!
+    case .selfTransfer:
+      return UIImage(named: "history_send_icon")!
+    }
+  }
+  
+  var fromIconSymbol: String {
+    
+    return self.transaction.fromSymbol ?? ""
+  }
+  
+  var toIconSymbol: String {
+    return self.transaction.toSymbol ?? ""
+  }
+  
+  var fromFieldTitle: String {
+    switch self.transaction.type {
+    case .swap:
+      return "Wallet".toBeLocalised()
+    case .withdraw:
+      return "Wallet".toBeLocalised()
+    case .transferETH:
+      return "Wallet".toBeLocalised()
+    case .receiveETH:
+      return "From Wallet".toBeLocalised()
+    case .transferToken:
+      return "Wallet".toBeLocalised()
+    case .receiveToken:
+      return "From Wallet".toBeLocalised()
+    case .allowance:
+      return "Wallet".toBeLocalised()
+    case .earn:
+      return "Wallet".toBeLocalised()
+    case .contractInteraction:
+      return "Wallet".toBeLocalised()
+    case .selfTransfer:
+      return "Wallet".toBeLocalised()
+    }
+  }
+  
+  var toFieldTitle: String {
+    switch self.transaction.type {
+    case .swap:
+      return "Application".toBeLocalised()
+    case .withdraw:
+      return "Application".toBeLocalised()
+    case .transferETH:
+      return "To Wallet".toBeLocalised()
+    case .receiveETH:
+      return "From Wallet".toBeLocalised()
+    case .transferToken:
+      return "To Wallet".toBeLocalised()
+    case .receiveToken:
+      return "From Wallet".toBeLocalised()
+    case .allowance:
+      return "Application".toBeLocalised()
+    case .earn:
+      return "Application".toBeLocalised()
+    case .contractInteraction:
+      return "Application".toBeLocalised()
+    case .selfTransfer:
+      return "Wallet".toBeLocalised()
+    }
+  }
+  
+  let transaction: InternalHistoryTransaction
+  let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "EEEE, MMMM dd yyyy, HH:mm:ss ZZZZ"
+    return formatter
+  }()
+  
+  var displayTxStatus: String {
+    switch self.transaction.state {
+    case .pending:
+      return "pending".toBeLocalised().uppercased().paddingString()
+    case .error, .drop:
+      return "failed".toBeLocalised().uppercased().paddingString()
+    case .cancel:
+      return "cancel".toBeLocalised().uppercased().paddingString()
+    case .speedup:
+      return "speedup".toBeLocalised().uppercased().paddingString()
+    case .done:
+      return "mined".toBeLocalised().uppercased().paddingString()
+    }
+  }
+  
+  var displayTxStatusColor: (UIColor, UIColor) {
+    switch self.transaction.state {
+    case .pending, .cancel, .speedup:
+      return (UIColor(red: 255, green: 236, blue: 213), UIColor(red: 255, green: 144, blue: 8))
+    case .error, .drop:
+      return (UIColor(red: 255, green: 234, blue: 234), UIColor(red: 250, green: 101, blue: 102))
+    case .done:
+      return (UIColor(red: 212, green: 254, blue: 229), UIColor(red: 0, green: 102, blue: 68))
+    }
+  }
+  
+  var displayTxTypeString: String {
+    switch self.transaction.type {
+    case .swap:
+      return "swap".toBeLocalised().uppercased()
+    case .withdraw:
+      return "withdraw".toBeLocalised().uppercased()
+    case .transferETH, .transferToken:
+      return "transfer".toBeLocalised().uppercased()
+    case .receiveETH, .receiveToken:
+      return "receive".toBeLocalised().uppercased()
+    case .allowance:
+      return "allowance".toBeLocalised().uppercased()
+    case .earn:
+      return "trade".toBeLocalised().uppercased()
+    case .contractInteraction:
+      return ""
+    case .selfTransfer:
+      return "self".toBeLocalised().uppercased()
+    }
+  }
+  
+  var displayDateString: String {
+    return self.dateFormatter.string(from: self.transaction.time)
+  }
+  
+  var displayAmountString: String {
+    return self.transaction.transactionDescription
+  }
+  
+  var displayFromAddress: String {
+    return self.transaction.transactionObject.from
+  }
+  
+  var displayToAddress: String {
+    return self.transaction.transactionObject.to ?? ""
+  }
+  
+  var displayGasFee: String {
+    guard let gasPrice = BigInt(self.transaction.transactionObject.gasPrice), let gasLimit = BigInt(self.transaction.transactionObject.gasLimit) else {
+      return ""
+    }
+    let fee = gasPrice * gasLimit
+    return "\(fee.displayRate(decimals: 18)) ETH"
+  }
+  
+  var displayHash: String {
+    return self.transaction.hash
+  }
+}
+
+struct EtherscanTransactionDetailViewModel: TransactionDetailsViewModel {
+
+  let data: CompletedHistoryTransactonViewModel
+
+  let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "EEEE, MMMM dd yyyy, HH:mm:ss ZZZZ"
+    return formatter
+  }()
+
+  var fromIconSymbol: String {
+    return self.data.fromIconSymbol
+  }
+
+  var toIconSymbol: String {
+    return self.data.toIconSymbol
+  }
+  
+  var fromFieldTitle: String {
+    switch self.data.data.type {
+    case .swap:
+      return "Wallet".toBeLocalised()
+    case .withdraw:
+      return "Wallet".toBeLocalised()
+    case .transferETH:
+      return "Wallet".toBeLocalised()
+    case .receiveETH:
+      return "From Wallet".toBeLocalised()
+    case .transferToken:
+      return "Wallet".toBeLocalised()
+    case .receiveToken:
+      return "From Wallet".toBeLocalised()
+    case .allowance:
+      return "Wallet".toBeLocalised()
+    case .earn:
+      return "Wallet".toBeLocalised()
+    case .contractInteraction:
+      return "Wallet".toBeLocalised()
+    case .selfTransfer:
+      return "Wallet".toBeLocalised()
+    }
+  }
+  
+  var toFieldTitle: String {
+    switch self.data.data.type {
+    case .swap:
+      return "Application".toBeLocalised()
+    case .withdraw:
+      return "Application".toBeLocalised()
+    case .transferETH:
+      return "To Wallet".toBeLocalised()
+    case .receiveETH:
+      return "From Wallet".toBeLocalised()
+    case .transferToken:
+      return "To Wallet".toBeLocalised()
+    case .receiveToken:
+      return "From Wallet".toBeLocalised()
+    case .allowance:
+      return "Application".toBeLocalised()
+    case .earn:
+      return "Application".toBeLocalised()
+    case .contractInteraction:
+      return "Application".toBeLocalised()
+    case .selfTransfer:
+      return "Wallet".toBeLocalised()
+    }
+  }
+  
+  var transactionTypeImage: UIImage {
+    return self.data.transactionTypeImage
+  }
+
+  var displayTxStatus: String {
+    return "mined".toBeLocalised().uppercased().paddingString()
+  }
+
+  var displayTxStatusColor: (UIColor, UIColor) {
+    return (UIColor(red: 212, green: 254, blue: 229), UIColor(red: 0, green: 102, blue: 68))
+  }
+
+  var displayTxTypeString: String {
+    return self.data.transactionTypeString
+  }
+
+  var displayDateString: String {
+    let date = Date(timeIntervalSince1970: Double(self.data.data.timestamp) ?? 0)
+    return self.dateFormatter.string(from: date)
+  }
+
+  var displayAmountString: String {
+    return self.data.displayedAmountString
+  }
+  
+  var displayFromAddress: String {
+    if let transaction = self.data.data.transacton.first {
+      return transaction.from
+    } else if let internalTx = self.data.data.internalTransactions.first {
+      return internalTx.from
+    } else if let tokenTx = self.data.data.tokenTransactions.first {
+      return tokenTx.from
+    }
+    return "---"
+  }
+  
+  var displayToAddress: String {
+    if let transaction = self.data.data.transacton.first {
+      return transaction.to
+    } else if let internalTx = self.data.data.internalTransactions.first {
+      return internalTx.to
+    } else if let tokenTx = self.data.data.tokenTransactions.first {
+      return tokenTx.to
+    }
+    return "---"
+  }
+
+  var displayGasFee: String {
+    if let transaction = self.data.data.transacton.first {
+      let gasPrice = BigInt(transaction.gasPrice) ?? BigInt(0)
+      let gasLimit = BigInt(transaction.gasUsed) ?? BigInt(0)
+      let fee = gasPrice * gasLimit
+      return "\(fee.displayRate(decimals: 18)) ETH"
+    } else if let tokenTx = self.data.data.tokenTransactions.first {
+      let gasPrice = BigInt(tokenTx.gasPrice) ?? BigInt(0)
+      let gasLimit = BigInt(tokenTx.gasUsed) ?? BigInt(0)
+      let fee = gasPrice * gasLimit
+      return "\(fee.displayRate(decimals: 18)) ETH"
+    } else {
+      return "---"
+    }
+  }
+
+  var displayHash: String {
+    if let transaction = self.data.data.transacton.first {
+      return transaction.hash
+    } else if let internalTx = self.data.data.internalTransactions.first {
+      return internalTx.hash
+    } else if let tokenTx = self.data.data.tokenTransactions.first {
+      return tokenTx.hash
+    }
+    return "---"
+  }
+}
