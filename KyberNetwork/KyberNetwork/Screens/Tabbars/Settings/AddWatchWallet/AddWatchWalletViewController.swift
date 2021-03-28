@@ -13,6 +13,13 @@ class AddWatchWalletViewModel {
   fileprivate(set) var addressString: String = ""
   fileprivate(set) var isUsingEns: Bool = false
   var address: Address?
+  var wallet: KNWalletObject? {
+    didSet {
+      if let unwrapped = self.wallet {
+        self.updateAddress(unwrapped.address.lowercased())
+      }
+    }
+  }
 
   func updateAddress(_ address: String) {
     self.addressString = address
@@ -50,11 +57,28 @@ class AddWatchWalletViewModel {
     }
     return self.addressString
   }
+  
+  var displayTitle: String {
+    if self.wallet == nil {
+      return "Add Watch Wallet"
+    } else {
+      return "Edit Watch Wallet"
+    }
+  }
+  
+  var displayAddButtonTitle: String {
+    if self.wallet == nil {
+      return "Add"
+    } else {
+      return "Edit"
+    }
+  }
 }
 
 protocol AddWatchWalletViewControllerDelegate: class {
   func addWatchWalletViewController(_ controller: AddWatchWalletViewController, didAddAddress address: Address, name: String?)
   func addWatchWalletViewControllerDidClose(_ controller: AddWatchWalletViewController)
+  func addWatchWalletViewControllerDidEdit(_ controller: AddWatchWalletViewController, wallet: KNWalletObject, address: Address, name: String?)
 }
 
 class AddWatchWalletViewController: UIViewController {
@@ -65,6 +89,8 @@ class AddWatchWalletViewController: UIViewController {
   @IBOutlet weak var cancelButton: UIButton!
   @IBOutlet weak var addButton: UIButton!
   @IBOutlet weak var ensAddressLabel: UILabel!
+  @IBOutlet weak var titleLabel: UILabel!
+  
   weak var delegate: AddWatchWalletViewControllerDelegate?
 
   let transitor = TransitionDelegate()
@@ -90,6 +116,9 @@ class AddWatchWalletViewController: UIViewController {
     self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
     self.addButton.rounded(radius: self.addButton.frame.size.height / 2)
     self.addButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.titleLabel.text = self.viewModel.displayTitle
+    self.walletLabelTextField.text = self.viewModel.wallet?.name
+    self.walletAddressTextField.text = self.viewModel.wallet?.address
   }
 
   override func viewDidLayoutSubviews() {
@@ -103,18 +132,25 @@ class AddWatchWalletViewController: UIViewController {
       self.delegate?.addWatchWalletViewControllerDidClose(self)
     }
   }
-  
+
   @IBAction func doneButtonTapped(_ sender: Any) {
     guard let address = self.viewModel.address else {
       self.showErrorTopBannerMessage(message: "Please enter address".toBeLocalised())
       return
     }
-    guard !KNWalletStorage.shared.checkAddressExisted(address) else {
-      self.showErrorTopBannerMessage(message: "Address existed".toBeLocalised())
-      return
+    if self.viewModel.wallet == nil {
+      guard !KNWalletStorage.shared.checkAddressExisted(address) else {
+        self.showErrorTopBannerMessage(message: "Address existed".toBeLocalised())
+        return
+      }
     }
+    
     self.dismiss(animated: true) {
-      self.delegate?.addWatchWalletViewController(self, didAddAddress: address, name: self.walletLabelTextField.text)
+      if let unwrapped = self.viewModel.wallet {
+        self.delegate?.addWatchWalletViewControllerDidEdit(self, wallet: unwrapped.clone(), address: address, name: self.walletLabelTextField.text)
+      } else {
+        self.delegate?.addWatchWalletViewController(self, didAddAddress: address, name: self.walletLabelTextField.text)
+      }
     }
   }
 

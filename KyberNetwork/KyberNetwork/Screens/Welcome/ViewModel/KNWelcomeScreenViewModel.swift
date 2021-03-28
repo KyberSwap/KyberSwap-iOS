@@ -10,23 +10,17 @@ struct KNWelcomeScreenViewModel {
     let subtitle: String
     let position: Int
 
-    init(dict: JSONDictionary) {
-      icon = dict["icon"] as? String ?? ""
-      title = NSLocalizedString(dict["title"] as? String ?? "", comment: "")
-      subtitle = NSLocalizedString(dict["subtitle"] as? String ?? "", comment: "")
-      position = dict["position"] as? Int ?? 0
-    }
+    
   }
 
   let dataList: [KNWelcomeData]
 
   init() {
-    if let json: JSONDictionary = KNJSONLoaderUtil.jsonDataFromFile(with: "welcome_screen_data") {
-      let data = json["data"] as? [JSONDictionary] ?? []
-      self.dataList = data.map({ return KNWelcomeData(dict: $0) }).sorted(by: { return $0.position < $1.position })
-    } else {
-      self.dataList = []
-    }
+    let page1 = KNWelcomeData(icon: "intro_page_1", title: "Exchange", subtitle: "Swap any token to any token at the best rates", position: 1)
+    let page2 = KNWelcomeData(icon: "intro_page_3", title: "Earn", subtitle: "Earn interest from idle assets in real time", position: 2)
+    let page3 = KNWelcomeData(icon: "intro_page_3", title: "Manage Your Portfolio", subtitle: "Track and manage your digital assets across multiple platforms", position: 3)
+    let page4 = KNWelcomeData(icon: "intro_page_4", title: "Get Rewards", subtitle: "Enjoy bonus rewards by participating in Krystal activities", position: 4)
+    self.dataList = [page1, page2, page3, page4]
   }
 
   var numberRows: Int { return self.dataList.count }

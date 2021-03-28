@@ -10,7 +10,9 @@ class KNWelcomeScreenCollectionView: XibLoaderView {
   fileprivate let viewModel: KNWelcomeScreenViewModel = KNWelcomeScreenViewModel()
 
   @IBOutlet var pageViews: [UIView]!
-
+  @IBOutlet weak var landingTitle: UILabel!
+  @IBOutlet weak var landingDescription: UILabel!
+  
   override func commonInit() {
     super.commonInit()
     self.backgroundColor = .clear
@@ -28,8 +30,14 @@ class KNWelcomeScreenCollectionView: XibLoaderView {
 
   fileprivate func updateSelectedPageView(index: Int) {
     self.pageViews.forEach { view in
-      view.backgroundColor = view.tag == index ? .white : UIColor(red: 233.0/255.0, green: 90.0/255.0, blue: 74.0/255.0, alpha: 0.75)
+      view.backgroundColor = view.tag == index ? UIColor.Kyber.SWButtonBlueColor : UIColor(red: 10, green: 75, blue: 97)
     }
+  }
+
+  fileprivate func updateUIFor(index: Int) {
+    let data = self.viewModel.welcomeData(at: index)
+    self.landingTitle.text = data.title
+    self.landingDescription.text = data.subtitle
   }
 }
 
@@ -55,6 +63,7 @@ extension KNWelcomeScreenCollectionView: UIScrollViewDelegate {
     let offsetX = scrollView.contentOffset.x
     let currentPage = Int(round(offsetX / scrollView.frame.width))
     self.updateSelectedPageView(index: currentPage)
+    self.updateUIFor(index: currentPage)
   }
 }
 

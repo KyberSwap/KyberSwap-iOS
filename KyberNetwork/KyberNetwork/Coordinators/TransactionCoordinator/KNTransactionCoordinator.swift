@@ -216,7 +216,6 @@ extension KNTransactionCoordinator {
               } catch let error {
                 completion?(.failure(AnyError(error)))
               }
-              
             } catch let error {
               if isDebug { print("---- All Token Transactions: Parse result failed with error: \(error.prettyError) ----") }
               completion?(.failure(AnyError(error)))
@@ -333,7 +332,7 @@ extension KNTransactionCoordinator {
   func startUpdatingPendingTransactions() {
     self.pendingTxTimer?.invalidate()
     self.pendingTxTimer = nil
-    self.shouldUpdatePendingTransaction(nil)
+    self.shouldCheckInternalHistory()
     self.pendingTxTimer = Timer.scheduledTimer(
       withTimeInterval: KNLoadingInterval.seconds30,
       repeats: true,

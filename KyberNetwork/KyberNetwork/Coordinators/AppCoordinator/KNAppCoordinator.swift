@@ -73,7 +73,6 @@ class KNAppCoordinator: NSObject, Coordinator {
 
   func start() {
     self.addMissingWalletObjects()
-    KNSupportedTokenStorage.shared.addLocalSupportedTokens()
     guard !self.showBackupWalletIfNeeded() else {
       return
     }

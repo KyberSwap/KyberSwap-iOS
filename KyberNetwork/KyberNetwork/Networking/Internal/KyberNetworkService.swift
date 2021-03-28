@@ -866,6 +866,7 @@ enum KrytalService {
   case getReferralOverview(address: String)
   case registerReferrer(address: String, referralCode: String, signature: String)
   case getRewardHistory(address: String, from: Int, to: Int, offset: Int, limit: Int)
+  case buildClaimTx(address: String, nonce: Int)
 }
 
 extension KrytalService: TargetType {
@@ -925,11 +926,12 @@ extension KrytalService: TargetType {
       return "/v1/mkt/assets"
     case .getReferralOverview:
       return "/v1/account/referralOverview"
-    
     case .registerReferrer:
       return "/v1/account/registerReferrer"
     case .getRewardHistory:
       return "/v1/account/rewardHistory"
+    case .buildClaimTx:
+      return "/v1/lending/buildClaimTx"
     }
   }
 
@@ -1071,6 +1073,14 @@ extension KrytalService: TargetType {
         "to": to,
         "offset": offset,
         "limit": limit
+      ]
+      return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
+    case .buildClaimTx(address: let address, nonce: let nonce):
+      let json: JSONDictionary = [
+        "lendingPlatform": "Compound",
+        "address": address,
+        "gasPrice": KNGasCoordinator.shared.fastKNGas.description,
+        "nonce": nonce
       ]
       return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
     }

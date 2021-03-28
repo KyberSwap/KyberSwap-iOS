@@ -36,6 +36,7 @@
                 <outlet property="hintToNavigateToSwapViewLabel" destination="xRv-eU-hbE" id="qt9-ew-kcV"/>
                 <outlet property="isUseGasTokenIcon" destination="MzG-pu-bWl" id="tiA-Yo-eMf"/>
                 <outlet property="maxFromAmountButton" destination="R7A-WG-QtX" id="dac-d4-jeu"/>
+                <outlet property="pendingTxIndicatorView" destination="bTq-X6-59I" id="wAT-MJ-fyQ"/>
                 <outlet property="platformTableView" destination="RUK-rd-xZx" id="Wmr-Jv-MPJ"/>
                 <outlet property="platformTableViewHeightContraint" destination="De4-y4-rPb" id="1Rw-Mr-6an"/>
                 <outlet property="selectDepositTitleLabel" destination="Nme-TJ-MrD" id="tDy-Pa-y5R"/>
@@ -117,6 +118,20 @@
                                 <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="ub4-Pm-ffS"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTq-X6-59I">
+                            <rect key="frame" x="225" y="60.5" width="16" height="16"/>
+                            <color key="backgroundColor" red="0.97647058819999999" green="0.34901960780000002" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="GRu-Fm-4p8"/>
+                                <constraint firstAttribute="height" constant="16" id="O38-iB-qaf"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -124,6 +139,8 @@
                         <constraint firstItem="Au7-Ch-oql" firstAttribute="centerY" secondItem="Lgl-SE-yW3" secondAttribute="centerY" id="Qbn-oj-pv3"/>
                         <constraint firstItem="cF5-8x-RN9" firstAttribute="leading" secondItem="I0A-k7-oVV" secondAttribute="leading" constant="23" id="SY5-cn-YZc"/>
                         <constraint firstItem="BHm-zh-OUh" firstAttribute="leading" secondItem="Au7-Ch-oql" secondAttribute="trailing" constant="10" id="UzE-Cp-xgU"/>
+                        <constraint firstItem="bTq-X6-59I" firstAttribute="leading" secondItem="Au7-Ch-oql" secondAttribute="leading" id="WLF-ch-IVG"/>
+                        <constraint firstItem="bTq-X6-59I" firstAttribute="top" secondItem="Au7-Ch-oql" secondAttribute="top" id="Y7e-ZS-lJC"/>
                         <constraint firstAttribute="bottom" secondItem="Lgl-SE-yW3" secondAttribute="bottom" constant="26" id="c6a-3b-yGa"/>
                         <constraint firstItem="Lgl-SE-yW3" firstAttribute="centerY" secondItem="cF5-8x-RN9" secondAttribute="centerY" id="hcu-lD-tpq"/>
                         <constraint firstAttribute="trailing" secondItem="BHm-zh-OUh" secondAttribute="trailing" constant="14" id="jjz-8c-cNf"/>

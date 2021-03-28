@@ -27,11 +27,16 @@ class KNShowBackUpDataViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navTitleLabel.text = NSLocalizedString("backup.your.wallet", value: "Backup Your Wallet", comment: "")
-    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
-    self.saveButton.rounded()
-    self.saveButton.applyGradient(with: UIColor.Kyber.buttonColors)
+    self.saveButton.rounded(radius: self.saveButton.frame.height / 2)
+    self.saveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.saveButton.setTitle(NSLocalizedString("save", value: "Save", comment: ""), for: .normal)
-    self.warningMessageLabel.text = NSLocalizedString("export.at.your.own.risk", value: "Export at your own risk!", comment: "")
+    let fullString = NSMutableAttributedString()
+    let image1Attachment = NSTextAttachment()
+    image1Attachment.image = UIImage(named: "warning_yellow_icon")
+    let image1String = NSAttributedString(attachment: image1Attachment)
+    fullString.append(image1String)
+    fullString.append(NSAttributedString(string: " " + "export.at.your.own.risk".toBeLocalised()))
+    self.warningMessageLabel.attributedText = fullString
     self.dataLabel.text = self.backupData
     self.qrcodeImageView.image = nil
   }
@@ -43,10 +48,9 @@ class KNShowBackUpDataViewController: KNBaseViewController {
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    self.headerContainerView.removeSublayer(at: 0)
-    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
+    
     self.saveButton.removeSublayer(at: 0)
-    self.saveButton.applyGradient(with: UIColor.Kyber.buttonColors)
+    self.saveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   @IBAction func edgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {

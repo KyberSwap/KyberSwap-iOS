@@ -12,10 +12,8 @@ import TrustCore
 class EarnViewModel {
   fileprivate var tokenData: TokenData
   fileprivate var platformDataSource: [EarnSelectTableViewCellViewModel]
-  fileprivate(set) var balances: [String: Balance] = [:]
   var isEarnAllBalanace: Bool = false
 
-  fileprivate(set) var balance: Balance?
   fileprivate(set) var amount: String = ""
   
   fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.fastKNGas
@@ -48,28 +46,18 @@ class EarnViewModel {
       notNilValue.isSelected = true
     }
     self.platformDataSource = dataSource
-    if let bal = balances[self.tokenData.address.lowercased()] {
-      self.balance = bal
-    }
   }
   
   func updateBalance(_ balances: [String: Balance]) {
-    balances.forEach { (key, value) in
-      self.balances[key] = value
-    }
-    if let bal = balances[self.tokenData.address.lowercased()] {
-      if let oldBalance = self.balance, oldBalance.value != bal.value { self.isEarnAllBalanace = false }
-      self.balance = bal
-    }
+    
   }
   
   func resetBalances() {
-    self.balances = [:]
+    
   }
   
   var displayBalance: String {
-    guard let bal = self.balance else { return "0" }
-    let string = bal.value.string(
+    let string = self.tokenData.getBalanceBigInt().string(
       decimals: self.tokenData.decimals,
       minFractionDigits: 0,
       maxFractionDigits: min(self.tokenData.decimals, 6)
@@ -100,7 +88,7 @@ class EarnViewModel {
   }
 
   var isAmountTooBig: Bool {
-    let balanceVal = balance?.value ?? BigInt(0)
+    let balanceVal = self.tokenData.getBalanceBigInt()
     return amountBigInt > balanceVal
   }
   
@@ -110,7 +98,7 @@ class EarnViewModel {
   
   var allTokenBalanceString: String {
     if self.tokenData.symbol == "ETH" {
-      let balance = self.balances[self.tokenData.address.lowercased()]?.value ?? BigInt(0)
+      let balance = self.tokenData.getBalanceBigInt()
       let availableValue = max(BigInt(0), balance - self.allETHBalanceFee)
       let string = availableValue.string(
         decimals: self.tokenData.decimals,
@@ -303,6 +291,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
   @IBOutlet weak var approveButtonWidthContraint: NSLayoutConstraint!
   @IBOutlet weak var isUseGasTokenIcon: UIImageView!
   @IBOutlet weak var slippageLabel: UILabel!
+  @IBOutlet weak var pendingTxIndicatorView: UIView!
   
   let viewModel: EarnViewModel
   fileprivate var isViewSetup: Bool = false
@@ -350,6 +339,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
     super.viewWillAppear(animated)
     self.isViewSetup = true
     self.isViewDisappeared = false
+    self.updateUIPendingTxIndicatorView()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -423,6 +413,13 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
       self.compInfoMessageContainerView.isHidden = true
       self.sendButtonTopContraint.constant = 30
     }
+  }
+  
+  fileprivate func updateUIPendingTxIndicatorView() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
   }
 
   @IBAction func gasFeeAreaTapped(_ sender: UIButton) {
@@ -587,10 +584,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
   }
   
   func coordinatorDidUpdateAllowance(token: TokenData, allowance: BigInt) {
-    guard let balanceValue = self.viewModel.balance else {
-      return
-    }
-    if balanceValue.value > allowance {
+    if self.viewModel.tokenData.getBalanceBigInt() > allowance {
       self.viewModel.remainApprovedAmount = (token, allowance)
       self.updateUIForSendApprove(isShowApproveButton: true)
     } else {
@@ -622,9 +616,14 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
   func coordinatorUpdateIsUseGasToken(_ state: Bool) {
     self.updateGasFeeUI()
   }
+  
   func coordinatorDidUpdateMinRatePercentage(_ value: CGFloat) {
     self.viewModel.minRatePercent = Double(value)
     self.updateGasFeeUI()
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.updateUIPendingTxIndicatorView()
   }
 }
 

@@ -7,6 +7,7 @@ enum KNTransactionDetailsViewEvent {
   case back
   case openEtherScan(hash: String)
   case openEnjinXScan
+  case openEtherScanAddress(hash: String)
 }
 
 protocol KNTransactionDetailsViewControllerDelegate: class {
@@ -38,7 +39,6 @@ class KNTransactionDetailsViewController: KNBaseViewController {
   @IBOutlet weak var toAddressContainerView: UIView!
   @IBOutlet weak var fromFieldTitleLabel: UILabel!
   @IBOutlet weak var toFIeldTitleLabel: UILabel!
-  
 
   init(viewModel: TransactionDetailsViewModel) {
     self.viewModel = viewModel
@@ -71,9 +71,8 @@ class KNTransactionDetailsViewController: KNBaseViewController {
     self.txTypeLabel.text = self.viewModel.displayTxTypeString
     self.feeValueLabel.text = self.viewModel.displayGasFee
     self.txStatusLabel.text = self.viewModel.displayTxStatus
-    self.txStatusLabel.backgroundColor = self.viewModel.displayTxStatusColor.0
-    self.txStatusLabel.textColor = self.viewModel.displayTxStatusColor.1
-    self.txStatusLabel.rounded(radius: 3)
+    self.txStatusLabel.textColor = self.viewModel.displayTxStatusColor
+    self.txStatusLabel.rounded(color: self.viewModel.displayTxStatusColor, width: 1, radius: 3)
     self.fromAddressLabel.text = self.viewModel.displayFromAddress
     self.toAddressLabel.text = self.viewModel.displayToAddress
     self.transactionDescriptionLabel.text = self.viewModel.displayAmountString
@@ -82,7 +81,7 @@ class KNTransactionDetailsViewController: KNBaseViewController {
     self.dateLabel.text = self.viewModel.displayDateString
     self.feeValueLabel.text = self.viewModel.displayGasFee
     self.txHashLabel.text = self.viewModel.displayHash
-    
+
     if self.viewModel.toIconSymbol.isEmpty {
       self.toIconImage.image = UIImage()
     } else {
@@ -104,9 +103,9 @@ class KNTransactionDetailsViewController: KNBaseViewController {
 
   @IBAction func addressesAreaTapped(_ sender: UIButton) {
     if sender.tag == 1 {
-      self.delegate?.transactionDetailsViewController(self, run: .openEtherScan(hash: self.viewModel.displayToAddress))
+      self.delegate?.transactionDetailsViewController(self, run: .openEtherScanAddress(hash: self.viewModel.displayToAddress))
     } else {
-      self.delegate?.transactionDetailsViewController(self, run: .openEtherScan(hash: self.viewModel.displayFromAddress))
+      self.delegate?.transactionDetailsViewController(self, run: .openEtherScanAddress(hash: self.viewModel.displayFromAddress))
     }
   }
 
@@ -146,7 +145,7 @@ class KNTransactionDetailsViewController: KNBaseViewController {
   
   @IBAction func helpButtonTapped(_ sender: UIButton) {
     self.showBottomBannerView(
-      message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
+      message: "Gas.fee.is.the.fee.you.pay.to.the.miner".toBeLocalised(),
       icon: UIImage(named: "help_icon_large") ?? UIImage(),
       time: 3
     )

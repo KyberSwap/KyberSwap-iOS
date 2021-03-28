@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,6 +41,7 @@
                 <outlet property="gasFeeSelectorContainerView" destination="PIL-QW-woa" id="0mZ-q4-iGb"/>
                 <outlet property="headerContainerView" destination="vbp-fJ-pmC" id="1nh-Jl-Pr7"/>
                 <outlet property="isUseGasTokenIcon" destination="BKA-pA-o9c" id="mqe-cS-fTK"/>
+                <outlet property="pendingTxIndicatorView" destination="9cQ-df-sfG" id="Aen-Do-U4N"/>
                 <outlet property="rateWarningContainerView" destination="g5b-1v-2KU" id="g8l-Yr-rcp"/>
                 <outlet property="rateWarningLabel" destination="n4X-Ab-mqq" id="wtj-48-xCO"/>
                 <outlet property="scrollContainerView" destination="P3a-OW-m6C" id="fpp-S6-VoO"/>
@@ -107,9 +108,24 @@
                                 <action selector="historyListButtonTapped:" destination="-1" eventType="touchUpInside" id="K55-CZ-cqV"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cQ-df-sfG">
+                            <rect key="frame" x="225" y="60.5" width="16" height="16"/>
+                            <color key="backgroundColor" red="0.97647058819999999" green="0.34901960780000002" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="SnM-T0-PsS"/>
+                                <constraint firstAttribute="width" constant="16" id="b2a-2D-3kP"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="9cQ-df-sfG" firstAttribute="leading" secondItem="Sua-kO-m25" secondAttribute="leading" id="3fU-Dv-NXK"/>
                         <constraint firstItem="icW-gp-OKH" firstAttribute="centerY" secondItem="V4f-Nd-lmp" secondAttribute="centerY" id="6fL-AV-Ffn"/>
                         <constraint firstAttribute="bottom" secondItem="V4f-Nd-lmp" secondAttribute="bottom" constant="26" id="INd-rv-9og"/>
                         <constraint firstItem="icW-gp-OKH" firstAttribute="leading" secondItem="Sua-kO-m25" secondAttribute="trailing" constant="10" id="T2V-Ko-I8b"/>
@@ -117,6 +133,7 @@
                         <constraint firstAttribute="height" constant="113" id="ftb-Ys-LFW"/>
                         <constraint firstAttribute="trailing" secondItem="icW-gp-OKH" secondAttribute="trailing" constant="14" id="gRK-VM-7vz"/>
                         <constraint firstItem="Sua-kO-m25" firstAttribute="centerY" secondItem="V4f-Nd-lmp" secondAttribute="centerY" id="vxb-xm-Slp"/>
+                        <constraint firstItem="9cQ-df-sfG" firstAttribute="top" secondItem="Sua-kO-m25" secondAttribute="top" id="yas-Hf-s7h"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -495,7 +512,7 @@
                 <constraint firstItem="672-IB-0ad" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Gk9-Tq-SDI"/>
                 <constraint firstItem="P3a-OW-m6C" firstAttribute="top" secondItem="vbp-fJ-pmC" secondAttribute="bottom" id="HJb-tJ-pCk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="vbp-fJ-pmC" secondAttribute="trailing" id="Yy5-BR-ozj"/>
-                <constraint firstItem="672-IB-0ad" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bl1-dQ-sVC"/>
+                <constraint firstItem="672-IB-0ad" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bl1-dQ-sVC"/>
                 <constraint firstItem="P3a-OW-m6C" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="mik-8b-USq"/>
                 <constraint firstItem="vbp-fJ-pmC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="n21-y4-LLc"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="P3a-OW-m6C" secondAttribute="bottom" id="oxA-wg-TwX"/>

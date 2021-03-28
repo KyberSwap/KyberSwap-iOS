@@ -9,6 +9,12 @@ import Foundation
 import Moya
 import BigInt
 
+protocol InvestCoordinatorDelegate: class {
+  func investCoordinatorDidSelectWallet(_ wallet: Wallet)
+  func investCoordinatorDidSelectManageWallet()
+  func investCoordinatorDidSelectAddWallet()
+}
+
 class InvestCoordinator: Coordinator {
   let navigationController: UINavigationController
   var coordinators: [Coordinator] = []
@@ -17,6 +23,8 @@ class InvestCoordinator: Coordinator {
   var sendCoordinator: KNSendTokenViewCoordinator?
   var krytalCoordinator: KrytalCoordinator?
   fileprivate var loadTimer: Timer?
+  weak var delegate: InvestCoordinatorDelegate?
+  var historyCoordinator: KNHistoryCoordinator?
   
   lazy var rootViewController: InvestViewController = {
     let controller = InvestViewController()
@@ -94,14 +102,36 @@ class InvestCoordinator: Coordinator {
       balances: self.balances,
       from: from
     )
+    coordinator.delegate = self
     coordinator.start()
     self.sendCoordinator = coordinator
   }
   
   fileprivate func openKrytalView() {
     let coordinator = KrytalCoordinator(navigationController: self.navigationController, session: self.session)
+    coordinator.delegate = self
     coordinator.start()
     self.krytalCoordinator = coordinator
+  }
+  
+  func openHistoryScreen() {
+    self.historyCoordinator = nil
+    self.historyCoordinator = KNHistoryCoordinator(
+      navigationController: self.navigationController,
+      session: self.session
+    )
+    self.historyCoordinator?.delegate = self
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
+    self.historyCoordinator?.start()
+  }
+  
+  func appCoordinatorPendingTransactionsDidUpdate() {
+    self.sendCoordinator?.coordinatorDidUpdatePendingTx()
+  }
+  
+  func appCoordinatorDidUpdateNewSession(_ session: KNSession) {
+    self.sendCoordinator?.appCoordinatorDidUpdateNewSession(session)
+    self.krytalCoordinator?.appCoordinatorDidUpdateNewSession(session)
   }
 }
 
@@ -119,5 +149,55 @@ extension InvestCoordinator: InvestViewControllerDelegate {
     case .krytal:
       self.openKrytalView()
     }
+  }
+}
+
+extension InvestCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.investCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func sendTokenViewCoordinatorSelectOpenHistoryList() {
+    self.openHistoryScreen()
+  }
+  
+  func sendTokenCoordinatorDidSelectManageWallet() {
+    self.delegate?.investCoordinatorDidSelectManageWallet()
+  }
+  
+  func sendTokenCoordinatorDidSelectAddWallet() {
+    self.delegate?.investCoordinatorDidSelectAddWallet()
+  }
+}
+
+extension InvestCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidClose() {
+    
+  }
+  
+  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.investCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func historyCoordinatorDidSelectManageWallet() {
+    self.delegate?.investCoordinatorDidSelectManageWallet()
+  }
+  
+  func historyCoordinatorDidSelectAddWallet() {
+    self.delegate?.investCoordinatorDidSelectAddWallet()
+  }
+}
+
+extension InvestCoordinator: KrytalCoordinatorDelegate {
+  func krytalCoordinatorDidSelectAddWallet() {
+    self.delegate?.investCoordinatorDidSelectAddWallet()
+  }
+  
+  func krytalCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.investCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func krytalCoordinatorDidSelectManageWallet() {
+    self.delegate?.investCoordinatorDidSelectManageWallet()
   }
 }

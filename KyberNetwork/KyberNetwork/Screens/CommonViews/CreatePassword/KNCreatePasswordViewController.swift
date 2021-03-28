@@ -48,7 +48,7 @@ class KNCreatePasswordViewController: KNBaseViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.doneButton.removeSublayer(at: 0)
-    self.doneButton.applyGradient(with: UIColor.Kyber.buttonColors)
+    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   fileprivate func setupUI() {
@@ -74,8 +74,8 @@ class KNCreatePasswordViewController: KNBaseViewController {
 
     self.doneButton.setTitle("Done".toBeLocalised(), for: .normal)
 
-    self.doneButton.rounded(color: .clear, width: 0, radius: KNAppStyleType.current.buttonRadius())
-    self.doneButton.applyGradient(with: UIColor.Kyber.buttonColors)
+    self.doneButton.rounded(radius: self.doneButton.frame.size.height / 2)
+    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOutSideToDismiss(_:)))
     self.view.addGestureRecognizer(tapGesture)

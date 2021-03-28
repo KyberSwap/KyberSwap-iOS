@@ -482,7 +482,7 @@
             <constraints>
                 <constraint firstItem="pr0-U8-kSa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="87d-HO-kB3"/>
                 <constraint firstItem="pr0-U8-kSa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="X2X-gb-ADA"/>
-                <constraint firstItem="pr0-U8-kSa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="348" id="tTm-8d-tWl"/>
+                <constraint firstItem="pr0-U8-kSa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="392" id="tTm-8d-tWl"/>
             </constraints>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="Vz5-Kj-JwW" appends="YES" id="DGb-Ue-bOP"/>

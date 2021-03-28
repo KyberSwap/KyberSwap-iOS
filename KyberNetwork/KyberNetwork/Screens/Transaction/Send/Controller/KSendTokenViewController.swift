@@ -58,6 +58,7 @@ class KSendTokenViewController: KNBaseViewController {
   fileprivate var isViewDisappeared: Bool = false
   @IBOutlet weak var currentTokenButton: UIButton!
   @IBOutlet weak var walletsSelectButton: UIButton!
+  @IBOutlet weak var pendingTxIndicatorView: UIView!
 
   lazy var toolBar: KNCustomToolbar = {
     return KNCustomToolbar(
@@ -108,6 +109,7 @@ class KSendTokenViewController: KNBaseViewController {
     }
     self.isViewDisappeared = false
     self.updateUIAddressQRCode()
+    self.updateUIPendingTxIndicatorView()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -143,7 +145,6 @@ class KSendTokenViewController: KNBaseViewController {
     self.amountTextField.attributedPlaceholder = self.viewModel.placeHolderAmount
     self.amountTextField.adjustsFontSizeToFitWidth = true
     self.amountTextField.delegate = self
-    self.amountTextField.inputAccessoryView = self.toolBar
     self.currentTokenButton.setTitle(self.viewModel.tokenButtonText, for: .normal)
     self.tokenBalanceLabel.text = self.viewModel.totalBalanceText
     let tapBalanceGesture = UITapGestureRecognizer(target: self, action: #selector(self.tokenBalanceLabelTapped(_:)))
@@ -391,6 +392,13 @@ extension KSendTokenViewController {
     self.ensAddressLabel.text = self.viewModel.displayEnsMessage
     self.ensAddressLabel.textColor = self.viewModel.displayEnsMessageColor
   }
+  
+  fileprivate func updateUIPendingTxIndicatorView() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
+  }
 }
 
 // MARK: Update from coordinator
@@ -494,6 +502,16 @@ extension KSendTokenViewController {
     self.viewModel.updateGasPrice(value)
     self.updateAmountFieldUIForTransferAllIfNeeded()
     self.updateGasFeeUI()
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.updateUIPendingTxIndicatorView()
+  }
+  
+  func coordinatorUpdateNewSession(wallet: Wallet) {
+    self.viewModel.currentWalletAddress = wallet.address.description
+    self.setupNavigationView()
+    self.updateUIBalanceDidChange()
   }
 }
 

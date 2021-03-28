@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TrustCore
 
 enum AddTokenViewEvent {
   case openQR
@@ -95,6 +96,12 @@ class AddTokenViewController: KNBaseViewController {
       self.showErrorTopBannerMessage(with: "", message: "Decimals is empty")
       return false
     }
+    
+    if let text = self.addressField.text, Address(string: text) == nil {
+      self.showErrorTopBannerMessage(with: "", message: "Address isn't correct")
+      return false
+    }
+    
     return true
   }
   

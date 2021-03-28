@@ -83,7 +83,8 @@ class KSwapViewController: KNBaseViewController {
   @IBOutlet weak var rateWarningLabel: UILabel!
   @IBOutlet weak var rateWarningContainerView: UIView!
   @IBOutlet weak var isUseGasTokenIcon: UIImageView!
-
+  @IBOutlet weak var pendingTxIndicatorView: UIView!
+  
   fileprivate var estRateTimer: Timer?
   fileprivate var estGasLimitTimer: Timer?
   fileprivate var previousCallEvent: KSwapViewEvent?
@@ -192,6 +193,7 @@ class KSwapViewController: KNBaseViewController {
     self.setUpChangeRateButton()
     self.updateUIForSendApprove(isShowApproveButton: false)
     self.updateUIRefPrice()
+    self.updateUIPendingTxIndicatorView()
   }
 
   fileprivate func setupTokensView() {
@@ -220,6 +222,13 @@ class KSwapViewController: KNBaseViewController {
     self.gasFeeLabel.text = self.viewModel.gasFeeString
     self.slippageLabel.text = self.viewModel.slippageString
     self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
+  }
+  
+  fileprivate func updateUIPendingTxIndicatorView() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
   }
 /*
   fileprivate func setupAdvancedSettingsView() {
@@ -707,6 +716,7 @@ extension KSwapViewController {
     self.updateViewAmountDidChange()
     self.walletsListButton.setTitle(self.viewModel.wallet.address.description, for: .normal)
     self.updateGasTokenArea()
+    self.balanceLabel.text = self.viewModel.balanceDisplayText
     self.view.layoutIfNeeded()
   }
 
@@ -886,10 +896,7 @@ extension KSwapViewController {
   }
 
   func coordinatorDidUpdateAllowance(token: TokenObject, allowance: BigInt) {
-    guard let balanceValue = self.viewModel.balance else {
-      return
-    }
-    if balanceValue.value > allowance {
+    if self.viewModel.from.getBalanceBigInt() > allowance {
       self.viewModel.remainApprovedAmount = (token, allowance)
       self.updateUIForSendApprove(isShowApproveButton: true)
     } else {
@@ -930,7 +937,7 @@ extension KSwapViewController {
     let amount: BigInt = {
       if self.viewModel.isFocusingFromAmount {
         if self.viewModel.isSwapAllBalance {
-          let balance = self.viewModel.balance?.value ?? BigInt(0)
+          let balance = self.viewModel.from.getBalanceBigInt()
           if !self.viewModel.from.isETH { return balance } // token, no need minus fee
           let fee = self.viewModel.allETHBalanceFee
           return max(BigInt(0), balance - fee)
@@ -966,7 +973,7 @@ extension KSwapViewController {
 
   func coordinatorSuccessSendTransaction() {
     print("[Debug] send success")
-    //TODO: show pending tx
+    
     self.hideLoading()
   }
 
@@ -994,6 +1001,10 @@ extension KSwapViewController {
       message: "Something went wrong, please try again later".toBeLocalised(),
       time: 2.0
     )
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.updateUIPendingTxIndicatorView()
   }
 }
 

@@ -11,8 +11,6 @@ import WalletConnect
 
 protocol KNHistoryCoordinatorDelegate: class {
   func historyCoordinatorDidClose()
-  func historyCoordinatorDidUpdateWalletObjects()
-  func historyCoordinatorDidSelectRemoveWallet(_ wallet: Wallet)
   func historyCoordinatorDidSelectWallet(_ wallet: Wallet)
   func historyCoordinatorDidSelectManageWallet()
   func historyCoordinatorDidSelectAddWallet()
@@ -67,7 +65,6 @@ class KNHistoryCoordinator: NSObject, Coordinator {
 
   func start() {
     self.navigationController.pushViewController(self.rootViewController, animated: true) {
-      let pendingTrans = self.session.transactionStorage.kyberPendingTransactions
       self.appCoordinatorTokensTransactionsDidUpdate(showLoading: true)
       self.appCoordinatorPendingTransactionDidUpdate()
       self.rootViewController.coordinatorUpdateTokens(self.session.tokenStorage.tokens)
@@ -87,8 +84,8 @@ class KNHistoryCoordinator: NSObject, Coordinator {
     self.currentWallet = KNWalletStorage.shared.get(forPrimaryKey: address) ?? KNWalletObject(address: address)
     self.appCoordinatorTokensTransactionsDidUpdate()
     self.rootViewController.coordinatorUpdateTokens(self.session.tokenStorage.tokens)
-    let pendingTrans = self.session.transactionStorage.kyberPendingTransactions
     self.appCoordinatorPendingTransactionDidUpdate()
+    self.rootViewController.coordinatorUpdateNewSession(wallet: self.currentWallet)
   }
 
   func appCoordinatorDidUpdateWalletObjects() {
@@ -116,10 +113,10 @@ class KNHistoryCoordinator: NSObject, Coordinator {
         }
         return data
       }()
-      DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+      DispatchQueue.main.async {
         if showLoading { self.navigationController.hideLoading() }
         self.rootViewController.coordinatorDidUpdateCompletedTransaction(sections: dates, data: sectionData)
-      })
+      }
     }
   }
 
@@ -148,7 +145,6 @@ class KNHistoryCoordinator: NSObject, Coordinator {
           dates: dates,
           currentWallet: self.currentWallet
         )
-    //    self.txDetailsCoordinator.updatePendingTransactions(transactions, currentWallet: self.currentWallet)
   }
 
   func coordinatorGasPriceCachedDidUpdate() {
@@ -214,7 +210,6 @@ class KNHistoryCoordinator: NSObject, Coordinator {
 extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
   func historyViewController(_ controller: KNHistoryViewController, run event: KNHistoryViewEvent) {
     switch event {
-    
     case .dismiss:
       self.stop()
     case .cancelTransaction(let transaction):
@@ -246,6 +241,8 @@ extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
       let coordinator = KNTransactionDetailsCoordinator(navigationController: self.navigationController, data: data)
       coordinator.start()
       self.txDetailsCoordinator = coordinator
+    case .swap:
+      self.navigationController.tabBarController?.selectedIndex = 1
     }
   }
 

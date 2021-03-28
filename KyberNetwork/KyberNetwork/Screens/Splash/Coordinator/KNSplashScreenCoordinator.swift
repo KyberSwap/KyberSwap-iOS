@@ -18,10 +18,10 @@ class KNSplashScreenCoordinator: Coordinator {
 
   func start() {
     self.splashWindow.rootViewController = self.splashVC
-    self.splashWindow.isHidden = false
-    self.splashVC.rotateSplashLogo(duration: 1.6) {
-      self.splashWindow.isHidden = true
-    }
+//    self.splashWindow.isHidden = false
+//    self.splashVC.rotateSplashLogo(duration: 1.6) {
+//      self.splashWindow.isHidden = true
+//    }
   }
 
   func stop() {

@@ -11,14 +11,10 @@ import SwipeCellKit
 
 class OverviewAssetsCellViewModel {
   let token: Token
-  let price: TokenPrice
-  let balance: TokenBalance
   var currencyType: CurrencyType = .usd
   
-  init(token: Token, price: TokenPrice, balance: TokenBalance) {
+  init(token: Token) {
     self.token = token
-    self.price = price
-    self.balance = balance
   }
   
   var displaySymbol: String {
@@ -26,7 +22,7 @@ class OverviewAssetsCellViewModel {
   }
 
   var balanceBigInt: BigInt {
-    return BigInt(self.balance.balance) ?? BigInt(0)
+    return self.token.getBalanceBigInt()
   }
   
   var comparableBalanceBigInt: BigInt {
@@ -38,9 +34,9 @@ class OverviewAssetsCellViewModel {
   }
 
   var priceDouble: Double {
-    return self.currencyType == .usd ? self.price.usd : self.price.eth
+    return self.currencyType == .usd ? self.token.getTokenPrice().usd : self.token.getTokenPrice().eth
   }
-  
+
   var displayPrice: String {
     let price = self.priceDouble
     return self.currencyType == .usd ? "$" + String(format: "%.2f", price) : String(format: "%.2f", price)
@@ -58,7 +54,7 @@ class OverviewAssetsCellViewModel {
   }
 
   var change24Double: Double {
-    let change24 = self.currencyType == .usd ? self.price.usd24hChange : self.price.eth24hChange
+    let change24 = self.currencyType == .usd ? self.token.getTokenPrice().usd24hChange : self.token.getTokenPrice().eth24hChange
     return change24
   }
   

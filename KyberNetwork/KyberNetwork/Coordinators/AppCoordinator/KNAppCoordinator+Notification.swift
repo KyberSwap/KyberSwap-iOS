@@ -178,8 +178,8 @@ extension KNAppCoordinator {
   @objc func exchangeRateUSDDidUpdateNotification(_ sender: Notification) {
     if self.session == nil { return }
     guard let loadBalanceCoordinator = self.loadBalanceCoordinator else { return }
-    let totalUSD: BigInt = loadBalanceCoordinator.totalBalanceInUSD
-    let totalETH: BigInt = loadBalanceCoordinator.totalBalanceInETH
+    let totalUSD: BigInt = BigInt(0)
+    let totalETH: BigInt = BigInt(0)
 
     self.exchangeCoordinator?.appCoordinatorUSDRateDidUpdate(
       totalBalanceInUSD: totalUSD,
@@ -192,8 +192,8 @@ extension KNAppCoordinator {
   @objc func tokenBalancesDidUpdateNotification(_ sender: Any?) {
     if self.session == nil { return }
     guard let loadBalanceCoordinator = self.loadBalanceCoordinator else { return }
-    let totalUSD: BigInt = loadBalanceCoordinator.totalBalanceInUSD
-    let totalETH: BigInt = loadBalanceCoordinator.totalBalanceInETH
+    let totalUSD: BigInt = BigInt(0)
+    let totalETH: BigInt = BigInt(0)
     let otherTokensBalance: [String: Balance] = loadBalanceCoordinator.otherTokensBalance
 
     self.exchangeCoordinator?.appCoordinatorTokenBalancesDidUpdate(
@@ -218,15 +218,19 @@ extension KNAppCoordinator {
     self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
     self.overviewTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
     self.earnCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
+    self.investCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
+    self.settingsCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
+    
     
     let updateOverview = self.overviewTabCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     let updateEarn = self.earnCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     if updateOverview || updateExchange || updateEarn {
       if transaction.state == .done {
+        self.loadBalanceCoordinator?.loadAllBalances()
         self.navigationController.showSuccessTopBannerMessage(
           with: NSLocalizedString("success", value: "Success", comment: ""),
-          message: "Transaction is success",
+          message: "Transaction is successful",
           time: 3
         )
       } else if transaction.state == .drop || transaction.state == .error {
@@ -236,6 +240,11 @@ extension KNAppCoordinator {
         time: 3
         )
       }
+    }
+    
+    if transaction.state == .done || transaction.state == .drop || transaction.state == .error {
+      self.loadBalanceCoordinator?.loadAllBalances()
+      self.session.transacionCoordinator?.loadEtherscanTransactions()
     }
    
     
@@ -385,8 +394,7 @@ extension KNAppCoordinator {
   @objc func tokenTransactionListDidUpdate(_ sender: Any?) {
     if self.session == nil { return }
     self.exchangeCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
-//    self.balanceTabCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
-    self.loadBalanceCoordinator?.forceUpdateBalanceTransactionsCompleted()
+    
     self.overviewTabCoordinator?.appCoordinatorDidUpdateTokenList()
     self.earnCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
     //TODO: add all coordinator update completed tx

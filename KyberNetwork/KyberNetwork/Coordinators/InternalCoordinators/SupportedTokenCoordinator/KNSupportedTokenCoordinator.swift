@@ -27,9 +27,6 @@ class KNSupportedTokenCoordinator {
   }
 
   fileprivate func fetchSupportedTokens() {
-    // Token address is different for other envs
-    KNSupportedTokenStorage.shared.addLocalSupportedTokens()
-    if isDebug { print("---- Supported Tokens: Start fetching data ----") }
     DispatchQueue.global(qos: .background).async {
       self.provider.request(.supportedToken) { result in
         DispatchQueue.main.async {
@@ -39,19 +36,14 @@ class KNSupportedTokenCoordinator {
               _ = try response.filterSuccessfulStatusCodes()
               let respJSON: JSONDictionary = try response.mapJSON(failsOnEmptyData: false) as? JSONDictionary ?? [:]
               let jsonArr: [JSONDictionary] = respJSON["tokens"] as? [JSONDictionary] ?? []
-              let tokenObjects = jsonArr.map({ return TokenObject(apiDict: $0) })
-              if tokenObjects.isEmpty { return }
-              KNSupportedTokenStorage.shared.updateSupportedTokens(tokenObjects: tokenObjects)
-              //TODO: remove all realm token contraint later
               let tokenStruct = jsonArr.map { (item) -> Token in
                 return Token(dictionary: item)
               }
-              
+              if tokenStruct.isEmpty {
+                return
+              }
               KNSupportedTokenStorage.shared.updateSupportedTokens(tokenStruct)
-              //TODO: delete all app tracker implementation
-//              KNAppTracker.updateSuccessfullyLoadSupportedTokens()
               KNNotificationUtil.postNotification(for: kSupportedTokenListDidUpdateNotificationKey)
-              if isDebug { print("---- Supported Tokens: Load successfully") }
             } catch let error {
               if isDebug { print("---- Supported Tokens: Cast reponse failed with error: \(error.prettyError) ----") }
             }

@@ -20,6 +20,7 @@ class OverviewMarketViewModel {
   var currencyType: CurrencyType = .usd
   var soringType: MarketOverviewSortingType = .token(dec: true)
   var isFaved: Bool = false
+  var searchText: String = ""
   
   init() {
     self.reloadAllData()
@@ -45,7 +46,7 @@ class OverviewMarketViewModel {
     data.sort { (left, right) -> Bool in
       switch self.soringType {
       case .token(let dec):
-        return dec ? left.token.name < right.token.name : left.token.name > right.token.name
+        return dec ? left.token.symbol < right.token.symbol : left.token.symbol > right.token.symbol
       case .price(let dec):
         return dec ? left.priceDouble < right.priceDouble : left.priceDouble > right.priceDouble
       case .change24(let dec):
@@ -56,6 +57,12 @@ class OverviewMarketViewModel {
       data = data.filter { (item) -> Bool in
         return item.isFaved
       }
+    }
+    
+    if !self.searchText.isEmpty {
+      data = data.filter({ (item) -> Bool in
+        return item.token.symbol.lowercased().contains(self.searchText.lowercased())
+      })
     }
     
     self.dataSource = data
@@ -189,6 +196,13 @@ class OverviewMarketViewController: KNBaseViewController, OverviewViewController
     guard self.isViewLoaded else { return }
     self.viewModel.reloadAllData()
     self.reloadUI()
+  }
+  
+  func coordinatorDidUpdateSearchText(_ text: String) {
+    self.viewModel.searchText = text
+    guard self.isViewLoaded else { return }
+    self.viewModel.reloadDataSource()
+    self.tableView.reloadData()
   }
 }
 

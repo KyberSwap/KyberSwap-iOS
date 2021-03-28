@@ -11,8 +11,6 @@ import QRCodeReaderViewController
 import WalletConnect
 
 protocol KNSendTokenViewCoordinatorDelegate: class {
-  func sendTokenViewCoordinatorDidUpdateWalletObjects()
-  func sendTokenViewCoordinatorDidSelectRemoveWallet(_ wallet: Wallet)
   func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet)
   func sendTokenViewCoordinatorSelectOpenHistoryList()
   func sendTokenCoordinatorDidSelectManageWallet()
@@ -131,6 +129,15 @@ extension KNSendTokenViewCoordinator {
     }
     return false
   }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.rootViewController.coordinatorDidUpdatePendingTx()
+  }
+  
+  func appCoordinatorDidUpdateNewSession(_ session: KNSession) {
+    self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
+    
+  }
 }
 
 // MARK: Send Token View Controller Delegate
@@ -238,7 +245,7 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
   }
 
   fileprivate func openSearchToken(selectedToken: TokenObject) {
-    let tokens = self.session.tokenStorage.tokens
+    let tokens = KNSupportedTokenStorage.shared.getAllTokenObject()
     self.searchTokensVC = {
       let viewModel = KNSearchTokenViewModel(
         supportedTokens: tokens
@@ -256,23 +263,14 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
     if ens != nil {
       KNCrashlyticsUtil.logCustomEvent(withName: "tranfer_send_using_ens", customAttributes: nil)
     }
-    if self.session.transactionStorage.kyberPendingTransactions.isEmpty {
-      self.confirmVC = {
-        let viewModel = KConfirmSendViewModel(transaction: transaction, ens: ens)
-        let controller = KConfirmSendViewController(viewModel: viewModel)
-        controller.delegate = self
-        controller.loadViewIfNeeded()
-        return controller
-      }()
-      self.navigationController.present(self.confirmVC!, animated: true, completion: nil)
-    } else {
-      let message = NSLocalizedString("Please wait for other transactions to be mined before making a transfer", comment: "")
-      self.navigationController.showWarningTopBannerMessage(
-        with: "",
-        message: message,
-        time: 2.0
-      )
-    }
+    self.confirmVC = {
+      let viewModel = KConfirmSendViewModel(transaction: transaction, ens: ens)
+      let controller = KConfirmSendViewController(viewModel: viewModel)
+      controller.delegate = self
+      controller.loadViewIfNeeded()
+      return controller
+    }()
+    self.navigationController.present(self.confirmVC!, animated: true, completion: nil)
   }
 
   fileprivate func openNewContact(address: String, ens: String?) {
@@ -349,7 +347,6 @@ extension KNSendTokenViewCoordinator {
         historyTransaction.transactionObject = result.1.toSignTransactionObject()
 
         EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
-        
         self.openTransactionStatusPopUp(transaction: historyTransaction)
       case .failure(let error):
         self.confirmVC?.resetActionButtons()
@@ -550,8 +547,6 @@ extension KNSendTokenViewCoordinator: KNConfirmCancelTransactionPopUpDelegate {
               userInfo: nil
             )
           }
-        
-          
         case .failure(let error):
           self.navigationController.showTopBannerView(message: error.description)
         }

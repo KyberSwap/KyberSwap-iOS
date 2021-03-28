@@ -19,8 +19,8 @@ struct RawSwapTransaction {
 class KSwapViewModel {
 
   let defaultTokenIconImg = UIImage(named: "default_token")
-  let eth = KNSupportedTokenStorage.shared.ethToken
-  let knc = KNSupportedTokenStorage.shared.kncToken
+  let eth = KNSupportedTokenStorage.shared.getETH().toObject()
+  let knc = KNSupportedTokenStorage.shared.getKNC().toObject()
 
   fileprivate(set) var wallet: Wallet
   fileprivate(set) var walletObject: KNWalletObject
@@ -28,9 +28,6 @@ class KSwapViewModel {
 
   fileprivate(set) var from: TokenObject
   fileprivate(set) var to: TokenObject
-
-  fileprivate(set) var balances: [String: Balance] = [:]
-  fileprivate(set) var balance: Balance?
 
   fileprivate(set) var amountFrom: String = ""
   fileprivate(set) var amountTo: String = ""
@@ -94,7 +91,7 @@ class KSwapViewModel {
 
   var allFromTokenBalanceString: String {
     if self.from.isETH {
-      let balance = self.balances[self.from.contract]?.value ?? BigInt(0)
+      let balance = self.from.getBalanceBigInt()
       if balance <= self.feeBigInt { return "0" }
       let fee = self.allETHBalanceFee
       let availableToSwap = max(BigInt(0), balance - fee)
@@ -239,7 +236,7 @@ class KSwapViewModel {
 
   // MARK: Balance
   var balanceText: String {
-    let bal: BigInt = self.balance?.value ?? BigInt(0)
+    let bal: BigInt = self.from.getBalanceBigInt()
     let string = bal.string(
       decimals: self.from.decimals,
       minFractionDigits: 0,
@@ -298,20 +295,21 @@ class KSwapViewModel {
     if self.to.isETH || self.to.isWETH {
       return self.amountToBigInt < BigInt(0.001 * Double(EthereumUnit.ether.rawValue))
     }
-    let ethRate: BigInt = {
-      let cacheRate = KNRateCoordinator.shared.ethRate(for: self.from)
-      return cacheRate?.rate ?? BigInt(0)
-    }()
-    if ethRate.isZero && self.estRate != nil && self.estRate?.isZero == false {
-      return false
-    }
-    let valueInETH = ethRate * self.amountFromBigInt
-    let valueMin = BigInt(0.001 * Double(EthereumUnit.ether.rawValue)) * BigInt(10).power(self.from.decimals)
-    return valueInETH < valueMin
+//    let ethRate: BigInt = {
+//      let cacheRate = KNRateCoordinator.shared.ethRate(for: self.from)
+//      return cacheRate?.rate ?? BigInt(0)
+//    }()
+//    if ethRate.isZero && self.estRate != nil && self.estRate?.isZero == false {
+//      return false
+//    }
+//    let valueInETH = ethRate * self.amountFromBigInt
+//    let valueMin = BigInt(0.001 * Double(EthereumUnit.ether.rawValue)) * BigInt(10).power(self.from.decimals)
+//    return valueInETH < valueMin
+    return false
   }
 
   var isBalanceEnough: Bool {
-    if self.amountFromBigInt > self.balance?.value ?? BigInt(0) { return false }
+    if self.amountFromBigInt > self.from.getBalanceBigInt() { return false }
     return true
   }
 
@@ -323,7 +321,7 @@ class KSwapViewModel {
   var isETHSwapAmountAndFeeTooBig: Bool {
     if !self.from.isETH { return false } // not ETH
     let totalValue = self.feeBigInt + self.amountFromBigInt
-    let balance = self.balances[self.from.contract]?.value ?? BigInt(0)
+    let balance = self.from.getBalanceBigInt()
     return balance < totalValue
   }
 
@@ -360,7 +358,7 @@ class KSwapViewModel {
   var isHavingEnoughETHForFee: Bool {
     var fee = self.gasPrice * self.estimateGasLimit
     if self.from.isETH { fee += self.amountFromBigInt }
-    let ethBal = self.balances[self.eth.contract]?.value ?? BigInt(0)
+    let ethBal = BalanceStorage.shared.getBalanceETHBigInt()
     return ethBal >= fee
   }
 
@@ -417,9 +415,6 @@ class KSwapViewModel {
     self.isFocusingFromAmount = true
     self.isSwapAllBalance = false
 
-    self.balances = [:]
-    self.balance = nil
-
     self.estRate = nil
     self.slippageRate = nil
     self.estimateGasLimit = self.getDefaultGasLimit(for: self.from, to: self.to)
@@ -439,8 +434,6 @@ class KSwapViewModel {
     self.estRate = nil
     self.slippageRate = nil
     self.estimateGasLimit = self.getDefaultGasLimit(for: self.from, to: self.to)
-    self.balance = self.balances[self.from.contract]
-//    self.updateProdCachedRate()
   }
 
   func updateSelectedToken(_ token: TokenObject, isSource: Bool) {
@@ -460,7 +453,6 @@ class KSwapViewModel {
     self.estRate = nil
     self.slippageRate = nil
     self.estimateGasLimit = self.getDefaultGasLimit(for: self.from, to: self.to)
-    self.balance = self.balances[self.from.contract]
   }
 
   func updateFocusingField(_ isSource: Bool) {
@@ -478,13 +470,6 @@ class KSwapViewModel {
   }
 
   func updateBalance(_ balances: [String: Balance]) {
-    balances.forEach { (key, value) in
-      self.balances[key] = value
-    }
-    if let bal = balances[self.from.contract] {
-      if let oldBalance = self.balance, oldBalance.value != bal.value { self.isSwapAllBalance = false }
-      self.balance = bal
-    }
   }
 
   func updateSelectedGasPriceType(_ type: KNSelectedGasPriceType) {

@@ -58,15 +58,14 @@ class KNWalletStorage {
     self.add(wallets: wallets)
   }
 
-  func delete(wallets: [KNWalletObject]) {
+  func delete(wallet: KNWalletObject) {
     if self.realm == nil { return }
     if realm.objects(KNWalletObject.self).isInvalidated { return }
     self.realm.beginWrite()
-    // remove promo info for wallet if have
-    wallets.forEach({
-      KNWalletPromoInfoStorage.shared.removeWalletPromoInfo(address: $0.address)
-    })
-    self.realm.delete(wallets)
+    let objs = realm.objects(KNWalletObject.self).filter { (object) -> Bool in
+      return object.address.lowercased() == wallet.address.lowercased()
+    }
+    self.realm.delete(objs)
     try! self.realm.commitWrite()
   }
 

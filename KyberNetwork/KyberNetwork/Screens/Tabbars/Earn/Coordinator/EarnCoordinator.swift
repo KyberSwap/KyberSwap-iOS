@@ -145,9 +145,12 @@ class EarnCoordinator: NSObject, Coordinator {
   
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
     self.session = session
+    print("[Debug] wallet \(self.session.wallet.address.description)")
     self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
     self.menuViewController.coordinatorUpdateNewSession(wallet: session.wallet)
-    self.navigationController.popToRootViewController(animated: false)
+    self.earnViewController?.coordinatorUpdateNewSession(wallet: session.wallet)
+    self.earnSwapViewController?.coordinatorUpdateNewSession(wallet: session.wallet)
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.balances = [:]
   }
 
@@ -162,9 +165,13 @@ class EarnCoordinator: NSObject, Coordinator {
   func appCoordinatorTokensTransactionsDidUpdate() {
     self.historyCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
   }
-  
+
   func appCoordinatorPendingTransactionsDidUpdate() {
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
+    self.earnViewController?.coordinatorDidUpdatePendingTx()
+    self.earnSwapViewController?.coordinatorDidUpdatePendingTx()
+    self.menuViewController.coordinatorDidUpdatePendingTx()
+    self.rootViewController.coordinatorDidUpdatePendingTx()
   }
 }
 
@@ -288,7 +295,7 @@ extension EarnCoordinator: EarnViewControllerDelegate {
       vc.delegate = self
       self.navigationController.present(vc, animated: true, completion: nil)
     case .searchToken(isSwap: let isSwap):
-      let tokens = KNSupportedTokenStorage.shared.supportedTokens
+      let tokens = KNSupportedTokenStorage.shared.getAllTokenObject()
       if isSwap {
         let viewModel = KNSearchTokenViewModel(
           supportedTokens: tokens
@@ -512,12 +519,11 @@ extension EarnCoordinator: EarnConfirmViewControllerDelegate {
             historyTransaction.nonce = transaction.nonce
             EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
             self.openTransactionStatusPopUp(transaction: historyTransaction)
-            
             self.transactionStatusVC?.earnAmountString = amount
             self.transactionStatusVC?.netAPYEarnString = netAPY
             self.transactionStatusVC?.earnPlatform = platform
           case .failure(let error):
-            self.navigationController.showTopBannerView(message: error.localizedDescription)
+            self.navigationController.showTopBannerView(message: error.description)
           }
         })
       case .failure:
@@ -577,6 +583,7 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
       balances: self.balances,
       from: from
     )
+    coordinator.delegate = self
     coordinator.start()
   }
 }
@@ -782,6 +789,17 @@ extension EarnCoordinator: ApproveTokenViewControllerDelegate {
       }
     }
   }
+  
+  fileprivate func openHistoryScreen() {
+    self.historyCoordinator = nil
+    self.historyCoordinator = KNHistoryCoordinator(
+      navigationController: self.navigationController,
+      session: self.session
+    )
+    self.historyCoordinator?.delegate = self
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
+    self.historyCoordinator?.start()
+  }
 }
 
 extension EarnCoordinator: KNSearchTokenViewControllerDelegate {
@@ -796,7 +814,6 @@ extension EarnCoordinator: KNSearchTokenViewControllerDelegate {
           }) else { return }
           self.earnViewController?.coordinatorUpdateSelectedToken(lendingToken)
         }
-        
       }
     }
   }
@@ -804,14 +821,7 @@ extension EarnCoordinator: KNSearchTokenViewControllerDelegate {
 
 extension EarnCoordinator: NavigationBarDelegate {
   func viewControllerDidSelectHistory(_ controller: KNBaseViewController) {
-    self.historyCoordinator = nil
-    self.historyCoordinator = KNHistoryCoordinator(
-      navigationController: self.navigationController,
-      session: self.session
-    )
-    self.historyCoordinator?.delegate = self
-    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
-    self.historyCoordinator?.start()
+    self.openHistoryScreen()
   }
   
   func viewControllerDidSelectWallets(_ controller: KNBaseViewController) {
@@ -823,8 +833,6 @@ extension EarnCoordinator: NavigationBarDelegate {
     walletsList.delegate = self
     self.navigationController.present(walletsList, animated: true, completion: nil)
   }
-  
-  
 }
 
 extension EarnCoordinator: WalletsListViewControllerDelegate {
@@ -889,9 +897,9 @@ extension EarnCoordinator: KNHistoryCoordinatorDelegate {
   func historyCoordinatorDidClose() {
   }
 
-  func historyCoordinatorDidUpdateWalletObjects() {}
-  func historyCoordinatorDidSelectRemoveWallet(_ wallet: Wallet) {}
-  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {}
+  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.earnCoordinatorDidSelectWallet(wallet)
+  }
 }
 
 extension EarnCoordinator: EarnOverviewViewControllerDelegate {
@@ -904,9 +912,35 @@ extension EarnCoordinator: OverviewDepositViewControllerDelegate {
   func overviewDepositViewController(_ controller: OverviewDepositViewController, run event: OverviewDepositViewEvent) {
     switch event {
     case .withdrawBalance(platform: let platform, balance: let balance):
-      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session, platfrom: platform, balance: balance)
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.platform = platform
+      coordinator.balance = balance
       coordinator.start()
       self.withdrawCoordinator = coordinator
+    case .claim(balance: let balance):
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.claimBalance = balance
+      coordinator.start()
+//      coordinator.delegate = self
+      self.withdrawCoordinator = coordinator
     }
+  }
+}
+
+extension EarnCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.earnCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func sendTokenViewCoordinatorSelectOpenHistoryList() {
+    self.openHistoryScreen()
+  }
+  
+  func sendTokenCoordinatorDidSelectManageWallet() {
+    self.delegate?.earnCoordinatorDidSelectManageWallet()
+  }
+  
+  func sendTokenCoordinatorDidSelectAddWallet() {
+    self.delegate?.earnCoordinatorDidSelectAddWallet()
   }
 }

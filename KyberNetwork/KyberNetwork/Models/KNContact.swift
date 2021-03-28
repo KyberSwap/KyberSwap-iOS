@@ -23,4 +23,8 @@ class KNContact: Object {
   override static func primaryKey() -> String {
     return "address"
   }
+  
+  func clone() -> KNContact {
+    return KNContact(address: self.address, name: self.name)
+  }
 }

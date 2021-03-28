@@ -30,7 +30,8 @@ class KNEditWalletViewController: KNBaseViewController {
 
   @IBOutlet weak var showBackupPhraseButton: UIButton!
   @IBOutlet weak var deleteButton: UIButton!
-
+  @IBOutlet weak var doneButton: UIButton!
+  
   fileprivate let viewModel: KNEditWalletViewModel
   weak var delegate: KNEditWalletViewControllerDelegate?
 
@@ -45,14 +46,13 @@ class KNEditWalletViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     self.navTitleLabel.text = NSLocalizedString("edit.wallet", value: "Edit Wallet", comment: "")
     self.nameWalletTextLabel.text = NSLocalizedString("name.of.your.wallet.optional", value: "Name of your wallet (optional)", comment: "")
     self.walletNameTextField.placeholder = NSLocalizedString("give.your.wallet.a.name", value: "Give your wallet a name", comment: "")
     self.walletNameTextField.text = self.viewModel.wallet.name
     self.showBackupPhraseButton.setTitle(NSLocalizedString("show.backup.phrase", value: "Show Backup Phrase", comment: ""), for: .normal)
     self.deleteButton.setTitle(NSLocalizedString("delete.wallet", value: "Delete Wallet", comment: ""), for: .normal)
-    self.view.layoutIfNeeded()
+    self.doneButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.doneButton.frame.size.height / 2)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -63,12 +63,6 @@ class KNEditWalletViewController: KNBaseViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     self.view.endEditing(true)
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.headerContainerView.removeSublayer(at: 0)
-    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {

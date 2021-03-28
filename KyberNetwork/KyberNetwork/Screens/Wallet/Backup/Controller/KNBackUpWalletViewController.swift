@@ -82,6 +82,7 @@ class KNBackUpWalletViewController: KNBaseViewController {
     self.completeButton.isEnabled = self.isCompleteButtonEnabled
     self.completeButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.completeButton.alpha = self.isCompleteButtonEnabled ? 1 : 0.2
+    self.updateUI()
   }
 
   override func viewDidLayoutSubviews() {

@@ -100,6 +100,26 @@ class TokenObject: Object {
       self.isGasFixed = apiDict["is_gas_fixed"] as? Bool ?? false
       self.quotePriority = apiDict["quote_priority"] as? Int ?? 0
     }
+  
+  convenience init(name: String, symbol: String, address: String, decimals: Int, logo: String) {
+    self.init()
+    self.contract = address
+    self.address = address
+    self.symbol = symbol
+    self.decimals = decimals
+    self.icon = logo
+    self.name = name
+    
+  }
+  
+  func toData() -> Token {
+    return Token(name: self.name, symbol: self.symbol, address: self.contract, decimals: self.decimals, logo: self.icon)
+  }
+  
+  func getBalanceBigInt() -> BigInt {
+    let balance = BalanceStorage.shared.balanceForAddress(self.contract)
+    return BigInt(balance?.balance ?? "") ?? BigInt(0)
+  }
 
     var isETH: Bool {
       return self.symbol == "ETH" && self.name.lowercased() == "ethereum"

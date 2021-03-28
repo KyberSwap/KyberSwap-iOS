@@ -28,6 +28,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   var addTokenCoordinator: AddTokenCoordinator?
   var historyCoordinator: KNHistoryCoordinator?
   var withdrawCoordinator: WithdrawCoordinator?
+  var krytalCoordinator: KrytalCoordinator?
 
   lazy var rootViewController: OverviewContainerViewController = {
     let viewModel = OverviewContainerViewModel(session: self.session, marketViewModel: self.marketViewController.viewModel, assetsViewModel: self.assetsViewController.viewModel, depositViewModel: self.depositViewController.viewModel)
@@ -86,18 +87,30 @@ class OverviewCoordinator: NSObject, Coordinator {
     self.navigationController.pushViewController(controller, animated: true)
   }
   
+  fileprivate func openKrytalView() {
+    let coordinator = KrytalCoordinator(navigationController: self.navigationController, session: self.session)
+    coordinator.delegate = self
+    coordinator.start()
+    self.krytalCoordinator = coordinator
+  }
+  
   //TODO: coordinator update balance, coordinator change wallet
   func appCoordinatorDidUpdateTokenList() {
     self.rootViewController.coordinatorDidUpdateDidUpdateTokenList()
   }
   
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
+    self.session = session
     self.rootViewController.coordinatorDidUpdateNewSession(session)
+    self.sendCoordinator?.appCoordinatorDidUpdateNewSession(session)
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(session)
   }
   
   func appCoordinatorPendingTransactionsDidUpdate() {
 //    self.rootViewController.coordinatorUpdatePendingTransactions(transactions)
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
+    self.rootViewController.coordinatorDidUpdatePendingTx()
+    self.sendCoordinator?.coordinatorDidUpdatePendingTx()
   }
   
   func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
@@ -192,6 +205,7 @@ extension OverviewCoordinator: ChartViewControllerDelegate {
       balances: self.balances,
       from: from
     )
+    coordinator.delegate = self
     coordinator.start()
     self.sendCoordinator = coordinator
   }
@@ -210,6 +224,8 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
       self.openQRCodeScreen()
     case .addCustomToken:
       self.openAddTokenScreen()
+    case .krytal:
+      self.openKrytalView()
     }
   }
   
@@ -228,10 +244,8 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
     tokenCoordinator.start()
     self.addTokenCoordinator = tokenCoordinator
   }
-}
-
-extension OverviewCoordinator: NavigationBarDelegate {
-  func viewControllerDidSelectHistory(_ controller: KNBaseViewController) {
+  
+  func openHistoryScreen() {
     self.historyCoordinator = nil
     self.historyCoordinator = KNHistoryCoordinator(
       navigationController: self.navigationController,
@@ -241,7 +255,13 @@ extension OverviewCoordinator: NavigationBarDelegate {
     self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
     self.historyCoordinator?.start()
   }
-  
+}
+
+extension OverviewCoordinator: NavigationBarDelegate {
+  func viewControllerDidSelectHistory(_ controller: KNBaseViewController) {
+    self.openHistoryScreen()
+  }
+
   func viewControllerDidSelectWallets(_ controller: KNBaseViewController) {
     let viewModel = WalletsListViewModel(
       walletObjects: KNWalletStorage.shared.wallets,
@@ -315,18 +335,77 @@ extension OverviewCoordinator: KNHistoryCoordinatorDelegate {
   func historyCoordinatorDidClose() {
   }
 
-  func historyCoordinatorDidUpdateWalletObjects() {}
-  func historyCoordinatorDidSelectRemoveWallet(_ wallet: Wallet) {}
-  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {}
+  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.overviewCoordinatorDidSelectWallet(wallet)
+  }
 }
 
 extension OverviewCoordinator: OverviewDepositViewControllerDelegate {
   func overviewDepositViewController(_ controller: OverviewDepositViewController, run event: OverviewDepositViewEvent) {
     switch event {
     case .withdrawBalance(platform: let platform, balance: let balance):
-      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session, platfrom: platform, balance: balance)
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.platform = platform
+      coordinator.balance = balance
       coordinator.start()
+      coordinator.delegate = self
+      self.withdrawCoordinator = coordinator
+    case .claim(balance: let balance):
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.claimBalance = balance
+      coordinator.start()
+      coordinator.delegate = self
       self.withdrawCoordinator = coordinator
     }
+  }
+}
+
+extension OverviewCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.overviewCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func sendTokenViewCoordinatorSelectOpenHistoryList() {
+    self.openHistoryScreen()
+  }
+
+  func sendTokenCoordinatorDidSelectManageWallet() {
+    self.delegate?.overviewCoordinatorDidSelectManageWallet()
+  }
+  
+  func sendTokenCoordinatorDidSelectAddWallet() {
+    self.delegate?.overviewCoordinatorDidSelectAddWallet()
+  }
+}
+
+extension OverviewCoordinator: WithdrawCoordinatorDelegate {
+  func withdrawCoordinatorDidSelectAddWallet() {
+    self.delegate?.overviewCoordinatorDidSelectAddWallet()
+  }
+  
+  func withdrawCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.overviewCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func withdrawCoordinatorDidSelectManageWallet() {
+    self.delegate?.overviewCoordinatorDidSelectManageWallet()
+  }
+  
+  func withdrawCoordinatorDidSelectHistory() {
+    self.openHistoryScreen()
+  }
+}
+
+extension OverviewCoordinator: KrytalCoordinatorDelegate {
+  func krytalCoordinatorDidSelectAddWallet() {
+    self.delegate?.overviewCoordinatorDidSelectAddWallet()
+  }
+  
+  func krytalCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.overviewCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func krytalCoordinatorDidSelectManageWallet() {
+    self.delegate?.overviewCoordinatorDidSelectManageWallet()
   }
 }

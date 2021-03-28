@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BigInt
 
 class Token: Codable {
   var address: String
@@ -22,8 +23,30 @@ class Token: Codable {
     self.logo = dictionary["logo"] as? String ?? ""
   }
   
+  init(name: String, symbol: String, address: String, decimals: Int, logo: String) {
+    self.name = name
+    self.symbol = symbol
+    self.address = address
+    self.decimals = decimals
+    self.logo = logo
+  }
+
   var isETH: Bool {
     return self.symbol == "ETH"
+  }
+  
+  func toObject() -> TokenObject {
+    return TokenObject(name: self.name, symbol: self.symbol, address: self.address, decimals: self.decimals, logo: self.logo)
+  }
+  
+  func getBalanceBigInt() -> BigInt {
+    let balance = BalanceStorage.shared.balanceForAddress(self.address)
+    return BigInt(balance?.balance ?? "") ?? BigInt(0)
+  }
+  
+  func getTokenPrice() -> TokenPrice {
+    let price = KNTrackerRateStorage.shared.getPriceWithAddress(self.address) ?? TokenPrice(dictionary: [:])
+    return price
   }
 }
 
@@ -143,6 +166,11 @@ struct TokenData: Equatable {
   
   var isETH: Bool {
     return self.symbol == "ETH"
+  }
+
+  func getBalanceBigInt() -> BigInt {
+    let balance = BalanceStorage.shared.balanceForAddress(self.address)
+    return BigInt(balance?.balance ?? "") ?? BigInt(0)
   }
 }
 

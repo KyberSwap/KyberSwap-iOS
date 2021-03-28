@@ -15,6 +15,7 @@ enum KNHistoryViewEvent {
   case openEtherScanWalletPage
   case openKyberWalletPage
   case openWalletsListPopup
+  case swap
 }
 
 protocol KNHistoryViewControllerDelegate: class {
@@ -248,7 +249,8 @@ struct KNHistoryViewModel {
     let matchedAppprove = tx.type == .allowance && self.filters.isApprove
     let matchedWithdraw = tx.type == .withdraw && self.filters.isWithdraw
     let matchedTrade = tx.type == .earn && self.filters.isTrade
-    let matchedType = matchedTransfer || matchedReceive || matchedSwap || matchedAppprove || matchedWithdraw || matchedTrade
+    let matchedContractInteraction = tx.type == .contractInteraction
+    let matchedType = matchedTransfer || matchedReceive || matchedSwap || matchedAppprove || matchedWithdraw || matchedTrade || matchedContractInteraction
     var tokenMatched = true
     var transactionToken: [String] = []
     tx.tokenTransactions.forEach { (item) in
@@ -318,7 +320,6 @@ class KNHistoryViewController: KNBaseViewController {
   @IBOutlet weak var transactionsTextLabel: UILabel!
 
   @IBOutlet weak var emptyStateContainerView: UIView!
-  @IBOutlet weak var emptyStateDescLabel: UILabel!
 
   @IBOutlet weak var rateMightChangeContainerView: UIView!
   @IBOutlet weak var ratesMightChangeTextLabel: UILabel!
@@ -327,12 +328,12 @@ class KNHistoryViewController: KNBaseViewController {
 
   @IBOutlet weak var transactionCollectionView: UICollectionView!
   @IBOutlet weak var transactionCollectionViewBottomConstraint: NSLayoutConstraint!
-  @IBOutlet weak var emptyStateInfoLabel: UILabel!
   fileprivate var quickTutorialTimer: Timer?
   var animatingCell: UICollectionViewCell?
   @IBOutlet weak var segmentedControl: BetterSegmentedControl!
   @IBOutlet weak var filterButton: UIButton!
   @IBOutlet weak var walletSelectButton: UIButton!
+  @IBOutlet weak var swapNowButton: UIButton!
   
   init(viewModel: KNHistoryViewModel) {
     self.viewModel = viewModel
@@ -406,7 +407,7 @@ class KNHistoryViewController: KNBaseViewController {
     KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_pending_tx", customAttributes: nil)
     self.setupNavigationBar()
     self.setupCollectionView()
-    self.emptyStateInfoLabel.text = "Something is wrong? View your wallet on".toBeLocalised()
+    
     self.segmentedControl.segments = LabelSegment.segments(withTitles: ["completed".toBeLocalised().uppercased(), "pending".toBeLocalised().uppercased()],
                                                            normalFont: UIFont(name: "Lato-Bold", size: 8)!,
                                                            normalTextColor: UIColor(red: 226, green: 231, blue: 244),
@@ -418,6 +419,7 @@ class KNHistoryViewController: KNBaseViewController {
     self.filterButton.rounded(radius: 10)
     self.walletSelectButton.rounded(radius: self.walletSelectButton.frame.size.height / 2)
     self.walletSelectButton.setTitle(self.viewModel.currentWallet.address, for: .normal)
+    self.swapNowButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.swapNowButton.frame.size.height / 2)
   }
 
   override func quickTutorialNextAction() {
@@ -508,17 +510,10 @@ class KNHistoryViewController: KNBaseViewController {
       return
     }
     self.emptyStateContainerView.isHidden = self.viewModel.isEmptyStateHidden
-    self.emptyStateDescLabel.text = self.viewModel.emptyStateDescLabelString
 
     self.rateMightChangeContainerView.isHidden = self.viewModel.isRateMightChangeHidden
     self.transactionCollectionView.isHidden = self.viewModel.isTransactionCollectionViewHidden
     self.transactionCollectionViewBottomConstraint.constant = self.viewModel.transactionCollectionViewBottomPaddingConstraint + self.bottomPaddingSafeArea()
-//    let isAddressHidden = self.viewModel.isTransactionCollectionViewHidden
-//    self.currentAddressLabel.isHidden = isAddressHidden
-//    self.currentAddressContainerView.isHidden = isAddressHidden
-    //TODO: set this text to wallet select button
-//    self.currentAddressLabel.text = self.viewModel.currentWallet.address
-    
     
     self.transactionCollectionView.reloadData()
     self.view.setNeedsUpdateConstraints()
@@ -528,6 +523,10 @@ class KNHistoryViewController: KNBaseViewController {
 
   @IBAction func backButtonPressed(_ sender: Any) {
     self.delegate?.historyViewController(self, run: .dismiss)
+  }
+  
+  @IBAction func swapButtonTapped(_ sender: UIButton) {
+    self.delegate?.historyViewController(self, run: .swap)
   }
 
   fileprivate func updateDisplayTxsType(_ isShowPending: Bool) {
@@ -603,6 +602,13 @@ extension KNHistoryViewController {
   
   func coordinatorDidUpdateCompletedTransaction(sections: [String], data: [String: [HistoryTransaction]]) {
     self.viewModel.update(completedTxData: data, completedTxHeaders: sections)
+    self.transactionCollectionView.reloadData()
+  }
+  
+  func coordinatorUpdateNewSession(wallet: KNWalletObject) {
+    self.viewModel.updateCurrentWallet(wallet)
+    self.walletSelectButton.setTitle(wallet.address, for: .normal)
+    
   }
 }
 

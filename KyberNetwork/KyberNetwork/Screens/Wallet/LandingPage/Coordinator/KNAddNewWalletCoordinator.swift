@@ -62,7 +62,7 @@ class KNAddNewWalletCoordinator: Coordinator {
     self.keystore = keystore
   }
 
-  func start(type: AddNewWalletType) {
+  func start(type: AddNewWalletType, wallet: KNWalletObject? = nil) {
     self.navigationController.popToRootViewController(animated: false)
     switch type {
     case .full, .onlyReal:
@@ -70,7 +70,7 @@ class KNAddNewWalletCoordinator: Coordinator {
       popup.delegate = self
       self.navigationController.present(popup, animated: true, completion: {})
     case .watch:
-      self.createWatchWallet()
+      self.createWatchWallet(wallet)
     }
   }
 
@@ -87,10 +87,11 @@ class KNAddNewWalletCoordinator: Coordinator {
     self.importWalletCoordinator.start()
   }
 
-  fileprivate func createWatchWallet() {
+  fileprivate func createWatchWallet(_ wallet: KNWalletObject? = nil) {
     self.isCreate = false
     self.newWallet = nil
     let viewModel = AddWatchWalletViewModel()
+    viewModel.wallet = wallet
     let controller = AddWatchWalletViewController(viewModel: viewModel)
     controller.delegate = self
     self.navigationController.present(controller, animated: true, completion: nil)
@@ -183,16 +184,61 @@ extension KNAddNewWalletCoordinator: CreateWalletMenuViewControllerDelegate {
 }
 
 extension KNAddNewWalletCoordinator: AddWatchWalletViewControllerDelegate {
+  func addWatchWalletViewControllerDidEdit(_ controller: AddWatchWalletViewController, wallet: KNWalletObject, address: Address, name: String?) {
+    if wallet.address.lowercased() == address.description.lowercased() {
+      wallet.name = name ?? "Imported"
+      KNWalletStorage.shared.add(wallets: [wallet])
+      if let contact = KNContactStorage.shared.get(forPrimaryKey: address.description) {
+        let newContact = contact.clone()
+        newContact.name = name ?? "Imported"
+        KNContactStorage.shared.update(contacts: [newContact])
+        self.navigationController.showSuccessTopBannerMessage(
+          with: "",
+          message: "Edit wallet successful".toBeLocalised(),
+          time: 1
+        )
+      }
+      self.navigationController.dismiss(animated: true, completion: nil)
+      self.delegate?.addNewWalletCoordinator(add: Wallet(type: .watch(address)))
+    } else {
+      guard let walletAddress = Address(string: wallet.address) else {
+        return
+      }
+      let aWallet = Wallet(type: .watch(walletAddress))
+      self.keystore.delete(wallet: aWallet)
+      KNWalletStorage.shared.delete(wallet: wallet)
+
+      self.importNewWatchWallet(address: address, name: name, isAdd: false)
+    }
+  }
+  
   func addWatchWalletViewController(_ controller: AddWatchWalletViewController, didAddAddress address: Address, name: String?) {
+    self.importNewWatchWallet(address: address, name: name)
+  }
+
+  func addWatchWalletViewControllerDidClose(_ controller: AddWatchWalletViewController) {
+    self.navigationController.dismiss(animated: true, completion: nil)
+  }
+
+  fileprivate func importNewWatchWallet(address: Address, name: String?, isAdd: Bool = true) {
     self.keystore.importWallet(type: .watch(address: address)) { [weak self] result in
       guard let `self` = self else { return }
       switch result {
       case .success(let wallet):
-        self.navigationController.showSuccessTopBannerMessage(
-          with: NSLocalizedString("wallet.imported", value: "Wallet Imported", comment: ""),
-          message: NSLocalizedString("you.have.successfully.imported.a.wallet", value: "You have successfully imported a wallet", comment: ""),
-          time: 1
-        )
+        if isAdd {
+          self.navigationController.showSuccessTopBannerMessage(
+            with: NSLocalizedString("wallet.imported", value: "Wallet Imported", comment: ""),
+            message: NSLocalizedString("you.have.successfully.imported.a.wallet", value: "You have successfully imported a wallet", comment: ""),
+            time: 1
+          )
+        } else {
+          self.navigationController.showSuccessTopBannerMessage(
+            with: "",
+            message: "Edit wallet successful".toBeLocalised(),
+            time: 1
+          )
+        }
+
         let walletName: String = {
           if name == nil || name?.isEmpty == true { return "Imported" }
           return name ?? "Imported"
@@ -214,9 +260,5 @@ extension KNAddNewWalletCoordinator: AddWatchWalletViewControllerDelegate {
         self.navigationController.showErrorTopBannerMessage(message: error.localizedDescription)
       }
     }
-  }
-
-  func addWatchWalletViewControllerDidClose(_ controller: AddWatchWalletViewController) {
-    self.navigationController.dismiss(animated: true, completion: nil)
   }
 }

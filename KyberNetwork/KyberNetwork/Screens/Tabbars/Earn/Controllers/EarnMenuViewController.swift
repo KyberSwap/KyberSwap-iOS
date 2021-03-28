@@ -19,6 +19,7 @@ class EarnMenuViewModel {
 class EarnMenuViewController: KNBaseViewController {
   @IBOutlet weak var menuTableView: UITableView!
   @IBOutlet weak var walletsSelectButton: UIButton!
+  @IBOutlet weak var pendingTxIndicatorView: UIView!
   
   let viewModel: EarnMenuViewModel
   weak var delegate: EarnMenuViewControllerDelegate?
@@ -51,6 +52,7 @@ class EarnMenuViewController: KNBaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.isViewSetup = true
+    self.updateUIPendingTxIndicatorView()
   }
   
   fileprivate func updateUIWalletSelectButton(_ wallet: Wallet) {
@@ -69,6 +71,13 @@ class EarnMenuViewController: KNBaseViewController {
     self.navigationController?.popViewController(animated: true)
   }
   
+  fileprivate func updateUIPendingTxIndicatorView() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
+  }
+  
   func coordinatorDidUpdateLendingToken(_ tokens: [TokenData]) {
     self.viewModel.dataSource = tokens.map { EarnMenuTableViewCellViewModel(token: $0) }
     if self.isViewSetup {
@@ -81,7 +90,10 @@ class EarnMenuViewController: KNBaseViewController {
     if self.isViewSetup {
       self.updateUIWalletSelectButton(wallet)
     }
-    
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.updateUIPendingTxIndicatorView()
   }
 }
 

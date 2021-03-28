@@ -29,20 +29,9 @@ class KNSupportedTokenStorage {
     self.customTokens = Storage.retrieve(Constants.customTokenStoreFileName, as: [Token].self) ?? []
   }
 
-  func addLocalSupportedTokens() {
-    let supportedTokenObjects = KNJSONLoaderUtil.loadListSupportedTokensFromJSONFile()
-    supportedTokenObjects.forEach { token in
-      if let savedToken = self.supportedTokens.first(where: { $0.contract == token.contract }) {
-        token.value = savedToken.value
-      }
-    }
-    self.add(tokens: supportedTokenObjects)
-  }
-
+  //TODO: temp wrap method delete later
   var supportedTokens: [TokenObject] {
-    if self.realm.objects(TokenObject.self).isInvalidated { return [] }
-    return self.realm.objects(TokenObject.self)
-      .filter { return !$0.contract.isEmpty }
+    return self.getAllTokenObject()
   }
 
   var ethToken: TokenObject {
@@ -64,56 +53,6 @@ class KNSupportedTokenStorage {
   func get(forPrimaryKey key: String) -> TokenObject? {
     return self.realm.object(ofType: TokenObject.self, forPrimaryKey: key)
   }
-  
-  
-
-  /**
-   Update supported token list if needed
-   */
-  func updateSupportedTokens(tokenObjects: [TokenObject]) {
-    if self.realm.objects(TokenObject.self).isInvalidated { return }
-    let savedTokens = self.supportedTokens
-    let needUpdate: Bool = {
-      if savedTokens.count != tokenObjects.count { return true }
-      for id in 0..<savedTokens.count where savedTokens[id].contract != tokenObjects[id].contract { return true }
-      return false
-    }()
-    if !needUpdate { return }
-    tokenObjects.forEach { token in
-      if let savedToken = savedTokens.first(where: { $0.contract == token.contract }) {
-        token.value = savedToken.value
-      }
-    }
-    self.add(tokens: tokenObjects)
-    let removedTokens = savedTokens.filter { token -> Bool in
-      return tokenObjects.first(where: { $0.contract == token.contract }) == nil
-    }
-    self.delete(tokens: removedTokens)
-    // Send post notification to update other UI if needed
-    KNNotificationUtil.postNotification(for: kSupportedTokenListDidUpdateNotificationKey)
-  }
-
-  func add(tokens: [TokenObject]) {
-    if self.realm.objects(TokenObject.self).isInvalidated { return }
-    self.realm.beginWrite()
-    self.realm.add(tokens, update: .modified)
-    try! self.realm.commitWrite()
-  }
-
-  func delete(tokens: [TokenObject]) {
-    if self.realm.objects(TokenObject.self).isInvalidated { return }
-    self.realm.beginWrite()
-    self.realm.delete(tokens)
-    try! realm.commitWrite()
-  }
-
-  func deleteAll() {
-    if self.realm.objects(TokenObject.self).isInvalidated { return }
-    self.realm.beginWrite()
-    self.realm.delete(realm.objects(TokenObject.self))
-    try! self.realm.commitWrite()
-  }
-
   //MARK:-new data type implemetation
   func reloadData() {
     self.supportedToken = Storage.retrieve(Constants.tokenStoreFileName, as: [Token].self) ?? []
@@ -195,5 +134,23 @@ class KNSupportedTokenStorage {
     token.symbol = symbol
     token.decimals = decimal
     Storage.store(self.customTokens, as: Constants.customTokenStoreFileName)
+  }
+  
+  func getAllTokenObject() -> [TokenObject] {
+    return self.allTokens.map { (token) -> TokenObject in
+      return token.toObject()
+    }
+  }
+  
+  func getETH() -> Token {
+    return self.supportedToken.first { (item) -> Bool in
+      return item.symbol == "ETH"
+    } ?? Token(name: "Ethereum", symbol: "ETH", address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", decimals: 18, logo: "eth")
+  }
+  
+  func getKNC() -> Token {
+    return self.supportedToken.first { (item) -> Bool in
+      return item.symbol == "KNC"
+    } ?? Token(name: "KyberNetwork", symbol: "KNC", address: "0x7b2810576aa1cce68f2b118cef1f36467c648f92", decimals: 18, logo: "knc")
   }
 }

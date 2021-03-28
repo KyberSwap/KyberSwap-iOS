@@ -20,6 +20,7 @@ class OverviewAssetsViewModel {
   var dataSource: [OverviewAssetsCellViewModel] = []
   var currencyType: CurrencyType = .usd
   var soringType: AssetsOverviewSortingType = .balance(dec: true)
+  var searchText: String = ""
   
   init() {
     self.reloadAllData()
@@ -29,23 +30,22 @@ class OverviewAssetsViewModel {
     self.data.removeAll()
     let tokens = KNSupportedTokenStorage.shared.allTokens
     tokens.forEach { (token) in
-      guard let balance = BalanceStorage.shared.balanceForAddress(token.address), balance.balance != "0" else {
+      guard token.getBalanceBigInt() > BigInt(0) else {
         return
       }
-      let price = KNTrackerRateStorage.shared.getPriceWithAddress(token.address) ?? TokenPrice(dictionary: [:])
-      let viewModel = OverviewAssetsCellViewModel(token: token, price: price, balance: balance)
+      let viewModel = OverviewAssetsCellViewModel(token: token)
       self.data.append(viewModel)
     }
     self.reloadDataSource()
   }
 
   func reloadDataSource() {
-    let cache = self.data
+    var cache = self.data
     cache.forEach { (viewModel) in
       viewModel.currencyType = self.currencyType
     }
     
-    data.sort { (left, right) -> Bool in
+    cache.sort { (left, right) -> Bool in
       switch self.soringType {
       case .balance(let dec):
         return dec ? left.comparableBalanceBigInt < right.comparableBalanceBigInt : left.comparableBalanceBigInt > right.comparableBalanceBigInt
@@ -54,6 +54,12 @@ class OverviewAssetsViewModel {
       case .value(let dec):
         return dec ? left.valueBigInt < right.valueBigInt : left.valueBigInt > right.valueBigInt
       }
+    }
+    
+    if !self.searchText.isEmpty {
+      cache = cache.filter({ (item) -> Bool in
+        return item.token.symbol.lowercased().contains(self.searchText.lowercased())
+      })
     }
     
     self.dataSource = cache
@@ -191,6 +197,17 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
     self.viewModel.reloadAllData()
     self.reloadUI()
     self.updateUITotalValue()
+  }
+  
+  func coordinatorUpdateNewSession(wallet: Wallet) {
+    self.coordinatorDidUpdateDidUpdateTokenList()
+  }
+  
+  func coordinatorDidUpdateSearchText(_ text: String) {
+    self.viewModel.searchText = text
+    guard self.isViewLoaded else { return }
+    self.viewModel.reloadDataSource()
+    self.tableView.reloadData()
   }
 }
 

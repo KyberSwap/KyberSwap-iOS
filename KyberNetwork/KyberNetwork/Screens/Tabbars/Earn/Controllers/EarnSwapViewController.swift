@@ -13,10 +13,7 @@ class EarnSwapViewModel {
   fileprivate var fromTokenData: TokenData
   fileprivate var toTokenData: TokenData
   fileprivate var platformDataSource: [EarnSelectTableViewCellViewModel]
-  fileprivate(set) var balances: [String: Balance] = [:]
   var isSwapAllBalance: Bool = false
-
-  fileprivate(set) var balance: Balance?
   fileprivate(set) var amountTo: String = ""
   fileprivate(set) var amountFrom: String = ""
   fileprivate(set) var isFocusingFromAmount: Bool = true
@@ -54,29 +51,17 @@ class EarnSwapViewModel {
   }
   
   func updateBalance(_ balances: [String: Balance]) {
-    balances.forEach { (key, value) in
-      self.balances[key] = value
-    }
-    if let bal = balances[self.fromTokenData.address.lowercased()] {
-      if let oldBalance = self.balance, oldBalance.value != bal.value { self.isSwapAllBalance = false }
-      self.balance = bal
-    }
   }
   
   func updateFromToken(_ token: TokenData) {
     self.fromTokenData = token
-    if let bal = balances[self.fromTokenData.address.lowercased()] {
-      self.balance = bal
-    }
   }
   
   func resetBalances() {
-    self.balances = [:]
   }
   
   var displayBalance: String {
-    guard let bal = self.balance else { return "0" }
-    let string = bal.value.string(
+    let string = self.fromTokenData.getBalanceBigInt().string(
       decimals: self.fromTokenData.decimals,
       minFractionDigits: 0,
       maxFractionDigits: min(self.fromTokenData.decimals, 6)
@@ -111,7 +96,7 @@ class EarnSwapViewModel {
   }
 
   var isAmountTooBig: Bool {
-    let balanceVal = balance?.value ?? BigInt(0)
+    let balanceVal = self.fromTokenData.getBalanceBigInt()
     return self.amountFromBigInt > balanceVal
   }
   
@@ -125,7 +110,7 @@ class EarnSwapViewModel {
   
   var allTokenBalanceString: String {
     if self.fromTokenData.symbol == "ETH" {
-      let balance = self.balances[self.fromTokenData.address.lowercased()]?.value ?? BigInt(0)
+      let balance = self.fromTokenData.getBalanceBigInt()
       let availableValue = max(BigInt(0), balance - self.allETHBalanceFee)
       let string = availableValue.string(
         decimals: self.fromTokenData.decimals,
@@ -427,6 +412,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   @IBOutlet weak var approveButtonWidthContraint: NSLayoutConstraint!
   @IBOutlet weak var toTokenButton: UIButton!
   @IBOutlet weak var selectDepositTitleLabel: UILabel!
+  @IBOutlet weak var pendingTxIndicatorView: UIView!
   
   let viewModel: EarnSwapViewModel
   fileprivate var isViewSetup: Bool = false
@@ -478,6 +464,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     super.viewWillAppear(animated)
     self.isViewSetup = true
     self.isViewDisappeared = false
+    self.updateUIPendingTxIndicatorView()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -587,6 +574,9 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   }
 
   fileprivate func updateUIWalletSelectButton() {
+    guard self.isViewLoaded else {
+      return
+    }
     self.walletsSelectButton.setTitle(self.viewModel.wallet.address.description, for: .normal)
   }
 
@@ -799,15 +789,19 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.selectDepositTitleLabel.text = String(format: "Select the platform to deposit %@", token.symbol.uppercased())
   }
   
+  fileprivate func updateUIPendingTxIndicatorView() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
+  }
+  
   func coordinatorUpdateIsUseGasToken(_ state: Bool) {
     self.updateGasTokenArea()
   }
   
   func coordinatorDidUpdateAllowance(token: TokenData, allowance: BigInt) {
-    guard let balanceValue = self.viewModel.balance else {
-      return
-    }
-    if balanceValue.value > allowance {
+    if self.viewModel.fromTokenData.getBalanceBigInt() > allowance {
       self.viewModel.remainApprovedAmount = (token, allowance)
       self.updateUIForSendApprove(isShowApproveButton: true)
     } else {
@@ -817,6 +811,10 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
 
   func coordinatorDidFailUpdateAllowance(token: TokenData) {
     //TODO: handle error
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.updateUIPendingTxIndicatorView()
   }
   
   func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
@@ -861,6 +859,14 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.updateGasLimit()
     self.updateAllowance()
     self.updateAllRates()
+  }
+  
+  func coordinatorUpdateNewSession(wallet: Wallet) {
+    self.viewModel.wallet = wallet
+    if self.isViewSetup {
+      self.updateUIBalanceDidChange()
+      self.updateUIWalletSelectButton()
+    }
   }
 }
 

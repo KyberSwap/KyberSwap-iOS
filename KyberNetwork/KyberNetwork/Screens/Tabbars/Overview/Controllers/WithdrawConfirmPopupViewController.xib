@@ -44,7 +44,7 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2,200 Dai 24.35% APY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ows-zA-d1A">
-                            <rect key="frame" x="58" y="37" width="139" height="17"/>
+                            <rect key="frame" x="58" y="37" width="143.5" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -104,13 +104,22 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="nEK-Yi-tgG" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="oFm-JU-Oou"/>
                 <constraint firstItem="nEK-Yi-tgG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pyu-aO-STU"/>
-                <constraint firstItem="nEK-Yi-tgG" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="477" id="tuV-VW-FPx"/>
+                <constraint firstItem="nEK-Yi-tgG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="477" id="tuV-VW-FPx"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="Si0-IB-Qg5" appends="YES" id="dG6-YO-6QR"/>
+            </connections>
             <point key="canvasLocation" x="-127.2" y="95.802098950524751"/>
         </view>
+        <tapGestureRecognizer id="Si0-IB-Qg5">
+            <connections>
+                <action selector="tapOutsidePopup:" destination="-1" id="LTA-AJ-qat"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="dai" width="36" height="36"/>

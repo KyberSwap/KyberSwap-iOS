@@ -52,9 +52,9 @@ class KNSearchTokenViewModel {
       let isContain1 = token1.symbol.lowercased().contains(self.searchedText.lowercased())
       if isContain0 && !isContain1 { return true }
       if !isContain0 && isContain1 { return false }
-      guard let balance0 = self.balances[token0.contract] else { return false }
-      guard let balance1 = self.balances[token1.contract] else { return true }
-      return balance0.value * BigInt(10).power(18 - token0.decimals) > balance1.value * BigInt(10).power(18 - token1.decimals)
+      let balance0 = token0.getBalanceBigInt()
+      let balance1 = token1.getBalanceBigInt()
+      return balance0 * BigInt(10).power(18 - token0.decimals) > balance1 * BigInt(10).power(18 - token1.decimals)
     }
   }
 
@@ -192,8 +192,7 @@ extension KNSearchTokenViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: kSearchTokenTableViewCellID, for: indexPath) as! KNSearchTokenTableViewCell
     let token = self.viewModel.displayedTokens[indexPath.row]
-    let balance = self.viewModel.balances[token.contract]
-    cell.updateCell(with: token, balance: balance)
+    cell.updateCell(with: token)
     cell.delegate = self
     return cell
   }

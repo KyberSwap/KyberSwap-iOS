@@ -6,7 +6,6 @@ public struct Constants {
     public static let keychainKeyPrefix = "com.kyberswap.ios"
     public static let transactionIsLost = "is_lost"
     public static let transactionIsCancel = "is_cancel"
-    public static let isShowMigrationTutorial = "notify_migration"
     public static let isDoneShowQuickTutorialForBalanceView = "balance_tutorial_done"
     public static let isDoneShowQuickTutorialForSwapView = "swap_tutorial_done"
     public static let isDoneShowQuickTutorialForLimitOrderView = "lo_tutorial_done"
@@ -30,7 +29,7 @@ public struct Constants {
   public static let etherscanTransactionsStoreFileName = "-etherscan-transaction.data"
   public static let customFilterOptionFileName = "custom-filter-option.data"
   public static let marketingAssetsStoreFileName = "marketing-assets.data"
-  public static let referralOverviewStoreFileName = "referral-overview.data"
+  public static let referralOverviewStoreFileName = "-referral-overview.data"
 }
 
 public struct UnitConfiguration {

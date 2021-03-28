@@ -60,7 +60,7 @@ class KrytalCoordinator: NSObject, Coordinator {
         do {
           let data = try decoder.decode(ReferralOverviewResponse.self, from: resp.data)
           self.rootViewController.coordinatorDidUpdateOverviewReferral(data.overview)
-          Storage.store(data.overview, as: Constants.referralOverviewStoreFileName)
+          Storage.store(data.overview, as: self.session.wallet.address.description + Constants.referralOverviewStoreFileName)
         } catch let error {
           print("[Invest] \(error.localizedDescription)")
         }
@@ -71,7 +71,7 @@ class KrytalCoordinator: NSObject, Coordinator {
   }
   
   fileprivate func loadCachedReferralOverview() {
-    guard let overview = Storage.retrieve(Constants.referralOverviewStoreFileName, as: Overview.self) else { return }
+    guard let overview = Storage.retrieve(self.session.wallet.address.description + Constants.referralOverviewStoreFileName, as: Overview.self) else { return }
     self.rootViewController.coordinatorDidUpdateOverviewReferral(overview)
   }
   

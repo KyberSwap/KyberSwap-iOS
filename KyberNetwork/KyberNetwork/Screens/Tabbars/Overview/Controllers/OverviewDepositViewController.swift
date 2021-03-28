@@ -82,6 +82,7 @@ class OverviewDepositViewModel {
 
 enum OverviewDepositViewEvent {
   case withdrawBalance(platform: String, balance: LendingBalance)
+  case claim(balance: LendingDistributionBalance)
 }
 
 protocol OverviewDepositViewControllerDelegate: class {
@@ -163,6 +164,12 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
     self.reloadUI()
     self.updateUITotalValue()
   }
+  
+  func coordinatorUpdateNewSession(wallet: Wallet) {
+    self.viewModel.reloadAllData()
+    guard self.isViewLoaded else { return }
+    self.reloadUI()
+  }
 }
 
 extension OverviewDepositViewController: UITableViewDataSource {
@@ -213,6 +220,8 @@ extension OverviewDepositViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     if let viewModel = self.viewModel.getDataSourceForSection(indexPath.section)[indexPath.row] as? OverviewDepositLendingBalanceCellViewModel {
       self.delegate?.overviewDepositViewController(self, run: .withdrawBalance(platform: self.viewModel.sectionKeys[indexPath.section], balance: viewModel.balance))
+    } else if let viewModel = self.viewModel.getDataSourceForSection(indexPath.section)[indexPath.row] as? OverviewDepositDistributionBalanceCellViewModel {
+      self.delegate?.overviewDepositViewController(self, run: .claim(balance: viewModel.balance))
     }
   }
 }

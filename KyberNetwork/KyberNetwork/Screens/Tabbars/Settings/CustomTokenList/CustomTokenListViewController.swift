@@ -61,6 +61,9 @@ class CustomTokenListViewController: KNBaseViewController {
   }
   
   func coordinatorDidUpdateTokenList() {
+    guard self.isViewLoaded else {
+      return
+    }
     self.viewModel.reloadData()
     self.tokenTableView.reloadData()
   }

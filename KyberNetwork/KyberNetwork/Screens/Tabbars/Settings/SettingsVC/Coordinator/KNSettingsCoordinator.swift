@@ -9,6 +9,9 @@ protocol KNSettingsCoordinatorDelegate: class {
   func settingsCoordinatorUserDidRemoveWallet(_ wallet: Wallet)
   func settingsCoordinatorUserDidUpdateWalletObjects()
   func settingsCoordinatorUserDidSelectAddWallet(type: AddNewWalletType)
+  func settingsCoordinatorDidSelectAddWallet()
+  func settingsCoordinatorDidSelectWallet(_ wallet: Wallet)
+  func settingsCoordinatorDidSelectManageWallet()
 }
 
 class KNSettingsCoordinator: NSObject, Coordinator {
@@ -18,7 +21,7 @@ class KNSettingsCoordinator: NSObject, Coordinator {
   private(set) var session: KNSession
   fileprivate(set) var balances: [String: Balance] = [:]
   var selectedWallet: KNWalletObject?
-
+  var historyCoordinator: KNHistoryCoordinator?
   weak var delegate: KNSettingsCoordinatorDelegate?
 
   lazy var rootViewController: KNSettingsTabViewController = {
@@ -100,6 +103,17 @@ class KNSettingsCoordinator: NSObject, Coordinator {
 
   func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
     return self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx) ?? false
+  }
+  
+  func openHistoryScreen() {
+    self.historyCoordinator = nil
+    self.historyCoordinator = KNHistoryCoordinator(
+      navigationController: self.navigationController,
+      session: self.session
+    )
+    self.historyCoordinator?.delegate = self
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
+    self.historyCoordinator?.start()
   }
 }
 
@@ -382,6 +396,10 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     activityViewController.popoverPresentationController?.sourceRect = navigationController.view.centerRect
     self.navigationController.topViewController?.present(activityViewController, animated: true, completion: nil)
   }
+
+  func appCoordinatorPendingTransactionsDidUpdate() {
+    self.sendTokenCoordinator?.coordinatorDidUpdatePendingTx()
+  }
 }
 
 extension KNSettingsCoordinator: KNCreatePasswordViewControllerDelegate {
@@ -435,29 +453,18 @@ extension KNSettingsCoordinator: KNListContactViewControllerDelegate {
   }
 
   fileprivate func openSendToken(address: String) {
-    if self.session.transactionStorage.kyberPendingTransactions.isEmpty {
-      let from: TokenObject = {
-        guard let destToken = KNWalletPromoInfoStorage.shared.getDestinationToken(from: self.session.wallet.address.description), let token = self.session.tokenStorage.tokens.first(where: { return $0.symbol == destToken }) else {
-          return self.session.tokenStorage.ethToken
-        }
-        return token
-      }()
-      self.sendTokenCoordinator = KNSendTokenViewCoordinator(
-        navigationController: self.navigationController,
-        session: self.session,
-        balances: self.balances,
-        from: from
-      )
-      self.sendTokenCoordinator?.start()
-      self.sendTokenCoordinator?.coordinatorOpenSendView(to: address)
-    } else {
-      let message = NSLocalizedString("Please wait for other transactions to be mined before making a transfer", comment: "")
-      self.navigationController.showWarningTopBannerMessage(
-        with: "",
-        message: message,
-        time: 2.0
-      )
-    }
+    let from: TokenObject = {
+      return self.session.tokenStorage.ethToken
+    }()
+    self.sendTokenCoordinator = KNSendTokenViewCoordinator(
+      navigationController: self.navigationController,
+      session: self.session,
+      balances: self.balances,
+      from: from
+    )
+    self.sendTokenCoordinator?.delegate = self
+    self.sendTokenCoordinator?.start()
+    self.sendTokenCoordinator?.coordinatorOpenSendView(to: address)
   }
 }
 
@@ -542,5 +549,41 @@ extension KNSettingsCoordinator: MFMailComposeViewControllerDelegate {
       KNCrashlyticsUtil.logCustomEvent(withName: "setting_support_email_sent", customAttributes: nil)
     }
     controller.dismiss(animated: true, completion: nil)
+  }
+}
+
+extension KNSettingsCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.settingsCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func sendTokenViewCoordinatorSelectOpenHistoryList() {
+    self.openHistoryScreen()
+  }
+  
+  func sendTokenCoordinatorDidSelectManageWallet() {
+    self.delegate?.settingsCoordinatorDidSelectManageWallet()
+  }
+  
+  func sendTokenCoordinatorDidSelectAddWallet() {
+    self.delegate?.settingsCoordinatorDidSelectAddWallet()
+  }
+}
+
+extension KNSettingsCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidClose() {
+    
+  }
+  
+  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.settingsCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func historyCoordinatorDidSelectManageWallet() {
+    self.delegate?.settingsCoordinatorDidSelectManageWallet()
+  }
+  
+  func historyCoordinatorDidSelectAddWallet() {
+    self.delegate?.settingsCoordinatorDidSelectAddWallet()
   }
 }

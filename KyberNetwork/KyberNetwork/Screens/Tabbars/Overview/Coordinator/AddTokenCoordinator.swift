@@ -57,7 +57,8 @@ extension AddTokenCoordinator: AddTokenViewControllerDelegate {
       }()
       controller.present(qrcodeReaderVC, animated: true, completion: nil)
     case .done(let address, let symbol, let decimals):
-      let token = Token(dictionary: ["address": address, "symbol": symbol, "decimals": decimals])
+      let tokenDict: JSONDictionary = ["address": address, "symbol": symbol, "decimals": decimals]
+      let token = Token(dictionary: tokenDict)
       if KNSupportedTokenStorage.shared.isTokenSaved(token) {
         self.showErrorTopBannerMessage(with: "Fail", message: "Token is already added")
       } else {
@@ -70,7 +71,6 @@ extension AddTokenCoordinator: AddTokenViewControllerDelegate {
         self.listTokenViewController.coordinatorDidUpdateTokenList()
         self.navigationController.popViewController(animated: true)
       }
-      
     case .doneEdit(address: let address, newAddress: let newAddress, symbol: let symbol, decimals: let decimals):
       KNSupportedTokenStorage.shared.editCustomToken(address: address, newAddress: newAddress, symbol: symbol, decimal: decimals)
       self.showSuccessTopBannerMessage(

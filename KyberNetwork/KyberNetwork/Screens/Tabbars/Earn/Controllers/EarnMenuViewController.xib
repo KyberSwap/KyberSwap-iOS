@@ -22,6 +22,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EarnMenuViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="menuTableView" destination="PZ6-PZ-AYR" id="ddw-Cj-WaT"/>
+                <outlet property="pendingTxIndicatorView" destination="698-Yp-2Cp" id="vZk-gK-pLd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walletsSelectButton" destination="QS9-Af-9Vz" id="8QT-rt-RTy"/>
             </connections>
@@ -96,6 +97,20 @@
                                 <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="XDo-Q6-yMi"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="698-Yp-2Cp">
+                            <rect key="frame" x="225" y="60.5" width="16" height="16"/>
+                            <color key="backgroundColor" red="0.97647058819999999" green="0.34901960780000002" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="MJH-lr-Xnu"/>
+                                <constraint firstAttribute="height" constant="16" id="Sci-Mc-HgL"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -104,7 +119,9 @@
                         <constraint firstItem="hjs-AV-lyC" firstAttribute="centerY" secondItem="KOL-Gi-nXw" secondAttribute="centerY" id="DKj-Qe-RHh"/>
                         <constraint firstItem="QS9-Af-9Vz" firstAttribute="leading" secondItem="hjs-AV-lyC" secondAttribute="trailing" constant="10" id="Eia-Mk-3CR"/>
                         <constraint firstItem="QS9-Af-9Vz" firstAttribute="centerY" secondItem="KOL-Gi-nXw" secondAttribute="centerY" id="QsB-uH-xd7"/>
+                        <constraint firstItem="698-Yp-2Cp" firstAttribute="top" secondItem="hjs-AV-lyC" secondAttribute="top" id="RNe-LZ-HQq"/>
                         <constraint firstAttribute="bottom" secondItem="KOL-Gi-nXw" secondAttribute="bottom" constant="26" id="W7A-1k-gyT"/>
+                        <constraint firstItem="698-Yp-2Cp" firstAttribute="leading" secondItem="hjs-AV-lyC" secondAttribute="leading" id="W91-Zn-Atj"/>
                         <constraint firstItem="0SB-dF-3eM" firstAttribute="leading" secondItem="ztD-1o-LWC" secondAttribute="leading" constant="23" id="cHB-X5-gmI"/>
                         <constraint firstItem="KOL-Gi-nXw" firstAttribute="centerY" secondItem="0SB-dF-3eM" secondAttribute="centerY" id="dvf-fE-Yz1"/>
                         <constraint firstAttribute="trailing" secondItem="QS9-Af-9Vz" secondAttribute="trailing" constant="14" id="eLT-tn-P4S"/>

@@ -103,19 +103,19 @@ struct KNTransactionDetailsViewModel {
     return "  \(statusString)  "
   }
 
-  var displayTxStatusColor: (UIColor, UIColor) {
+  var displayTxStatusColor: UIColor {
     guard let state = self.transaction?.state else {
-      return (UIColor(red: 236, green: 235, blue: 235), UIColor(red: 20, green: 25, blue: 39))
+      return UIColor(red: 20, green: 25, blue: 39)
     }
     switch state {
     case .completed:
-      return (UIColor(red: 212, green: 254, blue: 229), UIColor(red: 0, green: 102, blue: 68))
+      return UIColor(red: 0, green: 102, blue: 68)
     case .pending:
-      return (UIColor(red: 255, green: 236, blue: 213), UIColor(red: 255, green: 144, blue: 8))
+      return  UIColor(red: 255, green: 144, blue: 8)
     case .failed, .error:
-      return (UIColor(red: 255, green: 234, blue: 234), UIColor(red: 250, green: 101, blue: 102))
+      return UIColor(red: 250, green: 101, blue: 102)
     default:
-      return (UIColor(red: 236, green: 235, blue: 235), UIColor(red: 20, green: 25, blue: 39))
+      return UIColor(red: 20, green: 25, blue: 39)
     }
   }
 
@@ -208,7 +208,7 @@ struct KNTransactionDetailsViewModel {
 
 protocol TransactionDetailsViewModel {
   var displayTxStatus: String { get }
-  var displayTxStatusColor: (UIColor, UIColor) { get }
+  var displayTxStatusColor: UIColor { get }
   var displayTxTypeString: String { get }
   var displayDateString: String { get }
   var displayAmountString: String { get }
@@ -330,14 +330,14 @@ struct InternalTransactionDetailViewModel: TransactionDetailsViewModel {
     }
   }
   
-  var displayTxStatusColor: (UIColor, UIColor) {
+  var displayTxStatusColor: UIColor {
     switch self.transaction.state {
     case .pending, .cancel, .speedup:
-      return (UIColor(red: 255, green: 236, blue: 213), UIColor(red: 255, green: 144, blue: 8))
+      return UIColor(red: 255, green: 144, blue: 8)
     case .error, .drop:
-      return (UIColor(red: 255, green: 234, blue: 234), UIColor(red: 250, green: 101, blue: 102))
+      return UIColor.Kyber.SWRed
     case .done:
-      return (UIColor(red: 212, green: 254, blue: 229), UIColor(red: 0, green: 102, blue: 68))
+      return UIColor.Kyber.SWGreen
     }
   }
   
@@ -464,11 +464,11 @@ struct EtherscanTransactionDetailViewModel: TransactionDetailsViewModel {
   }
 
   var displayTxStatus: String {
-    return "mined".toBeLocalised().uppercased().paddingString()
+    return self.data.isError ? "Failed".toBeLocalised().paddingString() : "Success".toBeLocalised().paddingString()
   }
 
-  var displayTxStatusColor: (UIColor, UIColor) {
-    return (UIColor(red: 212, green: 254, blue: 229), UIColor(red: 0, green: 102, blue: 68))
+  var displayTxStatusColor: UIColor {
+    return self.data.isError ? UIColor.Kyber.SWRed : UIColor.Kyber.SWGreen
   }
 
   var displayTxTypeString: String {

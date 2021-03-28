@@ -140,10 +140,37 @@ extension KNAppCoordinator: KrytalCoordinatorDelegate {
   }
 }
 
+extension KNAppCoordinator: InvestCoordinatorDelegate {
+  func investCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.restartNewSession(wallet)
+  }
+  
+  func investCoordinatorDidSelectManageWallet() {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.settingsViewControllerWalletsButtonPressed()
+  }
+  
+  func investCoordinatorDidSelectAddWallet() {
+    self.addNewWallet(type: .full)
+  }
+}
+
 // MARK: Settings Coordinator Delegate
 extension KNAppCoordinator: KNSettingsCoordinatorDelegate {
+  func settingsCoordinatorDidSelectAddWallet() {
+    self.addNewWallet(type: .full)
+  }
+  
+  func settingsCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.restartNewSession(wallet)
+  }
+  
+  func settingsCoordinatorDidSelectManageWallet() {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.settingsViewControllerWalletsButtonPressed()
+  }
+  
   func settingsCoordinatorUserDidUpdateWalletObjects() {
-//    self.balanceTabCoordinator?.appCoordinatorDidUpdateWalletObjects()
     self.exchangeCoordinator?.appCoordinatorDidUpdateWalletObjects()
   }
 

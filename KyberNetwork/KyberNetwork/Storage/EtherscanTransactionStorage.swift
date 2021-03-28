@@ -21,7 +21,9 @@ class EtherscanTransactionStorage {
     self.tokenTransactions = Storage.retrieve(wallet.address.description + Constants.etherscanTokenTransactionsStoreFileName, as: [EtherscanTokenTransaction].self) ?? []
     self.internalTransaction = Storage.retrieve(wallet.address.description + Constants.etherscanInternalTransactionsStoreFileName, as: [EtherscanInternalTransaction].self) ?? []
     self.transactions = Storage.retrieve(wallet.address.description + Constants.etherscanTransactionsStoreFileName, as: [EtherscanTransaction].self) ?? []
-    self.generateKrytalTransactionModel()
+    DispatchQueue.global(qos: .background).async {
+      self.generateKrytalTransactionModel()
+    }
   }
   
   func setTokenTransactions(_ transactions: [EtherscanTokenTransaction]) {
@@ -131,7 +133,7 @@ class EtherscanTransactionStorage {
       return item.hash == hash
     }
   }
-  
+
   func getTokenTransactionWithHash(_ hash: String) -> [EtherscanTokenTransaction] {
     return self.tokenTransactions.filter { (item) -> Bool in
       return item.hash == hash
@@ -188,11 +190,11 @@ class EtherscanTransactionStorage {
   func getHistoryTransactionModel() -> [HistoryTransaction] {
     return self.historyTransactionModel
   }
-  
+
   func getInternalHistoryTransaction() -> [InternalHistoryTransaction] {
     return self.internalHistoryTransactions
   }
-  
+
   func appendInternalHistoryTransaction(_ tx: InternalHistoryTransaction) {
     self.internalHistoryTransactions.append(tx)
     KNNotificationUtil.postNotification(
@@ -201,13 +203,13 @@ class EtherscanTransactionStorage {
       userInfo: nil
     )
   }
-  
+
   func getInternalHistoryTransactionWithHash(_ hash: String) -> InternalHistoryTransaction? {
     return self.internalHistoryTransactions.first { (item) -> Bool in
       return item.hash.lowercased() == hash
     }
   }
-  
+
   @discardableResult
   func removeInternalHistoryTransactionWithHash(_ hash: String) -> Bool {
     guard let index = self.internalHistoryTransactions.firstIndex(where: { (item) -> Bool in

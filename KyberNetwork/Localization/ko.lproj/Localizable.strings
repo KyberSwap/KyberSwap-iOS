@@ -779,7 +779,7 @@
 
 "There.is.a.difference.between.the.estimated.price" = "교환하려는 양에 대한 예상 가격과 참고 가격이 %@ 만큼 차이납니다. \n참고: 예상가격은 교환 양에 따라 달라집니다. 참고 가격은 Chainlink, Band protocol 그리고 Kyber Network에서 가져옵니다.";
 
-"Gas.fee.is.the.fee.you.pay.to.the.miner" = "가스비는 (카이버 스왑이 아닌) 블록체인 상의 트랜잭션을 채굴하는 채굴자에게 지불하는 비용입니다.  가스의 가격은 보통 얼마나 빠르게 트랜잭션이 채굴되기 원하는 지에 따라 책정됩니다.";
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is the fee you pay to the miner (not to Krystal) to mine your transaction on blockchain. The price of gas generally reflect how fast you want a transaction mined";
 "Wallet.must.be.backed.up" = "지갑을 다른 곳에 백업해 주세요. 지갑이 백업되어 있으면 핸드폰의 고장, 분실, 도난의 경우 복원이 가능합니다.";
 "Later" = "나중에";
 

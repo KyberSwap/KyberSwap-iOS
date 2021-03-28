@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="KNWelcomeScreenCollectionViewCell" customModule="Trust" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="KNWelcomeScreenCollectionViewCell" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -25,43 +18,26 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="welcome_kyberswap" translatesAutoresizingMaskIntoConstraints="NO" id="8v5-dI-w9v">
-                        <rect key="frame" x="137" y="84" width="101" height="92"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KyberDeveloper: Powering Decentralized Liquidity" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n2K-hw-Me4">
-                        <rect key="frame" x="35" y="227" width="305" height="44"/>
-                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verify account just once and participate to all token sales hosted on KyberGO." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lg7-lM-55N">
-                        <rect key="frame" x="20" y="289" width="335" height="34.5"/>
-                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
-                        <color key="textColor" red="0.68235294117647061" green="0.94509803921568625" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="n2K-hw-Me4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="35" id="7LW-DQ-xye"/>
-                <constraint firstItem="n2K-hw-Me4" firstAttribute="top" secondItem="8v5-dI-w9v" secondAttribute="bottom" constant="51" id="FKY-LR-wQL"/>
-                <constraint firstItem="8v5-dI-w9v" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="84" id="I6K-kS-kwJ"/>
-                <constraint firstItem="n2K-hw-Me4" firstAttribute="centerX" secondItem="8v5-dI-w9v" secondAttribute="centerX" id="TO1-VJ-xyk"/>
-                <constraint firstItem="8v5-dI-w9v" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="Vdu-Gv-GLL"/>
-                <constraint firstItem="lg7-lM-55N" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="YSd-dt-Urf"/>
-                <constraint firstItem="lg7-lM-55N" firstAttribute="top" secondItem="n2K-hw-Me4" secondAttribute="bottom" constant="18" id="oAP-kw-uer"/>
-                <constraint firstItem="lg7-lM-55N" firstAttribute="centerX" secondItem="n2K-hw-Me4" secondAttribute="centerX" id="wdG-0e-ksT"/>
+                <constraint firstItem="8v5-dI-w9v" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="EVL-BY-Gb9"/>
+                <constraint firstAttribute="trailing" secondItem="8v5-dI-w9v" secondAttribute="trailing" id="JSj-5Q-Eig"/>
+                <constraint firstAttribute="bottom" secondItem="8v5-dI-w9v" secondAttribute="bottom" id="TRe-x2-MQw"/>
+                <constraint firstItem="8v5-dI-w9v" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rkW-h2-HWX"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
                 <outlet property="imageView" destination="8v5-dI-w9v" id="Brb-IW-7Yi"/>
-                <outlet property="subTitleLabel" destination="lg7-lM-55N" id="20d-t4-nPy"/>
-                <outlet property="titleLabel" destination="n2K-hw-Me4" id="G79-Kr-1gn"/>
             </connections>
+            <point key="canvasLocation" x="140" y="130"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="welcome_kyberswap" width="101" height="92"/>
+        <image name="welcome_kyberswap" width="129" height="117"/>
     </resources>
 </document>

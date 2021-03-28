@@ -7,6 +7,10 @@ protocol KNTokenChartCoordinatorDelegate: class {
   func tokenChartCoordinator(sell token: TokenObject)
   func tokenChartCoordinator(buy token: TokenObject)
   func tokenChartCoordinatorShouldBack()
+  func tokenChartCoordinatorDidSelectAddWallet()
+  func tokenChartCoordinatorDidSelectWallet(_ wallet: Wallet)
+  func tokenChartCoordinatorDidSelectManageWallet()
+  func tokenChartCoordinatorDidSelectHistoryList()
 }
 
 class KNTokenChartCoordinator: Coordinator {
@@ -116,6 +120,7 @@ extension KNTokenChartCoordinator: KNTokenChartViewControllerDelegate {
           balances: self.balances,
           from: token
         )
+        self.sendTokenCoordinator?.delegate = self
         self.sendTokenCoordinator?.start()
       } else {
         let message = NSLocalizedString(
@@ -172,4 +177,24 @@ extension KNTokenChartCoordinator: KNTokenChartViewControllerDelegate {
       }
     }
   }
+}
+
+extension KNTokenChartCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.tokenChartCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func sendTokenViewCoordinatorSelectOpenHistoryList() {
+    self.delegate?.tokenChartCoordinatorDidSelectHistoryList()
+  }
+  
+  func sendTokenCoordinatorDidSelectManageWallet() {
+    self.delegate?.tokenChartCoordinatorDidSelectManageWallet()
+  }
+  
+  func sendTokenCoordinatorDidSelectAddWallet() {
+    self.delegate?.tokenChartCoordinatorDidSelectAddWallet()
+  }
+  
+  
 }

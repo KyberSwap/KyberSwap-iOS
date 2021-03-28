@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import BigInt
 
 class BalanceStorage {
   static let shared = BalanceStorage()
@@ -63,11 +64,11 @@ class BalanceStorage {
 
   func balanceForAddress(_ address: String) -> TokenBalance? {
     let balance = self.allBalance.first { (balance) -> Bool in
-      return balance.address == address
+      return balance.address.lowercased() == address.lowercased()
     }
     return balance
   }
-  
+
   func setLendingBalances(_ balances: [LendingPlatformBalance]) {
     guard let unwrapped = self.wallet else {
       return
@@ -86,5 +87,9 @@ class BalanceStorage {
 
   func balanceETH() -> String {
     return self.balanceForAddress("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")?.balance ?? ""
+  }
+
+  func getBalanceETHBigInt() -> BigInt {
+    return BigInt(self.balanceETH()) ?? BigInt(0)
   }
 }

@@ -15,6 +15,7 @@ class EarnOverviewViewController: KNBaseViewController {
   @IBOutlet weak var exploreButton: UIButton!
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var walletListButton: UIButton!
+  @IBOutlet weak var pendingTxIndicatorView: UIView!
   
   weak var delegate: EarnOverviewViewControllerDelegate?
   weak var navigationDelegate: NavigationBarDelegate?
@@ -48,10 +49,22 @@ class EarnOverviewViewController: KNBaseViewController {
     }
   }
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.updateUIPendingTxIndicatorView()
+  }
+
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.exploreButton.removeSublayer(at: 0)
     self.exploreButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+  }
+  
+  fileprivate func updateUIPendingTxIndicatorView() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
   }
 
   @IBAction func exploreButtonTapped(_ sender: UIButton) {
@@ -69,11 +82,16 @@ class EarnOverviewViewController: KNBaseViewController {
   fileprivate func updateUIWalletSelectButton(_ wallet: Wallet) {
     self.walletListButton.setTitle(wallet.address.description, for: .normal)
   }
-  
+
   func coordinatorUpdateNewSession(wallet: Wallet) {
     self.wallet = wallet
     if self.isViewLoaded {
       self.updateUIWalletSelectButton(wallet)
+      self.depositViewController.coordinatorUpdateNewSession(wallet: wallet)
     }
+  }
+
+  func coordinatorDidUpdatePendingTx() {
+    self.updateUIPendingTxIndicatorView()
   }
 }

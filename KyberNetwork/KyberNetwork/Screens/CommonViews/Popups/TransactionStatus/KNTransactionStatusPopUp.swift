@@ -80,6 +80,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.updateView(with: self.transaction)
+    self.updateViewTransactionDidChange()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -100,6 +101,9 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   }
 
   fileprivate func updateViewTransactionDidChange() {
+    guard self.isViewLoaded else {
+      return
+    }
     self.txHashLabel.text = self.transaction.hash
 
     if self.transaction.state == .pending {
@@ -131,6 +135,8 @@ class KNTransactionStatusPopUp: KNBaseViewController {
           return "Successfully saved".toBeLocalised()
         } else if self.transaction.type == .withdraw {
           return "Successfully withdraw".toBeLocalised()
+        } else if self.transaction.type == .contractInteraction {
+          return "Successfully claim".toBeLocalised()
         }
         return "Swapped successfully".toBeLocalised()
       }()

@@ -20,6 +20,7 @@
             <connections>
                 <outlet property="contentView" destination="4Pv-jk-W5c" id="bJB-ej-wmK"/>
                 <outlet property="exploreButton" destination="JYK-Ol-cwQ" id="u99-Mf-u7P"/>
+                <outlet property="pendingTxIndicatorView" destination="UOz-TX-1yR" id="C7R-OA-KIK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walletListButton" destination="2vM-tm-Nr8" id="sxl-UV-KED"/>
             </connections>
@@ -80,11 +81,27 @@
                                 <action selector="historyButtonTapped:" destination="-1" eventType="touchUpInside" id="rBw-TI-zyU"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOz-TX-1yR">
+                            <rect key="frame" x="225" y="60.5" width="16" height="16"/>
+                            <color key="backgroundColor" red="0.97647058819999999" green="0.34901960780000002" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="koc-k6-WDi"/>
+                                <constraint firstAttribute="width" constant="16" id="r4O-3o-LIp"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="kjs-6P-8Nn" firstAttribute="leading" secondItem="ESA-T6-5qz" secondAttribute="leading" constant="37" id="514-DJ-akE"/>
+                        <constraint firstItem="UOz-TX-1yR" firstAttribute="top" secondItem="8UZ-Ei-oCv" secondAttribute="top" id="Auw-gc-s3R"/>
                         <constraint firstAttribute="height" constant="113" id="DjA-NJ-ouz"/>
+                        <constraint firstItem="UOz-TX-1yR" firstAttribute="leading" secondItem="8UZ-Ei-oCv" secondAttribute="leading" id="Ikb-QA-Xn5"/>
                         <constraint firstItem="8UZ-Ei-oCv" firstAttribute="centerY" secondItem="kjs-6P-8Nn" secondAttribute="centerY" id="Irf-St-XdO"/>
                         <constraint firstAttribute="bottom" secondItem="kjs-6P-8Nn" secondAttribute="bottom" constant="26" id="TeS-0w-xyf"/>
                         <constraint firstItem="2vM-tm-Nr8" firstAttribute="leading" secondItem="8UZ-Ei-oCv" secondAttribute="trailing" constant="10" id="ZoT-o6-WGv"/>

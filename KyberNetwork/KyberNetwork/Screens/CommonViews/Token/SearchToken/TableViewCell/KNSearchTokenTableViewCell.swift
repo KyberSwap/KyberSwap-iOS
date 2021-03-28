@@ -22,20 +22,20 @@ class KNSearchTokenTableViewCell: UITableViewCell {
     self.tokenSymbolLabel.text = ""
   }
 
-  func updateCell(with token: TokenObject, balance: Balance?) {
+  func updateCell(with token: TokenObject) {
     self.token = token
-    iconImageView.setTokenImage(token: token, size: iconImageView.frame.size)
+    self.iconImageView.setSymbolImage(symbol: token.symbol, size: iconImageView.frame.size)
     self.tokenSymbolLabel.text = "\(token.symbol.prefix(8))"
     self.tokenSymbolLabel.addLetterSpacing()
     self.tokenNameLabel.text = token.name
     self.tokenNameLabel.addLetterSpacing()
     let balText: String = {
-      let value = balance?.value.string(
+      let value = token.getBalanceBigInt().string(
         decimals: token.decimals,
         minFractionDigits: 0,
         maxFractionDigits: min(token.decimals, 6)
       )
-      if let val = value, let double = Double(val.removeGroupSeparator()), double == 0 { return "0" }
+      if let double = Double(value.removeGroupSeparator()), double == 0 { return "0" }
       return value ?? ""
     }()
     self.balanceLabel.text = "\(balText.prefix(15))"

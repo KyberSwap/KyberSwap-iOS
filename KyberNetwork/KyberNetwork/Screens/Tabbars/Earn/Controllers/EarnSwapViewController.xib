@@ -38,6 +38,7 @@
                 <outlet property="fromAmountTextField" destination="0EY-Ql-kod" id="cCc-SS-pQA"/>
                 <outlet property="fromTokenButton" destination="6pu-5h-cPV" id="fcg-CH-y07"/>
                 <outlet property="isUseGasTokenIcon" destination="JPF-st-iQe" id="6HV-Sk-Jll"/>
+                <outlet property="pendingTxIndicatorView" destination="dQz-dI-QV0" id="Uap-T6-beM"/>
                 <outlet property="platformTableView" destination="jLY-DK-hvb" id="WzW-zG-g9Q"/>
                 <outlet property="platformTableViewHeightContraint" destination="6ix-MV-i1L" id="ioj-Dk-yp6"/>
                 <outlet property="rateWarningContainerView" destination="aWb-Nn-rv1" id="qFS-yx-wSa"/>
@@ -122,9 +123,25 @@
                                 <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="mUU-9R-bI5"/>
                             </connections>
                         </button>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dQz-dI-QV0">
+                            <rect key="frame" x="225" y="60.5" width="16" height="16"/>
+                            <color key="backgroundColor" red="0.97647058819999999" green="0.34901960780000002" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="16" id="Pg2-an-6vy"/>
+                                <constraint firstAttribute="width" constant="16" id="tGA-Zh-Jcw"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="dQz-dI-QV0" firstAttribute="top" secondItem="gBM-pr-8Xt" secondAttribute="top" id="7J7-nS-QKc"/>
+                        <constraint firstItem="dQz-dI-QV0" firstAttribute="leading" secondItem="gBM-pr-8Xt" secondAttribute="leading" id="A8H-Fu-pCe"/>
                         <constraint firstItem="lkY-Fm-urb" firstAttribute="leading" secondItem="kab-ru-HE8" secondAttribute="leading" constant="51" id="NMb-cf-k6r"/>
                         <constraint firstItem="lkY-Fm-urb" firstAttribute="centerY" secondItem="3Rr-p5-yNi" secondAttribute="centerY" id="Ouf-94-ixu"/>
                         <constraint firstItem="3Rr-p5-yNi" firstAttribute="leading" secondItem="kab-ru-HE8" secondAttribute="leading" constant="23" id="Qer-Il-ZPC"/>

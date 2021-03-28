@@ -777,7 +777,7 @@
 
 "There.is.a.difference.between.the.estimated.price" = "There is a %@ difference between the estimated price for your swap amount and the reference price.\nNote: Estimated price depends on your swap amount. Reference price is from Chainlink, Band protocol and Kyber Network.";
 
-"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is the fee you pay to the miner (not to Kyberswap) to mine your transaction on blockchain. The price of gas generally reflect how fast you want a transaction mined.";
+"Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is the fee you pay to the miner (not to Krystal) to mine your transaction on blockchain. The price of gas generally reflect how fast you want a transaction mined";
 "Wallet.must.be.backed.up" = "Please backup your wallet. It will allow you to recover your wallet if your phone is damaged, lost or stolen";
 "Later" = "Later";
 

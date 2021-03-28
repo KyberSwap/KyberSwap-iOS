@@ -42,6 +42,15 @@ class KrytalViewModel {
     guard let unwrapped = self.wallet else { return "" }
     return unwrapped.address.description
   }
+  
+  var displayIntroAttributedString: NSAttributedString {
+    let fullString = NSMutableAttributedString(string: "Copy below given links to share with your friends & start earning ".toBeLocalised())
+    let image1Attachment = NSTextAttachment()
+    image1Attachment.image = UIImage(named: "info_waring_blue_icon")
+    let image1String = NSAttributedString(attachment: image1Attachment)
+    fullString.append(image1String)
+    return fullString
+  }
 }
 
 enum KrytalViewEvent {
@@ -61,6 +70,7 @@ class KrytalViewController: KNBaseViewController {
   @IBOutlet weak var totalKrytalPointSectionLabel: UILabel!
   @IBOutlet weak var cashbackPointLabel: UILabel!
   @IBOutlet weak var walletListButton: UIButton!
+  @IBOutlet weak var introLabel: UILabel!
   
   let viewModel = KrytalViewModel()
   weak var delegate: KrytalViewControllerDelegate?
@@ -79,6 +89,7 @@ class KrytalViewController: KNBaseViewController {
     self.totalKrytalPointSectionLabel.text = self.viewModel.displayTotalKrytalPoint
     self.cashbackPointLabel.text = self.viewModel.displayTotalCashbackPoint
     self.walletListButton.setTitle(self.viewModel.displayWalletString, for: .normal)
+    self.introLabel.attributedText = self.viewModel.displayIntroAttributedString
     self.referralCodeTableView.reloadData()
   }
 

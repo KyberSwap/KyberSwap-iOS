@@ -17,6 +17,7 @@ class KNListWalletsCoordinator: Coordinator {
   let navigationController: UINavigationController
   private(set) var session: KNSession
   var coordinators: [Coordinator] = []
+  var addWalletCoordinator: KNAddNewWalletCoordinator?
 
   weak var delegate: KNListWalletsCoordinatorDelegate?
 
@@ -83,11 +84,20 @@ extension KNListWalletsCoordinator: KNListWalletsViewControllerDelegate {
       self.showDeleteWallet(wallet)
     case .edit(let wallet):
       self.selectedWallet = wallet
-      let viewModel = KNEditWalletViewModel(wallet: wallet)
-      let controller = KNEditWalletViewController(viewModel: viewModel)
-      controller.loadViewIfNeeded()
-      controller.delegate = self
-      self.navigationController.pushViewController(controller, animated: true)
+      if !wallet.isWatchWallet {
+        let viewModel = KNEditWalletViewModel(wallet: wallet)
+        let controller = KNEditWalletViewController(viewModel: viewModel)
+        controller.loadViewIfNeeded()
+        controller.delegate = self
+        self.navigationController.pushViewController(controller, animated: true)
+      } else {
+        let coordinator = KNAddNewWalletCoordinator(keystore: self.session.keystore)
+        coordinator.delegate = self
+        self.navigationController.present(coordinator.navigationController, animated: true) {
+          coordinator.start(type: .watch, wallet: wallet)
+          self.addWalletCoordinator = coordinator
+        }
+      }
     case .addWallet(let type):
       self.delegate?.listWalletsCoordinatorDidSelectAddWallet(type: type)
     }
@@ -170,5 +180,17 @@ extension KNListWalletsCoordinator: KNEnterWalletNameViewControllerDelegate {
       currentWallet: curWallet
     )
     self.delegate?.listWalletsCoordinatorDidUpdateWalletObjects()
+  }
+}
+
+extension KNListWalletsCoordinator: KNAddNewWalletCoordinatorDelegate {
+  func addNewWalletCoordinator(add wallet: Wallet) {
+    self.rootViewController.coordinatorDidUpdateWalletsList()
+  }
+
+  func addNewWalletCoordinator(remove wallet: Wallet) {
+  }
+
+  func addNewWalletCoordinatorDidSendRefCode(_ code: String) {
   }
 }

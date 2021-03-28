@@ -11,6 +11,7 @@ struct KNTransactionFilter: Codable {
   let isApprove: Bool
   let isWithdraw: Bool
   let isTrade: Bool
+//  let isContractInteraction: Bool
   let tokens: [String]
 }
 

@@ -29,8 +29,11 @@ class KNPrettyAlertController: KNBaseViewController {
     self.secondButtonAction = secondButtonAction
     self.firstButtonAction = firstButtonAction
     super.init(nibName: KNPrettyAlertController.className, bundle: nil)
-    self.modalTransitionStyle = .crossDissolve
-    self.modalPresentationStyle = .overFullScreen
+    DispatchQueue.main.async {
+      self.modalTransitionStyle = .crossDissolve
+      self.modalPresentationStyle = .overFullScreen
+    }
+    
   }
 
   required init?(coder: NSCoder) {
@@ -40,8 +43,8 @@ class KNPrettyAlertController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.containerView.rounded()
-    self.secondButton.rounded()
-    self.firstButton.rounded(color: UIColor.Kyber.border, width: 1)
+    self.secondButton.rounded(radius: self.secondButton.frame.size.height / 2)
+    self.firstButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.firstButton.frame.size.height / 2)
     if let titleTxt = self.mainTitle {
       self.titleLabel.text = titleTxt
     } else {
@@ -63,13 +66,13 @@ class KNPrettyAlertController: KNBaseViewController {
       self.firstButton.setTitleColor(.white, for: .normal)
       self.gradientButton = firstButton
     }
-    self.gradientButton.applyGradient()
+    self.gradientButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     self.gradientButton.removeSublayer(at: 0)
-    self.gradientButton.applyGradient()
+    self.gradientButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   @IBAction func yesButtonTapped(_ sender: UIButton) {

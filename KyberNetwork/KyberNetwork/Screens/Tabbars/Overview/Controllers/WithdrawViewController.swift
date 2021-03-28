@@ -215,6 +215,7 @@ class WithdrawViewController: KNBaseViewController {
     self.withdrawButton.rounded(radius: self.withdrawButton.frame.size.height / 2)
     self.withdrawButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.updateUIforWithdrawButton()
+    self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
   }
   
   fileprivate func loadWithdrawableAmount() {

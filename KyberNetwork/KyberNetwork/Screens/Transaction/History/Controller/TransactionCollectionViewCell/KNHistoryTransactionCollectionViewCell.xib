@@ -50,11 +50,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="onX-I3-OM9">
-                        <rect key="frame" x="291" y="10" width="34" height="16"/>
-                        <color key="backgroundColor" red="0.98039215690000003" green="0.39607843139999999" blue="0.40000000000000002" alpha="0.19756822183098591" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="290" y="10" width="35" height="16"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="10"/>
                         <inset key="contentEdgeInsets" minX="4" minY="2" maxX="4" maxY="2"/>
-                        <state key="normal" title="failed">
+                        <state key="normal" title="Failed">
                             <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>

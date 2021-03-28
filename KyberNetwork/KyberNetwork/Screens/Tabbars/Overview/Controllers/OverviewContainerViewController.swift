@@ -16,6 +16,7 @@ enum OverviewContainerViewEvent {
   case send
   case receive
   case addCustomToken
+  case krytal
 }
 
 class OverviewContainerViewModel {
@@ -25,6 +26,7 @@ class OverviewContainerViewModel {
   let assetsViewModel: OverviewAssetsViewModel
   let depositViewModel: OverviewDepositViewModel
   var currencyType: CurrencyType = .usd
+  var hideBalanceStatus: Bool = true
   
   init(session: KNSession, marketViewModel: OverviewMarketViewModel, assetsViewModel: OverviewAssetsViewModel, depositViewModel: OverviewDepositViewModel) {
     self.marketViewModel = marketViewModel
@@ -34,9 +36,14 @@ class OverviewContainerViewModel {
   }
 
   var displayTotalValue: String {
+    guard !self.hideBalanceStatus else { return "********"}
     let totalValueBigInt = self.assetsViewModel.totalValueBigInt + self.depositViewModel.totalValueBigInt
     let totalString = totalValueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
     return self.currencyType == .usd ? "$" + totalString : totalString
+  }
+  
+  var displayHideBalanceImage: UIImage {
+    return self.hideBalanceStatus ? UIImage(named: "hide_secure_text_blue")! : UIImage(named: "show_secure_text_blue")!
   }
 }
 
@@ -79,7 +86,9 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
   @IBOutlet weak var transferButton: UIButton!
   @IBOutlet weak var receiveButton: UIButton!
   @IBOutlet weak var addTokenButton: UIButton!
-
+  @IBOutlet weak var pendingTxIndicatorView: UIView!
+  @IBOutlet weak var searchTextField: UITextField!
+  @IBOutlet weak var hideBalanceButton: UIButton!
   
   init(viewModel: OverviewContainerViewModel, marketViewController: OverviewMarketViewController, assetsViewController: OverviewAssetsViewController, depositViewController: OverviewDepositViewController) {
     self.viewModel = viewModel
@@ -108,20 +117,34 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
       self.isViewSetup = true
       self.setupPageController()
     }
+    self.updateUIPendingTxIndicatorView()
   }
   
   fileprivate func setupUI() {
     self.transferButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.height / 2)
     self.receiveButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.receiveButton.frame.height / 2)
     self.addTokenButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.addTokenButton.frame.height / 2)
+    self.updateUIHideBalanceButton()
+    self.updateUITotalValue()
   }
   
   fileprivate func updateUITotalValue() {
     self.totalValueLabel.text = self.viewModel.displayTotalValue
   }
   
+  fileprivate func updateUIHideBalanceButton() {
+    self.hideBalanceButton.setImage(self.viewModel.displayHideBalanceImage, for: .normal)
+  }
+  
   fileprivate func updateUIWalletList() {
     self.walletListButton.setTitle(self.viewModel.session.wallet.address.description, for: .normal)
+  }
+  
+  fileprivate func updateUIPendingTxIndicatorView() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
   }
 
   private func setupPageController() {
@@ -170,6 +193,16 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.navigationDelegate?.viewControllerDidSelectWallets(self)
   }
   
+  @IBAction func krytalButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewContainerViewController(self, run: .krytal)
+  }
+  
+  @IBAction func hideBalanceButtonTapped(_ sender: UIButton) {
+    self.viewModel.hideBalanceStatus = !self.viewModel.hideBalanceStatus
+    self.updateUIHideBalanceButton()
+    self.updateUITotalValue()
+  }
+  
   fileprivate func getViewControllerWithIndex(_ index: Int) -> UIViewController {
     switch index {
     case 1:
@@ -212,5 +245,21 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.viewModel.session = session
     guard self.isViewLoaded else { return }
     self.updateUIWalletList()
+    self.depositViewController.coordinatorUpdateNewSession(wallet: session.wallet)
+    self.assetsViewController.coordinatorUpdateNewSession(wallet: session.wallet)
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.updateUIPendingTxIndicatorView()
+  }
+}
+
+extension OverviewContainerViewController: UITextFieldDelegate {
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
+    print("[Debug] \(text)")
+    self.marketViewController.coordinatorDidUpdateSearchText(text)
+    self.assetsViewController.coordinatorDidUpdateSearchText(text)
+    return true
   }
 }

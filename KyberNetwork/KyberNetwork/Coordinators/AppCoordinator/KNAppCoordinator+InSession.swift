@@ -56,6 +56,7 @@ extension KNAppCoordinator {
     
     self.investCoordinator = {
       let coordinator = InvestCoordinator(session: self.session)
+      coordinator.delegate = self
       return coordinator
     }()
     self.investCoordinator?.start()
@@ -194,6 +195,9 @@ extension KNAppCoordinator {
       )
       
       self.settingsCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
+      
+      self.investCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
+      
       self.addObserveNotificationFromSession()
       self.updateLocalData()
       KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
@@ -244,7 +248,7 @@ extension KNAppCoordinator {
           self.session,
           resetRoot: isRemovingCurrentWallet
         )
-        
+
         self.earnCoordinator?.appCoordinatorDidUpdateNewSession(
           self.session,
           resetRoot: isRemovingCurrentWallet

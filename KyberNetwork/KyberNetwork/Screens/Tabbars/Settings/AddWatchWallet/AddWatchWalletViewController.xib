@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -24,6 +24,7 @@
                 <outlet property="contentView" destination="ga9-Un-IPy" id="fWm-ky-Ktf"/>
                 <outlet property="contentViewTopContraint" destination="aMt-Vd-pI8" id="dU9-XT-R0M"/>
                 <outlet property="ensAddressLabel" destination="I2u-xI-NQM" id="Loo-VV-Q8K"/>
+                <outlet property="titleLabel" destination="QRB-pR-mes" id="m9h-VE-WyQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walletAddressTextField" destination="PtF-ix-QOf" id="2wa-ov-Zpq"/>
                 <outlet property="walletLabelTextField" destination="LNi-E8-U7l" id="GEt-1W-0nK"/>
@@ -194,7 +195,7 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="ga9-Un-IPy" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="1S1-hl-2KF"/>
-                <constraint firstItem="ga9-Un-IPy" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="473" id="aMt-Vd-pI8"/>
+                <constraint firstItem="ga9-Un-IPy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="517" id="aMt-Vd-pI8"/>
                 <constraint firstItem="ga9-Un-IPy" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oGx-gv-vJ9"/>
             </constraints>
             <connections>

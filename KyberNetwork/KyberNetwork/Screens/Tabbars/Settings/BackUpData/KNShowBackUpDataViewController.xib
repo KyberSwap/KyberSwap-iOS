@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
         </array>
         <array key="Roboto-Bold.ttf">
             <string>Roboto-Bold</string>
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNShowBackUpDataViewController" customModule="KyberNetwork" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNShowBackUpDataViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="dataLabel" destination="IPW-y8-V7z" id="t9k-0A-aRZ"/>
                 <outlet property="headerContainerView" destination="jdc-p8-jMn" id="gJe-gd-ZTa"/>
@@ -35,48 +36,48 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jdc-p8-jMn">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="112"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup Your Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fo-ZO-rb0">
-                            <rect key="frame" x="97.5" y="46" width="180" height="22"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BACKUP YOUR WALLET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2fo-ZO-rb0">
+                            <rect key="frame" x="98.5" y="76.5" width="178.5" height="19.5"/>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="It2-IA-8Ct">
-                            <rect key="frame" x="16" y="39" width="46" height="36"/>
+                            <rect key="frame" x="16" y="68.5" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="aE8-Ev-apc"/>
                                 <constraint firstAttribute="width" constant="46" id="irX-t9-Egv"/>
                             </constraints>
-                            <state key="normal" image="back_white_icon"/>
+                            <state key="normal" image="back_blue_icon"/>
                             <connections>
                                 <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="3TV-jf-Blv"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="It2-IA-8Ct" firstAttribute="centerY" secondItem="2fo-ZO-rb0" secondAttribute="centerY" id="5BS-UL-uBG"/>
                         <constraint firstItem="It2-IA-8Ct" firstAttribute="leading" secondItem="jdc-p8-jMn" secondAttribute="leading" constant="16" id="WbX-Be-Ane"/>
                         <constraint firstItem="2fo-ZO-rb0" firstAttribute="centerX" secondItem="jdc-p8-jMn" secondAttribute="centerX" id="eWm-j6-6gB"/>
-                        <constraint firstAttribute="height" constant="84" id="kRD-86-l39"/>
+                        <constraint firstAttribute="height" constant="112" id="kRD-86-l39"/>
                         <constraint firstAttribute="bottom" secondItem="2fo-ZO-rb0" secondAttribute="bottom" constant="16" id="ziO-lO-d55"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="olive chef address repeat sand give argue because someone panic rigid need" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IPW-y8-V7z">
-                    <rect key="frame" x="32" y="394" width="311" height="59"/>
-                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
-                    <color key="textColor" red="0.078431372550000003" green="0.098039215690000001" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="32" y="396.5" width="311" height="34"/>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Export at your own risk!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ0-Sw-EfG">
-                    <rect key="frame" x="32" y="108" width="311" height="22"/>
-                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
-                    <color key="textColor" red="0.91372549020000005" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="32" y="136" width="311" height="17"/>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30v-6K-Jhh">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30v-6K-Jhh">
                     <rect key="frame" x="24" y="590" width="327" height="45"/>
                     <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -91,14 +92,15 @@
                     </connections>
                 </button>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rbb-Uw-oCq">
-                    <rect key="frame" x="107.5" y="214" width="160" height="160"/>
+                    <rect key="frame" x="107.5" y="216.5" width="160" height="160"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="160" id="gql-X8-gOF"/>
                         <constraint firstAttribute="height" constant="160" id="rTs-fr-TVv"/>
                     </constraints>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="30v-6K-Jhh" secondAttribute="bottom" constant="32" id="15M-EG-sMy"/>
@@ -117,10 +119,10 @@
                 <constraint firstItem="rbb-Uw-oCq" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="yfL-R0-Ya3"/>
                 <constraint firstItem="jdc-p8-jMn" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zYW-60-lFF"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <connections>
                 <outletCollection property="gestureRecognizers" destination="uM1-br-K0u" appends="YES" id="c7n-nG-5Gn"/>
             </connections>
+            <point key="canvasLocation" x="142" y="135"/>
         </view>
         <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="uM1-br-K0u">
             <rectEdge key="edges" left="YES"/>
@@ -130,6 +132,6 @@
         </screenEdgePanGestureRecognizer>
     </objects>
     <resources>
-        <image name="back_white_icon" width="38" height="19"/>
+        <image name="back_blue_icon" width="17" height="14"/>
     </resources>
 </document>

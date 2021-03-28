@@ -157,6 +157,6 @@ extension String {
   }
   
   func paddingString() -> String {
-    return " " + self + " "
+    return "  " + self + "  "
   }
 }

@@ -180,6 +180,7 @@ extension KNExchangeTokenCoordinator {
 
   func appCoordinatorPendingTransactionsDidUpdate() {
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
+    self.rootViewController.coordinatorDidUpdatePendingTx()
   }
 
   func appCoordinatorGasPriceCachedDidUpdate() {
@@ -536,14 +537,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     case .updateRate(let rate):
       self.gasFeeSelectorVC?.coordinatorDidUpdateMinRate(rate)
     case .openHistory:
-      self.historyCoordinator = nil
-      self.historyCoordinator = KNHistoryCoordinator(
-        navigationController: self.navigationController,
-        session: self.session
-      )
-      self.historyCoordinator?.delegate = self
-      self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
-      self.historyCoordinator?.start()
+      self.openHistoryScreen()
     case .openWalletsList:
       let viewModel = WalletsListViewModel(
         walletObjects: KNWalletStorage.shared.wallets,
@@ -668,7 +662,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
   fileprivate func openSearchToken(from: TokenObject, to: TokenObject, isSource: Bool) {
     if let topVC = self.navigationController.topViewController, topVC is KNSearchTokenViewController { return }
     self.isSelectingSourceToken = isSource
-    self.tokens = KNSupportedTokenStorage.shared.supportedTokens
+    self.tokens = KNSupportedTokenStorage.shared.getAllTokenObject()
     self.searchTokensViewController = {
       let viewModel = KNSearchTokenViewModel(
         supportedTokens: self.tokens
@@ -1038,6 +1032,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       balances: self.balances,
       from: from
     )
+    coordinator.delegate = self
     coordinator.start()
   }
 
@@ -1066,6 +1061,17 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
   fileprivate func updateCurrentWallet(_ wallet: KNWalletObject) {
     self.delegate?.exchangeTokenCoordinatorDidSelectWallet(wallet)
+  }
+  
+  fileprivate func openHistoryScreen() {
+    self.historyCoordinator = nil
+    self.historyCoordinator = KNHistoryCoordinator(
+      navigationController: self.navigationController,
+      session: self.session
+    )
+    self.historyCoordinator?.delegate = self
+    self.historyCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
+    self.historyCoordinator?.start()
   }
 }
 
@@ -1115,7 +1121,7 @@ extension KNExchangeTokenCoordinator: KNHistoryCoordinatorDelegate {
   func historyCoordinatorDidSelectAddWallet() {
     self.delegate?.exchangeTokenCoordinatorDidSelectAddWallet()
   }
-  
+
   func historyCoordinatorDidSelectManageWallet() {
     self.delegate?.exchangeTokenCoordinatorDidSelectManageWallet()
   }
@@ -1460,4 +1466,24 @@ extension KNExchangeTokenCoordinator: KNConfirmCancelTransactionPopUpDelegate {
       self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
     }
   }
+}
+
+extension KNExchangeTokenCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.exchangeTokenCoordinatorDidSelectWallet(wallet)
+  }
+  
+  func sendTokenViewCoordinatorSelectOpenHistoryList() {
+    self.openHistoryScreen()
+  }
+  
+  func sendTokenCoordinatorDidSelectManageWallet() {
+    self.delegate?.exchangeTokenCoordinatorDidSelectManageWallet()
+  }
+  
+  func sendTokenCoordinatorDidSelectAddWallet() {
+    self.delegate?.exchangeTokenCoordinatorDidSelectAddWallet()
+  }
+  
+  
 }

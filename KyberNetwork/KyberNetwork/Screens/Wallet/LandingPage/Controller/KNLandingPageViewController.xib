@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
         </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -20,7 +20,6 @@
             <connections>
                 <outlet property="createWalletButton" destination="7nN-NM-xeF" id="IIN-sb-ImQ"/>
                 <outlet property="importWalletButton" destination="hSF-ar-Svx" id="qW5-Nd-Q2c"/>
-                <outlet property="promoCodeButton" destination="LIp-Wc-Zua" id="nIa-Hg-XQo"/>
                 <outlet property="termAndConditionButton" destination="y2C-Xx-uQV" id="uZP-3S-nhg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="welcomeScreenCollectionView" destination="tFk-DS-wvQ" id="MN8-OV-dQw"/>
@@ -31,85 +30,66 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSF-ar-Svx">
-                    <rect key="frame" x="192.5" y="541.5" width="147.5" height="45"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSF-ar-Svx">
+                    <rect key="frame" x="192.5" y="534" width="147.5" height="36"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="cA3-Bd-5lh"/>
+                        <constraint firstAttribute="height" constant="36" id="cA3-Bd-5lh"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <state key="normal" title="Import Wallet">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="importWalletButtonPressed:" destination="-1" eventType="touchUpInside" id="VSM-qD-bU9"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-Xx-uQV">
-                    <rect key="frame" x="35" y="600.5" width="305" height="29"/>
-                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-Xx-uQV">
+                    <rect key="frame" x="119" y="584" width="137" height="29"/>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Terms and Conditions">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="termAndConditionButtonPressed:" destination="-1" eventType="touchUpInside" id="bFH-li-6Cc"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFk-DS-wvQ" customClass="KNWelcomeScreenCollectionView" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="23.5" width="375" height="420"/>
+                    <rect key="frame" x="50" y="94" width="275" height="400"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="420" id="DOl-rp-h6x"/>
+                        <constraint firstAttribute="height" constant="400" id="DOl-rp-h6x"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIp-Wc-Zua">
-                    <rect key="frame" x="35" y="475.5" width="305" height="46"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="46" id="gf4-5u-uaP"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                    <state key="normal" title="Promo Code">
-                        <color key="titleColor" red="0.99607843139999996" green="0.66274509800000003" blue="0.28627450980000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="promoCodeButtonPressed:" destination="-1" eventType="touchUpInside" id="1Jv-sf-gmM"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-NM-xeF">
-                    <rect key="frame" x="35" y="541.5" width="147.5" height="45"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-NM-xeF">
+                    <rect key="frame" x="35" y="534" width="147.5" height="36"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <state key="normal" title="Create Wallet">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="createWalletButtonPressed:" destination="-1" eventType="touchUpInside" id="GeJ-aC-c1g"/>
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="tFk-DS-wvQ" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="1Oj-gl-3BQ"/>
-                <constraint firstItem="tFk-DS-wvQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="23k-02-WgT"/>
-                <constraint firstItem="LIp-Wc-Zua" firstAttribute="top" secondItem="tFk-DS-wvQ" secondAttribute="bottom" constant="32" id="56j-By-R0f"/>
+                <constraint firstItem="tFk-DS-wvQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="23k-02-WgT"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="leading" secondItem="7nN-NM-xeF" secondAttribute="trailing" constant="10" id="91H-Ar-ufI"/>
-                <constraint firstItem="y2C-Xx-uQV" firstAttribute="width" secondItem="LIp-Wc-Zua" secondAttribute="width" id="AW9-Ac-PxR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LIp-Wc-Zua" secondAttribute="trailing" constant="35" id="JIa-Ry-7Xi"/>
-                <constraint firstItem="tFk-DS-wvQ" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" constant="-100" id="JMe-mh-dhI"/>
+                <constraint firstItem="tFk-DS-wvQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="94" id="MTS-Px-o0V"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="centerY" secondItem="7nN-NM-xeF" secondAttribute="centerY" id="Npm-AH-g0a"/>
-                <constraint firstItem="7nN-NM-xeF" firstAttribute="top" secondItem="LIp-Wc-Zua" secondAttribute="bottom" constant="20" id="QlA-f3-59T"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="height" secondItem="7nN-NM-xeF" secondAttribute="height" id="StO-e9-Tbf"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hSF-ar-Svx" secondAttribute="trailing" constant="35" id="Wgf-Of-pa0"/>
-                <constraint firstItem="tFk-DS-wvQ" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XMu-FQ-vgN"/>
+                <constraint firstItem="7nN-NM-xeF" firstAttribute="top" secondItem="tFk-DS-wvQ" secondAttribute="bottom" constant="40" id="h4O-Br-gIg"/>
                 <constraint firstItem="hSF-ar-Svx" firstAttribute="width" secondItem="7nN-NM-xeF" secondAttribute="width" id="j9g-cw-ZX6"/>
                 <constraint firstItem="y2C-Xx-uQV" firstAttribute="top" secondItem="hSF-ar-Svx" secondAttribute="bottom" constant="14" id="ks2-I0-iHf"/>
-                <constraint firstItem="LIp-Wc-Zua" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="nbp-23-7yF"/>
+                <constraint firstItem="tFk-DS-wvQ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-50" id="luu-T1-JBr"/>
                 <constraint firstItem="7nN-NM-xeF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="wIo-Vy-VEy"/>
                 <constraint firstItem="y2C-Xx-uQV" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="yWW-ia-7GG"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="140" y="154.27286356821591"/>
         </view>
     </objects>

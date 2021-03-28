@@ -34,20 +34,20 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9wd-Gg-Jw3">
-                    <rect key="frame" x="104" y="142" width="167" height="167"/>
+                    <rect key="frame" x="104" y="174" width="167" height="167"/>
                     <color key="backgroundColor" white="0.0" alpha="0.25409881161971831" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="9wd-Gg-Jw3" secondAttribute="height" multiplier="1:1" id="QMN-E6-rvI"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="My Ethereum wallet address" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6US-bk-Sk8">
-                    <rect key="frame" x="32" y="329" width="311" height="17"/>
+                    <rect key="frame" x="32" y="361" width="311" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soD-bJ-naO">
-                    <rect key="frame" x="193" y="460.5" width="156" height="32"/>
+                    <rect key="frame" x="193" y="492.5" width="156" height="32"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="BRe-wW-oV6"/>
@@ -61,16 +61,16 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayx-K1-otl">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="114"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Satoshi Nakamoto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYE-MU-J4V">
-                            <rect key="frame" x="64" y="46.5" width="247" height="19.5"/>
+                            <rect key="frame" x="64" y="78.5" width="247" height="19.5"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Sw-3K-xlS">
-                            <rect key="frame" x="16" y="38.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="70.5" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="Aa0-ur-98s"/>
                                 <constraint firstAttribute="width" constant="46" id="LVK-dL-3aq"/>
@@ -87,16 +87,22 @@
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="hYE-MU-J4V" secondAttribute="bottom" constant="16" id="2o4-65-RXf"/>
-                        <constraint firstAttribute="height" constant="82" id="XY1-26-aan"/>
+                        <constraint firstAttribute="height" constant="114" id="XY1-26-aan"/>
                         <constraint firstItem="hYE-MU-J4V" firstAttribute="centerX" secondItem="ayx-K1-otl" secondAttribute="centerX" id="ZLB-uL-H9l"/>
                         <constraint firstItem="1Sw-3K-xlS" firstAttribute="leading" secondItem="ayx-K1-otl" secondAttribute="leading" constant="16" id="hYc-eb-FJg"/>
                         <constraint firstItem="hYE-MU-J4V" firstAttribute="leading" secondItem="ayx-K1-otl" secondAttribute="leading" constant="64" id="mE3-Wk-V7d"/>
                         <constraint firstItem="1Sw-3K-xlS" firstAttribute="centerY" secondItem="hYE-MU-J4V" secondAttribute="centerY" id="v3Y-iU-yt3"/>
                         <constraint firstAttribute="trailing" secondItem="hYE-MU-J4V" secondAttribute="trailing" constant="64" id="xei-Nd-E9t"/>
                     </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTe-ow-Na9">
-                    <rect key="frame" x="32" y="378" width="311" height="50.5"/>
+                    <rect key="frame" x="32" y="410" width="311" height="50.5"/>
                     <string key="text">Send only ERC20 tokens to this address.
 * Sending tokens other than ERC20 tokens to this address may result in loss of your funds.</string>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
@@ -104,7 +110,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JIX-CP-yTw">
-                    <rect key="frame" x="26" y="460.5" width="156" height="32"/>
+                    <rect key="frame" x="26" y="492.5" width="156" height="32"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                     <state key="normal" title="Share">

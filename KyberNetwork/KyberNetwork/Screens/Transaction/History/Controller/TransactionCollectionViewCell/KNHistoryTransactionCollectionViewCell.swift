@@ -270,20 +270,26 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     case .receiveToken:
       return "RECEIVE"
     case .allowance:
-      return "ALLOWANCE"
+      return "APPROVE"
     case .earn:
-      return "TRADE"
+      return "DEPOSIT"
     case .contractInteraction:
       return "CONTRACT INTERACT"
     case .selfTransfer:
       return "SELF"
     }
   }
-  
+
   var isError: Bool {
-    return self.data.transacton.first?.isError != "0"
+    if let transaction = self.data.transacton.first {
+      return transaction.isError != "0"
+    } else if let internalTx = self.data.internalTransactions.first {
+      return internalTx.isError != "0"
+    } else {
+      return false
+    }
   }
-  
+
   var transactionTypeImage: UIImage {
     switch self.data.type {
     case .swap:
@@ -377,9 +383,9 @@ class PendingInternalHistoryTransactonViewModel: AbstractHistoryTransactionViewM
     case .receiveToken:
       return "RECEIVE"
     case .allowance:
-      return "ALLOWANCE"
+      return "APPROVE"
     case .earn:
-      return "TRADE"
+      return "DEPOSIT"
     case .contractInteraction:
       return "CONTRACT INTERACT"
     case .selfTransfer:
@@ -604,6 +610,8 @@ class KNHistoryTransactionCollectionViewCell: SwipeCollectionViewCell {
     self.transactionAmountLabel.text = model.displayedAmountString
     self.transactionDetailsLabel.text = model.transactionDetailsString
     self.transactionTypeLabel.text = model.transactionTypeString.uppercased()
+    self.transactionStatus.rounded(color: UIColor.Kyber.SWRed, width: 1, radius: 3)
+    self.transactionStatus.setTitleColor(UIColor.Kyber.SWRed, for: .normal)
     self.transactionStatus.setTitle(model.isError ? "failed" : "", for: .normal)
     self.transactionStatus.isHidden = !model.isError
     self.hideSwapIcon(!hasFromToIcon)
