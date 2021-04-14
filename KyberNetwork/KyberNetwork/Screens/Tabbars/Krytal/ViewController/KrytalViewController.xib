@@ -21,6 +21,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KrytalViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="cashBackEscrowLabel" destination="NCb-VD-4TB" id="ycX-Yk-cSk"/>
                 <outlet property="cashbackPointLabel" destination="2uY-sg-I5T" id="sKB-mm-hpu"/>
                 <outlet property="introLabel" destination="tyV-3T-aPM" id="w2p-Zr-cMK"/>
                 <outlet property="referralCodeTableView" destination="ct4-zK-wY1" id="sOQ-lO-ppb"/>
@@ -69,7 +70,7 @@
                                 <action selector="walletsListButtonTapped:" destination="-1" eventType="touchUpInside" id="pMy-cj-K72"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDX-TH-75C">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDX-TH-75C">
                             <rect key="frame" x="225" y="60.5" width="32" height="32"/>
                             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -120,9 +121,20 @@
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I0q-zE-MnG">
+                            <rect key="frame" x="270" y="102.5" width="91" height="27"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                            <state key="normal" title="CLAIM REWARD">
+                                <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="claimRewardButtonTapped:" destination="-1" eventType="touchUpInside" id="2wj-7Y-b8R"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="I0q-zE-MnG" secondAttribute="trailing" constant="14" id="0X4-vt-lKU"/>
                         <constraint firstAttribute="trailing" secondItem="wWe-Ar-fe9" secondAttribute="trailing" constant="14" id="0Yd-sW-ef6"/>
                         <constraint firstItem="Dpx-LI-EY0" firstAttribute="leading" secondItem="t3W-uc-vg9" secondAttribute="trailing" constant="8" id="DCr-xP-G31"/>
                         <constraint firstAttribute="bottom" secondItem="Cpw-tN-AwD" secondAttribute="bottom" constant="58" id="Du1-9C-qLZ"/>
@@ -132,6 +144,7 @@
                         <constraint firstItem="iv0-bg-Jac" firstAttribute="leading" secondItem="Dpx-LI-EY0" secondAttribute="trailing" constant="5" id="Oc2-vm-VW6"/>
                         <constraint firstItem="wWe-Ar-fe9" firstAttribute="leading" secondItem="IDX-TH-75C" secondAttribute="trailing" constant="10" id="RBT-jE-oer"/>
                         <constraint firstItem="dux-8M-Vow" firstAttribute="leading" secondItem="S3Y-E1-l8E" secondAttribute="leading" constant="23" id="X5L-LT-4wd"/>
+                        <constraint firstItem="I0q-zE-MnG" firstAttribute="centerY" secondItem="Dpx-LI-EY0" secondAttribute="centerY" id="XVC-q2-bpy"/>
                         <constraint firstItem="wWe-Ar-fe9" firstAttribute="centerY" secondItem="Cpw-tN-AwD" secondAttribute="centerY" id="Yup-nz-050"/>
                         <constraint firstItem="IDX-TH-75C" firstAttribute="centerY" secondItem="Cpw-tN-AwD" secondAttribute="centerY" id="als-YL-sSI"/>
                         <constraint firstItem="iv0-bg-Jac" firstAttribute="bottom" secondItem="t3W-uc-vg9" secondAttribute="bottom" id="gWm-HD-lev"/>
@@ -146,7 +159,7 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copy below given links to share with your friends &amp; start earning" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyV-3T-aPM">
+                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copy below given Referral Codes to share with your friends &amp; start earning" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tyV-3T-aPM">
                     <rect key="frame" x="20" y="175" width="335" height="38.5"/>
                     <gestureRecognizers/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
@@ -159,8 +172,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EiQ-YL-7Hs">
                     <rect key="frame" x="0.0" y="233.5" width="375" height="300"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your referral link list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcZ-Tm-jRy">
-                            <rect key="frame" x="20" y="15" width="160.5" height="22"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Referral Code list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcZ-Tm-jRy">
+                            <rect key="frame" x="20" y="15" width="178" height="22"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -193,7 +206,7 @@
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Escrow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5Z-cG-pvv">
+                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Escrow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5Z-cG-pvv">
                                     <rect key="frame" x="226.5" y="11" width="38.5" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -254,14 +267,26 @@
                         <constraint firstItem="010-ph-Y2i" firstAttribute="centerY" secondItem="BcZ-Tm-jRy" secondAttribute="centerY" id="xs6-Ns-i41"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’ve received from XYZ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdn-Ml-hKC">
-                    <rect key="frame" x="26" y="557.5" width="157.5" height="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earned from the Code of your referrer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdn-Ml-hKC">
+                    <rect key="frame" x="26" y="557.5" width="233" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="245 KP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uY-sg-I5T">
                     <rect key="frame" x="296" y="557.5" width="46" height="17"/>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Escrow" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nei-Pw-qKp">
+                    <rect key="frame" x="26" y="586.5" width="45" height="17"/>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12KP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCb-VD-4TB">
+                    <rect key="frame" x="307" y="586.5" width="35" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -274,12 +299,16 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tyV-3T-aPM" secondAttribute="trailing" constant="20" id="0hw-vW-8hS"/>
                 <constraint firstItem="S3Y-E1-l8E" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="FGP-8o-t70"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2uY-sg-I5T" secondAttribute="trailing" constant="33" id="HPE-bG-XTd"/>
+                <constraint firstItem="NCb-VD-4TB" firstAttribute="trailing" secondItem="2uY-sg-I5T" secondAttribute="trailing" id="JuP-wn-4SP"/>
+                <constraint firstItem="NCb-VD-4TB" firstAttribute="centerY" secondItem="nei-Pw-qKp" secondAttribute="centerY" id="Ohp-zN-bDU"/>
                 <constraint firstItem="EiQ-YL-7Hs" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="YU2-Bt-Sne"/>
                 <constraint firstItem="S3Y-E1-l8E" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eKR-TN-ZEp"/>
                 <constraint firstItem="S3Y-E1-l8E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fyP-ty-5qp"/>
+                <constraint firstItem="nei-Pw-qKp" firstAttribute="top" secondItem="cdn-Ml-hKC" secondAttribute="bottom" constant="12" id="gAT-NP-FMQ"/>
                 <constraint firstItem="EiQ-YL-7Hs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="nWO-pU-2AM"/>
                 <constraint firstItem="EiQ-YL-7Hs" firstAttribute="top" secondItem="tyV-3T-aPM" secondAttribute="bottom" constant="20" id="r5H-gB-30F"/>
                 <constraint firstItem="2uY-sg-I5T" firstAttribute="centerY" secondItem="cdn-Ml-hKC" secondAttribute="centerY" id="rDr-jR-bUA"/>
+                <constraint firstItem="nei-Pw-qKp" firstAttribute="leading" secondItem="cdn-Ml-hKC" secondAttribute="leading" id="soy-OP-w1V"/>
                 <constraint firstItem="tyV-3T-aPM" firstAttribute="top" secondItem="S3Y-E1-l8E" secondAttribute="bottom" constant="30" id="uUv-QE-x5H"/>
                 <constraint firstItem="cdn-Ml-hKC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="26" id="vQf-nK-R6n"/>
                 <constraint firstItem="tyV-3T-aPM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="zmM-y2-ISf"/>

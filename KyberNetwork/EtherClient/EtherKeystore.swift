@@ -394,47 +394,47 @@ open class EtherKeystore: Keystore {
         }
     }
 
-    func signLimitOrder(_ order: KNLimitOrder) -> Result<Data, KeystoreError> {
-      guard let account = keyStore.account(for: order.account.address) else {
-        return .failure(.failedMissingAccountOrPassword)
-      }
-      guard let _ = getPassword(for: account) else {
-        return .failure(.failedMissingAccountOrPassword)
-      }
-
-      let sha3 = SHA3(variant: .keccak256)
-
-      var data = [UInt8]()
-      // sender
-      data.append(contentsOf: order.sender.data.bytes)
-      // nonce
-      var numberArr = order.nonce.drop0x.hexaToBytes
-      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
-      data.append(contentsOf: numberArr)
-      // src token
-      data.append(contentsOf: order.from.addressObj.data.bytes)
-      // src amount
-      numberArr = BigUInt(order.srcAmount).serialize().bytes
-      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
-      data.append(contentsOf: numberArr)
-      // dest token
-      data.append(contentsOf: order.to.addressObj.data.bytes)
-      // dest address
-      data.append(contentsOf: order.sender.data.bytes)
-      // min rate
-      numberArr = BigUInt(order.targetRate * BigInt(10).power(18 - order.to.decimals)).serialize().bytes
-      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
-      data.append(contentsOf: numberArr)
-      // fee
-      numberArr = BigUInt(order.fee).serialize().bytes
-      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
-      data.append(contentsOf: numberArr)
-
-      // hash
-      let hashData = Data(bytes: sha3.calculate(for: data))
-      let prefix = "\u{19}Ethereum Signed Message:\n\(hashData.count)".data(using: .utf8)!
-      return signMessage(prefix + hashData, for: account)
-    }
+//    func signLimitOrder(_ order: KNLimitOrder) -> Result<Data, KeystoreError> {
+//      guard let account = keyStore.account(for: order.account.address) else {
+//        return .failure(.failedMissingAccountOrPassword)
+//      }
+//      guard let _ = getPassword(for: account) else {
+//        return .failure(.failedMissingAccountOrPassword)
+//      }
+//
+//      let sha3 = SHA3(variant: .keccak256)
+//
+//      var data = [UInt8]()
+//      // sender
+//      data.append(contentsOf: order.sender.data.bytes)
+//      // nonce
+//      var numberArr = order.nonce.drop0x.hexaToBytes
+//      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
+//      data.append(contentsOf: numberArr)
+//      // src token
+//      data.append(contentsOf: order.from.addressObj.data.bytes)
+//      // src amount
+//      numberArr = BigUInt(order.srcAmount).serialize().bytes
+//      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
+//      data.append(contentsOf: numberArr)
+//      // dest token
+//      data.append(contentsOf: order.to.addressObj.data.bytes)
+//      // dest address
+//      data.append(contentsOf: order.sender.data.bytes)
+//      // min rate
+//      numberArr = BigUInt(order.targetRate * BigInt(10).power(18 - order.to.decimals)).serialize().bytes
+//      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
+//      data.append(contentsOf: numberArr)
+//      // fee
+//      numberArr = BigUInt(order.fee).serialize().bytes
+//      while numberArr.count != 32 { numberArr.insert(0, at: 0) }
+//      data.append(contentsOf: numberArr)
+//
+//      // hash
+//      let hashData = Data(bytes: sha3.calculate(for: data))
+//      let prefix = "\u{19}Ethereum Signed Message:\n\(hashData.count)".data(using: .utf8)!
+//      return signMessage(prefix + hashData, for: account)
+//    }
 
     func getPassword(for account: Account) -> String? {
         return keychain.get(account.address.description.lowercased())

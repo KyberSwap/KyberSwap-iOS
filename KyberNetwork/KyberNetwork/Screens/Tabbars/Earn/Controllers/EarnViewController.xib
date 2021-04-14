@@ -29,6 +29,7 @@
                 <outlet property="approveButtonLeftPaddingContraint" destination="tPg-Iw-qlo" id="xsR-I5-kea"/>
                 <outlet property="approveButtonRightPaddingContaint" destination="wtt-Mx-3Aj" id="szh-ey-1B4"/>
                 <outlet property="approveButtonWidthContraint" destination="T7P-7G-R8Q" id="M6q-w5-IQg"/>
+                <outlet property="compInfoLabel" destination="Yyh-PE-LVA" id="KcW-is-hmX"/>
                 <outlet property="compInfoMessageContainerView" destination="X4k-HQ-ZQ0" id="gof-GQ-g17"/>
                 <outlet property="earnButton" destination="PHv-Qz-Q6J" id="kIS-05-qz9"/>
                 <outlet property="fromAmountTextField" destination="DrV-NG-VyY" id="A77-70-oas"/>
@@ -42,7 +43,6 @@
                 <outlet property="selectDepositTitleLabel" destination="Nme-TJ-MrD" id="tDy-Pa-y5R"/>
                 <outlet property="selectedGasFeeLabel" destination="qXN-bq-S67" id="Bda-ls-FXD"/>
                 <outlet property="sendButtonTopContraint" destination="aGq-8o-Xl4" id="sfr-S4-pSF"/>
-                <outlet property="slippageLabel" destination="C0e-ze-vmC" id="lrU-nI-UDa"/>
                 <outlet property="tokenSelectButton" destination="15L-HV-lZv" id="CjJ-ed-7Rw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="walletsSelectButton" destination="BHm-zh-OUh" id="vOH-zm-0oM"/>
@@ -160,8 +160,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3sq-l4-wcj" customClass="RectangularDashedView" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
                             <rect key="frame" x="20" y="30" width="335" height="153"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the amount you would like to deposit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3F-8S-5Tz">
-                                    <rect key="frame" x="20" y="15" width="267.5" height="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the amount you would like to supply" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3F-8S-5Tz">
+                                    <rect key="frame" x="20" y="15" width="262" height="17"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -296,8 +296,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2oi-PW-wGF">
                             <rect key="frame" x="20" y="237" width="335" height="192"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the platform to deposit DAI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nme-TJ-MrD">
-                                    <rect key="frame" x="20" y="15" width="213" height="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the platform to supply DAI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nme-TJ-MrD">
+                                    <rect key="frame" x="20" y="15" width="207" height="17"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -327,12 +327,6 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wmV-Jc-szj" customClass="RectangularDashedView" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
                             <rect key="frame" x="37" y="449" width="301" height="32"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slippage: 3%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C0e-ze-vmC">
-                                    <rect key="frame" x="214" y="10" width="55" height="12"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
-                                    <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chi" translatesAutoresizingMaskIntoConstraints="NO" id="MzG-pu-bWl">
                                     <rect key="frame" x="277" y="8" width="16" height="16"/>
                                 </imageView>
@@ -376,13 +370,10 @@
                                 <constraint firstAttribute="height" constant="32" id="2oC-e1-0Gg"/>
                                 <constraint firstItem="qXN-bq-S67" firstAttribute="centerY" secondItem="wmV-Jc-szj" secondAttribute="centerY" id="3Yf-ul-ne8"/>
                                 <constraint firstItem="eUd-RV-yTU" firstAttribute="top" secondItem="wmV-Jc-szj" secondAttribute="top" id="Ohy-Ge-dhm"/>
-                                <constraint firstItem="C0e-ze-vmC" firstAttribute="centerY" secondItem="wmV-Jc-szj" secondAttribute="centerY" id="R4C-dX-Ecv"/>
                                 <constraint firstAttribute="trailing" secondItem="MzG-pu-bWl" secondAttribute="trailing" constant="8" id="WQw-68-G5m"/>
                                 <constraint firstItem="qXN-bq-S67" firstAttribute="leading" secondItem="fFe-zc-aoz" secondAttribute="trailing" constant="8" id="a9i-Ty-S5S"/>
                                 <constraint firstAttribute="bottom" secondItem="eUd-RV-yTU" secondAttribute="bottom" id="bDl-GW-s92"/>
-                                <constraint firstItem="C0e-ze-vmC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="qXN-bq-S67" secondAttribute="trailing" constant="10" id="fN2-DH-d5J"/>
                                 <constraint firstItem="MzG-pu-bWl" firstAttribute="centerY" secondItem="wmV-Jc-szj" secondAttribute="centerY" id="nnF-Km-poU"/>
-                                <constraint firstAttribute="trailing" secondItem="C0e-ze-vmC" secondAttribute="trailing" constant="32" id="pob-p0-SxZ"/>
                                 <constraint firstAttribute="trailing" secondItem="eUd-RV-yTU" secondAttribute="trailing" id="rua-nF-Q5Y"/>
                                 <constraint firstItem="fFe-zc-aoz" firstAttribute="centerY" secondItem="wmV-Jc-szj" secondAttribute="centerY" id="sgT-o2-0ec"/>
                                 <constraint firstItem="eUd-RV-yTU" firstAttribute="leading" secondItem="wmV-Jc-szj" secondAttribute="leading" id="xOG-Pk-XvT"/>
@@ -436,12 +427,12 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHv-Qz-Q6J">
                             <rect key="frame" x="195" y="608" width="143" height="42"/>
-                            <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="4GR-gt-JXM"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                            <state key="normal" title="Next">
+                            <state key="normal" title="Next" backgroundImage="krystal_button_bg">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -456,13 +447,13 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1j9-47-C7U">
                             <rect key="frame" x="37" y="608" width="143" height="42"/>
-                            <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="7fv-xO-wf4"/>
                                 <constraint firstAttribute="width" priority="250" id="T7P-7G-R8Q"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                            <state key="normal" title="Approve KNC">
+                            <state key="normal" title="Approve KNC" backgroundImage="krystal_button_bg">
                                 <color key="titleColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -532,5 +523,6 @@
         <image name="config_icon" width="14" height="14"/>
         <image name="farming_icon" width="20" height="18"/>
         <image name="history_icon" width="22" height="20"/>
+        <image name="krystal_button_bg" width="300" height="42"/>
     </resources>
 </document>

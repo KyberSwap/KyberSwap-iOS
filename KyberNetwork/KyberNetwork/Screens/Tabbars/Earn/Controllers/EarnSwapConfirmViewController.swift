@@ -25,7 +25,7 @@ struct EarnSwapConfirmViewModel {
   }
   
   var fromAmountString: String {
-    let amountString = self.fromAmount.displayRate(decimals: self.toToken.decimals)
+    let amountString = self.fromAmount.displayRate(decimals: self.fromToken.decimals)
     return "\(amountString.prefix(15)) \(self.fromToken.symbol)"
   }
   
@@ -55,7 +55,7 @@ struct EarnSwapConfirmViewModel {
   }
 
   var netAPYString: String {
-    return "+" + String(format: "%.2f", (self.platform.distributionSupplyRate + self.platform.supplyRate) * 100.0) + "%"
+    return String(format: "%.2f", (self.platform.distributionSupplyRate + self.platform.supplyRate) * 100.0) + "%"
   }
   
   var transactionFee: BigInt {
@@ -68,10 +68,9 @@ struct EarnSwapConfirmViewModel {
   }
   
   var feeUSDString: String {
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
-    let usdRate: BigInt = KNRate.rateUSD(from: trackerRate).rate
-    let value: BigInt = usdRate * self.transactionFee / BigInt(EthereumUnit.ether.rawValue)
-    let valueString: String = value.displayRate(decimals: 18)
+    guard let price = KNTrackerRateStorage.shared.getETHPrice() else { return "" }
+    let usd = self.transactionFee * BigInt(price.usd * pow(10.0, 18.0)) / BigInt(10).power(18)
+    let valueString: String = usd.displayRate(decimals: 18)
     return "~ \(valueString) USD"
   }
 
@@ -83,6 +82,21 @@ struct EarnSwapConfirmViewModel {
     let gasLimitText = EtherNumberFormatter.short.string(from: self.gasLimit, decimals: 0)
     let labelText = String(format: NSLocalizedString("%@ (Gas Price) * %@ (Gas Limit)", comment: ""), gasPriceText, gasLimitText)
     return labelText
+  }
+  
+  var usdValueBigInt: BigInt {
+    guard let rate = KNTrackerRateStorage.shared.getPriceWithAddress(self.toToken.address) else { return BigInt(0) }
+    let usd = self.toAmount * BigInt(rate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.toToken.decimals)
+    return usd
+  }
+  
+  var displayUSDValue: String {
+    return "~ \(self.usdValueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)) USD"
+  }
+  
+  var displayCompInfo: String {
+    let apy = String(format: "%.6f", self.platform.distributionSupplyRate * 100.0)
+    return "You will automatically earn COMP token (\(apy)% APY) for interacting with compound (supply or borrow).\n\nOnce redeemed, COMP token can be swapped to any token."
   }
 }
 
@@ -108,6 +122,8 @@ class EarnSwapConfirmViewController: KNBaseViewController {
   @IBOutlet weak var framingIconContainerView: UIView!
   @IBOutlet weak var sendButtonTopContraint: NSLayoutConstraint!
   @IBOutlet weak var distributeAPYValueLabel: UILabel!
+  @IBOutlet weak var usdValueLabel: UILabel!
+  @IBOutlet weak var compInfoLabel: UILabel!
   
   let transitor = TransitionDelegate()
   let viewModel: EarnSwapConfirmViewModel
@@ -157,7 +173,8 @@ class EarnSwapConfirmViewController: KNBaseViewController {
     self.platformNameLabel.text = self.viewModel.platform.name
     if self.viewModel.platform.isCompound {
       self.framingIconContainerView.isHidden = false
-      self.sendButtonTopContraint.constant = 133
+      self.sendButtonTopContraint.constant = 160
+      self.compInfoLabel.text = self.viewModel.displayCompInfo
       self.compInfoMessageContainerView.isHidden = false
     } else {
       self.framingIconContainerView.isHidden = true
@@ -171,14 +188,14 @@ class EarnSwapConfirmViewController: KNBaseViewController {
       self.distributionAPYContainerView.isHidden = true
     } else {
       self.depositAPYBottomContraint.constant = 45
-      self.distributionAPYContainerView.isHidden = true
+      self.distributionAPYContainerView.isHidden = false
       self.distributeAPYValueLabel.text = self.viewModel.distributionAPYString
     }
     self.transactionFeeETHLabel.text = self.viewModel.feeETHString
     self.transactionFeeUSDLabel.text = self.viewModel.feeUSDString
     self.transactionGasPriceLabel.text = self.viewModel.transactionGasPriceString
     self.netAPYValueLabel.text = self.viewModel.netAPYString
-    
+    self.usdValueLabel.text = self.viewModel.displayUSDValue
   }
   
   @IBAction func cancelButtonTapped(_ sender: UIButton) {
@@ -189,6 +206,8 @@ class EarnSwapConfirmViewController: KNBaseViewController {
     self.dismiss(animated: true) {
       let transactionHistory = InternalHistoryTransaction(type: .earn, state: .pending, fromSymbol: self.viewModel.toToken.symbol, toSymbol: self.viewModel.earnTokenSymbol, transactionDescription: "\(self.viewModel.toAmountString) -> \(self.viewModel.earnAmountString)", transactionDetailDescription: "", transactionObj: self.viewModel.transaction.toSignTransactionObject())
       transactionHistory.transactionSuccessDescription = "\(self.viewModel.earnAmountString) with \(self.viewModel.netAPYString) APY"
+      let earnTokenString = self.viewModel.platform.isCompound ? "c" + self.viewModel.toToken.symbol : "a" + self.viewModel.toToken.symbol
+      transactionHistory.earnTransactionSuccessDescription = "You’ve received \(earnTokenString) token because you supplied \(self.viewModel.toToken.symbol) in compound. Simply by holding \(earnTokenString) token, you will earn interest\nNo further action is needed at your side."
       self.delegate?.earnConfirmViewController(self, didConfirm: self.viewModel.transaction, amount: self.viewModel.toAmountString, netAPY: self.viewModel.netAPYString, platform: self.viewModel.platform, historyTransaction: transactionHistory)
     }
   }
@@ -200,6 +219,15 @@ class EarnSwapConfirmViewController: KNBaseViewController {
       time: 3
     )
   }
+  
+  @IBAction func apyHelpButtonTapped(_ sender: UIButton) {
+    self.showBottomBannerView(
+      message: "Positive APY mean you will receive interest and negative means you will pay interest.".toBeLocalised(),
+      icon: UIImage(named: "help_icon_large") ?? UIImage(),
+      time: 3
+    )
+  }
+  
 }
 
 extension EarnSwapConfirmViewController: BottomPopUpAbstract {
@@ -208,7 +236,7 @@ extension EarnSwapConfirmViewController: BottomPopUpAbstract {
   }
 
   func getPopupHeight() -> CGFloat {
-    return 600
+    return 650
   }
 
   func getPopupContentView() -> UIView {

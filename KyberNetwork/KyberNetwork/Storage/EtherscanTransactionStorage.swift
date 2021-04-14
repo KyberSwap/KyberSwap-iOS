@@ -21,6 +21,7 @@ class EtherscanTransactionStorage {
     self.tokenTransactions = Storage.retrieve(wallet.address.description + Constants.etherscanTokenTransactionsStoreFileName, as: [EtherscanTokenTransaction].self) ?? []
     self.internalTransaction = Storage.retrieve(wallet.address.description + Constants.etherscanInternalTransactionsStoreFileName, as: [EtherscanInternalTransaction].self) ?? []
     self.transactions = Storage.retrieve(wallet.address.description + Constants.etherscanTransactionsStoreFileName, as: [EtherscanTransaction].self) ?? []
+    self.historyTransactionModel = Storage.retrieve(wallet.address.description + Constants.historyTransactionsStoreFileName, as: [HistoryTransaction].self) ?? []
     DispatchQueue.global(qos: .background).async {
       self.generateKrytalTransactionModel()
     }
@@ -115,7 +116,7 @@ class EtherscanTransactionStorage {
     Storage.store(result, as: unwrapped.address.description + Constants.etherscanTransactionsStoreFileName)
     self.transactions = result
   }
-  
+
   func getCurrentTokenTransactionStartBlock() -> String {
     return self.tokenTransactions.first?.blockNumber ?? ""
   }
@@ -127,7 +128,7 @@ class EtherscanTransactionStorage {
   func getCurrentTransactionStartBlock() -> String {
     return self.transactions.first?.blockNumber ?? ""
   }
-  
+
   func getInternalTransactionsWithHash(_ hash: String) -> [EtherscanInternalTransaction] {
     return self.internalTransaction.filter { (item) -> Bool in
       return item.hash == hash
@@ -157,6 +158,8 @@ class EtherscanTransactionStorage {
       let relatedTokenTx = self.getTokenTransactionWithHash(transaction.hash)
       if type == .transferETH && transaction.from == transaction.to {
         type = .selfTransfer
+      } else if transaction.from.lowercased() != unwrapped.address.description.lowercased() && transaction.to.lowercased() == unwrapped.address.description.lowercased() {
+        type = .receiveETH
       }
       let model = HistoryTransaction(type: type, timestamp: transaction.timeStamp, transacton: [transaction], internalTransactions: relatedInternalTx, tokenTransactions: relatedTokenTx, wallet: unwrapped.address.description.lowercased())
       historyModel.append(model)
@@ -185,6 +188,10 @@ class EtherscanTransactionStorage {
       return left.timestamp > right.timestamp
     }
     self.historyTransactionModel = historyModel
+    Storage.store(self.historyTransactionModel, as: unwrapped.address.description + Constants.historyTransactionsStoreFileName)
+    DispatchQueue.main.async {
+      KNNotificationUtil.postNotification(for: kTokenTransactionListDidUpdateNotificationKey)
+    }
   }
 
   func getHistoryTransactionModel() -> [HistoryTransaction] {
@@ -219,5 +226,18 @@ class EtherscanTransactionStorage {
     }
     self.internalHistoryTransactions.remove(at: index)
     return true
+  }
+
+  func getEtherscanToken() -> [Token] {
+    var tokenSet = Set<Token>()
+    let eth = Token(name: "Ethereum", symbol: "ETH", address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", decimals: 18, logo: "ETH")
+    tokenSet.insert(eth)
+    self.tokenTransactions.forEach { (transaction) in
+      let token = Token(name: transaction.tokenName, symbol: transaction.tokenSymbol, address: transaction.contractAddress, decimals: Int(transaction.tokenDecimal) ?? 0, logo: transaction.tokenSymbol)
+      tokenSet.insert(token)
+    }
+    return Array(tokenSet).sorted { (left, right) -> Bool in
+      return left.symbol > right.symbol
+    }
   }
 }

@@ -35,7 +35,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ztD-1o-LWC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Setup" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOL-Gi-nXw">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EARN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOL-Gi-nXw">
                             <rect key="frame" x="51" y="66" width="47" height="21"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -133,14 +133,16 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deposit only stable coin to earn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSG-mf-L9y">
-                    <rect key="frame" x="37" y="143" width="196.5" height="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jSG-mf-L9y">
+                    <rect key="frame" x="37" y="143" width="301" height="67.5"/>
+                    <string key="text">Select the token you wish to supply to earn interest. Interest rate may change as per market dynamics.
+</string>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PZ6-PZ-AYR">
-                    <rect key="frame" x="37" y="183" width="301" height="309.5"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PZ6-PZ-AYR">
+                    <rect key="frame" x="37" y="233.5" width="301" height="273.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="gnw-14-QJA"/>
@@ -148,10 +150,10 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dAg-yC-3pQ">
-                    <rect key="frame" x="37" y="515.5" width="301" height="61.5"/>
+                    <rect key="frame" x="37" y="530" width="301" height="47"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't worry if you don't have stable coin. You 'll be able to swap your existing token to stable coin on next screen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qy8-9L-mNT">
-                            <rect key="frame" x="12" y="9" width="277" height="43.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t worry if you don’t have an eligible token. You can swap to the required token on the next screen." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qy8-9L-mNT">
+                            <rect key="frame" x="12" y="9" width="277" height="29"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                             <color key="textColor" red="0.38823529410000002" green="0.72549019609999998" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -171,6 +173,24 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pud-pD-ziz">
+                    <rect key="frame" x="303" y="216.5" width="20" height="12"/>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
+                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qh0-kL-esV">
+                    <rect key="frame" x="325" y="216.5" width="25" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="25" id="PDB-RN-euf"/>
+                        <constraint firstAttribute="height" constant="25" id="kL4-ae-0HG"/>
+                    </constraints>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="3"/>
+                    <state key="normal" image="help_icon_blue"/>
+                    <connections>
+                        <action selector="helpButtonTapped:" destination="-1" eventType="touchUpInside" id="2XS-6i-0oW"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -181,8 +201,13 @@
                 <constraint firstItem="ztD-1o-LWC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="F3G-fY-OKg"/>
                 <constraint firstItem="PZ6-PZ-AYR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="JgI-gu-pq2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PZ6-PZ-AYR" secondAttribute="trailing" constant="37" id="LmN-9S-xKS"/>
+                <constraint firstItem="PZ6-PZ-AYR" firstAttribute="top" secondItem="pud-pD-ziz" secondAttribute="bottom" constant="5" id="M8i-Nm-30j"/>
+                <constraint firstItem="jSG-mf-L9y" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NlD-4J-Dm5"/>
+                <constraint firstItem="pud-pD-ziz" firstAttribute="trailing" secondItem="PZ6-PZ-AYR" secondAttribute="trailing" constant="-15" id="R1O-Ib-jdr"/>
+                <constraint firstItem="Qh0-kL-esV" firstAttribute="top" secondItem="pud-pD-ziz" secondAttribute="top" id="Xbd-LU-753"/>
                 <constraint firstItem="jSG-mf-L9y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="abW-9e-nbg"/>
                 <constraint firstItem="dAg-yC-3pQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="c1b-MD-fdb"/>
+                <constraint firstItem="Qh0-kL-esV" firstAttribute="leading" secondItem="pud-pD-ziz" secondAttribute="trailing" constant="2" id="cmJ-Ox-PRH"/>
                 <constraint firstItem="ztD-1o-LWC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="h8N-5L-Y48"/>
                 <constraint firstItem="dAg-yC-3pQ" firstAttribute="top" secondItem="PZ6-PZ-AYR" secondAttribute="bottom" constant="23" id="iIN-98-RVn"/>
                 <constraint firstItem="PZ6-PZ-AYR" firstAttribute="top" secondItem="jSG-mf-L9y" secondAttribute="bottom" constant="23" id="kIp-c3-OTO"/>
@@ -194,6 +219,7 @@
     <resources>
         <image name="arrow_down_template" width="12" height="9"/>
         <image name="back_blue_icon" width="17" height="14"/>
+        <image name="help_icon_blue" width="14" height="14"/>
         <image name="history_icon" width="22" height="20"/>
     </resources>
 </document>

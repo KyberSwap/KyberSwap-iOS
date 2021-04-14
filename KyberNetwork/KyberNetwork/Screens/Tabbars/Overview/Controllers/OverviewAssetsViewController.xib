@@ -18,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewAssetsViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="btcButton" destination="dtE-A3-SzH" id="6by-6C-ERS"/>
                 <outlet property="ethButton" destination="MOf-jT-olF" id="a0r-rd-itW"/>
                 <outlet property="tableView" destination="1ZU-UM-RlI" id="rXg-ry-3nq"/>
                 <outlet property="totalStringLabel" destination="NR6-x9-Cl8" id="Whz-cg-J6A"/>
@@ -28,6 +29,7 @@
                 <outletCollection property="sortingImageIndicator" destination="fEj-vb-UXq" collectionClass="NSMutableArray" id="rzI-7Q-HeE"/>
                 <outletCollection property="sortingImageIndicator" destination="xTP-cl-MCz" collectionClass="NSMutableArray" id="AJw-2q-3XR"/>
                 <outletCollection property="sortingImageIndicator" destination="xd2-VH-ubZ" collectionClass="NSMutableArray" id="r8q-HN-3fA"/>
+                <outletCollection property="currencySelectButtons" destination="dtE-A3-SzH" collectionClass="NSMutableArray" id="7QB-Yu-veP"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -70,12 +72,24 @@
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtE-A3-SzH">
+                            <rect key="frame" x="170" y="4.5" width="30" height="27"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                            <state key="normal" title="BTC">
+                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="currencyTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="TnG-cY-AxT"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.090196078430000007" green="0.43921568630000002" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="Cej-vd-BQi"/>
+                        <constraint firstItem="dtE-A3-SzH" firstAttribute="leading" secondItem="MOf-jT-olF" secondAttribute="trailing" constant="10" id="Okl-5C-ZIt"/>
                         <constraint firstItem="MOf-jT-olF" firstAttribute="leading" secondItem="ZRD-12-1fd" secondAttribute="trailing" constant="10" id="TlH-T7-JG2"/>
                         <constraint firstItem="73g-gy-kUy" firstAttribute="leading" secondItem="HEV-nW-Uyc" secondAttribute="leading" constant="30" id="ULt-3K-TPb"/>
+                        <constraint firstItem="dtE-A3-SzH" firstAttribute="centerY" secondItem="MOf-jT-olF" secondAttribute="centerY" id="f0E-eH-DaH"/>
                         <constraint firstAttribute="trailing" secondItem="NR6-x9-Cl8" secondAttribute="trailing" constant="21" id="g5f-70-gOC"/>
                         <constraint firstItem="MOf-jT-olF" firstAttribute="centerY" secondItem="HEV-nW-Uyc" secondAttribute="centerY" id="oVD-65-9WA"/>
                         <constraint firstItem="NR6-x9-Cl8" firstAttribute="centerY" secondItem="HEV-nW-Uyc" secondAttribute="centerY" id="q4q-ys-X2d"/>

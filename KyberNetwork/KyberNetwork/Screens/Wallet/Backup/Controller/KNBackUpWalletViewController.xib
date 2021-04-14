@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -46,7 +46,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="82"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Backup Your Wallet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v9Q-P1-pUP">
-                            <rect key="frame" x="118" y="47" width="139.5" height="19"/>
+                            <rect key="frame" x="117" y="47" width="141.5" height="19"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -73,13 +73,13 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paper Only" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjI-kU-ibR">
-                    <rect key="frame" x="143" y="102" width="89.5" height="21"/>
+                    <rect key="frame" x="143.5" y="102" width="88" height="22"/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="18"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4M-eJ-doh">
-                    <rect key="frame" x="40" y="135" width="295" height="114.5"/>
+                    <rect key="frame" x="40" y="136" width="295" height="101"/>
                     <string key="text">We will give you a list of 12 random words. Please write them down on paper and keep safe.
 
 This paper key is the only way to restore your Kyber Wallet if you lose your phone or forget your password.</string>
@@ -88,43 +88,43 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Write down the words from 1-4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZyO-Zr-cRC">
-                    <rect key="frame" x="40" y="274.5" width="194.5" height="17"/>
+                    <rect key="frame" x="40" y="262" width="193" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1. chimney" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfr-Pf-WLO">
-                    <rect key="frame" x="80" y="301.5" width="68.5" height="17"/>
+                    <rect key="frame" x="80" y="289" width="67" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2. peacock" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E4K-Cp-0tn">
-                    <rect key="frame" x="80" y="323.5" width="69.5" height="17"/>
+                    <rect key="frame" x="80" y="311" width="66" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. fire" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxk-M0-lif">
-                    <rect key="frame" x="80" y="345.5" width="35" height="17"/>
+                    <rect key="frame" x="80" y="333" width="36" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3. tiger" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0bq-7j-6SD">
-                    <rect key="frame" x="80" y="367.5" width="44" height="17"/>
+                    <rect key="frame" x="80" y="355" width="44" height="17"/>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wMz-jJ-yOj">
                     <rect key="frame" x="35" y="542" width="305" height="45"/>
-                    <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="alC-CA-biv"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                    <state key="normal" title="Next">
+                    <state key="normal" title="Next" backgroundImage="krystal_button_bg">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -132,7 +132,7 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="word #12" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JWS-hb-jfT">
-                    <rect key="frame" x="35" y="269.5" width="305" height="44"/>
+                    <rect key="frame" x="35" y="257" width="305" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="MtF-tk-DaR"/>
@@ -142,7 +142,7 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="word #12" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aiG-8k-JAO">
-                    <rect key="frame" x="35" y="338.5" width="305" height="44"/>
+                    <rect key="frame" x="35" y="326" width="305" height="44"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="zU3-ca-cfr"/>
@@ -152,20 +152,20 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DC3-gH-rKU">
-                    <rect key="frame" x="35" y="370.5" width="305" height="1"/>
+                    <rect key="frame" x="35" y="358" width="305" height="1"/>
                     <color key="backgroundColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="o21-pY-Dcm"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PeI-Ev-WnN">
-                    <rect key="frame" x="35" y="407.5" width="305" height="44"/>
-                    <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="35" y="395" width="305" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="7if-Up-o9h"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                    <state key="normal" title="Complete">
+                    <state key="normal" title="Complete" backgroundImage="krystal_button_bg">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -173,7 +173,7 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8M2-i7-D42">
-                    <rect key="frame" x="35" y="301.5" width="305" height="1"/>
+                    <rect key="frame" x="35" y="289" width="305" height="1"/>
                     <color key="backgroundColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="ijZ-cj-xfg"/>
@@ -235,5 +235,6 @@ This paper key is the only way to restore your Kyber Wallet if you lose your pho
     </objects>
     <resources>
         <image name="back_white_icon" width="38" height="19"/>
+        <image name="krystal_button_bg" width="300" height="42"/>
     </resources>
 </document>

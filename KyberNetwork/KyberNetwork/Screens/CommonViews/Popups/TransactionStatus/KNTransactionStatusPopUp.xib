@@ -19,8 +19,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNTransactionStatusPopUp" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="containerView" destination="WgU-CE-o96" id="y2C-0P-woz"/>
+                <outlet property="contentViewHeightContraint" destination="nwT-7n-O5h" id="wXd-7w-Jam"/>
                 <outlet property="contentViewTopContraint" destination="c6S-YY-xCx" id="BDb-5s-PbP"/>
+                <outlet property="earnMessageContainerView" destination="FP0-EF-fet" id="IpV-zx-XRa"/>
+                <outlet property="earnMessageLabel" destination="tmF-bU-Qul" id="cAm-i0-FCR"/>
                 <outlet property="firstButton" destination="Opx-BH-d67" id="3fA-fR-ODh"/>
+                <outlet property="firstButtonTopContraint" destination="Fhj-4B-9cX" id="TUg-qG-eTB"/>
                 <outlet property="loadingImageView" destination="0no-61-ohs" id="Zop-Sg-MRJ"/>
                 <outlet property="secondButton" destination="eBj-Og-9ca" id="alb-zM-5F5"/>
                 <outlet property="subTitleDetailLabel" destination="prz-nX-WFU" id="nZy-Zf-zOv"/>
@@ -39,13 +43,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WgU-CE-o96">
-                    <rect key="frame" x="0.0" y="604" width="414" height="292"/>
+                    <rect key="frame" x="0.0" y="444" width="414" height="452"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tx_loading_icon" translatesAutoresizingMaskIntoConstraints="NO" id="0no-61-ohs">
                             <rect key="frame" x="100" y="90.5" width="16" height="16"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Opx-BH-d67">
-                            <rect key="frame" x="61" y="222.5" width="133.5" height="32"/>
+                            <rect key="frame" x="61" y="212.5" width="133.5" height="32"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="jwz-M3-sVy"/>
@@ -59,7 +63,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBj-Og-9ca">
-                            <rect key="frame" x="219.5" y="222.5" width="133.5" height="32"/>
+                            <rect key="frame" x="219.5" y="212.5" width="133.5" height="32"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="JiR-59-HSD"/>
@@ -160,11 +164,37 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c7k-Xn-GqQ">
-                            <rect key="frame" x="0.0" y="264" width="414" height="28"/>
+                            <rect key="frame" x="0.0" y="424" width="414" height="28"/>
                             <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="28" id="AXb-rr-Oi1"/>
                             </constraints>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FP0-EF-fet">
+                            <rect key="frame" x="37" y="222.5" width="340" height="98"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmF-bU-Qul">
+                                    <rect key="frame" x="12" y="20" width="316" height="58"/>
+                                    <string key="text">You’ve received cDAI token because you deposited DAI in compound. Simply by holding cDAI token, you will earn interest 
+No further action is needed at your side.</string>
+                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                                    <color key="textColor" red="0.38823529410000002" green="0.72549019609999998" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="0.43921568630000002" green="0.83529411760000005" blue="0.47058823529999999" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="tmF-bU-Qul" firstAttribute="top" secondItem="FP0-EF-fet" secondAttribute="top" constant="20" id="9YR-4x-RRj"/>
+                                <constraint firstItem="tmF-bU-Qul" firstAttribute="leading" secondItem="FP0-EF-fet" secondAttribute="leading" constant="12" id="aFz-bA-g4y"/>
+                                <constraint firstAttribute="trailing" secondItem="tmF-bU-Qul" secondAttribute="trailing" constant="12" id="i3a-gh-eHa"/>
+                                <constraint firstAttribute="bottom" secondItem="tmF-bU-Qul" secondAttribute="bottom" constant="20" id="kPt-cp-y0C"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -172,19 +202,24 @@
                         <constraint firstItem="6Tb-Kr-IcV" firstAttribute="centerY" secondItem="0no-61-ohs" secondAttribute="centerY" id="1vr-ZJ-6WB"/>
                         <constraint firstItem="prz-nX-WFU" firstAttribute="centerX" secondItem="WgU-CE-o96" secondAttribute="centerX" id="2a2-mK-hzX"/>
                         <constraint firstItem="6Tb-Kr-IcV" firstAttribute="top" secondItem="hG4-RL-tcO" secondAttribute="bottom" constant="29" id="4wI-1P-aVB"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="6Tb-Kr-IcV" secondAttribute="trailing" constant="20" id="8rZ-d8-49T"/>
                         <constraint firstItem="eBj-Og-9ca" firstAttribute="leading" secondItem="Opx-BH-d67" secondAttribute="trailing" constant="25" id="FAk-Gw-eUi"/>
-                        <constraint firstItem="Opx-BH-d67" firstAttribute="top" secondItem="I2A-hY-01n" secondAttribute="bottom" constant="30" id="Fhj-4B-9cX"/>
+                        <constraint firstItem="Opx-BH-d67" firstAttribute="top" secondItem="I2A-hY-01n" secondAttribute="bottom" constant="20" id="Fhj-4B-9cX"/>
                         <constraint firstAttribute="bottom" secondItem="c7k-Xn-GqQ" secondAttribute="bottom" id="FnK-ga-5VT"/>
                         <constraint firstAttribute="trailing" secondItem="c7k-Xn-GqQ" secondAttribute="trailing" id="HZp-Qx-yGl"/>
+                        <constraint firstItem="FP0-EF-fet" firstAttribute="top" secondItem="I2A-hY-01n" secondAttribute="bottom" constant="30" id="HgY-3B-Epk"/>
                         <constraint firstAttribute="trailing" secondItem="eBj-Og-9ca" secondAttribute="trailing" constant="61" id="O6U-ko-VGX"/>
                         <constraint firstItem="I2A-hY-01n" firstAttribute="top" secondItem="0no-61-ohs" secondAttribute="bottom" constant="40" id="Plj-fF-wqj"/>
+                        <constraint firstItem="FP0-EF-fet" firstAttribute="leading" secondItem="I2A-hY-01n" secondAttribute="leading" id="Y8H-lk-VzP"/>
                         <constraint firstItem="hG4-RL-tcO" firstAttribute="top" secondItem="WgU-CE-o96" secondAttribute="top" constant="44" id="YMQ-rI-DcA"/>
                         <constraint firstItem="prz-nX-WFU" firstAttribute="top" secondItem="6Tb-Kr-IcV" secondAttribute="bottom" constant="8" id="Zhm-gS-lv9"/>
                         <constraint firstItem="hG4-RL-tcO" firstAttribute="centerX" secondItem="WgU-CE-o96" secondAttribute="centerX" id="aIP-Vt-5Kg"/>
+                        <constraint firstItem="FP0-EF-fet" firstAttribute="trailing" secondItem="I2A-hY-01n" secondAttribute="trailing" id="cUn-dK-59d"/>
                         <constraint firstItem="6Tb-Kr-IcV" firstAttribute="centerX" secondItem="WgU-CE-o96" secondAttribute="centerX" constant="16" id="eiy-WH-8gL"/>
                         <constraint firstItem="6Tb-Kr-IcV" firstAttribute="leading" secondItem="0no-61-ohs" secondAttribute="trailing" constant="5" id="hJw-kq-jfH"/>
+                        <constraint firstItem="6Tb-Kr-IcV" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="WgU-CE-o96" secondAttribute="leading" constant="20" id="jwj-NF-fXw"/>
                         <constraint firstItem="eBj-Og-9ca" firstAttribute="width" secondItem="Opx-BH-d67" secondAttribute="width" id="k7O-Hf-b3z"/>
-                        <constraint firstAttribute="height" constant="292" id="nwT-7n-O5h"/>
+                        <constraint firstAttribute="height" constant="452" id="nwT-7n-O5h"/>
                         <constraint firstItem="I2A-hY-01n" firstAttribute="leading" secondItem="WgU-CE-o96" secondAttribute="leading" constant="37" id="oEk-gm-7S8"/>
                         <constraint firstItem="eBj-Og-9ca" firstAttribute="centerY" secondItem="Opx-BH-d67" secondAttribute="centerY" id="rCj-am-lbL"/>
                         <constraint firstItem="Opx-BH-d67" firstAttribute="leading" secondItem="WgU-CE-o96" secondAttribute="leading" constant="61" id="sYV-hm-bhj"/>
@@ -204,7 +239,7 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="WgU-CE-o96" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="4lh-Ns-wSU"/>
-                <constraint firstItem="WgU-CE-o96" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="604" id="c6S-YY-xCx"/>
+                <constraint firstItem="WgU-CE-o96" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="444" id="c6S-YY-xCx"/>
                 <constraint firstItem="WgU-CE-o96" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="v3K-6E-Iku"/>
             </constraints>
             <connections>

@@ -51,14 +51,15 @@ struct KConfirmSendViewModel {
   }
 
   var usdValueString: String {
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: self.token) else { return "" }
+    guard let rate = KNTrackerRateStorage.shared.getPriceWithAddress(self.token.address) else { return "" }
+//    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: self.token) else { return "" }
     let displayString: String = {
-      let valueUSD = KNRate.rateUSD(from: trackerRate).rate * self.transaction.value / BigInt(10).power(self.token.decimals)
-      return valueUSD.string(
-        units: EthereumUnit.ether,
-        minFractionDigits: 0,
-        maxFractionDigits: 4
-      )
+    let usd = self.transaction.value * BigInt(rate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.token.decimals)
+    return usd.string(
+      units: EthereumUnit.ether,
+      minFractionDigits: 0,
+      maxFractionDigits: 4
+    )
     }()
     return "~ \(displayString) USD"
   }
@@ -79,12 +80,16 @@ struct KConfirmSendViewModel {
       return gasPrice * gasLimit
     }()
     guard let feeBigInt = fee else { return "" }
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
-    let feeUSD: String = {
-      let fee = feeBigInt * trackerRate.rateUSDBigInt / BigInt(EthereumUnit.ether.rawValue)
-      return fee.displayRate(decimals: 18)
-    }()
-    return "~ \(feeUSD) USD"
+//    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
+//    let feeUSD: String = {
+//      let fee = feeBigInt * trackerRate.rateUSDBigInt / BigInt(EthereumUnit.ether.rawValue)
+//      return fee.displayRate(decimals: 18)
+//    }()
+//    return "~ \(feeUSD) USD"
+    guard let price = KNTrackerRateStorage.shared.getETHPrice() else { return "" }
+    let usd = feeBigInt * BigInt(price.usd * pow(10.0, 18.0)) / BigInt(10).power(18)
+    let valueString: String = usd.displayRate(decimals: 18)
+    return "~ \(valueString) USD"
   }
   var transactionGasPriceString: String {
     let gasPrice: BigInt = self.transaction.gasPrice ?? KNGasCoordinator.shared.fastKNGas

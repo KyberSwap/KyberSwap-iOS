@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BigInt
 
 protocol EarnOverviewViewControllerDelegate: class {
   func earnOverviewViewControllerDidSelectExplore(_ controller: EarnOverviewViewController)
@@ -22,6 +23,7 @@ class EarnOverviewViewController: KNBaseViewController {
   
   let depositViewController: OverviewDepositViewController
   var wallet: Wallet?
+  var firstTimeLoaded: Bool = false
   
   init(_ controller: OverviewDepositViewController) {
     self.depositViewController = controller
@@ -52,6 +54,18 @@ class EarnOverviewViewController: KNBaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.updateUIPendingTxIndicatorView()
+    if UserDefaults.standard.bool(forKey: "earn-tutorial" ) == false {
+      let tutorial = EarnTutorialViewController()
+      tutorial.modalPresentationStyle = .overFullScreen
+      self.navigationController?.present(tutorial, animated: true, completion: nil)
+      UserDefaults.standard.set(true, forKey: "earn-tutorial")
+    }
+    if self.depositViewController.viewModel.totalValueBigInt == BigInt(0) {
+      if self.firstTimeLoaded == false {
+        self.delegate?.earnOverviewViewControllerDidSelectExplore(self)
+      }
+    }
+    self.firstTimeLoaded = true
   }
 
   override func viewDidLayoutSubviews() {

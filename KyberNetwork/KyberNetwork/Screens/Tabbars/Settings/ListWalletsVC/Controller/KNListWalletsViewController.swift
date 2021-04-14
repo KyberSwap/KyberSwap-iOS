@@ -97,7 +97,6 @@ class KNListWalletsViewController: KNBaseViewController {
   }
 
   fileprivate func setupNavigationBar() {
-    self.navTitleLabel.text = NSLocalizedString("manage.wallet", value: "Manage Wallet", comment: "")
   }
 
   fileprivate func setupWalletTableView() {
@@ -122,7 +121,7 @@ class KNListWalletsViewController: KNBaseViewController {
 
   fileprivate func updateEmptyView() {
     self.emptyView.isHidden = !self.viewModel.displayWallets.isEmpty
-    self.emptyMessageLabel.text = self.viewModel.isDisplayWatchWallets ? "Your list of watch wallet is empty".toBeLocalised() : "Your list of wallet is empty".toBeLocalised()
+    self.emptyMessageLabel.text = self.viewModel.isDisplayWatchWallets ? "Your list of watched wallet is empty".toBeLocalised() : "Your list of wallet is empty".toBeLocalised()
   }
 
   func coordinatorDidUpdateWalletsList() {
@@ -248,7 +247,7 @@ extension KNListWalletsViewController: SwipeTableViewCellDelegate {
     delete.font = UIFont.Kyber.latoBold(with: 10)
     delete.backgroundColor = UIColor(patternImage: resized)
 
-    return [copy, edit, delete]
+    return [delete, edit, copy]
   }
 
   func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {

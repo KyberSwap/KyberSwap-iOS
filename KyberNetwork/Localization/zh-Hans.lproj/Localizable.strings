@@ -292,7 +292,7 @@
 "enter.or.scan.private.key" = "输入或扫描私钥";
 "private.key" = "私钥";
 "enter.password.to.decrypt" = "输入密码解密";
-"enter.your.seeds" = "输入你的mnemonic";
+"enter.your.seeds" = "输入你的seeds";
 "first.name" = "名字";
 "middle.name" = "Middle Name";
 "last.name" = "姓氏";
@@ -315,7 +315,7 @@
 "copy.address" = "复制地址";
 "export.at.your.own.risk" = "导出风险自负！";
 "backup" = "备份";
-"share.with.friends.text" = "我刚刚找到一个很棒的钱包应用程序。在这里查看https://apps.apple.com/us/app/id1521778973";
+"share.with.friends.text" = "我刚刚找到一个很棒的钱包应用程序。在这里查看https://apps.apple.com/us/app/id1558105691";
 "transaction.being.broadcasted" = "正在广播交易";
 "can.not.create.transaction" = "无法创建交易";
 "transaction.being.mined" = "交易正在上链";
@@ -736,7 +736,7 @@
 
 "Invalid nonce" = "无法导入Kyber code，请确认您输入的序号在有效期限内";
 "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "目前仅在KyberSwap的网页版上支持通过法币购买ETH。您想访问该网站吗？";
-"⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️切勿与任何人（包括KyberSwap）分享密钥库/私钥/助记符。 这些数据会授予您所有资金的访问权限，可能有被盗風險。";
+"⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️切勿与任何人（包括Krystal）分享密钥库/私钥/助记符。 这些数据会授予您所有资金的访问权限，可能有被盗風險。";
 
 "Select higher gas price to accelerate your transaction processing time" = "选择较高的燃料价格，以加快您的交易处理时间";
 

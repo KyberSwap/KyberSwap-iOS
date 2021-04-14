@@ -79,6 +79,11 @@ class KNLandingPageCoordinator: NSObject, Coordinator {
     coordinator.delegate = self
     return coordinator
   }()
+  
+  lazy var termViewController: TermsAndConditionsViewController = {
+    let controller = TermsAndConditionsViewController()
+    return controller
+  }()
 
   init(
     navigationController: UINavigationController = UINavigationController(),
@@ -164,12 +169,27 @@ extension KNLandingPageCoordinator: KNLandingPageViewControllerDelegate {
     case .openPromoCode:
       self.promoCodeCoordinator.start()
     case .openCreateWallet:
+      if UserDefaults.standard.bool(forKey: Constants.acceptedTermKey) == false {
+        self.termViewController.nextAction = {
+          self.createWalletCoordinator.updateNewWallet(nil, name: nil)
+          self.createWalletCoordinator.start()
+        }
+        self.navigationController.present(self.termViewController, animated: true, completion: nil)
+        return
+      }
       self.createWalletCoordinator.updateNewWallet(nil, name: nil)
       self.createWalletCoordinator.start()
     case .openImportWallet:
+      if UserDefaults.standard.bool(forKey: Constants.acceptedTermKey) == false {
+        self.termViewController.nextAction = {
+          self.importWalletCoordinator.start()
+        }
+        self.navigationController.present(self.termViewController, animated: true, completion: nil)
+        return
+      }
       self.importWalletCoordinator.start()
     case .openTermAndCondition:
-      let url: String = "https://files.kyberswap.com/tac.pdf"
+      let url: String = "https://files.krystal.app/terms.pdf"
       self.navigationController.topViewController?.openSafari(with: url)
     case .openMigrationAlert:
       self.openMigrationAlert()

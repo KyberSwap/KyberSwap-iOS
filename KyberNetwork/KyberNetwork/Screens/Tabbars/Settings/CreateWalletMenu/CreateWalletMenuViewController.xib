@@ -72,7 +72,7 @@
                                 <constraint firstAttribute="height" constant="36" id="Prl-VX-gcX"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
-                            <state key="normal" title="Add a new watch wallet">
+                            <state key="normal" title="Add a new watched wallet">
                                 <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>

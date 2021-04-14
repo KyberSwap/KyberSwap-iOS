@@ -43,15 +43,15 @@ class KNCreateWalletViewController: KNBaseViewController {
 
   fileprivate func setupUI() {
     self.containerView.rounded(radius: 5.0)
-    self.confirmLabel.text = NSLocalizedString("confirm", value: "Confirm", comment: "")
-    self.descLabel.text = "This creates a new Ethereum wallet for you to receive and send tokens".toBeLocalised()
+    self.confirmLabel.text = NSLocalizedString("confirm", value: "Confirm", comment: "").uppercased()
+    self.descLabel.text = "This creates a new Ethereum wallet"
     self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
     self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal
     )
-
+    self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.view.isUserInteractionEnabled = true
   }
 
@@ -60,25 +60,25 @@ class KNCreateWalletViewController: KNBaseViewController {
     self.confirmButton.removeSublayer(at: 0)
     self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
-  
+
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
     self.dismiss(animated: true, completion: {
       self.delegate?.createWalletViewController(self, run: .back)
     })
     
   }
-  
+
   @IBAction func tapInsidePopup(_ sender: UITapGestureRecognizer) {
     self.view.endEditing(true)
   }
-  
+
   @IBAction func confirmButtonPressed(_ sender: Any) {
     if let text = self.refCodeField.text, !text.isEmpty {
       self.delegate?.createWalletViewController(self, run: .sendRefCode(code: text))
     }
     self.delegate?.createWalletViewController(self, run: .next(name: "New Wallet"))
   }
-  
+
   @IBAction func pasteButtonTapped(_ sender: UIButton) {
     if let string = UIPasteboard.general.string {
       self.refCodeField.text = string

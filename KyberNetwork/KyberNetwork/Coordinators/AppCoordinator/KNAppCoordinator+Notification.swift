@@ -225,7 +225,7 @@ extension KNAppCoordinator {
     let updateOverview = self.overviewTabCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     let updateEarn = self.earnCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
-    if updateOverview || updateExchange || updateEarn {
+    if !(updateOverview || updateExchange || updateEarn) {
       if transaction.state == .done {
         self.loadBalanceCoordinator?.loadAllBalances()
         self.navigationController.showSuccessTopBannerMessage(
@@ -241,7 +241,7 @@ extension KNAppCoordinator {
         )
       }
     }
-    
+
     if transaction.state == .done || transaction.state == .drop || transaction.state == .error {
       self.loadBalanceCoordinator?.loadAllBalances()
       self.session.transacionCoordinator?.loadEtherscanTransactions()

@@ -24,6 +24,7 @@
             <connections>
                 <outlet property="athLabel" destination="mSV-g5-nVV" id="rpP-YW-U85"/>
                 <outlet property="atlLabel" destination="ZFU-cs-HXo" id="oP5-pL-Kax"/>
+                <outlet property="chartDetailLabel" destination="aFB-ff-HUe" id="SBH-EX-ap5"/>
                 <outlet property="chartView" destination="ueJ-8I-pMk" id="mhm-uU-lyR"/>
                 <outlet property="descriptionTextView" destination="yx2-K4-ikS" id="rud-bP-2OX"/>
                 <outlet property="ethBalanceLabel" destination="5JN-3d-A7T" id="xcI-7T-t4b"/>
@@ -201,6 +202,13 @@
                                 <constraint firstAttribute="height" constant="1" id="UR5-pr-afh"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aFB-ff-HUe">
+                            <rect key="frame" x="15" y="176" width="345" height="0.0"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ueJ-8I-pMk" customClass="Chart" customModule="SwiftChart">
                             <rect key="frame" x="15" y="176" width="345" height="220"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -422,13 +430,16 @@
                         <constraint firstItem="Lcl-Qq-nU6" firstAttribute="top" secondItem="sRh-yz-ork" secondAttribute="bottom" constant="2" id="1Ha-dw-zs7"/>
                         <constraint firstItem="7pU-d9-FWK" firstAttribute="top" secondItem="ueJ-8I-pMk" secondAttribute="bottom" constant="15" id="2tJ-Ay-eHz"/>
                         <constraint firstItem="N0W-yK-Iln" firstAttribute="top" secondItem="VQr-Jp-lwB" secondAttribute="bottom" constant="55" id="3LA-iM-5FK"/>
+                        <constraint firstItem="aFB-ff-HUe" firstAttribute="top" secondItem="ueJ-8I-pMk" secondAttribute="top" id="5LN-b5-4WP"/>
                         <constraint firstItem="1Rg-Gc-aeW" firstAttribute="top" secondItem="Cqj-gp-yLW" secondAttribute="bottom" constant="34" id="72N-oG-kIR"/>
                         <constraint firstItem="ueJ-8I-pMk" firstAttribute="top" secondItem="kpd-Ie-Axg" secondAttribute="bottom" constant="15" id="9Zs-1c-aTC"/>
                         <constraint firstItem="t95-BV-F1P" firstAttribute="leading" secondItem="wC0-1c-nRc" secondAttribute="leading" constant="15" id="ALi-iP-8DO"/>
                         <constraint firstItem="ioX-Gg-jnp" firstAttribute="top" secondItem="5JN-3d-A7T" secondAttribute="bottom" constant="3" id="AcW-Hb-7al"/>
                         <constraint firstItem="kpd-Ie-Axg" firstAttribute="leading" secondItem="wC0-1c-nRc" secondAttribute="leading" constant="15" id="Ano-Oy-UHd"/>
                         <constraint firstItem="lX0-qs-h9F" firstAttribute="top" secondItem="Lcl-Qq-nU6" secondAttribute="bottom" constant="10" id="BjO-GS-5Go"/>
+                        <constraint firstItem="aFB-ff-HUe" firstAttribute="leading" secondItem="ueJ-8I-pMk" secondAttribute="leading" id="CBr-L6-os9"/>
                         <constraint firstAttribute="trailing" secondItem="cvW-pe-IBf" secondAttribute="trailing" constant="15" id="CLN-Po-UbO"/>
+                        <constraint firstItem="aFB-ff-HUe" firstAttribute="trailing" secondItem="ueJ-8I-pMk" secondAttribute="trailing" id="DLO-Ry-oVh"/>
                         <constraint firstItem="sRh-yz-ork" firstAttribute="top" secondItem="wC0-1c-nRc" secondAttribute="top" constant="13" id="DYm-zA-TUs"/>
                         <constraint firstItem="cvW-pe-IBf" firstAttribute="leading" secondItem="wC0-1c-nRc" secondAttribute="leading" constant="15" id="Dn8-sA-Nca"/>
                         <constraint firstItem="cvW-pe-IBf" firstAttribute="centerX" secondItem="wC0-1c-nRc" secondAttribute="centerX" id="Eot-02-Ftn"/>

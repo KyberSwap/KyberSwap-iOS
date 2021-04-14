@@ -137,7 +137,7 @@
 "write.them.down.on.paper" = "write them down on paper";
 "and.keep.safe.this.paper.key" = "and keep safe.\n\nThis paper key is";
 "the.only.way" = "the only way";
-"restore.your.kyber.wallet.if.you.lose.your.phone" = "to restore your Kyber Wallet if you lose your phone or forget your password.";
+"restore.your.kyber.wallet.if.you.lose.your.phone" = "to restore your Krystal Wallet if you lose your phone or forget your password.";
 "write.down.the.words.from" = "Write down the words from";
 "i.wrote.down.the.words.from" = "I wrote down the words from";
 "test.your.backup" = "Test your Backup";
@@ -292,7 +292,7 @@
 "enter.or.scan.private.key" = "Enter or scan private key";
 "private.key" = "Private Key";
 "enter.password.to.decrypt" = "Enter Password to Decrypt";
-"enter.your.seeds" = "Enter your mnemonic";
+"enter.your.seeds" = "Enter your seeds";
 "first.name" = "First Name";
 "middle.name" = "Middle Name";
 "last.name" = "Last Name";
@@ -306,7 +306,7 @@
 "do.you.want.to.exit.and.remove.all.wallets" = "Do you want to exit and remove all wallets from the app?";
 "contribute" = "Contribute";
 "loading" = "Loading";
-"recover.with.seeds" = "Recover with mnemonic";
+"recover.with.seeds" = "Recover with seeds";
 "create.new.wallet.desc" = "This will create a new wallet. It can not be undone, but you could abandon it";
 "edit.wallet" = "Edit Wallet";
 "backup.keystore" = "Backup Keystore";
@@ -315,7 +315,7 @@
 "copy.address" = "Copy Address";
 "export.at.your.own.risk" = "Export at your own risk!";
 "backup" = "Backup";
-"share.with.friends.text" = "I just found an awesome wallet app. Check out here https://apps.apple.com/us/app/id1521778973";
+"share.with.friends.text" = "I just found an awesome wallet app. Check out here https://apps.apple.com/us/app/id1558105691";
 "transaction.being.broadcasted" = "Transaction being broadcasted";
 "can.not.create.transaction" = "Can not create transaction";
 "transaction.being.mined" = "Transaction being mined";
@@ -734,7 +734,7 @@
 
 "Invalid nonce" = "Failed to import Kyber code, please make sure your time is correct ";
 "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "Buying ETH with Fiat is only supported on KyberSwap's website at the moment. Do you want to open it?";
-"⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen";
+"⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including Krystal). These data grant access to all your funds and they may get stolen";
 
 "Select higher gas price to accelerate your transaction processing time" = "Select higher gas price to accelerate your transaction processing time";
 

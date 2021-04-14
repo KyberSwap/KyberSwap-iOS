@@ -12,6 +12,7 @@ enum KNTransactionStatusPopUpEvent {
   case cancel(tx: InternalHistoryTransaction)
   case goToSupport
   case backToInvest
+  case newSave
 }
 
 protocol KNTransactionStatusPopUpDelegate: class {
@@ -29,7 +30,11 @@ class KNTransactionStatusPopUp: KNBaseViewController {
   @IBOutlet weak var txHashLabel: UILabel!
   @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
   @IBOutlet weak var subTitleTopContraint: NSLayoutConstraint!
-
+  @IBOutlet weak var earnMessageContainerView: UIView!
+  @IBOutlet weak var firstButtonTopContraint: NSLayoutConstraint!
+  @IBOutlet weak var contentViewHeightContraint: NSLayoutConstraint!
+  @IBOutlet weak var earnMessageLabel: UILabel!
+  
   // Broadcast
   @IBOutlet weak var loadingImageView: UIImageView!
   // 32 if broadcasting, 104 if done/failed
@@ -106,7 +111,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
     }
     self.txHashLabel.text = self.transaction.hash
 
-    if self.transaction.state == .pending {
+    if self.transaction.state == .pending || self.transaction.state == .speedup || self.transaction.state == .cancel {
       self.titleIconImageView.image = UIImage(named: "tx_broadcasted_icon")
       self.titleLabel.text = "Broadcasted!".toBeLocalised().uppercased()
       self.subTitleLabel.text = "Transaction being mined".toBeLocalised()
@@ -145,7 +150,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       
       self.subTitleDetailLabel.isHidden = true
       self.subTitleDetailLabel.isHidden = false
-      self.subTitleDetailLabel.text = self.transaction.transactionSuccessDescription?.uppercased()
+      self.subTitleDetailLabel.text = self.transaction.transactionSuccessDescription
       self.subTitleDetailLabel.font = UIFont.Kyber.latoRegular(with: 16)
 
       self.loadingImageView.stopRotating()
@@ -153,7 +158,12 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
       if self.transaction.type == .earn {
         self.firstButton.setTitle("New save".toBeLocalised().capitalized, for: .normal)
-        self.secondButton.setTitle("Back to invest".toBeLocalised().capitalized, for: .normal)
+        self.secondButton.setTitle("Back to earn".toBeLocalised().capitalized, for: .normal)
+        self.firstButtonTopContraint.constant = 160
+        self.earnMessageContainerView.isHidden = false
+        self.contentViewHeightContraint.constant += 160
+        self.contentViewTopContraint.constant -= 160
+        self.earnMessageLabel.text = self.transaction.earnTransactionSuccessDescription
       } else if self.transaction.type == .withdraw {
         self.firstButton.isHidden = true
         self.secondButton.isHidden = true
@@ -214,10 +224,13 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
   @IBAction func firstButtonPressed(_ sender: Any) {
     self.dismiss(animated: true) {
-      if self.transaction.state == .pending {
+      if self.transaction.state == .pending || self.transaction.state == .speedup || self.transaction.state == .cancel {
         self.delegate?.transactionStatusPopUp(self, action: .speedUp(tx: self.transaction))
       } else if self.transaction.state == .done {
-        guard self.transaction.type != .earn else { return }
+        guard self.transaction.type != .earn else {
+          self.delegate?.transactionStatusPopUp(self, action: .newSave)
+          return
+        }
         self.delegate?.transactionStatusPopUp(self, action: .transfer)
       } else if self.transaction.state == .error || self.transaction.state == .drop {
         self.delegate?.transactionStatusPopUp(self, action: .dismiss)
@@ -227,7 +240,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
   @IBAction func secondButtonPressed(_ sender: Any) {
     self.dismiss(animated: true) {
-      if self.transaction.state == .pending {
+      if self.transaction.state == .pending || self.transaction.state == .speedup || self.transaction.state == .cancel {
         self.delegate?.transactionStatusPopUp(self, action: .cancel(tx: self.transaction))
       } else if self.transaction.state == .done {
         if self.transaction.type == .earn {

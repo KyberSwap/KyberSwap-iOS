@@ -19,7 +19,7 @@ struct ChartData: Codable {
 
 struct TokenDetailData: Codable {
   let tokenDetailDataDescription: Description
-  let icoData: IcoData
+  let icoData: IcoData?
   let marketData: MarketData
   let links: TokenDetailDataLinks
   

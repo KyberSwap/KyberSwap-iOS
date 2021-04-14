@@ -29,8 +29,15 @@ class OverviewAssetsViewModel {
   func reloadAllData() {
     self.data.removeAll()
     let tokens = KNSupportedTokenStorage.shared.allTokens
+    let lendingBalances = BalanceStorage.shared.getAllLendingBalances()
+    var lendingSymbols: [String] = []
+    lendingBalances.forEach { (lendingPlatform) in
+      lendingPlatform.balances.forEach { (balance) in
+        lendingSymbols.append(balance.interestBearingTokenSymbol.lowercased())
+      }
+    }
     tokens.forEach { (token) in
-      guard token.getBalanceBigInt() > BigInt(0) else {
+      guard token.getBalanceBigInt() > BigInt(0), !lendingSymbols.contains(token.symbol.lowercased()) else {
         return
       }
       let viewModel = OverviewAssetsCellViewModel(token: token)
@@ -86,6 +93,7 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
   @IBOutlet weak var totalStringLabel: UILabel!
   @IBOutlet weak var usdButton: UIButton!
   @IBOutlet weak var ethButton: UIButton!
+  @IBOutlet weak var btcButton: UIButton!
   
   weak var container: OverviewViewController?
   weak var delegate: OverviewTokenListViewDelegate?
@@ -106,6 +114,7 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    self.viewModel.reloadAllData()
     self.reloadUI()
   }
   
@@ -121,9 +130,15 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
     case .usd:
       self.usdButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
       self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
     case .eth:
       self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
       self.ethButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+    case .btc:
+      self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
     }
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
@@ -133,8 +148,10 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
   @IBAction func currencyTypeButtonTapped(_ sender: UIButton) {
     if sender.tag == 1 {
       self.viewModel.currencyType = .usd
-    } else {
+    } else if sender.tag == 2 {
       self.viewModel.currencyType = .eth
+    } else {
+      self.viewModel.currencyType = .btc
     }
     self.reloadUI()
     self.container?.viewControllerDidChangeCurrencyType(self, type: self.viewModel.currencyType)

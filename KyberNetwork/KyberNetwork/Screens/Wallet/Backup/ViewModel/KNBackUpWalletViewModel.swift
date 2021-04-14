@@ -104,7 +104,7 @@ class KNBackUpWalletViewModel {
     attributedString.append(NSAttributedString(string: "\(keepSafe) ", attributes: regularttributes))
     let theOnlyWay = NSLocalizedString("the.only.way", value: "the only way", comment: "")
     attributedString.append(NSAttributedString(string: "\(theOnlyWay) ", attributes: boldAttributes))
-    let restoreText = NSLocalizedString("restore.your.kyber.wallet.if.you.lose.your.phone", value: "to restore your Kyber Wallet if you lose your phone or forget your password.", comment: "")
+    let restoreText = "to restore your Wallet if you lose your phone or forget your password."
     attributedString.append(NSAttributedString(string: restoreText, attributes: regularttributes))
     return attributedString
   }

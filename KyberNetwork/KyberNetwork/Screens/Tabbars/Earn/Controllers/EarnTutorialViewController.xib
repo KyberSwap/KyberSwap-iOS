@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EarnTutorialViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
+            <connections>
+                <outlet property="bannerPagerControl" destination="ydu-Bh-Ave" id="ARK-VK-Wad"/>
+                <outlet property="bannerPagerView" destination="Igd-53-MxV" id="AzK-ap-8Zl"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Igd-53-MxV" customClass="FSPagerView" customModule="FSPagerView">
+                    <rect key="frame" x="37" y="120" width="301" height="350"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="350" id="Oin-cx-RIN"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="c75-w7-62D"/>
+                        <outlet property="delegate" destination="-1" id="Omr-Rw-wkt"/>
+                    </connections>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ydu-Bh-Ave" customClass="FSPageControl" customModule="FSPagerView">
+                    <rect key="frame" x="37" y="500" width="301" height="36"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="WoG-rp-seN"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GfM-gN-9Mi">
+                    <rect key="frame" x="37" y="566" width="301" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="BhR-Ox-QU3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                    <state key="normal" title="Explore" backgroundImage="krystal_button_bg">
+                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="exploreButtonTapped:" destination="-1" eventType="touchUpInside" id="Oj9-cb-BgH"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ydu-Bh-Ave" firstAttribute="top" secondItem="Igd-53-MxV" secondAttribute="bottom" constant="30" id="4Rz-Dx-MyP"/>
+                <constraint firstItem="GfM-gN-9Mi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="QgS-4p-NSk"/>
+                <constraint firstItem="ydu-Bh-Ave" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="WNQ-Jd-fSU"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Igd-53-MxV" secondAttribute="trailing" constant="37" id="WkH-Fa-C78"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="GfM-gN-9Mi" secondAttribute="trailing" constant="37" id="Y7d-mU-T0D"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ydu-Bh-Ave" secondAttribute="trailing" constant="37" id="aAF-Ca-MKI"/>
+                <constraint firstItem="GfM-gN-9Mi" firstAttribute="top" secondItem="ydu-Bh-Ave" secondAttribute="bottom" constant="30" id="lfG-yY-6oc"/>
+                <constraint firstItem="Igd-53-MxV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="120" id="qCj-tH-y2A"/>
+                <constraint firstItem="Igd-53-MxV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="wfE-wl-gcd"/>
+            </constraints>
+            <point key="canvasLocation" x="140" y="103.89805097451276"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="krystal_button_bg" width="300" height="42"/>
+    </resources>
+</document>

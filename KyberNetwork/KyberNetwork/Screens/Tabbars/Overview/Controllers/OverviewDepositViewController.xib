@@ -18,13 +18,18 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewDepositViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="borrowButton" destination="vTA-ba-2fd" id="uUz-RY-yHC"/>
+                <outlet property="btcButton" destination="ORq-BI-4PO" id="knI-ZL-txG"/>
+                <outlet property="emptyView" destination="qxe-2X-Laa" id="1uU-ze-oIf"/>
                 <outlet property="ethButton" destination="liu-Lh-O9r" id="aqe-Id-Y8R"/>
+                <outlet property="supplyButton" destination="efr-Ch-pZj" id="dXl-dt-UHI"/>
                 <outlet property="tableView" destination="oQR-9f-vGM" id="Wu3-hb-uMB"/>
                 <outlet property="totalStringLabel" destination="4SF-2T-qWE" id="Die-70-XaW"/>
                 <outlet property="usdButton" destination="0O4-Zy-R0a" id="2QJ-OX-urM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="currencySelectButtons" destination="0O4-Zy-R0a" collectionClass="NSMutableArray" id="s9z-Mf-Zlx"/>
                 <outletCollection property="currencySelectButtons" destination="liu-Lh-O9r" collectionClass="NSMutableArray" id="xfx-Lt-Bq4"/>
+                <outletCollection property="currencySelectButtons" destination="ORq-BI-4PO" collectionClass="NSMutableArray" id="gDu-Qw-KhB"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -32,17 +37,25 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="oQR-9f-vGM">
+                    <rect key="frame" x="18" y="36" width="339" height="631"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="0uf-Gc-CsN"/>
+                        <outlet property="delegate" destination="-1" id="G0h-2o-i0d"/>
+                    </connections>
+                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n01-H5-st5">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deposits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KP0-uo-vmL">
-                            <rect key="frame" x="30" y="8.5" width="63.5" height="19"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Supply" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KP0-uo-vmL">
+                            <rect key="frame" x="30" y="8.5" width="50" height="19"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0O4-Zy-R0a">
-                            <rect key="frame" x="105.5" y="4.5" width="30" height="27"/>
+                            <rect key="frame" x="92" y="5" width="30" height="26"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                             <state key="normal" title="USD">
                                 <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -52,7 +65,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liu-Lh-O9r">
-                            <rect key="frame" x="145.5" y="4.5" width="30" height="27"/>
+                            <rect key="frame" x="132" y="5" width="30" height="26"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                             <state key="normal" title="ETH">
                                 <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -62,46 +75,107 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,320.65" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SF-2T-qWE">
-                            <rect key="frame" x="276.5" y="9.5" width="63.5" height="17"/>
+                            <rect key="frame" x="277.5" y="9.5" width="62.5" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORq-BI-4PO">
+                            <rect key="frame" x="172" y="5" width="30" height="26"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                            <state key="normal" title="BTC">
+                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="currencyTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="eaw-8l-RNE"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.090196078430000007" green="0.43921568630000002" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="4SF-2T-qWE" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="09D-eB-K3S"/>
+                        <constraint firstItem="ORq-BI-4PO" firstAttribute="centerY" secondItem="liu-Lh-O9r" secondAttribute="centerY" id="6Bg-Q3-oDC"/>
                         <constraint firstItem="0O4-Zy-R0a" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="PQe-Zj-3mc"/>
                         <constraint firstItem="liu-Lh-O9r" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="bwf-6G-0Zt"/>
                         <constraint firstItem="KP0-uo-vmL" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="hnG-0J-0nx"/>
                         <constraint firstAttribute="height" constant="36" id="hqY-NM-5WF"/>
                         <constraint firstItem="0O4-Zy-R0a" firstAttribute="leading" secondItem="KP0-uo-vmL" secondAttribute="trailing" constant="12" id="iSB-Dc-4CD"/>
                         <constraint firstAttribute="trailing" secondItem="4SF-2T-qWE" secondAttribute="trailing" constant="35" id="ths-0w-8Yu"/>
+                        <constraint firstItem="ORq-BI-4PO" firstAttribute="leading" secondItem="liu-Lh-O9r" secondAttribute="trailing" constant="10" id="y8Y-LN-8Na"/>
                         <constraint firstItem="liu-Lh-O9r" firstAttribute="leading" secondItem="0O4-Zy-R0a" secondAttribute="trailing" constant="10" id="yGg-Fc-vli"/>
                         <constraint firstItem="KP0-uo-vmL" firstAttribute="leading" secondItem="n01-H5-st5" secondAttribute="leading" constant="30" id="yJJ-lD-4Xv"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="oQR-9f-vGM">
-                    <rect key="frame" x="18" y="36" width="339" height="631"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="0uf-Gc-CsN"/>
-                        <outlet property="delegate" destination="-1" id="G0h-2o-i0d"/>
-                    </connections>
-                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qxe-2X-Laa">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="deposit_empty_icon" translatesAutoresizingMaskIntoConstraints="NO" id="lIH-Gw-DHK">
+                            <rect key="frame" x="142.5" y="45" width="90" height="107"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efr-Ch-pZj">
+                            <rect key="frame" x="37" y="232" width="301" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="bZn-Nk-Vn9"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <state key="normal" title="Supply tokens to earn interest">
+                                <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="supplyButtonTapped:" destination="-1" eventType="touchUpInside" id="bmb-4X-Suc"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTA-ba-2fd">
+                            <rect key="frame" x="37" y="300" width="301" height="36"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="36" id="i8a-fG-srL"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <state key="normal" title="Borrow tokens (Coming Soon)">
+                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’ve not deposited any token to earn interest." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuR-7A-37a">
+                            <rect key="frame" x="38" y="175" width="299.5" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="efr-Ch-pZj" secondAttribute="trailing" constant="37" id="5sj-ag-LmH"/>
+                        <constraint firstItem="vTA-ba-2fd" firstAttribute="top" secondItem="efr-Ch-pZj" secondAttribute="bottom" constant="32" id="Fcc-7L-C7X"/>
+                        <constraint firstItem="AuR-7A-37a" firstAttribute="centerX" secondItem="qxe-2X-Laa" secondAttribute="centerX" id="Kmj-Nv-rjh"/>
+                        <constraint firstItem="efr-Ch-pZj" firstAttribute="leading" secondItem="qxe-2X-Laa" secondAttribute="leading" constant="37" id="Umv-yd-eIP"/>
+                        <constraint firstItem="efr-Ch-pZj" firstAttribute="top" secondItem="AuR-7A-37a" secondAttribute="bottom" constant="40" id="XLs-ab-JNM"/>
+                        <constraint firstItem="AuR-7A-37a" firstAttribute="top" secondItem="lIH-Gw-DHK" secondAttribute="bottom" constant="23" id="dLX-tG-CcY"/>
+                        <constraint firstItem="lIH-Gw-DHK" firstAttribute="centerX" secondItem="qxe-2X-Laa" secondAttribute="centerX" id="dZX-2d-JNe"/>
+                        <constraint firstItem="lIH-Gw-DHK" firstAttribute="top" secondItem="qxe-2X-Laa" secondAttribute="top" constant="45" id="hb7-aj-3gR"/>
+                        <constraint firstItem="vTA-ba-2fd" firstAttribute="leading" secondItem="qxe-2X-Laa" secondAttribute="leading" constant="37" id="hw0-qE-rYY"/>
+                        <constraint firstAttribute="trailing" secondItem="vTA-ba-2fd" secondAttribute="trailing" constant="37" id="yXO-Xh-ktf"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="qxe-2X-Laa" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="5wR-8M-bkt"/>
                 <constraint firstItem="oQR-9f-vGM" firstAttribute="top" secondItem="n01-H5-st5" secondAttribute="bottom" id="KPX-ER-4oJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oQR-9f-vGM" secondAttribute="bottom" id="Kci-IB-sak"/>
                 <constraint firstItem="n01-H5-st5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NLs-e5-BgI"/>
                 <constraint firstItem="n01-H5-st5" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="PwJ-2q-cRv"/>
                 <constraint firstItem="n01-H5-st5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ReD-E2-gvn"/>
+                <constraint firstItem="qxe-2X-Laa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="S6i-GL-n7Q"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oQR-9f-vGM" secondAttribute="trailing" constant="18" id="WCz-bF-gaw"/>
                 <constraint firstItem="oQR-9f-vGM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="d3u-gM-jz6"/>
+                <constraint firstItem="qxe-2X-Laa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="oCM-f3-fdE"/>
+                <constraint firstItem="qxe-2X-Laa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vO0-gc-NJC"/>
             </constraints>
             <point key="canvasLocation" x="140" y="103.89805097451276"/>
         </view>
     </objects>
+    <resources>
+        <image name="deposit_empty_icon" width="90" height="107"/>
+    </resources>
 </document>

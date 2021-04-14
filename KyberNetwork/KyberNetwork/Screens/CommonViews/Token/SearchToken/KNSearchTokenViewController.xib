@@ -32,10 +32,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pXD-e9-UfM">
-                    <rect key="frame" x="0.0" y="267" width="375" height="400"/>
+                    <rect key="frame" x="0.0" y="167" width="375" height="500"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tvR-nt-YdR">
-                            <rect key="frame" x="0.0" y="90" width="375" height="310"/>
+                            <rect key="frame" x="0.0" y="90" width="375" height="410"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
@@ -74,7 +74,7 @@
                         <constraint firstItem="tvR-nt-YdR" firstAttribute="top" secondItem="puF-0q-Lpg" secondAttribute="bottom" constant="24" id="89N-vh-qrP"/>
                         <constraint firstItem="qBW-cK-YSw" firstAttribute="centerX" secondItem="pXD-e9-UfM" secondAttribute="centerX" id="ECf-Sc-Xct"/>
                         <constraint firstItem="tvR-nt-YdR" firstAttribute="leading" secondItem="pXD-e9-UfM" secondAttribute="leading" id="Hbd-1B-5Rr"/>
-                        <constraint firstAttribute="height" constant="400" id="Kzg-p7-T1j"/>
+                        <constraint firstAttribute="height" constant="500" id="Kzg-p7-T1j"/>
                         <constraint firstItem="qBW-cK-YSw" firstAttribute="top" secondItem="puF-0q-Lpg" secondAttribute="bottom" constant="55" id="QgV-Xe-9No"/>
                         <constraint firstAttribute="trailing" secondItem="tvR-nt-YdR" secondAttribute="trailing" id="RaR-Wn-JR7"/>
                         <constraint firstItem="puF-0q-Lpg" firstAttribute="leading" secondItem="pXD-e9-UfM" secondAttribute="leading" constant="37" id="kUt-4r-ySb"/>
@@ -89,7 +89,7 @@
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
-                <constraint firstItem="pXD-e9-UfM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="267" id="5Iz-Jp-Efs"/>
+                <constraint firstItem="pXD-e9-UfM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="167" id="5Iz-Jp-Efs"/>
                 <constraint firstItem="pXD-e9-UfM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="7DO-38-QNo"/>
                 <constraint firstItem="pXD-e9-UfM" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="YOB-O2-G9O"/>
             </constraints>

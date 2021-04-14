@@ -59,12 +59,11 @@ struct EarnConfirmViewModel {
     let string: String = self.transactionFee.displayRate(decimals: 18)
     return "\(string) ETH"
   }
-  
+
   var feeUSDString: String {
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
-    let usdRate: BigInt = KNRate.rateUSD(from: trackerRate).rate
-    let value: BigInt = usdRate * self.transactionFee / BigInt(EthereumUnit.ether.rawValue)
-    let valueString: String = value.displayRate(decimals: 18)
+    guard let price = KNTrackerRateStorage.shared.getETHPrice() else { return "" }
+    let usd = self.transactionFee * BigInt(price.usd * pow(10.0, 18.0)) / BigInt(10).power(18)
+    let valueString: String = usd.displayRate(decimals: 18)
     return "~ \(valueString) USD"
   }
 
@@ -76,6 +75,21 @@ struct EarnConfirmViewModel {
     let gasLimitText = EtherNumberFormatter.short.string(from: self.gasLimit, decimals: 0)
     let labelText = String(format: NSLocalizedString("%@ (Gas Price) * %@ (Gas Limit)", comment: ""), gasPriceText, gasLimitText)
     return labelText
+  }
+  
+  var usdValueBigInt: BigInt {
+    guard let rate = KNTrackerRateStorage.shared.getPriceWithAddress(self.token.address) else { return BigInt(0) }
+    let usd = self.amount * BigInt(rate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.token.decimals)
+    return usd
+  }
+  
+  var displayUSDValue: String {
+    return "~ \(self.usdValueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)) USD"
+  }
+  
+  var displayCompInfo: String {
+    let apy = String(format: "%.6f", self.platform.distributionSupplyRate * 100.0)
+    return "You will automatically earn COMP token (\(apy)% APY) for interacting with compound (supply or borrow).\n\nOnce redeemed, COMP token can be swapped to any token."
   }
 }
 
@@ -103,6 +117,8 @@ class EarnConfirmViewController: KNBaseViewController {
   @IBOutlet weak var framingIconContainerView: UIView!
   @IBOutlet weak var sendButtonTopContraint: NSLayoutConstraint!
   @IBOutlet weak var distributeAPYValueLabel: UILabel!
+  @IBOutlet weak var usdValueLabel: UILabel!
+  @IBOutlet weak var compInfoLabel: UILabel!
   
   weak var delegate: EarnConfirmViewControllerDelegate?
   
@@ -148,7 +164,8 @@ class EarnConfirmViewController: KNBaseViewController {
     self.platformNameLabel.text = self.viewModel.platform.name
     if self.viewModel.platform.isCompound {
       self.framingIconContainerView.isHidden = false
-      self.sendButtonTopContraint.constant = 133
+      self.sendButtonTopContraint.constant = 160
+      self.compInfoLabel.text = self.viewModel.displayCompInfo
       self.compInfoMessageContainerView.isHidden = false
     } else {
       self.framingIconContainerView.isHidden = true
@@ -162,14 +179,15 @@ class EarnConfirmViewController: KNBaseViewController {
       self.distributionAPYContainerView.isHidden = true
     } else {
       self.depositAPYBottomContraint.constant = 45
-      self.distributionAPYContainerView.isHidden = true
+      self.distributionAPYContainerView.isHidden = false
       self.distributeAPYValueLabel.text = self.viewModel.distributionAPYString
     }
     self.transactionFeeETHLabel.text = self.viewModel.feeETHString
     self.transactionFeeUSDLabel.text = self.viewModel.feeUSDString
     self.transactionGasPriceLabel.text = self.viewModel.transactionGasPriceString
     self.netAPYValueLabel.text = self.viewModel.netAPYString
-    
+    self.tokenIconImageView.setSymbolImage(symbol: self.viewModel.token.symbol)
+    self.usdValueLabel.text = self.viewModel.displayUSDValue
   }
   
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
@@ -180,11 +198,28 @@ class EarnConfirmViewController: KNBaseViewController {
     self.dismiss(animated: true, completion: nil)
   }
   
+  @IBAction func helpButtonTapped(_ sender: UIButton) {
+    self.showBottomBannerView(
+      message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
+      icon: UIImage(named: "help_icon_large") ?? UIImage(),
+      time: 10
+    )
+  }
+  
+  @IBAction func apyHelpButtonTapped(_ sender: UIButton) {
+    self.showBottomBannerView(
+      message: "Positive APY means you will receive interest and negative means you will pay interest.".toBeLocalised(),
+      icon: UIImage(named: "help_icon_large") ?? UIImage(),
+      time: 3
+    )
+  }
+  
   @IBAction func sendButtonTapped(_ sender: UIButton) {
     self.dismiss(animated: true) {
       let historyTransaction = InternalHistoryTransaction(type: .earn, state: .pending, fromSymbol: self.viewModel.token.symbol, toSymbol: self.viewModel.toTokenSym, transactionDescription: "\(self.viewModel.amountString) -> \(self.viewModel.toAmountString)", transactionDetailDescription: "", transactionObj: self.viewModel.transaction.toSignTransactionObject())
-      historyTransaction.transactionSuccessDescription = "\(self.viewModel.amountString) with \(self.viewModel.netAPYString) APY"
-      
+      historyTransaction.transactionSuccessDescription = "\(self.viewModel.amountString) with \(self.viewModel.netAPYString.dropFirst()) APY"
+      let earnTokenString = self.viewModel.platform.isCompound ? "c" + self.viewModel.token.symbol : "a" + self.viewModel.token.symbol
+      historyTransaction.earnTransactionSuccessDescription = "You’ve received \(earnTokenString) token because you supplied \(self.viewModel.token.symbol) in compound. Simply by holding \(earnTokenString) token, you will earn interest\nNo further action is needed at your side."
       self.delegate?.earnConfirmViewController(self, didConfirm: self.viewModel.transaction, amount: self.viewModel.amountString, netAPY: self.viewModel.netAPYString, platform: self.viewModel.platform, historyTransaction: historyTransaction)
     }
     
@@ -197,7 +232,7 @@ extension EarnConfirmViewController: BottomPopUpAbstract {
   }
 
   func getPopupHeight() -> CGFloat {
-    return self.viewModel.platform.isCompound ? 600 : 500
+    return self.viewModel.platform.isCompound ? 650 : 500
   }
 
   func getPopupContentView() -> UIView {

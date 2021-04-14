@@ -10,6 +10,7 @@ import UIKit
 enum CurrencyType {
   case eth
   case usd
+  case btc
 }
 
 enum OverviewContainerViewEvent {
@@ -17,6 +18,7 @@ enum OverviewContainerViewEvent {
   case receive
   case addCustomToken
   case krytal
+  case notifications
 }
 
 class OverviewContainerViewModel {
@@ -36,10 +38,19 @@ class OverviewContainerViewModel {
   }
 
   var displayTotalValue: String {
-    guard !self.hideBalanceStatus else { return "********"}
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let totalValueBigInt = self.assetsViewModel.totalValueBigInt + self.depositViewModel.totalValueBigInt
     let totalString = totalValueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-    return self.currencyType == .usd ? "$" + totalString : totalString
+    switch self.currencyType {
+    case .usd:
+      return "$" + totalString
+    case .eth:
+      return totalString + " ETH"
+    case .btc:
+      return totalString + " BTC"
+    }
   }
   
   var displayHideBalanceImage: UIImage {
@@ -203,6 +214,11 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.updateUITotalValue()
   }
   
+  @IBAction func notificationButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewContainerViewController(self, run: .notifications)
+  }
+  
+  
   fileprivate func getViewControllerWithIndex(_ index: Int) -> UIViewController {
     switch index {
     case 1:
@@ -245,6 +261,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.viewModel.session = session
     guard self.isViewLoaded else { return }
     self.updateUIWalletList()
+    self.updateUITotalValue()
     self.depositViewController.coordinatorUpdateNewSession(wallet: session.wallet)
     self.assetsViewController.coordinatorUpdateNewSession(wallet: session.wallet)
   }
@@ -261,5 +278,9 @@ extension OverviewContainerViewController: UITextFieldDelegate {
     self.marketViewController.coordinatorDidUpdateSearchText(text)
     self.assetsViewController.coordinatorDidUpdateSearchText(text)
     return true
+  }
+  
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    return false
   }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import BigInt
 
-class Token: Codable {
+class Token: Codable, Equatable, Hashable {
   var address: String
   var name: String
   var symbol: String
@@ -48,11 +48,24 @@ class Token: Codable {
     let price = KNTrackerRateStorage.shared.getPriceWithAddress(self.address) ?? TokenPrice(dictionary: [:])
     return price
   }
+  
+  static func ==(lhs: Token, rhs: Token) -> Bool {
+    return lhs.address == rhs.address
+  }
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(self.address)
+  }
 }
 
-struct TokenBalance: Codable {
+class TokenBalance: Codable {
   let address: String
-  let balance: String
+  var balance: String
+  
+  init(address: String, balance: String) {
+    self.address = address
+    self.balance = balance
+  }
 }
 
 struct EarnToken: Codable {
@@ -60,17 +73,21 @@ struct EarnToken: Codable {
   let lendingPlatforms: [LendingPlatformData]
 }
 
-struct TokenPrice: Codable {
+class TokenPrice: Codable {
   let address: String
-  let usd: Double
-  let usdMarketCap: Double
-  let usd24hVol: Double
-  let usd24hChange: Double
-  let eth: Double
-  let ethMarketCap: Double
-  let eth24hVol: Double
-  let eth24hChange: Double
-  let lastUpdateAt: Int
+  var usd: Double
+  var usdMarketCap: Double
+  var usd24hVol: Double
+  var usd24hChange: Double
+  var eth: Double
+  var ethMarketCap: Double
+  var eth24hVol: Double
+  var eth24hChange: Double
+  var btc: Double
+  var btcMarketCap: Double
+  var btc24hVol: Double
+  var btc24hChange: Double
+  var lastUpdateAt: Int
 
   init(dictionary: JSONDictionary) {
     self.address = (dictionary["address"] as? String ?? "").lowercased()
@@ -78,10 +95,14 @@ struct TokenPrice: Codable {
     self.usdMarketCap = dictionary["usd_market_cap"] as? Double ?? 0.0
     self.usd24hVol = dictionary["usd_24h_vol"] as? Double ?? 0.0
     self.usd24hChange = dictionary["usd_24h_change"] as? Double ?? 0.0
-    self.eth = dictionary["usd"] as? Double ?? 0.0
-    self.ethMarketCap = dictionary["usd_market_cap"] as? Double ?? 0.0
-    self.eth24hVol = dictionary["usd_24h_vol"] as? Double ?? 0.0
-    self.eth24hChange = dictionary["usd_24h_change"] as? Double ?? 0.0
+    self.eth = dictionary["eth"] as? Double ?? 0.0
+    self.ethMarketCap = dictionary["eth_market_cap"] as? Double ?? 0.0
+    self.eth24hVol = dictionary["eth_24h_vol"] as? Double ?? 0.0
+    self.eth24hChange = dictionary["eth_24h_change"] as? Double ?? 0.0
+    self.btc = dictionary["btc"] as? Double ?? 0.0
+    self.btcMarketCap = dictionary["btc_market_cap"] as? Double ?? 0.0
+    self.btc24hVol = dictionary["btc_24h_vol"] as? Double ?? 0.0
+    self.btc24hChange = dictionary["btc_24h_change"] as? Double ?? 0.0
     self.lastUpdateAt = dictionary["last_updated_at"] as? Int ?? 0
   }
 }

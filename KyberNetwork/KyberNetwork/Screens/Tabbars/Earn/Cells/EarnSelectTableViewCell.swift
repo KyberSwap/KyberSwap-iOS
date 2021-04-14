@@ -11,13 +11,13 @@ class EarnSelectTableViewCellViewModel {
   var isSelected: Bool
   let platform: String
   let distributionSupplyRate: Double
-  let stableBorrowRate: Double
+  let supplyRate: Double
 
   init(platform: LendingPlatformData, isSelected: Bool = false) {
     self.isSelected = isSelected
     self.platform = platform.name
     self.distributionSupplyRate = platform.distributionSupplyRate
-    self.stableBorrowRate = platform.stableBorrowRate
+    self.supplyRate = platform.supplyRate
   }
   
   func distributionSupplyRateDiplayString() -> String {
@@ -29,10 +29,10 @@ class EarnSelectTableViewCellViewModel {
   }
 
   func stableBorrowRateDiplayString() -> String {
-    if self.stableBorrowRate == 0 {
+    if self.supplyRate == 0 {
       return ""
     } else {
-      return String(format: "%.2f", self.stableBorrowRate * 100.0) + "%"
+      return String(format: "%.6f", self.supplyRate * 100.0) + "%"
     }
   }
 }

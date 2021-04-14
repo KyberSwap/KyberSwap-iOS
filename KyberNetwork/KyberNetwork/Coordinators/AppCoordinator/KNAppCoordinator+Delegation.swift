@@ -103,6 +103,11 @@ extension KNAppCoordinator: EarnCoordinatorDelegate {
 }
 
 extension KNAppCoordinator: OverviewCoordinatorDelegate {
+  func overviewCoordinatorDidSelectDepositMore(tokenAddress: String) {
+    self.tabbarController.selectedIndex = 3
+    self.earnCoordinator?.appCoodinatorDidOpenEarnView(tokenAddress: tokenAddress)
+  }
+  
   func overviewCoordinatorDidSelectSwapToken(token: Token, isBuy: Bool) {
     //TODO: temp use token realm object for swap atm, support custom token
      let tokenObject = KNSupportedTokenStorage.shared.get(forPrimaryKey: token.address.lowercased()) ?? KNSupportedTokenStorage.shared.ethToken
@@ -251,14 +256,14 @@ extension KNAppCoordinator: KNPasscodeCoordinatorDelegate {
   }
 }
 
-extension KNAppCoordinator: KNExploreCoordinatorDelegate {
-  func exploreCoordinatorOpenManageOrder() {
-//    self.tabbarController.selectedIndex = 2
-//    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
-  }
-
-  func exploreCoordinatorOpenSwap(from: String, to: String) {
-    self.tabbarController.selectedIndex = 1
-    self.exchangeCoordinator?.appCoordinatorPushNotificationOpenSwap(from: from, to: to)
-  }
-}
+//extension KNAppCoordinator: KNExploreCoordinatorDelegate {
+//  func exploreCoordinatorOpenManageOrder() {
+////    self.tabbarController.selectedIndex = 2
+////    self.limitOrderCoordinator?.appCoordinatorOpenManageOrder()
+//  }
+//
+//  func exploreCoordinatorOpenSwap(from: String, to: String) {
+//    self.tabbarController.selectedIndex = 1
+//    self.exchangeCoordinator?.appCoordinatorPushNotificationOpenSwap(from: from, to: to)
+//  }
+//}

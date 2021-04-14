@@ -269,15 +269,16 @@ enum HistoryModelType: Codable {
 
 class InternalHistoryTransaction: Codable {
   var hash: String = ""
-  let type: HistoryModelType
+  var type: HistoryModelType
   var time: Date = Date()
   var nonce: Int = -1
   var state: InternalTransactionState
   let fromSymbol: String?
   let toSymbol: String?
-  let transactionDescription: String
+  var transactionDescription: String
   let transactionDetailDescription: String
   var transactionSuccessDescription: String?
+  var earnTransactionSuccessDescription: String?
   var transactionObject: SignTransactionObject
 
   init(type: HistoryModelType, state: InternalTransactionState, fromSymbol: String?, toSymbol: String?, transactionDescription: String, transactionDetailDescription: String, transactionObj: SignTransactionObject) {
@@ -291,7 +292,7 @@ class InternalHistoryTransaction: Codable {
   }
 }
 
-struct HistoryTransaction {
+struct HistoryTransaction: Codable {
   let type: HistoryModelType
   let timestamp: String
   let transacton: [EtherscanTransaction]

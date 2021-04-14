@@ -6,7 +6,7 @@ import Moya
 class KNSupportedTokenCoordinator {
 
   static let shared = KNSupportedTokenCoordinator()
-  fileprivate let provider = MoyaProvider<KyberNetworkService>()
+  fileprivate let provider = MoyaProvider<KrytalService>()
 
   fileprivate var timer: Timer?
 
@@ -28,7 +28,7 @@ class KNSupportedTokenCoordinator {
 
   fileprivate func fetchSupportedTokens() {
     DispatchQueue.global(qos: .background).async {
-      self.provider.request(.supportedToken) { result in
+      self.provider.request(.getTokenList) { result in
         DispatchQueue.main.async {
           switch result {
           case .success(let response):

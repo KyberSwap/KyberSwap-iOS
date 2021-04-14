@@ -31,11 +31,14 @@ struct KConfirmSwapViewModel {
   }
 
   var equivalentUSDAmount: BigInt? {
-    if let usdRate = KNRateCoordinator.shared.usdRate(for: self.transaction.to) {
-      let expectedReceive = self.transaction.expectedReceive
-      return usdRate.rate * expectedReceive / BigInt(10).power(self.transaction.to.decimals)
-    }
-    return nil
+    guard let rate = KNTrackerRateStorage.shared.getPriceWithAddress(self.transaction.to.address) else { return nil }
+//    if let usdRate = KNRateCoordinator.shared.usdRate(for: self.transaction.to) {
+//      let expectedReceive = self.transaction.expectedReceive
+//      return usdRate.rate * expectedReceive / BigInt(10).power(self.transaction.to.decimals)
+//    }
+//    return nil
+    let usd = self.transaction.expectedReceive * BigInt(rate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.transaction.to.decimals)
+    return usd
   }
 
   var displayEquivalentUSDAmount: String? {
@@ -50,7 +53,7 @@ struct KConfirmSwapViewModel {
   }
 
   var displayEstimatedRate: String {
-    let rateString = self.transaction.expectedRate.displayRate(decimals: transaction.to.decimals)
+    let rateString = self.transaction.expectedRate.displayRate(decimals: 18)
     return "1 \(self.transaction.from.symbol) = \(rateString) \(self.transaction.to.symbol)"
   }
 
@@ -62,7 +65,7 @@ struct KConfirmSwapViewModel {
 
   var minRateString: String {
     let minRate = self.transaction.minRate ?? BigInt(0)
-    return minRate.displayRate(decimals: self.transaction.to.decimals)
+    return minRate.displayRate(decimals: 18)
   }
 
   var transactionFee: BigInt {
@@ -77,17 +80,21 @@ struct KConfirmSwapViewModel {
   }
 
   var feeUSDString: String {
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
-    let usdRate: BigInt = KNRate.rateUSD(from: trackerRate).rate
-    let value: BigInt = usdRate * self.transactionFee / BigInt(EthereumUnit.ether.rawValue)
-    let valueString: String = value.displayRate(decimals: 18)
+//    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
+//    let usdRate: BigInt = KNRate.rateUSD(from: trackerRate).rate
+//    let value: BigInt = usdRate * self.transactionFee / BigInt(EthereumUnit.ether.rawValue)
+//    let valueString: String = value.displayRate(decimals: 18)
+//    return "~ \(valueString) USD"
+    guard let price = KNTrackerRateStorage.shared.getETHPrice() else { return "" }
+    let usd = self.transactionFee * BigInt(price.usd * pow(10.0, 18.0)) / BigInt(10).power(18)
+    let valueString: String = usd.displayRate(decimals: 18)
     return "~ \(valueString) USD"
   }
 
   var warningETHBalanceShown: Bool {
     if !self.transaction.from.isETH { return false }
     let totalAmount = self.transactionFee + self.transaction.amount
-    return self.ethBalance - totalAmount <= BigInt(0.01 * pow(10.0, 18.0))
+    return self.self.transaction.from.getBalanceBigInt() - totalAmount <= BigInt(0.01 * pow(10.0, 18.0))
   }
 
   var transactionGasPriceString: String {

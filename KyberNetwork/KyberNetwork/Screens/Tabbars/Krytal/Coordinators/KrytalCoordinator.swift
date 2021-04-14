@@ -29,10 +29,19 @@ class KrytalCoordinator: NSObject, Coordinator {
     return controller
   }()
   
+  lazy var historyViewController: KrytalHistoryViewController = {
+    let controller = KrytalHistoryViewController()
+    controller.delegate = self
+    return controller
+  }()
+  
   fileprivate var currentWallet: KNWalletObject {
     let address = self.session.wallet.address.description
     return KNWalletStorage.shared.get(forPrimaryKey: address) ?? KNWalletObject(address: address)
   }
+  
+  fileprivate var historyTxTimer: Timer?
+  weak var claimViewController: ClaimRewardViewController?
   
   init(navigationController: UINavigationController = UINavigationController(), session: KNSession) {
     self.navigationController = navigationController
@@ -43,17 +52,26 @@ class KrytalCoordinator: NSObject, Coordinator {
   func start() {
     self.navigationController.pushViewController(self.rootViewController, animated: true)
     self.rootViewController.coordinatorDidUpdateWallet(self.session.wallet)
+    self.historyViewController.coordinatorDidUpdateWallet(self.session.wallet)
     self.loadCachedReferralOverview()
+//    self.loadCachedClaimHistory()
     self.loadReferralOverview()
+    self.loadClaimHistory()
+    self.historyTxTimer = Timer(timeInterval: KNLoadingInterval.seconds60, repeats: true, block: { (timer) in
+//      self.loadClaimHistory()
+      self.loadReferralOverview()
+    })
+    self.checkWallet()
   }
 
   func stop() {
     
   }
 
-  fileprivate func loadReferralOverview() {
+  func loadReferralOverview() {
+    guard let loginToken = Storage.retrieve(self.session.wallet.address.description + Constants.loginTokenStoreFileName, as: LoginToken.self) else { return }
     let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-    provider.request(.getReferralOverview(address: self.session.wallet.address.description)) { (result) in
+    provider.request(.getReferralOverview(address: self.session.wallet.address.description, accessToken: loginToken.token)) { (result) in
       switch result {
       case .success(let resp):
         let decoder = JSONDecoder()
@@ -63,16 +81,43 @@ class KrytalCoordinator: NSObject, Coordinator {
           Storage.store(data.overview, as: self.session.wallet.address.description + Constants.referralOverviewStoreFileName)
         } catch let error {
           print("[Invest] \(error.localizedDescription)")
+          self.loadReferralOverview()
+        }
+      case .failure(let error):
+        print("[Invest] \(error.localizedDescription)")
+        self.loadReferralOverview()
+      }
+    }
+  }
+
+  fileprivate func loadClaimHistory() {
+    guard let loginToken = Storage.retrieve(self.session.wallet.address.description + Constants.loginTokenStoreFileName, as: LoginToken.self) else { return }
+    let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    provider.request(.getClaimHistory(address: self.session.wallet.address.description, accessToken: loginToken.token)) { (result) in
+      switch result {
+      case .success(let resp):
+        let decoder = JSONDecoder()
+        do {
+          let data = try decoder.decode(ClaimHistoryResponse.self, from: resp.data)
+          self.historyViewController.coordinatorDidUpdateClaimedTransaction(data.claims)
+          Storage.store(data.claims, as: self.session.wallet.address.description + Constants.krytalHistoryStoreFileName)
+        } catch let error {
+          print("[Invest] \(error.localizedDescription)")
         }
       case .failure(let error):
         print("[Invest] \(error.localizedDescription)")
       }
     }
   }
-  
+
   fileprivate func loadCachedReferralOverview() {
-    guard let overview = Storage.retrieve(self.session.wallet.address.description + Constants.referralOverviewStoreFileName, as: Overview.self) else { return }
+    let overview = Storage.retrieve(self.session.wallet.address.description + Constants.referralOverviewStoreFileName, as: Overview.self)
     self.rootViewController.coordinatorDidUpdateOverviewReferral(overview)
+  }
+  
+  fileprivate func loadCachedClaimHistory() {
+    let history = Storage.retrieve(self.session.wallet.address.description + Constants.krytalHistoryStoreFileName, as: [Claim].self) ?? []
+    self.historyViewController.coordinatorDidUpdateClaimedTransaction(history)
   }
   
   fileprivate func openWalletListView() {
@@ -84,12 +129,23 @@ class KrytalCoordinator: NSObject, Coordinator {
     walletsList.delegate = self
     self.navigationController.present(walletsList, animated: true, completion: nil)
   }
-  
+
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
     self.session = session
+    self.checkWallet()
     self.rootViewController.coordinatorDidUpdateWallet(self.session.wallet)
+    self.historyViewController.coordinatorDidUpdateWallet(self.session.wallet)
     self.loadCachedReferralOverview()
+    self.loadCachedClaimHistory()
     self.loadReferralOverview()
+    self.loadClaimHistory()
+  }
+  
+  fileprivate func checkWallet() {
+    guard case .real(let account) = self.session.wallet.type else {
+      self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
+      return
+    }
   }
 }
 
@@ -101,9 +157,12 @@ extension KrytalCoordinator: KrytalViewControllerDelegate {
       let controller = ShareReferralLinkViewController(viewModel: viewModel)
       self.navigationController.present(controller, animated: true, completion: nil)
     case .openHistory:
-      break
+      self.navigationController.pushViewController(self.historyViewController, animated: true)
     case .openWalletList:
       self.openWalletListView()
+    case .claim(amount: let amount):
+//      let controller = ClaimRewardViewController(viewModel: ClaimRewardViewModel(claimablePoint: amount))
+    break
     }
   }
 }
@@ -154,6 +213,17 @@ extension KrytalCoordinator: QRCodeReaderDelegate {
         knSession: self.session
       )
       self.navigationController.present(controller, animated: true, completion: nil)
+    }
+  }
+}
+
+extension KrytalCoordinator: KrytalHistoryViewControllerDelegate {
+  func krytalHistoryViewController(_ controller: KrytalHistoryViewController, run event: KrytalHistoryViewEvent) {
+    switch event {
+    case .openWalletList:
+      self.openWalletListView()
+    case .select(hash: let hash):
+    self.navigationController.openSafari(with: KNEnvironment.default.etherScanIOURLString + "tx/\(hash)")
     }
   }
 }

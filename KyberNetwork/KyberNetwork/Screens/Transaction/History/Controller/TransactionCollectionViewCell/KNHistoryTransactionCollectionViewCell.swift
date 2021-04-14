@@ -91,7 +91,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
 
     return result
   }
-  
+
   var displayedAmountString: String {
     switch self.data.type {
     case .swap:
@@ -114,6 +114,12 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     case .receiveETH:
       if let receiveEthTx = self.data.internalTransactions.first(where: { (transaction) -> Bool in
         return transaction.from.lowercased() == self.data.wallet
+      }) {
+        let valueBigInt = BigInt(receiveEthTx.value) ?? BigInt(0)
+        let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
+        return "+ \(valueString) ETH"
+      } else if let receiveEthTx = self.data.transacton.first(where: { (transaction) -> Bool in
+        return transaction.to.lowercased() == self.data.wallet
       }) {
         let valueBigInt = BigInt(receiveEthTx.value) ?? BigInt(0)
         let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
@@ -272,7 +278,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     case .allowance:
       return "APPROVE"
     case .earn:
-      return "DEPOSIT"
+      return "SUPPLY"
     case .contractInteraction:
       return "CONTRACT INTERACT"
     case .selfTransfer:
@@ -385,7 +391,7 @@ class PendingInternalHistoryTransactonViewModel: AbstractHistoryTransactionViewM
     case .allowance:
       return "APPROVE"
     case .earn:
-      return "DEPOSIT"
+      return "SUPPLY"
     case .contractInteraction:
       return "CONTRACT INTERACT"
     case .selfTransfer:

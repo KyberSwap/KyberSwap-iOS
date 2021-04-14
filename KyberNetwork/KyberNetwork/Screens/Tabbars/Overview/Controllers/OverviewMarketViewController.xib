@@ -18,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewMarketViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="btcButton" destination="3Qu-mE-Hxo" id="LJj-zO-VfU"/>
                 <outlet property="ethButton" destination="wdP-qU-xWP" id="4uR-b2-nRB"/>
                 <outlet property="favouriteButton" destination="ajX-7e-hWM" id="Ouq-az-ZPi"/>
                 <outlet property="tableView" destination="JUm-3S-LXP" id="2wv-Tb-RZL"/>
@@ -31,6 +32,7 @@
                 <outletCollection property="sortingImageIndicator" destination="KKO-1D-3aa" collectionClass="NSMutableArray" id="dom-De-RMg"/>
                 <outletCollection property="sortingImageIndicator" destination="z2I-Gl-UYh" collectionClass="NSMutableArray" id="UGD-XP-PPy"/>
                 <outletCollection property="sortingImageIndicator" destination="qJg-lR-RyE" collectionClass="NSMutableArray" id="gfn-Fe-609"/>
+                <outletCollection property="currencySelectButtons" destination="3Qu-mE-Hxo" collectionClass="NSMutableArray" id="p0n-cC-tXp"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -42,13 +44,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Market" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gC-l6-pVe">
-                            <rect key="frame" x="30" y="8.5" width="50" height="19"/>
+                            <rect key="frame" x="30" y="8.5" width="53" height="19"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kf-Bt-4py">
-                            <rect key="frame" x="92" y="5" width="30" height="26"/>
+                            <rect key="frame" x="95" y="4.5" width="30" height="27"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                             <state key="normal" title="USD">
                                 <color key="titleColor" red="1" green="0.86274509803921573" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -58,7 +60,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wdP-qU-xWP">
-                            <rect key="frame" x="132" y="5" width="30" height="26"/>
+                            <rect key="frame" x="135" y="4.5" width="30" height="27"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                             <state key="normal" title="ETH">
                                 <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -74,10 +76,21 @@
                                 <action selector="favouriteButtonTapped:" destination="-1" eventType="touchUpInside" id="kcx-mq-3Vf"/>
                             </connections>
                         </button>
+                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Qu-mE-Hxo">
+                            <rect key="frame" x="175" y="4.5" width="30" height="27"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                            <state key="normal" title="BTC">
+                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="currencyTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="dvd-tX-rWt"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.090196078431372548" green="0.4392156862745098" blue="0.55294117647058827" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="8kf-Bt-4py" firstAttribute="leading" secondItem="9gC-l6-pVe" secondAttribute="trailing" constant="12" id="0Ok-U1-PxQ"/>
+                        <constraint firstItem="3Qu-mE-Hxo" firstAttribute="centerY" secondItem="wdP-qU-xWP" secondAttribute="centerY" id="0vm-hu-rp8"/>
                         <constraint firstItem="8kf-Bt-4py" firstAttribute="centerY" secondItem="2IE-bj-6Ed" secondAttribute="centerY" id="Gcu-xZ-B6h"/>
                         <constraint firstItem="wdP-qU-xWP" firstAttribute="centerY" secondItem="2IE-bj-6Ed" secondAttribute="centerY" id="JRk-cj-3JP"/>
                         <constraint firstItem="ajX-7e-hWM" firstAttribute="centerY" secondItem="2IE-bj-6Ed" secondAttribute="centerY" id="MVt-jH-KUg"/>
@@ -86,6 +99,7 @@
                         <constraint firstItem="9gC-l6-pVe" firstAttribute="centerY" secondItem="2IE-bj-6Ed" secondAttribute="centerY" id="nzt-kp-zgm"/>
                         <constraint firstAttribute="height" constant="36" id="rLJ-33-haw"/>
                         <constraint firstItem="9gC-l6-pVe" firstAttribute="leading" secondItem="2IE-bj-6Ed" secondAttribute="leading" constant="30" id="vdW-rh-vWY"/>
+                        <constraint firstItem="3Qu-mE-Hxo" firstAttribute="leading" secondItem="wdP-qU-xWP" secondAttribute="trailing" constant="10" id="yL5-iA-C05"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pmf-zz-W1g">
@@ -106,7 +120,7 @@
                             <rect key="frame" x="56" y="8" width="8" height="8"/>
                         </imageView>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwJ-gj-MQ9">
-                            <rect key="frame" x="167" y="6" width="39" height="12"/>
+                            <rect key="frame" x="166" y="6" width="40" height="12"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
                             <state key="normal" title="Price">
@@ -120,7 +134,7 @@
                             <rect key="frame" x="194" y="8" width="8" height="8"/>
                         </imageView>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="23g-zt-c5z">
-                            <rect key="frame" x="250" y="6" width="57" height="12"/>
+                            <rect key="frame" x="253" y="6" width="54" height="12"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                             <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
                             <state key="normal" title="24h ch%">

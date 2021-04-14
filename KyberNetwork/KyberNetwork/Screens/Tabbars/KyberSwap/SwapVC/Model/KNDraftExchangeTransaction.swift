@@ -24,7 +24,7 @@ extension KNDraftExchangeTransaction {
   }
 
   var expectedReceive: BigInt {
-    return amount * expectedRate / BigInt(10).power(from.decimals)
+    return amount * expectedRate * BigInt(10).power(to.decimals) / BigInt(10).power(from.decimals) / BigInt(10).power(18)
   }
 
   func displayExpectedReceive(short: Bool = true) -> String {
@@ -35,7 +35,7 @@ extension KNDraftExchangeTransaction {
   }
 
   func displayExpectedRate(short: Bool = true) -> String {
-    return short ? expectedRate.shortString(decimals: to.decimals) : expectedRate.fullString(decimals: to.decimals)
+    return short ? expectedRate.shortString(decimals: 18) : expectedRate.fullString(decimals: 18)
   }
 
   func displayMinRate(short: Bool = true) -> String? {
@@ -55,23 +55,17 @@ extension KNDraftExchangeTransaction {
   }
 
   var usdValueStringForFee: String {
-    let eth = KNSupportedTokenStorage.shared.supportedTokens.first(where: { $0.isETH })!
-    let rate = KNRateCoordinator.shared.usdRate(for: eth)?.rate ?? BigInt(0)
-    return (rate * fee / BigInt(EthereumUnit.ether.rawValue)).shortString(units: .ether)
-  }
-
-  var usdRateForFromToken: KNRate? {
-    return KNRateCoordinator.shared.usdRate(for: from)
+    guard let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.to.address) else { return "" }
+    let feeUSD = self.fee * BigInt(tokenPrice.usd * pow(10.0, 18.0)) / BigInt(10).power(self.to.decimals)
+    return feeUSD.shortString(units: .ether)
   }
 
   var usdValueStringForFromToken: String {
-    let rate = usdRateForFromToken?.rate ?? BigInt(0)
-    return (rate * amount / BigInt(EthereumUnit.ether.rawValue)).shortString(units: .ether)
+    guard let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.to.address) else { return "" }
+    let feeUSD = self.amount * BigInt(tokenPrice.usd * pow(10.0, 18.0)) / BigInt(10).power(self.from.decimals)
+    return feeUSD.shortString(units: .ether)
   }
 
-  var usdRateForToToken: KNRate? {
-    return KNRateCoordinator.shared.usdRate(for: to)
-  }
 }
 
 extension KNDraftExchangeTransaction {

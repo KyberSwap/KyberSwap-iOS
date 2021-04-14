@@ -34,7 +34,7 @@ enum KNEnvironment: Int {
   }
 
   static var `default`: KNEnvironment {
-    return KNAppTracker.externalEnvironment()
+    return .production
   }
 
   var isMainnet: Bool {
@@ -83,6 +83,19 @@ enum KNEnvironment: Int {
     case .ropsten: return "http://api-ropsten.etherscan.io/"
     case .kovan: return "http://api-kovan.etherscan.io/"
     case .rinkeby: return "https://api-rinkeby.etherscan.io/"
+    }
+  }
+  
+  var krystalEndpoint: String {
+    switch self {
+    case .production:
+      return KNSecret.productionKrytalURL
+    case .ropsten:
+      return KNSecret.devKrytalURL
+    case .staging:
+      return KNSecret.staggingKrytalURL
+    default:
+      return ""
     }
   }
 

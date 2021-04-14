@@ -14,9 +14,6 @@
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
-        </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
         </array>
@@ -60,8 +57,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbp-fJ-pmC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KyberSwap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4f-Nd-lmp">
-                            <rect key="frame" x="37" y="66" width="90" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4f-Nd-lmp">
+                            <rect key="frame" x="37" y="66" width="44.5" height="21"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -92,7 +89,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sua-kO-m25">
                             <rect key="frame" x="225" y="60.5" width="32" height="32"/>
-                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="Hsz-EU-iPw"/>
                                 <constraint firstAttribute="height" constant="32" id="c5V-wh-p30"/>
@@ -123,7 +120,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="9cQ-df-sfG" firstAttribute="leading" secondItem="Sua-kO-m25" secondAttribute="leading" id="3fU-Dv-NXK"/>
                         <constraint firstItem="icW-gp-OKH" firstAttribute="centerY" secondItem="V4f-Nd-lmp" secondAttribute="centerY" id="6fL-AV-Ffn"/>
@@ -197,7 +194,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="jY8-6N-mEx" firstAttribute="centerY" secondItem="IWS-1b-dbc" secondAttribute="centerY" id="56z-NI-Xe3"/>
                                 <constraint firstItem="3dP-Z3-N6g" firstAttribute="centerY" secondItem="IWS-1b-dbc" secondAttribute="centerY" id="9BT-3j-tnI"/>
@@ -245,7 +242,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="Hu8-ec-ud1" secondAttribute="bottom" id="04l-6g-zkf"/>
                                 <constraint firstItem="2ue-dF-Sxj" firstAttribute="leading" secondItem="EfQ-Sl-42G" secondAttribute="leading" constant="16" id="3Rv-z4-fZf"/>
@@ -373,12 +370,12 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJW-Oi-0g6">
                             <rect key="frame" x="195" y="353" width="143" height="42"/>
-                            <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="HoO-Mo-WFQ"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                            <state key="normal" title="CONTINUE">
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                            <state key="normal" title="CONTINUE" backgroundImage="krystal_button_bg">
                                 <color key="titleColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -404,13 +401,13 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hag-Sy-it8">
                             <rect key="frame" x="37" y="353" width="143" height="42"/>
-                            <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="37s-FI-M9m"/>
                                 <constraint firstAttribute="width" priority="250" id="QOV-jL-TBg"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                            <state key="normal" title="Approve KNC">
+                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                            <state key="normal" title="Approve KNC" backgroundImage="krystal_button_bg">
                                 <color key="titleColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -497,14 +494,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="672-IB-0ad">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                     <viewLayoutGuide key="safeArea" id="dXy-Qk-3ur"/>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="2xL-vo-NWz"/>
                     </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.29803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="P3a-OW-m6C" secondAttribute="trailing" id="0hB-5h-k5m"/>
@@ -538,6 +535,7 @@
         <image name="config_icon" width="14" height="14"/>
         <image name="history_icon" width="22" height="20"/>
         <image name="info_waring_blue_icon" width="14" height="14"/>
+        <image name="krystal_button_bg" width="300" height="42"/>
         <image name="swap_vertical_icon_blue" width="20" height="20"/>
         <image name="uniswap_icon" width="16" height="16"/>
     </resources>

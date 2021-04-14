@@ -29,7 +29,7 @@ class KNExternalProvider {
     self.web3Swift = web3
     let customRPC: KNCustomRPC = KNEnvironment.default.knCustomRPC!
     self.knCustomRPC = customRPC
-    self.networkAddress = Address(string: "0x4A0C59CcCae7B4F0732a4A1b9A7BDA49cc1d88F9")! //TODO: hard code ropten remove leater
+    self.networkAddress = Address(string: Constants.krystalProxyAddress)! //TODO: hard code ropten remove leater
     self.minTxCount = 0
     self.limitOrderAddress = Address(string: customRPC.limitOrderAddress)
   }

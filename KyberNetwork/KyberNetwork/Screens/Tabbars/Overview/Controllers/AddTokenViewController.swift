@@ -44,6 +44,9 @@ class AddTokenViewController: KNBaseViewController {
       self.symbolField.text = ""
       self.decimalsField.text = ""
     }
+    self.addressField.attributedPlaceholder = NSAttributedString(string: "Smart contract", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
+    self.symbolField.attributedPlaceholder = NSAttributedString(string: "Token symbol", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
+    self.decimalsField.attributedPlaceholder = NSAttributedString(string: "Decimals", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
   }
   
   override func viewDidLayoutSubviews() {

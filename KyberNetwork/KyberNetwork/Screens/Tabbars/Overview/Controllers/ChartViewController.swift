@@ -45,10 +45,10 @@ class ChartViewModel {
   }
   
   var displayPrice: String {
-    guard let unwrapped = self.detailInfo else {
+    guard let unwrapped = KNTrackerRateStorage.shared.getPriceWithAddress(self.token.address) else {
       return "---"
     }
-    return "$\(unwrapped.marketData.currentPrice?["usd"] ?? 0)"
+    return "$\(unwrapped.usd)"
   }
 
   var display24hVol: String {
@@ -104,7 +104,7 @@ class ChartViewModel {
   
   var displayDescription: String {
     guard let description = self.detailInfo?.tokenDetailDataDescription.en, !description.isEmpty else {
-      return self.detailInfo?.icoData.icoDataDescription ?? ""
+      return self.detailInfo?.icoData?.icoDataDescription ?? ""
     }
     return description
   }
@@ -144,6 +144,37 @@ class ChartViewModel {
     } else {
       return "\(Int(number))"
     }
+  }
+  
+  func displayChartDetaiInfoAt(index: Int) -> NSAttributedString {
+    guard let priceItem = self.chartData?.prices[index],
+    let volumeItem = self.chartData?.totalVolumes[index],
+    let price = priceItem.last,
+    let volume = volumeItem.last,
+    let timestamp = priceItem.first
+    else {
+      return NSAttributedString()
+    }
+    let date = Date(timeIntervalSince1970: timestamp * 0.001)
+    let dateFormater = DateFormatterUtil.shared.chartViewDateFormatter
+    let dateString = dateFormater.string(from: date)
+    let normalAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 10),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
+    ]
+    let boldAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.font: UIFont.Kyber.latoBold(with: 10),
+      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
+    ]
+    let priceBigInt = BigInt(price * pow(10.0, 18.0))
+    let volumeBigInt = BigInt(volume * pow(10.0, 18.0))
+    let attributedText = NSMutableAttributedString()
+    attributedText.append(NSAttributedString(string: dateString + " ", attributes: boldAttributes))
+    attributedText.append(NSAttributedString(string: "  Price" + ": ", attributes: boldAttributes))
+    attributedText.append(NSAttributedString(string: "$\(priceBigInt.string(decimals: 18, minFractionDigits: 4, maxFractionDigits: 4))", attributes: normalAttributes))
+    attributedText.append(NSAttributedString(string: "  Volume" + ": ", attributes: boldAttributes))
+    attributedText.append(NSAttributedString(string: "$\(volumeBigInt.string(decimals: 18, minFractionDigits: 4, maxFractionDigits: 4))", attributes: normalAttributes))
+    return attributedText
   }
 }
 
@@ -205,6 +236,7 @@ class ChartViewController: KNBaseViewController {
   @IBOutlet weak var swapButton: UIButton!
   @IBOutlet weak var investButton: UIButton!
   @IBOutlet weak var descriptionTextView: GrowingTextView!
+  @IBOutlet weak var chartDetailLabel: UILabel!
   
   
   weak var delegate: ChartViewControllerDelegate?
@@ -355,8 +387,10 @@ class ChartViewController: KNBaseViewController {
 
 extension ChartViewController: ChartDelegate {
   func didTouchChart(_ chart: Chart, indexes: [Int?], x: Double, left: CGFloat) {
-    print("[Chart] \(x) \(left)")
-    
+    guard let index = indexes.first, let unwrappedIdx = index else {
+      return
+    }
+    self.chartDetailLabel.attributedText = self.viewModel.displayChartDetaiInfoAt(index: unwrappedIdx)
   }
   
   func didFinishTouchingChart(_ chart: Chart) {
@@ -366,6 +400,4 @@ extension ChartViewController: ChartDelegate {
   func didEndTouchingChart(_ chart: Chart) {
     
   }
-  
-  
 }

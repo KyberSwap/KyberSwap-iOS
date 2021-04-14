@@ -14,12 +14,12 @@ class KrytalViewModel {
   
   var displayTotalKrytalPoint: String {
     guard let unwrapped = self.overview else { return "---" }
-    return "\(unwrapped.totalPoint) KP"
+    return "\(unwrapped.claimablePoint) KP"
   }
   
   var displayTotalETHPoint: String {
     guard let unwrapped = self.overview else { return "---" }
-    return "\(unwrapped.totalPoint) ETH"
+    return "\(Double(unwrapped.claimablePoint) / 1000.0) ETH"
   }
   
   var displayTotalCashbackPoint: String {
@@ -34,8 +34,22 @@ class KrytalViewModel {
       return unwrapped.codes[left]?.ratio ?? 0 > unwrapped.codes[right]?.ratio ?? 0
     }
     return sorted.map { (refCode) -> KrytalCellViewModel in
-      return KrytalCellViewModel(codeObject: unwrapped.codes[refCode] ?? Code(totalRefer: 0, totalPoint: 0, ratio: 0), referralCode: refCode)
+      return KrytalCellViewModel(codeObject: unwrapped.codes[refCode] ?? Code(totalRefer: 0, totalEscrowed: 0, totalEarned: 0, ratio: 0), referralCode: refCode)
     }
+  }
+  
+  var displayTotalEarned: String {
+    guard let unwrapped = self.overview else { return "---" }
+    var total = 0.0
+    unwrapped.codes.values.forEach { (item) in
+      total += item.totalEarned
+    }
+    return "\(total) KP"
+  }
+  
+  var displayTotalEscrow: String {
+    guard let unwrapped = self.overview else { return "---" }
+    return "\(unwrapped.cashbackEscrowed) KP"
   }
   
   var displayWalletString: String {
@@ -44,7 +58,7 @@ class KrytalViewModel {
   }
   
   var displayIntroAttributedString: NSAttributedString {
-    let fullString = NSMutableAttributedString(string: "Copy below given links to share with your friends & start earning ".toBeLocalised())
+    let fullString = NSMutableAttributedString(string: "Copy below given Codes to share with your friends & start earning ".toBeLocalised())
     let image1Attachment = NSTextAttachment()
     image1Attachment.image = UIImage(named: "info_waring_blue_icon")
     let image1String = NSAttributedString(attachment: image1Attachment)
@@ -57,6 +71,7 @@ enum KrytalViewEvent {
   case openShareCode(refCode: String, codeObject: Code)
   case openHistory
   case openWalletList
+  case claim(amount: Double)
 }
 
 protocol KrytalViewControllerDelegate: class {
@@ -71,6 +86,7 @@ class KrytalViewController: KNBaseViewController {
   @IBOutlet weak var cashbackPointLabel: UILabel!
   @IBOutlet weak var walletListButton: UIButton!
   @IBOutlet weak var introLabel: UILabel!
+  @IBOutlet weak var cashBackEscrowLabel: UILabel!
   
   let viewModel = KrytalViewModel()
   weak var delegate: KrytalViewControllerDelegate?
@@ -86,19 +102,20 @@ class KrytalViewController: KNBaseViewController {
   fileprivate func updateUI() {
     self.totalKrytalPointLabel.text = self.viewModel.displayTotalKrytalPoint
     self.totalETHLabel.text = self.viewModel.displayTotalETHPoint
-    self.totalKrytalPointSectionLabel.text = self.viewModel.displayTotalKrytalPoint
+    self.totalKrytalPointSectionLabel.text = self.viewModel.displayTotalEarned
     self.cashbackPointLabel.text = self.viewModel.displayTotalCashbackPoint
     self.walletListButton.setTitle(self.viewModel.displayWalletString, for: .normal)
     self.introLabel.attributedText = self.viewModel.displayIntroAttributedString
+    self.cashBackEscrowLabel.text = self.viewModel.displayTotalEscrow
     self.referralCodeTableView.reloadData()
   }
 
-  func coordinatorDidUpdateOverviewReferral(_ overview: Overview) {
+  func coordinatorDidUpdateOverviewReferral(_ overview: Overview?) {
     self.viewModel.overview = overview
     guard self.isViewLoaded else { return }
     self.updateUI()
   }
-  
+
   func coordinatorDidUpdateWallet(_ wallet: Wallet) {
     self.viewModel.wallet = wallet
     guard self.isViewLoaded else { return }
@@ -118,9 +135,15 @@ class KrytalViewController: KNBaseViewController {
   }
   
   @IBAction func helpIconTapped(_ sender: UITapGestureRecognizer) {
-    self.navigationController?.showBottomBannerView(message: "Ask your friend to download Krystal app using your referral link. If they start using Krystal wallet, We will automatically map the referral to you. You will earn commission every time your friends transact via Krystal app.", icon: UIImage(named: "info_waring_blue_icon")!)
+    self.navigationController?.showBottomBannerView(message: "Ask your friends to download Krystal App using your Referral Code. If they start using Krystal, we will automatically map the referral to your wallet. You will earn rewards if your friends actively use the Krystal Services.", icon: UIImage(named: "info_waring_blue_icon")!)
   }
-
+  
+  @IBAction func claimRewardButtonTapped(_ sender: UIButton) {
+    guard let unwrapped = self.viewModel.overview else {
+      return
+    }
+    self.delegate?.krytalViewController(self, run: .claim(amount: unwrapped.claimablePoint))
+  }
 }
 
 extension KrytalViewController: UITableViewDataSource {

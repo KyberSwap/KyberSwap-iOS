@@ -31,6 +31,7 @@ class EarnCoordinator: NSObject, Coordinator {
   var lendingTokens: [TokenData] = []
   var balances: [String: Balance] = [:]
   var withdrawCoordinator: WithdrawCoordinator?
+  var sendCoordinator: KNSendTokenViewCoordinator?
   
   private(set) var session: KNSession
   fileprivate var historyCoordinator: KNHistoryCoordinator?
@@ -54,6 +55,11 @@ class EarnCoordinator: NSObject, Coordinator {
   lazy var depositViewController: OverviewDepositViewController = {
     let controller = OverviewDepositViewController()
     controller.delegate = self
+    return controller
+  }()
+  
+  lazy var tutorialViewController: EarnTutorialViewController = {
+    let controller = EarnTutorialViewController()
     return controller
   }()
   
@@ -152,9 +158,13 @@ class EarnCoordinator: NSObject, Coordinator {
     self.earnSwapViewController?.coordinatorUpdateNewSession(wallet: session.wallet)
     self.historyCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.balances = [:]
+    self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
 
   func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
+    if self.sendCoordinator?.coordinatorDidUpdateTransaction(tx) == true { return true }
+    if self.historyCoordinator?.coordinatorDidUpdateTransaction(tx) == true { return true }
+    if self.withdrawCoordinator?.appCoordinatorUpdateTransaction(tx) == true { return true }
     if let txHash = self.transactionStatusVC?.transaction.hash, txHash == tx.hash {
       self.transactionStatusVC?.updateView(with: tx)
       return true
@@ -164,6 +174,8 @@ class EarnCoordinator: NSObject, Coordinator {
 
   func appCoordinatorTokensTransactionsDidUpdate() {
     self.historyCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
+    self.depositViewController.coordinatorDidUpdateDidUpdateTokenList()
+    self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
 
   func appCoordinatorPendingTransactionsDidUpdate() {
@@ -172,11 +184,21 @@ class EarnCoordinator: NSObject, Coordinator {
     self.earnSwapViewController?.coordinatorDidUpdatePendingTx()
     self.menuViewController.coordinatorDidUpdatePendingTx()
     self.rootViewController.coordinatorDidUpdatePendingTx()
+    self.depositViewController.coordinatorDidUpdateDidUpdateTokenList()
+    self.withdrawCoordinator?.coordinatorDidUpdatePendingTx()
+    self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
-}
-
-extension EarnCoordinator: EarnMenuViewControllerDelegate {
-  func earnMenuViewControllerDidSelectToken(controller: EarnMenuViewController, token: TokenData) {
+  
+  func appCoodinatorDidOpenEarnView(tokenAddress: String) {
+    guard let token = self.lendingTokens.first(where: { (item) -> Bool in
+      return item.address.lowercased() == tokenAddress.lowercased()
+    }) else {
+      return
+    }
+    self.openEarnViewController(token: token)
+  }
+  
+  fileprivate func openEarnViewController(token: TokenData) {
     let viewModel = EarnViewModel(data: token, wallet: self.session.wallet)
     let controller = EarnViewController(viewModel: viewModel)
     controller.delegate = self
@@ -187,18 +209,23 @@ extension EarnCoordinator: EarnMenuViewControllerDelegate {
   }
 }
 
+extension EarnCoordinator: EarnMenuViewControllerDelegate {
+  func earnMenuViewControllerDidSelectToken(controller: EarnMenuViewController, token: TokenData) {
+    self.openEarnViewController(token: token)
+  }
+}
+
 extension EarnCoordinator: EarnViewControllerDelegate {
   func earnViewController(_ controller: AbstractEarnViewControler, run event: EarnViewEvent) {
     switch event {
     case .openGasPriceSelect(let gasLimit, let selectType, let isSwap, let percent):
-      let viewModel = GasFeeSelectorPopupViewModel(isSwapOption: true, gasLimit: gasLimit, selectType: selectType, currentRatePercentage: percent, isUseGasToken: self.isAccountUseGasToken())
+      let viewModel = GasFeeSelectorPopupViewModel(isSwapOption: true, gasLimit: gasLimit, selectType: selectType, currentRatePercentage: percent, isUseGasToken: self.isAccountUseGasToken(), isContainSlippageSection: isSwap)
       viewModel.updateGasPrices(
         fast: KNGasCoordinator.shared.fastKNGas,
         medium: KNGasCoordinator.shared.standardKNGas,
         slow: KNGasCoordinator.shared.lowKNGas,
         superFast: KNGasCoordinator.shared.superFastKNGas
       )
-
       let vc = GasFeeSelectorPopupViewController(viewModel: viewModel)
       vc.delegate = self
       self.navigationController.present(vc, animated: true, completion: nil)
@@ -268,8 +295,8 @@ extension EarnCoordinator: EarnViewControllerDelegate {
       self.earnSwapViewController = controller
     case .getAllRates(from: let from, to: let to, srcAmount: let srcAmount):
       self.getAllRates(from: from, to: to, srcAmount: srcAmount)
-    case .openChooseRate(from: let from, to: let to, rates: let rates):
-      let viewModel = ChooseRateViewModel(from: from, to: to, data: rates)
+    case .openChooseRate(from: let from, to: let to, rates: let rates, gasPrice: let gasPrice):
+      let viewModel = ChooseRateViewModel(from: from, to: to, data: rates, gasPrice: gasPrice, isDeposit: true)
       let vc = ChooseRateViewController(viewModel: viewModel)
       vc.delegate = self
       self.navigationController.present(vc, animated: true, completion: nil)
@@ -501,7 +528,7 @@ extension EarnCoordinator: GasFeeSelectorPopupViewControllerDelegate {
 extension EarnCoordinator: EarnConfirmViewControllerDelegate {
   func earnConfirmViewController(_ controller: KNBaseViewController, didConfirm transaction: SignTransaction, amount: String, netAPY: String, platform: LendingPlatformData, historyTransaction: InternalHistoryTransaction) {
     guard let provider = self.session.externalProvider else {
-      self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+      self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
       return
     }
     self.navigationController.displayLoading()
@@ -535,8 +562,9 @@ extension EarnCoordinator: EarnConfirmViewControllerDelegate {
   fileprivate func openTransactionStatusPopUp(transaction: InternalHistoryTransaction) {
     let controller = KNTransactionStatusPopUp(transaction: transaction)
     controller.delegate = self
-    self.navigationController.present(controller, animated: true, completion: nil)
     self.transactionStatusVC = controller
+    self.navigationController.present(controller, animated: true, completion: nil)
+    
   }
 }
 
@@ -553,6 +581,8 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
       self.openTransactionCancelConfirmPopUpFor(transaction: tx)
     case .backToInvest:
       self.navigationController.popToRootViewController(animated: true)
+    case .newSave:
+      break
     default:
       break
     }
@@ -585,6 +615,7 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
     )
     coordinator.delegate = self
     coordinator.start()
+    self.sendCoordinator = coordinator
   }
 }
 
@@ -614,7 +645,7 @@ extension EarnCoordinator: SpeedUpCustomGasSelectDelegate {
           }
         }
       } else {
-        self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+        self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
       }
     case .invaild:
       self.navigationController.showErrorTopBannerMessage(
@@ -675,6 +706,8 @@ extension EarnCoordinator: KNConfirmCancelTransactionPopUpDelegate {
       let cancelTx = transaction.transactionObject.toCancelTransaction(account: account)
       let saved = EtherscanTransactionStorage.shared.getInternalHistoryTransactionWithHash(transaction.hash)
       saved?.state = .cancel
+      saved?.type = .transferETH
+      saved?.transactionSuccessDescription = "-0 ETH"
       cancelTx.send(provider: provider) { (result) in
         switch result {
         case .success(let hash):
@@ -687,14 +720,12 @@ extension EarnCoordinator: KNConfirmCancelTransactionPopUpDelegate {
               userInfo: nil
             )
           }
-        
-          
         case .failure(let error):
           self.navigationController.showTopBannerView(message: error.description)
         }
       }
     } else {
-      self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+      self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
     }
   }
 }
@@ -913,6 +944,7 @@ extension EarnCoordinator: OverviewDepositViewControllerDelegate {
     switch event {
     case .withdrawBalance(platform: let platform, balance: let balance):
       let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.delegate = self
       coordinator.platform = platform
       coordinator.balance = balance
       coordinator.start()
@@ -923,6 +955,8 @@ extension EarnCoordinator: OverviewDepositViewControllerDelegate {
       coordinator.start()
 //      coordinator.delegate = self
       self.withdrawCoordinator = coordinator
+    case .depositMore:
+      self.navigationController.pushViewController(self.menuViewController, animated: true)
     }
   }
 }
@@ -943,4 +977,34 @@ extension EarnCoordinator: KNSendTokenViewCoordinatorDelegate {
   func sendTokenCoordinatorDidSelectAddWallet() {
     self.delegate?.earnCoordinatorDidSelectAddWallet()
   }
+}
+
+extension EarnCoordinator: WithdrawCoordinatorDelegate {
+  func withdrawCoordinatorDidSelectAddWallet() {
+    
+  }
+  
+  func withdrawCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    
+  }
+  
+  func withdrawCoordinatorDidSelectManageWallet() {
+    
+  }
+  
+  func withdrawCoordinatorDidSelectHistory() {
+    
+  }
+  
+  func withdrawCoordinatorDidSelectEarnMore(balance: LendingBalance) {
+    guard let token = self.lendingTokens.first(where: { (item) -> Bool in
+      return item.address.lowercased() == balance.address.lowercased()
+    })
+    else {
+      return
+    }
+    self.openEarnViewController(token: token)
+  }
+  
+  
 }

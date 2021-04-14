@@ -20,6 +20,7 @@
             <connections>
                 <outlet property="amountLabel" destination="r1X-qd-RUI" id="qMA-xW-cdW"/>
                 <outlet property="cancelButton" destination="Bdl-zG-e6d" id="W5E-ch-avo"/>
+                <outlet property="compInfoLabel" destination="G9x-Z5-aYo" id="Ssb-H9-bNx"/>
                 <outlet property="compInfoMessageContainerView" destination="B9r-c5-FAq" id="64d-Io-J3s"/>
                 <outlet property="confirmButton" destination="hPX-A4-1L2" id="qGQ-4P-uWO"/>
                 <outlet property="contentView" destination="EyC-Jv-FHI" id="9Ns-AA-kyd"/>
@@ -37,6 +38,7 @@
                 <outlet property="transactionFeeETHLabel" destination="GdT-Rn-qdD" id="Bya-Ud-ToV"/>
                 <outlet property="transactionFeeUSDLabel" destination="BrW-m8-N58" id="0sR-99-tGf"/>
                 <outlet property="transactionGasPriceLabel" destination="F8b-wS-6q6" id="JSg-mz-8pV"/>
+                <outlet property="usdValueLabel" destination="L3J-OS-1Xl" id="Bdo-Dw-ucM"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -46,10 +48,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EyC-Jv-FHI">
-                    <rect key="frame" x="0.0" y="67" width="375" height="600"/>
+                    <rect key="frame" x="0.0" y="67" width="375" height="650"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Saving Confirm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6D-Mz-50T">
-                            <rect key="frame" x="140" y="37" width="95" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EARNING CONFIRM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6D-Mz-50T">
+                            <rect key="frame" x="122" y="37" width="131.5" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -60,7 +62,7 @@
                             <color key="textColor" red="0.92549019610000005" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="≈ 3,81245 USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="L3J-OS-1Xl">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="≈ 3,81245 USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="L3J-OS-1Xl">
                             <rect key="frame" x="141" y="106" width="93.5" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.92549019610000005" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -86,8 +88,8 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUQ-Lf-o6l">
-                                            <rect key="frame" x="19" y="1" width="84" height="14.5"/>
-                                            <string key="text">Deposit APY  	</string>
+                                            <rect key="frame" x="19" y="1" width="84" height="14"/>
+                                            <string key="text">Supply APY  	</string>
                                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -121,7 +123,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distribution APY " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2p-Bu-HpS">
-                                            <rect key="frame" x="19" y="1" width="94" height="14.5"/>
+                                            <rect key="frame" x="19" y="1" width="94" height="14"/>
                                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -203,43 +205,49 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkW-ap-UY0">
-                            <rect key="frame" x="37" y="291" width="301" height="103"/>
+                            <rect key="frame" x="37" y="291" width="301" height="102"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Net APY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUz-tG-Wta">
-                                    <rect key="frame" x="12" y="71" width="45.5" height="15"/>
+                                    <rect key="frame" x="12" y="71" width="46" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yuI-hC-JUc">
-                                    <rect key="frame" x="61.5" y="72" width="25" height="25"/>
+                                    <rect key="frame" x="62" y="72" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="PqW-dq-W6H"/>
                                         <constraint firstAttribute="width" constant="25" id="gwt-AD-P2z"/>
                                     </constraints>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="3"/>
                                     <state key="normal" image="help_icon_blue"/>
+                                    <connections>
+                                        <action selector="apyHelpButtonTapped:" destination="-1" eventType="touchUpInside" id="TSF-jY-t1D"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 11.5%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yQ6-JC-rcd">
-                                    <rect key="frame" x="237.5" y="70" width="49.5" height="17"/>
+                                    <rect key="frame" x="237.5" y="69.5" width="49.5" height="17"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <color key="textColor" red="0.92549019610000005" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzN-IG-abK">
-                                    <rect key="frame" x="12" y="17" width="83" height="14"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum gas fee" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yzN-IG-abK">
+                                    <rect key="frame" x="12" y="17" width="91.5" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JTx-id-ySm">
-                                    <rect key="frame" x="99" y="17" width="25" height="25"/>
+                                    <rect key="frame" x="107.5" y="17" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="25" id="a8N-fp-z9y"/>
                                         <constraint firstAttribute="height" constant="25" id="zs4-eo-MRd"/>
                                     </constraints>
                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="3"/>
                                     <state key="normal" image="help_icon_blue"/>
+                                    <connections>
+                                        <action selector="helpButtonTapped:" destination="-1" eventType="touchUpInside" id="lzw-EK-Gd6"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.001231 ETH" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GdT-Rn-qdD">
                                     <rect key="frame" x="198" y="15.5" width="89" height="17"/>
@@ -289,10 +297,13 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9r-c5-FAq">
-                            <rect key="frame" x="37" y="414" width="301" height="83.5"/>
+                            <rect key="frame" x="37" y="413" width="301" height="126.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You will automatically earn COMP token (3% APY) for interacting with compound (deposit or borrow)." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9x-Z5-aYo">
-                                    <rect key="frame" x="50" y="20" width="239" height="43.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9x-Z5-aYo">
+                                    <rect key="frame" x="50" y="20" width="239" height="86.5"/>
+                                    <string key="text">You will automatically earn COMP token (3% APY) for interacting with compound (deposit or borrow). 
+
+Once redeemed, COMP token can be swapped to any token.</string>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.38823529410000002" green="0.72549019609999998" blue="0.41568627450000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -318,7 +329,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPX-A4-1L2">
-                            <rect key="frame" x="203.5" y="527.5" width="134.5" height="32"/>
+                            <rect key="frame" x="203.5" y="553" width="134.5" height="32"/>
                             <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="G5g-BD-3Km"/>
@@ -332,7 +343,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bdl-zG-e6d">
-                            <rect key="frame" x="37" y="527.5" width="134.5" height="32"/>
+                            <rect key="frame" x="37" y="553" width="134.5" height="32"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="MXc-rq-WV8"/>
@@ -345,11 +356,16 @@
                                 <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="uHH-F5-tOO"/>
                             </connections>
                         </button>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="arrow_down_blue_icon" translatesAutoresizingMaskIntoConstraints="NO" id="5KT-Yn-Aik">
+                            <rect key="frame" x="182.5" y="128" width="10" height="12"/>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <gestureRecognizers/>
                     <constraints>
+                        <constraint firstItem="5KT-Yn-Aik" firstAttribute="centerX" secondItem="EyC-Jv-FHI" secondAttribute="centerX" id="CHH-Ef-NBv"/>
                         <constraint firstItem="L3J-OS-1Xl" firstAttribute="top" secondItem="r1X-qd-RUI" secondAttribute="bottom" constant="1" id="DAe-gs-WkV"/>
+                        <constraint firstItem="5KT-Yn-Aik" firstAttribute="top" secondItem="L3J-OS-1Xl" secondAttribute="bottom" constant="5" id="G6Z-bF-aWU"/>
                         <constraint firstItem="hPX-A4-1L2" firstAttribute="width" secondItem="Bdl-zG-e6d" secondAttribute="width" id="GWE-7f-2g3"/>
                         <constraint firstItem="Xtp-jI-ycf" firstAttribute="leading" secondItem="EyC-Jv-FHI" secondAttribute="leading" constant="37" id="KM5-eA-vOK"/>
                         <constraint firstAttribute="trailing" secondItem="hPX-A4-1L2" secondAttribute="trailing" constant="37" id="O5q-uD-3FX"/>
@@ -362,8 +378,8 @@
                         <constraint firstItem="r1X-qd-RUI" firstAttribute="centerX" secondItem="n6D-Mz-50T" secondAttribute="centerX" id="a5v-UF-dWg"/>
                         <constraint firstItem="n6D-Mz-50T" firstAttribute="centerX" secondItem="EyC-Jv-FHI" secondAttribute="centerX" id="aAS-Xp-jxN"/>
                         <constraint firstItem="B9r-c5-FAq" firstAttribute="top" secondItem="NkW-ap-UY0" secondAttribute="bottom" constant="20" id="eGC-HG-yCb"/>
-                        <constraint firstItem="hPX-A4-1L2" firstAttribute="top" secondItem="NkW-ap-UY0" secondAttribute="bottom" constant="133.5" id="ecq-0K-sHy"/>
-                        <constraint firstAttribute="height" constant="600" id="eyp-5L-Gnk"/>
+                        <constraint firstItem="hPX-A4-1L2" firstAttribute="top" secondItem="NkW-ap-UY0" secondAttribute="bottom" constant="160" id="ecq-0K-sHy"/>
+                        <constraint firstAttribute="height" constant="650" id="eyp-5L-Gnk"/>
                         <constraint firstAttribute="trailing" secondItem="B9r-c5-FAq" secondAttribute="trailing" constant="37" id="hqs-2w-Ql5"/>
                         <constraint firstItem="r1X-qd-RUI" firstAttribute="top" secondItem="n6D-Mz-50T" secondAttribute="bottom" priority="750" constant="32" id="iMu-ki-pex"/>
                         <constraint firstItem="B9r-c5-FAq" firstAttribute="leading" secondItem="EyC-Jv-FHI" secondAttribute="leading" constant="37" id="iQo-gU-mx4"/>
@@ -399,6 +415,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="arrow_down_blue_icon" width="10" height="12"/>
         <image name="comp_icon" width="24" height="24"/>
         <image name="dai" width="36" height="36"/>
         <image name="farming_icon" width="20" height="18"/>

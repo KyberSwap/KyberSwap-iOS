@@ -76,13 +76,21 @@ class OverviewDepositViewModel {
 
   var totalValueString: String {
     let totalString = self.totalValueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-    return self.currencyType == .usd ? "$" + totalString : totalString
+    switch self.currencyType {
+    case .usd:
+      return "$" + totalString
+    case .eth:
+      return totalString + " ETH"
+    case .btc:
+      return totalString + " BTC"
+    }
   }
 }
 
 enum OverviewDepositViewEvent {
   case withdrawBalance(platform: String, balance: LendingBalance)
   case claim(balance: LendingDistributionBalance)
+  case depositMore
 }
 
 protocol OverviewDepositViewControllerDelegate: class {
@@ -95,7 +103,11 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
   @IBOutlet weak var totalStringLabel: UILabel!
   @IBOutlet weak var usdButton: UIButton!
   @IBOutlet weak var ethButton: UIButton!
-
+  @IBOutlet weak var btcButton: UIButton!
+  @IBOutlet weak var emptyView: UIView!
+  @IBOutlet weak var supplyButton: UIButton!
+  @IBOutlet weak var borrowButton: UIButton!
+  
   weak var container: OverviewViewController?
   weak var delegate: OverviewDepositViewControllerDelegate?
   let viewModel = OverviewDepositViewModel()
@@ -111,10 +123,13 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
     self.updateUITotalValue()
+    self.supplyButton.rounded(color: UIColor.Kyber.SWYellow, width: 1, radius: self.supplyButton.frame.size.height / 2)
+    self.borrowButton.rounded(color: UIColor.Kyber.SWButtonBlueColor.withAlphaComponent(0.5), width: 1, radius: self.borrowButton.frame.size.height / 2)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    self.viewModel.reloadAllData()
     self.reloadUI()
   }
   
@@ -126,13 +141,20 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
     guard self.isViewLoaded else {
       return
     }
+    self.emptyView.isHidden = self.viewModel.totalValueBigInt != BigInt(0)
     switch self.viewModel.currencyType {
     case .usd:
       self.usdButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
       self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
     case .eth:
       self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
       self.ethButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+    case .btc:
+      self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
     }
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
@@ -142,12 +164,18 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
   @IBAction func currencyTypeButtonTapped(_ sender: UIButton) {
     if sender.tag == 1 {
       self.viewModel.currencyType = .usd
-    } else {
+    } else if sender.tag == 2 {
       self.viewModel.currencyType = .eth
+    } else {
+      self.viewModel.currencyType = .btc
     }
     self.reloadUI()
     
     self.container?.viewControllerDidChangeCurrencyType(self, type: self.viewModel.currencyType)
+  }
+
+  @IBAction func supplyButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewDepositViewController(self, run: .depositMore)
   }
   
   func viewControllerDidChangeCurrencyType(_ controller: OverviewViewController, type: CurrencyType) {

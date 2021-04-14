@@ -102,7 +102,7 @@ class GasFeeSelectorPopupViewModel {
   }
 
   var advancedSettingsHeight: CGFloat {
-    return self.isSwapOption ? 504 : 275
+    return self.isSwapOption ? 504 : 250
   }
 
   func attributedString(for gasPrice: BigInt, text: String) -> NSAttributedString {
@@ -342,10 +342,7 @@ class GasFeeSelectorPopupViewController: KNBaseViewController {
       format: NSLocalizedString("still.proceed.if.rate.goes.down.by", value: "Still proceed if %@ goes down by:", comment: ""),
       self.viewModel.pairToken
     )
-    self.transactionWillBeRevertedTextLabel.text = String(
-      format: NSLocalizedString("transaction.will.be.reverted.if.rate.lower.than", value: "Transaction will be reverted if rate of %@ is lower than %@ (Current rate %@)", comment: ""),
-      arguments: [self.viewModel.pairToken, self.viewModel.minRateDisplay, self.viewModel.currentRateDisplay]
-    )
+    self.transactionWillBeRevertedTextLabel.text = "Your transaction will revert if the price changes unfavorably by more than this percentage"
     self.updateMinRateCustomErrorShown(!self.isMinRateValid)
     self.contentView.updateConstraints()
     self.contentView.layoutSubviews()

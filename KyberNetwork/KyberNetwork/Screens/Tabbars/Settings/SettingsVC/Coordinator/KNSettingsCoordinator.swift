@@ -23,6 +23,7 @@ class KNSettingsCoordinator: NSObject, Coordinator {
   var selectedWallet: KNWalletObject?
   var historyCoordinator: KNHistoryCoordinator?
   weak var delegate: KNSettingsCoordinatorDelegate?
+  var notificationCoordinator: NotificationCoordinator?
 
   lazy var rootViewController: KNSettingsTabViewController = {
     let controller = KNSettingsTabViewController()
@@ -61,7 +62,7 @@ class KNSettingsCoordinator: NSObject, Coordinator {
   }()
 
   fileprivate var sendTokenCoordinator: KNSendTokenViewCoordinator?
-  fileprivate var manageAlertCoordinator: KNManageAlertCoordinator?
+//  fileprivate var manageAlertCoordinator: KNManageAlertCoordinator?
 
   init(
     navigationController: UINavigationController = UINavigationController(),
@@ -99,10 +100,12 @@ class KNSettingsCoordinator: NSObject, Coordinator {
 
   func appCoordinatorTokenObjectListDidUpdate(_ tokenObjects: [TokenObject]) {
     self.sendTokenCoordinator?.coordinatorTokenObjectListDidUpdate(tokenObjects)
+    self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
 
   func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
     return self.sendTokenCoordinator?.coordinatorDidUpdateTransaction(tx) ?? false
+    self.sendTokenCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
   
   func openHistoryScreen() {
@@ -123,28 +126,21 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     case .manageWallet:
       self.settingsViewControllerWalletsButtonPressed()
     case .manageAlerts:
-      if let _ = IEOUserStorage.shared.user {
-        self.manageAlertCoordinator = KNManageAlertCoordinator(navigationController: self.navigationController)
-        self.manageAlertCoordinator?.start()
-      } else {
-        self.navigationController.showWarningTopBannerMessage(
-          with: NSLocalizedString("error", value: "Error", comment: ""),
-          message: NSLocalizedString("You must sign in to use Price Alert feature", comment: ""),
-          time: 1.5
-        )
-      }
+//      if let _ = IEOUserStorage.shared.user {
+//        self.manageAlertCoordinator = KNManageAlertCoordinator(navigationController: self.navigationController)
+//        self.manageAlertCoordinator?.start()
+//      } else {
+//        self.navigationController.showWarningTopBannerMessage(
+//          with: NSLocalizedString("error", value: "Error", comment: ""),
+//          message: NSLocalizedString("You must sign in to use Price Alert feature", comment: ""),
+//          time: 1.5
+//        )
+//      }
+    break
     case .alertMethods:
-      if let _ = IEOUserStorage.shared.user {
-        let alertMethodsVC = KNNotificationMethodsViewController()
-        alertMethodsVC.loadViewIfNeeded()
-        self.navigationController.pushViewController(alertMethodsVC, animated: true)
-      } else {
-        self.navigationController.showWarningTopBannerMessage(
-          with: NSLocalizedString("error", value: "Error", comment: ""),
-          message: NSLocalizedString("You must sign in to use Price Alert feature", comment: ""),
-          time: 1.5
-        )
-      }
+      let coordinator = NotificationCoordinator(navigationController: self.navigationController)
+      coordinator.start()
+      self.notificationCoordinator = coordinator
     case .contact:
       self.navigationController.pushViewController(self.contactVC, animated: true)
     case .support:
@@ -159,20 +155,20 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.passcodeCoordinator.delegate = self
       self.passcodeCoordinator.start()
     case .community:
-      let url = "https://kyber.network/community"
+      let url = "https://krystaldefi.gitbook.io/krystal/"
       self.openCommunityURL(url)
     case .shareWithFriends:
       self.openShareWithFriends()
     case .telegram:
-      self.openCommunityURL("https://t.me/KyberSwapOfficial")
+      self.openCommunityURL("https://t.me/Krystal_Announcement")
     case .github:
       self.openCommunityURL("https://github.com/KyberNetwork/KyberSwap-iOS")
     case .twitter:
-      self.openCommunityURL("https://twitter.com/KyberSwap/")
+      self.openCommunityURL("https://twitter.com/KrystalDefi")
     case .facebook:
       self.openCommunityURL("https://www.facebook.com/kybernetwork")
     case .medium:
-      self.openCommunityURL("https://medium.com/@kyberswap")
+      self.openCommunityURL("https://medium.com/krystaldefi")
     case .reddit:
       self.openCommunityURL("https://www.reddit.com/r/kybernetwork")
     case .linkedIn:
@@ -180,13 +176,19 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     case .reportBugs:
       self.navigationController.openSafari(with: "https://goo.gl/forms/ZarhiV7MPE0mqr712")
     case .rateOurApp:
-      self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1521778973")
+      self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1558105691")
     case .liveChat:
       Freshchat.sharedInstance().showConversations(self.navigationController)
     case .addCustomToken:
       self.customTokenCoordinator.start()
     case .manangeCustomToken:
       self.customTokenCoordinator.start(showList: true)
+    case .termOfUse:
+      self.navigationController.openSafari(with: "https://files.krystal.app/terms.pdf")
+    case .privacyPolicy:
+      self.navigationController.openSafari(with: "https://files.krystal.app/privacy.pdf")
+    case .fingerPrint(status: let status):
+      UserDefaults.standard.setValue(status, forKey: "bio-auth")
     }
   }
 
@@ -197,7 +199,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   fileprivate func openShareWithFriends() {
     let text = NSLocalizedString(
       "share.with.friends.text",
-      value: "I just found an awesome wallet app. Check out here https://apps.apple.com/us/app/id1521778973",
+      value: "I just found an awesome wallet app. Check out here https://apps.apple.com/us/app/id1558105691",
       comment: ""
     )
     let activitiy = UIActivityViewController(activityItems: [text], applicationActivities: nil)
@@ -226,12 +228,12 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     if MFMailComposeViewController.canSendMail() {
       let emailVC = MFMailComposeViewController()
       emailVC.mailComposeDelegate = self
-      emailVC.setToRecipients(["support@kyberswap.com"])
+      emailVC.setToRecipients(["support@krystal.app"])
       self.navigationController.present(emailVC, animated: true, completion: nil)
     } else {
       let message = NSLocalizedString(
         "please.send.your.request.to.support",
-        value: "Please send your request to support@kyberswap.com",
+        value: "Please send your request to support@krystal.app",
         comment: ""
       )
       self.navigationController.showWarningTopBannerMessage(with: "", message: message, time: 1.5)

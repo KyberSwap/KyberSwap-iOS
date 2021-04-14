@@ -31,6 +31,7 @@
                 <outlet property="approveButtonWidthContraint" destination="vpb-FB-Rd1" id="Uuo-46-LPy"/>
                 <outlet property="balanceLabel" destination="kl8-hR-Zy7" id="FBt-a9-bML"/>
                 <outlet property="changeRateButton" destination="lyV-ue-RaN" id="kii-xV-kWJ"/>
+                <outlet property="compInfoLabel" destination="gbh-OH-Ifv" id="Vqv-ye-4Rl"/>
                 <outlet property="compInfoMessageContainerView" destination="QT5-hK-uc0" id="UBs-Uv-FIs"/>
                 <outlet property="earnButton" destination="Jda-FF-5tH" id="LMZ-7c-WzA"/>
                 <outlet property="equivalentUSDValueLabel" destination="8wx-BU-7Mc" id="elL-7J-AGE"/>
@@ -172,8 +173,8 @@
                                         <constraint firstAttribute="height" constant="24" id="rdI-fw-QKn"/>
                                     </constraints>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the amount you would like to deposit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwO-dD-Td4">
-                                    <rect key="frame" x="20" y="15" width="267.5" height="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter the amount you would like to supply" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwO-dD-Td4">
+                                    <rect key="frame" x="20" y="15" width="262" height="17"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -403,8 +404,8 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ktg-Iv-jj2">
                             <rect key="frame" x="20" y="326" width="335" height="192"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the platform to deposit DAI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyy-RX-iYI">
-                                    <rect key="frame" x="20" y="15" width="213" height="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select the platform to supply DAI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyy-RX-iYI">
+                                    <rect key="frame" x="20" y="15" width="207" height="17"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -543,12 +544,12 @@
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jda-FF-5tH">
                             <rect key="frame" x="195" y="697" width="143" height="42"/>
-                            <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="499-mT-jL8"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                            <state key="normal" title="Next">
+                            <state key="normal" title="Next" backgroundImage="krystal_button_bg">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -563,13 +564,13 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eiy-Sh-shS">
                             <rect key="frame" x="37" y="697" width="143" height="42"/>
-                            <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="lzZ-o9-w1y"/>
                                 <constraint firstAttribute="width" priority="250" id="vpb-FB-Rd1"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                            <state key="normal" title="Approve KNC">
+                            <state key="normal" title="Approve KNC" backgroundImage="krystal_button_bg">
                                 <color key="titleColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -635,6 +636,7 @@
         <image name="farming_icon" width="20" height="18"/>
         <image name="history_icon" width="22" height="20"/>
         <image name="info_waring_blue_icon" width="14" height="14"/>
+        <image name="krystal_button_bg" width="300" height="42"/>
         <image name="uniswap_icon" width="16" height="16"/>
     </resources>
 </document>

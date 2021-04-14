@@ -44,15 +44,13 @@ class ApproveTokenViewModelForTokenObject: ApproveTokenViewModel {
   }
 
   func getFeeUSDString() -> String {
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
-    let usdRate: BigInt = KNRate.rateUSD(from: trackerRate).rate
-    let value: BigInt = usdRate * self.getFee() / BigInt(EthereumUnit.ether.rawValue)
-    let valueString: String = value.displayRate(decimals: 18)
-    return "~ \(valueString) USD"
+    guard let tokenPrice = KNTrackerRateStorage.shared.getETHPrice() else { return "" }
+    let feeUSD = self.getFee() * BigInt(tokenPrice.usd * pow(10.0, 18.0)) / BigInt(10).power(18)
+    return "~ \(feeUSD.displayRate(decimals: 18)) USD"
   }
 
   var subTitleText: String {
-    return String(format: "You need to grant permission for Krytal to interact with %@ with this Address:", self.token?.symbol.uppercased() ?? "")
+    return String(format: "You need to grant permission for Krystal to interact with %@ with this Address:", self.token?.symbol.uppercased() ?? "")
   }
 
   var address: String {
@@ -105,15 +103,13 @@ class ApproveTokenViewModelForTokenAddress: ApproveTokenViewModel {
   }
 
   func getFeeUSDString() -> String {
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
-    let usdRate: BigInt = KNRate.rateUSD(from: trackerRate).rate
-    let value: BigInt = usdRate * self.getFee() / BigInt(EthereumUnit.ether.rawValue)
-    let valueString: String = value.displayRate(decimals: 18)
-    return "~ \(valueString) USD"
+    guard let tokenPrice = KNTrackerRateStorage.shared.getETHPrice() else { return "" }
+    let feeUSD = self.getFee() * BigInt(tokenPrice.usd * pow(10.0, 18.0)) / BigInt(10).power(18)
+    return "~ \(feeUSD.displayRate(decimals: 18)) USD"
   }
 
   var subTitleText: String {
-    return "You need to grant permission for Krytal to interact with \(symbol.uppercased()) with this Address:".toBeLocalised()
+    return "You need to grant permission for Krystal to interact with \(symbol.uppercased()) with this Address:".toBeLocalised()
   }
 }
 
@@ -156,6 +152,7 @@ class ApproveTokenViewController: KNBaseViewController {
     self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: 16)
     self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.descriptionLabel.text = self.viewModel.subTitleText
+    self.contractAddressLabel.text = Constants.krystalProxyAddress
   }
 
   override func viewDidLayoutSubviews() {

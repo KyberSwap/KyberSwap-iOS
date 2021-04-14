@@ -51,12 +51,10 @@ class KNBackUpWalletViewController: KNBaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.headerContainerView.rounded(radius: 20)
-    self.nextButton.rounded(radius: self.nextButton.frame.size.height / 2)
     self.nextButton.setTitle(
       NSLocalizedString("next", value: "Next", comment: ""),
       for: .normal
     )
-    self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.completeButton.rounded(radius: self.completeButton.frame.size.height / 2)
     self.completeButton.setTitle(
       "continue".toBeLocalised().capitalized,
@@ -80,20 +78,15 @@ class KNBackUpWalletViewController: KNBaseViewController {
     
     self.completeButton.isHidden = self.viewModel.isCompleteButtonHidden
     self.completeButton.isEnabled = self.isCompleteButtonEnabled
-    self.completeButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.completeButton.alpha = self.isCompleteButtonEnabled ? 1 : 0.2
     self.updateUI()
   }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    self.nextButton.removeSublayer(at: 0)
-    self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
 
     if !self.completeButton.isHidden {
       if !self.completeButton.isEnabled { self.completeButton.isEnabled = true } // Gradient does not apply when button is not enable
-      self.completeButton.removeSublayer(at: 0)
-      self.completeButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
       self.completeButton.isEnabled = self.isCompleteButtonEnabled
     }
   }

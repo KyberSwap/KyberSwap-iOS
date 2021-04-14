@@ -18,7 +18,7 @@ class EarnSwapViewModel {
   fileprivate(set) var amountFrom: String = ""
   fileprivate(set) var isFocusingFromAmount: Bool = true
   
-  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.fastKNGas
+  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.standardKNGas
   fileprivate(set) var gasLimit: BigInt = KNGasConfiguration.earnGasLimitDefault
   fileprivate(set) var selectedGasPriceType: KNSelectedGasPriceType = .medium
   fileprivate(set) var wallet: Wallet
@@ -29,13 +29,15 @@ class EarnSwapViewModel {
   var latestNonce: Int = -1
   var refPrice: (TokenData, TokenData, String, [String])
   fileprivate(set) var minRatePercent: Double = 3.0
+  var gasPriceSelectedAmount: String = ""
+  var approvingToken: TokenObject?
 
   init(to: TokenData, from: TokenData, wallet: Wallet) {
     self.fromTokenData = from
     self.toTokenData = to
     let dataSource = self.toTokenData.lendingPlatforms.map { EarnSelectTableViewCellViewModel(platform: $0) }
     let optimizeValue = dataSource.max { (left, right) -> Bool in
-      return left.stableBorrowRate < right.stableBorrowRate
+      return left.supplyRate < right.supplyRate
     }
     if let notNilValue = optimizeValue {
       notNilValue.isSelected = true
@@ -303,6 +305,9 @@ class EarnSwapViewModel {
   }
   
   func reloadBestPlatform() {
+    guard (self.amountFrom != self.gasPriceSelectedAmount) || self.gasPriceSelectedAmount.isEmpty  else {
+      return
+    }
     let rates = self.swapRates.3
     if rates.count == 1 {
       let dict = rates.first
@@ -368,7 +373,7 @@ class EarnSwapViewModel {
     let doubleStr = String(format: "%.2f", self.minRatePercent)
     return "Slippage: \(doubleStr)%"
   }
-  
+
   var isUseGasToken: Bool {
     var data: [String: Bool] = [:]
     if let saved = UserDefaults.standard.object(forKey: Constants.useGasTokenDataKey) as? [String: Bool] {
@@ -378,9 +383,17 @@ class EarnSwapViewModel {
     }
     return data[self.wallet.address.description] ?? false
   }
-  
+
   func updateExchangeMinRatePercent(_ percent: Double) {
     self.minRatePercent = percent
+  }
+
+  var displayCompInfo: String {
+    let comp = self.toTokenData.lendingPlatforms.first { item -> Bool in
+      return item.isCompound
+    }
+    let apy = String(format: "%.6f", (comp?.distributionSupplyRate ?? 0.03) * 100.0)
+    return "You will automatically earn COMP token (\(apy)% APY) for interacting with compound (supply or borrow).\nOnce redeemed, COMP token can be swapped to any token."
   }
 }
 
@@ -413,6 +426,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   @IBOutlet weak var toTokenButton: UIButton!
   @IBOutlet weak var selectDepositTitleLabel: UILabel!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
+  @IBOutlet weak var compInfoLabel: UILabel!
   
   let viewModel: EarnSwapViewModel
   fileprivate var isViewSetup: Bool = false
@@ -443,21 +457,11 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.platformTableViewHeightContraint.constant = CGFloat(self.viewModel.platformDataSource.count) * EarnSelectTableViewCell.kCellHeight
     self.updateInforMessageUI()
     self.earnButton.setTitle("Next".toBeLocalised(), for: .normal)
-    self.earnButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.updateGasFeeUI()
-    self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.updateUIForSendApprove(isShowApproveButton: false)
     self.toTokenButton.setTitle(self.viewModel.toTokenData.symbol.uppercased(), for: .normal)
     self.updateUITokenDidChange(self.viewModel.fromTokenData)
     self.updateUIWalletSelectButton()
-  }
-  
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.earnButton.removeSublayer(at: 0)
-    self.earnButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    self.approveButton.removeSublayer(at: 0)
-    self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -508,6 +512,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
 
   fileprivate func updateInforMessageUI() {
     if self.viewModel.selectedPlatform == "Compound" {
+      self.compInfoLabel.text = self.viewModel.displayCompInfo
       self.compInfoMessageContainerView.isHidden = false
       self.sendButtonTopContraint.constant = 127
     } else {
@@ -519,7 +524,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   func updateGasLimit() {
     let event = EarnViewEvent.getGasLimit(
       lendingPlatform: self.viewModel.selectedPlatform,
-      src: self.viewModel.toTokenData.address,
+      src: self.viewModel.fromTokenData.address,
       dest: self.viewModel.toTokenData.address,
       srcAmount: self.viewModel.amountToBigInt.description,
       minDestAmount: self.viewModel.minDestQty.description,
@@ -581,6 +586,9 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   }
 
   fileprivate func updateUIForSendApprove(isShowApproveButton: Bool) {
+    guard self.isViewLoaded else {
+      return
+    }
     self.updateApproveButton()
     if isShowApproveButton {
       self.approveButtonLeftPaddingContraint.constant = 37
@@ -589,6 +597,13 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
       self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 250)
       self.earnButton.isEnabled = false
       self.earnButton.alpha = 0.2
+      if self.viewModel.approvingToken == nil {
+        self.approveButton.isEnabled = true
+        self.approveButton.alpha = 1
+      } else {
+        self.approveButton.isEnabled = false
+        self.approveButton.alpha = 0.2
+      }
     } else {
       self.approveButtonLeftPaddingContraint.constant = 0
       self.approveButtonRightPaddingContaint.constant = 37
@@ -598,14 +613,9 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
       self.earnButton.alpha = 1
     }
     
-    self.earnButton.removeSublayer(at: 0)
-    self.earnButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    self.earnButton.removeSublayer(at: 0)
-    self.earnButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    
     self.view.layoutIfNeeded()
   }
-  
+
   fileprivate func setUpChangeRateButton() {
     if self.viewModel.currentFlatform == "uniswap" {
       let icon = UIImage(named: "uni_icon_medium")?.resizeImage(to: CGSize(width: 16, height: 16))
@@ -615,7 +625,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
       self.changeRateButton.setImage(icon, for: .normal)
     }
   }
-  
+
   fileprivate func setUpGasFeeView() {
     self.selectedGasFeeLabel.text = self.viewModel.gasFeeString
     self.slippageLabel.text = self.viewModel.slippageString
@@ -637,7 +647,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   @IBAction func changeRateButtonTapped(_ sender: UIButton) {
     let rates = self.viewModel.swapRates.3
     if rates.count >= 2 {
-      self.delegate?.earnViewController(self, run: .openChooseRate(from: self.viewModel.fromTokenData, to: self.viewModel.toTokenData, rates: rates))
+      self.delegate?.earnViewController(self, run: .openChooseRate(from: self.viewModel.fromTokenData, to: self.viewModel.toTokenData, rates: rates, gasPrice: self.viewModel.gasPrice))
     }
   }
   
@@ -760,7 +770,10 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   
   func coordinatorDidUpdatePlatform(_ platform: String) {
     self.viewModel.currentFlatform = platform
+    self.viewModel.gasPriceSelectedAmount = self.viewModel.amountFrom
     self.setUpChangeRateButton()
+    self.updateExchangeRateField()
+    self.updateInputFieldsUI()
   }
   
   func coordinatorSuccessUpdateRefPrice(from: TokenData, to: TokenData, change: String, source: [String]) {
@@ -786,7 +799,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   
   fileprivate func updateUITokenDidChange(_ token: TokenData) {
     self.fromTokenButton.setTitle(token.symbol.uppercased(), for: .normal)
-    self.selectDepositTitleLabel.text = String(format: "Select the platform to deposit %@", token.symbol.uppercased())
+    self.selectDepositTitleLabel.text = String(format: "Select the platform to supply %@", token.symbol.uppercased())
   }
   
   fileprivate func updateUIPendingTxIndicatorView() {
@@ -815,15 +828,17 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   
   func coordinatorDidUpdatePendingTx() {
     self.updateUIPendingTxIndicatorView()
+    self.checkUpdateApproveButton()
   }
-  
+
   func coordinatorUpdateTokenBalance(_ balances: [String: Balance]) {
     self.viewModel.updateBalance(balances)
     self.updateUIBalanceDidChange()
   }
-  
+
   func coordinatorSuccessApprove(token: TokenObject) {
-    self.updateUIForSendApprove(isShowApproveButton: false)
+    self.viewModel.approvingToken = token
+    self.updateUIForSendApprove(isShowApproveButton: true)
   }
 
   func coordinatorFailApprove(token: TokenObject) {
@@ -837,6 +852,23 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
       message: "Something went wrong, please try again later".toBeLocalised(),
       time: 2.0
     )
+  }
+  
+  fileprivate func checkUpdateApproveButton() {
+    guard let token = self.viewModel.approvingToken else {
+      return
+    }
+    if EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty {
+      self.updateUIForSendApprove(isShowApproveButton: false)
+      self.viewModel.approvingToken = nil
+    }
+    let pending = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().filter({ (item) -> Bool in
+      return item.transactionDetailDescription.lowercased() == token.address.lowercased() && item.type == .allowance
+    })
+    if pending.isEmpty {
+      self.updateUIForSendApprove(isShowApproveButton: false)
+      self.viewModel.approvingToken = nil
+    }
   }
 
   func coordinatorUpdateSelectedToken(_ token: TokenData) {
@@ -853,6 +885,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
         time: 1.5
       )
     }
+    self.viewModel.gasPriceSelectedAmount = ""
     self.updateUIBalanceDidChange()
     self.updateApproveButton()
     self.updateUIForSendApprove(isShowApproveButton: false)
@@ -865,6 +898,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.viewModel.wallet = wallet
     if self.isViewSetup {
       self.updateUIBalanceDidChange()
+      self.updateUIWalletSelectButton()
       self.updateUIWalletSelectButton()
     }
   }
@@ -960,6 +994,14 @@ extension EarnSwapViewController: UITextFieldDelegate {
 //      }
 //    }
     //TODO: check fee is vaild
+    guard self.viewModel.fromTokenData.address != self.viewModel.toTokenData.address else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("unsupported", value: "Unsupported", comment: ""),
+        message: NSLocalizedString("can.not.swap.same.token", value: "Can not swap the same token", comment: ""),
+        time: 1.5
+      )
+      return true
+    }
     guard !self.viewModel.amountTo.isEmpty else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("invalid.input", value: "Invalid input", comment: ""),

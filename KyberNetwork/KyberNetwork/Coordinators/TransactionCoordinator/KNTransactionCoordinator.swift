@@ -153,9 +153,6 @@ extension KNTransactionCoordinator {
     )
     group.notify(queue: .global()) {
       EtherscanTransactionStorage.shared.generateKrytalTransactionModel()
-      DispatchQueue.main.async {
-        KNNotificationUtil.postNotification(for: kTokenTransactionListDidUpdateNotificationKey)
-      }
     }
   }
 
@@ -440,8 +437,8 @@ extension KNTransactionCoordinator {
     self.externalProvider?.getReceipt(hash: transaction.hash, completion: { [weak self] (result) in
       guard let `self` = self else { return }
       switch result {
-      case .success:
-        transaction.state = .done
+      case .success(let receipt):
+        transaction.state = receipt.status == "1" ? .done : .error
         EtherscanTransactionStorage.shared.removeInternalHistoryTransactionWithHash(transaction.hash)
         KNNotificationUtil.postNotification(
           for: kTransactionDidUpdateNotificationKey,

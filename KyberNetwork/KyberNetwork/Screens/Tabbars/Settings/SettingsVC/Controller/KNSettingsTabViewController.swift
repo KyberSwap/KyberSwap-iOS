@@ -24,6 +24,9 @@ enum KNSettingsTabViewEvent {
   case liveChat
   case addCustomToken
   case manangeCustomToken
+  case termOfUse
+  case privacyPolicy
+  case fingerPrint(status: Bool)
 }
 
 protocol KNSettingsTabViewControllerDelegate: class {
@@ -35,6 +38,7 @@ class KNSettingsTabViewController: KNBaseViewController {
   weak var delegate: KNSettingsTabViewControllerDelegate?
 
   @IBOutlet weak var shareWithFriendsButton: UIButton!
+  @IBOutlet weak var fingerprintSwitch: UISwitch!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -97,6 +101,7 @@ class KNSettingsTabViewController: KNBaseViewController {
 //    self.unreadBadgeLabel.rounded(color: .white, width: 1, radius: self.unreadBadgeLabel.frame.height / 2)
 //
 //    NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(FRESHCHAT_UNREAD_MESSAGE_COUNT_CHANGED), object: nil)
+    self.fingerprintSwitch.isOn = UserDefaults.standard.bool(forKey: "bio-auth")
   }
 
 //  deinit {
@@ -114,6 +119,11 @@ class KNSettingsTabViewController: KNBaseViewController {
 //    self.headerContainerView.removeSublayer(at: 0)
 //    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
+  
+  @IBAction func fingerprintValueChanged(_ sender: UISwitch) {
+    self.delegate?.settingsTabViewController(self, run: .fingerPrint(status: sender.isOn))
+  }
+  
 
   @IBAction func manageWalletButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "setting_manage_wallet", customAttributes: nil)
@@ -230,4 +240,26 @@ class KNSettingsTabViewController: KNBaseViewController {
 //  @objc func methodOfReceivedNotification(notification: Notification) {
 //    self.checkUnreadMessage()
 //  }
+  
+  @IBAction func termOfUseButtonTapped(_ sender: UIButton) {
+    self.delegate?.settingsTabViewController(self, run: .termOfUse)
+  }
+  
+  @IBAction func privacyPolicyTapped(_ sender: UIButton) {
+    self.delegate?.settingsTabViewController(self, run: .privacyPolicy)
+  }
+  
+  @IBAction func telegramButtonTapped(_ sender: UIButton) {
+    self.delegate?.settingsTabViewController(self, run: .telegram)
+  }
+  
+  @IBAction func twitterButtonTapped(_ sender: UIButton) {
+    self.delegate?.settingsTabViewController(self, run: .twitter)
+  }
+  
+  @IBAction func mediumButtonTapped(_ sender: UIButton) {
+    self.delegate?.settingsTabViewController(self, run: .medium)
+  }
+  
+  
 }

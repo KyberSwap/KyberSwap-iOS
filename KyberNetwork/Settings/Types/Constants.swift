@@ -14,9 +14,10 @@ public struct Constants {
     public static let klimitNumberOfTransactionInDB = 1000
     public static let animationDuration = 0.5
     public static let useGasTokenDataKey = "use_gas_token_data_key"
-  
+
   public static let gasTokenAddress = KNEnvironment.default == .ropsten ? "0x0000000000b3F879cb30FE243b4Dfee438691c04" : "0x0000000000004946c0e9F43F4Dee607b0eF1fA1c"
-  
+
+  public static let krystalProxyAddress = KNEnvironment.default == .ropsten ? "0x1e49809B423C1E45645E523804E77584414963E6" : "0xCf276A0A972C504b88224E92d047b3DaD6A4a426"
   public static let tokenStoreFileName = "token.data"
   public static let balanceStoreFileName = "-balance.data"
   public static let customBalanceStoreFileName = "-custom-balance.data"
@@ -30,6 +31,12 @@ public struct Constants {
   public static let customFilterOptionFileName = "custom-filter-option.data"
   public static let marketingAssetsStoreFileName = "marketing-assets.data"
   public static let referralOverviewStoreFileName = "-referral-overview.data"
+  public static let historyTransactionsStoreFileName = "-history-transaction.data"
+  public static let notificationsStoreFileName = "notification.data"
+  public static let loginTokenStoreFileName = "-login-token.data"
+  public static let krytalHistoryStoreFileName = "-krytal-history.data"
+  public static let coingeckoPricesStoreFileName = "coingecko-price.data"
+  public static let acceptedTermKey = "accepted-terms-key"
 }
 
 public struct UnitConfiguration {

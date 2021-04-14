@@ -60,9 +60,9 @@ class AddWatchWalletViewModel {
   
   var displayTitle: String {
     if self.wallet == nil {
-      return "Add Watch Wallet"
+      return "Add watched wallet"
     } else {
-      return "Edit Watch Wallet"
+      return "Edit watched wallet"
     }
   }
   
@@ -119,6 +119,7 @@ class AddWatchWalletViewController: UIViewController {
     self.titleLabel.text = self.viewModel.displayTitle
     self.walletLabelTextField.text = self.viewModel.wallet?.name
     self.walletAddressTextField.text = self.viewModel.wallet?.address
+    self.addButton.setTitle(self.viewModel.displayAddButtonTitle, for: .normal)
   }
 
   override func viewDidLayoutSubviews() {

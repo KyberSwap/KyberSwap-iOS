@@ -45,10 +45,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-Xx-uQV">
-                    <rect key="frame" x="119" y="584" width="137" height="29"/>
+                    <rect key="frame" x="148" y="584" width="79" height="29"/>
                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Terms and Conditions">
+                    <state key="normal" title="Terms of Use">
                         <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>

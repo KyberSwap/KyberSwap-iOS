@@ -45,7 +45,7 @@ class KNImportSeedsViewController: KNBaseViewController {
     self.walletNameTextField.addPlaceholderSpacing()
     self.seedsFieldContainer.rounded(radius: 8)
     self.walletNameTextField.rounded(radius: 8)
-
+    self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.resetUIs()
   }
 

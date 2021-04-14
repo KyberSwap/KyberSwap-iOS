@@ -11,7 +11,7 @@ struct KNTransactionFilter: Codable {
   let isApprove: Bool
   let isWithdraw: Bool
   let isTrade: Bool
-//  let isContractInteraction: Bool
+  let isContractInteraction: Bool
   let tokens: [String]
 }
 
@@ -24,6 +24,7 @@ class KNTransactionFilterViewModel {
   var isTrade: Bool = false
   var isApprove: Bool = false
   var isWithdraw: Bool = false
+  var isContractInteraction: Bool = false
   private(set) var tokens: [String] = []
   private(set) var supportedTokens: [String] = []
   private(set) var isSelectAll: Bool = true
@@ -38,16 +39,17 @@ class KNTransactionFilterViewModel {
     self.isApprove = filter.isApprove
     self.isWithdraw = filter.isWithdraw
     self.isTrade = filter.isTrade
+    self.isContractInteraction = filter.isContractInteraction
     self.tokens = filter.tokens
     self.supportedTokens = tokens
     if filter.tokens.count < self.supportedTokens.count / 2 { self.isSelectAll = false }
-    self.supportedTokens.sort { (t0, t1) -> Bool in
-      let isContain0 = self.tokens.contains(t0)
-      let isContain1 = self.tokens.contains(t1)
-      if isContain0 && !isContain1 { return true }
-      if !isContain0 && isContain1 { return false }
-      return t0 < t1
-    }
+//    self.supportedTokens.sort { (t0, t1) -> Bool in
+//      let isContain0 = self.tokens.contains(t0)
+//      let isContain1 = self.tokens.contains(t1)
+//      if isContain0 && !isContain1 { return true }
+//      if !isContain0 && isContain1 { return false }
+//      return t0 < t1
+//    }
   }
 
   func updateFrom(date: Date?) {
@@ -103,6 +105,7 @@ class KNTransactionFilterViewModel {
     self.isApprove = true
     self.isWithdraw = true
     self.isTrade = true
+    self.isContractInteraction = true
     self.tokens = self.supportedTokens
     self.isSelectAll = true
     self.isSeeMore = false
@@ -138,6 +141,7 @@ class KNTransactionFilterViewController: KNBaseViewController {
   @IBOutlet weak var approveButton: UIButton!
   @IBOutlet weak var withdrawButton: UIButton!
   @IBOutlet weak var tradeButton: UIButton!
+  @IBOutlet weak var contractInteractionButton: UIButton!
   
   @IBOutlet weak var selectButton: UIButton!
   @IBOutlet weak var tokenTextLabel: UILabel!
@@ -288,6 +292,13 @@ class KNTransactionFilterViewController: KNBaseViewController {
       } else {
         self.tradeButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
       }
+
+      if self.viewModel.isContractInteraction {
+        self.contractInteractionButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+      } else {
+        self.contractInteractionButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+      }
+      
       if let date = self.viewModel.from {
         self.fromDatePicker.setDate(date, animated: false)
         self.fromDatePickerDidChange(self.fromDatePicker)
@@ -349,6 +360,12 @@ class KNTransactionFilterViewController: KNBaseViewController {
     self.viewModel.isTrade = !self.viewModel.isTrade
     self.updateUI(isUpdatingTokens: false)
   }
+  
+  @IBAction func contractInteractionButtonPressed(_ sender: UIButton) {
+    self.viewModel.isContractInteraction = !self.viewModel.isContractInteraction
+    self.updateUI(isUpdatingTokens: false)
+  }
+  
   // See more/less
   @IBAction func tokensActionButtonPressed(_ sender: Any) {
     self.viewModel.isSeeMore = !self.viewModel.isSeeMore
@@ -392,6 +409,7 @@ class KNTransactionFilterViewController: KNBaseViewController {
       isApprove: self.viewModel.isApprove,
       isWithdraw: self.viewModel.isWithdraw,
       isTrade: self.viewModel.isTrade,
+      isContractInteraction: self.viewModel.isContractInteraction,
       tokens: self.viewModel.tokens
     )
     self.navigationController?.popViewController(animated: true, completion: {
@@ -412,7 +430,11 @@ extension KNTransactionFilterViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.viewModel.isSeeMore ? (self.viewModel.supportedTokens.count + 3) / 4 : 3
+    if self.viewModel.supportedTokens.count <= 4 {
+      return 1
+    } else {
+      return self.viewModel.isSeeMore ? (self.viewModel.supportedTokens.count + 3) / 4 : 3
+    }
   }
 
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -421,9 +443,13 @@ extension KNTransactionFilterViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: kFilterTokensTableViewCellID, for: indexPath) as! KNTransactionFilterTableViewCell
-    let data = Array(self.viewModel.supportedTokens[indexPath.row * 4..<min(indexPath.row * 4 + 4, self.viewModel.supportedTokens.count)])
+    if self.viewModel.supportedTokens.count <= 4 {
+      cell.updateCell(with: self.viewModel.supportedTokens, selectedTokens: self.viewModel.tokens)
+    } else {
+      let data = Array(self.viewModel.supportedTokens[indexPath.row * 4..<min(indexPath.row * 4 + 4, self.viewModel.supportedTokens.count)])
+      cell.updateCell(with: data, selectedTokens: self.viewModel.tokens)
+    }
     cell.delegate = self
-    cell.updateCell(with: data, selectedTokens: self.viewModel.tokens)
     return cell
   }
 }

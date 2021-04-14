@@ -20,7 +20,7 @@ enum KSwapViewEvent: Equatable {
   case openHistory
   case openWalletsList
   case getAllRates(from: TokenObject, to: TokenObject, srcAmount: BigInt)
-  case openChooseRate(from: TokenObject, to: TokenObject, rates: [JSONDictionary])
+  case openChooseRate(from: TokenObject, to: TokenObject, rates: [JSONDictionary], gasPrice: BigInt)
   case checkAllowance(token: TokenObject)
   case sendApprove(token: TokenObject, remain: BigInt)
   case getExpectedRate(from: TokenObject, to: TokenObject, srcAmount: BigInt, hint: String)
@@ -113,9 +113,6 @@ class KSwapViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.continueButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-//    self.addObserveNotifications()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -123,17 +120,10 @@ class KSwapViewController: KNBaseViewController {
     if !self.isViewSetup {
       self.isViewSetup = true
       self.setupUI()
-      self.updateAllowance()
+      if self.viewModel.approvingToken == nil {
+        self.updateAllowance()
+      }
     }
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.continueButton.removeSublayer(at: 0)
-    self.continueButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-
-    self.approveButton.removeSublayer(at: 0)
-    self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -223,7 +213,7 @@ class KSwapViewController: KNBaseViewController {
     self.slippageLabel.text = self.viewModel.slippageString
     self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
   }
-  
+
   fileprivate func updateUIPendingTxIndicatorView() {
     guard self.isViewLoaded else {
       return
@@ -364,7 +354,7 @@ class KSwapViewController: KNBaseViewController {
   @IBAction func changeRateButtonTapped(_ sender: UIButton) {
     let rates = self.viewModel.swapRates.3
     if rates.count >= 2 {
-      self.delegate?.kSwapViewController(self, run: .openChooseRate(from: self.viewModel.from, to: self.viewModel.to, rates: rates))
+      self.delegate?.kSwapViewController(self, run: .openChooseRate(from: self.viewModel.from, to: self.viewModel.to, rates: rates, gasPrice: self.viewModel.gasPrice))
     }
   }
 
@@ -575,6 +565,23 @@ class KSwapViewController: KNBaseViewController {
     )
     self.delegate?.kSwapViewController(self, run: event)
   }
+  
+  fileprivate func checkUpdateApproveButton() {
+    guard let token = self.viewModel.approvingToken else {
+      return
+    }
+    if EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty {
+      self.updateUIForSendApprove(isShowApproveButton: false)
+      self.viewModel.approvingToken = nil
+    }
+    let pending = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().filter({ (item) -> Bool in
+      return item.transactionDetailDescription.lowercased() == token.address.lowercased() && item.type == .allowance
+    })
+    if pending.isEmpty {
+      self.updateUIForSendApprove(isShowApproveButton: false)
+      self.viewModel.approvingToken = nil
+    }
+  }
 }
 
 // MARK: Update UIs
@@ -647,6 +654,13 @@ extension KSwapViewController {
       self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 250)
       self.continueButton.isEnabled = false
       self.continueButton.alpha = 0.2
+      if self.viewModel.approvingToken == nil {
+        self.approveButton.isEnabled = true
+        self.approveButton.alpha = 1
+      } else {
+        self.approveButton.isEnabled = false
+        self.approveButton.alpha = 0.2
+      }
     } else {
       self.approveButtonLeftPaddingContraint.constant = 0
       self.approveButtonRightPaddingContaint.constant = 37
@@ -655,12 +669,7 @@ extension KSwapViewController {
       self.continueButton.isEnabled = true
       self.continueButton.alpha = 1
     }
-    
-    self.continueButton.removeSublayer(at: 0)
-    self.continueButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    self.continueButton.removeSublayer(at: 0)
-    self.continueButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    
+
     self.view.layoutIfNeeded()
   }
   
@@ -803,7 +812,7 @@ extension KSwapViewController {
         time: 1.5
       )
     }
-
+    self.viewModel.gasPriceSelectedAmount = ""
     self.updateApproveButton()
     //TODO: reset only swap button on screen, can be optimize with
     self.updateUIForSendApprove(isShowApproveButton: false)
@@ -879,11 +888,11 @@ extension KSwapViewController {
 
   func coordinatorDidUpdateRates(from: TokenObject, to: TokenObject, srcAmount: BigInt, rates: [JSONDictionary]) {
     self.viewModel.updateSwapRates(from: from, to: to, amount: srcAmount, rates: rates)
+    self.updateInputFieldsUI()
     self.viewModel.reloadBestPlatform()
     self.updateExchangeRateField()
     self.setUpChangeRateButton()
     self.updateUIRefPrice()
-    self.updateInputFieldsUI()
   }
 
   func coordinatorFailUpdateRates() {
@@ -892,7 +901,10 @@ extension KSwapViewController {
 
   func coordinatorDidUpdatePlatform(_ platform: String) {
     self.viewModel.currentFlatform = platform
+    self.viewModel.gasPriceSelectedAmount = self.viewModel.amountFrom
     self.setUpChangeRateButton()
+    self.updateExchangeRateField()
+    self.updateInputFieldsUI()
   }
 
   func coordinatorDidUpdateAllowance(token: TokenObject, allowance: BigInt) {
@@ -910,7 +922,8 @@ extension KSwapViewController {
   }
 
   func coordinatorSuccessApprove(token: TokenObject) {
-    self.updateUIForSendApprove(isShowApproveButton: false)
+    self.viewModel.approvingToken = token
+    self.updateUIForSendApprove(isShowApproveButton: true)
   }
 
   func coordinatorFailApprove(token: TokenObject) {
@@ -973,7 +986,6 @@ extension KSwapViewController {
 
   func coordinatorSuccessSendTransaction() {
     print("[Debug] send success")
-    
     self.hideLoading()
   }
 
@@ -1005,6 +1017,7 @@ extension KSwapViewController {
   
   func coordinatorDidUpdatePendingTx() {
     self.updateUIPendingTxIndicatorView()
+    self.checkUpdateApproveButton()
   }
 }
 
@@ -1039,10 +1052,7 @@ extension KSwapViewController: UITextFieldDelegate {
     self.viewModel.updateFocusingField(textField == self.fromAmountTextField)
     self.viewModel.updateAmount(text, isSource: textField == self.fromAmountTextField)
     self.updateViewAmountDidChange()
-//    if textField == self.toAmountTextField {
-//      let prevDestAmountBigInt = prevDest.removeGroupSeparator().amountBigInt(decimals: self.viewModel.to.decimals) ?? BigInt(0)
-//      self.updateRateDestAmountDidChangeIfNeeded(prevDest: prevDestAmountBigInt)
-//    }
+
     return false
   }
 

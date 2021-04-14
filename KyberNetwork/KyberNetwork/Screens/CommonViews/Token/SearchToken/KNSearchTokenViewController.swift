@@ -210,7 +210,7 @@ extension KNSearchTokenViewController: BottomPopUpAbstract {
   }
 
   func getPopupHeight() -> CGFloat {
-    return 400
+    return 500
   }
 
   func getPopupContentView() -> UIView {

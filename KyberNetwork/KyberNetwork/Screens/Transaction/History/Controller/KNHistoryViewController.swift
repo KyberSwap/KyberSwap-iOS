@@ -27,7 +27,7 @@ struct KNHistoryViewModel {
     return DateFormatterUtil.shared.limitOrderFormatter
   }()
 
-  fileprivate(set) var tokens: [TokenObject] = KNSupportedTokenStorage.shared.supportedTokens
+  fileprivate(set) var tokens: [Token]
 
   fileprivate(set) var completedTxData: [String: [HistoryTransaction]] = [:]
   fileprivate(set) var completedTxHeaders: [String] = []
@@ -48,27 +48,24 @@ struct KNHistoryViewModel {
   fileprivate(set) var filters: KNTransactionFilter!
 
   init(
-    tokens: [TokenObject] = KNSupportedTokenStorage.shared.supportedTokens,
+    tokens: [Token] = EtherscanTransactionStorage.shared.getEtherscanToken(),
     currentWallet: KNWalletObject
     ) {
     self.tokens = tokens
     self.currentWallet = currentWallet
     self.isShowingPending = true
-    if let filter = KNAppTracker.getLastHistoryFilterData() {
-      self.filters = filter
-    } else {
-      self.filters = KNTransactionFilter(
-        from: nil,
-        to: nil,
-        isSend: true,
-        isReceive: true,
-        isSwap: true,
-        isApprove: true,
-        isWithdraw: true,
-        isTrade: true,
-        tokens: tokens.map({ return $0.symbol.uppercased() })
-      )
-    }
+    self.filters = KNTransactionFilter(
+      from: nil,
+      to: nil,
+      isSend: true,
+      isReceive: true,
+      isSwap: true,
+      isApprove: true,
+      isWithdraw: true,
+      isTrade: true,
+      isContractInteraction: true,
+      tokens: tokens.map({ return $0.symbol })
+    )
     self.updateDisplayingData()
   }
 
@@ -76,23 +73,20 @@ struct KNHistoryViewModel {
     self.isShowingPending = isShowingPending
   }
 
-  mutating func update(tokens: [TokenObject]) {
+  mutating func update(tokens: [Token]) {
     self.tokens = tokens
-    if let filter = KNAppTracker.getLastHistoryFilterData() {
-      self.filters = filter
-    } else {
-      self.filters = KNTransactionFilter(
-        from: nil,
-        to: nil,
-        isSend: true,
-        isReceive: true,
-        isSwap: true,
-        isApprove: true,
-        isWithdraw: true,
-        isTrade: true,
-        tokens: tokens.map({ return $0.symbol.uppercased() })
-      )
-    }
+    self.filters = KNTransactionFilter(
+      from: nil,
+      to: nil,
+      isSend: true,
+      isReceive: true,
+      isSwap: true,
+      isApprove: true,
+      isWithdraw: true,
+      isTrade: true,
+      isContractInteraction: true,
+      tokens: tokens.map({ return $0.symbol })
+    )
     self.updateDisplayingData()
   }
 
@@ -249,8 +243,9 @@ struct KNHistoryViewModel {
     let matchedAppprove = tx.type == .allowance && self.filters.isApprove
     let matchedWithdraw = tx.type == .withdraw && self.filters.isWithdraw
     let matchedTrade = tx.type == .earn && self.filters.isTrade
-    let matchedContractInteraction = tx.type == .contractInteraction
-    let matchedType = matchedTransfer || matchedReceive || matchedSwap || matchedAppprove || matchedWithdraw || matchedTrade || matchedContractInteraction
+    let matchedContractInteraction = tx.type == .contractInteraction && self.filters.isContractInteraction
+    let matchedSelf = tx.type == .selfTransfer && tx.type == .transferETH
+    let matchedType = matchedTransfer || matchedReceive || matchedSwap || matchedAppprove || matchedWithdraw || matchedTrade || matchedContractInteraction || matchedSelf
     var tokenMatched = true
     var transactionToken: [String] = []
     tx.tokenTransactions.forEach { (item) in
@@ -261,15 +256,9 @@ struct KNHistoryViewModel {
     if tx.type == .transferETH || tx.type == .receiveETH {
       tokenMatched = self.filters.tokens.contains("ETH")
     } else {
-      let allSymbols = KNSupportedTokenStorage.shared.allTokens.map { (token) -> String in
-        return token.symbol
-      }
-      if !Set(transactionToken).isSubset(of: Set(allSymbols)) {
-        tokenMatched = true
-      } else {
-        tokenMatched = Set(transactionToken).isSubset(of: Set(self.filters.tokens))
-      }
+      tokenMatched = Set(transactionToken).isSubset(of: Set(self.filters.tokens))
     }
+    
     return tokenMatched && matchedType
   }
 
@@ -543,11 +532,7 @@ class KNHistoryViewController: KNBaseViewController {
 
   @IBAction func filterButtonPressed(_ sender: Any) {
     let tokenSymbols: [String] = {
-      return self.viewModel.tokens.sorted(by: {
-        if $0.isSupported && !$1.isSupported { return true }
-        if !$0.isSupported && $1.isSupported { return false }
-        return $0.value > $1.value
-      }).map({ return $0.symbol })
+      return self.viewModel.tokens.map({ return $0.symbol })
     }()
     let viewModel = KNTransactionFilterViewModel(
       tokens: tokenSymbols,
@@ -596,19 +581,19 @@ extension KNHistoryViewController {
     self.updateUIWhenDataDidChange()
   }
 
-  func coordinatorUpdateTokens(_ tokens: [TokenObject]) {
-    self.viewModel.update(tokens: tokens)
+  func coordinatorUpdateTokens() {
+    //TODO: handle update new token from etherscan
   }
-  
+
   func coordinatorDidUpdateCompletedTransaction(sections: [String], data: [String: [HistoryTransaction]]) {
     self.viewModel.update(completedTxData: data, completedTxHeaders: sections)
     self.transactionCollectionView.reloadData()
   }
-  
+
   func coordinatorUpdateNewSession(wallet: KNWalletObject) {
     self.viewModel.updateCurrentWallet(wallet)
     self.walletSelectButton.setTitle(wallet.address, for: .normal)
-    
+    self.viewModel.update(tokens: EtherscanTransactionStorage.shared.getEtherscanToken())
   }
 }
 

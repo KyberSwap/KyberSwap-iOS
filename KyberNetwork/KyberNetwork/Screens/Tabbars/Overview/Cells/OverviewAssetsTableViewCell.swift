@@ -34,12 +34,26 @@ class OverviewAssetsCellViewModel {
   }
 
   var priceDouble: Double {
-    return self.currencyType == .usd ? self.token.getTokenPrice().usd : self.token.getTokenPrice().eth
+    switch self.currencyType {
+    case .usd:
+      return self.token.getTokenPrice().usd
+    case .eth:
+      return self.token.getTokenPrice().eth
+    case .btc:
+      return self.token.getTokenPrice().btc
+    }
   }
 
   var displayPrice: String {
     let price = self.priceDouble
-    return self.currencyType == .usd ? "$" + String(format: "%.2f", price) : String(format: "%.2f", price)
+    switch self.currencyType {
+    case .usd:
+      return "$" + String(format: "%.6f", price)
+    case .eth:
+      return String(format: "%.6f", price) + " ETH"
+    case .btc:
+      return String(format: "%.6f", price) + " BTC"
+    }
   }
   
   var valueBigInt: BigInt {
@@ -50,12 +64,25 @@ class OverviewAssetsCellViewModel {
   
   var diplayValue: String {
     let valueString = self.valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
-    return self.currencyType == .usd ? "$" + valueString : valueString
+    switch self.currencyType {
+    case .usd:
+      return "$" + valueString
+    case .eth:
+      return valueString + " ETH"
+    case .btc:
+      return valueString + " BTC"
+    }
   }
 
   var change24Double: Double {
-    let change24 = self.currencyType == .usd ? self.token.getTokenPrice().usd24hChange : self.token.getTokenPrice().eth24hChange
-    return change24
+    switch self.currencyType {
+    case .usd:
+      return self.token.getTokenPrice().usd24hChange
+    case .eth:
+      return self.token.getTokenPrice().eth24hChange
+    case .btc:
+      return self.token.getTokenPrice().btc24hChange
+    }
   }
   
   var displayChange24h: String {

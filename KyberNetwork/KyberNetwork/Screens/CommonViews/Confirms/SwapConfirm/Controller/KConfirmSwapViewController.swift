@@ -12,8 +12,6 @@ protocol KConfirmSwapViewControllerDelegate: class {
 class KConfirmSwapViewController: KNBaseViewController {
 
 
-  @IBOutlet weak var titleLabel: UILabel!
-
   @IBOutlet weak var fromAmountLabel: UILabel!
   @IBOutlet weak var toAmountLabel: UILabel!
 
@@ -67,9 +65,6 @@ class KConfirmSwapViewController: KNBaseViewController {
   }
 
   fileprivate func setupUI() {
-    self.titleLabel.text = self.viewModel.titleString
-    self.titleLabel.addLetterSpacing()
-
     self.fromAmountLabel.text = self.viewModel.leftAmountString
     self.fromAmountLabel.addLetterSpacing()
     self.toAmountLabel.text = self.viewModel.rightAmountString

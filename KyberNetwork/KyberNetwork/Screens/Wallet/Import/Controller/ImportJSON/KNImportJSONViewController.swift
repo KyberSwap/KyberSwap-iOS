@@ -77,7 +77,7 @@ class KNImportJSONViewController: KNBaseViewController {
     self.nameWalletTextField.placeholder = NSLocalizedString("name.of.your.wallet.optional", value: "Name of your wallet (optional)", comment: "")
     self.nameWalletTextField.addPlaceholderSpacing()
     self.secureTextButton.setImage(UIImage(named: !self.enterPasswordTextField.isSecureTextEntry ? "hide_secure_text_blue" : "show_secure_text_blue"), for: .normal)
-
+    self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.resetUIs()
   }
 

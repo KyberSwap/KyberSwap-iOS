@@ -26,18 +26,37 @@ class OverviewMarketCellViewModel {
   }
   
   var priceDouble: Double {
-    let price = self.type == .usd ? self.tokenPrice.usd : self.tokenPrice.eth
-    return price
+    switch self.type {
+    case .usd:
+      return self.tokenPrice.usd
+    case .eth:
+      return self.tokenPrice.eth
+    case .btc:
+      return self.tokenPrice.btc
+    }
   }
 
   var displayPrice: String {
     let price = self.priceDouble
-    return self.type == .usd ? "$" + String(format: "%.2f", price) : String(format: "%.2f", price)
+    switch self.type {
+    case .usd:
+      return "$" + String(format: "%.6f", price)
+    case .eth:
+      return String(format: "%.6f", price) + " ETH"
+    case .btc:
+      return String(format: "%.6f", price) + " BTC"
+    }
   }
   
   var change24Double: Double {
-    let change24 = self.type == .usd ? self.tokenPrice.usd24hChange : self.tokenPrice.eth24hChange
-    return change24
+    switch self.type {
+    case .usd:
+      return self.tokenPrice.usd24hChange
+    case .eth:
+      return self.tokenPrice.eth24hChange
+    case .btc:
+      return self.tokenPrice.btc24hChange
+    }
   }
   
   var displayChange24h: String {
@@ -46,7 +65,7 @@ class OverviewMarketCellViewModel {
   }
   
   var displayChange24Color: UIColor {
-    let change24 = self.type == .usd ? self.tokenPrice.usd24hChange : self.tokenPrice.eth24hChange
+    let change24 = self.change24Double
     return change24 > 0 ? UIColor.Kyber.SWGreen : UIColor.Kyber.SWRed
   }
   

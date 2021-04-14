@@ -13,12 +13,13 @@ class WithdrawViewModel {
   let session: KNSession
   let balance: LendingBalance
   var withdrawableAmountBigInt: BigInt
-  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.fastKNGas
+  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.standardKNGas
   fileprivate(set) var gasLimit: BigInt = KNGasConfiguration.earnGasLimitDefault
   fileprivate(set) var selectedGasPriceType: KNSelectedGasPriceType = .medium
   var amount: String = ""
   var isBearingTokenApproved: Bool = true
   var isUseGasToken: Bool = false
+  var approvingTokenAddress: String?
 
   init(platform: String, session: KNSession, balance: LendingBalance) {
     self.platform = platform
@@ -108,10 +109,9 @@ class WithdrawViewModel {
   }
   
   var feeUSDString: String {
-    guard let trackerRate = KNTrackerRateStorage.shared.trackerRate(for: KNSupportedTokenStorage.shared.ethToken) else { return "" }
-    let usdRate: BigInt = KNRate.rateUSD(from: trackerRate).rate
-    let value: BigInt = usdRate * self.transactionFee / BigInt(EthereumUnit.ether.rawValue)
-    let valueString: String = value.displayRate(decimals: 18)
+    guard let price = KNTrackerRateStorage.shared.getETHPrice() else { return "" }
+    let usd = self.transactionFee * BigInt(price.usd * pow(10.0, 18.0)) / BigInt(10).power(18)
+    let valueString: String = usd.displayRate(decimals: 18)
     return "~ \(valueString) USD"
   }
   
@@ -188,6 +188,7 @@ class WithdrawViewController: KNBaseViewController {
     super.viewDidAppear(animated)
     self.updateUIforWithdrawButton()
     self.updateUIWithdrawableAmount()
+    self.updateUIFee()
   }
 
   override func viewDidLayoutSubviews() {
@@ -244,8 +245,17 @@ class WithdrawViewController: KNBaseViewController {
     }
     if self.viewModel.isBearingTokenApproved {
       self.withdrawButton.setTitle("Withdraw".toBeLocalised(), for: .normal)
+      self.withdrawButton.isEnabled = true
+      self.withdrawButton.alpha = 1
     } else {
       self.withdrawButton.setTitle("Approve".toBeLocalised() + " " + self.viewModel.balance.interestBearingTokenSymbol.uppercased(), for: .normal)
+      if self.viewModel.approvingTokenAddress == nil {
+        self.withdrawButton.isEnabled = true
+        self.withdrawButton.alpha = 1
+      } else {
+        self.withdrawButton.isEnabled = false
+        self.withdrawButton.alpha = 0.2
+      }
     }
   }
   
@@ -259,6 +269,7 @@ class WithdrawViewController: KNBaseViewController {
   
   func coordinatorDidUpdateWithdrawableAmount(_ amount: String) {
     self.viewModel.withdrawableAmountBigInt = BigInt(amount) ?? BigInt(0)
+    self.updateUIforWithdrawButton()
   }
 
   func coodinatorFailUpdateWithdrawableAmount() {
@@ -288,7 +299,8 @@ class WithdrawViewController: KNBaseViewController {
   }
   
   func coordinatorSuccessApprove(token: String) {
-    self.viewModel.isBearingTokenApproved = true
+    self.viewModel.approvingTokenAddress = token
+    self.viewModel.isBearingTokenApproved = false
     self.updateUIforWithdrawButton()
   }
 
@@ -343,6 +355,30 @@ class WithdrawViewController: KNBaseViewController {
 
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
     self.dismiss(animated: true, completion: nil)
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.checkUpdateApproveButton()
+  }
+  
+  fileprivate func checkUpdateApproveButton() {
+    guard let tokenAddress = self.viewModel.approvingTokenAddress else {
+      return
+    }
+    if EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty {
+      self.viewModel.isBearingTokenApproved = true
+      self.viewModel.approvingTokenAddress = nil
+      self.updateUIforWithdrawButton()
+      
+    }
+    let pending = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().filter({ (item) -> Bool in
+      return item.transactionDetailDescription.lowercased() == tokenAddress.lowercased() && item.type == .allowance
+    })
+    if pending.isEmpty {
+      self.viewModel.isBearingTokenApproved = true
+      self.viewModel.approvingTokenAddress = nil
+      self.updateUIforWithdrawButton()
+    }
   }
 }
 

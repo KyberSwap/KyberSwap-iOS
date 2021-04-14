@@ -146,6 +146,7 @@ class KNGeneralProvider {
         DispatchQueue.main.async {
           switch result {
           case .success(let count):
+//            minTxCount = max(minTxCount, count)
             completion(.success(count))
           case .failure(let error):
             completion(.failure(AnyError(error)))
@@ -396,7 +397,7 @@ class KNGeneralProvider {
               if tokenAddress.description.lowercased() == Constants.gasTokenAddress {
                 symbol = "CHI"
               }
-              let historyTransaction = InternalHistoryTransaction(type: .allowance, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: symbol, transactionDetailDescription: "", transactionObj: signData.1.toSignTransactionObject())
+              let historyTransaction = InternalHistoryTransaction(type: .allowance, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: symbol, transactionDetailDescription: tokenAddress.description, transactionObj: signData.1.toSignTransactionObject())
               historyTransaction.hash = hash
               historyTransaction.time = Date()
               historyTransaction.nonce = txCount
@@ -456,7 +457,7 @@ class KNGeneralProvider {
               if tokenAddress.description.lowercased() == Constants.gasTokenAddress {
                 symbol = "CHI"
               }
-              let historyTransaction = InternalHistoryTransaction(type: .allowance, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: symbol, transactionDetailDescription: "", transactionObj: signData.1.toSignTransactionObject())
+              let historyTransaction = InternalHistoryTransaction(type: .allowance, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: symbol, transactionDetailDescription: tokenAddress.description, transactionObj: signData.1.toSignTransactionObject())
               historyTransaction.hash = hash
               historyTransaction.time = Date()
               historyTransaction.nonce = txCount

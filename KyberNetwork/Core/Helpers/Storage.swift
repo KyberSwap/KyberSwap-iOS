@@ -43,7 +43,7 @@ class Storage {
       }
       FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
     } catch {
-      fatalError(error.localizedDescription)
+      print(error.localizedDescription)
     }
   }
 }

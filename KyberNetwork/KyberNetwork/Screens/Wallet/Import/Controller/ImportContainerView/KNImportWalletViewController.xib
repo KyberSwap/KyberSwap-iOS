@@ -18,7 +18,6 @@
                 <outlet property="headerContainerView" destination="qw3-JL-nXK" id="GnU-ap-5gR"/>
                 <outlet property="jsonButton" destination="kob-xN-pmG" id="RKV-5R-RN9"/>
                 <outlet property="navTitleLabel" destination="7QT-CL-yPl" id="7Ke-Oc-Pdn"/>
-                <outlet property="pageControl" destination="YJG-zg-uNF" id="PM9-he-h55"/>
                 <outlet property="privateKeyButton" destination="TYq-lc-2ub" id="sN4-UT-UUw"/>
                 <outlet property="scrollView" destination="Kke-yj-k62" id="vPf-S7-R2L"/>
                 <outlet property="seedsButton" destination="r9U-mU-xnN" id="jI7-f7-nZ5"/>
@@ -74,14 +73,6 @@
                         <constraint firstAttribute="height" constant="30" id="5wN-JB-Xtv"/>
                     </constraints>
                 </view>
-                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="YJG-zg-uNF">
-                    <rect key="frame" x="126.5" y="629.5" width="122.5" height="27.5"/>
-                    <color key="pageIndicatorTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <color key="currentPageIndicatorTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <action selector="pageControlValueDidChange:" destination="-1" eventType="valueChanged" id="o1f-2a-dj2"/>
-                    </connections>
-                </pageControl>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kob-xN-pmG">
                     <rect key="frame" x="16" y="98" width="106.5" height="106.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -135,12 +126,10 @@
                 <constraint firstItem="r9U-mU-xnN" firstAttribute="leading" secondItem="TYq-lc-2ub" secondAttribute="trailing" constant="12" id="KOm-vO-Yhi"/>
                 <constraint firstItem="TYq-lc-2ub" firstAttribute="width" secondItem="kob-xN-pmG" secondAttribute="width" id="Lya-Uy-Pms"/>
                 <constraint firstItem="r9U-mU-xnN" firstAttribute="width" secondItem="TYq-lc-2ub" secondAttribute="width" id="NPh-iq-AFr"/>
-                <constraint firstItem="YJG-zg-uNF" firstAttribute="centerX" secondItem="Kke-yj-k62" secondAttribute="centerX" id="Pz8-yS-eJb"/>
                 <constraint firstItem="qw3-JL-nXK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="RBh-Ob-wlQ"/>
                 <constraint firstItem="7ci-jZ-aUL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="T4W-y5-ApJ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qw3-JL-nXK" secondAttribute="trailing" id="VRD-3G-gBn"/>
                 <constraint firstItem="r9U-mU-xnN" firstAttribute="height" secondItem="TYq-lc-2ub" secondAttribute="height" id="XpG-E8-T4q"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="YJG-zg-uNF" secondAttribute="bottom" constant="10" id="Z4p-6c-Fqj"/>
                 <constraint firstItem="TYq-lc-2ub" firstAttribute="height" secondItem="kob-xN-pmG" secondAttribute="height" id="dcv-wi-zHF"/>
                 <constraint firstItem="Kke-yj-k62" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="hn6-Um-xxP"/>
                 <constraint firstItem="kob-xN-pmG" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="iJN-WX-BXH"/>

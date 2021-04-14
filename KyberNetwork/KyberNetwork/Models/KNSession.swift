@@ -204,7 +204,7 @@ class KNSession {
     KNGasCoordinator.shared.resume()
     KNRecentTradeCoordinator.shared.resume()
     KNSupportedTokenCoordinator.shared.resume()
-    KNNotificationCoordinator.shared.resume()
+//    KNNotificationCoordinator.shared.resume()
   }
 
   static func pauseInternalSession() {
@@ -212,7 +212,7 @@ class KNSession {
     KNGasCoordinator.shared.pause()
     KNRecentTradeCoordinator.shared.pause()
     KNSupportedTokenCoordinator.shared.pause()
-    KNNotificationCoordinator.shared.pause()
+//    KNNotificationCoordinator.shared.pause()
   }
 }
 

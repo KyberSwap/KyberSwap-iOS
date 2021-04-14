@@ -16,10 +16,6 @@ class KNSupportedTokenStorage {
   }
   
   static let shared = KNSupportedTokenStorage()
-  lazy var realm: Realm = {
-    let config = RealmConfiguration.globalConfiguration()
-    return try! Realm(configuration: config)
-  }()
   
   
   
@@ -35,23 +31,29 @@ class KNSupportedTokenStorage {
   }
 
   var ethToken: TokenObject {
-    return self.supportedTokens.first(where: { return $0.isETH })!.clone()
+    let token = self.supportedToken.first { (token) -> Bool in
+      return token.symbol == "ETH"
+    } ?? Token(name: "Ethereum", symbol: "ETH", address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", decimals: 18, logo: "eth")
+    return token.toObject()
   }
 
   var wethToken: TokenObject? {
-    return self.supportedTokens.first(where: { return $0.isWETH })?.clone()
+    let token = self.supportedToken.first { (token) -> Bool in
+      return token.symbol == "WETH"
+    } ?? Token(name: "Wrapped Ether", symbol: "WETH", address: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2", decimals: 18, logo: "weth")
+    return token.toObject()
   }
 
   var kncToken: TokenObject {
-    return self.supportedTokens.first(where: { $0.isKNC })!.clone()
-  }
-
-  var ptToken: TokenObject? {
-    return self.supportedTokens.first(where: { $0.isPromoToken })?.clone()
+    let token = self.supportedToken.first { (token) -> Bool in
+      return token.symbol == "KNC"
+    } ?? Token(name: "KyberNetwork", symbol: "WETH", address: "0xdd974d5c2e2928dea5f71b9825b8b646686bd200", decimals: 18, logo: "knc")
+    return token.toObject()
   }
 
   func get(forPrimaryKey key: String) -> TokenObject? {
-    return self.realm.object(ofType: TokenObject.self, forPrimaryKey: key)
+    let token = self.getTokenWith(address: key)
+    return token?.toObject()
   }
   //MARK:-new data type implemetation
   func reloadData() {
@@ -70,13 +72,13 @@ class KNSupportedTokenStorage {
 
   func getTokenWith(address: String) -> Token? {
     return self.allTokens.first { (token) -> Bool in
-      return token.address == address
+      return token.address.lowercased() == address.lowercased()
     }
   }
 
   func getFavedTokenWithAddress(_ address: String) -> FavedToken? {
     let faved = self.favedTokens.first { (token) -> Bool in
-      return token.address == address
+      return token.address.lowercased() == address.lowercased()
     }
     return faved
   }

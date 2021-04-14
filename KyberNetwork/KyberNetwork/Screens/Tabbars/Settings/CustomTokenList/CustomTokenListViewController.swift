@@ -7,6 +7,7 @@
 
 import UIKit
 import SwipeCellKit
+import BigInt
 
 class CustomTokenListViewModel {
   var dataSource: [CustomTokenCellViewModel] = []
@@ -14,7 +15,8 @@ class CustomTokenListViewModel {
   func reloadData() {
     self.dataSource = KNSupportedTokenStorage.shared.getCustomToken().map({ (token) -> CustomTokenCellViewModel in
       let balance = BalanceStorage.shared.balanceForAddress(token.address)
-      let viewModel = CustomTokenCellViewModel(token: token, balance: balance?.balance ?? "---")
+      let balanceBigInt = BigInt(balance?.balance ?? "0") ?? BigInt(0)
+      let viewModel = CustomTokenCellViewModel(token: token, balance: balanceBigInt.string(decimals: token.decimals, minFractionDigits: 0, maxFractionDigits: 6))
       return viewModel
     })
   }
@@ -50,6 +52,7 @@ class CustomTokenListViewController: KNBaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.viewModel.reloadData()
+    self.tokenTableView.reloadData()
   }
   
   @IBAction func backButtonTapped(_ sender: UIButton) {

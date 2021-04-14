@@ -292,7 +292,7 @@
 "enter.or.scan.private.key" = "프라이빗 키 입력 또는 스캔";
 "private.key" = "프라이빗 키";
 "enter.password.to.decrypt" = "패스워드를 입력하세요";
-"enter.your.seeds" = "Mnemonic 단어들을 입력해주세요";
+"enter.your.seeds" = "Seeds 단어들을 입력해주세요";
 "first.name" = "이름";
 "middle.name" = "중간 이름";
 "last.name" = "성";
@@ -315,7 +315,7 @@
 "copy.address" = "주소 복사";
 "export.at.your.own.risk" = "자신의 책임하에 수출하십시오!";
 "backup" = "백업";
-"share.with.friends.text" = "최고의 암호화폐 지갑앱을 추천합니다. https://apps.apple.com/us/app/id1521778973";
+"share.with.friends.text" = "최고의 암호화폐 지갑앱을 추천합니다. https://apps.apple.com/us/app/id1558105691";
 "transaction.being.broadcasted" = "거래가 중계되고 있습니다.";
 "can.not.create.transaction" = "거래를 생성 할 수 없습니다.";
 "transaction.being.mined" = "거래가 채굴되고 있습니다.";
@@ -736,7 +736,7 @@
 
 "Invalid nonce" = "카이버 코드 불러오기에 실패했습니다. 시간대 설정을 다시 확인해주세요.";
 "KyberSwap.is.only.support.buying.ETH.with.fiat.on.web" = "법정화폐를 사용한 ETH구매하기는 현재 카이버스왑 웹사이트에서만 가능합니다. 웹사이트로 이동하시겠습니까?";
-"⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️Keystore / Private Key / Mnemonic 을 다른 사람 (KyberSwap 포함)과 공유하지 마십시오. 이 데이터는 모든 자금에 대한 액세스 권한을 부여하며 도난 당할 수 있습니다";
+"⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen" = "⚠️Keystore / Private Key / Mnemonic 을 다른 사람 (Krystal 포함)과 공유하지 마십시오. 이 데이터는 모든 자금에 대한 액세스 권한을 부여하며 도난 당할 수 있습니다";
 
 "Select higher gas price to accelerate your transaction processing time" = "가스비를 더 높게 설정하여 거래 처리 속도를 높일 수 있습니다.";
 

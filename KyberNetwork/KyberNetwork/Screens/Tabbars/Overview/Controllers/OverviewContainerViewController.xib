@@ -77,7 +77,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3w4-gA-f6a">
                             <rect key="frame" x="225" y="56.5" width="32" height="32"/>
-                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="IXO-RP-2cO"/>
                                 <constraint firstAttribute="height" constant="32" id="eJn-n8-0Sr"/>
@@ -155,10 +155,29 @@
                                 <action selector="hideBalanceButtonTapped:" destination="-1" eventType="touchUpInside" id="A5N-pe-u0y"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDj-ua-HkJ">
+                            <rect key="frame" x="188" y="56.5" width="32" height="32"/>
+                            <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="2i9-v0-FaX"/>
+                                <constraint firstAttribute="width" constant="32" id="KSh-dU-OMT"/>
+                            </constraints>
+                            <state key="normal" image="alert_blue_icon"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="notificationButtonTapped:" destination="-1" eventType="touchUpInside" id="Wi0-If-CSw"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="dCW-P7-qNb" firstAttribute="leading" secondItem="DbN-gQ-AW3" secondAttribute="trailing" constant="8" symbolic="YES" id="2Fo-Iv-bdI"/>
+                        <constraint firstItem="3w4-gA-f6a" firstAttribute="leading" secondItem="CDj-ua-HkJ" secondAttribute="trailing" constant="5" id="4dQ-5h-S7P"/>
                         <constraint firstAttribute="trailing" secondItem="8Rv-Zz-r61" secondAttribute="trailing" constant="14" id="97d-sy-ecs"/>
                         <constraint firstItem="qvr-HW-IRf" firstAttribute="leading" secondItem="4Ce-dl-ALE" secondAttribute="leading" constant="22" id="Hf0-2R-tLT"/>
                         <constraint firstItem="aTu-pO-Oc3" firstAttribute="centerY" secondItem="lcR-VL-8uB" secondAttribute="centerY" id="PgO-Gk-MtM"/>
@@ -171,6 +190,7 @@
                         <constraint firstItem="8Rv-Zz-r61" firstAttribute="leading" secondItem="3w4-gA-f6a" secondAttribute="trailing" constant="10" id="d2l-d2-QHj"/>
                         <constraint firstItem="8Ei-SU-i1J" firstAttribute="top" secondItem="3w4-gA-f6a" secondAttribute="top" id="iMu-9R-vSe"/>
                         <constraint firstItem="DbN-gQ-AW3" firstAttribute="leading" secondItem="qvr-HW-IRf" secondAttribute="leading" id="iwO-F4-ZeC"/>
+                        <constraint firstItem="3w4-gA-f6a" firstAttribute="centerY" secondItem="CDj-ua-HkJ" secondAttribute="centerY" id="rz7-48-ec8"/>
                         <constraint firstItem="aTu-pO-Oc3" firstAttribute="leading" secondItem="lcR-VL-8uB" secondAttribute="trailing" constant="8" id="tFp-Wu-gLV"/>
                         <constraint firstItem="dCW-P7-qNb" firstAttribute="bottom" secondItem="DbN-gQ-AW3" secondAttribute="bottom" constant="-2" id="umi-ez-RTM"/>
                         <constraint firstAttribute="height" constant="142" id="vkp-xX-Pp5"/>
@@ -268,9 +288,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qab-JS-Q4J">
-                            <rect key="frame" x="142" y="4" width="51" height="27"/>
+                            <rect key="frame" x="142" y="4" width="43" height="27"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                            <state key="normal" title="DEPOSIT">
+                            <state key="normal" title="SUPPLY">
                                 <color key="titleColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
@@ -356,6 +376,7 @@
     </objects>
     <resources>
         <image name="add_overview_icon" width="20" height="20"/>
+        <image name="alert_blue_icon" width="16" height="20"/>
         <image name="arrow_down_template" width="12" height="9"/>
         <image name="hide_secure_text_blue" width="20" height="16"/>
         <image name="history_icon" width="22" height="20"/>

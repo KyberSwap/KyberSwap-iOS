@@ -96,7 +96,7 @@ extension KNAppCoordinator {
 
     self.investCoordinator?.navigationController.tabBarItem.tag = 2
     self.investCoordinator?.navigationController.tabBarItem = UITabBarItem(
-      title: "Invest",
+      title: "Explore",
       image: UIImage(named: "tabbar_invest_icon"),
       selectedImage: nil
     )
@@ -127,6 +127,7 @@ extension KNAppCoordinator {
     self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
     
 //    self.balanceTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(transactions: transactions)
+    self.doLogin()
   }
 
   func stopAllSessions() {
@@ -156,7 +157,7 @@ extension KNAppCoordinator {
 //    self.balanceTabCoordinator = nil
     self.settingsCoordinator?.stop()
     self.settingsCoordinator = nil
-    IEOUserStorage.shared.signedOut()
+//    IEOUserStorage.shared.signedOut()
     self.tabbarController = nil
   }
 
@@ -205,7 +206,7 @@ extension KNAppCoordinator {
       )
       self.overviewTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
       )
-      
+      self.doLogin()
       if isLoading { self.navigationController.hideLoading() }
     }
   }

@@ -2,11 +2,6 @@ PODS:
   - Alamofire (4.9.1)
   - APIKit (3.2.1):
     - Result (~> 3.0)
-  - AppAuth (1.4.0):
-    - AppAuth/Core (= 1.4.0)
-    - AppAuth/ExternalUserAgent (= 1.4.0)
-  - AppAuth/Core (1.4.0)
-  - AppAuth/ExternalUserAgent (1.4.0)
   - BetterSegmentedControl (1.0)
   - BigInt (3.1.0):
     - SipHash (~> 1.2)
@@ -16,19 +11,6 @@ PODS:
   - CryptoSwift (0.10.0)
   - EasyTipView (2.0.4)
   - Eureka (5.3.0)
-  - FBSDKCoreKit (6.5.2):
-    - FBSDKCoreKit/Basics (= 6.5.2)
-    - FBSDKCoreKit/Core (= 6.5.2)
-  - FBSDKCoreKit/Basics (6.5.2)
-  - FBSDKCoreKit/Core (6.5.2):
-    - FBSDKCoreKit/Basics
-  - FBSDKCoreKit/Swift (6.5.2):
-    - FBSDKCoreKit/Core
-  - FBSDKLoginKit/Login (6.5.2):
-    - FBSDKCoreKit (~> 6.5.2)
-  - FBSDKLoginKit/Swift (6.5.2):
-    - FBSDKCoreKit/Swift (~> 6.5.2)
-    - FBSDKLoginKit/Login
   - Firebase (6.26.0):
     - Firebase/Core (= 6.26.0)
   - Firebase/Core (6.26.0):
@@ -36,10 +18,6 @@ PODS:
     - FirebaseAnalytics (= 6.6.0)
   - Firebase/CoreOnly (6.26.0):
     - FirebaseCore (= 6.7.2)
-  - FirebaseABTesting (3.2.0):
-    - FirebaseAnalyticsInterop (~> 1.3)
-    - FirebaseCore (~> 6.1)
-    - Protobuf (>= 3.9.2, ~> 3.9)
   - FirebaseAnalytics (6.6.0):
     - FirebaseCore (~> 6.7)
     - FirebaseInstallations (~> 1.3)
@@ -75,13 +53,6 @@ PODS:
     - GoogleUtilities/Environment (~> 6.6)
     - GoogleUtilities/UserDefaults (~> 6.6)
     - PromisesObjC (~> 1.2)
-  - FirebaseRemoteConfig (4.5.0):
-    - FirebaseABTesting (~> 3.1)
-    - FirebaseAnalyticsInterop (~> 1.4)
-    - FirebaseCore (~> 6.2)
-    - FirebaseInstallations (~> 1.1)
-    - GoogleUtilities/Environment (~> 6.2)
-    - "GoogleUtilities/NSData+zlib (~> 6.2)"
   - FreshchatSDK (3.7.0)
   - FSPagerView (0.8.3)
   - GoogleAppMeasurement (6.6.0):
@@ -94,10 +65,6 @@ PODS:
   - GoogleDataTransportCCTSupport (3.1.0):
     - GoogleDataTransport (~> 6.1)
     - nanopb (~> 1.30905.0)
-  - GoogleSignIn (5.0.2):
-    - AppAuth (~> 1.2)
-    - GTMAppAuth (~> 1.0)
-    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleUtilities/AppDelegateSwizzler (6.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -117,14 +84,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.6.0):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.0.0):
-    - AppAuth/Core (~> 1.0)
-    - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.4.0):
-    - GTMSessionFetcher/Full (= 1.4.0)
-  - GTMSessionFetcher/Core (1.4.0)
-  - GTMSessionFetcher/Full (1.4.0):
-    - GTMSessionFetcher/Core (= 1.4.0)
   - IQKeyboardManager (6.5.5)
   - JavaScriptKit (1.0.0):
     - Result (~> 3.1)
@@ -148,7 +107,6 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
-  - OneSignal (2.14.2)
   - PromiseKit (6.13.1):
     - PromiseKit/CorePromise (= 6.13.1)
     - PromiseKit/Foundation (= 6.13.1)
@@ -159,7 +117,6 @@ PODS:
   - PromiseKit/UIKit (6.13.1):
     - PromiseKit/CorePromise
   - PromisesObjC (1.2.9)
-  - Protobuf (3.12.0)
   - QRCodeReaderViewController (4.0.2)
   - Realm (3.19.1):
     - Realm/Headers (= 3.19.1)
@@ -187,9 +144,6 @@ PODS:
     - CryptoSwift
     - TrezorCrypto
     - TrustCore
-  - TwitterCore (3.2.0)
-  - TwitterKit5 (5.2.0):
-    - TwitterCore (>= 3.1.0)
   - WalletConnect (0.1.0):
     - CryptoSwift
     - PromiseKit
@@ -203,15 +157,12 @@ DEPENDENCIES:
   - CryptoSwift (~> 0.10.0)
   - EasyTipView (~> 2.0.1)
   - Eureka (~> 5.3.0)
-  - FBSDKLoginKit/Swift
   - Firebase (~> 6.26)
   - FirebaseAnalytics (~> 6.6)
   - FirebaseCore (~> 6.7)
   - FirebaseCrashlytics (~> 4.1)
-  - FirebaseRemoteConfig (~> 4.4)
   - FreshchatSDK
   - FSPagerView
-  - GoogleSignIn (~> 5.0.2)
   - IQKeyboardManager (~> 6.5)
   - JavaScriptKit (~> 1.0.0)
   - JdenticonSwift (~> 0.0.1)
@@ -222,7 +173,6 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.1.0)
   - Moya (~> 10.0.1)
   - MSCircularSlider (~> 1.2.2)
-  - OneSignal (< 3.0, >= 2.11.2)
   - QRCodeReaderViewController (~> 4.0.2)
   - RealmSwift (~> 3.19.0)
   - SAMKeychain (~> 1.5.3)
@@ -235,24 +185,19 @@ DEPENDENCIES:
   - SwipeCellKit
   - TrustCore (~> 0.0.7)
   - TrustKeystore (~> 0.4.2)
-  - TwitterKit5
   - WalletConnect (from `https://github.com/trustwallet/wallet-connect-swift`, branch `master`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - APIKit
-    - AppAuth
     - BetterSegmentedControl
     - BigInt
     - Charts
     - CryptoSwift
     - EasyTipView
     - Eureka
-    - FBSDKCoreKit
-    - FBSDKLoginKit
     - Firebase
-    - FirebaseABTesting
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
     - FirebaseCore
@@ -260,16 +205,12 @@ SPEC REPOS:
     - FirebaseCoreDiagnosticsInterop
     - FirebaseCrashlytics
     - FirebaseInstallations
-    - FirebaseRemoteConfig
     - FreshchatSDK
     - FSPagerView
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
-    - GoogleSignIn
     - GoogleUtilities
-    - GTMAppAuth
-    - GTMSessionFetcher
     - IQKeyboardManager
     - JavaScriptKit
     - JdenticonSwift
@@ -281,10 +222,8 @@ SPEC REPOS:
     - Moya
     - MSCircularSlider
     - nanopb
-    - OneSignal
     - PromiseKit
     - PromisesObjC
-    - Protobuf
     - QRCodeReaderViewController
     - Realm
     - RealmSwift
@@ -301,8 +240,6 @@ SPEC REPOS:
     - TrezorCrypto
     - TrustCore
     - TrustKeystore
-    - TwitterCore
-    - TwitterKit5
 
 EXTERNAL SOURCES:
   WalletConnect:
@@ -317,17 +254,13 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   APIKit: a39ff72ac44efc15513fd1b98800f63c525be61b
-  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BetterSegmentedControl: 92555f980e4273ec414d6187acc5b811659a9abf
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Eureka: 49239596c9d2eed9ab523990c34de62b6feac9f0
-  FBSDKCoreKit: ada5c8a05188daefc9addb985c52b8a1b26da519
-  FBSDKLoginKit: caa165495afa29a12324cb2307fe6e5b33783142
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
-  FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 96634d356482d4f3af8fe459a0ebf19a99c71b75
   FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
   FirebaseCore: f42e5e5f382cdcf6b617ed737bf6c871a6947b17
@@ -335,16 +268,12 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
   FirebaseCrashlytics: a87cce5746d3335995bd18b1b60d073cd05a6920
   FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
-  FirebaseRemoteConfig: 1725314c4b89d8853c876099ded037f11bee26db
   FreshchatSDK: 57920fd6cfb3b071bdf5cf48342f5a04e457764d
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GoogleAppMeasurement: 67458367830514fb20fd9e233496f1eef9d90185
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: d70a561f7d236af529fee598835caad5e25f6d3d
-  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
-  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
-  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   IQKeyboardManager: 3a8b9e603f8b0eeaf5f096a1f2b2cfcf121992ef
   JavaScriptKit: 9ff565209e6efe21bcb9c6d6ca3e863a67a8ecf7
   JdenticonSwift: bc532f2761566eb29f26b085e5f72de25bc065ce
@@ -356,10 +285,8 @@ SPEC CHECKSUMS:
   Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
   MSCircularSlider: 70759318a899279d7923aa0f454f3ba0fe448642
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
-  OneSignal: 1dcb1fd96f9c15a5c352dcfcab9106a7c15eced7
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
-  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
   Realm: fb377747e694c7deb62d402400454134fe321bee
   RealmSwift: 1302b0ab60f3105a2b214a735eeb0938607cf16b
@@ -376,10 +303,8 @@ SPEC CHECKSUMS:
   TrezorCrypto: bfeea47a052dca2c77d4a39e1e183865e52de14d
   TrustCore: 688df9a241008cf9cfa3842ec8ef28777a8b7534
   TrustKeystore: ba8a33ccd7b6a46dfe25f209253d6ba13da6655c
-  TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
-  TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
   WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: 21b5ea680561508112ee2598039eeaa212e6ffec
+PODFILE CHECKSUM: efd4c9f0620a250792ba19831a4035eb60ee56c9
 
 COCOAPODS: 1.10.0.rc.1

@@ -24,6 +24,7 @@
                 <outlet property="applyButton" destination="l0F-xE-5oP" id="R1F-iZ-xhX"/>
                 <outlet property="approveButton" destination="gLc-gI-luH" id="5JS-Qo-Fz9"/>
                 <outlet property="bottomPaddingForButtonConstraint" destination="ucd-lP-i41" id="C7Y-WP-rrs"/>
+                <outlet property="contractInteractionButton" destination="AHl-Ss-t5i" id="CY1-ik-cJs"/>
                 <outlet property="fromTextField" destination="SjL-4y-uiz" id="ax1-zq-l9n"/>
                 <outlet property="headerContainerView" destination="c5L-Rn-ihd" id="CR2-a2-PvM"/>
                 <outlet property="navTitleLabel" destination="bAy-go-jFV" id="O2U-gL-bVU"/>
@@ -56,7 +57,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAy-go-jFV">
-                            <rect key="frame" x="170" y="78" width="35.5" height="19"/>
+                            <rect key="frame" x="168" y="78" width="39" height="19"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -192,7 +193,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l0F-xE-5oP">
-                            <rect key="frame" x="194.5" y="562" width="96.5" height="26"/>
+                            <rect key="frame" x="194.5" y="562" width="96.5" height="27"/>
                             <color key="backgroundColor" red="0.93725490199999995" green="0.50588235290000005" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                             <state key="normal" title="Apply">
@@ -240,7 +241,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdb-Tn-2wK">
-                            <rect key="frame" x="166" y="485" width="43" height="24"/>
+                            <rect key="frame" x="166.5" y="485" width="42" height="24"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                             <state key="normal" title="See more">
                                 <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -283,7 +284,7 @@
                                 <constraint firstAttribute="height" constant="32" id="GFn-b5-kEY"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
-                            <state key="normal" title="Trade">
+                            <state key="normal" title="Supply">
                                 <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -303,7 +304,7 @@
                                 <constraint firstAttribute="height" constant="32" id="LNN-pt-Jbg"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
-                            <state key="normal" title="Approve">
+                            <state key="normal" title="Approval">
                                 <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -337,13 +338,33 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qk-ar-Jae">
-                            <rect key="frame" x="84" y="562" width="96.5" height="26"/>
+                            <rect key="frame" x="84" y="562" width="96.5" height="27"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                             <state key="normal" title="Reset">
                                 <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="resetButtonPressed:" destination="-1" eventType="touchUpInside" id="5hp-Vd-5ka"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHl-Ss-t5i">
+                            <rect key="frame" x="197.5" y="209" width="84" height="32"/>
+                            <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="UZ2-Ko-oNg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
+                            <state key="normal" title="  Contract Interact  ">
+                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="contractInteractionButtonPressed:" destination="-1" eventType="touchUpInside" id="OhT-f1-tKj"/>
                             </connections>
                         </button>
                     </subviews>
@@ -355,8 +376,10 @@
                         <constraint firstItem="l0F-xE-5oP" firstAttribute="leading" secondItem="5qk-ar-Jae" secondAttribute="trailing" constant="14" id="83G-wQ-YAn"/>
                         <constraint firstAttribute="trailing" secondItem="XIv-Nj-ULc" secondAttribute="trailing" constant="20" id="8FY-ip-Ogx"/>
                         <constraint firstItem="QDY-eY-qXH" firstAttribute="leading" secondItem="3xY-JY-b3T" secondAttribute="leading" constant="20" id="8SL-5p-fbh"/>
+                        <constraint firstItem="AHl-Ss-t5i" firstAttribute="centerY" secondItem="EkI-B8-sBF" secondAttribute="centerY" id="AW7-ox-kg2"/>
                         <constraint firstItem="gLc-gI-luH" firstAttribute="leading" secondItem="azj-Gr-GRt" secondAttribute="trailing" constant="20" id="AXo-oN-jR7"/>
                         <constraint firstItem="9av-Jz-r19" firstAttribute="leading" secondItem="3xY-JY-b3T" secondAttribute="leading" constant="20" symbolic="YES" id="B7R-aH-3e0"/>
+                        <constraint firstItem="AHl-Ss-t5i" firstAttribute="leading" secondItem="EkI-B8-sBF" secondAttribute="trailing" constant="20" id="BPR-MN-uIb"/>
                         <constraint firstItem="Pxz-bZ-Bop" firstAttribute="leading" secondItem="3xY-JY-b3T" secondAttribute="leading" constant="20" id="BfH-Mt-2zn"/>
                         <constraint firstItem="Pxz-bZ-Bop" firstAttribute="top" secondItem="Cdb-Tn-2wK" secondAttribute="bottom" constant="22" id="Eqn-Rk-SGb"/>
                         <constraint firstItem="Cdb-Tn-2wK" firstAttribute="centerX" secondItem="3xY-JY-b3T" secondAttribute="centerX" id="FQ7-jF-m3E"/>

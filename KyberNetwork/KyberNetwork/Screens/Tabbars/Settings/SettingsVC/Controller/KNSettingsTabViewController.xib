@@ -18,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNSettingsTabViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="fingerprintSwitch" destination="bzU-97-rEA" id="wKc-b1-oPx"/>
                 <outlet property="shareWithFriendsButton" destination="ijc-DN-FUu" id="Fpv-Fa-f23"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -31,7 +32,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SETTINGS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BS7-Ut-PSh">
-                            <rect key="frame" x="30" y="67.5" width="74.5" height="19.5"/>
+                            <rect key="frame" x="30" y="68" width="74.5" height="19"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -57,13 +58,13 @@
                             <rect key="frame" x="15" y="15" width="345" height="118"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCOUNT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-H6-lCP">
-                                    <rect key="frame" x="24" y="18" width="59" height="15"/>
+                                    <rect key="frame" x="24" y="18" width="59" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDo-Po-iWz">
-                                    <rect key="frame" x="24" y="77" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="76" width="297" height="20"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Contacts" image="settings_contact">
@@ -74,7 +75,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVZ-jU-hlZ">
-                                    <rect key="frame" x="24" y="45" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="44" width="297" height="20"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Manage Wallets" image="settings_wallet">
@@ -108,13 +109,13 @@
                             <rect key="frame" x="15" y="151" width="345" height="118"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CUSTOM TOKENS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOs-38-ntL">
-                                    <rect key="frame" x="24" y="18" width="100" height="15"/>
+                                    <rect key="frame" x="24" y="18" width="100" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkE-jA-LEc">
-                                    <rect key="frame" x="24" y="76" width="297" height="19"/>
+                                    <rect key="frame" x="24" y="75" width="297" height="19"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Manage Tokens" image="setting_manage_token">
@@ -125,7 +126,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NwH-fq-MHe">
-                                    <rect key="frame" x="24" y="45" width="297" height="19"/>
+                                    <rect key="frame" x="24" y="44" width="297" height="19"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Add Custom Token" image="setting_add_custom_token">
@@ -156,16 +157,16 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ow-BM-69D">
-                            <rect key="frame" x="15" y="287" width="345" height="118"/>
+                            <rect key="frame" x="15" y="287" width="345" height="90"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECURITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcM-p5-aad">
-                                    <rect key="frame" x="24" y="18" width="57" height="15"/>
+                                    <rect key="frame" x="24" y="18" width="57" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeT-KP-iDr">
-                                    <rect key="frame" x="24" y="77" width="297" height="22"/>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeT-KP-iDr">
+                                    <rect key="frame" x="24" y="76" width="236" height="22"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Finger Print" image="setting_fingerprint">
@@ -173,28 +174,38 @@
                                     </state>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YpW-Xe-oUk">
-                                    <rect key="frame" x="24" y="45" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="44" width="297" height="20"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Change Pin" image="settings_pin">
+                                    <state key="normal" title="Change PIN" image="settings_pin">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="changePasscodeButtonPressed:" destination="-1" eventType="touchUpInside" id="sXs-Jr-pj1"/>
                                     </connections>
                                 </button>
+                                <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bzU-97-rEA">
+                                    <rect key="frame" x="272" y="71.5" width="51" height="31"/>
+                                    <color key="tintColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="onTintColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <connections>
+                                        <action selector="fingerprintValueChanged:" destination="-1" eventType="valueChanged" id="Qyf-nC-zlJ"/>
+                                    </connections>
+                                </switch>
                             </subviews>
                             <color key="backgroundColor" red="0.035294117649999998" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="OcM-p5-aad" firstAttribute="top" secondItem="6Ow-BM-69D" secondAttribute="top" constant="18" id="74T-QL-hu0"/>
                                 <constraint firstAttribute="trailing" secondItem="YpW-Xe-oUk" secondAttribute="trailing" constant="24" id="AsY-Wb-GeK"/>
+                                <constraint firstAttribute="trailing" secondItem="bzU-97-rEA" secondAttribute="trailing" constant="24" id="Hdz-Pv-B9d"/>
                                 <constraint firstItem="YpW-Xe-oUk" firstAttribute="leading" secondItem="6Ow-BM-69D" secondAttribute="leading" constant="24" id="NWD-EH-r5n"/>
                                 <constraint firstItem="qeT-KP-iDr" firstAttribute="top" secondItem="YpW-Xe-oUk" secondAttribute="bottom" constant="12" id="OiA-Gk-zZk"/>
-                                <constraint firstAttribute="height" constant="118" id="Ru5-UE-g3u"/>
-                                <constraint firstAttribute="trailing" secondItem="qeT-KP-iDr" secondAttribute="trailing" constant="24" id="UkX-9A-sNn"/>
+                                <constraint firstAttribute="height" constant="90" id="Ru5-UE-g3u"/>
+                                <constraint firstItem="bzU-97-rEA" firstAttribute="leading" secondItem="qeT-KP-iDr" secondAttribute="trailing" constant="12" id="UfI-TZ-jpC"/>
                                 <constraint firstItem="OcM-p5-aad" firstAttribute="leading" secondItem="6Ow-BM-69D" secondAttribute="leading" constant="24" id="YMb-D2-W3i"/>
                                 <constraint firstItem="qeT-KP-iDr" firstAttribute="leading" secondItem="6Ow-BM-69D" secondAttribute="leading" constant="24" id="e1N-LG-NPY"/>
                                 <constraint firstItem="YpW-Xe-oUk" firstAttribute="top" secondItem="OcM-p5-aad" secondAttribute="bottom" constant="12" id="iZM-g6-498"/>
+                                <constraint firstItem="bzU-97-rEA" firstAttribute="centerY" secondItem="qeT-KP-iDr" secondAttribute="centerY" id="q1t-v2-mPZ"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -204,41 +215,30 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtu-Tc-Eer">
-                            <rect key="frame" x="15" y="423" width="345" height="155"/>
+                            <rect key="frame" x="15" y="395" width="345" height="118"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUPPORT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG4-Dx-3rq">
-                                    <rect key="frame" x="24" y="18" width="54.5" height="15"/>
+                                    <rect key="frame" x="24" y="18" width="54.5" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYl-2U-rMn">
-                                    <rect key="frame" x="24" y="76" width="297" height="22"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Chat" image="setting_chat">
-                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="liveChatButtonPressed:" destination="-1" eventType="touchUpInside" id="sZd-9J-XD8"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="doi-hG-9g2">
-                                    <rect key="frame" x="24" y="45" width="297" height="19"/>
+                                    <rect key="frame" x="24" y="44" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Support" image="settings_about">
+                                    <state key="normal" title="Email" image="setting_email_icon">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
-                                        <action selector="aboutButtonPressed:" destination="-1" eventType="touchUpInside" id="7Nf-ig-RGC"/>
+                                        <action selector="supportButtonPressed:" destination="-1" eventType="touchUpInside" id="cDs-Hr-aBj"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9e-30-C7r">
-                                    <rect key="frame" x="24" y="110" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="80" width="297" height="20"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="FAQ" image="setting_fa0">
+                                    <state key="normal" title="Help Center" image="setting_fa0">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
@@ -249,16 +249,13 @@
                             <color key="backgroundColor" red="0.035294117649999998" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstItem="cG4-Dx-3rq" firstAttribute="top" secondItem="gtu-Tc-Eer" secondAttribute="top" constant="18" id="Brb-A9-6NY"/>
-                                <constraint firstAttribute="height" constant="155" id="G5A-FP-Yif"/>
-                                <constraint firstItem="b9e-30-C7r" firstAttribute="top" secondItem="JYl-2U-rMn" secondAttribute="bottom" constant="12" id="IMO-LL-fLO"/>
+                                <constraint firstAttribute="height" constant="118" id="G5A-FP-Yif"/>
                                 <constraint firstItem="b9e-30-C7r" firstAttribute="leading" secondItem="gtu-Tc-Eer" secondAttribute="leading" constant="24" id="KmP-d5-2yZ"/>
-                                <constraint firstItem="JYl-2U-rMn" firstAttribute="leading" secondItem="gtu-Tc-Eer" secondAttribute="leading" constant="24" id="QCA-I1-gx6"/>
-                                <constraint firstAttribute="trailing" secondItem="JYl-2U-rMn" secondAttribute="trailing" constant="24" id="QQu-5Z-eAj"/>
                                 <constraint firstItem="doi-hG-9g2" firstAttribute="top" secondItem="cG4-Dx-3rq" secondAttribute="bottom" constant="12" id="TiN-zd-hZC"/>
+                                <constraint firstItem="b9e-30-C7r" firstAttribute="top" secondItem="doi-hG-9g2" secondAttribute="bottom" constant="12" id="cgJ-1Z-tIY"/>
                                 <constraint firstItem="doi-hG-9g2" firstAttribute="leading" secondItem="gtu-Tc-Eer" secondAttribute="leading" constant="24" id="dCh-OJ-a1M"/>
                                 <constraint firstAttribute="trailing" secondItem="b9e-30-C7r" secondAttribute="trailing" constant="24" id="fnP-JA-oqA"/>
                                 <constraint firstItem="cG4-Dx-3rq" firstAttribute="leading" secondItem="gtu-Tc-Eer" secondAttribute="leading" constant="24" id="ibz-Jr-UwT"/>
-                                <constraint firstItem="JYl-2U-rMn" firstAttribute="top" secondItem="doi-hG-9g2" secondAttribute="bottom" constant="12" id="n3z-V4-N0k"/>
                                 <constraint firstAttribute="trailing" secondItem="doi-hG-9g2" secondAttribute="trailing" constant="24" id="zdd-Ar-b5a"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
@@ -269,27 +266,16 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dr4-La-f9X">
-                            <rect key="frame" x="15" y="596" width="345" height="226"/>
+                            <rect key="frame" x="15" y="531" width="345" height="300"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OTHERS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pf-32-VzG">
-                                    <rect key="frame" x="24" y="18" width="47" height="15"/>
+                                    <rect key="frame" x="24" y="18" width="47" height="14"/>
                                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PM-RB-2d8">
-                                    <rect key="frame" x="24" y="77" width="297" height="18"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Rate our App" image="settings_rate_app">
-                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="rateOurAppButtonPressed:" destination="-1" eventType="touchUpInside" id="5gG-OX-NGi"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijc-DN-FUu">
-                                    <rect key="frame" x="24" y="45" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="144" width="297" height="20"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Share" image="settings_share">
@@ -299,79 +285,111 @@
                                         <action selector="shareWithFriendButtonPressed:" destination="-1" eventType="touchUpInside" id="gsS-lP-4FN"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYZ-MB-rGO">
-                                    <rect key="frame" x="24" y="139" width="297" height="19"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                    <state key="normal" title="Terms &amp; Conditions" image="setting_term">
-                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5f-in-QUU">
-                                    <rect key="frame" x="24" y="107" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="112" width="297" height="20"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Notifications" image="settings_manage_alert">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
-                                        <action selector="notificationsButtonPressed:" destination="-1" eventType="touchUpInside" id="WF7-ZA-235"/>
+                                        <action selector="notificationsButtonPressed:" destination="-1" eventType="touchUpInside" id="YpB-1e-ccF"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i9-8v-ipm">
-                                    <rect key="frame" x="56" y="176" width="19" height="22"/>
+                                    <rect key="frame" x="56" y="206" width="19" height="22"/>
                                     <state key="normal" image="setting_telegram"/>
                                     <connections>
                                         <action selector="telegramButtonPressed:" destination="-1" eventType="touchUpInside" id="IZl-U1-MiA"/>
+                                        <action selector="telegramButtonTapped:" destination="-1" eventType="touchUpInside" id="hLy-Yy-imX"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se5-hf-B7q">
-                                    <rect key="frame" x="91" y="176" width="20" height="22"/>
+                                    <rect key="frame" x="91" y="206" width="20" height="22"/>
                                     <state key="normal" image="setting_twitter"/>
                                     <connections>
                                         <action selector="twitterButtonPressed:" destination="-1" eventType="touchUpInside" id="Aoc-2f-s5G"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hBk-rd-7na">
-                                    <rect key="frame" x="127" y="176" width="22" height="22"/>
-                                    <state key="normal" image="setting_facebook"/>
-                                    <connections>
-                                        <action selector="facebookButtonPressed:" destination="-1" eventType="touchUpInside" id="srj-PL-mZQ"/>
+                                        <action selector="twitterButtonTapped:" destination="-1" eventType="touchUpInside" id="pk8-WR-GTp"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-VY-iwf">
-                                    <rect key="frame" x="165" y="176" width="20" height="22"/>
+                                    <rect key="frame" x="127" y="206" width="20" height="22"/>
                                     <state key="normal" image="setting_medium"/>
                                     <connections>
                                         <action selector="mediumButtonPressed:" destination="-1" eventType="touchUpInside" id="5Fl-hL-KJf"/>
+                                        <action selector="mediumButtonTapped:" destination="-1" eventType="touchUpInside" id="YUd-T2-oM3"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15o-dz-5Vr">
+                                    <rect key="frame" x="24" y="75" width="297" height="25"/>
+                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Privacy Policy" image="settings_privacy_icon">
+                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="privacyPolicyTapped:" destination="-1" eventType="touchUpInside" id="YeV-Bx-DfG"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzz-dO-flI">
+                                    <rect key="frame" x="8" y="261" width="59" height="18"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYZ-MB-rGO">
+                                    <rect key="frame" x="24" y="44" width="297" height="19"/>
+                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Terms of Use" image="setting_term">
+                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="termOfUseButtonTapped:" destination="-1" eventType="touchUpInside" id="gSS-3f-p09"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PM-RB-2d8">
+                                    <rect key="frame" x="24" y="176" width="297" height="18"/>
+                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Rate our App" image="settings_rate_app">
+                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="rateOurAppButtonPressed:" destination="-1" eventType="touchUpInside" id="5gG-OX-NGi"/>
                                     </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.035294117649999998" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="226" id="0Es-2T-Tjk"/>
-                                <constraint firstItem="hBk-rd-7na" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="6ic-hK-hWb"/>
-                                <constraint firstItem="1i9-8v-ipm" firstAttribute="top" secondItem="dYZ-MB-rGO" secondAttribute="bottom" constant="18" id="8a1-2t-zj3"/>
-                                <constraint firstItem="4PM-RB-2d8" firstAttribute="top" secondItem="ijc-DN-FUu" secondAttribute="bottom" constant="12" id="AFx-JC-ZE9"/>
+                                <constraint firstAttribute="height" constant="300" id="0Es-2T-Tjk"/>
+                                <constraint firstItem="4PM-RB-2d8" firstAttribute="top" secondItem="ijc-DN-FUu" secondAttribute="bottom" constant="12" id="1QN-MU-h2x"/>
+                                <constraint firstAttribute="trailing" secondItem="R5f-in-QUU" secondAttribute="trailing" constant="24" id="1St-vD-Gb6"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="3jS-hE-e1Y"/>
+                                <constraint firstItem="R5f-in-QUU" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="AAe-sw-0GJ"/>
                                 <constraint firstItem="NHl-VY-iwf" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="BLJ-ML-6bu"/>
                                 <constraint firstItem="2pf-32-VzG" firstAttribute="top" secondItem="Dr4-La-f9X" secondAttribute="top" constant="18" id="Ei2-Z5-ycL"/>
-                                <constraint firstItem="NHl-VY-iwf" firstAttribute="leading" secondItem="hBk-rd-7na" secondAttribute="trailing" constant="16" id="G7S-l6-XOJ"/>
+                                <constraint firstItem="nzz-dO-flI" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="8" id="F1C-9l-hVb"/>
+                                <constraint firstItem="dYZ-MB-rGO" firstAttribute="top" secondItem="2pf-32-VzG" secondAttribute="bottom" constant="12" id="FoA-3u-hSp"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="GOv-F5-MGe"/>
-                                <constraint firstAttribute="trailing" secondItem="4PM-RB-2d8" secondAttribute="trailing" constant="24" id="HZq-ZR-EVA"/>
-                                <constraint firstItem="R5f-in-QUU" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="12" id="Igb-K0-vf3"/>
                                 <constraint firstItem="2pf-32-VzG" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="M08-gz-ggd"/>
+                                <constraint firstItem="ijc-DN-FUu" firstAttribute="top" secondItem="R5f-in-QUU" secondAttribute="bottom" constant="12" id="NeJ-zX-563"/>
+                                <constraint firstItem="1i9-8v-ipm" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="12" id="Nhy-v4-2Tk"/>
+                                <constraint firstAttribute="trailing" secondItem="dYZ-MB-rGO" secondAttribute="trailing" constant="24" id="Nnm-Ti-igv"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="leading" secondItem="1i9-8v-ipm" secondAttribute="trailing" constant="16" id="Nv1-G0-oIY"/>
-                                <constraint firstAttribute="trailing" secondItem="ijc-DN-FUu" secondAttribute="trailing" constant="24" id="U7S-QQ-TqB"/>
-                                <constraint firstItem="ijc-DN-FUu" firstAttribute="top" secondItem="2pf-32-VzG" secondAttribute="bottom" constant="12" id="We3-Hw-lKJ"/>
+                                <constraint firstItem="NHl-VY-iwf" firstAttribute="leading" secondItem="se5-hf-B7q" secondAttribute="trailing" constant="16" id="O7d-fy-0JN"/>
+                                <constraint firstItem="dYZ-MB-rGO" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="VVl-pI-cke"/>
+                                <constraint firstItem="NHl-VY-iwf" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="Z84-Qo-KlY"/>
                                 <constraint firstItem="1i9-8v-ipm" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="56" id="b4H-S7-ygA"/>
-                                <constraint firstAttribute="trailing" secondItem="R5f-in-QUU" secondAttribute="trailing" constant="24" id="bL9-nV-0bq"/>
-                                <constraint firstItem="ijc-DN-FUu" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="dXE-h6-u3d"/>
-                                <constraint firstItem="hBk-rd-7na" firstAttribute="leading" secondItem="se5-hf-B7q" secondAttribute="trailing" constant="16" id="fz6-Cx-0lb"/>
-                                <constraint firstAttribute="trailing" secondItem="dYZ-MB-rGO" secondAttribute="trailing" constant="24" id="hRo-na-2yO"/>
-                                <constraint firstItem="R5f-in-QUU" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="npd-JA-yx8"/>
-                                <constraint firstItem="dYZ-MB-rGO" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="waV-6A-dp6"/>
-                                <constraint firstItem="dYZ-MB-rGO" firstAttribute="top" secondItem="R5f-in-QUU" secondAttribute="bottom" constant="12" id="yfd-uo-EAm"/>
-                                <constraint firstItem="4PM-RB-2d8" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="zkr-Jm-Hcp"/>
+                                <constraint firstItem="4PM-RB-2d8" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="ccr-ap-bk3"/>
+                                <constraint firstItem="ijc-DN-FUu" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="e3B-Gc-vcf"/>
+                                <constraint firstAttribute="trailing" secondItem="4PM-RB-2d8" secondAttribute="trailing" constant="24" id="gEr-cm-Dge"/>
+                                <constraint firstAttribute="trailing" secondItem="ijc-DN-FUu" secondAttribute="trailing" constant="24" id="gXM-1u-RnE"/>
+                                <constraint firstItem="R5f-in-QUU" firstAttribute="top" secondItem="15o-dz-5Vr" secondAttribute="bottom" constant="12" id="hWz-rA-shy"/>
+                                <constraint firstAttribute="trailing" secondItem="15o-dz-5Vr" secondAttribute="trailing" constant="24" id="kaI-Lk-5sB"/>
+                                <constraint firstItem="15o-dz-5Vr" firstAttribute="top" secondItem="dYZ-MB-rGO" secondAttribute="bottom" constant="12" id="pd3-3v-2gH"/>
+                                <constraint firstItem="15o-dz-5Vr" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="qo7-Ht-EbK"/>
+                                <constraint firstAttribute="bottom" secondItem="nzz-dO-flI" secondAttribute="bottom" constant="21" id="sKN-Wt-cCM"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -419,19 +437,18 @@
     </objects>
     <resources>
         <image name="setting_add_custom_token" width="19" height="19"/>
-        <image name="setting_chat" width="22" height="22"/>
+        <image name="setting_email_icon" width="24" height="24"/>
         <image name="setting_fa0" width="20" height="20"/>
-        <image name="setting_facebook" width="22" height="22"/>
         <image name="setting_fingerprint" width="20" height="22"/>
         <image name="setting_manage_token" width="18" height="19"/>
         <image name="setting_medium" width="20" height="17"/>
         <image name="setting_telegram" width="19" height="16"/>
         <image name="setting_term" width="20" height="19"/>
         <image name="setting_twitter" width="20" height="17"/>
-        <image name="settings_about" width="24" height="19"/>
         <image name="settings_contact" width="22" height="20"/>
         <image name="settings_manage_alert" width="16" height="20"/>
         <image name="settings_pin" width="16" height="20"/>
+        <image name="settings_privacy_icon" width="25" height="25"/>
         <image name="settings_rate_app" width="20" height="18"/>
         <image name="settings_share" width="20" height="20"/>
         <image name="settings_wallet" width="20" height="20"/>

@@ -71,6 +71,14 @@ class EarnMenuViewController: KNBaseViewController {
     self.navigationController?.popViewController(animated: true)
   }
   
+  @IBAction func helpButtonTapped(_ sender: UIButton) {
+    self.showBottomBannerView(
+      message: "APY (Annual percentage yield) may change over time".toBeLocalised(),
+      icon: UIImage(named: "help_icon_large") ?? UIImage(),
+      time: 10
+    )
+  }
+  
   fileprivate func updateUIPendingTxIndicatorView() {
     guard self.isViewLoaded else {
       return

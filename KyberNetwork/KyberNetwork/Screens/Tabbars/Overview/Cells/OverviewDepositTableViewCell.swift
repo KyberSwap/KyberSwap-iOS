@@ -47,8 +47,15 @@ class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
   }
   
   var displayValue: String {
-    let string = self.valueBigInt.string(decimals: self.balance.decimals, minFractionDigits: 0, maxFractionDigits: 6)
-    return self.currencyType == .usd ? "$" + string : string
+    let string = self.valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+    switch self.currencyType {
+    case .usd:
+      return "$" + string
+    case .eth:
+      return string + " ETH"
+    case .btc:
+      return string + " BTC"
+    }
   }
   
   var balanceBigInt: BigInt {
@@ -57,8 +64,16 @@ class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
 
   var valueBigInt: BigInt {
     guard let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.balance.address) else { return BigInt(0) }
-    let price = self.currencyType == .usd ? tokenPrice.usd : tokenPrice.eth
-    return self.balanceBigInt * BigInt(price * pow(10.0, 18.0)) / BigInt(10).power(18)
+    var price = 0.0
+    switch self.currencyType {
+    case .usd:
+      price = tokenPrice.usd
+    case .eth:
+      price = tokenPrice.eth
+    case .btc:
+      price = tokenPrice.btc
+    }
+    return self.balanceBigInt * BigInt(price * pow(10.0, 18.0)) / BigInt(10).power(self.balance.decimals)
   }
   
   let balance: LendingBalance
@@ -79,7 +94,7 @@ class OverviewDepositDistributionBalanceCellViewModel: OverviewDepositCellViewMo
 
   var displayBalance: NSAttributedString {
     let balanceString = self.balanceBigInt.string(decimals: self.balance.decimal, minFractionDigits: 0, maxFractionDigits: 6)
-    let text = "\(balanceString)\(self.balance.symbol)"
+    let text = "\(balanceString) \(self.balance.symbol)"
     let amountAttributes: [NSAttributedStringKey: Any] = [
       NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
       NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
@@ -88,18 +103,34 @@ class OverviewDepositDistributionBalanceCellViewModel: OverviewDepositCellViewMo
   }
 
   var displayValue: String {
-    let string = self.valueBigInt.string(decimals: self.balance.decimal, minFractionDigits: 0, maxFractionDigits: 6)
-    return self.currencyType == .usd ? "$" + string : string
+    let string = self.valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+    switch self.currencyType {
+    case .usd:
+      return "$" + string
+    case .eth:
+      return string + " ETH"
+    case .btc:
+      return string + " BTC"
+    }
   }
   
   var balanceBigInt: BigInt {
-    return BigInt(self.balance.current) ?? BigInt(0)
+    return BigInt(self.balance.unclaimed) ?? BigInt(0)
   }
   
   var valueBigInt: BigInt {
     guard let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.balance.address) else { return BigInt(0) }
-    let price = self.currencyType == .usd ? tokenPrice.usd : tokenPrice.eth
-    return self.balanceBigInt * BigInt(price * pow(10.0, 18.0)) / BigInt(10).power(18)
+    var price = 0.0
+    switch self.currencyType {
+    case .usd:
+      price = tokenPrice.usd
+    case .eth:
+      price = tokenPrice.eth
+    case .btc:
+      price = tokenPrice.btc
+    
+    }
+    return self.balanceBigInt * BigInt(price * pow(10.0, 18.0)) / BigInt(10).power(self.balance.decimal)
   }
   
   var currencyType: CurrencyType = .usd

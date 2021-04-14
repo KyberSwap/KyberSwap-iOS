@@ -14,23 +14,23 @@ struct KrytalCellViewModel {
   var displayReferralCode: String {
     return self.referralCode
   }
-  
+
   var displayRatio: String {
     let left = self.codeObject.ratio * 100 / 10000
     let right = 100 - left
-    return "\(left)-\(right)"
+    return "\(Int(left))-\(Int(right))"
   }
   
   var displayFriends: String {
-    return "\(self.codeObject.totalRefer)"
+    return "\(Int(self.codeObject.totalRefer))"
   }
   
   var displayEscrow: String {
-    return "---"
+    return "\(self.codeObject.totalEscrowed)"
   }
   
   var displayKPEarned: String {
-    return "\(codeObject.totalPoint)"
+    return "\(self.codeObject.totalEarned)"
   }
 }
 

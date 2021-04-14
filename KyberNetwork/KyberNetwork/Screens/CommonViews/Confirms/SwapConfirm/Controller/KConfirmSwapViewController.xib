@@ -32,7 +32,6 @@
                 <outlet property="reserveRountingContainerTopConstraint" destination="OKq-sZ-cWv" id="ir4-qJ-IWO"/>
                 <outlet property="reserveRoutingMessageContainer" destination="OBt-LS-t3j" id="vH6-Ox-hLL"/>
                 <outlet property="reserveRoutingMessageLabel" destination="Hwk-JP-91t" id="RyT-wG-biG"/>
-                <outlet property="titleLabel" destination="hUo-Ag-Pu8" id="Kck-0x-4n2"/>
                 <outlet property="toAmountLabel" destination="JeZ-f9-d1J" id="blS-V3-ivn"/>
                 <outlet property="transactionFeeETHLabel" destination="9Hs-Gk-9ve" id="Oab-mg-esx"/>
                 <outlet property="transactionFeeTextLabel" destination="iK5-x6-6Wa" id="hqO-ev-ouw"/>
@@ -248,8 +247,8 @@
                             <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KyberSwap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUo-Ag-Pu8">
-                            <rect key="frame" x="151.5" y="40" width="72" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SWAP CONFIRM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUo-Ag-Pu8">
+                            <rect key="frame" x="133.5" y="40" width="108.5" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>

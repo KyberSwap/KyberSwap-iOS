@@ -46,7 +46,7 @@ class KSwapViewModel {
 //  }
 
   fileprivate(set) var selectedGasPriceType: KNSelectedGasPriceType = .medium
-  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.fastKNGas
+  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.standardKNGas
 
   fileprivate(set) var estimateGasLimit: BigInt = KNGasConfiguration.exchangeTokensGasLimitDefault
   var swapRates: (String, String, BigInt, [JSONDictionary]) = ("", "", BigInt(0), [])
@@ -54,6 +54,8 @@ class KSwapViewModel {
   var remainApprovedAmount: (TokenObject, BigInt)?
   var latestNonce: Int = -1
   var refPrice: (TokenObject, TokenObject, String, [String])
+  var gasPriceSelectedAmount: String = ""
+  var approvingToken: TokenObject?
 
   init(wallet: Wallet,
        from: TokenObject,
@@ -117,8 +119,8 @@ class KSwapViewModel {
   }
 
   var equivalentUSDAmount: BigInt? {
-    if let usdRate = KNRateCoordinator.shared.usdRate(for: self.to) {
-      return usdRate.rate * self.amountToBigInt / BigInt(10).power(self.to.decimals)
+    if let usdRate = KNTrackerRateStorage.shared.getPriceWithAddress(self.to.address) {
+      return self.amountToBigInt * BigInt(usdRate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.to.decimals)
     }
     return nil
   }
@@ -401,14 +403,8 @@ class KSwapViewModel {
     let address = wallet.address.description
     self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: address) ?? KNWalletObject(address: address)
 
-    if let destToken = KNWalletPromoInfoStorage.shared.getDestinationToken(from: address), let ptToken = KNSupportedTokenStorage.shared.ptToken {
-      self.from = ptToken.clone()
-      self.to = KNSupportedTokenStorage.shared.supportedTokens.first(where: { $0.symbol == destToken })?.clone() ?? self.eth
-    } else {
-      // not a promo wallet
-      self.from = self.eth
-      self.to = self.knc
-    }
+    self.from = self.eth
+    self.to = self.knc
 
     self.amountFrom = ""
     self.amountTo = ""
@@ -586,6 +582,9 @@ class KSwapViewModel {
   }
 
   func reloadBestPlatform() {
+    guard (self.amountFrom != self.gasPriceSelectedAmount) || self.gasPriceSelectedAmount.isEmpty  else {
+      return
+    }
     let rates = self.swapRates.3
     if rates.count == 1 {
       let dict = rates.first

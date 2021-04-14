@@ -22,19 +22,6 @@ class KNLoadBalanceCoordinator {
 
   fileprivate var lastRefreshTime: Date = Date()
 
-  var totalBalanceInUSD: BigInt {
-    let balanceValue: BigInt = {
-      var value = BigInt(0)
-      let tokens = KNSupportedTokenStorage.shared.supportedTokens
-      for token in tokens {
-        if let balance = otherTokensBalance[token.contract.lowercased()], !balance.value.isZero, let rate = KNRateCoordinator.shared.usdRate(for: token) {
-          value += rate.rate * balance.value / BigInt(10).power(token.decimals)
-        }
-      }
-      return value
-    }()
-    return balanceValue
-  }
 
   
 
@@ -292,7 +279,6 @@ class KNLoadBalanceCoordinator {
     let addresses = tokens.map { (token) -> String in
       return token.address
     }
-    BalanceStorage.shared.cleanCustomTokenBalance()
     let group = DispatchGroup()
     addresses.forEach { (addressString) in
       guard let address = Address(string: addressString) else { return }

@@ -99,6 +99,10 @@ class KNPasscodeViewController: KNBaseViewController {
   }
 
   func showBioAuthenticationIfNeeded() {
+//    guard UserDefaults.standard.bool(forKey: "bio-auth") == true else {
+//      self.bioAuthenButton.isHidden = true
+//      return
+//    }
     self.bioAuthenButton.isHidden = true
     if case .verifyPasscode = self.viewType { return }
     guard case .authenticate(let isUpdating) = self.viewType, !isUpdating else { return }

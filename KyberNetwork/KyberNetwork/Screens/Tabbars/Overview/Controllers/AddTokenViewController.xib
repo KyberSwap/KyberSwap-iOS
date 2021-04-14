@@ -172,7 +172,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp1-AP-dOe">
                     <rect key="frame" x="40" y="367" width="295" height="42"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mmn-6o-dhI">
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Decimals" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mmn-6o-dhI">
                             <rect key="frame" x="16" y="0.0" width="263" height="42"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>

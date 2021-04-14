@@ -24,7 +24,6 @@ class KNImportWalletViewController: KNBaseViewController {
   @IBOutlet weak var headerContainerView: UIView!
   fileprivate var isViewSetup: Bool = false
   @IBOutlet weak var scrollView: UIScrollView!
-  @IBOutlet weak var pageControl: UIPageControl!
   @IBOutlet weak var jsonButton: UIButton!
   @IBOutlet weak var privateKeyButton: UIButton!
   @IBOutlet weak var seedsButton: UIButton!
@@ -186,14 +185,9 @@ class KNImportWalletViewController: KNBaseViewController {
     self.delegate?.importWalletViewController(self, run: .back)
   }
 
-  @IBAction func pageControlValueDidChange(_ sender: UIPageControl) {
-    self.updateUIWithCurrentPage(sender.currentPage)
-  }
-
   fileprivate func updateUIWithCurrentPage(_ page: Int) {
     self.view.endEditing(true)
     UIView.animate(withDuration: 0.15) {
-      self.pageControl.currentPage = page
       self.jsonButton.isSelected = false
       self.privateKeyButton.isSelected = false
       self.seedsButton.isSelected = false

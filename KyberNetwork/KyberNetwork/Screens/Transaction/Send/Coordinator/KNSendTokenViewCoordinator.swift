@@ -46,7 +46,7 @@ class KNSendTokenViewCoordinator: NSObject, Coordinator {
   fileprivate(set) var searchTokensVC: KNSearchTokenViewController?
   fileprivate(set) var confirmVC: KConfirmSendViewController?
   fileprivate(set) weak var gasPriceSelector: GasFeeSelectorPopupViewController?
-  fileprivate var transactionStatusVC: KNTransactionStatusPopUp?
+  fileprivate weak var transactionStatusVC: KNTransactionStatusPopUp?
 
   lazy var addContactVC: KNNewContactViewController = {
     let viewModel: KNNewContactViewModel = KNNewContactViewModel(address: "")
@@ -156,7 +156,7 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
       // validate transaction before transfer,
       // currently only validate sender's address, could be added more later
       guard self.session.externalProvider != nil else {
-        self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+        self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
         return
       }
       controller.displayLoading()
@@ -360,9 +360,10 @@ extension KNSendTokenViewCoordinator {
   }
 
   fileprivate func openTransactionStatusPopUp(transaction: InternalHistoryTransaction) {
-    self.transactionStatusVC = KNTransactionStatusPopUp(transaction: transaction)
-    self.transactionStatusVC?.delegate = self
-    self.navigationController.present(self.transactionStatusVC!, animated: true, completion: nil)
+    let controller = KNTransactionStatusPopUp(transaction: transaction)
+    controller.delegate = self
+    self.navigationController.present(controller, animated: true, completion: nil)
+    self.transactionStatusVC = controller
   }
 }
 
@@ -517,7 +518,7 @@ extension KNSendTokenViewCoordinator: SpeedUpCustomGasSelectDelegate {
           }
         }
       } else {
-        self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+        self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
       }
     case .invaild:
       self.navigationController.showErrorTopBannerMessage(
@@ -535,6 +536,8 @@ extension KNSendTokenViewCoordinator: KNConfirmCancelTransactionPopUpDelegate {
       let cancelTx = transaction.transactionObject.toCancelTransaction(account: account)
       let saved = EtherscanTransactionStorage.shared.getInternalHistoryTransactionWithHash(transaction.hash)
       saved?.state = .cancel
+      saved?.type = .transferETH
+      saved?.transactionSuccessDescription = "-0 ETH"
       cancelTx.send(provider: provider) { (result) in
         switch result {
         case .success(let hash):
@@ -552,7 +555,7 @@ extension KNSendTokenViewCoordinator: KNConfirmCancelTransactionPopUpDelegate {
         }
       }
     } else {
-      self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+      self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
     }
   }
 }

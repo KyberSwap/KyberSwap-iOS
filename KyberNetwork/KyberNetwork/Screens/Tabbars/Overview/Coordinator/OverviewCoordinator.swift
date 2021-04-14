@@ -16,6 +16,7 @@ protocol OverviewCoordinatorDelegate: class {
   func overviewCoordinatorDidSelectWallet(_ wallet: Wallet)
   func overviewCoordinatorDidSelectManageWallet()
   func overviewCoordinatorDidSelectSwapToken(token: Token, isBuy: Bool)
+  func overviewCoordinatorDidSelectDepositMore(tokenAddress: String)
 }
 
 class OverviewCoordinator: NSObject, Coordinator {
@@ -29,6 +30,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   var historyCoordinator: KNHistoryCoordinator?
   var withdrawCoordinator: WithdrawCoordinator?
   var krytalCoordinator: KrytalCoordinator?
+  var notificationsCoordinator: NotificationCoordinator?
 
   lazy var rootViewController: OverviewContainerViewController = {
     let viewModel = OverviewContainerViewModel(session: self.session, marketViewModel: self.marketViewController.viewModel, assetsViewModel: self.assetsViewController.viewModel, depositViewModel: self.depositViewController.viewModel)
@@ -97,6 +99,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   //TODO: coordinator update balance, coordinator change wallet
   func appCoordinatorDidUpdateTokenList() {
     self.rootViewController.coordinatorDidUpdateDidUpdateTokenList()
+    self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
   
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
@@ -104,6 +107,7 @@ class OverviewCoordinator: NSObject, Coordinator {
     self.rootViewController.coordinatorDidUpdateNewSession(session)
     self.sendCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.historyCoordinator?.appCoordinatorDidUpdateNewSession(session)
+    self.krytalCoordinator?.appCoordinatorDidUpdateNewSession(session)
   }
   
   func appCoordinatorPendingTransactionsDidUpdate() {
@@ -111,9 +115,12 @@ class OverviewCoordinator: NSObject, Coordinator {
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
     self.rootViewController.coordinatorDidUpdatePendingTx()
     self.sendCoordinator?.coordinatorDidUpdatePendingTx()
+    self.withdrawCoordinator?.coordinatorDidUpdatePendingTx()
+    self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
   
   func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
+    if self.sendCoordinator?.coordinatorDidUpdateTransaction(tx) == true { return true }
     return self.withdrawCoordinator?.appCoordinatorUpdateTransaction(tx) ?? false
   }
 }
@@ -142,7 +149,7 @@ extension OverviewCoordinator: ChartViewControllerDelegate {
     switch event {
     case .getChartData(let address, let from, let to):
       let provider = MoyaProvider<CoinGeckoService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-      provider.request(.getChartData(address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", from: from, to: to)) { result in //TODO: hard code knc token
+      provider.request(.getChartData(address: address, from: from, to: to)) { result in //TODO: hard code knc token
         switch result {
         case .failure(let error):
           controller.coordinatorFailUpdateApi(error)
@@ -156,9 +163,9 @@ extension OverviewCoordinator: ChartViewControllerDelegate {
           }
         }
       }
-    case .getTokenDetailInfo(address: let address): //TODO: change hardcode address
+    case .getTokenDetailInfo(address: let address):
       let provider = MoyaProvider<CoinGeckoService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-      provider.request(.getTokenDetailInfo(address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")) { (result) in
+      provider.request(.getTokenDetailInfo(address: address)) { (result) in
         switch result {
         case .failure(let error):
           controller.coordinatorFailUpdateApi(error)
@@ -226,6 +233,10 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
       self.openAddTokenScreen()
     case .krytal:
       self.openKrytalView()
+    case .notifications:
+      let coordinator = NotificationCoordinator(navigationController: self.navigationController)
+      coordinator.start()
+      self.notificationsCoordinator = coordinator
     }
   }
   
@@ -356,6 +367,8 @@ extension OverviewCoordinator: OverviewDepositViewControllerDelegate {
       coordinator.start()
       coordinator.delegate = self
       self.withdrawCoordinator = coordinator
+    case .depositMore:
+      self.delegate?.overviewCoordinatorDidSelectDepositMore(tokenAddress: "")
     }
   }
 }
@@ -379,6 +392,10 @@ extension OverviewCoordinator: KNSendTokenViewCoordinatorDelegate {
 }
 
 extension OverviewCoordinator: WithdrawCoordinatorDelegate {
+  func withdrawCoordinatorDidSelectEarnMore(balance: LendingBalance) {
+    self.delegate?.overviewCoordinatorDidSelectDepositMore(tokenAddress: balance.address)
+  }
+  
   func withdrawCoordinatorDidSelectAddWallet() {
     self.delegate?.overviewCoordinatorDidSelectAddWallet()
   }

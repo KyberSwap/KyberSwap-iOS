@@ -13,9 +13,14 @@ protocol WithdrawAndClaimConfirmPopupViewModel: class {
   var displayValue: String { get }
   var symbol: String { get }
   var isWithdraw: Bool { get }
+  var lendingBalance: LendingBalance? { get }
 }
 
 class ClaimConfirmPopupViewModel: WithdrawAndClaimConfirmPopupViewModel {
+  var lendingBalance: LendingBalance? {
+    return nil
+  }
+  
   var balanceBigInt: BigInt {
     return BigInt(self.balance.unclaimed) ?? BigInt(0)
   }
@@ -28,9 +33,9 @@ class ClaimConfirmPopupViewModel: WithdrawAndClaimConfirmPopupViewModel {
   var valueBigInt: BigInt {
     guard let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.balance.address) else { return BigInt(0) }
     let price = tokenPrice.usd
-    return self.balanceBigInt * BigInt(price * pow(10.0, 18.0)) / BigInt(10).power(18)
+    return self.balanceBigInt * BigInt(price * pow(10.0, 18.0)) / BigInt(10).power(self.balance.decimal)
   }
-  
+
   var displayValue: String {
     let string = self.valueBigInt.string(decimals: self.balance.decimal, minFractionDigits: 0, maxFractionDigits: 6)
     return "$" + string
@@ -52,7 +57,11 @@ class ClaimConfirmPopupViewModel: WithdrawAndClaimConfirmPopupViewModel {
 }
 
 class WithdrawConfirmPopupViewModel: WithdrawAndClaimConfirmPopupViewModel {
-  let balance: LendingBalance
+  var lendingBalance: LendingBalance? {
+    return self.balance
+  }
+
+  var balance: LendingBalance
   
   init(balance: LendingBalance) {
     self.balance = balance
@@ -100,8 +109,8 @@ class WithdrawConfirmPopupViewModel: WithdrawAndClaimConfirmPopupViewModel {
 }
 
 protocol WithdrawConfirmPopupViewControllerDelegate: class {
-  func withdrawConfirmPopupViewControllerDidSelectFirstButton(_ controller: WithdrawConfirmPopupViewController)
-  func withdrawConfirmPopupViewControllerDidSelectSecondButton(_ controller: WithdrawConfirmPopupViewController)
+  func withdrawConfirmPopupViewControllerDidSelectFirstButton(_ controller: WithdrawConfirmPopupViewController, balance: LendingBalance?)
+  func withdrawConfirmPopupViewControllerDidSelectSecondButton(_ controller: WithdrawConfirmPopupViewController, balance: LendingBalance?)
 }
 
 class WithdrawConfirmPopupViewController: KNBaseViewController {
@@ -129,7 +138,7 @@ class WithdrawConfirmPopupViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     self.iconImageView.setSymbolImage(symbol: self.viewModel.symbol, size: CGSize(width: 17, height: 17))
     self.balanceLabel.attributedText = self.viewModel.displayBalance
     self.valueLabel.text = self.viewModel.displayValue
@@ -137,7 +146,7 @@ class WithdrawConfirmPopupViewController: KNBaseViewController {
     if self.viewModel.isWithdraw {
       self.secondButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.secondButton.frame.size.height / 2)
       self.firstButton.setTitle("Withdraw".toBeLocalised(), for: .normal)
-      self.secondButton.setTitle("Deposit More".toBeLocalised(), for: .normal)
+      self.secondButton.setTitle("Supply More".toBeLocalised(), for: .normal)
       self.secondButton.setTitleColor(UIColor.Kyber.SWButtonBlueColor, for: .normal)
     } else {
       self.secondButton.rounded(radius: self.secondButton.frame.size.height / 2)
@@ -158,11 +167,11 @@ class WithdrawConfirmPopupViewController: KNBaseViewController {
   }
 
   @IBAction func firstButtonTapped(_ sender: Any) {
-    self.delegate?.withdrawConfirmPopupViewControllerDidSelectFirstButton(self)
+    self.delegate?.withdrawConfirmPopupViewControllerDidSelectFirstButton(self, balance: self.viewModel.lendingBalance)
   }
   
   @IBAction func secondButtonTapped(_ sender: Any) {
-    self.delegate?.withdrawConfirmPopupViewControllerDidSelectSecondButton(self)
+    self.delegate?.withdrawConfirmPopupViewControllerDidSelectSecondButton(self, balance: self.viewModel.lendingBalance)
   }
   
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {

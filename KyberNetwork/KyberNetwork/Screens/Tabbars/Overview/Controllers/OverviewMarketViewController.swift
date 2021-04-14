@@ -85,6 +85,7 @@ class OverviewMarketViewController: KNBaseViewController, OverviewViewController
   @IBOutlet var sortingImageIndicator: [UIImageView]!
   @IBOutlet weak var usdButton: UIButton!
   @IBOutlet weak var ethButton: UIButton!
+  @IBOutlet weak var btcButton: UIButton!
   
   weak var container: OverviewViewController?
   weak var delegate: OverviewTokenListViewDelegate?
@@ -104,6 +105,7 @@ class OverviewMarketViewController: KNBaseViewController, OverviewViewController
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    self.viewModel.reloadAllData()
     self.reloadUI()
   }
   
@@ -115,9 +117,15 @@ class OverviewMarketViewController: KNBaseViewController, OverviewViewController
     case .usd:
       self.usdButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
       self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
     case .eth:
       self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
       self.ethButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+    case .btc:
+      self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      self.btcButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
     }
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
@@ -126,8 +134,10 @@ class OverviewMarketViewController: KNBaseViewController, OverviewViewController
   @IBAction func currencyTypeButtonTapped(_ sender: UIButton) {
     if sender.tag == 1 {
       self.viewModel.currencyType = .usd
-    } else {
+    } else if sender.tag == 2 {
       self.viewModel.currencyType = .eth
+    } else {
+      self.viewModel.currencyType = .btc
     }
     self.reloadUI()
     self.container?.viewControllerDidChangeCurrencyType(self, type: self.viewModel.currencyType)

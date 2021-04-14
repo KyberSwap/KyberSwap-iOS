@@ -16,6 +16,7 @@ protocol WithdrawCoordinatorDelegate: class {
   func withdrawCoordinatorDidSelectWallet(_ wallet: Wallet)
   func withdrawCoordinatorDidSelectManageWallet()
   func withdrawCoordinatorDidSelectHistory()
+  func withdrawCoordinatorDidSelectEarnMore(balance: LendingBalance)
 }
 
 class WithdrawCoordinator: NSObject, Coordinator {
@@ -69,11 +70,13 @@ class WithdrawCoordinator: NSObject, Coordinator {
     }
     
   }
-  
-  
 
   func stop() {
     
+  }
+  
+  func coordinatorDidUpdatePendingTx() {
+    self.withdrawViewController?.coordinatorDidUpdatePendingTx()
   }
 }
 
@@ -92,7 +95,7 @@ extension WithdrawCoordinator: WithdrawViewControllerDelegate {
       }
     case .buildWithdrawTx(platform: let platform, token: let token, amount: let amount, gasPrice: let gasPrice, useGasToken: let useGasToken, historyTransaction: let historyTransaction):
       guard let blockchainProvider = self.session.externalProvider else {
-        self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+        self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
         return
       }
       controller.displayLoading()
@@ -136,7 +139,7 @@ extension WithdrawCoordinator: WithdrawViewControllerDelegate {
                 }
               } else {
                 controller.hideLoading()
-                self.navigationController.showErrorTopBannerMessage(message: "Watch wallet is not supported")
+                self.navigationController.showErrorTopBannerMessage(message: "Watched wallet is not supported")
               }
             } catch let error {
               self.navigationController.showTopBannerView(message: error.localizedDescription)
@@ -172,7 +175,7 @@ extension WithdrawCoordinator: WithdrawViewControllerDelegate {
     case .sendApprove(tokenAddress: let tokenAddress, remain: let remain, symbol: let symbol):
       let vc = ApproveTokenViewController(viewModel: ApproveTokenViewModelForTokenAddress(address: tokenAddress, remain: remain, state: false, symbol: symbol))
       vc.delegate = self
-      self.withdrawViewController?.present(vc, animated: true, completion: nil)
+      controller.present(vc, animated: true, completion: nil)
     case .openGasPriceSelect(gasLimit: let gasLimit, selectType: let selectType):
       let viewModel = GasFeeSelectorPopupViewModel(isSwapOption: true, gasLimit: gasLimit, selectType: selectType, currentRatePercentage: 3, isUseGasToken: self.isAccountUseGasToken(), isContainSlippageSection: false)
       viewModel.updateGasPrices(
@@ -294,7 +297,7 @@ extension WithdrawCoordinator: SpeedUpCustomGasSelectDelegate {
           }
         }
       } else {
-        self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+        self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
       }
     case .invaild:
       self.navigationController.showErrorTopBannerMessage(
@@ -331,7 +334,7 @@ extension WithdrawCoordinator: KNConfirmCancelTransactionPopUpDelegate {
         }
       }
     } else {
-      self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
+      self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
     }
   }
 }
@@ -454,7 +457,7 @@ extension WithdrawCoordinator: GasFeeSelectorPopupViewControllerDelegate {
 }
 
 extension WithdrawCoordinator: WithdrawConfirmPopupViewControllerDelegate {
-  func withdrawConfirmPopupViewControllerDidSelectFirstButton(_ controller: WithdrawConfirmPopupViewController) {
+  func withdrawConfirmPopupViewControllerDidSelectFirstButton(_ controller: WithdrawConfirmPopupViewController, balance: LendingBalance?) {
     controller.dismiss(animated: true) {
       if let controller = self.withdrawViewController {
         self.navigationController.present(controller, animated: true, completion: {
@@ -464,57 +467,65 @@ extension WithdrawCoordinator: WithdrawConfirmPopupViewControllerDelegate {
     }
   }
   
-  func withdrawConfirmPopupViewControllerDidSelectSecondButton(_ controller: WithdrawConfirmPopupViewController) {
-    guard let blockchainProvider = self.session.externalProvider else {
-      self.navigationController.showTopBannerView(message: "Watch wallet can not do this operation".toBeLocalised())
-      return
-    }
-    controller.dismiss(animated: true) {
-      self.navigationController.displayLoading()
-      if self.claimViewController != nil {
-        self.getLatestNonce { (nonce) in
-          self.buildClaimTx(address: self.session.wallet.address.description, nonce: nonce) { (result) in
-            self.navigationController.hideLoading()
-            switch result {
-            case .success(let txObj):
-              if let transaction = txObj.convertToSignTransaction(wallet: self.session.wallet) {
-                blockchainProvider.signTransactionData(from: transaction) { [weak self] result in
-                  guard let `self` = self else { return }
-                  switch result {
-                  case .success(let signedData):
-                    KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
-                      controller.hideLoading()
-                      switch sendResult {
-                      case .success(let hash):
-                        print(hash)
-                        let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
-                        self.session.addNewPendingTransaction(tx)
-                        let historyTransaction = InternalHistoryTransaction(type: .contractInteraction, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: "Claim", transactionDetailDescription: "", transactionObj: transaction.toSignTransactionObject())
-                        historyTransaction.hash = hash
-                        historyTransaction.time = Date()
-                        historyTransaction.nonce = transaction.nonce
-                        EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
-                        controller.dismiss(animated: true) {
-                          self.openTransactionStatusPopUp(transaction: historyTransaction)
+  func withdrawConfirmPopupViewControllerDidSelectSecondButton(_ controller: WithdrawConfirmPopupViewController, balance: LendingBalance?) {
+    if controller == self.claimViewController {
+      guard let blockchainProvider = self.session.externalProvider else {
+        self.navigationController.showTopBannerView(message: "Watched wallet can not do this operation".toBeLocalised())
+        return
+      }
+      controller.dismiss(animated: true) {
+        self.navigationController.displayLoading()
+        if self.claimViewController != nil {
+          self.getLatestNonce { (nonce) in
+            self.buildClaimTx(address: self.session.wallet.address.description, nonce: nonce) { (result) in
+              self.navigationController.hideLoading()
+              switch result {
+              case .success(let txObj):
+                if let transaction = txObj.convertToSignTransaction(wallet: self.session.wallet) {
+                  blockchainProvider.signTransactionData(from: transaction) { [weak self] result in
+                    guard let `self` = self else { return }
+                    switch result {
+                    case .success(let signedData):
+                      KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
+                        controller.hideLoading()
+                        switch sendResult {
+                        case .success(let hash):
+                          print(hash)
+                          let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
+                          self.session.addNewPendingTransaction(tx)
+                          let historyTransaction = InternalHistoryTransaction(type: .contractInteraction, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: "Claim", transactionDetailDescription: "", transactionObj: transaction.toSignTransactionObject())
+                          historyTransaction.hash = hash
+                          historyTransaction.time = Date()
+                          historyTransaction.nonce = transaction.nonce
+                          EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
+                          controller.dismiss(animated: true) {
+                            self.openTransactionStatusPopUp(transaction: historyTransaction)
+                          }
+                        case .failure(let error):
+                          self.navigationController.showTopBannerView(message: error.localizedDescription)
                         }
-                      case .failure(let error):
-                        self.navigationController.showTopBannerView(message: error.localizedDescription)
-                      }
-                    })
-                  case .failure:
-                    controller.hideLoading()
+                      })
+                    case .failure:
+                      controller.hideLoading()
+                    }
                   }
+                } else {
+                  self.navigationController.showErrorTopBannerMessage(message: "Watched wallet is not supported")
                 }
-              } else {
-                self.navigationController.showErrorTopBannerMessage(message: "Watch wallet is not supported")
+              case .failure(let error):
+                self.navigationController.showErrorTopBannerMessage(message: error.description)
               }
-            case .failure(let error):
-              self.navigationController.showErrorTopBannerMessage(message: error.description)
             }
           }
         }
       }
+    } else {
+      controller.dismiss(animated: true, completion: {
+        guard let unwrapped = balance else { return }
+        self.delegate?.withdrawCoordinatorDidSelectEarnMore(balance: unwrapped)
+      })
     }
+    
   }
   
    func buildClaimTx(address: String, nonce: Int, completion: @escaping (Result<TxObject, AnyError>) -> Void) {

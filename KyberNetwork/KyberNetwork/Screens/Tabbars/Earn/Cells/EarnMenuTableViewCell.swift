@@ -16,11 +16,11 @@ struct EarnMenuTableViewCellViewModel {
     self.name = token.name
     self.sym = token.symbol.uppercased()
     let optimizeValue = token.lendingPlatforms.max { (left, right) -> Bool in
-      return left.stableBorrowRate < right.stableBorrowRate
+      return left.supplyRate < right.supplyRate
     }
 
     if let notNilValue = optimizeValue {
-      self.borrowRateAPY = String(format: "%.2f", notNilValue.stableBorrowRate * 100.0) + "%"
+      self.borrowRateAPY = String(format: "%.6f", notNilValue.supplyRate * 100.0) + "%"
     } else {
       self.borrowRateAPY = ""
     }
