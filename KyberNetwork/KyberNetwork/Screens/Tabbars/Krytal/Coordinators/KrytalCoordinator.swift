@@ -69,7 +69,12 @@ class KrytalCoordinator: NSObject, Coordinator {
   }
 
   func loadReferralOverview() {
-    guard let loginToken = Storage.retrieve(self.session.wallet.address.description + Constants.loginTokenStoreFileName, as: LoginToken.self) else { return }
+    guard let loginToken = Storage.retrieve(self.session.wallet.address.description + Constants.loginTokenStoreFileName, as: LoginToken.self) else {
+      DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        self.loadReferralOverview()
+      }
+      return
+    }
     let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     provider.request(.getReferralOverview(address: self.session.wallet.address.description, accessToken: loginToken.token)) { (result) in
       switch result {
@@ -81,11 +86,15 @@ class KrytalCoordinator: NSObject, Coordinator {
           Storage.store(data.overview, as: self.session.wallet.address.description + Constants.referralOverviewStoreFileName)
         } catch let error {
           print("[Invest] \(error.localizedDescription)")
-          self.loadReferralOverview()
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.loadReferralOverview()
+          }
         }
       case .failure(let error):
         print("[Invest] \(error.localizedDescription)")
-        self.loadReferralOverview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+          self.loadReferralOverview()
+        }
       }
     }
   }

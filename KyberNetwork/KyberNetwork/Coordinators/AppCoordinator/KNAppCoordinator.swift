@@ -176,10 +176,6 @@ class KNAppCoordinator: NSObject, Coordinator {
     guard case .real(let account) = self.session.wallet.type else {
       return
     }
-//    if let saved = Storage.retrieve(self.session.wallet.address.description + Constants.loginTokenStoreFileName, as: LoginToken.self), saved.isNeedUpdate() == false {
-//      return
-//    }
-
     let timestamp = Int(NSDate().timeIntervalSince1970)
     let message = "\(self.session.wallet.address.description)_\(timestamp)"
     let data = Data(message.utf8)
