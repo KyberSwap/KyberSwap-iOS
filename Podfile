@@ -1,4 +1,4 @@
-platform :ios, '11.0'
+platform :ios, '10.0'
 inhibit_all_warnings!
 source 'https://github.com/CocoaPods/Specs.git'
 
@@ -31,8 +31,8 @@ target 'KyberNetwork' do
   pod 'SwiftChart'
   pod 'JdenticonSwift', '~> 0.0.1'
   pod 'MSCircularSlider', '~> 1.2.2'
-  pod 'EasyTipView', '~> 2.0.1'
-#  pod 'OneSignal', '>= 2.11.2', '< 3.0'
+#  pod 'EasyTipView', '~> 2.0.1'
+  pod 'OneSignal', '>= 3.0.0', '< 4.0'
 
 #  pod 'FBSDKLoginKit/Swift'
 #  pod 'FBSDKLoginKit/Swift'
@@ -49,6 +49,7 @@ target 'KyberNetwork' do
   pod 'FreshchatSDK'
   pod 'FSPagerView'
   pod 'BetterSegmentedControl', '1.0'
+  pod 'OneSignal', '>= 3.0.0', '< 4.0'
 
   target 'KyberNetworkTests' do
     inherit! :search_paths
@@ -59,7 +60,14 @@ target 'KyberNetwork' do
     inherit! :search_paths
     # Pods for testing
   end
+  
+  
 
+end
+
+target 'KrystalNotificationServiceExtension' do
+  use_frameworks!
+  pod 'OneSignal', '>= 3.0.0', '< 4.0'
 end
 
 post_install do |installer|

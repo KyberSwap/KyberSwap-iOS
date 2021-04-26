@@ -21,7 +21,7 @@ struct KNExchangeRequestEncode: Web3Request {
       guard let minRate = exchange.minRate else { return BigInt(0) }
       return minRate * BigInt(10).power(18 - exchange.to.decimals)
     }()
-    let platformWallet: String = "0x9a68f7330A3Fe9869FfAEe4c3cF3E6BBef1189Da"
+    let platformWallet: String = Constants.platformWallet
 
     let destAddress: String = {
       if let destAddr = KNWalletPromoInfoStorage.shared.getDestWallet(from: address.description), let wallet = Address(string: destAddr) { return wallet.description }

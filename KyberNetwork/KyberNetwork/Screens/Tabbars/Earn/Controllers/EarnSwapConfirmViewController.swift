@@ -96,7 +96,7 @@ struct EarnSwapConfirmViewModel {
   
   var displayCompInfo: String {
     let apy = String(format: "%.6f", self.platform.distributionSupplyRate * 100.0)
-    return "You will automatically earn COMP token (\(apy)% APY) for interacting with compound (supply or borrow).\n\nOnce redeemed, COMP token can be swapped to any token."
+    return "You will automatically earn COMP token (\(apy)% APY) for interacting with Compound (supply or borrow).\n\nOnce redeemed, COMP token can be swapped to any token."
   }
 }
 
@@ -207,7 +207,7 @@ class EarnSwapConfirmViewController: KNBaseViewController {
       let transactionHistory = InternalHistoryTransaction(type: .earn, state: .pending, fromSymbol: self.viewModel.toToken.symbol, toSymbol: self.viewModel.earnTokenSymbol, transactionDescription: "\(self.viewModel.toAmountString) -> \(self.viewModel.earnAmountString)", transactionDetailDescription: "", transactionObj: self.viewModel.transaction.toSignTransactionObject())
       transactionHistory.transactionSuccessDescription = "\(self.viewModel.earnAmountString) with \(self.viewModel.netAPYString) APY"
       let earnTokenString = self.viewModel.platform.isCompound ? "c" + self.viewModel.toToken.symbol : "a" + self.viewModel.toToken.symbol
-      transactionHistory.earnTransactionSuccessDescription = "You’ve received \(earnTokenString) token because you supplied \(self.viewModel.toToken.symbol) in compound. Simply by holding \(earnTokenString) token, you will earn interest\nNo further action is needed at your side."
+      transactionHistory.earnTransactionSuccessDescription = "You’ve received \(earnTokenString) token because you supplied \(self.viewModel.toToken.symbol) in \(self.viewModel.platform.name). Simply by holding \(earnTokenString) token, you will earn interest."
       self.delegate?.earnConfirmViewController(self, didConfirm: self.viewModel.transaction, amount: self.viewModel.toAmountString, netAPY: self.viewModel.netAPYString, platform: self.viewModel.platform, historyTransaction: transactionHistory)
     }
   }

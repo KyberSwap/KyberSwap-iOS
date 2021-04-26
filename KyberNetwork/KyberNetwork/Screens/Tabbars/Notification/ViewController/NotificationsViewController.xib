@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Lato-Regular.ttf">
+            <string>Lato-Regular</string>
+        </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
         </array>
@@ -15,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NotificationsViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="emptyView" destination="UHZ-QH-MLd" id="Acf-MH-aVW"/>
                 <outlet property="notificationTableView" destination="Gyb-Rb-d3U" id="s9z-y6-0X8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -69,6 +73,27 @@
                         <outlet property="delegate" destination="-1" id="Zrj-Cl-ddu"/>
                     </connections>
                 </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UHZ-QH-MLd">
+                    <rect key="frame" x="0.0" y="113" width="375" height="554"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="empty_notification_icon" translatesAutoresizingMaskIntoConstraints="NO" id="AlN-fW-gxf">
+                            <rect key="frame" x="142" y="60" width="91" height="112"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No notification yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3p-12-TIw">
+                            <rect key="frame" x="130.5" y="195" width="114" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="AlN-fW-gxf" firstAttribute="centerX" secondItem="UHZ-QH-MLd" secondAttribute="centerX" id="Nfc-0s-sa8"/>
+                        <constraint firstItem="AlN-fW-gxf" firstAttribute="top" secondItem="UHZ-QH-MLd" secondAttribute="top" constant="60" id="W60-cS-zeu"/>
+                        <constraint firstItem="D3p-12-TIw" firstAttribute="top" secondItem="AlN-fW-gxf" secondAttribute="bottom" constant="23" id="bhF-pK-Lva"/>
+                        <constraint firstItem="D3p-12-TIw" firstAttribute="centerX" secondItem="UHZ-QH-MLd" secondAttribute="centerX" id="gki-o8-TR8"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -77,6 +102,10 @@
                 <constraint firstItem="Gyb-Rb-d3U" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Emk-aP-h41"/>
                 <constraint firstItem="9LT-Ld-QyV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HdE-jd-zjm"/>
                 <constraint firstItem="Gyb-Rb-d3U" firstAttribute="top" secondItem="9LT-Ld-QyV" secondAttribute="bottom" constant="20" id="Htq-cy-SJJ"/>
+                <constraint firstItem="UHZ-QH-MLd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Iif-oo-csq"/>
+                <constraint firstItem="UHZ-QH-MLd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="MkM-RZ-N6O"/>
+                <constraint firstItem="UHZ-QH-MLd" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="VQ8-4r-hVm"/>
+                <constraint firstItem="UHZ-QH-MLd" firstAttribute="top" secondItem="9LT-Ld-QyV" secondAttribute="bottom" id="ZYY-er-QPO"/>
                 <constraint firstItem="9LT-Ld-QyV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="atN-PV-yLm"/>
                 <constraint firstItem="Gyb-Rb-d3U" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="byL-FM-Mqj"/>
                 <constraint firstItem="Gyb-Rb-d3U" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="kyL-kC-8oJ"/>
@@ -86,5 +115,6 @@
     </objects>
     <resources>
         <image name="back_blue_icon" width="17" height="14"/>
+        <image name="empty_notification_icon" width="91" height="112"/>
     </resources>
 </document>

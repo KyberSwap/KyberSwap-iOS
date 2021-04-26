@@ -19,7 +19,7 @@ class KNSendTokenViewModel: NSObject {
 
   fileprivate(set) var amount: String = ""
   fileprivate(set) var selectedGasPriceType: KNSelectedGasPriceType = .medium
-  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.fastKNGas
+  fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.standardKNGas
   fileprivate(set) var gasLimit: BigInt = KNGasConfiguration.transferETHGasLimitDefault
 
   fileprivate(set) var addressString: String = ""
@@ -118,6 +118,7 @@ class KNSendTokenViewModel: NSObject {
   }
 
   var gasFeeString: String {
+    self.updateSelectedGasPriceType(self.selectedGasPriceType)
     return self.formatFeeStringFor(gasPrice: self.gasPrice)
   }
 

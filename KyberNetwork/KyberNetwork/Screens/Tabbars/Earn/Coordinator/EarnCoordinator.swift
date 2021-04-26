@@ -135,12 +135,19 @@ class EarnCoordinator: NSObject, Coordinator {
             }
             self.lendingTokens = lendingTokensData
             self.menuViewController.coordinatorDidUpdateLendingToken(self.lendingTokens)
+            Storage.store(self.lendingTokens, as: Constants.lendingTokensStoreFileName)
           } else {
-            self.getLendingOverview()
+            self.loadCachedLendingTokens()
           }
         }
       }
     }
+  }
+  
+  func loadCachedLendingTokens() {
+    let tokens = Storage.retrieve(Constants.lendingTokensStoreFileName, as: [TokenData].self) ?? []
+    self.lendingTokens = tokens
+    self.menuViewController.coordinatorDidUpdateLendingToken(self.lendingTokens)
   }
   
   func appCoordinatorTokenBalancesDidUpdate(totalBalanceInUSD: BigInt, totalBalanceInETH: BigInt, otherTokensBalance: [String: Balance]) {
@@ -244,7 +251,7 @@ extension EarnCoordinator: EarnViewControllerDelegate {
                         useGasToken: false
       )) { (result) in
         if case .success(let resp) = result, let json = try? resp.mapJSON() as? JSONDictionary ?? [:], let txObj = json["txObject"] as? [String: String], let gasLimitString = txObj["gasLimit"], let gasLimit = BigInt(gasLimitString.drop0x, radix: 16) {
-          controller.coordinatorDidUpdateGasLimit(gasLimit, platform: platform, tokenAdress: src)
+          controller.coordinatorDidUpdateGasLimit(gasLimit, platform: platform, tokenAdress: dest)
         } else {
           controller.coordinatorFailUpdateGasLimit()
         }
@@ -583,6 +590,8 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
       self.navigationController.popToRootViewController(animated: true)
     case .newSave:
       break
+    case .goToSupport:
+      self.navigationController.openSafari(with: "https://support.krystal.app")
     default:
       break
     }

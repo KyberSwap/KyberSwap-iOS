@@ -25,12 +25,12 @@ struct KrytalCellViewModel {
     return "\(Int(self.codeObject.totalRefer))"
   }
   
-  var displayEscrow: String {
-    return "\(self.codeObject.totalEscrowed)"
+  var displayPendingVol: String {
+    return "\(self.codeObject.pendingVol)"
   }
   
-  var displayKPEarned: String {
-    return "\(self.codeObject.totalEarned)"
+  var displayConfirmedVol: String {
+    return "\(self.codeObject.realizedVol)"
   }
 }
 
@@ -47,8 +47,8 @@ class KrytalTableViewCell: UITableViewCell {
   @IBOutlet weak var referralCodeLabel: UILabel!
   @IBOutlet weak var ratioLabel: UILabel!
   @IBOutlet weak var friendsLabel: UILabel!
-  @IBOutlet weak var escrowLabel: UILabel!
-  @IBOutlet weak var kpEarnedLabe: UILabel!
+  @IBOutlet weak var pendingVolLabel: UILabel!
+  @IBOutlet weak var confirmedVolLabel: UILabel!
   
   var viewModel: KrytalCellViewModel?
   weak var delegate: KrytalTableViewCellDelegate?
@@ -58,8 +58,8 @@ class KrytalTableViewCell: UITableViewCell {
     self.referralCodeLabel.text = viewModel.displayReferralCode
     self.ratioLabel.text = viewModel.displayRatio
     self.friendsLabel.text = viewModel.displayFriends
-    self.escrowLabel.text = viewModel.displayEscrow
-    self.kpEarnedLabe.text = viewModel.displayKPEarned
+    self.pendingVolLabel.text = viewModel.displayPendingVol
+    self.confirmedVolLabel.text = viewModel.displayConfirmedVol
   }
   
   @IBAction func copyButtonTapped(_ sender: UIButton) {

@@ -9,7 +9,6 @@ PODS:
     - Charts/Core (= 3.5.0)
   - Charts/Core (3.5.0)
   - CryptoSwift (0.10.0)
-  - EasyTipView (2.0.4)
   - Eureka (5.3.0)
   - Firebase (6.26.0):
     - Firebase/Core (= 6.26.0)
@@ -107,6 +106,7 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - OneSignal (3.4.1)
   - PromiseKit (6.13.1):
     - PromiseKit/CorePromise (= 6.13.1)
     - PromiseKit/Foundation (= 6.13.1)
@@ -155,7 +155,6 @@ DEPENDENCIES:
   - BigInt (~> 3.1.0)
   - Charts
   - CryptoSwift (~> 0.10.0)
-  - EasyTipView (~> 2.0.1)
   - Eureka (~> 5.3.0)
   - Firebase (~> 6.26)
   - FirebaseAnalytics (~> 6.6)
@@ -173,6 +172,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.1.0)
   - Moya (~> 10.0.1)
   - MSCircularSlider (~> 1.2.2)
+  - OneSignal (< 4.0, >= 3.0.0)
   - QRCodeReaderViewController (~> 4.0.2)
   - RealmSwift (~> 3.19.0)
   - SAMKeychain (~> 1.5.3)
@@ -195,7 +195,6 @@ SPEC REPOS:
     - BigInt
     - Charts
     - CryptoSwift
-    - EasyTipView
     - Eureka
     - Firebase
     - FirebaseAnalytics
@@ -222,6 +221,7 @@ SPEC REPOS:
     - Moya
     - MSCircularSlider
     - nanopb
+    - OneSignal
     - PromiseKit
     - PromisesObjC
     - QRCodeReaderViewController
@@ -258,7 +258,6 @@ SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   Charts: 40a08591df1f8ad5c223ddedfb1a06da92f24f7c
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
-  EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Eureka: 49239596c9d2eed9ab523990c34de62b6feac9f0
   Firebase: 7cf5f9c67f03cb3b606d1d6535286e1080e57eb6
   FirebaseAnalytics: 96634d356482d4f3af8fe459a0ebf19a99c71b75
@@ -285,6 +284,7 @@ SPEC CHECKSUMS:
   Moya: 2b0531a9fef318e0bc484030c3db1e6f279ccb66
   MSCircularSlider: 70759318a899279d7923aa0f454f3ba0fe448642
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  OneSignal: 546f5d10df7277dd271a1c4cde80646167d55cc3
   PromiseKit: 28fda91c973cc377875d8c0ea4f973013c05b6db
   PromisesObjC: b48e0338dbbac2207e611750777895f7a5811b75
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
@@ -305,6 +305,6 @@ SPEC CHECKSUMS:
   TrustKeystore: ba8a33ccd7b6a46dfe25f209253d6ba13da6655c
   WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: efd4c9f0620a250792ba19831a4035eb60ee56c9
+PODFILE CHECKSUM: 8a501d4593542786087c318f55e757934acd4c36
 
 COCOAPODS: 1.10.0.rc.1

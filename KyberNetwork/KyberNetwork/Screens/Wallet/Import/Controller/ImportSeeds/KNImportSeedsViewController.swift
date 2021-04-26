@@ -89,6 +89,9 @@ class KNImportSeedsViewController: KNBaseViewController {
   }
 
   @IBAction func nextButtonPressed(_ sender: Any) {
+    if let text = self.refCodeField.text, !text.isEmpty {
+      self.delegate?.importSeedsViewController(controller: self, send: text)
+    }
     if let seeds = self.seedsTextField.text?.trimmed {
       guard Mnemonic.isValid(seeds) else {
         self.parent?.showErrorTopBannerMessage(
@@ -115,10 +118,6 @@ class KNImportSeedsViewController: KNBaseViewController {
       self.parent?.showErrorTopBannerMessage(
         with: NSLocalizedString("field.required", value: "Field Required", comment: ""),
         message: NSLocalizedString("please.check.your.input.data", value: "Please check your input data", comment: ""))
-    }
-    
-    if let text = self.refCodeField.text, !text.isEmpty {
-      self.delegate?.importSeedsViewController(controller: self, send: text)
     }
   }
   

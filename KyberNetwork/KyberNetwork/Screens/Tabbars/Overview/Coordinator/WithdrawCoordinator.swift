@@ -228,6 +228,8 @@ extension WithdrawCoordinator: KNTransactionStatusPopUpDelegate {
       self.openTransactionCancelConfirmPopUpFor(transaction: tx)
     case .backToInvest:
       self.navigationController.popToRootViewController(animated: true)
+    case .goToSupport:
+      self.navigationController.openSafari(with: "https://support.krystal.app")
     default:
       break
     }
@@ -315,6 +317,8 @@ extension WithdrawCoordinator: KNConfirmCancelTransactionPopUpDelegate {
       let cancelTx = transaction.transactionObject.toCancelTransaction(account: account)
       let saved = EtherscanTransactionStorage.shared.getInternalHistoryTransactionWithHash(transaction.hash)
       saved?.state = .cancel
+      saved?.type = .transferETH
+      saved?.transactionSuccessDescription = "-0 ETH"
       cancelTx.send(provider: provider) { (result) in
         switch result {
         case .success(let hash):
@@ -327,8 +331,6 @@ extension WithdrawCoordinator: KNConfirmCancelTransactionPopUpDelegate {
               userInfo: nil
             )
           }
-        
-          
         case .failure(let error):
           self.navigationController.showTopBannerView(message: error.description)
         }
@@ -342,17 +344,22 @@ extension WithdrawCoordinator: KNConfirmCancelTransactionPopUpDelegate {
 extension WithdrawCoordinator: ApproveTokenViewControllerDelegate {
   func approveTokenViewControllerDidApproved(_ controller: ApproveTokenViewController, address: String, remain: BigInt, state: Bool) {
     self.navigationController.displayLoading()
-    guard let provider = self.session.externalProvider, let gasTokenAddress = Address(string: address) else {
+    guard let provider = self.session.externalProvider, let tokenAddress = Address(string: address) else {
       return
     }
     provider.sendApproveERCTokenAddress(
-      for: gasTokenAddress,
+      for: tokenAddress,
       value: BigInt(2).power(256) - BigInt(1),
       gasPrice: KNGasCoordinator.shared.defaultKNGas) { approveResult in
       self.navigationController.hideLoading()
       switch approveResult {
       case .success:
-        self.withdrawViewController?.coordinatorSuccessApprove(token: address)
+        if address.lowercased() == Constants.gasTokenAddress.lowercased() {
+          self.saveUseGasTokenState(true)
+          self.withdrawViewController?.coordinatorUpdateIsUseGasToken(true)
+        } else {
+          self.withdrawViewController?.coordinatorSuccessApprove(token: address)
+        }
       case .failure(let error):
         self.navigationController.showErrorTopBannerMessage(
           with: NSLocalizedString("error", value: "Error", comment: ""),
@@ -392,7 +399,6 @@ extension WithdrawCoordinator: GasFeeSelectorPopupViewControllerDelegate {
         return
       }
       if status {
-        
         guard let tokenAddress = Address(string: Constants.gasTokenAddress) else {
           return
         }
@@ -404,7 +410,7 @@ extension WithdrawCoordinator: GasFeeSelectorPopupViewControllerDelegate {
               let viewModel = ApproveTokenViewModelForTokenAddress(address: Constants.gasTokenAddress, remain: res, state: status, symbol: "CHI")
               let viewController = ApproveTokenViewController(viewModel: viewModel)
               viewController.delegate = self
-              self.navigationController.present(viewController, animated: true, completion: nil)
+              self.withdrawViewController?.present(viewController, animated: true, completion: nil)
             } else {
               self.saveUseGasTokenState(status)
               self.withdrawViewController?.coordinatorUpdateIsUseGasToken(status)
@@ -419,7 +425,8 @@ extension WithdrawCoordinator: GasFeeSelectorPopupViewControllerDelegate {
           }
         }
       } else {
-        self.withdrawViewController?.coordinatorUpdateIsUseGasToken(!status)
+        self.saveUseGasTokenState(status)
+        self.withdrawViewController?.coordinatorUpdateIsUseGasToken(status)
       }
     default:
       break

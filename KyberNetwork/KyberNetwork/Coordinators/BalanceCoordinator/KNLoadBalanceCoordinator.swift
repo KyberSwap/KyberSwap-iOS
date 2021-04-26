@@ -238,9 +238,6 @@ class KNLoadBalanceCoordinator {
   
   //MARK:-new balance load implementation
   func loadAllTokenBalance() {
-    guard let provider = self.session.externalProvider else {
-      return
-    }
     let tokens = KNSupportedTokenStorage.shared.getSupportedTokens()
     var erc20Address: [Address] = []
     tokens.forEach { (token) in
@@ -251,7 +248,7 @@ class KNLoadBalanceCoordinator {
     guard !erc20Address.isEmpty else {
       return
     }
-    provider.getMultipleERC20Balances(erc20Address) { result in
+    KNGeneralProvider.shared.getMutipleERC20Balances(for: self.session.wallet.address, tokens: erc20Address) { result in
       switch result {
       case .success(let values):
         if values.count == erc20Address.count {
@@ -272,9 +269,6 @@ class KNLoadBalanceCoordinator {
   }
 
   func loadBalanceForCustomToken() {
-    guard let provider = self.session.externalProvider else {
-      return
-    }
     let tokens = KNSupportedTokenStorage.shared.getCustomToken()
     let addresses = tokens.map { (token) -> String in
       return token.address
@@ -283,7 +277,7 @@ class KNLoadBalanceCoordinator {
     addresses.forEach { (addressString) in
       guard let address = Address(string: addressString) else { return }
       group.enter()
-      provider.getTokenBalance(for: address) { result in
+      KNGeneralProvider.shared.getTokenBalance(for: self.session.wallet.address, contract: address) { result in
         if case .success(let bigInt) = result {
           let balance = TokenBalance(address: addressString, balance: bigInt.description)
           BalanceStorage.shared.setCustomTokenBalance(balance)

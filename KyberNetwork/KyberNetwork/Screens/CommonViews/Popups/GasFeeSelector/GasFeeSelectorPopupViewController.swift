@@ -67,7 +67,7 @@ class GasFeeSelectorPopupViewModel {
     self.gasLimit = gasLimit
     self.selectedType = selectType == .custom ? .medium : selectType
     self.currentRate = currentRatePercentage
-    self.minRateType = currentRatePercentage == 3.0 ? .threePercent : .custom(value: currentRatePercentage)
+    self.minRateType = currentRatePercentage == 0.5 ? .threePercent : .custom(value: currentRatePercentage)
     self.isUseGasToken = isUseGasToken
     self.isContainSippageSectionOption = isContainSlippageSection
   }
@@ -184,7 +184,7 @@ class GasFeeSelectorPopupViewModel {
 
   var minRatePercent: Double {
     switch self.minRateType {
-    case .threePercent: return 3.0
+    case .threePercent: return 0.5
     case .anyRate: return 100.0
     case .custom(let value): return value
     }
@@ -402,7 +402,7 @@ class GasFeeSelectorPopupViewController: KNBaseViewController {
     self.viewModel.updateMinRateType(minRateType)
     self.customRateTextField.text = sender.tag == 1 ? self.viewModel.currentRateDisplay : ""
     self.customRateTextField.isEnabled = sender.tag == 1
-    self.delegate?.gasFeeSelectorPopupViewController(self, run: .minRatePercentageChanged(percent: 3.0))
+    self.delegate?.gasFeeSelectorPopupViewController(self, run: .minRatePercentageChanged(percent: 0.5))
     self.updateMinRateUIs()
   }
 

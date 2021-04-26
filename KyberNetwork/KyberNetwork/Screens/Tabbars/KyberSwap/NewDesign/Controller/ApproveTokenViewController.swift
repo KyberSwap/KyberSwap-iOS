@@ -50,7 +50,7 @@ class ApproveTokenViewModelForTokenObject: ApproveTokenViewModel {
   }
 
   var subTitleText: String {
-    return String(format: "You need to grant permission for Krystal to interact with %@ with this Address:", self.token?.symbol.uppercased() ?? "")
+    return String(format: "You need to approve Krystal to spend %@", self.token?.symbol.uppercased() ?? "")
   }
 
   var address: String {
@@ -109,7 +109,7 @@ class ApproveTokenViewModelForTokenAddress: ApproveTokenViewModel {
   }
 
   var subTitleText: String {
-    return "You need to grant permission for Krystal to interact with \(symbol.uppercased()) with this Address:".toBeLocalised()
+    return "You need to approve Krystal to spend \(self.symbol.uppercased())".toBeLocalised()
   }
 }
 

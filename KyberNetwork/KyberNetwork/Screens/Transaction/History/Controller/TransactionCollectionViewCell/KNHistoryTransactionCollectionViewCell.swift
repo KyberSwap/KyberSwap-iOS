@@ -266,17 +266,17 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     case .swap:
       return "SWAP"
     case .withdraw:
-      return "WITHDRAW"
+      return "WITHDRAWAL"
     case .transferETH:
       return "TRANSFER"
     case .receiveETH:
-      return "RECEIVE"
+      return "RECEIVED"
     case .transferToken:
       return "TRANSFER"
     case .receiveToken:
-      return "RECEIVE"
+      return "RECEIVED"
     case .allowance:
-      return "APPROVE"
+      return "APPROVED"
     case .earn:
       return "SUPPLY"
     case .contractInteraction:
@@ -379,7 +379,7 @@ class PendingInternalHistoryTransactonViewModel: AbstractHistoryTransactionViewM
     case .swap:
       return "SWAP"
     case .withdraw:
-      return "WITHDRAW"
+      return "WITHDRAWAL"
     case .transferETH:
       return "TRANSFER"
     case .receiveETH:

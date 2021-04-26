@@ -134,7 +134,7 @@
 "backup.your.wallet" = "Backup Your Wallet";
 "paper.only" = "Paper Only";
 "we.will.give.you.a.list.of.random.words" = "We will give you a list of 12 random words. Please";
-"write.them.down.on.paper" = "write them down on paper";
+"write.them.down.on.paper" = "write down on paper";
 "and.keep.safe.this.paper.key" = "and keep safe.\n\nThis paper key is";
 "the.only.way" = "the only way";
 "restore.your.kyber.wallet.if.you.lose.your.phone" = "to restore your Krystal Wallet if you lose your phone or forget your password.";
@@ -775,10 +775,10 @@
 "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well." = "Manage Order\nCheck your order history, pending orders etc. You can modify your orders as well.";
 "Speed Up or Cancel transaction." = "Speed Up or Cancel transaction.";
 
-"There.is.a.difference.between.the.estimated.price" = "There is a %@ difference between the estimated price for your swap amount and the reference price.\nNote: Estimated price depends on your swap amount. Reference price is from Chainlink, Band protocol and Kyber Network.";
+"There.is.a.difference.between.the.estimated.price" = "There is a %@ difference between the estimated price for your swap amount and the reference price.\nNote: Estimated price depends on your swap amount. Reference price is from Coingecko, Band protocol and Kyber Network.";
 
 "Gas.fee.is.the.fee.you.pay.to.the.miner" = "Gas fee is the fee you pay to the miner (not to Krystal) to mine your transaction on blockchain. The price of gas generally reflect how fast you want a transaction mined";
-"Wallet.must.be.backed.up" = "Please backup your wallet. It will allow you to recover your wallet if your phone is damaged, lost or stolen";
+"Wallet.must.be.backed.up" = "Please backup your wallet. It will allow you to recover your wallet if your device is damaged, lost or stolen";
 "Later" = "Later";
 
 "Explore" = "Explore";

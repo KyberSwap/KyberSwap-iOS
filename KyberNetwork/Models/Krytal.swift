@@ -15,13 +15,15 @@ struct ReferralOverviewResponse: Codable {
 
 // MARK: - Overview
 struct Overview: Codable {
-    let claimablePoint, cashbackEscrowed, cashbackPoint: Double
+    let claimablePoint, cashbackPendingVol, cashbackRealizedVol, minTier: Double
+    let maxTier: Double
+    let realizedReward: Double
     let codes: [String: Code]
 }
 
 // MARK: - Code
 struct Code: Codable {
-    let totalRefer, totalEscrowed, totalEarned, ratio: Double
+    let totalRefer, pendingVol, realizedVol, ratio: Double
 }
 
 // MARK: - ClaimHistoryResponse

@@ -31,8 +31,10 @@ class OverviewCoordinator: NSObject, Coordinator {
   var withdrawCoordinator: WithdrawCoordinator?
   var krytalCoordinator: KrytalCoordinator?
   var notificationsCoordinator: NotificationCoordinator?
+  var currentCurrencyType: CurrencyType = .usd
 
   lazy var rootViewController: OverviewContainerViewController = {
+    print("[Balance][Overview][\(session.wallet.address.description)] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
     let viewModel = OverviewContainerViewModel(session: self.session, marketViewModel: self.marketViewController.viewModel, assetsViewModel: self.assetsViewController.viewModel, depositViewModel: self.depositViewController.viewModel)
     let controller = OverviewContainerViewController(viewModel: viewModel, marketViewController: self.marketViewController, assetsViewController: self.assetsViewController, depositViewController: self.depositViewController)
     self.assetsViewController.container = controller
@@ -72,7 +74,6 @@ class OverviewCoordinator: NSObject, Coordinator {
     self.navigationController = navigationController
     self.session = session
     self.navigationController.setNavigationBarHidden(true, animated: false)
-    
   }
   
   func start() {
@@ -83,7 +84,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   }
   
   fileprivate func openChartView(token: Token) {
-    let viewModel = ChartViewModel(token: token)
+    let viewModel = ChartViewModel(token: token, currency: self.currentCurrencyType.toString())
     let controller = ChartViewController(viewModel: viewModel)
     controller.delegate = self
     self.navigationController.pushViewController(controller, animated: true)
@@ -147,9 +148,9 @@ extension OverviewCoordinator: OverviewTokenListViewDelegate {
 extension OverviewCoordinator: ChartViewControllerDelegate {
   func chartViewController(_ controller: ChartViewController, run event: ChartViewEvent) {
     switch event {
-    case .getChartData(let address, let from, let to):
+    case .getChartData(let address, let from, let to, let currency):
       let provider = MoyaProvider<CoinGeckoService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-      provider.request(.getChartData(address: address, from: from, to: to)) { result in //TODO: hard code knc token
+      provider.request(.getChartData(address: address, from: from, to: to, currency: currency)) { result in
         switch result {
         case .failure(let error):
           controller.coordinatorFailUpdateApi(error)
@@ -182,7 +183,7 @@ extension OverviewCoordinator: ChartViewControllerDelegate {
     case .transfer(token: let token):
       self.openSendTokenView(token)
     case .swap(token: let token):
-      self.navigationController.tabBarController?.selectedIndex = 1
+      self.openSwapView(token: token, isBuy: true)
     case .invest(token: let token):
       break
     case .openEtherscan(address: let address):
@@ -237,6 +238,8 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
       let coordinator = NotificationCoordinator(navigationController: self.navigationController)
       coordinator.start()
       self.notificationsCoordinator = coordinator
+    case .selectedCurrency(type: let type):
+      self.currentCurrencyType = type
     }
   }
   
@@ -251,7 +254,7 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
   }
   
   func openAddTokenScreen() {
-    let tokenCoordinator = AddTokenCoordinator(navigationController: self.navigationController)
+    let tokenCoordinator = AddTokenCoordinator(navigationController: self.navigationController, session: self.session)
     tokenCoordinator.start()
     self.addTokenCoordinator = tokenCoordinator
   }

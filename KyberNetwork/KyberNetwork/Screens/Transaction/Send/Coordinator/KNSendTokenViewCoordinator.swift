@@ -401,6 +401,8 @@ extension KNSendTokenViewCoordinator: KNTransactionStatusPopUpDelegate {
       self.openTransactionCancelConfirmPopUpFor(transaction: tx)
     case .openLink(let url):
       self.navigationController.openSafari(with: url)
+    case .goToSupport:
+      self.navigationController.openSafari(with: "https://support.krystal.app")
     default:
       break
     }

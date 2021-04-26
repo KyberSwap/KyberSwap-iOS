@@ -213,7 +213,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                             <inset key="imageEdgeInsets" minX="-11" minY="0.0" maxX="1" maxY="0.0"/>
-                            <state key="normal" title="Send" image="send_overview_icon">
+                            <state key="normal" title="Transfer" image="send_overview_icon">
                                 <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>

@@ -75,7 +75,7 @@ class OverviewAssetsViewModel {
   var totalValueBigInt: BigInt {
     var total = BigInt(0)
     self.dataSource.forEach { (viewModel) in
-      total += (viewModel.valueBigInt * BigInt(10).power(18) / BigInt(10).power(viewModel.token.decimals))
+      total += viewModel.valueBigInt
     }
     return total
   }
@@ -94,6 +94,8 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
   @IBOutlet weak var usdButton: UIButton!
   @IBOutlet weak var ethButton: UIButton!
   @IBOutlet weak var btcButton: UIButton!
+  @IBOutlet weak var emptyView: UIView!
+  @IBOutlet weak var buyETHButton: UIButton!
   
   weak var container: OverviewViewController?
   weak var delegate: OverviewTokenListViewDelegate?
@@ -109,6 +111,7 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
       forCellReuseIdentifier: OverviewAssetsTableViewCell.kCellID
     )
     self.tableView.rowHeight = OverviewAssetsTableViewCell.kCellHeight
+    self.buyETHButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.buyETHButton.frame.size.height / 2)
     self.updateUITotalValue()
   }
   
@@ -143,6 +146,7 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
     self.updateUITotalValue()
+    self.emptyView.isHidden = !self.viewModel.dataSource.isEmpty
   }
   
   @IBAction func currencyTypeButtonTapped(_ sender: UIButton) {
@@ -199,6 +203,10 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
     } else {
       imageView.image = UIImage(named: "up_arrow_overview_icon")
     }
+  }
+
+  @IBAction func buyETHButtonTapped(_ sender: UIButton) {
+    UIApplication.shared.open(URL(string: "https://krystal.app/buy-crypto")!)
   }
   
   func viewControllerDidChangeCurrencyType(_ controller: OverviewViewController, type: CurrencyType) {

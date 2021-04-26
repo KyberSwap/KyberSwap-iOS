@@ -221,7 +221,7 @@ extension KNLandingPageCoordinator: KNLandingPageViewControllerDelegate {
 
 extension KNLandingPageCoordinator: KNImportWalletCoordinatorDelegate {
   func importWalletCoordinatorDidSendRefCode(_ code: String) {
-    self.delegate?.landingPageCoordinatorDidSendRefCode(code)
+    self.delegate?.landingPageCoordinatorDidSendRefCode(code.uppercased())
   }
   
   func importWalletCoordinatorDidImport(wallet: Wallet, name: String?) {
@@ -253,7 +253,7 @@ extension KNLandingPageCoordinator: KNPasscodeCoordinatorDelegate {
 
 extension KNLandingPageCoordinator: KNCreateWalletCoordinatorDelegate {
   func createWalletCoordinatorDidSendRefCode(_ code: String) {
-    self.delegate?.landingPageCoordinatorDidSendRefCode(code)
+    self.delegate?.landingPageCoordinatorDidSendRefCode(code.uppercased())
   }
   
   func createWalletCoordinatorDidClose() {

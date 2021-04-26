@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,9 +18,12 @@
                 <rect key="frame" x="0.0" y="0.0" width="171" height="110"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iIk-lg-nZI">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iIk-lg-nZI">
                         <rect key="frame" x="0.0" y="5" width="171" height="100"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <imageReference key="image" image="uni_banner_icon" renderingMode="original"/>
+                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -33,8 +37,9 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="iIk-lg-nZI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="B15-Cb-sds"/>
-                <constraint firstItem="iIk-lg-nZI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="CaS-Kb-alh"/>
-                <constraint firstAttribute="bottom" secondItem="iIk-lg-nZI" secondAttribute="bottom" constant="5" id="Z0P-gz-diO"/>
+                <constraint firstAttribute="bottom" secondItem="iIk-lg-nZI" secondAttribute="bottom" constant="5" id="Btg-xK-SAY"/>
+                <constraint firstItem="iIk-lg-nZI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="D4h-DS-9Bb"/>
+                <constraint firstItem="iIk-lg-nZI" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="lKs-Tr-Yfy"/>
                 <constraint firstAttribute="trailing" secondItem="iIk-lg-nZI" secondAttribute="trailing" id="qYf-RH-LSh"/>
             </constraints>
             <size key="customSize" width="171" height="110"/>
@@ -44,4 +49,7 @@
             <point key="canvasLocation" x="-112.31884057971016" y="141.29464285714286"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="uni_banner_icon" width="250" height="185"/>
+    </resources>
 </document>

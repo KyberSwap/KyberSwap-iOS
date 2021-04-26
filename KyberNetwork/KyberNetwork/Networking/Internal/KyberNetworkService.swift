@@ -997,7 +997,7 @@ extension KrytalService: TargetType {
         "gasPrice": gasPrice,
         "nonce": nonce,
         "hint": hint,
-        "platformWallet": "0x9a68f7330A3Fe9869FfAEe4c3cF3E6BBef1189Da",
+        "platformWallet": Constants.platformWallet,
         "useGasToken": useGasToken,
       ]
       return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
@@ -1030,7 +1030,7 @@ extension KrytalService: TargetType {
         "gasPrice": gasPrice,
         "nonce": nonce,
         "hint": hint,
-        "platformWallet": "0x9a68f7330A3Fe9869FfAEe4c3cF3E6BBef1189Da",
+        "platformWallet": Constants.platformWallet,
         "useGasToken": useGasToken,
       ]
       return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
@@ -1139,7 +1139,7 @@ extension KrytalService: TargetType {
 
 
 enum CoinGeckoService {
-  case getChartData(address: String, from: Int, to: Int)
+  case getChartData(address: String, from: Int, to: Int, currency: String)
   case getTokenDetailInfo(address: String)
   case getPriceETH
   case getPriceTokens(addresses: [String])
@@ -1152,7 +1152,7 @@ extension CoinGeckoService: TargetType {
 
   var path: String {
     switch self {
-    case .getChartData(let address, _ , _):
+    case .getChartData(let address, _ , _, _):
       return address.lowercased() == "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" ? "/v3/coins/ethereum/market_chart/range" : "/v3/coins/ethereum/contract/\(address)/market_chart/range"
     case .getTokenDetailInfo(address: let address):
       return address.lowercased() == "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" ? "/v3/coins/ethereum" : "/v3/coins/ethereum/contract/\(address)"
@@ -1174,9 +1174,9 @@ extension CoinGeckoService: TargetType {
   
   var task: Task {
     switch self {
-    case .getChartData( _, let from , let to):
+    case .getChartData( _, let from , let to, let currency):
       let json: JSONDictionary = [
-        "vs_currency": "usd",
+        "vs_currency": currency,
         "from": from,
         "to": to,
       ]

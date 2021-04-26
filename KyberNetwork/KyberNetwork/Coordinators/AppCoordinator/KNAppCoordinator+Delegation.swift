@@ -5,7 +5,7 @@ import UIKit
 // MARK: Landing Page Coordinator Delegate
 extension KNAppCoordinator: KNLandingPageCoordinatorDelegate {
   func landingPageCoordinatorDidSendRefCode(_ code: String) {
-    self.sendRefCode(code)
+    self.sendRefCode(code.uppercased())
   }
   
   func landingPageCoordinator(import wallet: Wallet) {
@@ -41,7 +41,7 @@ extension KNAppCoordinator: KNSessionDelegate {
 // MARK: Exchange Token Coordinator Delegate
 extension KNAppCoordinator: KNExchangeTokenCoordinatorDelegate {
   func exchangeTokenCoodinatorDidSendRefCode(_ code: String) {
-    self.sendRefCode(code)
+    self.sendRefCode(code.uppercased())
   }
   
   func exchangeTokenCoordinatorDidSelectManageWallet() {
@@ -210,7 +210,7 @@ extension KNAppCoordinator: KNTransactionStatusCoordinatorDelegate {
 // MARK: Add wallet coordinator delegate
 extension KNAppCoordinator: KNAddNewWalletCoordinatorDelegate {
   func addNewWalletCoordinatorDidSendRefCode(_ code: String) {
-    self.sendRefCode(code)
+    self.sendRefCode(code.uppercased())
   }
   
   func addNewWalletCoordinator(add wallet: Wallet) {

@@ -66,6 +66,7 @@ class KNSession {
     self.transacionCoordinator?.start()
     BalanceStorage.shared.updateCurrentWallet(self.wallet)
     EtherscanTransactionStorage.shared.updateCurrentWallet(self.wallet)
+    print("[Balance][Start session][\(self.wallet.address.description)] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
   }
 
   func stopSession() {
@@ -112,6 +113,7 @@ class KNSession {
     }
 
     BalanceStorage.shared.updateCurrentWallet(self.wallet)
+    print("[Balance][Switch session] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
   }
 
   // Remove a wallet, it should not be a current wallet

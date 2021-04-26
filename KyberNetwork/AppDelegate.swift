@@ -10,6 +10,7 @@ import Moya
 //import FBSDKLoginKit
 //import GoogleSignIn
 import Firebase
+import OneSignal
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -34,6 +35,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
       print("EtherKeystore init issue.")
     }
     KNReachability.shared.startNetworkReachabilityObserver()
+
+    // Remove this method to stop OneSignal Debugging
+    OneSignal.setLogLevel(.LL_VERBOSE, visualLevel: .LL_NONE)
+    
+    // OneSignal initialization
+    OneSignal.initWithLaunchOptions(launchOptions)
+    OneSignal.setAppId(KNEnvironment.default.notificationAppID)
+    
+    // promptForPushNotifications will show the native iOS notification permission prompt.
+    // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 8)
+    OneSignal.promptForPushNotifications(userResponse: { accepted in
+      print("User accepted notifications: \(accepted)")
+    })
 //    OneSignal.setRequiresUserPrivacyConsent(false)
 //    let notficationReceiveBlock: OSHandleNotificationReceivedBlock = { notification in
 //      // This block gets called when notification received

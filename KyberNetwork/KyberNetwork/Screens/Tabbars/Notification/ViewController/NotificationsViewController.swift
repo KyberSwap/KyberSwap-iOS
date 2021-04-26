@@ -25,12 +25,14 @@ class NotificationsViewModel {
 class NotificationsViewController: KNBaseViewController {
   @IBOutlet weak var notificationTableView: UITableView!
   let viewModel: NotificationsViewModel = NotificationsViewModel()
+  @IBOutlet weak var emptyView: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     let nib = UINib(nibName: NotificationTableViewCell.className, bundle: nil)
     self.notificationTableView.register(nib, forCellReuseIdentifier: NotificationTableViewCell.cellID)
     self.notificationTableView.rowHeight = NotificationTableViewCell.cellHeight
+    
   }
   
   func coordinatorDidUpdateNotification(notifications: [NotificationItem]) {
@@ -38,6 +40,11 @@ class NotificationsViewController: KNBaseViewController {
     guard self.isViewLoaded else {
       return
     }
+    self.updateUI()
+  }
+  
+  fileprivate func updateUI() {
+    self.emptyView.isHidden = !self.viewModel.dataSource.isEmpty
     self.notificationTableView.reloadData()
   }
   

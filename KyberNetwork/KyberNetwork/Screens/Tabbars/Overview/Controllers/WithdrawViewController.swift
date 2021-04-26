@@ -92,6 +92,7 @@ class WithdrawViewModel {
   }
   
   var gasFeeString: String {
+    self.updateSelectedGasPriceType(self.selectedGasPriceType)
     return self.formatFeeStringFor(gasPrice: self.gasPrice)
   }
   
@@ -116,7 +117,7 @@ class WithdrawViewModel {
   }
   
   var displayWithdrawableAmount: String {
-    return self.withdrawableAmountBigInt.string(decimals: self.balance.decimals, minFractionDigits: 0, maxFractionDigits: self.balance.decimals) + self.balance.symbol.uppercased()
+    return self.withdrawableAmountBigInt.string(decimals: self.balance.decimals, minFractionDigits: 0, maxFractionDigits: self.balance.decimals) + " " + self.balance.symbol.uppercased()
   }
   
   var transactionGasPriceString: String {
@@ -172,14 +173,14 @@ class WithdrawViewController: KNBaseViewController {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     self.loadWithdrawableAmount()
     self.loadAllowance()
     self.setupUI()
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
   }

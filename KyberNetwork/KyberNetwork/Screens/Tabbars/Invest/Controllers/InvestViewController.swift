@@ -93,7 +93,7 @@ class InvestViewController: KNBaseViewController {
   
   fileprivate func updateUIPartnerCollectionView() {
     self.patnerCollectionView.reloadData()
-    self.collectionViewHeightContraint.constant = CGFloat( (round(CGFloat(self.viewModel.partnerDataSource.count / 3)) + 1) * MarketingPartnerCollectionViewCell.kMarketingPartnerCellHeight)
+    self.collectionViewHeightContraint.constant = CGFloat( (round(CGFloat(self.viewModel.partnerDataSource.count / 3)) + 1) * MarketingPartnerCollectionViewCell.kMarketingPartnerCellHeight) + 50
   }
   
   fileprivate func updateUIBannerPagerView() {
@@ -174,7 +174,6 @@ extension InvestViewController: UICollectionViewDataSource {
     ) as! MarketingPartnerCollectionViewCell
     let url = URL(string: self.viewModel.partnerDataSource[indexPath.row].imageURL)
     cell.bannerImageView.kf.setImage(with: url)
-    cell.bannerImageView.contentMode = .scaleToFill
     cell.bannerImageView.clipsToBounds = true
     return cell
   }

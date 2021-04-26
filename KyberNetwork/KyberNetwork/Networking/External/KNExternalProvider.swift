@@ -65,6 +65,14 @@ class KNExternalProvider {
       completion: completion
     )
   }
+  
+//  public func getTokenSymbol(for address: String, completion: @escaping (Result<String, AnyError>) -> Void) {
+//    KNGeneralProvider.shared.getTokenSymbol(
+//      address: address,
+//      contract: self.account.address,
+//      completion: completion
+//    )
+//  }
 
   // MARK: Transaction
   func getTransactionCount(completion: @escaping (Result<Int, AnyError>) -> Void) {

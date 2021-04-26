@@ -154,15 +154,9 @@ extension KNExchangeTokenCoordinator {
 
   func appCoordinatorShouldOpenExchangeForToken(_ token: TokenObject, isReceived: Bool = false) {
     self.navigationController.popToRootViewController(animated: true)
-    if KNWalletPromoInfoStorage.shared.getDestinationToken(from: self.session.wallet.address.description) != nil {
-      // promo wallet, keep old behaviour
-      self.rootViewController.coordinatorUpdateSelectedToken(token, isSource: !isReceived)
-    } else {
-      // normal wallet
-      let otherToken: TokenObject = token.isETH ? KNSupportedTokenStorage.shared.kncToken : KNSupportedTokenStorage.shared.ethToken
-      self.rootViewController.coordinatorUpdateSelectedToken(token, isSource: !isReceived, isWarningShown: false)
-      self.rootViewController.coordinatorUpdateSelectedToken(otherToken, isSource: isReceived, isWarningShown: true)
-    }
+    let otherToken: TokenObject = token.isETH ? KNSupportedTokenStorage.shared.kncToken : KNSupportedTokenStorage.shared.ethToken
+    self.rootViewController.coordinatorUpdateSelectedToken(token, isSource: !isReceived, isWarningShown: false)
+    self.rootViewController.coordinatorUpdateSelectedToken(otherToken, isSource: isReceived, isWarningShown: true)
     self.rootViewController.tabBarController?.selectedIndex = 1
   }
 
@@ -510,8 +504,8 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     switch event {
     case .searchToken(let from, let to, let isSource):
       self.openSearchToken(from: from, to: to, isSource: isSource)
-    case .getGasLimit(let from, let to, let amount, let hint):
-      self.getGasLimit(from: from, to: to, amount: amount, hint: hint)
+    case .getGasLimit(let from, let to, let amount, let raw):
+      self.getGasLimit(from: from, to: to, amount: amount, tx: raw)
     case .showQRCode:
       self.showWalletQRCode()
     case .setGasPrice(let gasPrice, let gasLimit):
@@ -929,6 +923,33 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     }
   }
 
+  func getGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, tx: RawSwapTransaction) {
+    let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    provider.request(.buildSwapTx(address: tx.userAddress, src: tx.src, dst: tx.dest, srcAmount: tx.srcQty, minDstAmount: tx.minDesQty, gasPrice: tx.gasPrice, nonce: tx.nonce, hint: tx.hint, useGasToken: tx.useGasToken)) { [weak self] result in
+      guard let `self` = self else { return }
+      if case .success(let resp) = result {
+        let decoder = JSONDecoder()
+        do {
+          let data = try decoder.decode(TransactionResponse.self, from: resp.data)
+          if let gasLimit = BigInt(data.txObject.gasLimit.drop0x, radix: 16) {
+            self.rootViewController.coordinatorDidUpdateGasLimit(
+              from: from,
+              to: to,
+              amount: amount,
+              gasLimit: gasLimit
+            )
+            self.gasFeeSelectorVC?.coordinatorDidUpdateGasLimit(gasLimit)
+            print("[Swap][GasLimit][Success] \(gasLimit.description)")
+          }
+        } catch let error {
+          print("[Swap][GasLimit][Error] \(error.localizedDescription)")
+        }
+      } else {
+        print("[Swap][GasLimit][Error] unknow")
+      }
+    }
+  }
+
   func getGasLimit(from: TokenObject, to: TokenObject, amount: BigInt, hint: String) {
     let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     let src = from.contract.lowercased()
@@ -1103,7 +1124,7 @@ extension KNExchangeTokenCoordinator: KNSetGasPriceViewControllerDelegate {
 // MARK: Add new wallet delegate
 extension KNExchangeTokenCoordinator: KNAddNewWalletCoordinatorDelegate {
   func addNewWalletCoordinatorDidSendRefCode(_ code: String) {
-    self.delegate?.exchangeTokenCoodinatorDidSendRefCode(code)
+    self.delegate?.exchangeTokenCoodinatorDidSendRefCode(code.uppercased())
   }
   
   func addNewWalletCoordinator(add wallet: Wallet) {
@@ -1147,6 +1168,8 @@ extension KNExchangeTokenCoordinator: KNTransactionStatusPopUpDelegate {
       self.openTransactionSpeedUpViewController(transaction: tx)
     case .cancel(let tx):
       self.openTransactionCancelConfirmPopUpFor(transaction: tx)
+    case .goToSupport:
+      self.navigationController.openSafari(with: "https://support.krystal.app")
     default:
       break
     }

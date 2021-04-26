@@ -74,6 +74,19 @@ enum KNEnvironment: Int {
     case .rinkeby: return "config_env_rinkeby"
     }
   }
+  
+  var notificationAppID: String {
+    switch self {
+    case .ropsten:
+      return "96c1718d-c4a1-4ce7-8583-59d39cabeaee"
+    case .staging:
+      return "361e7815-4da2-41c9-ba0a-d35add5a58ef"
+    case .production:
+      return "0487532e-7b19-415b-91a1-2a285b0b8382"
+    default:
+      return ""
+    }
+  }
 
   var apiEtherScanEndpoint: String {
     switch self {

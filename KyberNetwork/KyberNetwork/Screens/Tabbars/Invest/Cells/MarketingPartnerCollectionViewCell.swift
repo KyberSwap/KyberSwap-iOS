@@ -9,7 +9,7 @@ import UIKit
 
 class MarketingPartnerCollectionViewCell: UICollectionViewCell {
   
-  static let kMarketingPartnerCellHeight: CGFloat = 128.0
+  static let kMarketingPartnerCellHeight: CGFloat = 120
   static let cellID: String = "MarketingPartnerCollectionViewCell"
   
   @IBOutlet weak var bannerImageView: UIImageView!

@@ -109,6 +109,33 @@ class KNGeneralProvider {
       }
     }
   }
+  
+//  func getTokenSymbol(address: String, contract: Address, completion: @escaping (Result<String, AnyError>) -> Void) {
+//    self.getSymbolEncodeData(address: address) { [weak self] encodeResult in
+//      guard let `self` = self else { return }
+//      switch encodeResult {
+//      case .success(let data):
+//        let request = EtherServiceAlchemyRequest(
+//          batch: BatchFactory().create(CallRequest(to: contract.description, data: data))
+//        )
+//        DispatchQueue.global().async {
+//          Session.send(request) { [weak self] result in
+//            guard let `self` = self else { return }
+//            DispatchQueue.main.async {
+//              switch result {
+//              case .success(let symbol):
+//                self.getTokenSymbolDecodeData(from: symbol, completion: completion)
+//              case .failure(let error):
+//                completion(.failure(AnyError(error)))
+//              }
+//            }
+//          }
+//        }
+//      case .failure(let error):
+//        completion(.failure(error))
+//      }
+//    }
+//  }
 
   func getMutipleERC20Balances(for address: Address, tokens: [Address], completion: @escaping (Result<[BigInt], AnyError>) -> Void) {
     let data = "0x6a385ae9"
@@ -670,6 +697,18 @@ extension KNGeneralProvider {
       }
     }
   }
+  
+  fileprivate func getSymbolEncodeData(completion: @escaping (Result<String, AnyError>) -> Void) {
+    let request = GetERC20SymbolEncode()
+    self.web3Swift.request(request: request) { result in
+      switch result {
+      case .success(let data):
+        completion(.success(data))
+      case .failure(let error):
+        completion(.failure(AnyError(error)))
+      }
+    }
+  }
 
   fileprivate func getSendApproveERC20TokenEncodeData(networkAddress: Address, value: BigInt = BigInt(2).power(256) - BigInt(1), completion: @escaping (Result<Data, AnyError>) -> Void) {
     let encodeRequest = ApproveERC20Encode(
@@ -786,6 +825,18 @@ extension KNGeneralProvider {
       switch result {
       case .success(let res):
         completion(.success(BigInt(res) ?? BigInt()))
+      case .failure(let error):
+        completion(.failure(AnyError(error)))
+      }
+    }
+  }
+  
+  fileprivate func getTokenSymbolDecodeData(from symbol: String, completion: @escaping (Result<String, AnyError>) -> Void) {
+    let request = GetERC20SymbolDecode(data: symbol)
+    self.web3Swift.request(request: request) { result in
+      switch result {
+      case .success(let res):
+        completion(.success(res))
       case .failure(let error):
         completion(.failure(AnyError(error)))
       }

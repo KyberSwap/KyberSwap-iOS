@@ -183,7 +183,7 @@ extension KNCreateWalletCoordinator: KNCreateWalletViewControllerDelegate {
             self.name = name
             self.openBackUpWallet(wallet, name: name)
             if !self.refCode.isEmpty {
-              self.sendRefCode(self.refCode, account: account)
+              self.sendRefCode(self.refCode.uppercased(), account: account)
             }
           }
         }

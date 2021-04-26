@@ -24,11 +24,24 @@ class EarnSwapViewModel {
   fileprivate(set) var wallet: Wallet
   
   var swapRates: (String, String, BigInt, [JSONDictionary]) = ("", "", BigInt(0), [])
-  var currentFlatform: String = "kyber"
+  var currentFlatform: String = "kyber" {
+    didSet {
+      let dict = self.swapRates.3.first { (element) -> Bool in
+        if let platformString = element["platform"] as? String {
+          return platformString == self.currentFlatform
+        } else {
+          return false
+        }
+      }
+      if let estGasString = dict?["estimatedGas"] as? NSNumber, let estGas = BigInt(estGasString.stringValue) {
+        self.gasLimit = estGas
+      }
+    }
+  }
   var remainApprovedAmount: (TokenData, BigInt)?
   var latestNonce: Int = -1
   var refPrice: (TokenData, TokenData, String, [String])
-  fileprivate(set) var minRatePercent: Double = 3.0
+  fileprivate(set) var minRatePercent: Double = 0.5
   var gasPriceSelectedAmount: String = ""
   var approvingToken: TokenObject?
 
@@ -158,6 +171,7 @@ class EarnSwapViewModel {
   }
   //TODO: can be improve with extension
   var gasFeeString: String {
+    self.updateSelectedGasPriceType(self.selectedGasPriceType)
     return self.formatFeeStringFor(gasPrice: self.gasPrice)
   }
   
@@ -171,7 +185,7 @@ class EarnSwapViewModel {
   }
   @discardableResult
   func updateGasLimit(_ value: BigInt, platform: String, tokenAddress: String) -> Bool {
-    if self.selectedPlatform == platform && self.toTokenData.address == tokenAddress {
+    if self.selectedPlatform == platform && self.toTokenData.address.lowercased() == tokenAddress.lowercased() {
       self.gasLimit = value
       return true
     }
@@ -346,13 +360,16 @@ class EarnSwapViewModel {
   }
   
   var refPriceDiffText: String {
-    let refPrice = self.getRefPrice(from: self.fromTokenData, to: self.toTokenData)
-    let price = self.getSwapRate(from: self.fromTokenData.address.description, to: self.toTokenData.address.description, amount: self.amountFromBigInt, platform: self.currentFlatform)
-    guard !price.isEmpty, !refPrice.isEmpty, let priceInt = Int(price), let refPriceDouble = Double(refPrice) else {
+    guard !self.amountFrom.isEmpty else {
       return ""
     }
-
-    let priceDouble: Double = Double(priceInt) / pow(10.0, 18.0)
+    let refPrice = self.getRefPrice(from: self.fromTokenData, to: self.toTokenData)
+    let price = self.getSwapRate(from: self.fromTokenData.address.description, to: self.toTokenData.address.description, amount: self.amountFromBigInt, platform: self.currentFlatform)
+    guard !price.isEmpty, !refPrice.isEmpty, let priceBigInt = BigInt(price)  else {
+      return ""
+    }
+    let refPriceDouble = refPrice.doubleValue
+    let priceDouble: Double = Double(priceBigInt) / pow(10.0, 18)
     let change = (priceDouble - refPriceDouble) / refPriceDouble * 100.0
     if change > -5.0 {
       return ""
@@ -393,7 +410,32 @@ class EarnSwapViewModel {
       return item.isCompound
     }
     let apy = String(format: "%.6f", (comp?.distributionSupplyRate ?? 0.03) * 100.0)
-    return "You will automatically earn COMP token (\(apy)% APY) for interacting with compound (supply or borrow).\nOnce redeemed, COMP token can be swapped to any token."
+    return "You will automatically earn COMP token (\(apy)% APY) for interacting with Compound (supply or borrow).\nOnce redeemed, COMP token can be swapped to any token."
+  }
+  
+  var equivalentUSDAmount: BigInt? {
+    if let usdRate = KNTrackerRateStorage.shared.getPriceWithAddress(self.fromTokenData.address) {
+      return self.amountFromBigInt * BigInt(usdRate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.fromTokenData.decimals)
+    }
+    return nil
+  }
+
+  var displayEquivalentUSDAmount: String? {
+    guard let amount = self.equivalentUSDAmount, !amount.isZero else { return nil }
+    let value = amount.displayRate(decimals: 18)
+    return "~ $\(value) USD"
+  }
+  
+  var gasFeeBigInt: BigInt {
+    let fee = self.gasPrice * self.gasLimit
+    return fee
+  }
+  
+  var isHavingEnoughETHForFee: Bool {
+    var fee = self.gasPrice * self.gasLimit
+    if self.fromTokenData.isETH { fee += self.amountFromBigInt }
+    let ethBal = BalanceStorage.shared.getBalanceETHBigInt()
+    return ethBal >= fee
   }
 }
 
@@ -593,7 +635,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     if isShowApproveButton {
       self.approveButtonLeftPaddingContraint.constant = 37
       self.approveButtonRightPaddingContaint.constant = 15
-      self.approveButtonEqualWidthContraint.priority = UILayoutPriority(rawValue: 1000)
+      self.approveButtonEqualWidthContraint.priority = UILayoutPriority(rawValue: 999)
       self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 250)
       self.earnButton.isEnabled = false
       self.earnButton.alpha = 0.2
@@ -608,7 +650,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
       self.approveButtonLeftPaddingContraint.constant = 0
       self.approveButtonRightPaddingContaint.constant = 37
       self.approveButtonEqualWidthContraint.priority = UILayoutPriority(rawValue: 250)
-      self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 1000)
+      self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 999)
       self.earnButton.isEnabled = true
       self.earnButton.alpha = 1
     }
@@ -774,6 +816,8 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.setUpChangeRateButton()
     self.updateExchangeRateField()
     self.updateInputFieldsUI()
+    self.updateGasFeeUI()
+    self.updateGasLimit()
   }
   
   func coordinatorSuccessUpdateRefPrice(from: TokenData, to: TokenData, change: String, source: [String]) {
@@ -893,7 +937,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.updateAllowance()
     self.updateAllRates()
   }
-  
+
   func coordinatorUpdateNewSession(wallet: Wallet) {
     self.viewModel.wallet = wallet
     if self.isViewSetup {
@@ -1023,6 +1067,17 @@ extension EarnSwapViewController: UITextFieldDelegate {
       )
       return true
     }
+    if isConfirming {
+      guard self.viewModel.isHavingEnoughETHForFee else {
+        let fee = self.viewModel.gasFeeBigInt
+        self.showWarningTopBannerMessage(
+          with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
+          message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
+        )
+        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised()])
+        return true
+      }
+    }
     return false
   }
 
@@ -1030,7 +1085,7 @@ extension EarnSwapViewController: UITextFieldDelegate {
     self.updateInputFieldsUI()
     self.updateExchangeRateField()
   }
-  
+
   fileprivate func updateInputFieldsUI() {
     if self.viewModel.isFocusingFromAmount {
       self.toAmountTextField.text = self.viewModel.expectedReceivedAmountText
@@ -1039,6 +1094,7 @@ extension EarnSwapViewController: UITextFieldDelegate {
       self.fromAmountTextField.text = self.viewModel.expectedExchangeAmountText
       self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true)
     }
+    self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
   }
   
   fileprivate func updateAllRates() {

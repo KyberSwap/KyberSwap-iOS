@@ -453,6 +453,7 @@
 		8B67BA07556BB623E015CA60 /* Pods_KyberNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40A95682795E696525B3A48A /* Pods_KyberNetwork.framework */; };
 		938288E2ED2CF2CECDBAEA28 /* Pods_KyberNetworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
+		C154BB4E1861959DEFE1048F /* Pods_KrystalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C64E77FB15CCDC5F0BA6B5 /* Pods_KrystalNotificationServiceExtension.framework */; };
 		C30292F0260317EA001929E1 /* MarketingPartnerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */; };
 		C30292F1260317EA001929E1 /* MarketingPartnerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C30292EF260317E9001929E1 /* MarketingPartnerCollectionViewCell.xib */; };
 		C3114370249B1C2300084CD8 /* KNMigrationTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */; };
@@ -504,6 +505,7 @@
 		C32EA22B246934AA00866968 /* KNPrettyAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32EA229246934AA00866968 /* KNPrettyAlertController.swift */; };
 		C32EA22C246934AA00866968 /* KNPrettyAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32EA22A246934AA00866968 /* KNPrettyAlertController.xib */; };
 		C32F1F632431ABCD00990706 /* KNMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F1F622431ABCD00990706 /* KNMarket.swift */; };
+		C331133E2629753200E6F7E1 /* GetSymbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C331133D2629753200E6F7E1 /* GetSymbol.swift */; };
 		C3357DB524768C400028F4A9 /* CustomFCTheme.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3357DB424768C400028F4A9 /* CustomFCTheme.plist */; };
 		C335FC71257F90990015CC27 /* RectangularDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C335FC70257F90990015CC27 /* RectangularDashedView.swift */; };
 		C33696102595A387000EDD5D /* ApproveTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C336960E2595A386000EDD5D /* ApproveTokenViewController.swift */; };
@@ -529,6 +531,8 @@
 		C360D223255E9AEE00B166E0 /* KNBottomPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C360D221255E9AEE00B166E0 /* KNBottomPopupViewController.xib */; };
 		C365811E25E1132400A6DA4B /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365811D25E1132400A6DA4B /* Storage.swift */; };
 		C365812225E2503F00A6DA4B /* BalanceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C365812125E2503F00A6DA4B /* BalanceStorage.swift */; };
+		C3794179262816E100FBCA14 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3794178262816E100FBCA14 /* NotificationService.swift */; };
+		C379417D262816E100FBCA14 /* KrystalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C3794176262816E100FBCA14 /* KrystalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C37AC1E424A0874200D0DF5B /* KNTutorialPagerWithAccessoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37AC1E324A0874200D0DF5B /* KNTutorialPagerWithAccessoryCell.xib */; };
 		C37AF0BF25CA5639006FB880 /* EarnConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AF0BD25CA5639006FB880 /* EarnConfirmViewController.swift */; };
 		C37AF0C025CA5639006FB880 /* EarnConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C37AF0BE25CA5639006FB880 /* EarnConfirmViewController.xib */; };
@@ -641,6 +645,13 @@
 			remoteGlobalIDString = 2912CCF41F6A830700C6CBE3;
 			remoteInfo = etherwallet;
 		};
+		C379417B262816E100FBCA14 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2912CCED1F6A830700C6CBE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3794175262816E100FBCA14;
+			remoteInfo = KrystalNotificationServiceExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -654,10 +665,22 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C379417E262816E100FBCA14 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				C379417D262816E100FBCA14 /* KrystalNotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0E184FBCF2BDE7BF38D41021 /* Pods-KyberNetworkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KyberNetworkUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-KyberNetworkUITests/Pods-KyberNetworkUITests.release.xcconfig"; sourceTree = "<group>"; };
+		13E07B0062994C73E3E4D86B /* Pods-KrystalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KrystalNotificationServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KrystalNotificationServiceExtension/Pods-KrystalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		2502AC16209475BE007F23CD /* KNListWalletsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNListWalletsTableViewCell.swift; sourceTree = "<group>"; };
 		2502AC17209475BE007F23CD /* KNListWalletsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNListWalletsTableViewCell.xib; sourceTree = "<group>"; };
 		2502AC1A20947794007F23CD /* KNWalletObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNWalletObject.swift; sourceTree = "<group>"; };
@@ -807,6 +830,7 @@
 		257C9FC72078F6A500EE0128 /* KNCreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KNCreatePasswordViewController.swift; sourceTree = "<group>"; };
 		257C9FC82078F6A500EE0128 /* KNCreatePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KNCreatePasswordViewController.xib; sourceTree = "<group>"; };
 		257C9FD22078FB5700EE0128 /* KNSettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNSettingsCoordinator.swift; sourceTree = "<group>"; };
+		257EF863841996C5603874B7 /* Pods-KyberNetwork-KrystalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KyberNetwork-KrystalNotificationServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KyberNetwork-KrystalNotificationServiceExtension/Pods-KyberNetwork-KrystalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		258BF6A623068A4800988EDD /* KNOpenSettingsAllowCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNOpenSettingsAllowCamera.swift; sourceTree = "<group>"; };
 		258C47EB2081F22C00BD4068 /* KNReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNReachability.swift; sourceTree = "<group>"; };
 		258C47EE2081F29D00BD4068 /* NSObject+Kyber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Kyber.swift"; sourceTree = "<group>"; };
@@ -1121,8 +1145,11 @@
 		77E0E772201FAD05009B4B31 /* BrowserURLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserURLParser.swift; sourceTree = "<group>"; };
 		87FA1153388F27F599C430B8 /* Pods-TrustTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrustTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TrustTests/Pods-TrustTests.debug.xcconfig"; sourceTree = "<group>"; };
 		88401C14158F6CE1B2A8A18D /* Pods-KyberNetworkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KyberNetworkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KyberNetworkTests/Pods-KyberNetworkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		97C64E77FB15CCDC5F0BA6B5 /* Pods_KrystalNotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KrystalNotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B747245A27436E621E7E41 /* Pods-TrustUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TrustUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TrustUITests/Pods-TrustUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A48A17FC2CC895AF2BB871D0 /* Pods_TrustTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TrustTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ACB15546CA9F3081C6AABCC5 /* Pods-KrystalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KrystalNotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-KrystalNotificationServiceExtension/Pods-KrystalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		AF8FFDA00149AF7FF756410D /* Pods-KyberNetwork-KrystalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KyberNetwork-KrystalNotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-KyberNetwork-KrystalNotificationServiceExtension/Pods-KyberNetwork-KrystalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
 		C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingPartnerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1176,6 +1203,7 @@
 		C32EA229246934AA00866968 /* KNPrettyAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNPrettyAlertController.swift; sourceTree = "<group>"; };
 		C32EA22A246934AA00866968 /* KNPrettyAlertController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNPrettyAlertController.xib; sourceTree = "<group>"; };
 		C32F1F622431ABCD00990706 /* KNMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNMarket.swift; sourceTree = "<group>"; };
+		C331133D2629753200E6F7E1 /* GetSymbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSymbol.swift; sourceTree = "<group>"; };
 		C3357DB424768C400028F4A9 /* CustomFCTheme.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CustomFCTheme.plist; sourceTree = "<group>"; };
 		C335FC70257F90990015CC27 /* RectangularDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangularDashedView.swift; sourceTree = "<group>"; };
 		C336960E2595A386000EDD5D /* ApproveTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApproveTokenViewController.swift; sourceTree = "<group>"; };
@@ -1203,6 +1231,9 @@
 		C364819324726B1200137596 /* KyberSwap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KyberSwap-Bridging-Header.h"; sourceTree = "<group>"; };
 		C365811D25E1132400A6DA4B /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		C365812125E2503F00A6DA4B /* BalanceStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStorage.swift; sourceTree = "<group>"; };
+		C3794176262816E100FBCA14 /* KrystalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = KrystalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3794178262816E100FBCA14 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		C379417A262816E100FBCA14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C37AC1E324A0874200D0DF5B /* KNTutorialPagerWithAccessoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNTutorialPagerWithAccessoryCell.xib; sourceTree = "<group>"; };
 		C37AF0BD25CA5639006FB880 /* EarnConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnConfirmViewController.swift; sourceTree = "<group>"; };
 		C37AF0BE25CA5639006FB880 /* EarnConfirmViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarnConfirmViewController.xib; sourceTree = "<group>"; };
@@ -1223,6 +1254,7 @@
 		C37CC08F245803C90081FB32 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		C37CC090245803C90081FB32 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		C37CC091245803C90081FB32 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		C387F26D26285BA200B1E093 /* KrystalNotificationServiceExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KrystalNotificationServiceExtensionDebug.entitlements; sourceTree = "<group>"; };
 		C38E5D7225F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmPopupViewController.swift; sourceTree = "<group>"; };
 		C38E5D7325F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawConfirmPopupViewController.xib; sourceTree = "<group>"; };
 		C38E5D7825F63FC000E5FC48 /* TransactionHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistory.swift; sourceTree = "<group>"; };
@@ -1328,6 +1360,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				60450A79718C1E1276FC2E43 /* Pods_KyberNetworkUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3794173262816E100FBCA14 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C154BB4E1861959DEFE1048F /* Pods_KrystalNotificationServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2845,6 +2885,7 @@
 				2912CCF71F6A830700C6CBE3 /* KyberNetwork */,
 				2912CD0E1F6A830700C6CBE3 /* KyberNetworkTests */,
 				2912CD191F6A830700C6CBE3 /* KyberNetworkUITests */,
+				C3794177262816E100FBCA14 /* KrystalNotificationServiceExtension */,
 				2912CCF61F6A830700C6CBE3 /* Products */,
 				9A0F00B2D545197C8F7691C2 /* Pods */,
 				FAD3F374A5C639BD900944DB /* Frameworks */,
@@ -2857,6 +2898,7 @@
 				2912CCF51F6A830700C6CBE3 /* KyberSwap - Crypto Exchange.app */,
 				2912CD0B1F6A830700C6CBE3 /* KyberNetworkTests.xctest */,
 				2912CD161F6A830700C6CBE3 /* KyberNetworkUITests.xctest */,
+				C3794176262816E100FBCA14 /* KrystalNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2947,6 +2989,7 @@
 				2963B6BE1F9AB9A2003063C1 /* ContractERC20Transfer.swift */,
 				299B5E281FCA8F040051361C /* GetERC20Balance.swift */,
 				299B5E2A1FCA9A640051361C /* ApproveERC20.swift */,
+				C331133D2629753200E6F7E1 /* GetSymbol.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -3420,6 +3463,10 @@
 				D1AF842F8398AA6981F7A91A /* Pods-KyberNetworkTests.release.xcconfig */,
 				33D83D674C923CAB687DA690 /* Pods-KyberNetworkUITests.debug.xcconfig */,
 				0E184FBCF2BDE7BF38D41021 /* Pods-KyberNetworkUITests.release.xcconfig */,
+				257EF863841996C5603874B7 /* Pods-KyberNetwork-KrystalNotificationServiceExtension.debug.xcconfig */,
+				AF8FFDA00149AF7FF756410D /* Pods-KyberNetwork-KrystalNotificationServiceExtension.release.xcconfig */,
+				13E07B0062994C73E3E4D86B /* Pods-KrystalNotificationServiceExtension.debug.xcconfig */,
+				ACB15546CA9F3081C6AABCC5 /* Pods-KrystalNotificationServiceExtension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -3694,6 +3741,16 @@
 			path = CustomTransition;
 			sourceTree = "<group>";
 		};
+		C3794177262816E100FBCA14 /* KrystalNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				C387F26D26285BA200B1E093 /* KrystalNotificationServiceExtensionDebug.entitlements */,
+				C3794178262816E100FBCA14 /* NotificationService.swift */,
+				C379417A262816E100FBCA14 /* Info.plist */,
+			);
+			path = KrystalNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 		C37CC084245803C90081FB32 /* Roboto */ = {
 			isa = PBXGroup;
 			children = (
@@ -3891,6 +3948,7 @@
 				40A95682795E696525B3A48A /* Pods_KyberNetwork.framework */,
 				3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */,
 				DF2D4C0FA288695E7C897F46 /* Pods_KyberNetworkUITests.framework */,
+				97C64E77FB15CCDC5F0BA6B5 /* Pods_KrystalNotificationServiceExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3910,10 +3968,12 @@
 				29282B511F7629DB0067F88D /* Run SwiftLint */,
 				250CA1EB225B3FC200DF28A4 /* Embed Frameworks */,
 				D9F645674916A4782560555E /* [CP] Copy Pods Resources */,
+				C379417E262816E100FBCA14 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				C379417C262816E100FBCA14 /* PBXTargetDependency */,
 			);
 			name = KyberNetwork;
 			productName = etherwallet;
@@ -3958,16 +4018,35 @@
 			productReference = 2912CD161F6A830700C6CBE3 /* KyberNetworkUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		C3794175262816E100FBCA14 /* KrystalNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C3794181262816E100FBCA14 /* Build configuration list for PBXNativeTarget "KrystalNotificationServiceExtension" */;
+			buildPhases = (
+				2B3DB0385A3BD659742DDF3A /* [CP] Check Pods Manifest.lock */,
+				C3794172262816E100FBCA14 /* Sources */,
+				C3794173262816E100FBCA14 /* Frameworks */,
+				C3794174262816E100FBCA14 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KrystalNotificationServiceExtension;
+			productName = KrystalNotificationServiceExtension;
+			productReference = C3794176262816E100FBCA14 /* KrystalNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2912CCED1F6A830700C6CBE3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				DefaultBuildSystemTypeForWorkspace = Original;
 				KnownAssetTags = (
 					Resources,
 				);
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1110;
 				TargetAttributes = {
 					2912CCF41F6A830700C6CBE3 = {
@@ -4002,6 +4081,10 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 2912CCF41F6A830700C6CBE3;
 					};
+					C3794175262816E100FBCA14 = {
+						CreatedOnToolsVersion = 12.4;
+						ProvisioningStyle = Manual;
+					};
 				};
 			};
 			buildConfigurationList = 2912CCF01F6A830700C6CBE3 /* Build configuration list for PBXProject "KyberNetwork" */;
@@ -4023,6 +4106,7 @@
 				2912CCF41F6A830700C6CBE3 /* KyberNetwork */,
 				2912CD0A1F6A830700C6CBE3 /* KyberNetworkTests */,
 				2912CD151F6A830700C6CBE3 /* KyberNetworkUITests */,
+				C3794175262816E100FBCA14 /* KrystalNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -4267,6 +4351,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3794174262816E100FBCA14 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -4283,6 +4374,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		2B3DB0385A3BD659742DDF3A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KrystalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		558B94C30BF51EDC00493AF8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4355,7 +4468,6 @@
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/EasyTipView/EasyTipView.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -4396,7 +4508,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EasyTipView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -4655,6 +4766,7 @@
 				29C80D371FB2CD230037B1E0 /* PendingTransaction.swift in Sources */,
 				251ABCA620578E630069687F /* KNNotificationUtil.swift in Sources */,
 				259925B920EF2D4900CCF2D6 /* KNContactTableViewCell.swift in Sources */,
+				C331133E2629753200E6F7E1 /* GetSymbol.swift in Sources */,
 				2561455B20C795AF00FB00CF /* KNChartObject.swift in Sources */,
 				C37AF0CD25CCFB47006FB880 /* EarnSwapConfirmViewController.swift in Sources */,
 				61C359E02002AA5A0097B04D /* TransactionSigning.swift in Sources */,
@@ -4869,6 +4981,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3794172262816E100FBCA14 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C3794179262816E100FBCA14 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -4881,6 +5001,11 @@
 			isa = PBXTargetDependency;
 			target = 2912CCF41F6A830700C6CBE3 /* KyberNetwork */;
 			targetProxy = 2912CD171F6A830700C6CBE3 /* PBXContainerItemProxy */;
+		};
+		C379417C262816E100FBCA14 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3794175262816E100FBCA14 /* KrystalNotificationServiceExtension */;
+			targetProxy = C379417B262816E100FBCA14 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -5031,19 +5156,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 768B4DEF5A6E5E05CA622544 /* Pods-KyberNetwork.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "KyberNetwork/KyberSwap - Crypto ExchangeDebug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
@@ -5062,19 +5188,20 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F5ADCE3967686CBB17679929 /* Pods-KyberNetwork.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = "KyberNetwork/KyberSwap - Crypto ExchangeDebug.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "d08d5f84-6398-4202-b037-8e45e693b687";
@@ -5164,6 +5291,64 @@
 			};
 			name = Release;
 		};
+		C379417F262816E100FBCA14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 13E07B0062994C73E3E4D86B /* Pods-KrystalNotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = G9CRYMTLBL;
+				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios.onesignal;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Krytal Distribution";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C3794180262816E100FBCA14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ACB15546CA9F3081C6AABCC5 /* Pods-KrystalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = G9CRYMTLBL;
+				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.0.3;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios.KrystalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Krytal Distribution";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -5199,6 +5384,15 @@
 			buildConfigurations = (
 				2912CD261F6A830700C6CBE3 /* Debug */,
 				2912CD271F6A830700C6CBE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C3794181262816E100FBCA14 /* Build configuration list for PBXNativeTarget "KrystalNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C379417F262816E100FBCA14 /* Debug */,
+				C3794180262816E100FBCA14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

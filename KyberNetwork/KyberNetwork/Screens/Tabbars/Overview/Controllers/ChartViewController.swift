@@ -8,7 +8,7 @@
 import UIKit
 import SwiftChart
 import BigInt
-import EasyTipView
+
 
 class ChartViewModel {
   var dataSource: [(x: Double, y: Double)] = []
@@ -18,12 +18,15 @@ class ChartViewModel {
   var detailInfo: TokenDetailData?
   var chartData: ChartData?
   var chartOriginTimeStamp: Double = 0
+  var currency: String
   
-  init(token: Token) {
+  init(token: Token, currency: String) {
     self.token = token
+    self.currency = currency
   }
   
   func updateChartData(_ data: ChartData) {
+    guard !data.prices.isEmpty else { return }
     self.chartData = data
     let originTimeStamp = data.prices[0][0]
     self.chartOriginTimeStamp = originTimeStamp
@@ -48,7 +51,13 @@ class ChartViewModel {
     guard let unwrapped = KNTrackerRateStorage.shared.getPriceWithAddress(self.token.address) else {
       return "---"
     }
-    return "$\(unwrapped.usd)"
+    if self.currency == "eth" {
+      return "\(unwrapped.usd) ETH"
+    } else if self.currency == "btc" {
+      return "\(unwrapped.usd) BTC"
+    } else {
+      return "$\(unwrapped.usd)"
+    }
   }
 
   var display24hVol: String {
@@ -89,17 +98,35 @@ class ChartViewModel {
     guard let lastMC = self.chartData?.marketCaps.last?[1] else {
       return "---"
     }
-    return "$\(self.formatPoints(lastMC))"
+    if self.currency == "eth" {
+      return "\(self.formatPoints(lastMC)) ETH"
+    } else if self.currency == "btc" {
+      return "\(self.formatPoints(lastMC)) BTC"
+    } else {
+      return "$\(self.formatPoints(lastMC))"
+    }
   }
   
   var displayAllTimeHigh: String {
-    guard let ath = self.detailInfo?.marketData.ath?["usd"] else { return "---"}
-    return "$\(ath)"
+    guard let ath = self.detailInfo?.marketData.ath?[self.currency] else { return "---"}
+    if self.currency == "eth" {
+      return "\(ath) ETH"
+    } else if self.currency == "btc" {
+      return "\(ath) BTC"
+    } else {
+      return "$\(ath)"
+    }
   }
   
   var displayAllTimeLow: String {
-    guard let atl = self.detailInfo?.marketData.atl?["usd"] else { return "---"}
-    return "$\(atl)"
+    guard let atl = self.detailInfo?.marketData.atl?[self.currency] else { return "---"}
+    if self.currency == "eth" {
+      return "\(atl) ETH"
+    } else if self.currency == "btc" {
+      return "\(atl) BTC"
+    } else {
+      return "$\(atl)"
+    }
   }
   
   var displayDescription: String {
@@ -127,7 +154,7 @@ class ChartViewModel {
   }
   
   var headerTitle: String {
-    return "\(self.token.symbol.uppercased())/USD"
+    return "\(self.token.symbol.uppercased())/\(self.currency.uppercased())"
   }
   
   func formatPoints(_ number: Double) -> String {
@@ -179,7 +206,7 @@ class ChartViewModel {
 }
 
 enum ChartViewEvent {
-  case getChartData(address: String, from: Int, to: Int)
+  case getChartData(address: String, from: Int, to: Int, currency: String)
   case getTokenDetailInfo(address: String)
   case transfer(token: Token)
   case swap(token: Token)
@@ -328,7 +355,7 @@ class ChartViewController: KNBaseViewController {
 
   fileprivate func loadChartData() {
     let current = NSDate().timeIntervalSince1970
-    self.delegate?.chartViewController(self, run: .getChartData(address: self.viewModel.token.address, from: self.viewModel.periodType.getFromTimeStamp(), to: Int(current)))
+    self.delegate?.chartViewController(self, run: .getChartData(address: self.viewModel.token.address, from: self.viewModel.periodType.getFromTimeStamp(), to: Int(current), currency: "usd"))
   }
 
   fileprivate func loadTokenDetailInfo() {

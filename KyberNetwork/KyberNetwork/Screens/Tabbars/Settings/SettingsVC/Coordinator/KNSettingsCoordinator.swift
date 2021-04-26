@@ -57,7 +57,7 @@ class KNSettingsCoordinator: NSObject, Coordinator {
   }()
   
   lazy var customTokenCoordinator: AddTokenCoordinator = {
-    let coordinator = AddTokenCoordinator(navigationController: self.navigationController)
+    let coordinator = AddTokenCoordinator(navigationController: self.navigationController, session: self.session)
     return coordinator
   }()
 
@@ -155,7 +155,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.passcodeCoordinator.delegate = self
       self.passcodeCoordinator.start()
     case .community:
-      let url = "https://krystaldefi.gitbook.io/krystal/"
+      let url = "https://support.krystal.app"
       self.openCommunityURL(url)
     case .shareWithFriends:
       self.openShareWithFriends()

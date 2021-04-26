@@ -137,7 +137,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
         } else if self.transaction.type == .transferETH || self.transaction.type == .transferToken {
           return "Transferred successfully".toBeLocalised()
         } else if self.transaction.type == .earn {
-          return "Successfully saved".toBeLocalised()
+          return "Successfully supplied".toBeLocalised()
         } else if self.transaction.type == .withdraw {
           return "Successfully withdraw".toBeLocalised()
         } else if self.transaction.type == .contractInteraction {
@@ -157,7 +157,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       self.loadingImageView.isHidden = true
 
       if self.transaction.type == .earn {
-        self.firstButton.setTitle("New save".toBeLocalised().capitalized, for: .normal)
+        self.firstButton.setTitle("New Supply".toBeLocalised().capitalized, for: .normal)
         self.secondButton.setTitle("Back to earn".toBeLocalised().capitalized, for: .normal)
         self.firstButtonTopContraint.constant = 160
         self.earnMessageContainerView.isHidden = false

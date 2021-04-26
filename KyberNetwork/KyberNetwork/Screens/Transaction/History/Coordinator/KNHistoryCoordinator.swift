@@ -313,8 +313,6 @@ extension KNHistoryCoordinator: KNConfirmCancelTransactionPopUpDelegate {
               userInfo: nil
             )
           }
-        
-          
         case .failure(let error):
           self.navigationController.showTopBannerView(message: error.description)
         }
@@ -381,6 +379,8 @@ extension KNHistoryCoordinator: KNTransactionStatusPopUpDelegate {
       self.navigationController.openSafari(with: url)
     case .transfer:
       self.openSendTokenView()
+    case .goToSupport:
+      self.navigationController.openSafari(with: "https://support.krystal.app")
     default:
       break
     }

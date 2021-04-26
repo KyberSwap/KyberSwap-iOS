@@ -7,7 +7,7 @@ import Moya
 
 //swiftlint:disable file_length
 
-enum KSwapViewEvent: Equatable {
+enum KSwapViewEvent {
   case searchToken(from: TokenObject, to: TokenObject, isSource: Bool)
 //  case estimateRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String, showError: Bool) //TODO: remove to apply new get rate procedure
 //  case estimateGas(from: TokenObject, to: TokenObject, amount: BigInt, gasPrice: BigInt, hint: String)
@@ -27,17 +27,17 @@ enum KSwapViewEvent: Equatable {
   case getLatestNonce
   case buildTx(rawTx: RawSwapTransaction)
   case signAndSendTx(tx: SignTransaction)
-  case getGasLimit(from: TokenObject, to: TokenObject, srcAmount: BigInt, hint: String)
+  case getGasLimit(from: TokenObject, to: TokenObject, srcAmount: BigInt, rawTx: RawSwapTransaction)
   case getRefPrice(from: TokenObject, to: TokenObject)
 
-  static public func == (left: KSwapViewEvent, right: KSwapViewEvent) -> Bool {
-    switch (left, right) {
-    case let (.getGasLimit(fromL, toL, amountL, hintL), .getGasLimit(fromR, toR, amountR, hintR)):
-      return fromL == fromR && toL == toR && amountL == amountR && hintL == hintR
-    default:
-      return false //Not implement
-    }
-  }
+//  static public func == (left: KSwapViewEvent, right: KSwapViewEvent) -> Bool {
+//    switch (left, right) {
+//    case let (.getGasLimit(fromL, toL, amountL, hintL), .getGasLimit(fromR, toR, amountR, hintR)):
+//      return fromL == fromR && toL == toR && amountL == amountR && hintL == hintR
+//    default:
+//      return false //Not implement
+//    }
+//  }
 }
 
 protocol KSwapViewControllerDelegate: class {
@@ -209,6 +209,7 @@ class KSwapViewController: KNBaseViewController {
   }
 
   fileprivate func setUpGasFeeView() {
+    self.viewModel.updateSelectedGasPriceType(self.viewModel.selectedGasPriceType)
     self.gasFeeLabel.text = self.viewModel.gasFeeString
     self.slippageLabel.text = self.viewModel.slippageString
     self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
@@ -451,14 +452,14 @@ class KSwapViewController: KNBaseViewController {
       from: self.viewModel.from,
       to: self.viewModel.to,
       srcAmount: self.viewModel.amountToEstimate,
-      hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address, amount: self.viewModel.amountFromBigInt, platform: self.viewModel.currentFlatform)
+      rawTx: self.viewModel.buildRawSwapTx()
     )
     //Dismiss event call if the same parameter call within 5 sec
-    if let previousEvent = self.previousCallEvent, previousEvent == event, Date().timeIntervalSince1970 - self.previousCallTimeStamp < 5 {
-      return
-    }
-    self.previousCallEvent = event
-    self.previousCallTimeStamp = Date().timeIntervalSince1970
+//    if let previousEvent = self.previousCallEvent, previousEvent == event, Date().timeIntervalSince1970 - self.previousCallTimeStamp < 5 {
+//      return
+//    }
+//    self.previousCallEvent = event
+//    self.previousCallTimeStamp = Date().timeIntervalSince1970
     self.delegate?.kSwapViewController(self, run: event)
   }
 
@@ -481,11 +482,13 @@ class KSwapViewController: KNBaseViewController {
       return true
     }
     guard !self.viewModel.amountFrom.isEmpty else {
-      self.showWarningTopBannerMessage(
-        with: NSLocalizedString("invalid.input", value: "Invalid input", comment: ""),
-        message: NSLocalizedString("please.enter.an.amount.to.continue", value: "Please enter an amount to continue", comment: "")
-      )
-      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "please.enter.an.amount.to.continue".toBeLocalised()])
+      if isConfirming == true {
+        self.showWarningTopBannerMessage(
+          with: NSLocalizedString("invalid.input", value: "Invalid input", comment: ""),
+          message: NSLocalizedString("please.enter.an.amount.to.continue", value: "Please enter an amount to continue", comment: "")
+        )
+        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "please.enter.an.amount.to.continue".toBeLocalised()])
+      }
       return true
     }
 //    if self.viewModel.isPairUnderMaintenance {
@@ -650,7 +653,7 @@ extension KSwapViewController {
     if isShowApproveButton {
       self.approveButtonLeftPaddingContraint.constant = 37
       self.approveButtonRightPaddingContaint.constant = 15
-      self.approveButtonEqualWidthContraint.priority = UILayoutPriority(rawValue: 1000)
+      self.approveButtonEqualWidthContraint.priority = UILayoutPriority(rawValue: 999)
       self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 250)
       self.continueButton.isEnabled = false
       self.continueButton.alpha = 0.2
@@ -665,7 +668,7 @@ extension KSwapViewController {
       self.approveButtonLeftPaddingContraint.constant = 0
       self.approveButtonRightPaddingContaint.constant = 37
       self.approveButtonEqualWidthContraint.priority = UILayoutPriority(rawValue: 250)
-      self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 1000)
+      self.approveButtonWidthContraint.priority = UILayoutPriority(rawValue: 999)
       self.continueButton.isEnabled = true
       self.continueButton.alpha = 1
     }
@@ -768,6 +771,7 @@ extension KSwapViewController {
       amount: amount,
       gasLimit: gasLimit
     )
+    
     self.setUpGasFeeView()
     self.updateFromAmountUIForSwapAllBalanceIfNeeded()
   }
@@ -905,6 +909,8 @@ extension KSwapViewController {
     self.setUpChangeRateButton()
     self.updateExchangeRateField()
     self.updateInputFieldsUI()
+    self.setUpGasFeeView()
+    self.updateEstimatedGasLimit()
   }
 
   func coordinatorDidUpdateAllowance(token: TokenObject, allowance: BigInt) {

@@ -58,12 +58,12 @@ class OverviewAssetsCellViewModel {
   
   var valueBigInt: BigInt {
     let rateBigInt = BigInt(self.priceDouble * pow(10.0, 18.0))
-    let valueBigInt = self.balanceBigInt * rateBigInt / BigInt(10).power(18)
+    let valueBigInt = self.balanceBigInt * rateBigInt / BigInt(10).power(self.token.decimals)
     return valueBigInt
   }
   
   var diplayValue: String {
-    let valueString = self.valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
+    let valueString = self.valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
     switch self.currencyType {
     case .usd:
       return "$" + valueString

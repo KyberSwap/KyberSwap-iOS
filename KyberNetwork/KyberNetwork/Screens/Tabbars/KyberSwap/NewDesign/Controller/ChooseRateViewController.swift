@@ -61,7 +61,7 @@ class ChooseRateViewModel {
       return "---"
     }
   }
-  
+
   fileprivate func feeStringFor(platform: String) -> String {
     let dict = self.data.first { (element) -> Bool in
       if let platformString = element["platform"] as? String {

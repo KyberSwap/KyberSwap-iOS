@@ -44,7 +44,7 @@ class KNCreateWalletViewController: KNBaseViewController {
   fileprivate func setupUI() {
     self.containerView.rounded(radius: 5.0)
     self.confirmLabel.text = NSLocalizedString("confirm", value: "Confirm", comment: "").uppercased()
-    self.descLabel.text = "This creates a new Ethereum wallet"
+    self.descLabel.text = "This creates a new Ethereum wallet for you to receive and transfer tokens."
     self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
     self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.confirmButton.setTitle(
@@ -74,7 +74,7 @@ class KNCreateWalletViewController: KNBaseViewController {
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
     if let text = self.refCodeField.text, !text.isEmpty {
-      self.delegate?.createWalletViewController(self, run: .sendRefCode(code: text))
+      self.delegate?.createWalletViewController(self, run: .sendRefCode(code: text.uppercased()))
     }
     self.delegate?.createWalletViewController(self, run: .next(name: "New Wallet"))
   }

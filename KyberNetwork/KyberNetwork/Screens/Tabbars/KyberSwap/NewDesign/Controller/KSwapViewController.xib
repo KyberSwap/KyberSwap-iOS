@@ -57,8 +57,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vbp-fJ-pmC">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4f-Nd-lmp">
-                            <rect key="frame" x="37" y="66" width="44.5" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SWAP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4f-Nd-lmp">
+                            <rect key="frame" x="37" y="66" width="50" height="21"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -293,8 +293,8 @@
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chi" translatesAutoresizingMaskIntoConstraints="NO" id="BKA-pA-o9c">
                                     <rect key="frame" x="277" y="8" width="16" height="16"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slippage: 3%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrV-j9-Z3y">
-                                    <rect key="frame" x="214" y="10" width="55" height="12"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slippage: 0.5%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nrV-j9-Z3y">
+                                    <rect key="frame" x="206" y="10" width="63" height="12"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                                     <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -480,7 +480,7 @@
                         <constraint firstItem="J8q-3O-zAd" firstAttribute="top" secondItem="IWS-1b-dbc" secondAttribute="bottom" constant="11" id="Ogu-h8-QQh"/>
                         <constraint firstAttribute="trailing" secondItem="IWS-1b-dbc" secondAttribute="trailing" constant="37" id="Pz0-JN-ret"/>
                         <constraint firstItem="IWS-1b-dbc" firstAttribute="centerX" secondItem="P3a-OW-m6C" secondAttribute="centerX" id="R3t-iN-2fH"/>
-                        <constraint firstItem="YJW-Oi-0g6" firstAttribute="width" secondItem="Hag-Sy-it8" secondAttribute="width" id="RfS-tT-Ftm"/>
+                        <constraint firstItem="YJW-Oi-0g6" firstAttribute="width" secondItem="Hag-Sy-it8" secondAttribute="width" priority="999" id="RfS-tT-Ftm"/>
                         <constraint firstItem="XaR-wf-YRm" firstAttribute="top" secondItem="P3a-OW-m6C" secondAttribute="top" constant="40" id="UeJ-4I-elg"/>
                         <constraint firstAttribute="bottom" secondItem="YJW-Oi-0g6" secondAttribute="bottom" constant="50" id="VK6-Me-ZgZ"/>
                         <constraint firstItem="IWS-1b-dbc" firstAttribute="top" secondItem="XaR-wf-YRm" secondAttribute="bottom" constant="26" id="dhd-15-ko2"/>

@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="bhG-uN-zik" secondAttribute="trailing" constant="20" id="LHx-vv-fwD"/>
                     <constraint firstItem="f3Q-dq-bf1" firstAttribute="top" secondItem="bhG-uN-zik" secondAttribute="bottom" constant="5" id="Pdl-Fv-pLI"/>
@@ -46,6 +46,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="walletAddressLabel" destination="f3Q-dq-bf1" id="64r-gS-WTk"/>
                 <outlet property="walletNameLabel" destination="bhG-uN-zik" id="oag-id-oDe"/>

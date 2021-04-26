@@ -19,6 +19,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewAssetsViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="btcButton" destination="dtE-A3-SzH" id="6by-6C-ERS"/>
+                <outlet property="buyETHButton" destination="aGf-uh-HB3" id="3zU-nu-VSk"/>
+                <outlet property="emptyView" destination="Ivh-b6-bHI" id="skp-dj-O5a"/>
                 <outlet property="ethButton" destination="MOf-jT-olF" id="a0r-rd-itW"/>
                 <outlet property="tableView" destination="1ZU-UM-RlI" id="rXg-ry-3nq"/>
                 <outlet property="totalStringLabel" destination="NR6-x9-Cl8" id="Whz-cg-J6A"/>
@@ -98,6 +100,14 @@
                         <constraint firstItem="ZRD-12-1fd" firstAttribute="centerY" secondItem="HEV-nW-Uyc" secondAttribute="centerY" id="zB4-td-fbO"/>
                     </constraints>
                 </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1ZU-UM-RlI">
+                    <rect key="frame" x="12" y="71" width="351" height="596"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Evt-Tf-AKR"/>
+                        <outlet property="delegate" destination="-1" id="Ieh-X2-Ri8"/>
+                    </connections>
+                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPS-hJ-G1O">
                     <rect key="frame" x="12" y="47" width="351" height="24"/>
                     <subviews>
@@ -161,34 +171,66 @@
                         <constraint firstItem="Vl7-M4-chH" firstAttribute="leading" secondItem="FPS-hJ-G1O" secondAttribute="leading" constant="25" id="pTf-dL-JoM"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1ZU-UM-RlI">
-                    <rect key="frame" x="12" y="71" width="351" height="596"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="Evt-Tf-AKR"/>
-                        <outlet property="delegate" destination="-1" id="Ieh-X2-Ri8"/>
-                    </connections>
-                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ivh-b6-bHI">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="empty_asset_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Z8n-Zd-PwG">
+                            <rect key="frame" x="142" y="45" width="91" height="105"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGf-uh-HB3">
+                            <rect key="frame" x="106.5" y="227" width="162" height="40"/>
+                            <inset key="contentEdgeInsets" minX="40" minY="9" maxX="40" maxY="9"/>
+                            <inset key="imageEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="Buy ETH" image="add_blue_icon">
+                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="buyETHButtonTapped:" destination="-1" eventType="touchUpInside" id="zYO-Yh-2yy"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your balance is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYa-hG-ALN">
+                            <rect key="frame" x="121" y="173" width="133" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="Z8n-Zd-PwG" firstAttribute="top" secondItem="Ivh-b6-bHI" secondAttribute="top" constant="45" id="19Y-QT-lKn"/>
+                        <constraint firstItem="BYa-hG-ALN" firstAttribute="top" secondItem="Z8n-Zd-PwG" secondAttribute="bottom" constant="23" id="a3u-9g-fcL"/>
+                        <constraint firstItem="aGf-uh-HB3" firstAttribute="top" secondItem="BYa-hG-ALN" secondAttribute="bottom" constant="37" id="pap-bU-3OM"/>
+                        <constraint firstItem="BYa-hG-ALN" firstAttribute="centerX" secondItem="Ivh-b6-bHI" secondAttribute="centerX" id="sOO-nW-sy8"/>
+                        <constraint firstItem="aGf-uh-HB3" firstAttribute="centerX" secondItem="Ivh-b6-bHI" secondAttribute="centerX" id="wy6-qi-dgt"/>
+                        <constraint firstItem="Z8n-Zd-PwG" firstAttribute="centerX" secondItem="Ivh-b6-bHI" secondAttribute="centerX" id="x37-Rg-ExQ"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="FPS-hJ-G1O" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="Bo3-b1-nsN"/>
+                <constraint firstItem="Ivh-b6-bHI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="KUd-da-w4E"/>
                 <constraint firstItem="1ZU-UM-RlI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="LlJ-Qn-8E9"/>
+                <constraint firstItem="Ivh-b6-bHI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="R2k-vg-PoY"/>
                 <constraint firstAttribute="bottom" secondItem="1ZU-UM-RlI" secondAttribute="bottom" id="SXN-YM-QdF"/>
                 <constraint firstItem="1ZU-UM-RlI" firstAttribute="top" secondItem="FPS-hJ-G1O" secondAttribute="bottom" id="TIy-NH-o94"/>
+                <constraint firstItem="Ivh-b6-bHI" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Yfo-Ik-UZS"/>
                 <constraint firstItem="HEV-nW-Uyc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ZHP-qk-S5X"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1ZU-UM-RlI" secondAttribute="trailing" constant="12" id="aex-N3-KBV"/>
+                <constraint firstItem="Ivh-b6-bHI" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="iBD-EG-e5t"/>
                 <constraint firstItem="FPS-hJ-G1O" firstAttribute="top" secondItem="HEV-nW-Uyc" secondAttribute="bottom" constant="11" id="sOA-Oi-Eb2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FPS-hJ-G1O" secondAttribute="trailing" constant="12" id="uZw-nO-eph"/>
                 <constraint firstItem="HEV-nW-Uyc" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="urb-Mf-U6T"/>
                 <constraint firstItem="HEV-nW-Uyc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vGe-tl-VRi"/>
             </constraints>
-            <point key="canvasLocation" x="141" y="104"/>
+            <point key="canvasLocation" x="140" y="103.89805097451276"/>
         </view>
     </objects>
     <resources>
+        <image name="add_blue_icon" width="12" height="12"/>
         <image name="down_arrow_overview_icon" width="8" height="8"/>
+        <image name="empty_asset_icon" width="91" height="105"/>
         <image name="no_arrow_overview_icon" width="8" height="8"/>
     </resources>
 </document>

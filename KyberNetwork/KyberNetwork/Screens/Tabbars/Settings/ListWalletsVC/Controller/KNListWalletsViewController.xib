@@ -18,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNListWalletsViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="addWalletButton" destination="8dd-He-VDD" id="u40-Jn-4EG"/>
                 <outlet property="bottomPaddingConstraintForTableView" destination="fPU-Qc-GQ7" id="K07-PO-QRu"/>
                 <outlet property="emptyMessageLabel" destination="4RW-EU-LFv" id="2CL-UO-3Z4"/>
                 <outlet property="emptyView" destination="khX-ck-Eac" id="h6x-6D-1aA"/>

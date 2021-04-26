@@ -40,7 +40,6 @@ class KNRateCoordinator {
     return self.cachedProdTokenRates["\(from)_\(to)"]
   }
 
-
   init() {}
 
   func resume() {
@@ -274,7 +273,7 @@ class KNRateCoordinator {
       }
     }
   }
-  
+
   //MARK: - NEW IMPLEMENTATION
   func loadETHPrice() {
     let provider = MoyaProvider<CoinGeckoService>(plugins: [NetworkLoggerPlugin(verbose: true)])
@@ -323,7 +322,6 @@ class KNRateCoordinator {
     group.notify(queue: .global()) {
       KNTrackerRateStorage.shared.updatePrices(output)
     }
-    
   }
 }
 

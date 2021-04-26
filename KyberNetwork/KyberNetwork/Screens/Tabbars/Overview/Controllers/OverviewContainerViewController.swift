@@ -11,6 +11,17 @@ enum CurrencyType {
   case eth
   case usd
   case btc
+  
+  func toString() -> String {
+    switch self {
+    case .eth:
+      return "eth"
+    case .usd:
+      return "usd"
+    case .btc:
+      return "btc"
+    }
+  }
 }
 
 enum OverviewContainerViewEvent {
@@ -19,6 +30,7 @@ enum OverviewContainerViewEvent {
   case addCustomToken
   case krytal
   case notifications
+  case selectedCurrency(type: CurrencyType)
 }
 
 class OverviewContainerViewModel {
@@ -129,6 +141,11 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
       self.setupPageController()
     }
     self.updateUIPendingTxIndicatorView()
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.updateUITotalValue()
   }
   
   fileprivate func setupUI() {
@@ -247,6 +264,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     }
     self.viewModel.currencyType = type
     self.updateUITotalValue()
+    self.delegate?.overviewContainerViewController(self, run: .selectedCurrency(type: type))
   }
   
   func coordinatorDidUpdateDidUpdateTokenList() {

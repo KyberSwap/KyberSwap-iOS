@@ -35,7 +35,7 @@ class KSwapViewModel {
 
   fileprivate(set) var estRate: BigInt?
   fileprivate(set) var slippageRate: BigInt?
-  fileprivate(set) var minRatePercent: Double = 3.0
+  fileprivate(set) var minRatePercent: Double = 0.5
 
   var isSwapAllBalance: Bool = false
   var isTappedSwapAllBalance: Bool = false
@@ -50,9 +50,22 @@ class KSwapViewModel {
 
   fileprivate(set) var estimateGasLimit: BigInt = KNGasConfiguration.exchangeTokensGasLimitDefault
   var swapRates: (String, String, BigInt, [JSONDictionary]) = ("", "", BigInt(0), [])
-  var currentFlatform: String = "kyber"
+  var currentFlatform: String = "kyber" {
+    didSet {
+      let dict = self.swapRates.3.first { (element) -> Bool in
+        if let platformString = element["platform"] as? String {
+          return platformString == self.currentFlatform
+        } else {
+          return false
+        }
+      }
+      if let estGasString = dict?["estimatedGas"] as? NSNumber, let estGas = BigInt(estGasString.stringValue) {
+        self.estimateGasLimit = estGas
+      }
+    }
+  }
   var remainApprovedAmount: (TokenObject, BigInt)?
-  var latestNonce: Int = -1
+  var latestNonce: Int = 0
   var refPrice: (TokenObject, TokenObject, String, [String])
   var gasPriceSelectedAmount: String = ""
   var approvingToken: TokenObject?
@@ -119,8 +132,8 @@ class KSwapViewModel {
   }
 
   var equivalentUSDAmount: BigInt? {
-    if let usdRate = KNTrackerRateStorage.shared.getPriceWithAddress(self.to.address) {
-      return self.amountToBigInt * BigInt(usdRate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.to.decimals)
+    if let usdRate = KNTrackerRateStorage.shared.getPriceWithAddress(self.from.address) {
+      return self.amountFromBigInt * BigInt(usdRate.usd * pow(10.0, 18.0)) / BigInt(10).power(self.from.decimals)
     }
     return nil
   }
@@ -620,13 +633,16 @@ class KSwapViewModel {
   }
 
   var refPriceDiffText: String {
-    let refPrice = self.getRefPrice(from: self.from, to: self.to)
-    let price = self.getSwapRate(from: self.from.address.description, to: self.to.address.description, amount: self.amountFromBigInt, platform: self.currentFlatform)
-    guard !price.isEmpty, !refPrice.isEmpty, let priceInt = Int(price), let refPriceDouble = Double(refPrice) else {
+    guard !self.amountFrom.isEmpty else {
       return ""
     }
-
-    let priceDouble: Double = Double(priceInt) / pow(10.0, 18.0)
+    let refPrice = self.getRefPrice(from: self.from, to: self.to)
+    let price = self.getSwapRate(from: self.from.address.description, to: self.to.address.description, amount: self.amountFromBigInt, platform: self.currentFlatform)
+    guard !price.isEmpty, !refPrice.isEmpty, let priceBigInt = BigInt(price) else {
+      return ""
+    }
+    let refPriceDouble = refPrice.doubleValue
+    let priceDouble: Double = Double(priceBigInt) / pow(10.0, 18)
     let change = (priceDouble - refPriceDouble) / refPriceDouble * 100.0
     if change > -5.0 {
       return ""

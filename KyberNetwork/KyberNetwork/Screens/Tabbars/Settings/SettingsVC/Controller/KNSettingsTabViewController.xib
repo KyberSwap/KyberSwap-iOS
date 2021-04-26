@@ -20,6 +20,7 @@
             <connections>
                 <outlet property="fingerprintSwitch" destination="bzU-97-rEA" id="wKc-b1-oPx"/>
                 <outlet property="shareWithFriendsButton" destination="ijc-DN-FUu" id="Fpv-Fa-f23"/>
+                <outlet property="versionLabel" destination="nzz-dO-flI" id="xMn-ad-svF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -235,7 +236,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9e-30-C7r">
-                                    <rect key="frame" x="24" y="80" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="80" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Help Center" image="setting_fa0">
@@ -275,7 +276,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijc-DN-FUu">
-                                    <rect key="frame" x="24" y="144" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="153" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Share" image="settings_share">
@@ -286,7 +287,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5f-in-QUU">
-                                    <rect key="frame" x="24" y="112" width="297" height="20"/>
+                                    <rect key="frame" x="24" y="117" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Notifications" image="settings_manage_alert">
@@ -297,7 +298,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i9-8v-ipm">
-                                    <rect key="frame" x="56" y="206" width="19" height="22"/>
+                                    <rect key="frame" x="56" y="225" width="19" height="22"/>
                                     <state key="normal" image="setting_telegram"/>
                                     <connections>
                                         <action selector="telegramButtonPressed:" destination="-1" eventType="touchUpInside" id="IZl-U1-MiA"/>
@@ -305,7 +306,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se5-hf-B7q">
-                                    <rect key="frame" x="91" y="206" width="20" height="22"/>
+                                    <rect key="frame" x="91" y="225" width="20" height="22"/>
                                     <state key="normal" image="setting_twitter"/>
                                     <connections>
                                         <action selector="twitterButtonPressed:" destination="-1" eventType="touchUpInside" id="Aoc-2f-s5G"/>
@@ -313,7 +314,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-VY-iwf">
-                                    <rect key="frame" x="127" y="206" width="20" height="22"/>
+                                    <rect key="frame" x="127" y="225" width="20" height="22"/>
                                     <state key="normal" image="setting_medium"/>
                                     <connections>
                                         <action selector="mediumButtonPressed:" destination="-1" eventType="touchUpInside" id="5Fl-hL-KJf"/>
@@ -321,7 +322,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15o-dz-5Vr">
-                                    <rect key="frame" x="24" y="75" width="297" height="25"/>
+                                    <rect key="frame" x="24" y="80" width="297" height="25"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Privacy Policy" image="settings_privacy_icon">
@@ -331,14 +332,14 @@
                                         <action selector="privacyPolicyTapped:" destination="-1" eventType="touchUpInside" id="YeV-Bx-DfG"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzz-dO-flI">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver 1.0.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzz-dO-flI">
                                     <rect key="frame" x="8" y="261" width="59" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYZ-MB-rGO">
-                                    <rect key="frame" x="24" y="44" width="297" height="19"/>
+                                    <rect key="frame" x="24" y="44" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Terms of Use" image="setting_term">
@@ -349,7 +350,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PM-RB-2d8">
-                                    <rect key="frame" x="24" y="176" width="297" height="18"/>
+                                    <rect key="frame" x="24" y="189" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Rate our App" image="settings_rate_app">
@@ -438,19 +439,19 @@
     <resources>
         <image name="setting_add_custom_token" width="19" height="19"/>
         <image name="setting_email_icon" width="24" height="24"/>
-        <image name="setting_fa0" width="20" height="20"/>
+        <image name="setting_fa0" width="24" height="24"/>
         <image name="setting_fingerprint" width="20" height="22"/>
         <image name="setting_manage_token" width="18" height="19"/>
         <image name="setting_medium" width="20" height="17"/>
         <image name="setting_telegram" width="19" height="16"/>
-        <image name="setting_term" width="20" height="19"/>
+        <image name="setting_term" width="24" height="24"/>
         <image name="setting_twitter" width="20" height="17"/>
         <image name="settings_contact" width="22" height="20"/>
-        <image name="settings_manage_alert" width="16" height="20"/>
+        <image name="settings_manage_alert" width="24" height="24"/>
         <image name="settings_pin" width="16" height="20"/>
         <image name="settings_privacy_icon" width="25" height="25"/>
-        <image name="settings_rate_app" width="20" height="18"/>
-        <image name="settings_share" width="20" height="20"/>
+        <image name="settings_rate_app" width="24" height="24"/>
+        <image name="settings_share" width="24" height="24"/>
         <image name="settings_wallet" width="20" height="20"/>
     </resources>
 </document>

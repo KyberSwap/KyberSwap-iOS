@@ -39,6 +39,7 @@ class KNSettingsTabViewController: KNBaseViewController {
 
   @IBOutlet weak var shareWithFriendsButton: UIButton!
   @IBOutlet weak var fingerprintSwitch: UISwitch!
+  @IBOutlet weak var versionLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -102,6 +103,10 @@ class KNSettingsTabViewController: KNBaseViewController {
 //
 //    NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(FRESHCHAT_UNREAD_MESSAGE_COUNT_CHANGED), object: nil)
     self.fingerprintSwitch.isOn = UserDefaults.standard.bool(forKey: "bio-auth")
+    
+    if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+      self.versionLabel.text = version + "-\(KNEnvironment.default.displayName)"
+       }
   }
 
 //  deinit {

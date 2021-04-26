@@ -62,13 +62,25 @@
                                 <action selector="bacButtonPressed:" destination="-1" eventType="touchUpInside" id="Kwj-aW-JdK"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ttg-nE-75x">
+                            <rect key="frame" x="329" y="42" width="30" height="29"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <state key="normal" title="Skip">
+                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="skipButtonTapped:" destination="-1" eventType="touchUpInside" id="b7R-Yx-fAW"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="ohM-N6-z0S" firstAttribute="leading" secondItem="EFQ-zS-3p3" secondAttribute="leading" constant="16" id="6SV-FI-Vsk"/>
+                        <constraint firstAttribute="trailing" secondItem="Ttg-nE-75x" secondAttribute="trailing" constant="16" id="FKS-GS-oA0"/>
                         <constraint firstAttribute="height" constant="82" id="GCv-Np-ZsN"/>
                         <constraint firstAttribute="bottom" secondItem="v9Q-P1-pUP" secondAttribute="bottom" constant="16" id="MpM-Xq-BsD"/>
                         <constraint firstItem="v9Q-P1-pUP" firstAttribute="centerX" secondItem="EFQ-zS-3p3" secondAttribute="centerX" id="SuV-Mm-8VW"/>
+                        <constraint firstItem="Ttg-nE-75x" firstAttribute="centerY" secondItem="v9Q-P1-pUP" secondAttribute="centerY" id="dHh-GY-uiK"/>
                         <constraint firstItem="ohM-N6-z0S" firstAttribute="centerY" secondItem="v9Q-P1-pUP" secondAttribute="centerY" id="pMB-7B-weG"/>
                     </constraints>
                 </view>

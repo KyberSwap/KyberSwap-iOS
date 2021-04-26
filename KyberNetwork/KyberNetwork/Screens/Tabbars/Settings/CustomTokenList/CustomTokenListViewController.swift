@@ -37,6 +37,7 @@ class CustomTokenListViewController: KNBaseViewController {
   @IBOutlet weak var tokenTableView: UITableView!
   let viewModel = CustomTokenListViewModel()
   weak var delegate: CustomTokenListViewControllerDelegate?
+  @IBOutlet weak var emptyView: UIView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -51,7 +52,12 @@ class CustomTokenListViewController: KNBaseViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    self.updateUI()
+  }
+  
+  fileprivate func updateUI() {
     self.viewModel.reloadData()
+    self.emptyView.isHidden = !self.viewModel.dataSource.isEmpty
     self.tokenTableView.reloadData()
   }
   
@@ -67,8 +73,7 @@ class CustomTokenListViewController: KNBaseViewController {
     guard self.isViewLoaded else {
       return
     }
-    self.viewModel.reloadData()
-    self.tokenTableView.reloadData()
+    self.updateUI()
   }
 }
 

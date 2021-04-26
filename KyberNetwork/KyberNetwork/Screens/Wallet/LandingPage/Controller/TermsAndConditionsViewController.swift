@@ -80,11 +80,11 @@ class TermsAndConditionsViewController: KNBaseViewController {
       self.nextButton.alpha = 0.5
     }
   }
-  
+
   func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-          UIApplication.shared.open(URL)
-          return false
-      }
+    UIApplication.shared.open(URL)
+    return false
+  }
 }
 
 extension TermsAndConditionsViewController: BottomPopUpAbstract {

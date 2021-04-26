@@ -12,6 +12,7 @@ enum AddTokenViewEvent {
   case openQR
   case done(address: String, symbol: String, decimals: Int)
   case doneEdit(address: String, newAddress: String, symbol: String, decimals: Int)
+  case getSymbol(address: String)
 }
 
 protocol AddTokenViewControllerDelegate: class {
@@ -67,6 +68,7 @@ class AddTokenViewController: KNBaseViewController {
   @IBAction func pasteButtonTapped(_ sender: UIButton) {
     if let string = UIPasteboard.general.string {
       self.addressField.text = string
+//      self.delegate?.addTokenViewController(self, run: .getSymbol(address: string))
     }
   }
 

@@ -60,7 +60,6 @@ class KNContactTableViewCell: SwipeTableViewCell {
     self.contactNameLabel.addLetterSpacing()
     self.contactAddressLabel.text = viewModel.displayedAddress
     self.contactAddressLabel.addLetterSpacing()
-    self.backgroundColor = viewModel.backgroundColor
     self.layoutIfNeeded()
   }
 }

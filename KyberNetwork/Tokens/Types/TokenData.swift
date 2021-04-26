@@ -174,7 +174,7 @@ struct LendingDistributionBalance: Codable {
   }
 }
 
-struct TokenData: Equatable {
+struct TokenData: Codable, Equatable {
   let address: String
   let name: String
   let symbol: String

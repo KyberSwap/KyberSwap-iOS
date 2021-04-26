@@ -136,6 +136,10 @@ class KNBackUpWalletViewController: KNBaseViewController {
     self.updateUI()
   }
 
+  @IBAction func skipButtonTapped(_ sender: UIButton) {
+    self.delegate?.backupWalletViewControllerDidConfirmSkipWallet()
+  }
+
   @IBAction func completeButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "complete_button"])
     guard let firstWord = self.firstWordTextField.text, let secondWord = self.secondWordTextField.text else {

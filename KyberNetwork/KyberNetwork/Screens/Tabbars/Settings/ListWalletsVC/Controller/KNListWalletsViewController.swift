@@ -58,7 +58,8 @@ class KNListWalletsViewController: KNBaseViewController {
   @IBOutlet weak var emptyView: UIView!
   @IBOutlet weak var emptyMessageLabel: UILabel!
   @IBOutlet weak var emptyViewAddButton: UIButton!
-
+  @IBOutlet weak var addWalletButton: UIButton!
+  
   init(viewModel: KNListWalletsViewModel) {
     self.viewModel = viewModel
     super.init(nibName: KNListWalletsViewController.className, bundle: nil)
@@ -86,7 +87,7 @@ class KNListWalletsViewController: KNBaseViewController {
   }
 
   fileprivate func setupSegmentedControl() {
-    self.segmentedControl.segments = LabelSegment.segments(withTitles: ["Imported".toBeLocalised().uppercased(), "watch".toBeLocalised().uppercased()],
+    self.segmentedControl.segments = LabelSegment.segments(withTitles: ["Imported".toBeLocalised().uppercased(), "Watched".toBeLocalised().uppercased()],
                                                                normalFont: UIFont(name: "Lato-Bold", size: 8)!,
                                                                normalTextColor: UIColor(red: 226, green: 231, blue: 244),
                                                                selectedFont: UIFont(name: "Lato-Bold", size: 8)!,
@@ -121,7 +122,9 @@ class KNListWalletsViewController: KNBaseViewController {
 
   fileprivate func updateEmptyView() {
     self.emptyView.isHidden = !self.viewModel.displayWallets.isEmpty
-    self.emptyMessageLabel.text = self.viewModel.isDisplayWatchWallets ? "Your list of watched wallet is empty".toBeLocalised() : "Your list of wallet is empty".toBeLocalised()
+    let walletString = self.segmentedControl.index == 0 ? "wallet" : "watched wallet"
+    self.emptyMessageLabel.text = "Your list of \(walletString)s is empty.".toBeLocalised()
+    self.addWalletButton.setTitle("Add " + walletString, for: .normal)
   }
 
   func coordinatorDidUpdateWalletsList() {

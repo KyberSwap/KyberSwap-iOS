@@ -133,6 +133,11 @@ class InvestCoordinator: Coordinator {
     self.sendCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.krytalCoordinator?.appCoordinatorDidUpdateNewSession(session)
   }
+  
+  func appCoordinatorUpdateTransaction(_ tx: InternalHistoryTransaction) -> Bool {
+    if self.sendCoordinator?.coordinatorDidUpdateTransaction(tx) == true { return true }
+    return false
+  }
 }
 
 extension InvestCoordinator: InvestViewControllerDelegate {

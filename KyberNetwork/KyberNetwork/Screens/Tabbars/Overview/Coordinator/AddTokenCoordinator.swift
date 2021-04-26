@@ -11,6 +11,7 @@ import QRCodeReaderViewController
 class AddTokenCoordinator: NSObject, Coordinator {
   let navigationController: UINavigationController
   var coordinators: [Coordinator] = []
+  private(set) var session: KNSession
   
   lazy var rootViewController: AddTokenViewController = {
     let controller = AddTokenViewController()
@@ -24,9 +25,10 @@ class AddTokenCoordinator: NSObject, Coordinator {
     return controller
   }()
   
-  init(navigationController: UINavigationController = UINavigationController()) {
+  init(navigationController: UINavigationController = UINavigationController(), session: KNSession) {
     self.navigationController = navigationController
     self.navigationController.setNavigationBarHidden(true, animated: false)
+    self.session = session
   }
   
   func start(showList: Bool = false, token: Token? = nil) {
@@ -80,6 +82,8 @@ extension AddTokenCoordinator: AddTokenViewControllerDelegate {
       )
       self.listTokenViewController.coordinatorDidUpdateTokenList()
       self.navigationController.popViewController(animated: true)
+    case .getSymbol(address: let address):
+      break
     }
   }
 }

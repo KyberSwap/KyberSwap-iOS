@@ -110,16 +110,15 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
   }
 
   @IBAction func nextButtonPressed(_ sender: Any) {
+    if let text = self.refCodeField.text, !text.isEmpty {
+      self.delegate?.importPrivateKeyViewController(controller: self, send: text)
+    }
     let privateKey: String = self.enterPrivateKeyTextField.text ?? ""
     self.delegate?.importPrivateKeyViewControllerDidPressNext(
       sender: self,
       privateKey: privateKey,
       name: self.walletNameTextField.text
     )
-    
-    if let text = self.refCodeField.text, !text.isEmpty {
-      self.delegate?.importPrivateKeyViewController(controller: self, send: text)
-    }
   }
   
   @IBAction func pasteButtonTapped(_ sender: UIButton) {

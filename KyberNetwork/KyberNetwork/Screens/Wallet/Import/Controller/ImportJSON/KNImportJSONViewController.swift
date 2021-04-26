@@ -110,6 +110,9 @@ class KNImportJSONViewController: KNBaseViewController {
   }
 
   @IBAction func nextButtonPressed(_ sender: Any) {
+    if let text = self.refCodeField.text, !text.isEmpty {
+      self.delegate?.importJSONViewController(controller: self, send: text)
+    }
     let password: String = self.enterPasswordTextField.text ?? ""
     self.delegate?.importJSONViewControllerDidPressNext(
       sender: self,
@@ -117,10 +120,6 @@ class KNImportJSONViewController: KNBaseViewController {
       password: password,
       name: self.nameWalletTextField.text
     )
-    
-    if let text = self.refCodeField.text, !text.isEmpty {
-      self.delegate?.importJSONViewController(controller: self, send: text)
-    }
   }
   
   @IBAction func pasteButtonTapped(_ sender: UIButton) {
