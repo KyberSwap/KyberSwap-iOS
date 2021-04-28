@@ -70,7 +70,7 @@ class ChartViewModel {
       return "---"
     }
     let diff = (lastPrice - firstPrice) * 100.0
-    return "\(diff)%"
+    return String(format: "%.2f", diff / firstPrice) + "%"
   }
   
   var displayDiffColor: UIColor {
@@ -264,7 +264,7 @@ class ChartViewController: KNBaseViewController {
   @IBOutlet weak var investButton: UIButton!
   @IBOutlet weak var descriptionTextView: GrowingTextView!
   @IBOutlet weak var chartDetailLabel: UILabel!
-  
+  @IBOutlet weak var noDataLabel: UILabel!
   
   weak var delegate: ChartViewControllerDelegate?
   let viewModel: ChartViewModel
@@ -344,6 +344,8 @@ class ChartViewController: KNBaseViewController {
     self.ethBalanceLabel.text = self.viewModel.diplayBalance
     self.usdBalanceLabel.text = self.viewModel.displayUSDBalance
     self.marketCapLabel.text = self.viewModel.displayMarketCap
+    self.priceDiffPercentageLabel.text = self.viewModel.displayDiffPercent
+    self.priceDiffPercentageLabel.textColor = self.viewModel.displayDiffColor
   }
 
   fileprivate func updateUITokenInfo() {
@@ -355,7 +357,7 @@ class ChartViewController: KNBaseViewController {
 
   fileprivate func loadChartData() {
     let current = NSDate().timeIntervalSince1970
-    self.delegate?.chartViewController(self, run: .getChartData(address: self.viewModel.token.address, from: self.viewModel.periodType.getFromTimeStamp(), to: Int(current), currency: "usd"))
+    self.delegate?.chartViewController(self, run: .getChartData(address: self.viewModel.token.address, from: self.viewModel.periodType.getFromTimeStamp(), to: Int(current), currency: self.viewModel.currency))
   }
 
   fileprivate func loadTokenDetailInfo() {
@@ -373,6 +375,7 @@ class ChartViewController: KNBaseViewController {
   }
 
   func coordinatorDidUpdateChartData(_ data: ChartData) {
+    self.noDataLabel.isHidden = !data.prices.isEmpty
     self.viewModel.updateChartData(data)
     self.chartView.removeAllSeries()
     self.chartView.add(self.viewModel.series)

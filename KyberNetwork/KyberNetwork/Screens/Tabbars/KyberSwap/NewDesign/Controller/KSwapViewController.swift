@@ -816,7 +816,7 @@ extension KSwapViewController {
         time: 1.5
       )
     }
-    self.viewModel.gasPriceSelectedAmount = ""
+    self.viewModel.gasPriceSelectedAmount = ("", "")
     self.updateApproveButton()
     //TODO: reset only swap button on screen, can be optimize with
     self.updateUIForSendApprove(isShowApproveButton: false)
@@ -905,7 +905,7 @@ extension KSwapViewController {
 
   func coordinatorDidUpdatePlatform(_ platform: String) {
     self.viewModel.currentFlatform = platform
-    self.viewModel.gasPriceSelectedAmount = self.viewModel.amountFrom
+    self.viewModel.gasPriceSelectedAmount = (self.viewModel.amountFrom, self.viewModel.amountTo)
     self.setUpChangeRateButton()
     self.updateExchangeRateField()
     self.updateInputFieldsUI()
@@ -1064,16 +1064,11 @@ extension KSwapViewController: UITextFieldDelegate {
 
   func textFieldDidBeginEditing(_ textField: UITextField) {
     self.viewModel.isSwapAllBalance = false
-//    let isFocusingSource = self.viewModel.isFocusingFromAmount
     self.viewModel.updateFocusingField(textField == self.fromAmountTextField)
-//    if !self.viewModel.isFocusingFromAmount && isFocusingSource {
-//      self.updateRateDestAmountDidChangeIfNeeded(prevDest: BigInt(0), isForceLoad: true)
-//    }
     self.updateViewAmountDidChange()
   }
 
   func textFieldDidEndEditing(_ textField: UITextField) {
-//    self.updateEstimatedRate(showError: true)
     self.updateAllRates()
     self.updateEstimatedGasLimit()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

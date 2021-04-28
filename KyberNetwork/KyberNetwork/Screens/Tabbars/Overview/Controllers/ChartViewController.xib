@@ -30,6 +30,7 @@
                 <outlet property="ethBalanceLabel" destination="5JN-3d-A7T" id="xcI-7T-t4b"/>
                 <outlet property="investButton" destination="HI4-LR-6cR" id="2hL-Qn-ZYj"/>
                 <outlet property="marketCapLabel" destination="ncE-iU-gdT" id="0eE-JV-6Kl"/>
+                <outlet property="noDataLabel" destination="Fcp-jR-KcB" id="Zdc-30-20s"/>
                 <outlet property="priceDiffPercentageLabel" destination="rig-RH-skP" id="gEG-fm-naP"/>
                 <outlet property="priceLabel" destination="Lcl-Qq-nU6" id="0Hv-Ji-cky"/>
                 <outlet property="swapButton" destination="7pU-d9-FWK" id="Kte-g2-IIz"/>
@@ -216,6 +217,12 @@
                                 <constraint firstAttribute="height" constant="220" id="E1T-qs-NAf"/>
                             </constraints>
                         </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fcp-jR-KcB">
+                            <rect key="frame" x="158" y="276" width="59" height="20.5"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="17"/>
+                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQr-Jp-lwB">
                             <rect key="frame" x="26" y="411" width="94.5" height="32"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -430,6 +437,7 @@
                         <constraint firstItem="Lcl-Qq-nU6" firstAttribute="top" secondItem="sRh-yz-ork" secondAttribute="bottom" constant="2" id="1Ha-dw-zs7"/>
                         <constraint firstItem="7pU-d9-FWK" firstAttribute="top" secondItem="ueJ-8I-pMk" secondAttribute="bottom" constant="15" id="2tJ-Ay-eHz"/>
                         <constraint firstItem="N0W-yK-Iln" firstAttribute="top" secondItem="VQr-Jp-lwB" secondAttribute="bottom" constant="55" id="3LA-iM-5FK"/>
+                        <constraint firstItem="Fcp-jR-KcB" firstAttribute="centerX" secondItem="ueJ-8I-pMk" secondAttribute="centerX" id="48i-nT-qRG"/>
                         <constraint firstItem="aFB-ff-HUe" firstAttribute="top" secondItem="ueJ-8I-pMk" secondAttribute="top" id="5LN-b5-4WP"/>
                         <constraint firstItem="1Rg-Gc-aeW" firstAttribute="top" secondItem="Cqj-gp-yLW" secondAttribute="bottom" constant="34" id="72N-oG-kIR"/>
                         <constraint firstItem="ueJ-8I-pMk" firstAttribute="top" secondItem="kpd-Ie-Axg" secondAttribute="bottom" constant="15" id="9Zs-1c-aTC"/>
@@ -454,6 +462,7 @@
                         <constraint firstItem="VQr-Jp-lwB" firstAttribute="top" secondItem="ueJ-8I-pMk" secondAttribute="bottom" constant="15" id="Ocn-MS-zLf"/>
                         <constraint firstItem="yx2-K4-ikS" firstAttribute="leading" secondItem="wC0-1c-nRc" secondAttribute="leading" constant="15" id="Ous-oJ-Po6"/>
                         <constraint firstAttribute="trailing" secondItem="t95-BV-F1P" secondAttribute="trailing" constant="15" id="Qit-0v-t70"/>
+                        <constraint firstItem="Fcp-jR-KcB" firstAttribute="centerY" secondItem="ueJ-8I-pMk" secondAttribute="centerY" id="RLq-gu-c7p"/>
                         <constraint firstAttribute="trailing" secondItem="cri-x0-2Od" secondAttribute="trailing" constant="15" id="U6S-oH-VFo"/>
                         <constraint firstAttribute="bottom" secondItem="t95-BV-F1P" secondAttribute="bottom" constant="95" id="Vqg-42-iaj"/>
                         <constraint firstItem="kpd-Ie-Axg" firstAttribute="top" secondItem="1Rg-Gc-aeW" secondAttribute="bottom" constant="17" id="W9F-vn-s6X"/>

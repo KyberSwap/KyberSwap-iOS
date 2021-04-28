@@ -42,7 +42,7 @@ class EarnSwapViewModel {
   var latestNonce: Int = -1
   var refPrice: (TokenData, TokenData, String, [String])
   fileprivate(set) var minRatePercent: Double = 0.5
-  var gasPriceSelectedAmount: String = ""
+  var gasPriceSelectedAmount: (String, String) = ("", "")
   var approvingToken: TokenObject?
 
   init(to: TokenData, from: TokenData, wallet: Wallet) {
@@ -319,7 +319,9 @@ class EarnSwapViewModel {
   }
   
   func reloadBestPlatform() {
-    guard (self.amountFrom != self.gasPriceSelectedAmount) || self.gasPriceSelectedAmount.isEmpty  else {
+    let selectedGasPriceAmt = self.isFocusingFromAmount ? self.gasPriceSelectedAmount.0 : self.gasPriceSelectedAmount.1
+    let amount = self.isFocusingFromAmount ? self.amountFrom : self.amountTo
+    guard (amount != selectedGasPriceAmt) || selectedGasPriceAmt.isEmpty  else {
       return
     }
     let rates = self.swapRates.3
@@ -504,6 +506,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.toTokenButton.setTitle(self.viewModel.toTokenData.symbol.uppercased(), for: .normal)
     self.updateUITokenDidChange(self.viewModel.fromTokenData)
     self.updateUIWalletSelectButton()
+    self.setUpGasFeeView()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -812,7 +815,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   
   func coordinatorDidUpdatePlatform(_ platform: String) {
     self.viewModel.currentFlatform = platform
-    self.viewModel.gasPriceSelectedAmount = self.viewModel.amountFrom
+    self.viewModel.gasPriceSelectedAmount = (self.viewModel.amountFrom, self.viewModel.amountTo)
     self.setUpChangeRateButton()
     self.updateExchangeRateField()
     self.updateInputFieldsUI()
@@ -929,7 +932,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
         time: 1.5
       )
     }
-    self.viewModel.gasPriceSelectedAmount = ""
+    self.viewModel.gasPriceSelectedAmount = ("", "")
     self.updateUIBalanceDidChange()
     self.updateApproveButton()
     self.updateUIForSendApprove(isShowApproveButton: false)

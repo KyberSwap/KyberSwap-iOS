@@ -67,7 +67,7 @@ class KSwapViewModel {
   var remainApprovedAmount: (TokenObject, BigInt)?
   var latestNonce: Int = 0
   var refPrice: (TokenObject, TokenObject, String, [String])
-  var gasPriceSelectedAmount: String = ""
+  var gasPriceSelectedAmount: (String, String) = ("", "")
   var approvingToken: TokenObject?
 
   init(wallet: Wallet,
@@ -519,6 +519,18 @@ class KSwapViewModel {
     if from == self.from, to == self.to, !self.isAmountFromChanged(newAmount: amount, oldAmount: self.amountFromBigInt) {
       self.estimateGasLimit = gasLimit
     }
+
+    var allRates: [JSONDictionary] = []
+    self.swapRates.3.forEach { (element) in
+      if let platformString = element["platform"] as? String, platformString == self.currentFlatform {
+        var mutable = element
+        mutable["estimatedGas"] = Double(gasLimit)
+        allRates.append(mutable)
+      } else {
+        allRates.append(element)
+      }
+    }
+    self.updateSwapRates(from: from, to: to, amount: amount, rates: allRates)
   }
 
   func getDefaultGasLimit(for from: TokenObject, to: TokenObject) -> BigInt {
@@ -595,7 +607,9 @@ class KSwapViewModel {
   }
 
   func reloadBestPlatform() {
-    guard (self.amountFrom != self.gasPriceSelectedAmount) || self.gasPriceSelectedAmount.isEmpty  else {
+    let selectedGasPriceAmt = self.isFocusingFromAmount ? self.gasPriceSelectedAmount.0 : self.gasPriceSelectedAmount.1
+    let amount = self.isFocusingFromAmount ? self.amountFrom : self.amountTo
+    guard (amount != selectedGasPriceAmt) || selectedGasPriceAmt.isEmpty  else {
       return
     }
     let rates = self.swapRates.3
