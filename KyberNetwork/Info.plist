@@ -139,11 +139,11 @@
 	<key>FacebookAdvertiserIDCollectionEnabled</key>
 	<false/>
 	<key>FacebookAppID</key>
-	<string>407390806708717</string>
+	<string>2060737157475877</string>
 	<key>FacebookAutoLogAppEventsEnabled</key>
 	<false/>
 	<key>FacebookDisplayName</key>
-	<string>DevelopmentKyberSwap</string>
+	<string>KyberSwap</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
@@ -180,6 +180,8 @@
 	<string>Sending QR Code to your contacts</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Sending QR Code to your contacts</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Your data will be used to improve and personalize your experience</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-ThinItalic.ttf</string>

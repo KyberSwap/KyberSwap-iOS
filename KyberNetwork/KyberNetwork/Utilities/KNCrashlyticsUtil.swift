@@ -5,8 +5,8 @@ import FirebaseAnalytics
 class KNCrashlyticsUtil {
 
   static func logCustomEvent(withName name: String, customAttributes: [String: Any]?) {
-    if !isDebug {
+//    if !isDebug {
       Analytics.logEvent(name, parameters: customAttributes)
-    }
+//    }
   }
 }

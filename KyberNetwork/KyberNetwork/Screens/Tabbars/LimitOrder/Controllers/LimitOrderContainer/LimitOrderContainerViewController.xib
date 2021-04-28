@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -13,6 +14,9 @@
         </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -114,7 +118,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ce9-To-TMZ">
                     <rect key="frame" x="0.0" y="152" width="414" height="30"/>
                     <subviews>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDX-xg-C32">
+                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RDX-xg-C32">
                             <rect key="frame" x="0.0" y="0.0" width="207" height="30"/>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="17"/>
                             <state key="normal" title="BUY KNC">
@@ -124,7 +128,7 @@
                                 <action selector="pagerButtonTapped:" destination="-1" eventType="touchUpInside" id="XNo-j6-vtq"/>
                             </connections>
                         </button>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUP-qU-dBD">
+                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUP-qU-dBD">
                             <rect key="frame" x="207" y="0.0" width="207" height="30"/>
                             <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="17"/>
                             <state key="normal" title="SELL KNC">
@@ -141,8 +145,8 @@
                     </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zub-Ew-Bz8">
-                    <rect key="frame" x="0.0" y="193" width="414" height="703"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <rect key="frame" x="0.0" y="193" width="414" height="577"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CVY-HD-0LX">
                     <rect key="frame" x="0.0" y="190" width="414" height="1"/>
@@ -189,28 +193,46 @@
                         <action selector="chartButtonPressed:" destination="-1" eventType="touchUpInside" id="ec6-do-eL0"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yh7-rU-M3u">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yh7-rU-M3u">
                     <rect key="frame" x="18" y="109" width="140" height="31"/>
                     <connections>
                         <action selector="marketPriceLabelTapped:" destination="-1" eventType="touchUpInside" id="vHC-WU-qY8"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="tgB-T9-IFY">
+                    <rect key="frame" x="12" y="782" width="390" height="68"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="68" id="hXv-qZ-ayx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                    <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                    <state key="normal" title="Tap here to download our new app Krystal for more features, cheaper gas and attractive prizes" backgroundImage="krystal_warning_button_bg">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="krystalWarningButtonTapped:" destination="-1" eventType="touchUpInside" id="xAZ-2A-Hi7"/>
+                    </connections>
+                </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="OZ8-M0-vjN" firstAttribute="top" secondItem="2c9-ao-Wbk" secondAttribute="top" id="22a-hb-fSu"/>
                 <constraint firstItem="Ce9-To-TMZ" firstAttribute="top" secondItem="UM9-xL-Rjq" secondAttribute="bottom" constant="70" id="605-Hq-p9O"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UM9-xL-Rjq" secondAttribute="trailing" id="6Fv-lI-zAM"/>
                 <constraint firstItem="mct-Gm-G3A" firstAttribute="leading" secondItem="2c9-ao-Wbk" secondAttribute="leading" id="6HX-qb-gUz"/>
+                <constraint firstItem="tgB-T9-IFY" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-12" id="6dA-20-E0t"/>
+                <constraint firstItem="tgB-T9-IFY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="7UA-9i-S10"/>
                 <constraint firstAttribute="trailing" secondItem="Ce9-To-TMZ" secondAttribute="trailing" id="AuI-lJ-5tc"/>
                 <constraint firstItem="Zub-Ew-Bz8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Buj-xI-0eM"/>
                 <constraint firstItem="mct-Gm-G3A" firstAttribute="top" secondItem="2c9-ao-Wbk" secondAttribute="bottom" id="DHg-wm-LeT"/>
-                <constraint firstAttribute="bottom" secondItem="Zub-Ew-Bz8" secondAttribute="bottom" id="Ddk-Ew-9XH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Zub-Ew-Bz8" secondAttribute="bottom" constant="92" id="Ddk-Ew-9XH"/>
                 <constraint firstItem="yh7-rU-M3u" firstAttribute="top" secondItem="mct-Gm-G3A" secondAttribute="top" id="LF6-oo-hA6"/>
                 <constraint firstItem="2c9-ao-Wbk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="MCS-L6-jmV"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="CVY-HD-0LX" secondAttribute="trailing" id="Mjo-6l-0Mi"/>
                 <constraint firstItem="CVY-HD-0LX" firstAttribute="top" secondItem="Ce9-To-TMZ" secondAttribute="bottom" constant="8" symbolic="YES" id="OPe-DN-XUg"/>
                 <constraint firstItem="WKi-Pf-KFa" firstAttribute="top" secondItem="CVY-HD-0LX" secondAttribute="bottom" id="RQ9-2u-HoV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tgB-T9-IFY" secondAttribute="trailing" constant="12" id="TKX-Yt-V7Z"/>
                 <constraint firstItem="yh7-rU-M3u" firstAttribute="bottom" secondItem="4fx-Nt-YCL" secondAttribute="bottom" id="UUw-53-74d"/>
                 <constraint firstItem="yh7-rU-M3u" firstAttribute="leading" secondItem="mct-Gm-G3A" secondAttribute="leading" id="YIk-ua-6r1"/>
                 <constraint firstItem="2c9-ao-Wbk" firstAttribute="top" secondItem="UM9-xL-Rjq" secondAttribute="bottom" constant="10" id="YTN-um-qdb"/>
@@ -226,7 +248,6 @@
                 <constraint firstItem="Zub-Ew-Bz8" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="swP-j5-Yuy"/>
                 <constraint firstItem="Ce9-To-TMZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xcG-Ba-fix"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="111.83035714285714"/>
         </view>
         <screenEdgePanGestureRecognizer minimumNumberOfTouches="1" id="ftO-mr-foB">
@@ -238,8 +259,12 @@
     </objects>
     <resources>
         <image name="arrow_drop_down_selected" width="10" height="5"/>
+        <image name="krystal_warning_button_bg" width="345" height="80"/>
         <image name="market_icon" width="36" height="36"/>
         <image name="menu_white_icon" width="18" height="10"/>
         <image name="notification_menu_icon" width="13" height="15"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

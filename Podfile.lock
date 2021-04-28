@@ -81,7 +81,6 @@ PODS:
     - FirebaseInstallations (~> 1.1)
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
-  - FreshchatSDK (4.0.1)
   - FSPagerView (0.8.3)
   - GoogleAppMeasurement (6.6.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
@@ -207,7 +206,6 @@ DEPENDENCIES:
   - FirebaseCore (~> 6.7)
   - FirebaseCrashlytics (~> 4.1)
   - FirebaseRemoteConfig (~> 4.4)
-  - FreshchatSDK (~> 4.0)
   - FSPagerView
   - GoogleSignIn (~> 5.0.2)
   - IQKeyboardManager (~> 6.5)
@@ -258,7 +256,6 @@ SPEC REPOS:
     - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseRemoteConfig
-    - FreshchatSDK
     - FSPagerView
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -332,7 +329,6 @@ SPEC CHECKSUMS:
   FirebaseCrashlytics: a87cce5746d3335995bd18b1b60d073cd05a6920
   FirebaseInstallations: 6f5f680e65dc374397a483c32d1799ba822a395b
   FirebaseRemoteConfig: 1725314c4b89d8853c876099ded037f11bee26db
-  FreshchatSDK: bb28b28abb4e5e19267fe604797ef37a88166472
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   GoogleAppMeasurement: 67458367830514fb20fd9e233496f1eef9d90185
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
@@ -376,6 +372,6 @@ SPEC CHECKSUMS:
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
   WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: fad03d28c1216c493bb6b52ff3126b3981ba2b88
+PODFILE CHECKSUM: e976111bb7020a163d5779024d17edeac1f3a01a
 
 COCOAPODS: 1.10.0.rc.1

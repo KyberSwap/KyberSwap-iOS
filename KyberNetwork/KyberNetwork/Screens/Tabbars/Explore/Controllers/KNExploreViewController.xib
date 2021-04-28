@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -52,7 +56,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITa-jS-EgX" customClass="FSPagerView" customModule="FSPagerView">
                     <rect key="frame" x="0.0" y="82" width="375" height="200"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="QOd-D3-num"/>
                     </constraints>
@@ -152,7 +156,22 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="uhA-1Q-Nco">
+                    <rect key="frame" x="12" y="698" width="351" height="68"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="68" id="k0H-I8-LTQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                    <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
+                    <state key="normal" title="Tap here to download our new app Krystal for more features, cheaper gas and attractive prizes" backgroundImage="krystal_warning_button_bg">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="krystalWarningButtonTapped:" destination="-1" eventType="touchUpInside" id="5QW-D6-OvG"/>
+                    </connections>
+                </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.96470588235294119" green="0.96862745098039216" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="kzk-nv-IEs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="11" id="6wK-B0-hkh"/>
@@ -168,19 +187,25 @@
                 <constraint firstItem="Gr9-Gd-spS" firstAttribute="top" secondItem="lp4-JK-3PI" secondAttribute="top" constant="15" id="VLH-GB-OUe"/>
                 <constraint firstItem="lhp-UB-ao5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Vnq-5i-rDk"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cRb-Rd-BGA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="uhA-1Q-Nco" secondAttribute="bottom" constant="12" id="dfG-oT-1y2"/>
                 <constraint firstItem="ITa-jS-EgX" firstAttribute="top" secondItem="lhp-UB-ao5" secondAttribute="bottom" id="fA9-dP-5ik"/>
                 <constraint firstItem="5my-Pr-iPY" firstAttribute="leading" secondItem="cfE-Kr-V1z" secondAttribute="leading" constant="50" id="kXK-wG-MJz"/>
+                <constraint firstAttribute="trailing" secondItem="uhA-1Q-Nco" secondAttribute="trailing" constant="12" id="pSf-cD-Rad"/>
                 <constraint firstItem="xo1-VS-tT2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="r4v-0Q-AaC"/>
+                <constraint firstItem="uhA-1Q-Nco" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="12" id="vjg-MU-yxv"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="132" y="144.82758620689657"/>
         </view>
     </objects>
     <resources>
         <image name="alert_explore_icon" width="28" height="26"/>
         <image name="history_explore_icon" width="26" height="26"/>
+        <image name="krystal_warning_button_bg" width="345" height="80"/>
         <image name="login_explore_icon" width="26" height="26"/>
         <image name="notification_explore_icon" width="22" height="26"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

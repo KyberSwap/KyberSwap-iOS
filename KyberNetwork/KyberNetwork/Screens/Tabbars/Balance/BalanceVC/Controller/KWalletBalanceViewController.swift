@@ -59,6 +59,8 @@ class KWalletBalanceViewController: KNBaseViewController {
   @IBOutlet weak var balanceDisplayControlButton: UIButton!
   @IBOutlet weak var hasUnreadNotification: UIView!
   @IBOutlet weak var buyETHButton: UIButton!
+  @IBOutlet var krystalWarningButton: UIButton!
+  
 
   lazy var refreshControl: UIRefreshControl = {
     let refresh = UIRefreshControl()
@@ -375,6 +377,10 @@ class KWalletBalanceViewController: KNBaseViewController {
   @IBAction func buyETHButtonTapped(_ sender: UIButton) {
     KNCrashlyticsUtil.logCustomEvent(withName: "screen_balance", customAttributes: ["action": "buy_eth_button_clicked"])
     self.delegate?.kWalletBalanceViewController(self, run: .buyETH)
+  }
+  
+  @IBAction func krystalWarningButtonTapped(_ sender: UIButton) {
+    self.openSafari(with: "https://apps.apple.com/us/app/id1558105691")
   }
 
   override func quickTutorialNextAction() {

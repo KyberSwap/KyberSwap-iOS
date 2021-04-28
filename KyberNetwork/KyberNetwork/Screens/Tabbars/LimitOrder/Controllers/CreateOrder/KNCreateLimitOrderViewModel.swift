@@ -252,7 +252,7 @@ class KNCreateLimitOrderViewModel {
   var isAmountTooSmall: Bool {
     let amount: Double = {
       if KNEnvironment.default == .production { return 1 }
-      return 0.1
+      return 1
     }()
     let minValueInETH = BigInt(amount * Double(EthereumUnit.ether.rawValue))
     return minValueInETH > self.equivalentETHAmount

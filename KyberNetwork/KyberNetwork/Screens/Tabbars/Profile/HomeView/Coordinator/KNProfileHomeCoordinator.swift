@@ -199,8 +199,6 @@ extension KNProfileHomeCoordinator {
     for cookie in (cookieJar.cookies ?? []) {
       cookieJar.deleteCookie(cookie)
     }
-    Freshchat.sharedInstance().resetUser(completion: { () in
-    })
     KNNotificationCoordinator.shared.loadListNotifications(pageIndex: 0) { _, _  in }
   }
 

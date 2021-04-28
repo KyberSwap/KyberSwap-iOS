@@ -168,7 +168,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     case .rateOurApp:
       self.navigationController.openSafari(with: "https://apps.apple.com/us/app/id1521778973")
     case .liveChat:
-      Freshchat.sharedInstance().showConversations(self.navigationController)
+      break
     case .gasWarning:
       self.openGasWarningScreen()
     }

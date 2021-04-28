@@ -44,11 +44,8 @@ class KNSettingsTabViewController: KNBaseViewController {
   @IBOutlet weak var aboutButton: UIButton!
   @IBOutlet weak var community: UIButton!
   @IBOutlet weak var shareWithFriendsButton: UIButton!
-  @IBOutlet weak var reportBugsButton: UIButton!
   @IBOutlet weak var rateOurAppButton: UIButton!
   @IBOutlet weak var versionLabel: UILabel!
-  @IBOutlet weak var liveChatButton: UIButton!
-  @IBOutlet weak var unreadBadgeLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -94,10 +91,7 @@ class KNSettingsTabViewController: KNBaseViewController {
       NSLocalizedString("share.with.friends", value: "Share with friends", comment: ""),
       for: .normal
     )
-    self.reportBugsButton.setTitle(
-      NSLocalizedString("report.bugs", value: "Report Bugs", comment: ""),
-      for: .normal
-    )
+    
     self.rateOurAppButton.setTitle(
       NSLocalizedString("rate.our.app", value: "Rate our App", comment: ""),
       for: .normal
@@ -108,19 +102,10 @@ class KNSettingsTabViewController: KNBaseViewController {
     version += " - \(KNEnvironment.default.displayName)"
     self.versionLabel.text = "\(NSLocalizedString("version", value: "Version", comment: "")) \(version)"
 
-    self.unreadBadgeLabel.rounded(color: .white, width: 1, radius: self.unreadBadgeLabel.frame.height / 2)
-
-    NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(FRESHCHAT_UNREAD_MESSAGE_COUNT_CHANGED), object: nil)
-  }
-
-  deinit {
-    let name = Notification.Name(FRESHCHAT_UNREAD_MESSAGE_COUNT_CHANGED)
-    NotificationCenter.default.removeObserver(self, name: name, object: nil)
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    self.checkUnreadMessage()
   }
 
   override func viewDidLayoutSubviews() {
@@ -204,38 +189,16 @@ class KNSettingsTabViewController: KNBaseViewController {
     self.delegate?.settingsTabViewController(self, run: .linkedIn)
   }
 
-  @IBAction func reportBugsButtonPressed(_ sender: Any) {
-    self.delegate?.settingsTabViewController(self, run: .reportBugs)
-  }
-
   @IBAction func rateOurAppButtonPressed(_ sender: Any) {
     KNCrashlyticsUtil.logCustomEvent(withName: "setting_rating", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .rateOurApp)
-  }
-
-  @IBAction func liveChatButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_livechat", customAttributes: nil)
-    self.delegate?.settingsTabViewController(self, run: .liveChat)
   }
   
   @IBAction func gasWarningButtonPressed(_ sender: UIButton) {
     self.delegate?.settingsTabViewController(self, run: .gasWarning)
   }
-
-  fileprivate func checkUnreadMessage() {
-    Freshchat.sharedInstance().unreadCount { (num: Int) -> Void in
-      if num > 0 {
-        self.unreadBadgeLabel.isHidden = false
-        self.unreadBadgeLabel.text = num.description
-        self.navigationController?.tabBarItem.badgeValue = num.description
-      } else {
-        self.unreadBadgeLabel.isHidden = true
-        self.navigationController?.tabBarItem.badgeValue = nil
-      }
-    }
-  }
-
-  @objc func methodOfReceivedNotification(notification: Notification) {
-    self.checkUnreadMessage()
+  
+  @IBAction func krystalWarningButtonTapped(_ sender: UIButton) {
+    self.openSafari(with: "https://apps.apple.com/us/app/id1558105691")
   }
 }

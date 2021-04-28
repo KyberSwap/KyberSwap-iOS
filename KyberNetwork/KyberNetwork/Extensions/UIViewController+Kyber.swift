@@ -49,7 +49,7 @@ extension UIViewController {
   }
 
   func bottomPaddingSafeArea() -> CGFloat {
-    if #available(iOS 11, *) { return 0.0 }
-    return 50.0
+    if #available(iOS 11, *) { return 92.0 }
+    return 92.0 + 50.0
   }
 }

@@ -149,6 +149,10 @@ class KNExploreViewController: KNBaseViewController {
       break
     }
   }
+  
+  @IBAction func krystalWarningButtonTapped(_ sender: UIButton) {
+    self.openSafari(with: "https://apps.apple.com/us/app/id1558105691")
+  }
 
   @objc func notificationDidUpdate(_ sender: Any?) {
     let numUnread: Int = {

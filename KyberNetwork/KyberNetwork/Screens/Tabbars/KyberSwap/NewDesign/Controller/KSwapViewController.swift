@@ -825,6 +825,10 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.saveCloseGasWarningState()
     self.updateGasWarningUI()
   }
+  
+  @IBAction func krystalWarningButtonTapped(_ sender: UIButton) {
+    self.openSafari(with: "https://apps.apple.com/us/app/id1558105691")
+  }
 }
 
 // MARK: Update UIs

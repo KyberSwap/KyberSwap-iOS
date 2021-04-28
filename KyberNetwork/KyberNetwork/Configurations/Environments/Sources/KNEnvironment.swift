@@ -34,7 +34,7 @@ enum KNEnvironment: Int {
   }
 
   static var `default`: KNEnvironment {
-    return KNAppTracker.externalEnvironment()
+    return .production
   }
 
   var isMainnet: Bool {
@@ -68,7 +68,7 @@ enum KNEnvironment: Int {
     switch self {
     case .mainnetTest: return "config_env_mainnet_test"
     case .production: return "config_env_production"
-    case .staging: return "config_env_staging2"
+    case .staging: return "config_env_production"
     case .ropsten: return "config_env_ropsten"
     case .kovan: return "config_env_kovan"
     case .rinkeby: return "config_env_rinkeby"

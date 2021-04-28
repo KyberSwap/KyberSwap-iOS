@@ -439,6 +439,10 @@ class LimitOrderContainerViewController: KNBaseViewController {
     self.showQuickTutorial()
     KNCrashlyticsUtil.logCustomEvent(withName: "tut_lo_next_button_tapped", customAttributes: nil)
   }
+  
+  @IBAction func krystalWarningButtonTapped(_ sender: UIButton) {
+    self.openSafari(with: "https://apps.apple.com/us/app/id1558105691")
+  }
 }
 
 extension LimitOrderContainerViewController: UIPageViewControllerDelegate {

@@ -17,6 +17,7 @@ class KNSplashScreenViewController: KNBaseViewController {
     self.versionLabel.text = "Version: \(Bundle.main.versionNumber ?? "")"
     self.networkLabel.text = "Network: \(KNEnvironment.default.displayName)"
     self.splashLogoImageView.image = nil
+    self.debugInfoView.isHidden = true
   }
 
   override func viewDidDisappear(_ animated: Bool) {
