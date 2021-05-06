@@ -160,7 +160,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     case .shareWithFriends:
       self.openShareWithFriends()
     case .telegram:
-      self.openCommunityURL("https://t.me/Krystal_Announcement")
+      self.openCommunityURL("https://t.me/KrystalDefi")
     case .github:
       self.openCommunityURL("https://github.com/KyberNetwork/KyberSwap-iOS")
     case .twitter:
@@ -180,6 +180,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     case .liveChat:
       Freshchat.sharedInstance().showConversations(self.navigationController)
     case .addCustomToken:
+      self.customTokenCoordinator.rootViewController.tokenObject = nil
       self.customTokenCoordinator.start()
     case .manangeCustomToken:
       self.customTokenCoordinator.start(showList: true)
@@ -320,7 +321,6 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func backupKeystore(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_keystore", customAttributes: nil)
     let createPassword = KNCreatePasswordViewController(wallet: wallet, delegate: self)
     createPassword.modalPresentationStyle = .overCurrentContext
     createPassword.modalTransitionStyle = .crossDissolve
@@ -328,7 +328,6 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func backupPrivateKey(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_private_key", customAttributes: nil)
     self.navigationController.displayLoading()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
       if case .real(let account) = wallet.type {
@@ -347,7 +346,6 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func backupMnemonic(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_mnemonic", customAttributes: nil)
     self.navigationController.displayLoading()
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.16) {
       if case .real(let account) = wallet.type {
@@ -375,7 +373,6 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
   }
 
   fileprivate func copyAddress(wallet: Wallet) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_show_back_up_copy_address", customAttributes: nil)
     UIPasteboard.general.string = wallet.address.description
   }
 
@@ -401,6 +398,12 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
 
   func appCoordinatorPendingTransactionsDidUpdate() {
     self.sendTokenCoordinator?.coordinatorDidUpdatePendingTx()
+  }
+  
+  func appCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.navigationController.popToRootViewController(animated: false)
+    self.customTokenCoordinator.start()
+    self.customTokenCoordinator.coordinatorDidUpdateTokenObject(token)
   }
 }
 
@@ -547,14 +550,15 @@ extension KNSettingsCoordinator: KNListWalletsCoordinatorDelegate {
 
 extension KNSettingsCoordinator: MFMailComposeViewControllerDelegate {
   func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-    if case .sent = result {
-      KNCrashlyticsUtil.logCustomEvent(withName: "setting_support_email_sent", customAttributes: nil)
-    }
     controller.dismiss(animated: true, completion: nil)
   }
 }
 
 extension KNSettingsCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.appCoordinatorDidSelectAddToken(token)
+  }
+  
   func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
     self.delegate?.settingsCoordinatorDidSelectWallet(wallet)
   }
@@ -573,6 +577,10 @@ extension KNSettingsCoordinator: KNSendTokenViewCoordinatorDelegate {
 }
 
 extension KNSettingsCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.appCoordinatorDidSelectAddToken(token)
+  }
+  
   func historyCoordinatorDidClose() {
     
   }

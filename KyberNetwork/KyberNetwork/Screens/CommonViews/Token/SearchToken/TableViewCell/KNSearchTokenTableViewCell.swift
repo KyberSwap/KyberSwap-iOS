@@ -5,6 +5,7 @@ import BigInt
 
 protocol KNSearchTokenTableViewCellDelegate: class {
   func searchTokenTableCell(_ cell: KNSearchTokenTableViewCell, didSelect token: TokenObject)
+  func searchTokenTableCell(_ cell: KNSearchTokenTableViewCell, didAdd token: TokenObject)
 }
 
 class KNSearchTokenTableViewCell: UITableViewCell {
@@ -13,6 +14,7 @@ class KNSearchTokenTableViewCell: UITableViewCell {
   @IBOutlet weak var tokenNameLabel: UILabel!
   @IBOutlet weak var tokenSymbolLabel: UILabel!
   @IBOutlet weak var balanceLabel: UILabel!
+  @IBOutlet weak var addButton: UIButton!
   weak var delegate: KNSearchTokenTableViewCellDelegate?
   var token: TokenObject?
 
@@ -20,9 +22,10 @@ class KNSearchTokenTableViewCell: UITableViewCell {
     super.awakeFromNib()
     self.tokenNameLabel.text = ""
     self.tokenSymbolLabel.text = ""
+    self.addButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.addButton.frame.size.height / 2)
   }
 
-  func updateCell(with token: TokenObject) {
+  func updateCell(with token: TokenObject, isExistToken: Bool) {
     self.token = token
     self.iconImageView.setSymbolImage(symbol: token.symbol, size: iconImageView.frame.size)
     self.tokenSymbolLabel.text = "\(token.symbol.prefix(8))"
@@ -40,12 +43,20 @@ class KNSearchTokenTableViewCell: UITableViewCell {
     }()
     self.balanceLabel.text = "\(balText.prefix(15))"
     self.balanceLabel.addLetterSpacing()
+    self.balanceLabel.isHidden = !isExistToken
+    self.addButton.isHidden = isExistToken
     self.layoutIfNeeded()
   }
   
   @IBAction func tapCell(_ sender: UIButton) {
     if let notNilToken = self.token {
       self.delegate?.searchTokenTableCell(self, didSelect: notNilToken)
+    }
+  }
+  
+  @IBAction func tapAddButton(_ sender: UIButton) {
+    if let notNilToken = self.token {
+      self.delegate?.searchTokenTableCell(self, didAdd: notNilToken)
     }
   }
   

@@ -144,7 +144,6 @@ class KNListWalletsViewController: KNBaseViewController {
   }
 
   @IBAction func addButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "list_wallet_add_wallet", customAttributes: nil)
     self.delegate?.listWalletsViewController(self, run: .addWallet(type: .full))
   }
 
@@ -164,16 +163,13 @@ extension KNListWalletsViewController: UITableViewDelegate {
     )
     if wallet.address.lowercased() != self.viewModel.curWallet.address.lowercased() {
       alertController.addAction(UIAlertAction(title: NSLocalizedString("Switch Wallet", comment: ""), style: .default, handler: { _ in
-        KNCrashlyticsUtil.logCustomEvent(withName: "list_wallet_select_wallet", customAttributes: nil)
         self.delegate?.listWalletsViewController(self, run: .select(wallet: wallet))
       }))
     }
     alertController.addAction(UIAlertAction(title: NSLocalizedString("edit", value: "Edit", comment: ""), style: .default, handler: { _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "list_wallet_edit_wallet", customAttributes: nil)
       self.delegate?.listWalletsViewController(self, run: .edit(wallet: wallet))
     }))
     alertController.addAction(UIAlertAction(title: NSLocalizedString("delete", value: "Delete", comment: ""), style: .destructive, handler: { _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "list_wallet_delete_wallet", customAttributes: nil)
       self.delegate?.listWalletsViewController(self, run: .remove(wallet: wallet))
     }))
     alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cancel", comment: ""), style: .cancel, handler: nil))

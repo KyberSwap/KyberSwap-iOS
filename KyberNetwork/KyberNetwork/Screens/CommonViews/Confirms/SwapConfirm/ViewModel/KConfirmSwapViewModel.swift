@@ -54,7 +54,10 @@ struct KConfirmSwapViewModel {
 
   var displayEstimatedRate: String {
     let rateString = self.transaction.expectedRate.displayRate(decimals: 18)
-    return "1 \(self.transaction.from.symbol) = \(rateString) \(self.transaction.to.symbol)"
+    let usdPriceDouble = KNTrackerRateStorage.shared.getPriceWithAddress(self.transaction.to.address)?.usd ?? 0.0
+    let usdPrice = BigInt(usdPriceDouble * pow(10.0, 18.0))
+    let usdValue = self.transaction.expectedRate * usdPrice / BigInt(10).power(18)
+    return "1 \(self.transaction.from.symbol) = \(rateString) \(self.transaction.to.symbol) = \(usdValue.displayRate(decimals: 18)) USD"
   }
 
   var warningMinAcceptableRateMessage: String? {

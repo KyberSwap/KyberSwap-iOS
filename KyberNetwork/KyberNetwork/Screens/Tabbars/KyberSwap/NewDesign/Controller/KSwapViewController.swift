@@ -124,11 +124,12 @@ class KSwapViewController: KNBaseViewController {
         self.updateAllowance()
       }
     }
+    self.updateUIForSendApprove(isShowApproveButton: false)
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-
+    KNCrashlyticsUtil.logCustomEvent(withName: "krystal_open_swap_view", customAttributes: nil)
     self.isErrorMessageEnabled = true
     // start update est rate
     self.estRateTimer?.invalidate()
@@ -266,7 +267,6 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func fromTokenButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_token_select", customAttributes: nil)
     let event = KSwapViewEvent.searchToken(
       from: self.viewModel.from,
       to: self.viewModel.to,
@@ -276,7 +276,6 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func toTokenButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_token_select", customAttributes: nil)
     let event = KSwapViewEvent.searchToken(
       from: self.viewModel.from,
       to: self.viewModel.to,
@@ -286,7 +285,6 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @IBAction func swapButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_2_tokens", customAttributes: nil)
     if !self.viewModel.isFromTokenBtnEnabled { return }
     self.viewModel.swapTokens()
     self.fromAmountTextField.text = ""
@@ -388,7 +386,6 @@ class KSwapViewController: KNBaseViewController {
   }
 
   @objc func keyboardSwapAllButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_all", customAttributes: nil)
     self.view.endEditing(true)
     self.viewModel.updateFocusingField(true)
     self.fromAmountTextField.text = self.viewModel.allFromTokenBalanceString.removeGroupSeparator()
@@ -478,7 +475,6 @@ class KSwapViewController: KNBaseViewController {
         message: NSLocalizedString("can.not.swap.same.token", value: "Can not swap the same token", comment: ""),
         time: 1.5
       )
-      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.swap.same.token".toBeLocalised()])
       return true
     }
     guard !self.viewModel.amountFrom.isEmpty else {
@@ -487,24 +483,14 @@ class KSwapViewController: KNBaseViewController {
           with: NSLocalizedString("invalid.input", value: "Invalid input", comment: ""),
           message: NSLocalizedString("please.enter.an.amount.to.continue", value: "Please enter an amount to continue", comment: "")
         )
-        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "please.enter.an.amount.to.continue".toBeLocalised()])
       }
       return true
     }
-//    if self.viewModel.isPairUnderMaintenance {
-//      self.showWarningTopBannerMessage(
-//        with: "",
-//        message: NSLocalizedString("This token pair is temporarily under maintenance", value: "This token pair is temporarily under maintenance", comment: "")
-//      )
-//      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "This token pair is temporarily under maintenance".toBeLocalised()])
-//      return true
-//    }
     if estRateBigInt?.isZero == true {
       self.showWarningTopBannerMessage(
-        with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
-        message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: "")
+        with: "",
+        message: "Can not find the exchange rate"
       )
-      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.handle.your.amount".toBeLocalised()])
       return true
     }
     guard self.viewModel.isBalanceEnough else {
@@ -512,7 +498,6 @@ class KSwapViewController: KNBaseViewController {
         with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
         message: NSLocalizedString("balance.not.enough.to.make.transaction", value: "Balance is not enough to make the transaction.", comment: "")
       )
-      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "balance.not.enough.to.make.transaction".toBeLocalised()])
       return true
     }
     guard !self.viewModel.isAmountTooSmall else {
@@ -520,7 +505,6 @@ class KSwapViewController: KNBaseViewController {
         with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
         message: NSLocalizedString("amount.too.small.to.perform.swap", value: "Amount too small to perform swap, minimum equivalent to 0.001 ETH", comment: "")
       )
-      KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "amount.too.small.to.perform.swap".toBeLocalised()])
       return true
     }
     if isConfirming {
@@ -530,23 +514,13 @@ class KSwapViewController: KNBaseViewController {
           with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
           message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
         )
-        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised()])
         return true
       }
-//      guard self.viewModel.isSlippageRateValid else {
-//        self.showWarningTopBannerMessage(
-//          with: NSLocalizedString("invalid.amount", value: "Invalid amount", comment: ""),
-//          message: NSLocalizedString("can.not.handle.your.amount", value: "Can not handle your amount", comment: "")
-//        )
-//        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "can.not.handle.your.amount".toBeLocalised()])
-//        return true
-//      }
       guard estRateBigInt != nil, estRateBigInt?.isZero == false else {
         self.showWarningTopBannerMessage(
           with: NSLocalizedString("rate.might.change", value: "Rate might change", comment: ""),
           message: NSLocalizedString("please.wait.for.expected.rate.updated", value: "Please wait for expected rate to be updated", comment: "")
         )
-        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "please.wait.for.expected.rate.updated".toBeLocalised()])
         return true
       }
     }
@@ -648,7 +622,10 @@ extension KSwapViewController {
     self.keyboardSwapAllButtonPressed(sender)
   }
 
-  fileprivate func updateUIForSendApprove(isShowApproveButton: Bool) {
+  fileprivate func updateUIForSendApprove(isShowApproveButton: Bool, token: TokenObject? = nil) {
+    if let unwrapped = token, unwrapped.contract.lowercased() != self.viewModel.from.contract.lowercased() {
+      return
+    }
     self.updateApproveButton()
     if isShowApproveButton {
       self.approveButtonLeftPaddingContraint.constant = 37
@@ -916,7 +893,7 @@ extension KSwapViewController {
   func coordinatorDidUpdateAllowance(token: TokenObject, allowance: BigInt) {
     if self.viewModel.from.getBalanceBigInt() > allowance {
       self.viewModel.remainApprovedAmount = (token, allowance)
-      self.updateUIForSendApprove(isShowApproveButton: true)
+      self.updateUIForSendApprove(isShowApproveButton: true, token: token)
     } else {
       //TODO: need to check more to avoid lagging ui
       self.updateUIForSendApprove(isShowApproveButton: false)
@@ -929,13 +906,13 @@ extension KSwapViewController {
 
   func coordinatorSuccessApprove(token: TokenObject) {
     self.viewModel.approvingToken = token
-    self.updateUIForSendApprove(isShowApproveButton: true)
+    self.updateUIForSendApprove(isShowApproveButton: true, token: token)
   }
 
   func coordinatorFailApprove(token: TokenObject) {
     //TODO: show error message
     self.showErrorMessage()
-    self.updateUIForSendApprove(isShowApproveButton: true)
+    self.updateUIForSendApprove(isShowApproveButton: true, token: token)
   }
 
   func coordinatorSuccessUpdateLatestNonce(nonce: Int) {

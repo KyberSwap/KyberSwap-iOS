@@ -17,6 +17,7 @@ protocol OverviewCoordinatorDelegate: class {
   func overviewCoordinatorDidSelectManageWallet()
   func overviewCoordinatorDidSelectSwapToken(token: Token, isBuy: Bool)
   func overviewCoordinatorDidSelectDepositMore(tokenAddress: String)
+  func overviewCoordinatorDidSelectAddToken(_ token: TokenObject)
 }
 
 class OverviewCoordinator: NSObject, Coordinator {
@@ -338,6 +339,10 @@ extension OverviewCoordinator: QRCodeReaderDelegate {
 }
 
 extension OverviewCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.overviewCoordinatorDidSelectAddToken(token)
+  }
+  
   func historyCoordinatorDidSelectAddWallet() {
     self.delegate?.overviewCoordinatorDidSelectAddWallet()
   }
@@ -377,6 +382,10 @@ extension OverviewCoordinator: OverviewDepositViewControllerDelegate {
 }
 
 extension OverviewCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.overviewCoordinatorDidSelectAddToken(token)
+  }
+  
   func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
     self.delegate?.overviewCoordinatorDidSelectWallet(wallet)
   }
@@ -395,6 +404,10 @@ extension OverviewCoordinator: KNSendTokenViewCoordinatorDelegate {
 }
 
 extension OverviewCoordinator: WithdrawCoordinatorDelegate {
+  func withdrawCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.overviewCoordinatorDidSelectAddToken(token)
+  }
+  
   func withdrawCoordinatorDidSelectEarnMore(balance: LendingBalance) {
     self.delegate?.overviewCoordinatorDidSelectDepositMore(tokenAddress: balance.address)
   }

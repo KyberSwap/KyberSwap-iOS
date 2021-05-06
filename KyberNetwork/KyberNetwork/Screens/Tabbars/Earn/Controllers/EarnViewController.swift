@@ -338,7 +338,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
     self.updateUITokenDidChange(self.viewModel.tokenData)
     self.updateUIWalletSelectButton()
     self.updateUIForSendApprove(isShowApproveButton: false)
-    self.updateGasFeeUI()
+    
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -346,14 +346,16 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
     self.isViewSetup = true
     self.isViewDisappeared = false
     self.updateUIPendingTxIndicatorView()
+    self.updateGasFeeUI()
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     self.updateUIBalanceDidChange()
     self.updateAllowance()
+    KNCrashlyticsUtil.logCustomEvent(withName: "krystal_open_earn_view", customAttributes: nil)
   }
-  
+
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     self.isViewDisappeared = true
@@ -375,7 +377,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
     self.selectedGasFeeLabel.text = self.viewModel.gasFeeString
     self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
   }
-  
+
   fileprivate func updateApproveButton() {
     self.approveButton.setTitle("Approve".toBeLocalised() + " " + self.viewModel.tokenData.symbol, for: .normal)
   }
@@ -755,7 +757,6 @@ extension EarnViewController: UITextFieldDelegate {
           with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
           message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
         )
-        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised()])
         return true
       }
     }

@@ -110,7 +110,6 @@ class KNTransactionDetailsViewController: KNBaseViewController {
   }
 
   @objc func txHashTapped(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "txdetails_copy_tx_hash", customAttributes: nil)
     self.copy(text: self.viewModel.displayHash)
   }
 
@@ -139,7 +138,6 @@ class KNTransactionDetailsViewController: KNBaseViewController {
   }
 
   @IBAction func viewOnEtherscanButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "txdetails_open_ether_scan", customAttributes: nil)
     self.delegate?.transactionDetailsViewController(self, run: .openEtherScan(hash: self.viewModel.displayHash))
   }
   

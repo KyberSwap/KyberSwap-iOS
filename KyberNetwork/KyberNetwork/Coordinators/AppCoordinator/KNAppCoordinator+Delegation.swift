@@ -40,6 +40,11 @@ extension KNAppCoordinator: KNSessionDelegate {
 
 // MARK: Exchange Token Coordinator Delegate
 extension KNAppCoordinator: KNExchangeTokenCoordinatorDelegate {
+  func exchangeTokenCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.appCoordinatorDidSelectAddToken(token)
+  }
+  
   func exchangeTokenCoodinatorDidSendRefCode(_ code: String) {
     self.sendRefCode(code.uppercased())
   }
@@ -88,6 +93,11 @@ extension KNAppCoordinator: KNExchangeTokenCoordinatorDelegate {
 }
 
 extension KNAppCoordinator: EarnCoordinatorDelegate {
+  func earnCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.appCoordinatorDidSelectAddToken(token)
+  }
+  
   func earnCoordinatorDidSelectAddWallet() {
     self.addNewWallet(type: .full)
   }
@@ -103,6 +113,11 @@ extension KNAppCoordinator: EarnCoordinatorDelegate {
 }
 
 extension KNAppCoordinator: OverviewCoordinatorDelegate {
+  func overviewCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.appCoordinatorDidSelectAddToken(token)
+  }
+  
   func overviewCoordinatorDidSelectDepositMore(tokenAddress: String) {
     self.tabbarController.selectedIndex = 3
     self.earnCoordinator?.appCoodinatorDidOpenEarnView(tokenAddress: tokenAddress)
@@ -146,6 +161,11 @@ extension KNAppCoordinator: KrytalCoordinatorDelegate {
 }
 
 extension KNAppCoordinator: InvestCoordinatorDelegate {
+  func investCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.appCoordinatorDidSelectAddToken(token)
+  }
+  
   func investCoordinatorDidSelectWallet(_ wallet: Wallet) {
     self.restartNewSession(wallet)
   }

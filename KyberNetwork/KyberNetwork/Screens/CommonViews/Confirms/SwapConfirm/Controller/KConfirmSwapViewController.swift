@@ -138,7 +138,6 @@ class KConfirmSwapViewController: KNBaseViewController {
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_confirm_swap", customAttributes: ["action": "confirmed_\(self.viewModel.transaction.from.symbol)_\(self.viewModel.transaction.to.symbol)"])
     self.dismiss(animated: true, completion: nil)
     
     let internalHistory = InternalHistoryTransaction(type: .swap, state: .pending, fromSymbol: self.viewModel.transaction.from.symbol, toSymbol: self.viewModel.transaction.to.symbol, transactionDescription: "\(self.viewModel.leftAmountString) -> \(self.viewModel.rightAmountString)", transactionDetailDescription: self.viewModel.displayEstimatedRate, transactionObj: self.viewModel.signTransaction.toSignTransactionObject())
@@ -148,21 +147,10 @@ class KConfirmSwapViewController: KNBaseViewController {
 
   @IBAction func cancelButtonPressed(_ sender: Any) {
     self.dismiss(animated: true, completion: nil)
-    KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_cancel",
-                                     customAttributes: [
-                                      "token_pair": self.viewModel.titleString,
-                                      "amount": self.viewModel.leftAmountString,
-                                      "current_rate": self.viewModel.displayEstimatedRate,
-                                      "min_rate": self.viewModel.minRateString,
-                                      "tx_fee": self.viewModel.feeETHString,
-      ]
-    )
     self.delegate?.kConfirmSwapViewControllerDidCancel(self)
-//    self.delegate?.kConfirmSwapViewController(self, run: .cancel)
   }
 
   @IBAction func helpButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "swapconfirm_gas_fee_info_tapped", customAttributes: nil)
     self.showBottomBannerView(
       message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
       icon: UIImage(named: "help_icon_large") ?? UIImage(),

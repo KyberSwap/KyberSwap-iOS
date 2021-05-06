@@ -39,7 +39,7 @@ class KrytalViewModel {
   }
   
   var displayIntroAttributedString: NSAttributedString {
-    let fullString = NSMutableAttributedString(string: "Copy below given codes to share with your friends. Afterward, both of you can start earning Referral Rewards.".toBeLocalised())
+    let fullString = NSMutableAttributedString(string: "Copy below given Referral Codes to share with your friends. Afterward, both of you can start earning Referral Rewards.".toBeLocalised())
     let image1Attachment = NSTextAttachment()
     image1Attachment.image = UIImage(named: "info_waring_blue_icon")
     let image1String = NSAttributedString(attachment: image1Attachment)

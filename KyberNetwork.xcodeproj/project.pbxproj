@@ -553,6 +553,7 @@
 		C37CC09C245803CA0081FB32 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC08F245803C90081FB32 /* Roboto-Bold.ttf */; };
 		C37CC09D245803CA0081FB32 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC090245803C90081FB32 /* Roboto-Thin.ttf */; };
 		C37CC09E245803CA0081FB32 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37CC091245803C90081FB32 /* Roboto-Black.ttf */; };
+		C37F04CB2639697800D62E43 /* GetDecimals.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37F04CA2639697800D62E43 /* GetDecimals.swift */; };
 		C38E5D7425F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38E5D7225F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.swift */; };
 		C38E5D7525F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C38E5D7325F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.xib */; };
 		C38E5D7925F63FC000E5FC48 /* TransactionHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C38E5D7825F63FC000E5FC48 /* TransactionHistory.swift */; };
@@ -579,10 +580,10 @@
 		C3BBC56425FB4ACE004E1FB6 /* InvestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BBC56225FB4ACE004E1FB6 /* InvestViewController.swift */; };
 		C3BBC56525FB4ACE004E1FB6 /* InvestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3BBC56325FB4ACE004E1FB6 /* InvestViewController.xib */; };
 		C3BC3F7F24AC984000B1ADFE /* KNSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BC3F7E24AC984000B1ADFE /* KNSecret.swift */; };
-		C3BC3F8124AC985900B1ADFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3BC3F8024AC985900B1ADFE /* GoogleService-Info.plist */; };
 		C3C0B0CB2602F8C6001A1710 /* Marketing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C0B0CA2602F8C6001A1710 /* Marketing.swift */; };
 		C3D560AA260C641E00408875 /* OverviewClaimViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D560A8260C641E00408875 /* OverviewClaimViewController.swift */; };
 		C3D560AB260C641E00408875 /* OverviewClaimViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3D560A9260C641E00408875 /* OverviewClaimViewController.xib */; };
+		C3D6996E26410CCB004B34E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3D6996D26410CCB004B34E1 /* GoogleService-Info.plist */; };
 		C3D9517A25FB97EC00DE3C05 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D9517925FB97EC00DE3C05 /* CloudKit.framework */; };
 		C3ED1DC82616EFDB0024970C /* NotificationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ED1DC72616EFD50024970C /* NotificationCoordinator.swift */; };
 		C3ED1DCD2616F0090024970C /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ED1DCB2616F0090024970C /* NotificationsViewController.swift */; };
@@ -1254,6 +1255,7 @@
 		C37CC08F245803C90081FB32 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		C37CC090245803C90081FB32 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
 		C37CC091245803C90081FB32 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		C37F04CA2639697800D62E43 /* GetDecimals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDecimals.swift; sourceTree = "<group>"; };
 		C387F26D26285BA200B1E093 /* KrystalNotificationServiceExtensionDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KrystalNotificationServiceExtensionDebug.entitlements; sourceTree = "<group>"; };
 		C38E5D7225F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawConfirmPopupViewController.swift; sourceTree = "<group>"; };
 		C38E5D7325F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawConfirmPopupViewController.xib; sourceTree = "<group>"; };
@@ -1280,10 +1282,10 @@
 		C3BBC56225FB4ACE004E1FB6 /* InvestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvestViewController.swift; sourceTree = "<group>"; };
 		C3BBC56325FB4ACE004E1FB6 /* InvestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InvestViewController.xib; sourceTree = "<group>"; };
 		C3BC3F7E24AC984000B1ADFE /* KNSecret.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KNSecret.swift; path = KyberNetwork/KyberNetwork/Configurations/Environments/KNSecret.swift; sourceTree = SOURCE_ROOT; };
-		C3BC3F8024AC985900B1ADFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "KyberNetwork/Configurations/Environments/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3C0B0CA2602F8C6001A1710 /* Marketing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marketing.swift; sourceTree = "<group>"; };
 		C3D560A8260C641E00408875 /* OverviewClaimViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewClaimViewController.swift; sourceTree = "<group>"; };
 		C3D560A9260C641E00408875 /* OverviewClaimViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewClaimViewController.xib; sourceTree = "<group>"; };
+		C3D6996D26410CCB004B34E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C3D9517925FB97EC00DE3C05 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		C3ED1DC72616EFD50024970C /* NotificationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinator.swift; sourceTree = "<group>"; };
 		C3ED1DCB2616F0090024970C /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -2925,7 +2927,7 @@
 				2912CD061F6A830700C6CBE3 /* Info.plist */,
 				296106CD1F777E410006164B /* LaunchScreen.storyboard */,
 				C364819324726B1200137596 /* KyberSwap-Bridging-Header.h */,
-				C3BC3F8024AC985900B1ADFE /* GoogleService-Info.plist */,
+				C3D6996D26410CCB004B34E1 /* GoogleService-Info.plist */,
 				C3357DB424768C400028F4A9 /* CustomFCTheme.plist */,
 			);
 			path = KyberNetwork;
@@ -2990,6 +2992,7 @@
 				299B5E281FCA8F040051361C /* GetERC20Balance.swift */,
 				299B5E2A1FCA9A640051361C /* ApproveERC20.swift */,
 				C331133D2629753200E6F7E1 /* GetSymbol.swift */,
+				C37F04CA2639697800D62E43 /* GetDecimals.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -3969,6 +3972,7 @@
 				250CA1EB225B3FC200DF28A4 /* Embed Frameworks */,
 				D9F645674916A4782560555E /* [CP] Copy Pods Resources */,
 				C379417E262816E100FBCA14 /* Embed App Extensions */,
+				C3D6996F2641454C004B34E1 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -4280,7 +4284,6 @@
 				C30292F1260317EA001929E1 /* MarketingPartnerCollectionViewCell.xib in Resources */,
 				25929C8920DA5CC10045CFA3 /* SFCompactDisplay-Light.otf in Resources */,
 				257A37A6205D187100E86794 /* KNTransactionStatusViewController.xib in Resources */,
-				C3BC3F8124AC985900B1ADFE /* GoogleService-Info.plist in Resources */,
 				25073D22211AF20D00833C92 /* Montserrat-Italic.ttf in Resources */,
 				C3A6592125F1EC3300A89241 /* EarnOverviewViewController.xib in Resources */,
 				C37CC09C245803CA0081FB32 /* Roboto-Bold.ttf in Resources */,
@@ -4295,6 +4298,7 @@
 				253F50E821E5B5290068813D /* KNPromoCodeViewController.xib in Resources */,
 				25929C6820DA5C760045CFA3 /* SF-Pro-Display-Light.otf in Resources */,
 				2502AC19209475BE007F23CD /* KNListWalletsTableViewCell.xib in Resources */,
+				C3D6996E26410CCB004B34E1 /* GoogleService-Info.plist in Resources */,
 				25929C5220DA5C760045CFA3 /* SF-Pro-Text-BoldItalic.otf in Resources */,
 				C37AF0C825CCFB29006FB880 /* EarnSwapViewController.xib in Resources */,
 				C3ED1DCE2616F0090024970C /* NotificationsViewController.xib in Resources */,
@@ -4415,6 +4419,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C3D6996F2641454C004B34E1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 		D9F645674916A4782560555E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4470,6 +4491,11 @@
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework",
 				"${BUILT_PRODUCTS_DIR}/FSPagerView/FSPagerView.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseCrashlytics/FirebaseCrashlytics.framework",
+				"${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/JSONRPCKit/JSONRPCKit.framework",
@@ -4510,6 +4536,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Eureka.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FSPagerView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCoreDiagnostics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseCrashlytics.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FirebaseInstallations.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleDataTransport.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSONRPCKit.framework",
@@ -4672,6 +4703,7 @@
 				C31F749725DCDA50008B21F7 /* OverviewContainerViewController.swift in Sources */,
 				255B88C4222E36E100D23189 /* DateFormatterUtil.swift in Sources */,
 				25EE4A7420C54F2F00E2282F /* KNAddNewWalletCoordinator.swift in Sources */,
+				C37F04CB2639697800D62E43 /* GetDecimals.swift in Sources */,
 				25C45ABE20AC217500CDA1FF /* KNSupportedTokenCoordinator.swift in Sources */,
 				25485B042272F938004B7454 /* KNTransactionFilterTableViewCell.swift in Sources */,
 				25CC0A962057DD4E0009D0D5 /* KNExternalProvider.swift in Sources */,
@@ -5162,14 +5194,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
@@ -5194,14 +5226,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "d08d5f84-6398-4202-b037-8e45e693b687";
@@ -5302,13 +5334,13 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5332,12 +5364,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios.KrystalNotificationServiceExtension;

@@ -147,7 +147,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
       }()
       self.subTitleLabelCenterContraint.constant = 0
       self.subTitleTopContraint.constant = 20
-      
+
       self.subTitleDetailLabel.isHidden = true
       self.subTitleDetailLabel.isHidden = false
       self.subTitleDetailLabel.text = self.transaction.transactionSuccessDescription

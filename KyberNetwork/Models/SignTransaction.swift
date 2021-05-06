@@ -29,6 +29,7 @@ extension SignTransaction {
         KNGeneralProvider.shared.sendSignedTransactionData(signData) { (sendResult) in
           switch sendResult {
           case .success(let hash):
+            provider.minTxCount += 1
             completion(.success(hash))
           case .failure(let sendError):
             completion(.failure(sendError))

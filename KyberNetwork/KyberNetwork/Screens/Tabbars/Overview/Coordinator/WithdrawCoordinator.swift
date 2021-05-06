@@ -17,6 +17,7 @@ protocol WithdrawCoordinatorDelegate: class {
   func withdrawCoordinatorDidSelectManageWallet()
   func withdrawCoordinatorDidSelectHistory()
   func withdrawCoordinatorDidSelectEarnMore(balance: LendingBalance)
+  func withdrawCoordinatorDidSelectAddToken(_ token: TokenObject)
 }
 
 class WithdrawCoordinator: NSObject, Coordinator {
@@ -117,6 +118,7 @@ extension WithdrawCoordinator: WithdrawViewControllerDelegate {
                       switch sendResult {
                       case .success(let hash):
                         print(hash)
+                        blockchainProvider.minTxCount += 1
                         let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
                         self.session.addNewPendingTransaction(tx)
                         
@@ -393,11 +395,11 @@ extension WithdrawCoordinator: GasFeeSelectorPopupViewControllerDelegate {
       guard let provider = self.session.externalProvider else {
         return
       }
-      if self.isApprovedGasToken() {
-        self.saveUseGasTokenState(status)
-        self.withdrawViewController?.coordinatorUpdateIsUseGasToken(status)
-        return
-      }
+//      if self.isApprovedGasToken() {
+//        self.saveUseGasTokenState(status)
+//        self.withdrawViewController?.coordinatorUpdateIsUseGasToken(status)
+//        return
+//      }
       if status {
         guard let tokenAddress = Address(string: Constants.gasTokenAddress) else {
           return
@@ -498,6 +500,7 @@ extension WithdrawCoordinator: WithdrawConfirmPopupViewControllerDelegate {
                         switch sendResult {
                         case .success(let hash):
                           print(hash)
+                          blockchainProvider.minTxCount += 1
                           let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
                           self.session.addNewPendingTransaction(tx)
                           let historyTransaction = InternalHistoryTransaction(type: .contractInteraction, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: "Claim", transactionDetailDescription: "", transactionObj: transaction.toSignTransactionObject())
@@ -555,6 +558,10 @@ extension WithdrawCoordinator: WithdrawConfirmPopupViewControllerDelegate {
 }
 
 extension WithdrawCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.withdrawCoordinatorDidSelectAddToken(token)
+  }
+  
   func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
     self.delegate?.withdrawCoordinatorDidSelectWallet(wallet)
   }

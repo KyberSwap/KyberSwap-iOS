@@ -203,7 +203,6 @@ extension KNLandingPageCoordinator: KNLandingPageViewControllerDelegate {
       secondButtonTitle: "OK".toBeLocalised(),
       firstButtonTitle: "No".toBeLocalised(),
       secondButtonAction: {
-        KNCrashlyticsUtil.logCustomEvent(withName: "tut_migrate_user_yes_question_popup", customAttributes: nil)
         self.navigationController.dismiss(animated: true) {
           let viewModel = KNMigrationTutorialViewModel()
           let tutorialVC = KNMigrationTutorialViewController(viewModel: viewModel)
@@ -212,7 +211,6 @@ extension KNLandingPageCoordinator: KNLandingPageViewControllerDelegate {
         }
       },
       firstButtonAction: {
-        KNCrashlyticsUtil.logCustomEvent(withName: "tut_migrate_user_dismiss_question_popup", customAttributes: nil)
       }
     )
     self.navigationController.present(alert, animated: true, completion: nil)
@@ -303,9 +301,6 @@ extension KNLandingPageCoordinator: KNMigrationTutorialViewControllerDelegate {
 
 extension KNLandingPageCoordinator: MFMailComposeViewControllerDelegate {
   func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-    if case .sent = result {
-      KNCrashlyticsUtil.logCustomEvent(withName: "landing_page_email_sent", customAttributes: nil)
-    }
     controller.dismiss(animated: true, completion: nil)
   }
 }

@@ -82,7 +82,7 @@ class KNExternalProvider {
       switch result {
       case .success(let txCount):
         self.minTxCount = max(self.minTxCount, txCount)
-        completion(.success(txCount))
+        completion(.success(self.minTxCount))
       case .failure(let error):
         completion(.failure(error))
       }

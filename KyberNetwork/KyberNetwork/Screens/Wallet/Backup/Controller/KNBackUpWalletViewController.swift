@@ -131,7 +131,6 @@ class KNBackUpWalletViewController: KNBaseViewController {
   }
 
   @IBAction func nextButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "next_button"])
     self.viewModel.updateNextBackUpWords()
     self.updateUI()
   }
@@ -141,7 +140,6 @@ class KNBackUpWalletViewController: KNBaseViewController {
   }
 
   @IBAction func completeButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_back_up_wallet", customAttributes: ["action": "complete_button"])
     guard let firstWord = self.firstWordTextField.text, let secondWord = self.secondWordTextField.text else {
       return
     }

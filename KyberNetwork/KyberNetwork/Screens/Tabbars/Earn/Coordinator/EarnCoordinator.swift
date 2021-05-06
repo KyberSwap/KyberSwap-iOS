@@ -23,6 +23,7 @@ protocol EarnCoordinatorDelegate: class {
   func earnCoordinatorDidSelectAddWallet()
   func earnCoordinatorDidSelectWallet(_ wallet: Wallet)
   func earnCoordinatorDidSelectManageWallet()
+  func earnCoordinatorDidSelectAddToken(_ token: TokenObject)
 }
 
 class EarnCoordinator: NSObject, Coordinator {
@@ -355,7 +356,7 @@ extension EarnCoordinator: EarnViewControllerDelegate {
       }
     }
   }
-  
+
   func getLatestNonce(completion: @escaping (Int) -> Void) {
     guard let provider = self.session.externalProvider else {
       return
@@ -467,11 +468,11 @@ extension EarnCoordinator: GasFeeSelectorPopupViewControllerDelegate {
       guard let viewController = self.navigationController.viewControllers.last as? AbstractEarnViewControler else {
         return
       }
-      if self.isApprovedGasToken() {
-        self.saveUseGasTokenState(status)
-        viewController.coordinatorUpdateIsUseGasToken(status)
-        return
-      }
+//      if self.isApprovedGasToken() {
+//        self.saveUseGasTokenState(status)
+//        viewController.coordinatorUpdateIsUseGasToken(status)
+//        return
+//      }
       if status {
         var gasTokenAddressString = ""
         if KNEnvironment.default == .ropsten {
@@ -501,10 +502,11 @@ extension EarnCoordinator: GasFeeSelectorPopupViewControllerDelegate {
               message: error.localizedDescription,
               time: 1.5
             )
-            viewController.coordinatorUpdateIsUseGasToken(!status)
+            viewController.coordinatorUpdateIsUseGasToken(status)
           }
         }
       } else {
+        self.saveUseGasTokenState(status)
         viewController.coordinatorUpdateIsUseGasToken(status)
       }
     default:
@@ -548,6 +550,7 @@ extension EarnCoordinator: EarnConfirmViewControllerDelegate {
           switch sendResult {
           case .success(let hash):
             print(hash)
+            provider.minTxCount += 1
             historyTransaction.hash = hash
             historyTransaction.time = Date()
             historyTransaction.nonce = transaction.nonce
@@ -854,6 +857,8 @@ extension EarnCoordinator: KNSearchTokenViewControllerDelegate {
           }) else { return }
           self.earnViewController?.coordinatorUpdateSelectedToken(lendingToken)
         }
+      } else if case .add(let token) = event {
+        self.delegate?.earnCoordinatorDidSelectAddToken(token)
       }
     }
   }
@@ -926,6 +931,10 @@ extension EarnCoordinator: QRCodeReaderDelegate {
 }
 
 extension EarnCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.earnCoordinatorDidSelectAddToken(token)
+  }
+  
   func historyCoordinatorDidSelectAddWallet() {
     self.delegate?.earnCoordinatorDidSelectAddWallet()
   }
@@ -971,6 +980,10 @@ extension EarnCoordinator: OverviewDepositViewControllerDelegate {
 }
 
 extension EarnCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.earnCoordinatorDidSelectAddToken(token)
+  }
+  
   func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
     self.delegate?.earnCoordinatorDidSelectWallet(wallet)
   }
@@ -989,6 +1002,10 @@ extension EarnCoordinator: KNSendTokenViewCoordinatorDelegate {
 }
 
 extension EarnCoordinator: WithdrawCoordinatorDelegate {
+  func withdrawCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.earnCoordinatorDidSelectAddToken(token)
+  }
+  
   func withdrawCoordinatorDidSelectAddWallet() {
     
   }

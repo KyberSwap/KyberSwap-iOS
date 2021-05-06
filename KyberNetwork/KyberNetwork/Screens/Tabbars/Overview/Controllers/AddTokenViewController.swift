@@ -28,6 +28,7 @@ class AddTokenViewController: KNBaseViewController {
   
   weak var delegate: AddTokenViewControllerDelegate?
   var token: Token?
+  var tokenObject: TokenObject?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -41,9 +42,15 @@ class AddTokenViewController: KNBaseViewController {
       self.updateUI(unwrapped)
     } else {
       self.titleHeader.text = "Add custom token".toBeLocalised()
-      self.addressField.text = ""
-      self.symbolField.text = ""
-      self.decimalsField.text = ""
+      if let unwrapped = self.tokenObject {
+        self.addressField.text = unwrapped.address
+        self.symbolField.text = unwrapped.symbol
+        self.decimalsField.text = "\(unwrapped.decimals)"
+      } else {
+        self.addressField.text = ""
+        self.symbolField.text = ""
+        self.decimalsField.text = ""
+      }
     }
     self.addressField.attributedPlaceholder = NSAttributedString(string: "Smart contract", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.symbolField.attributedPlaceholder = NSAttributedString(string: "Token symbol", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
@@ -68,7 +75,7 @@ class AddTokenViewController: KNBaseViewController {
   @IBAction func pasteButtonTapped(_ sender: UIButton) {
     if let string = UIPasteboard.general.string {
       self.addressField.text = string
-//      self.delegate?.addTokenViewController(self, run: .getSymbol(address: string))
+      self.delegate?.addTokenViewController(self, run: .getSymbol(address: string))
     }
   }
 
@@ -85,7 +92,6 @@ class AddTokenViewController: KNBaseViewController {
     } else {
       self.delegate?.addTokenViewController(self, run: .done(address: self.addressField.text ?? "", symbol: self.symbolField.text ?? "", decimals: Int(self.decimalsField.text ?? "") ?? 6))
     }
-    
   }
   
   fileprivate func validateFields() -> Bool {
@@ -106,12 +112,28 @@ class AddTokenViewController: KNBaseViewController {
       self.showErrorTopBannerMessage(with: "", message: "Address isn't correct")
       return false
     }
-    
+
     return true
   }
   
   func coordinatorDidUpdateQRCode(address: String) {
     self.addressField.text = address
+    self.delegate?.addTokenViewController(self, run: .getSymbol(address: address))
+  }
+  
+  func coordinatorDidUpdateToken(symbol: String, decimals: String) {
+    self.symbolField.text = symbol
+    self.decimalsField.text = decimals
+  }
+  
+  func coordinatorDidUpdateTokenObject(_ token: TokenObject) {
+    self.tokenObject = token
+    guard self.isViewLoaded else {
+      return
+    }
+    self.symbolField.text = token.symbol
+    self.decimalsField.text = "\(token.decimals)"
+    self.addressField.text = token.address
   }
 }
 

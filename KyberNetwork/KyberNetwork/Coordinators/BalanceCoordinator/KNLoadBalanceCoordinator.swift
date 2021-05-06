@@ -93,10 +93,6 @@ class KNLoadBalanceCoordinator {
           self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
         }
       case .failure(let error):
-        KNCrashlyticsUtil.logCustomEvent(
-          withName: "load_balance_load_unsupported_token_failure",
-          customAttributes: nil
-        )
         if error.code == NSURLErrorNotConnectedToInternet { return }
         self.fetchNonSupportedTokensBalancesChunked()
       }
@@ -125,10 +121,6 @@ class KNLoadBalanceCoordinator {
             self.session.tokenStorage.disableUnsupportedTokensWithZeroBalance(tokens: tokens)
           }
         case .failure(let error):
-          KNCrashlyticsUtil.logCustomEvent(
-            withName: "load_balance_load_unsupported_token_chunked_failure",
-            customAttributes: nil
-          )
           if error.code == NSURLErrorNotConnectedToInternet { return }
           self.fetchNonSupportedTokensBalances(addresses: addresses)
         }
@@ -144,10 +136,6 @@ class KNLoadBalanceCoordinator {
     guard let provider = self.session.externalProvider else {
       return
     }
-    KNCrashlyticsUtil.logCustomEvent(
-      withName: "load_balance_load_unsupported_token_balance_one_by_one",
-      customAttributes: nil
-    )
     var isBalanceChanged: Bool = false
     let currentWallet = self.session.wallet
     var zeroBalanceAddresses: [String] = []

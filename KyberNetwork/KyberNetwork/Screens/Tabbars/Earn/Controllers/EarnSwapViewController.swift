@@ -518,6 +518,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
+    KNCrashlyticsUtil.logCustomEvent(withName: "krystal_open_earn_swap_view", customAttributes: nil)
     self.updateAllRates()
     self.estRateTimer = Timer.scheduledTimer(
       withTimeInterval: KNLoadingInterval.seconds30,
@@ -630,8 +631,11 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.walletsSelectButton.setTitle(self.viewModel.wallet.address.description, for: .normal)
   }
 
-  fileprivate func updateUIForSendApprove(isShowApproveButton: Bool) {
+  fileprivate func updateUIForSendApprove(isShowApproveButton: Bool, token: TokenObject? = nil) {
     guard self.isViewLoaded else {
+      return
+    }
+    if let unwrapped = token, unwrapped.contract.lowercased() != self.viewModel.fromTokenData.address.lowercased() {
       return
     }
     self.updateApproveButton()
@@ -731,7 +735,6 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   }
   
   func keyboardSwapAllButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_swap_all", customAttributes: nil)
     self.view.endEditing(true)
     self.viewModel.updateFocusingField(true)
     self.fromAmountTextField.text = self.viewModel.allTokenBalanceString.removeGroupSeparator()
@@ -863,7 +866,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   func coordinatorDidUpdateAllowance(token: TokenData, allowance: BigInt) {
     if self.viewModel.fromTokenData.getBalanceBigInt() > allowance {
       self.viewModel.remainApprovedAmount = (token, allowance)
-      self.updateUIForSendApprove(isShowApproveButton: true)
+      self.updateUIForSendApprove(isShowApproveButton: true, token: token.toObject())
     } else {
       self.updateUIForSendApprove(isShowApproveButton: false)
     }
@@ -885,12 +888,12 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
 
   func coordinatorSuccessApprove(token: TokenObject) {
     self.viewModel.approvingToken = token
-    self.updateUIForSendApprove(isShowApproveButton: true)
+    self.updateUIForSendApprove(isShowApproveButton: true, token: token)
   }
 
   func coordinatorFailApprove(token: TokenObject) {
     self.showErrorMessage()
-    self.updateUIForSendApprove(isShowApproveButton: true)
+    self.updateUIForSendApprove(isShowApproveButton: true, token: token)
   }
   
   fileprivate func showErrorMessage() {
@@ -1030,17 +1033,15 @@ extension EarnSwapViewController: UITextFieldDelegate {
 
   fileprivate func showWarningInvalidAmountDataIfNeeded(isConfirming: Bool = false) -> Bool {
     if !isConfirming && self.isViewDisappeared { return false }
-//    if isConfirming {
-//      guard self.viewModel.isHavingEnoughETHForFee else {
-//        let fee = self.viewModel.ethFeeBigInt
-//        self.showWarningTopBannerMessage(
-//          with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
-//          message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
-//        )
-//        return true
-//      }
-//    }
-    //TODO: check fee is vaild
+    let estRate = self.viewModel.getSwapRate(from: self.viewModel.fromTokenData.address.lowercased(), to: self.viewModel.toTokenData.address.lowercased(), amount: self.viewModel.amountFromBigInt, platform: self.viewModel.currentFlatform)
+    let estRateBigInt = BigInt(estRate)
+    if estRateBigInt?.isZero == true {
+      self.showWarningTopBannerMessage(
+        with: "",
+        message: "Can not find the exchange rate"
+      )
+      return true
+    }
     guard self.viewModel.fromTokenData.address != self.viewModel.toTokenData.address else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("unsupported", value: "Unsupported", comment: ""),
@@ -1077,7 +1078,6 @@ extension EarnSwapViewController: UITextFieldDelegate {
           with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
           message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
         )
-        KNCrashlyticsUtil.logCustomEvent(withName: "kbswap_error", customAttributes: ["error_text": "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised()])
         return true
       }
     }

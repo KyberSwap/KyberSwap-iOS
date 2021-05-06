@@ -15,6 +15,7 @@ protocol KNSendTokenViewCoordinatorDelegate: class {
   func sendTokenViewCoordinatorSelectOpenHistoryList()
   func sendTokenCoordinatorDidSelectManageWallet()
   func sendTokenCoordinatorDidSelectAddWallet()
+  func sendTokenCoordinatorDidSelectAddToken(_ token: TokenObject)
 }
 
 class KNSendTokenViewCoordinator: NSObject, Coordinator {
@@ -260,9 +261,6 @@ extension KNSendTokenViewCoordinator: KSendTokenViewControllerDelegate {
   }
 
   fileprivate func openConfirmTransfer(transaction: UnconfirmedTransaction, ens: String?) {
-    if ens != nil {
-      KNCrashlyticsUtil.logCustomEvent(withName: "tranfer_send_using_ens", customAttributes: nil)
-    }
     self.confirmVC = {
       let viewModel = KConfirmSendViewModel(transaction: transaction, ens: ens)
       let controller = KConfirmSendViewController(viewModel: viewModel)
@@ -295,6 +293,8 @@ extension KNSendTokenViewCoordinator: KNSearchTokenViewControllerDelegate {
       if case .select(let token) = event {
         let balance = self.balances[token.contract]
         self.rootViewController.coordinatorDidUpdateSendToken(token, balance: balance)
+      } else if case .add(let token) = event {
+        self.delegate?.sendTokenCoordinatorDidSelectAddToken(token)
       }
     }
   }

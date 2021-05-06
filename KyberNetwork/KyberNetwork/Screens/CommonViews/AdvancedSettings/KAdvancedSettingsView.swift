@@ -479,7 +479,6 @@ class KAdvancedSettingsView: XibLoaderView {
   @IBAction func displayViewButtonPressed(_ sender: Any) {
     if self.viewModel == nil { return }
     let isHidden = !self.viewModel.isViewHidden
-    KNCrashlyticsUtil.logCustomEvent(withName: isHidden ? "advanced_display_show" : "advanced_display_hide", customAttributes: nil)
     self.viewModel.updateViewHidden(isHidden: isHidden)
 
     self.advancedSettingsViewHeightConstraint.constant = self.viewModel.advancedSettingsHeight
@@ -493,56 +492,47 @@ class KAdvancedSettingsView: XibLoaderView {
   @IBAction func superFastGasButtonPressed(_ sender: Any) {
     self.viewModel.updateSelectedType(.superFast)
     self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .superFast, value: self.viewModel.superFast))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_super_fast", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
   @IBAction func fastGasButtonPressed(_ sender: Any) {
     self.viewModel.updateSelectedType(.fast)
     self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .fast, value: self.viewModel.fast))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_fast", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
   @IBAction func mediumGasButtonPressed(_ sender: Any) {
     self.viewModel.updateSelectedType(.medium)
     self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .medium, value: self.viewModel.medium))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_regular", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
   @IBAction func slowGasButtonPressed(_ sender: Any) {
     self.viewModel.updateSelectedType(.slow)
     self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .slow, value: self.viewModel.slow))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_slow", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
   @IBAction func userTappedSuperFastFee(_ sender: Any) {
     self.viewModel.updateSelectedType(.superFast)
     self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .superFast, value: self.viewModel.superFast))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_super_fast", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
   @IBAction func userTappedFastFee(_ sender: Any) {
     self.viewModel.updateSelectedType(.fast)
     self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .fast, value: self.viewModel.fast))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_fast", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
   @IBAction func userTappedMediumFee(_ sender: Any) {
     self.viewModel.updateSelectedType(.medium)
     self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .medium, value: self.viewModel.medium))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_regular", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
   @IBAction func userTappedSlowFee(_ sender: Any) {
     self.viewModel.updateSelectedType(.slow)
-    self.delegate?.kAdvancedSettingsView(self, run: .gasPriceChanged(type: .slow, value: self.viewModel.slow))
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_select_gas_slow", customAttributes: nil)
     self.updateGasPriceUIs()
   }
 
@@ -552,12 +542,10 @@ class KAdvancedSettingsView: XibLoaderView {
     self.customRateTextField.isEnabled = false
     self.delegate?.kAdvancedSettingsView(self, run: .minRatePercentageChanged(percent: 3.0))
     self.updateMinRateUIs()
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_slippage_rate_default", customAttributes: nil)
   }
 
   @objc func userTappedThreePercent(_ sender: Any) {
     self.threePercentButtonPressed(sender)
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_slippage_rate_default", customAttributes: nil)
   }
 
   @IBAction func customRateButtonPressed(_ sender: Any) {
@@ -566,7 +554,6 @@ class KAdvancedSettingsView: XibLoaderView {
     self.customRateTextField.isEnabled = true
     self.delegate?.kAdvancedSettingsView(self, run: .minRatePercentageChanged(percent: 3.0))
     self.updateMinRateUIs()
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_slippage_rate_custom", customAttributes: nil)
   }
 
   @IBAction func helpButtonTapped(_ sender: UIButton) {
@@ -575,14 +562,12 @@ class KAdvancedSettingsView: XibLoaderView {
 
   @objc func userTappedCustomRate(_ sender: Any) {
     self.customRateButtonPressed(sender)
-    KNCrashlyticsUtil.logCustomEvent(withName: "advanced_slippage_rate_custom", customAttributes: nil)
   }
 
   @IBAction func enableReverseRoutingTapped(_ sender: UIButton) {
     self.viewModel.updateIsUsingReverseRouting(value: !self.viewModel.isUsingReverseRouting)
     self.updateIsUsingReverseRoutingCheckBox()
     self.delegate?.kAdvancedSettingsView(self, run: .changeIsUsingReverseRouting(value: self.viewModel.isUsingReverseRouting))
-    KNCrashlyticsUtil.logCustomEvent(withName: self.viewModel.isUsingReverseRouting ? "advanced_select_reverse_routing_select" : "advanced_select_reverse_routing_unselect", customAttributes: nil)
   }
 
   @IBAction func reverseRoutingHelpButtonTapped(_ sender: UIButton) {

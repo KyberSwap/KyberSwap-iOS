@@ -13,6 +13,7 @@ protocol InvestCoordinatorDelegate: class {
   func investCoordinatorDidSelectWallet(_ wallet: Wallet)
   func investCoordinatorDidSelectManageWallet()
   func investCoordinatorDidSelectAddWallet()
+  func investCoordinatorDidSelectAddToken(_ token: TokenObject)
 }
 
 class InvestCoordinator: Coordinator {
@@ -158,6 +159,10 @@ extension InvestCoordinator: InvestViewControllerDelegate {
 }
 
 extension InvestCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.investCoordinatorDidSelectAddToken(token)
+  }
+  
   func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
     self.delegate?.investCoordinatorDidSelectWallet(wallet)
   }
@@ -176,6 +181,10 @@ extension InvestCoordinator: KNSendTokenViewCoordinatorDelegate {
 }
 
 extension InvestCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.investCoordinatorDidSelectAddToken(token)
+  }
+  
   func historyCoordinatorDidClose() {
     
   }

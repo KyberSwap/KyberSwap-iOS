@@ -43,6 +43,10 @@ class AddTokenCoordinator: NSObject, Coordinator {
   func stop() {
     self.navigationController.popViewController(animated: true)
   }
+  
+  func coordinatorDidUpdateTokenObject(_ token: TokenObject) {
+    self.rootViewController.coordinatorDidUpdateTokenObject(token)
+  }
 }
 
 extension AddTokenCoordinator: AddTokenViewControllerDelegate {
@@ -83,7 +87,33 @@ extension AddTokenCoordinator: AddTokenViewControllerDelegate {
       self.listTokenViewController.coordinatorDidUpdateTokenList()
       self.navigationController.popViewController(animated: true)
     case .getSymbol(address: let address):
-      break
+      var tokenSymbol = ""
+      var tokenDecimal = ""
+      let group = DispatchGroup()
+      group.enter()
+      KNGeneralProvider.shared.getTokenSymbol(address: address) { (result) in
+        switch result {
+        case .success(let symbol):
+          tokenSymbol = symbol
+        case .failure(let error):
+          print("[Custom token][Errror] \(error.description)")
+        }
+        group.leave()
+      }
+      group.enter()
+      KNGeneralProvider.shared.getTokenDecimals(address: address) { (result) in
+        switch result {
+        case .success(let decimals):
+          tokenDecimal = decimals
+        case .failure(let error):
+          print("[Custom token][Errror] \(error.description)")
+        }
+        group.leave()
+      }
+      
+      group.notify(queue: .main) {
+        self.rootViewController.coordinatorDidUpdateToken(symbol: tokenSymbol, decimals: tokenDecimal)
+      }
     }
   }
 }

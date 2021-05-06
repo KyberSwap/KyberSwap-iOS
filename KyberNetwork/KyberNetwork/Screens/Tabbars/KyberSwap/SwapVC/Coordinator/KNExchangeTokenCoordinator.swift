@@ -22,6 +22,7 @@ protocol KNExchangeTokenCoordinatorDelegate: class {
   func exchangeTokenCoordinatorDidSelectWallet(_ wallet: Wallet)
   func exchangeTokenCoordinatorDidSelectManageWallet()
   func exchangeTokenCoodinatorDidSendRefCode(_ code: String)
+  func exchangeTokenCoordinatorDidSelectAddToken(_ token: TokenObject)
 }
 
 //swiftlint:disable file_length
@@ -460,8 +461,7 @@ extension KNExchangeTokenCoordinator: KConfirmSwapViewControllerDelegate {
         KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
           switch sendResult {
           case .success(let hash):
-            //TODO: remove olf realm object logic
-//            self.sendUserTxHashIfNeeded(hash)
+            provider.minTxCount += 1
             let transaction = data.toTransaction(
               hash: hash,
               fromAddr: self.session.wallet.address,
@@ -596,6 +596,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           KNGeneralProvider.shared.sendSignedTransactionData(data.0, completion: { sendResult in
             switch sendResult {
             case .success:
+              provider.minTxCount += 1
               self.rootViewController.coordinatorSuccessSendTransaction()
             case .failure(let error):
               print("[Debug] error send \(error)")
@@ -1106,6 +1107,8 @@ extension KNExchangeTokenCoordinator: KNSearchTokenViewControllerDelegate {
           token,
           isSource: self.isSelectingSourceToken
         )
+      } else if case .add(let token) = event {
+        self.delegate?.exchangeTokenCoordinatorDidSelectAddToken(token)
       }
     }
   }
@@ -1139,6 +1142,10 @@ extension KNExchangeTokenCoordinator: KNAddNewWalletCoordinatorDelegate {
 }
 
 extension KNExchangeTokenCoordinator: KNHistoryCoordinatorDelegate {
+  func historyCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.exchangeTokenCoordinatorDidSelectAddToken(token)
+  }
+  
   func historyCoordinatorDidSelectAddWallet() {
     self.delegate?.exchangeTokenCoordinatorDidSelectAddWallet()
   }
@@ -1256,11 +1263,11 @@ extension KNExchangeTokenCoordinator: GasFeeSelectorPopupViewControllerDelegate 
       guard let provider = self.session.externalProvider else {
         return
       }
-      if self.isApprovedGasToken() {
-        self.saveUseGasTokenState(status)
-        self.rootViewController.coordinatorUpdateIsUseGasToken(status)
-        return
-      }
+//      if self.isApprovedGasToken() {
+//        self.saveUseGasTokenState(status)
+//        self.rootViewController.coordinatorUpdateIsUseGasToken(status)
+//        return
+//      }
       if status {
         var gasTokenAddressString = ""
         if KNEnvironment.default == .ropsten {
@@ -1271,6 +1278,7 @@ extension KNExchangeTokenCoordinator: GasFeeSelectorPopupViewControllerDelegate 
         guard let tokenAddress = Address(string: gasTokenAddressString) else {
           return
         }
+        
         provider.getAllowance(tokenAddress: tokenAddress) { [weak self] result in
           guard let `self` = self else { return }
           switch result {
@@ -1296,6 +1304,7 @@ extension KNExchangeTokenCoordinator: GasFeeSelectorPopupViewControllerDelegate 
           }
         }
       } else {
+        self.saveUseGasTokenState(status)
         self.rootViewController.coordinatorUpdateIsUseGasToken(status)
       }
     default:
@@ -1492,6 +1501,10 @@ extension KNExchangeTokenCoordinator: KNConfirmCancelTransactionPopUpDelegate {
 }
 
 extension KNExchangeTokenCoordinator: KNSendTokenViewCoordinatorDelegate {
+  func sendTokenCoordinatorDidSelectAddToken(_ token: TokenObject) {
+    self.delegate?.exchangeTokenCoordinatorDidSelectAddToken(token)
+  }
+  
   func sendTokenViewCoordinatorDidSelectWallet(_ wallet: Wallet) {
     self.delegate?.exchangeTokenCoordinatorDidSelectWallet(wallet)
   }

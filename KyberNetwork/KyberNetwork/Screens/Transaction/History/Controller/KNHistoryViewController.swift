@@ -126,8 +126,7 @@ struct KNHistoryViewModel {
   }
 
   var isRateMightChangeHidden: Bool {
-    return true //TODO: temp disable warning message
-//    return !(self.isShowingPending && !self.pendingTxHeaders.isEmpty)
+    return true
   }
 
   var transactionCollectionViewBottomPaddingConstraint: CGFloat {
@@ -201,7 +200,7 @@ struct KNHistoryViewModel {
     }
 
     if isCompleted {
-      self.displayingCompletedTxHeaders = {
+      let displayHeaders: [String] = {
         let data = self.completedTxHeaders.filter({
           let date = self.dateFormatter.date(from: $0) ?? Date()
           return date >= fromDate && date <= toDate
@@ -209,12 +208,16 @@ struct KNHistoryViewModel {
         return data
       }()
       self.displayingCompletedTxData = [:]
-      self.displayingCompletedTxHeaders.forEach { (header) in
+      displayHeaders.forEach { (header) in
         let items = self.completedTxData[header]?.filter({ return self.isCompletedTransactionIncluded($0) }).enumerated().map { (item) -> CompletedHistoryTransactonViewModel in
           return CompletedHistoryTransactonViewModel(data: item.1, index: item.0)
         } ?? []
         self.displayingCompletedTxData[header] = items
       }
+      let filtered = displayHeaders.filter { (header) -> Bool in
+        return !(self.displayingCompletedTxData[header]?.isEmpty ?? false)
+      }
+      self.displayingCompletedTxHeaders = filtered
     }
   }
 
@@ -235,7 +238,7 @@ struct KNHistoryViewModel {
     }
     return isTokenIncluded
   }
-  
+
   fileprivate func isCompletedTransactionIncluded(_ tx: HistoryTransaction) -> Bool {
     let matchedTransfer = (tx.type == .transferETH || tx.type == .transferToken) && self.filters.isSend
     let matchedReceive = ( tx.type == .receiveETH || tx.type == .receiveToken) && self.filters.isReceive
@@ -256,9 +259,13 @@ struct KNHistoryViewModel {
     if tx.type == .transferETH || tx.type == .receiveETH {
       tokenMatched = self.filters.tokens.contains("ETH")
     } else {
-      tokenMatched = Set(transactionToken).isSubset(of: Set(self.filters.tokens))
+      if transactionToken.isEmpty {
+        tokenMatched = false
+      } else {
+        tokenMatched = Set(transactionToken).isSubset(of: Set(self.filters.tokens))
+      }
     }
-    
+
     return tokenMatched && matchedType
   }
 
@@ -393,7 +400,6 @@ class KNHistoryViewController: KNBaseViewController {
   }
 
   fileprivate func setupUI() {
-    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_pending_tx", customAttributes: nil)
     self.setupNavigationBar()
     self.setupCollectionView()
     
@@ -416,7 +422,6 @@ class KNHistoryViewController: KNBaseViewController {
     self.animateResetReviewCellActionForTutorial()
     self.viewModel.isShowingQuickTutorial = false
     self.updateUIWhenDataDidChange()
-    KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_got_it_button_tapped", customAttributes: nil)
   }
 
   fileprivate func animateReviewCellActionForTutorial() {
@@ -521,7 +526,6 @@ class KNHistoryViewController: KNBaseViewController {
   fileprivate func updateDisplayTxsType(_ isShowPending: Bool) {
     self.viewModel.updateIsShowingPending(isShowPending)
     self.updateUIWhenDataDidChange()
-    KNCrashlyticsUtil.logCustomEvent(withName: self.viewModel.isShowingPending ? "txhistory_pending_tx" : "txhistory_mined_tx", customAttributes: nil)
   }
 
   @IBAction func screenEdgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {
@@ -546,12 +550,10 @@ class KNHistoryViewController: KNBaseViewController {
 
   @IBAction func emptyStateEtherScanButtonTapped(_ sender: UIButton) {
     self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openEtherScanWalletPage)
-    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_empty_state_etherscan_tapped", customAttributes: nil)
   }
 
   @IBAction func emptyStateKyberButtonTapped(_ sender: UIButton) {
     self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openKyberWalletPage)
-    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_empty_state_enjin_tapped", customAttributes: nil)
   }
 
   @objc func segmentedControlValueChanged(_ sender: BetterSegmentedControl) {
@@ -599,7 +601,6 @@ extension KNHistoryViewController {
 
 extension KNHistoryViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "txhistory_selected_tx", customAttributes: nil)
     if self.viewModel.isShowingPending {
       guard let transaction = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section) else { return }
       self.delegate?.historyViewController(self, run: .selectPendingTransaction(transaction: transaction.internalTransaction))
@@ -686,7 +687,6 @@ extension KNHistoryViewController: SwipeCollectionViewCellDelegate {
     }
     guard let transaction = self.viewModel.pendingTransaction(for: indexPath.row, at: indexPath.section)  else { return nil }
     let speedUp = SwipeAction(style: .default, title: nil) { (_, _) in
-      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_speedup", customAttributes: nil)
       self.delegate?.historyViewController(self, run: .speedUpTransaction(transaction: transaction.internalTransaction))
     }
     speedUp.hidesWhenSelected = true
@@ -697,7 +697,6 @@ extension KNHistoryViewController: SwipeCollectionViewCellDelegate {
     let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 46))!
     speedUp.backgroundColor = UIColor(patternImage: resized)
     let cancel = SwipeAction(style: .destructive, title: nil) { _, _ in
-      KNCrashlyticsUtil.logCustomEvent(withName: "transaction_cancel", customAttributes: nil)
       self.delegate?.historyViewController(self, run: .cancelTransaction(transaction: transaction.internalTransaction))
     }
 

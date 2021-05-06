@@ -193,6 +193,10 @@ struct TokenData: Codable, Equatable {
     let balance = BalanceStorage.shared.balanceForAddress(self.address)
     return BigInt(balance?.balance ?? "") ?? BigInt(0)
   }
+  
+  func toObject() -> TokenObject {
+    return TokenObject(name: self.name, symbol: self.symbol, address: self.address, decimals: self.decimals, logo: "")
+  }
 }
 
 struct LendingPlatformData: Codable {

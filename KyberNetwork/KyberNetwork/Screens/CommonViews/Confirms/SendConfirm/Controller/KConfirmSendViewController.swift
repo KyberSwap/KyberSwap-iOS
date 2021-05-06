@@ -95,13 +95,6 @@ class KConfirmSendViewController: KNBaseViewController {
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "transferconfirm_confirm_tapped",
-                                     customAttributes: [
-                                      "token": self.viewModel.transaction.transferType.tokenObject().symbol,
-                                      "amount": self.viewModel.totalAmountString,
-                                      "gas_fee": self.viewModel.transactionFeeETHString,
-      ]
-    )
     self.confirmButton.isEnabled = false
     self.cancelButton.isEnabled = false
     var symbol = ""
@@ -115,19 +108,12 @@ class KConfirmSendViewController: KNBaseViewController {
       symbol = token.symbol
     }
     let historyTransaction = InternalHistoryTransaction(type: type, state: .pending, fromSymbol: symbol, toSymbol: nil, transactionDescription: "-\(self.viewModel.totalAmountString)", transactionDetailDescription: "", transactionObj: SignTransactionObject(value: "", from: "", to: "", nonce: 0, data: Data(), gasPrice: "", gasLimit: "", chainID: 0))
-    historyTransaction.transactionSuccessDescription = "-\(self.viewModel.totalAmountString)"
+    historyTransaction.transactionSuccessDescription = "-\(self.viewModel.totalAmountString) to \(self.viewModel.address.lowercased())"
     let event = KConfirmViewEvent.confirm(type: KNTransactionType.transfer(self.viewModel.transaction), historyTransaction: historyTransaction)
     self.delegate?.kConfirmSendViewController(self, run: event)
   }
 
   @IBAction func backButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "transferconfirm_confirm_cancel",
-                                     customAttributes: [
-                                      "token": self.viewModel.transaction.transferType.tokenObject().symbol,
-                                      "amount": self.viewModel.totalAmountString,
-                                      "gas_fee": self.viewModel.transactionFeeETHString,
-      ]
-    )
     self.delegate?.kConfirmSendViewController(self, run: .cancel)
   }
 
@@ -138,7 +124,6 @@ class KConfirmSendViewController: KNBaseViewController {
   }
 
   @IBAction func helpGasFeeButtonTapped(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "transferconfirm_gas_fee_info_tapped", customAttributes: nil)
     self.showBottomBannerView(
       message: "The.actual.cost.of.the.transaction.is.generally.lower".toBeLocalised(),
       icon: UIImage(named: "help_icon_large") ?? UIImage(),

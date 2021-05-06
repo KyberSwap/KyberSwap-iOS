@@ -30,7 +30,6 @@ class KNPromoCodeCoordinator: Coordinator {
   }
 
   func start() {
-    KNCrashlyticsUtil.logCustomEvent(withName: "kybercode_start", customAttributes: nil)
     self.rootViewController.resetUI()
     self.navigationController.pushViewController(self.rootViewController, animated: true)
   }
@@ -79,7 +78,6 @@ extension KNPromoCodeCoordinator: KNPromoCodeViewControllerDelegate {
                   return
                 }
                 self.rootViewController.displayLoading(text: NSLocalizedString("importing.wallet", value: "Importing wallet", comment: ""), animated: true)
-                KNCrashlyticsUtil.logCustomEvent(withName: "kybercode_check_code_success", customAttributes: nil)
                 self.keystore.importWallet(type: ImportType.privateKey(privateKey: privateKey)) { [weak self] result in
                   guard let `self` = self else { return }
                   self.rootViewController.hideLoading()
@@ -97,7 +95,6 @@ extension KNPromoCodeCoordinator: KNPromoCodeViewControllerDelegate {
                   }
                 }
               } else {
-                KNCrashlyticsUtil.logCustomEvent(withName: "kybercode_check_code_data_error", customAttributes: nil)
                 let error = json["error"] as? String ?? ""
                 self.navigationController.showWarningTopBannerMessage(
                   with: NSLocalizedString("error", value: "Error", comment: ""),
@@ -106,11 +103,9 @@ extension KNPromoCodeCoordinator: KNPromoCodeViewControllerDelegate {
                 )
               }
             } catch let error {
-              KNCrashlyticsUtil.logCustomEvent(withName: "kybercode_check_code_parse_error", customAttributes: nil)
               self.navigationController.displayError(error: error)
             }
           case .failure(let error):
-            KNCrashlyticsUtil.logCustomEvent(withName: "kybercode_check_code_failed", customAttributes: nil)
             self.navigationController.displayError(error: error)
           }
         }

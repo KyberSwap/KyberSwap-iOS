@@ -162,6 +162,14 @@ class ApproveTokenViewController: KNBaseViewController {
   }
 
   @IBAction func approveButtonTapped(_ sender: UIButton) {
+    let ethBalance = KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt()
+    guard self.viewModel.getFee() < ethBalance else {
+      self.showWarningTopBannerMessage(
+        with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),
+        message: NSLocalizedString("balance.not.enough.to.make.transaction", value: "Balance is not enough to make the transaction.", comment: "")
+      )
+      return
+    }
     self.dismiss(animated: true, completion: {
       if let token = self.viewModel.token {
         self.delegate?.approveTokenViewControllerDidApproved(self, token: token, remain: self.viewModel.remain)

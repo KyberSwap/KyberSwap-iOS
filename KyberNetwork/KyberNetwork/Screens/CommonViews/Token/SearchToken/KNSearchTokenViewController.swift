@@ -2,10 +2,12 @@
 
 import UIKit
 import BigInt
+import TrustCore
 
 enum KNSearchTokenViewEvent {
   case cancel
   case select(token: TokenObject)
+  case add(token: TokenObject)
 }
 
 protocol KNSearchTokenViewControllerDelegate: class {
@@ -18,6 +20,11 @@ class KNSearchTokenViewModel {
   var balances: [String: Balance] = [:]
   var searchedText: String = "" {
     didSet {
+      guard Address(string: self.searchedText) == nil else {
+        let tokens = self.checkExistAddress()
+        self.displayedTokens = tokens
+        return
+      }
       self.updateDisplayedTokens()
     }
   }
@@ -30,6 +37,18 @@ class KNSearchTokenViewModel {
   }
 
   var isNoMatchingTokenHidden: Bool { return !self.displayedTokens.isEmpty }
+  
+  @discardableResult
+  func checkExistAddress() -> [TokenObject] {
+    let tokens = self.supportedTokens.filter { (item) -> Bool in
+      return item.address.lowercased() == self.searchedText.lowercased()
+    }
+    return tokens
+  }
+  
+  func checkSearchTextIsAddress() -> Bool {
+    return Address(string: self.searchedText) != nil
+  }
 
   func updateDisplayedTokens() {
     self.displayedTokens = {
@@ -77,7 +96,6 @@ class KNSearchTokenViewController: KNBaseViewController {
   @IBOutlet weak var searchTextField: UITextField!
   @IBOutlet weak var tokensTableView: UITableView!
   @IBOutlet weak var noMatchingTokensLabel: UILabel!
-  
   @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
   @IBOutlet weak var contentView: UIView!
   let transitor = TransitionDelegate()
@@ -140,6 +158,7 @@ class KNSearchTokenViewController: KNBaseViewController {
   fileprivate func searchTextDidChange(_ newText: String) {
     self.viewModel.searchedText = newText
     self.updateUIDisplayedDataDidChange()
+    self.requestTokenInfoIfNeeded()
   }
 
   fileprivate func updateUIDisplayedDataDidChange() {
@@ -157,13 +176,51 @@ class KNSearchTokenViewController: KNBaseViewController {
     self.viewModel.updateBalances(balances)
     self.updateUIDisplayedDataDidChange()
   }
-  
+
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
     self.dismiss(animated: true, completion: nil)
   }
-  
+
   @IBAction func tapInsidePopup(_ sender: UITapGestureRecognizer) {
     print("tap")
+  }
+  
+  fileprivate func requestTokenInfoIfNeeded() {
+    guard Address(string: self.viewModel.searchedText) != nil else {
+      return
+    }
+    guard self.viewModel.checkExistAddress().isEmpty == true else {
+      return
+    }
+    var tokenSymbol = ""
+    var tokenDecimal = ""
+    let group = DispatchGroup()
+    group.enter()
+    KNGeneralProvider.shared.getTokenSymbol(address: self.viewModel.searchedText) { (result) in
+      switch result {
+      case .success(let symbol):
+        tokenSymbol = symbol
+      case .failure(let error):
+        print("[Custom token][Errror] \(error.description)")
+      }
+      group.leave()
+    }
+    group.enter()
+    KNGeneralProvider.shared.getTokenDecimals(address: self.viewModel.searchedText) { (result) in
+      switch result {
+      case .success(let decimals):
+        tokenDecimal = decimals
+      case .failure(let error):
+        print("[Custom token][Errror] \(error.description)")
+      }
+      group.leave()
+    }
+    
+    group.notify(queue: .main) {
+      let tokenObj = TokenObject(name: "", symbol: tokenSymbol, address: self.viewModel.searchedText, decimals: Int(tokenDecimal) ?? 18, logo: "")
+      self.viewModel.displayedTokens = [tokenObj]
+      self.updateUIDisplayedDataDidChange()
+    }
   }
 }
 
@@ -192,7 +249,8 @@ extension KNSearchTokenViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: kSearchTokenTableViewCellID, for: indexPath) as! KNSearchTokenTableViewCell
     let token = self.viewModel.displayedTokens[indexPath.row]
-    cell.updateCell(with: token)
+    let existedToken = (self.viewModel.displayedTokens.count == 1) && self.viewModel.checkSearchTextIsAddress() && self.viewModel.checkExistAddress().isEmpty
+    cell.updateCell(with: token, isExistToken: !existedToken)
     cell.delegate = self
     return cell
   }
@@ -201,6 +259,10 @@ extension KNSearchTokenViewController: UITableViewDataSource {
 extension KNSearchTokenViewController: KNSearchTokenTableViewCellDelegate {
   func searchTokenTableCell(_ cell: KNSearchTokenTableViewCell, didSelect token: TokenObject) {
     self.delegate?.searchTokenViewController(self, run: .select(token: token))
+  }
+  
+  func searchTokenTableCell(_ cell: KNSearchTokenTableViewCell, didAdd token: TokenObject) {
+    self.delegate?.searchTokenViewController(self, run: .add(token: token))
   }
 }
 

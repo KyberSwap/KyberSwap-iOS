@@ -28,7 +28,6 @@ class KNImportWalletCoordinator: Coordinator {
   }
 
   func start() {
-    KNCrashlyticsUtil.logCustomEvent(withName: "screen_import_wallet", customAttributes: nil)
     let importVC: KNImportWalletViewController = {
       let controller = KNImportWalletViewController()
       controller.delegate = self
@@ -52,13 +51,10 @@ extension KNImportWalletCoordinator: KNImportWalletViewControllerDelegate {
     case .back:
       self.stop()
     case .importJSON(let json, let password, let name):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_import_wallet", customAttributes: ["action": "import_JSON"])
       self.importWallet(with: .keystore(string: json, password: password), name: name)
     case .importPrivateKey(let privateKey, let name):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_import_wallet", customAttributes: ["action": "import_PrivateKey"])
       self.importWallet(with: .privateKey(privateKey: privateKey), name: name)
     case .importSeeds(let seeds, let name):
-      KNCrashlyticsUtil.logCustomEvent(withName: "screen_import_wallet", customAttributes: ["action": "import_Seeds"])
       self.importWallet(with: .mnemonic(words: seeds, password: ""), name: name)
     case .sendRefCode(code: let code):
       self.refCode = code
@@ -77,7 +73,6 @@ extension KNImportWalletCoordinator: KNImportWalletViewControllerDelegate {
       self.navigationController.topViewController?.hideLoading()
       switch result {
       case .success(let wallet):
-        KNCrashlyticsUtil.logCustomEvent(withName: "wallet_import_success", customAttributes: ["wallet_type": type.displayString()])
         self.navigationController.showSuccessTopBannerMessage(
           with: NSLocalizedString("wallet.imported", value: "Wallet Imported", comment: ""),
           message: NSLocalizedString("you.have.successfully.imported.a.wallet", value: "You have successfully imported a wallet", comment: ""),

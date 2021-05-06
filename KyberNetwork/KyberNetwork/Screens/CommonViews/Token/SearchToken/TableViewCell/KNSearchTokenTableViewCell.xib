@@ -8,6 +8,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Lato-Bold.ttf">
+            <string>Lato-Bold</string>
+        </array>
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
         </array>
@@ -57,11 +60,23 @@
                         <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xx4-mr-5b3">
+                        <rect key="frame" x="261" y="9.5" width="43" height="25"/>
+                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                        <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                        <state key="normal" title="Add">
+                            <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="tapAddButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2Mn-9B-oa0"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="k4w-jK-t1o" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="0GD-hm-V40"/>
                     <constraint firstItem="NfA-dG-PfF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="21X-Js-vAn"/>
+                    <constraint firstItem="xx4-mr-5b3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Ck3-h0-ZRm"/>
                     <constraint firstAttribute="trailing" secondItem="NfA-dG-PfF" secondAttribute="trailing" id="Dfl-OU-DJj"/>
                     <constraint firstAttribute="trailing" secondItem="h28-7P-YHQ" secondAttribute="trailing" constant="16" id="GF2-Ed-9PS"/>
                     <constraint firstItem="bs2-7M-3Jc" firstAttribute="leading" secondItem="k4w-jK-t1o" secondAttribute="trailing" constant="12" id="IuO-XF-C7v"/>
@@ -73,17 +88,19 @@
                     <constraint firstItem="NfA-dG-PfF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Zav-sK-nWq"/>
                     <constraint firstAttribute="bottom" secondItem="NfA-dG-PfF" secondAttribute="bottom" id="sR0-3h-SO5"/>
                     <constraint firstItem="OON-I9-qX1" firstAttribute="leading" secondItem="bs2-7M-3Jc" secondAttribute="trailing" constant="20" id="v5L-DL-JWb"/>
+                    <constraint firstAttribute="trailing" secondItem="xx4-mr-5b3" secondAttribute="trailing" constant="16" id="zLR-bE-5Gy"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="addButton" destination="xx4-mr-5b3" id="Yju-64-7mr"/>
                 <outlet property="balanceLabel" destination="h28-7P-YHQ" id="dDM-x0-kEZ"/>
                 <outlet property="iconImageView" destination="k4w-jK-t1o" id="48g-Lp-86H"/>
                 <outlet property="tokenNameLabel" destination="OON-I9-qX1" id="h8z-cW-dua"/>
                 <outlet property="tokenSymbolLabel" destination="bs2-7M-3Jc" id="42G-L3-ihG"/>
             </connections>
-            <point key="canvasLocation" x="139" y="117"/>
+            <point key="canvasLocation" x="137.59999999999999" y="116.94152923538232"/>
         </tableViewCell>
     </objects>
     <resources>

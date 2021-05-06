@@ -131,77 +131,62 @@ class KNSettingsTabViewController: KNBaseViewController {
   
 
   @IBAction func manageWalletButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_manage_wallet", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .manageWallet)
   }
 
   @IBAction func manageAlertsButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_manage_alert", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .manageAlerts)
   }
 
   @IBAction func notificationsButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_alert_method", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .alertMethods)
   }
 
   @IBAction func contactButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_contact", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .contact)
   }
 
   @IBAction func supportButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_support", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .support)
   }
 
   @IBAction func changePasscodeButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_change_pin", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .changePIN)
   }
 
   @IBAction func aboutButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_get_started", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .about)
   }
 
   @IBAction func communityButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .community)
   }
 
   @IBAction func shareWithFriendButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_shareapp", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .shareWithFriends)
   }
 
   @IBAction func telegramButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "telegram group"])
     self.delegate?.settingsTabViewController(self, run: .telegram)
   }
 
   @IBAction func githubButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "github"])
     self.delegate?.settingsTabViewController(self, run: .github)
   }
 
   @IBAction func twitterButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "twitter"])
     self.delegate?.settingsTabViewController(self, run: .twitter)
   }
 
   @IBAction func facebookButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "facebook"])
     self.delegate?.settingsTabViewController(self, run: .facebook)
   }
 
   @IBAction func mediumButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "medium"])
     self.delegate?.settingsTabViewController(self, run: .medium)
   }
 
   @IBAction func linkedInButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_community", customAttributes: ["community_icon": "linkedin"])
     self.delegate?.settingsTabViewController(self, run: .linkedIn)
   }
 
@@ -210,12 +195,10 @@ class KNSettingsTabViewController: KNBaseViewController {
   }
 
   @IBAction func rateOurAppButtonPressed(_ sender: Any) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_rating", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .rateOurApp)
   }
 
   @IBAction func liveChatButtonPressed(_ sender: UIButton) {
-    KNCrashlyticsUtil.logCustomEvent(withName: "setting_livechat", customAttributes: nil)
     self.delegate?.settingsTabViewController(self, run: .liveChat)
   }
   
