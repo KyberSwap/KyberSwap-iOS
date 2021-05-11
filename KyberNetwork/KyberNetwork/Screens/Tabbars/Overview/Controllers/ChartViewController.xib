@@ -290,8 +290,8 @@
                                             <color key="textColor" red="0.64313725489999995" green="0.6705882353" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncE-iU-gdT">
-                                            <rect key="frame" x="0.0" y="18" width="38.5" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ncE-iU-gdT">
+                                            <rect key="frame" x="0.0" y="18" width="65.5" height="26"/>
                                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -300,6 +300,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="ncE-iU-gdT" firstAttribute="leading" secondItem="b44-hv-Wee" secondAttribute="leading" id="4Ff-Vk-q48"/>
+                                        <constraint firstAttribute="trailing" secondItem="ncE-iU-gdT" secondAttribute="trailing" id="F5d-Mz-L96"/>
                                         <constraint firstAttribute="trailing" secondItem="b44-hv-Wee" secondAttribute="trailing" id="QCM-xD-wiL"/>
                                         <constraint firstItem="b44-hv-Wee" firstAttribute="top" secondItem="fW9-5B-7k6" secondAttribute="top" id="UWU-ck-8rf"/>
                                         <constraint firstAttribute="bottom" secondItem="ncE-iU-gdT" secondAttribute="bottom" id="UnP-cB-YBY"/>
@@ -317,8 +318,8 @@
                                             <color key="textColor" red="0.64313725489999995" green="0.6705882353" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZFU-cs-HXo">
-                                            <rect key="frame" x="0.0" y="18" width="38.5" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZFU-cs-HXo">
+                                            <rect key="frame" x="0.0" y="18" width="66" height="26"/>
                                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -330,6 +331,7 @@
                                         <constraint firstAttribute="trailing" secondItem="OC9-lv-LcJ" secondAttribute="trailing" id="80t-4y-dxx"/>
                                         <constraint firstItem="ZFU-cs-HXo" firstAttribute="leading" secondItem="OC9-lv-LcJ" secondAttribute="leading" id="Cjg-U2-rOZ"/>
                                         <constraint firstAttribute="bottom" secondItem="ZFU-cs-HXo" secondAttribute="bottom" id="Jo5-Z0-LtT"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZFU-cs-HXo" secondAttribute="trailing" id="dyK-AF-mq4"/>
                                         <constraint firstItem="OC9-lv-LcJ" firstAttribute="leading" secondItem="afc-Pp-tpw" secondAttribute="leading" id="mkt-rL-pfp"/>
                                         <constraint firstItem="OC9-lv-LcJ" firstAttribute="top" secondItem="afc-Pp-tpw" secondAttribute="top" id="ov9-si-z22"/>
                                         <constraint firstItem="ZFU-cs-HXo" firstAttribute="top" secondItem="OC9-lv-LcJ" secondAttribute="bottom" constant="6" id="q8O-HZ-fqb"/>
@@ -344,8 +346,8 @@
                                             <color key="textColor" red="0.64313725489999995" green="0.6705882353" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSV-g5-nVV">
-                                            <rect key="frame" x="0.0" y="18" width="38.5" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mSV-g5-nVV">
+                                            <rect key="frame" x="0.0" y="18" width="65.5" height="26"/>
                                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -357,6 +359,7 @@
                                         <constraint firstAttribute="height" constant="44" id="33l-4a-JR9"/>
                                         <constraint firstItem="mSV-g5-nVV" firstAttribute="leading" secondItem="7Vn-RI-LEB" secondAttribute="leading" id="Ahl-Fu-jQX"/>
                                         <constraint firstItem="7Vn-RI-LEB" firstAttribute="top" secondItem="dMK-2I-i3Z" secondAttribute="top" id="ElA-3i-egT"/>
+                                        <constraint firstAttribute="trailing" secondItem="mSV-g5-nVV" secondAttribute="trailing" id="J1v-xz-Lmf"/>
                                         <constraint firstItem="7Vn-RI-LEB" firstAttribute="leading" secondItem="dMK-2I-i3Z" secondAttribute="leading" id="Jg0-Zj-1f6"/>
                                         <constraint firstAttribute="bottom" secondItem="mSV-g5-nVV" secondAttribute="bottom" id="dMC-Yn-ntZ"/>
                                         <constraint firstAttribute="trailing" secondItem="7Vn-RI-LEB" secondAttribute="trailing" id="lZg-V7-Uy2"/>

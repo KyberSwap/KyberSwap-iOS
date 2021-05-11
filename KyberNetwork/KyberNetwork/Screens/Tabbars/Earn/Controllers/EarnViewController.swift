@@ -421,7 +421,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
     if self.viewModel.selectedPlatform == "Compound" {
       self.compInfoLabel.text = self.viewModel.displayCompInfo
       self.compInfoMessageContainerView.isHidden = false
-      self.sendButtonTopContraint.constant = 127
+      self.sendButtonTopContraint.constant = 150
     } else {
       self.compInfoMessageContainerView.isHidden = true
       self.sendButtonTopContraint.constant = 30
@@ -717,17 +717,7 @@ extension EarnViewController: UITextFieldDelegate {
 
   fileprivate func showWarningInvalidAmountDataIfNeeded(isConfirming: Bool = false) -> Bool {
     if !isConfirming && self.isViewDisappeared { return false }
-//    if isConfirming {
-//      guard self.viewModel.isHavingEnoughETHForFee else {
-//        let fee = self.viewModel.ethFeeBigInt
-//        self.showWarningTopBannerMessage(
-//          with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
-//          message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
-//        )
-//        return true
-//      }
-//    }
-    //TODO: check fee is vaild
+
     guard !self.viewModel.amount.isEmpty else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("invalid.input", value: "Invalid input", comment: ""),
@@ -749,13 +739,20 @@ extension EarnViewController: UITextFieldDelegate {
       )
       return true
     }
-    
+  
     if isConfirming {
       guard self.viewModel.isHavingEnoughETHForFee else {
         let fee = self.viewModel.gasFeeBigInt
         self.showWarningTopBannerMessage(
           with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
           message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
+        )
+        return true
+      }
+      guard EtherscanTransactionStorage.shared.isContainInsternalSendTransaction() == false else {
+        self.showWarningTopBannerMessage(
+          with: "",
+          message: "Please wait for transaction is completed"
         )
         return true
       }

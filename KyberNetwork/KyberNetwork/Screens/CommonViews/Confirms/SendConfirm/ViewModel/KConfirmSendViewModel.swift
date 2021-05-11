@@ -40,6 +40,12 @@ struct KConfirmSendViewModel {
     let address = transaction.to?.description ?? ""
     return "\(address.prefix(20))...\(address.suffix(8))"
   }
+  
+  var shortAddress: String {
+    let address = transaction.to?.description ?? ""
+    return "\(address.prefix(6))...\(address.suffix(6))"
+  }
+  
 
   var totalAmountString: String {
     let string = self.transaction.value.string(

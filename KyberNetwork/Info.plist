@@ -180,6 +180,8 @@
 	<string>Sending QR Code to your contacts</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Sending QR Code to your contacts</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>Your data will be used to improve and personalize your experience</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Montserrat-ThinItalic.ttf</string>

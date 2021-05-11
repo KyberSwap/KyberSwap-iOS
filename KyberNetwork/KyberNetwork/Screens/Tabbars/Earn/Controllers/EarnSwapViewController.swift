@@ -41,7 +41,7 @@ class EarnSwapViewModel {
   var remainApprovedAmount: (TokenData, BigInt)?
   var latestNonce: Int = -1
   var refPrice: (TokenData, TokenData, String, [String])
-  fileprivate(set) var minRatePercent: Double = 0.5
+  fileprivate(set) var minRatePercent: Double = 1.0
   var gasPriceSelectedAmount: (String, String) = ("", "")
   var approvingToken: TokenObject?
 
@@ -560,7 +560,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     if self.viewModel.selectedPlatform == "Compound" {
       self.compInfoLabel.text = self.viewModel.displayCompInfo
       self.compInfoMessageContainerView.isHidden = false
-      self.sendButtonTopContraint.constant = 127
+      self.sendButtonTopContraint.constant = 150
     } else {
       self.compInfoMessageContainerView.isHidden = true
       self.sendButtonTopContraint.constant = 30
@@ -1077,6 +1077,13 @@ extension EarnSwapViewController: UITextFieldDelegate {
         self.showWarningTopBannerMessage(
           with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
           message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
+        )
+        return true
+      }
+      guard EtherscanTransactionStorage.shared.isContainInsternalSendTransaction() == false else {
+        self.showWarningTopBannerMessage(
+          with: "",
+          message: "Please wait for transaction is completed"
         )
         return true
       }

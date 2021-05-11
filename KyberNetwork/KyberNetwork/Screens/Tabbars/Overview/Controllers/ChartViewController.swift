@@ -52,9 +52,9 @@ class ChartViewModel {
       return "---"
     }
     if self.currency == "eth" {
-      return "\(unwrapped.usd) ETH"
+      return "\(unwrapped.eth) ETH"
     } else if self.currency == "btc" {
-      return "\(unwrapped.usd) BTC"
+      return "\(unwrapped.btc) BTC"
     } else {
       return "$\(unwrapped.usd)"
     }
@@ -62,7 +62,7 @@ class ChartViewModel {
 
   var display24hVol: String {
     guard let lastVol = self.chartData?.totalVolumes.last?[1] else { return "---" }
-    return "\(self.formatPoints(lastVol)) \(self.token.symbol.uppercased())"
+    return "\(self.formatPoints(lastVol)) \(self.currency.uppercased())"
   }
   
   var displayDiffPercent: String {

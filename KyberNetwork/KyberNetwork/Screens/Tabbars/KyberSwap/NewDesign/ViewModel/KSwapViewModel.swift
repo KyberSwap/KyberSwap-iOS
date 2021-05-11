@@ -35,7 +35,7 @@ class KSwapViewModel {
 
   fileprivate(set) var estRate: BigInt?
   fileprivate(set) var slippageRate: BigInt?
-  fileprivate(set) var minRatePercent: Double = 0.5
+  fileprivate(set) var minRatePercent: Double = 1.0
 
   var isSwapAllBalance: Bool = false
   var isTappedSwapAllBalance: Bool = false
@@ -178,25 +178,6 @@ class KSwapViewModel {
       maxFractionDigits: self.from.decimals
     ).removeGroupSeparator()
   }
-//TODO: remove due to cached rate is removed now
-//  var percentageRateDiff: Double {
-//    guard let rate = self.cachedProdRate ?? KNRateCoordinator.shared.getCachedProdRate(from: self.from, to: self.to), !rate.isZero else {
-//      return 0.0
-//    }
-//    if self.estimatedRateDouble == 0.0 { return 0.0 }
-//    let marketRateDouble = Double(rate) / pow(10.0, Double(self.to.decimals))
-//    let change = (self.estimatedRateDouble - marketRateDouble) / marketRateDouble * 100.0
-//    if change > -5.0 { return 0.0 }
-//    return change
-//  }
-
-//  var differentRatePercentageDisplay: String? {
-//    if self.amountFromBigInt.isZero { return nil }
-//    let change = self.percentageRateDiff
-//    if change >= -5.0 { return nil }
-//    let display = NumberFormatterUtil.shared.displayPercentage(from: fabs(change))
-//    return "\(display)%"
-//  }
 
   // MARK: To Token
   var amountToBigInt: BigInt {
@@ -228,11 +209,7 @@ class KSwapViewModel {
     guard !self.amountFromBigInt.isZero else {
       return ""
     }
-//    let rate: BigInt? = {
-//      if let rate = self.estRate, !rate.isZero { return rate }
-//      return KNRateCoordinator.shared.getCachedProdRate(from: self.from, to: self.to)
-//    }()
-//    guard let expectedRate = rate else { return "" }
+
     let expectedRate = self.getCurrentRate() ?? BigInt(0)
     let expectedAmount: BigInt = {
       let amount = self.amountFromBigInt

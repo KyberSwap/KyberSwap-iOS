@@ -108,7 +108,7 @@ class KConfirmSendViewController: KNBaseViewController {
       symbol = token.symbol
     }
     let historyTransaction = InternalHistoryTransaction(type: type, state: .pending, fromSymbol: symbol, toSymbol: nil, transactionDescription: "-\(self.viewModel.totalAmountString)", transactionDetailDescription: "", transactionObj: SignTransactionObject(value: "", from: "", to: "", nonce: 0, data: Data(), gasPrice: "", gasLimit: "", chainID: 0))
-    historyTransaction.transactionSuccessDescription = "-\(self.viewModel.totalAmountString) to \(self.viewModel.address.lowercased())"
+    historyTransaction.transactionSuccessDescription = "-\(self.viewModel.totalAmountString) to \(self.viewModel.shortAddress.lowercased())"
     let event = KConfirmViewEvent.confirm(type: KNTransactionType.transfer(self.viewModel.transaction), historyTransaction: historyTransaction)
     self.delegate?.kConfirmSendViewController(self, run: event)
   }

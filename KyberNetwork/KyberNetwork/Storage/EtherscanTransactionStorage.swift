@@ -54,7 +54,7 @@ class EtherscanTransactionStorage {
   func getTokenTransaction() -> [EtherscanTokenTransaction] {
     return self.tokenTransactions
   }
-  
+
   func getInternalTransaction() -> [EtherscanInternalTransaction] {
     return self.internalTransaction
   }
@@ -72,13 +72,29 @@ class EtherscanTransactionStorage {
       if !self.tokenTransactions.contains(item) {
         newTx.append(item)
       }
+      self.checkRemoveInternalHistoryTransaction(item.hash)
     }
     guard !newTx.isEmpty else {
       return
     }
+    
     let result = newTx + self.tokenTransactions
     Storage.store(result, as: unwrapped.address.description + Constants.etherscanTokenTransactionsStoreFileName)
     self.tokenTransactions = result
+  }
+  
+  fileprivate func checkRemoveInternalHistoryTransaction(_ hash: String) {
+    let pendingHash = self.internalHistoryTransactions.map { $0.hash.lowercased() }
+    if pendingHash.contains(hash.lowercased()) {
+      let transaction = self.getInternalHistoryTransactionWithHash(hash.lowercased())
+      KNNotificationUtil.postNotification(
+        for: kTransactionDidUpdateNotificationKey,
+        object: transaction,
+        userInfo: nil
+      )
+      
+      self.removeInternalHistoryTransactionWithHash(hash.lowercased())
+    }
   }
 
   func appendInternalTransactions(_ transactions: [EtherscanInternalTransaction]) {
@@ -90,6 +106,7 @@ class EtherscanTransactionStorage {
       if !self.internalTransaction.contains(item) {
         newTx.append(item)
       }
+      self.checkRemoveInternalHistoryTransaction(item.hash)
     }
     guard !newTx.isEmpty else {
       return
@@ -108,6 +125,7 @@ class EtherscanTransactionStorage {
       if !self.transactions.contains(item) {
         newTx.append(item)
       }
+      self.checkRemoveInternalHistoryTransaction(item.hash)
     }
     guard !newTx.isEmpty else {
       return
@@ -209,6 +227,13 @@ class EtherscanTransactionStorage {
       object: tx,
       userInfo: nil
     )
+  }
+
+  func isContainInsternalSendTransaction() -> Bool {
+    let result = self.internalHistoryTransactions.first { (item) -> Bool in
+      return item.type == .transferETH || item.type == .transferToken || item.type == .swap || item.type == .earn
+    }
+    return result != nil
   }
 
   func getInternalHistoryTransactionWithHash(_ hash: String) -> InternalHistoryTransaction? {

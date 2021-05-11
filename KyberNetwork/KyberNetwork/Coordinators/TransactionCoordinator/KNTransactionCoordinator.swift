@@ -458,6 +458,9 @@ extension KNTransactionCoordinator {
                 userInfo: nil
               )
             case .resultObjectParseError:
+              guard transaction.time.addingTimeInterval(600) > Date() else {
+                return
+              }
               transaction.state = .drop
               EtherscanTransactionStorage.shared.removeInternalHistoryTransactionWithHash(transaction.hash)
               KNNotificationUtil.postNotification(

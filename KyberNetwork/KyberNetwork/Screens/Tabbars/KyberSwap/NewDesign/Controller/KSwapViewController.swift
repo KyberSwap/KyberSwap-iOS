@@ -523,15 +523,16 @@ class KSwapViewController: KNBaseViewController {
         )
         return true
       }
+      guard EtherscanTransactionStorage.shared.isContainInsternalSendTransaction() == false else {
+        self.showWarningTopBannerMessage(
+          with: "",
+          message: "Please wait for transaction is completed"
+        )
+        return true
+      }
     }
     return false
   }
-
-//  @objc func notificationReachabilityDidUpdate(notification: Notification) {
-//    guard self.isViewSetup else {
-//      return
-//    }
-//  }
 
   @IBAction func gasPriceSelectButtonTapped(_ sender: UIButton) {
     let event = KSwapViewEvent.openGasPriceSelect(
