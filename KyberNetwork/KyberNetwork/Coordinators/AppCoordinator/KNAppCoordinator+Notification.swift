@@ -43,6 +43,14 @@ extension KNAppCoordinator {
       name: openExchangeName,
       object: nil
     )
+    
+    let newRecevieName = Notification.Name(kNewReceivedTransactionKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.handleNewReceiveTx(_:)),
+      name: newRecevieName,
+      object: nil
+    )
   }
 
   func addInternalObserveNotification() {
@@ -220,8 +228,7 @@ extension KNAppCoordinator {
     self.earnCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
     self.investCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
     self.settingsCoordinator?.appCoordinatorPendingTransactionsDidUpdate()
-    
-    
+
     let updateOverview = self.overviewTabCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     let updateExchange = self.exchangeCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     let updateEarn = self.earnCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
@@ -387,18 +394,13 @@ extension KNAppCoordinator {
 //        }
 //      }
 //    }
-    
-    
-    
   }
 
   @objc func tokenTransactionListDidUpdate(_ sender: Any?) {
     if self.session == nil { return }
     self.exchangeCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
-    
     self.overviewTabCoordinator?.appCoordinatorDidUpdateTokenList()
     self.earnCoordinator?.appCoordinatorTokensTransactionsDidUpdate()
-    //TODO: add all coordinator update completed tx
   }
 
   @objc func tokenObjectListDidUpdate(_ sender: Any?) {
@@ -434,5 +436,35 @@ extension KNAppCoordinator {
       UserDefaults.standard.set(dict, forKey: KNAppTracker.kSavedRestoreIDForLiveChat)
     }
     Freshchat.sharedInstance().identifyUser(withExternalID: externalID, restoreID: restoreId)
+  }
+  
+  @objc func handleNewReceiveTx(_ sender: Notification) {
+    guard let transaction = sender.object as? HistoryTransaction else { return }
+    
+    if transaction.type == .receiveETH {
+      if let internalTx = transaction.transacton.first, let amount = BigInt(internalTx.value) {
+        let message = "You have received \(amount.shortString(decimals: 18)) ETH from \(internalTx.from)"
+        self.tabbarController.showTopBannerView(message: message)
+      }
+    }
+    
+    if transaction.type == .receiveToken {
+      if let tokenTx = transaction.tokenTransactions.first, let amount = BigInt(tokenTx.value), let decimals = Int(tokenTx.tokenDecimal) {
+        let message = "You have received \(amount.shortString(decimals: decimals)) \(tokenTx.tokenSymbol) from \(tokenTx.from)"
+        self.tabbarController.showTopBannerView(message: message)
+      }
+    }
+    
+    if transaction.type == .earn {
+      let tokenTx = transaction.tokenTransactions.first { (tx) -> Bool in
+        let address = self.session.wallet.address
+        return tx.to.lowercased() == address.description.lowercased()
+      }
+
+      if let unwrapped = tokenTx, let amount = BigInt(unwrapped.value), let decimals = Int(unwrapped.tokenDecimal) {
+        let message = "You have received \(amount.shortString(decimals: decimals)) \(unwrapped.tokenSymbol) from Suppying"
+        self.tabbarController.showTopBannerView(message: message)
+      }
+    }
   }
 }

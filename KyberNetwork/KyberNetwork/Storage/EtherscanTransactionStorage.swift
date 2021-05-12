@@ -169,6 +169,10 @@ class EtherscanTransactionStorage {
     guard let unwrapped = self.wallet else {
       return
     }
+    
+    let storedHashs = self.historyTransactionModel.map { $0.hash }
+    
+    
     var historyModel: [HistoryTransaction] = []
     self.getTransaction().forEach { (transaction) in
       var type = HistoryModelType.typeFromInput(transaction.input)
@@ -205,10 +209,26 @@ class EtherscanTransactionStorage {
     historyModel.sort { (left, right) -> Bool in
       return left.timestamp > right.timestamp
     }
+    
+    var newestTxs: [HistoryTransaction] = []
+    historyModel.forEach { (txItem) in
+      if !storedHashs.contains(txItem.hash) {
+        newestTxs.append(txItem)
+      }
+    }
+    
+    print("[ESStorage][NewTX] \(newestTxs)")
+    
     self.historyTransactionModel = historyModel
     Storage.store(self.historyTransactionModel, as: unwrapped.address.description + Constants.historyTransactionsStoreFileName)
     DispatchQueue.main.async {
       KNNotificationUtil.postNotification(for: kTokenTransactionListDidUpdateNotificationKey)
+      
+      newestTxs.forEach { (item) in
+        if item.type == .receiveETH || item.type == .receiveToken || item.type == .earn {
+          KNNotificationUtil.postNotification(for: kNewReceivedTransactionKey, object: item)
+        }
+      }
     }
   }
 

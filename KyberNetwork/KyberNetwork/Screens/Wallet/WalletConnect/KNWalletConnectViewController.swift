@@ -44,18 +44,11 @@ class KNWalletConnectViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
     let address = self.knSession.wallet.address.description
     self.addressLabel.text = "\(address.prefix(12))...\(address.suffix(10))"
     self.urlLabel.text = ""
     self.connectionStatusLabel.text = ""
     self.connect(session: self.wcSession)
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.headerContainerView.removeSublayer(at: 0)
-    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
 
   override func viewDidDisappear(_ animated: Bool) {

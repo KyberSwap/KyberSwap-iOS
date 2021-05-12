@@ -303,6 +303,17 @@ struct HistoryTransaction: Codable {
   var date: Date {
     return Date(timeIntervalSince1970: Double(self.timestamp) ?? 0)
   }
+  
+  var hash: String {
+    if let tx = transacton.first {
+      return tx.hash
+    } else if let internalTx = self.internalTransactions.first {
+      return internalTx.hash
+    } else if let tokenTx = self.tokenTransactions.first {
+      return tokenTx.hash
+    }
+    return ""
+  }
 }
 
 struct InternalListResponse: Codable {
