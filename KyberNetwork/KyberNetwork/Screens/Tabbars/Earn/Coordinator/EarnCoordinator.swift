@@ -215,6 +215,11 @@ class EarnCoordinator: NSObject, Coordinator {
     self.earnViewController?.coordinatorUpdateTokenBalance(self.balances)
     self.navigationController.pushViewController(controller, animated: true)
   }
+  
+  func appCoordinatorDidUpdateChain() {
+    self.navigationController.popToRootViewController(animated: false)
+    self.rootViewController.coordinatorDidUpdateChain()
+  }
 }
 
 extension EarnCoordinator: EarnMenuViewControllerDelegate {

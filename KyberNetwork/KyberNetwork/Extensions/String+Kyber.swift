@@ -159,4 +159,8 @@ extension String {
   func paddingString() -> String {
     return "  " + self + "  "
   }
+  
+  func isNativeAddress() -> Bool {
+    return self.lowercased() == Constants.ethAddress || self.lowercased() == Constants.bnbAddress
+  }
 }

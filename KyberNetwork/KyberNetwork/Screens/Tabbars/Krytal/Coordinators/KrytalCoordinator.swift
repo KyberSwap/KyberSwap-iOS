@@ -232,7 +232,7 @@ extension KrytalCoordinator: KrytalHistoryViewControllerDelegate {
     case .openWalletList:
       self.openWalletListView()
     case .select(hash: let hash):
-    self.navigationController.openSafari(with: KNEnvironment.default.etherScanIOURLString + "tx/\(hash)")
+    self.navigationController.openSafari(with: KNGeneralProvider.shared.customRPC.etherScanEndpoint + "tx/\(hash)")
     }
   }
 }

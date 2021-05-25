@@ -217,7 +217,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
   @IBAction func openTransactionDetailsPressed(_ sender: Any) {
     self.dismiss(animated: true) {
-      let urlString = KNEnvironment.default.etherScanIOURLString + "tx/\(self.transaction.hash)"
+      let urlString = KNGeneralProvider.shared.customRPC.etherScanEndpoint + "tx/\(self.transaction.hash)"
       self.delegate?.transactionStatusPopUp(self, action: .openLink(url: urlString))
     }
   }

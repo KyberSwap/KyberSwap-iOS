@@ -20,9 +20,9 @@ class KNSupportedTokenStorage {
   
   
   init() {
-    self.supportedToken = Storage.retrieve(Constants.tokenStoreFileName, as: [Token].self) ?? []
-    self.favedTokens = Storage.retrieve(Constants.favedTokenStoreFileName, as: [FavedToken].self) ?? []
-    self.customTokens = Storage.retrieve(Constants.customTokenStoreFileName, as: [Token].self) ?? []
+    self.supportedToken = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.tokenStoreFileName, as: [Token].self) ?? []
+    self.favedTokens = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.favedTokenStoreFileName, as: [FavedToken].self) ?? []
+    self.customTokens = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName, as: [Token].self) ?? []
   }
 
   //TODO: temp wrap method delete later
@@ -50,6 +50,20 @@ class KNSupportedTokenStorage {
     } ?? Token(name: "KyberNetwork", symbol: "WETH", address: "0xdd974d5c2e2928dea5f71b9825b8b646686bd200", decimals: 18, logo: "knc")
     return token.toObject()
   }
+  
+  var bnbToken: TokenObject {
+    let token = self.supportedToken.first { (token) -> Bool in
+      return token.symbol == "BNB"
+    } ?? Token(name: "BNB", symbol: "BNB", address: "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", decimals: 18, logo: "bnb")
+    return token.toObject()
+  }
+  
+  var busdToken: TokenObject {
+    let token = self.supportedToken.first { (token) -> Bool in
+      return token.symbol == "BUSD"
+    } ?? Token(name: "BUSD", symbol: "BUSD", address: "0xa2d2b501e6788158da07fa7e14dee9f2c5a01054", decimals: 18, logo: "")
+    return token.toObject()
+  }
 
   func get(forPrimaryKey key: String) -> TokenObject? {
     let token = self.getTokenWith(address: key)
@@ -57,8 +71,8 @@ class KNSupportedTokenStorage {
   }
   //MARK:-new data type implemetation
   func reloadData() {
-    self.supportedToken = Storage.retrieve(Constants.tokenStoreFileName, as: [Token].self) ?? []
-    self.customTokens = Storage.retrieve(Constants.customTokenStoreFileName, as: [Token].self) ?? []
+    self.supportedToken = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.tokenStoreFileName, as: [Token].self) ?? []
+    self.customTokens = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName, as: [Token].self) ?? []
   }
   
   func getSupportedTokens() -> [Token] {
@@ -66,7 +80,7 @@ class KNSupportedTokenStorage {
   }
 
   func updateSupportedTokens(_ tokens: [Token]) {
-    Storage.store(tokens, as: Constants.tokenStoreFileName)
+    Storage.store(tokens, as: KNEnvironment.default.envPrefix + Constants.tokenStoreFileName)
     self.supportedToken = tokens
   }
 
@@ -95,12 +109,12 @@ class KNSupportedTokenStorage {
       let newStatus = FavedToken(address: address, status: status)
       self.favedTokens.append(newStatus)
     }
-    Storage.store(self.favedTokens, as: Constants.favedTokenStoreFileName)
+    Storage.store(self.favedTokens, as: KNEnvironment.default.envPrefix + Constants.favedTokenStoreFileName)
   }
   
   func saveCustomToken(_ token: Token) {
     self.customTokens.append(token)
-    Storage.store(self.customTokens, as: Constants.customTokenStoreFileName)
+    Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
   }
 
   func isTokenSaved(_ token: Token) -> Bool {
@@ -108,7 +122,7 @@ class KNSupportedTokenStorage {
     let saved = tokens.first { (item) -> Bool in
       return item.address.lowercased() == token.address.lowercased()
     }
-  
+
     return saved != nil
   }
 
@@ -127,7 +141,7 @@ class KNSupportedTokenStorage {
       return token.address.lowercased() == address.lowercased()
     }) else { return }
     self.customTokens.remove(at: index)
-    Storage.store(self.customTokens, as: Constants.customTokenStoreFileName)
+    Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
   }
   
   func editCustomToken(address: String, newAddress: String, symbol: String, decimal: Int) {
@@ -135,7 +149,7 @@ class KNSupportedTokenStorage {
     token.address = newAddress
     token.symbol = symbol
     token.decimals = decimal
-    Storage.store(self.customTokens, as: Constants.customTokenStoreFileName)
+    Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
   }
   
   func getAllTokenObject() -> [TokenObject] {

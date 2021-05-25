@@ -283,7 +283,7 @@ class KSendTokenViewController: KNBaseViewController {
 
   @objc func ensAddressDidTapped(_ sender: Any?) {
     if let addr = self.viewModel.address?.description,
-      let url = URL(string: "\(KNEnvironment.default.etherScanIOURLString)address/\(addr)") {
+       let url = URL(string: "\(KNGeneralProvider.shared.customRPC.etherScanEndpoint)address/\(addr)") {
       self.openSafari(with: url)
     }
   }

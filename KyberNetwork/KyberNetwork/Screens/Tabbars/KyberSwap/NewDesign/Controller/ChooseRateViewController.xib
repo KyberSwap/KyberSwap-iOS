@@ -24,7 +24,11 @@
                 <outlet property="feeKyberTitleLabel" destination="5R4-zm-oZ7" id="yjK-zv-zzk"/>
                 <outlet property="feeUniLabel" destination="ePO-ON-1TM" id="uup-8P-XFX"/>
                 <outlet property="feeUniTitleLabel" destination="kLb-gs-7m2" id="hC0-ht-Geq"/>
+                <outlet property="firstPlatformIconImage" destination="at0-tg-x6A" id="u8z-cM-Vhu"/>
+                <outlet property="firstplatformNameLabel" destination="uQc-34-cLf" id="deO-x9-rbt"/>
                 <outlet property="kyberRateLabel" destination="jZ9-b0-ZHi" id="N1I-xP-ucB"/>
+                <outlet property="secondPlatformIconImage" destination="XLq-Sx-FAw" id="TQG-xt-NzI"/>
+                <outlet property="secondPlatformLabel" destination="Jqm-Sg-SoY" id="Uw8-zz-0pP"/>
                 <outlet property="uniRateLabel" destination="s6N-sO-zhz" id="ecD-6R-Cu0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

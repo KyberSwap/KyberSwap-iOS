@@ -139,6 +139,10 @@ class InvestCoordinator: Coordinator {
     if self.sendCoordinator?.coordinatorDidUpdateTransaction(tx) == true { return true }
     return false
   }
+  
+  func appCoordinatorDidUpdateChain() {
+    self.rootViewController.coordinatorDidUpdateChain()
+  }
 }
 
 extension InvestCoordinator: InvestViewControllerDelegate {

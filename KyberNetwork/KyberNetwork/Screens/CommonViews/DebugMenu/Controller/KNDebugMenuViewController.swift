@@ -70,16 +70,15 @@ class KNDebugMenuViewController: KNBaseViewController {
   }
 
   fileprivate func updateEnvironmentData() {
-    self.environmentEndpointLabel.text = self.newEnvironment.knCustomRPC?.customRPC.endpoint
-    self.envNetworkAddressLabel.text = "Network Address: \(self.newEnvironment.knCustomRPC?.networkAddress ?? "")"
-    self.envReserveAddressLabel.text = "Reserve Address: \(self.newEnvironment.knCustomRPC?.reserveAddress ?? "")"
+//    self.environmentEndpointLabel.text = self.newEnvironment.knCustomRPC?.customRPC.endpoint
+//    self.envNetworkAddressLabel.text = "Network Address: \(self.newEnvironment.knCustomRPC?.networkAddress ?? "")"
   }
 
   private func handleEnviromentChangedIfNeeded() {
     if self.newEnvironment == self.environment { return }
     // update list wallets
     let newRealm: Realm = {
-      let config = RealmConfiguration.globalConfiguration(for: self.newEnvironment.chainID)
+      let config = RealmConfiguration.globalConfiguration(for: KNGeneralProvider.shared.customRPC.chainID)
       return try! Realm(configuration: config)
     }()
     let newWallets = KNWalletStorage.shared.wallets.map({ return $0.copy(withNewName: $0.name) })

@@ -364,6 +364,7 @@ class KSwapViewModel {
   }
 
   var gasFeeString: String {
+    let sourceToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
     let fee = self.gasPrice * self.estimateGasLimit
     let feeString: String = fee.displayRate(decimals: 18)
     var typeString = ""
@@ -379,12 +380,22 @@ class KSwapViewModel {
     default:
       break
     }
-    return "Gas fee: \(feeString) ETH (\(typeString))"
+    return "Gas fee: \(feeString) \(sourceToken) (\(typeString))"
   }
 
   var slippageString: String {
     let doubleStr = String(format: "%.2f", self.minRatePercent)
     return "Slippage: \(doubleStr)%"
+  }
+  
+  func resetDefaultTokensPair() {
+    if KNGeneralProvider.shared.isEthereum {
+      self.from = self.eth
+      self.to = self.knc
+    } else {
+      self.from = KNSupportedTokenStorage.shared.bnbToken
+      self.to = KNSupportedTokenStorage.shared.busdToken
+    }
   }
 
   // MARK: Update data
@@ -393,8 +404,7 @@ class KSwapViewModel {
     let address = wallet.address.description
     self.walletObject = KNWalletStorage.shared.get(forPrimaryKey: address) ?? KNWalletObject(address: address)
 
-    self.from = self.eth
-    self.to = self.knc
+    self.resetDefaultTokensPair()
 
     self.amountFrom = ""
     self.amountTo = ""
@@ -695,7 +705,7 @@ class KSwapViewModel {
         data: Data(hex: object.data.drop0x),
         gasPrice: gasPrice,
         gasLimit: gasLimit,
-        chainID: KNEnvironment.default.chainID
+        chainID: KNGeneralProvider.shared.customRPC.chainID
       )
     } else {
       //TODO: handle watch wallet type

@@ -272,6 +272,8 @@ class GasFeeSelectorPopupViewController: KNBaseViewController {
   @IBOutlet weak var sendSwapDivideLineView: UIView!
   @IBOutlet weak var slippageRateSectionHeighContraint: NSLayoutConstraint!
   @IBOutlet weak var slippageSectionContainerView: UIView!
+  @IBOutlet weak var useChiContainerView: UIView!
+  
   
   let viewModel: GasFeeSelectorPopupViewModel
   let transitor = TransitionDelegate()
@@ -307,6 +309,7 @@ class GasFeeSelectorPopupViewController: KNBaseViewController {
       self.slippageRateSectionHeighContraint.constant = 0
       self.slippageSectionContainerView.isHidden = true
     }
+    self.useChiContainerView.isHidden = !KNGeneralProvider.shared.isEthereum
   }
 
   func updateMinRateCustomErrorShown(_ isShown: Bool) {

@@ -14,13 +14,13 @@ extension KNEtherScanService: TargetType {
   var baseURL: URL {
     switch self {
     case .getListTransactions(let address, let startBlock):
-      let baseURLString = "\(KNEnvironment.default.apiEtherScanEndpoint)api?module=account&action=txlist&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
+      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=txlist&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
       return URL(string: baseURLString)!
     case .getListTokenTransactions(let address, let startBlock):
-      let baseURLString = "\(KNEnvironment.default.apiEtherScanEndpoint)api?module=account&action=tokentx&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
+      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=tokentx&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
       return URL(string: baseURLString)!
     case .getListInternalTransactions(let address, let startBlock):
-      let baseURLString = "\(KNEnvironment.default.apiEtherScanEndpoint)api?module=account&action=txlistinternal&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
+      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=txlistinternal&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
       return URL(string: baseURLString)!
     }
   }

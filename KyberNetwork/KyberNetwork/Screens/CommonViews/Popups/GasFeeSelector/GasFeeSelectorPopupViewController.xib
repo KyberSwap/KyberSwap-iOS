@@ -51,6 +51,7 @@
                 <outlet property="threePercentButton" destination="9jU-6t-lDG" id="bLf-rD-7fX"/>
                 <outlet property="threePercentTextLabel" destination="xMS-ft-GFu" id="3Gw-0i-aNd"/>
                 <outlet property="transactionWillBeRevertedTextLabel" destination="Fdj-ok-rGr" id="mxP-ng-HcA"/>
+                <outlet property="useChiContainerView" destination="35K-ye-eX9" id="wxf-cQ-5Zn"/>
                 <outlet property="useChiDescription" destination="Neg-V5-yho" id="1Iv-6l-F1g"/>
                 <outlet property="useChiSwitch" destination="hvc-yL-prh" id="s2l-dy-fU8"/>
                 <outlet property="useChiTitleLabel" destination="lB6-cM-H3E" id="XcS-3g-usd"/>

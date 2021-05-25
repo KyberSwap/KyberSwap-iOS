@@ -51,6 +51,14 @@ extension KNAppCoordinator {
       name: newRecevieName,
       object: nil
     )
+    
+    let changeChain = Notification.Name(kChangeChainNotificationKey)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(self.chainDidUpdateNotification(_:)),
+      name: changeChain,
+      object: nil
+    )
   }
 
   func addInternalObserveNotification() {
@@ -195,6 +203,25 @@ extension KNAppCoordinator {
     )
 
     self.settingsCoordinator?.appCoordinatorUSDRateUpdate()
+  }
+  
+  @objc func chainDidUpdateNotification(_ sender: Notification) {
+
+    KNSupportedTokenCoordinator.shared.pause()
+    KNSupportedTokenCoordinator.shared.resume()
+    KNSupportedTokenStorage.shared.reloadData()
+    
+    BalanceStorage.shared.updateCurrentWallet(self.session.wallet)
+    self.loadBalanceCoordinator?.pause()
+    self.loadBalanceCoordinator?.resume()
+    
+    KNRateCoordinator.shared.pause()
+    KNRateCoordinator.shared.resume()
+    KNTrackerRateStorage.shared.reloadData()
+    
+    self.exchangeCoordinator?.appCoordinatorDidUpdateChain()
+    self.overviewTabCoordinator?.appCoordinatorDidUpdateChain()
+    self.investCoordinator?.appCoordinatorDidUpdateChain()
   }
 
   @objc func tokenBalancesDidUpdateNotification(_ sender: Any?) {

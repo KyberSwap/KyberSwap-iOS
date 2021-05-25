@@ -69,7 +69,7 @@ class KNWalletConnectViewController: KNBaseViewController {
       self.interactor?.disconnect()
     }
     let accounts = [self.knSession.wallet.address.description]
-    let chainId = KNEnvironment.default.chainID
+    let chainId = KNGeneralProvider.shared.customRPC.chainID
 
     interactor.killSession().cauterize()
 
@@ -184,8 +184,8 @@ class KNWalletConnectViewController: KNBaseViewController {
 
     let message: String = {
       if let msg = self.tryParseTransactionData(json) { return msg }
-      if let networkProxy = KNEnvironment.default.knCustomRPC?.networkAddress.lowercased(),
-        networkProxy == to.lowercased() {
+      if
+         Constants.krystalProxyAddress.lowercased() == to.lowercased() {
         return "Interact with Kyber Network Proxy: transfer \(value.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)) ETH to \(to). Please check your transaction details carefully."
       }
       if let token = KNSupportedTokenStorage.shared.supportedTokens.first(where: { return $0.contract.lowercased() == to.lowercased() }) {
@@ -213,7 +213,7 @@ class KNWalletConnectViewController: KNBaseViewController {
               nonce: provider.minTxCount - 1
             )
             self.showTopBannerView(with: "Broadcasted", message: "Your transaction has been broadcasted successfully!", time: 2.0) {
-              self.openSafari(with: KNEnvironment.default.etherScanIOURLString + "tx/\(txID)")
+              self.openSafari(with: KNGeneralProvider.shared.customRPC.etherScanEndpoint + "tx/\(txID)")
             }
           } else {
             self.interactor?.rejectRequest(id: id, message: "Something went wrong, please try again").cauterize()
@@ -313,11 +313,8 @@ class KNWalletConnectViewController: KNBaseViewController {
       let token = self.knSession.tokenStorage.tokens.first(where: { return $0.contract.lowercased() == to }) {
       let address = data.substring(to: 72).substring(from: 32).add0x.lowercased()
       let contractName: String = {
-        if let networkAddr = KNEnvironment.default.knCustomRPC?.networkAddress, networkAddr.lowercased() == address {
+        if Constants.krystalProxyAddress.lowercased() == address {
           return "Kyber Network Proxy"
-        }
-        if let limitOrder = KNEnvironment.default.knCustomRPC?.limitOrderAddress, limitOrder.lowercased() == address {
-          return "KyberSwap Limit Order"
         }
         return address
       }()
@@ -330,7 +327,7 @@ class KNWalletConnectViewController: KNBaseViewController {
       return "Transfer \(amount.string(decimals: token.decimals, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))) \(token.symbol) to \(address)"
     }
     if data.starts(with: kTradeWithHintPrefix),
-      let networkAddr = KNEnvironment.default.knCustomRPC?.networkAddress, networkAddr.lowercased() == to {
+      Constants.krystalProxyAddress.lowercased() == to {
       // swap
       let fromToken = data.substring(to: 8 + 64).substring(from: 8 + 24).add0x.lowercased()
       let fromAmount = data.substring(to: 8 + 64 * 2).substring(from: 8 + 64).add0x.fullBigInt(decimals: 0) ?? BigInt(0)
@@ -395,7 +392,7 @@ class KNWalletConnectViewController: KNBaseViewController {
       self.knSession.addNewPendingTransaction(tx)
     } else if data.starts(with: kTradeWithHintPrefix) {
       // swap
-      guard let networkAddr = KNEnvironment.default.knCustomRPC?.networkAddress, networkAddr.lowercased() == to else {
+      guard Constants.krystalProxyAddress.lowercased() == to else {
         return
       }
       // swap

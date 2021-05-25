@@ -13,42 +13,45 @@ import CryptoSwift
 class KNGeneralProvider {
 
   static let shared = KNGeneralProvider()
+  
+  var isEthereum = true
+  
+  var customRPC: CustomRPC {
+    return self.isEthereum ? KNEnvironment.default.ethRPC : KNEnvironment.default.bscRPC
+  }
 
-  lazy var web3Swift: Web3Swift = {
-    if let customRPC = KNEnvironment.default.customRPC, let path = URL(string: customRPC.endpoint + KNEnvironment.default.nodeEndpoint) {
+  var web3Swift: Web3Swift {
+    if let path = URL(string: self.customRPC.endpoint + KNEnvironment.default.nodeEndpoint) {
       return Web3Swift(url: path)
     } else {
       return Web3Swift()
     }
-  }()
+  }
 
-  lazy var web3SwiftKyber: Web3Swift = {
-    if let path = URL(string: KNEnvironment.default.kyberEndpointURL + KNEnvironment.default.nodeEndpoint) {
+  var web3SwiftKyber: Web3Swift {
+    if let path = URL(string: self.customRPC.endpointKyber + KNEnvironment.default.nodeEndpoint) {
       return Web3Swift(url: path)
     } else {
       return Web3Swift()
     }
-  }()
+  }
 
-  lazy var web3SwiftAlchemy: Web3Swift = {
-    if let customRPC = KNEnvironment.default.customRPC, let path = URL(string: customRPC.endpointAlchemy + KNEnvironment.default.nodeEndpoint) {
+  var web3SwiftAlchemy: Web3Swift  {
+    if let path = URL(string: self.customRPC.endpointAlchemy + KNEnvironment.default.nodeEndpoint) {
       return Web3Swift(url: path)
     } else {
       return Web3Swift()
     }
-  }()
+  }
 
-  lazy var networkAddress: Address = {
-    return Address(string: KNEnvironment.default.knCustomRPC?.networkAddress ?? "")!
-  }()
+  var networkAddress: Address {
+    let address = KNGeneralProvider.shared.isEthereum ? Constants.krystalProxyAddress.lowercased() : Constants.krystalProxyAddressBSC.lowercased()
+    return Address(string: address)!
+  }
 
-  lazy var limitOrderAddress: Address = {
-    return Address(string: KNEnvironment.default.knCustomRPC?.limitOrderAddress ?? "")!
-  }()
-
-  lazy var wrapperAddress: Address = {
-    return Address(string: KNEnvironment.default.knCustomRPC?.wrapperAddress ?? "")!
-  }()
+  var wrapperAddress: Address {
+    return Address(string: self.customRPC.wrappedAddress)!
+  }
 
   init() { DispatchQueue.main.async { self.web3Swift.start() } }
 
@@ -175,6 +178,7 @@ class KNGeneralProvider {
     let request = EtherServiceAlchemyRequest(
       batch: BatchFactory().create(CallRequest(to: self.wrapperAddress.description, data: "\(data)\(tokenCount)\(tokenAddresses)"))
     )
+    print("\(data)\(tokenCount)\(tokenAddresses)")
     DispatchQueue.global().async {
       Session.send(request) { [weak self] result in
         guard let `self` = self else { return }
@@ -301,7 +305,7 @@ class KNGeneralProvider {
       switch result {
       case .success(let resp):
         let callRequest = CallRequest(
-          to: KNEnvironment.default.knCustomRPC?.ensAddress ?? "",
+          to: KNGeneralProvider.shared.customRPC.ensAddress,
           data: resp
         )
         let getResolverRequest = EtherServiceAlchemyRequest(batch: BatchFactory().create(callRequest))
@@ -656,7 +660,7 @@ extension KNGeneralProvider {
       data: data,
       gasPrice: gasPrice,
       gasLimit: gasLimit,
-      chainID: KNEnvironment.default.chainID
+      chainID: KNGeneralProvider.shared.customRPC.chainID
     )
     let signResult = keystore.signTransaction(signTransaction)
     switch signResult {
@@ -677,7 +681,7 @@ extension KNGeneralProvider {
       data: data,
       gasPrice: gasPrice,
       gasLimit: gasLimit,
-      chainID: KNEnvironment.default.chainID
+      chainID: KNGeneralProvider.shared.customRPC.chainID
     )
     let signResult = keystore.signTransaction(signTransaction)
     switch signResult {
@@ -920,7 +924,7 @@ extension KNGeneralProvider {
     }
   }
 
-  fileprivate func getMultipleERC20BalancesDecode(data: String, completion: @escaping (Result<[BigInt], AnyError>) -> Void) {
+  func getMultipleERC20BalancesDecode(data: String, completion: @escaping (Result<[BigInt], AnyError>) -> Void) {
     let request = GetMultipleERC20BalancesDecode(data: data)
     self.web3Swift.request(request: request) { result in
       switch result {

@@ -24,6 +24,7 @@
                 <outlet property="bannerPagerControl" destination="LLZ-QA-NHl" id="wm4-el-ea8"/>
                 <outlet property="bannerPagerView" destination="83K-Xl-zJk" id="BT2-vv-DVp"/>
                 <outlet property="collectionViewHeightContraint" destination="gFD-NB-SEJ" id="iQM-l5-qa3"/>
+                <outlet property="currentChainIcon" destination="F1W-Yk-3S3" id="t7w-rh-iX3"/>
                 <outlet property="patnerCollectionView" destination="lBA-XO-EC2" id="0Rt-Xn-gdG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -42,10 +43,48 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K9f-bD-5HS">
+                            <rect key="frame" x="301" y="60.5" width="63" height="32"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chain_switch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="3iu-Ku-fIG">
+                                    <rect key="frame" x="38" y="6" width="20" height="20"/>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chain_eth_icon" translatesAutoresizingMaskIntoConstraints="NO" id="F1W-Yk-3S3">
+                                    <rect key="frame" x="5" y="4" width="24" height="24"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E4J-HP-d9j">
+                                    <rect key="frame" x="0.0" y="0.0" width="63" height="32"/>
+                                    <connections>
+                                        <action selector="switchChainButtonTapped:" destination="-1" eventType="touchUpInside" id="PjZ-n7-NXm"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="3iu-Ku-fIG" firstAttribute="centerY" secondItem="K9f-bD-5HS" secondAttribute="centerY" id="213-1r-kfL"/>
+                                <constraint firstItem="F1W-Yk-3S3" firstAttribute="leading" secondItem="K9f-bD-5HS" secondAttribute="leading" constant="5" id="3qN-av-ykp"/>
+                                <constraint firstItem="E4J-HP-d9j" firstAttribute="leading" secondItem="K9f-bD-5HS" secondAttribute="leading" id="K5g-1y-EIw"/>
+                                <constraint firstAttribute="trailing" secondItem="E4J-HP-d9j" secondAttribute="trailing" id="Qiz-3j-Y58"/>
+                                <constraint firstAttribute="trailing" secondItem="3iu-Ku-fIG" secondAttribute="trailing" constant="5" id="XU4-67-nw5"/>
+                                <constraint firstAttribute="bottom" secondItem="E4J-HP-d9j" secondAttribute="bottom" id="aQJ-nL-DC4"/>
+                                <constraint firstAttribute="height" constant="32" id="al7-Zw-Ivd"/>
+                                <constraint firstItem="F1W-Yk-3S3" firstAttribute="centerY" secondItem="K9f-bD-5HS" secondAttribute="centerY" id="nPk-vL-CEu"/>
+                                <constraint firstItem="E4J-HP-d9j" firstAttribute="top" secondItem="K9f-bD-5HS" secondAttribute="top" id="qlI-SS-8F9"/>
+                                <constraint firstAttribute="width" constant="63" id="sPx-89-nMe"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="K9f-bD-5HS" firstAttribute="centerY" secondItem="hDv-4z-Mbz" secondAttribute="centerY" id="4Tb-qi-e4g"/>
                         <constraint firstAttribute="height" constant="113" id="MB8-he-ZU2"/>
+                        <constraint firstAttribute="trailing" secondItem="K9f-bD-5HS" secondAttribute="trailing" constant="11" id="WNI-FL-v2F"/>
                         <constraint firstItem="hDv-4z-Mbz" firstAttribute="leading" secondItem="9EM-Hw-Fj8" secondAttribute="leading" constant="37" id="WpS-Hh-hYt"/>
                         <constraint firstAttribute="bottom" secondItem="hDv-4z-Mbz" secondAttribute="bottom" constant="26" id="mq2-WT-xsj"/>
                     </constraints>
@@ -361,6 +400,8 @@ Points </string>
         </view>
     </objects>
     <resources>
+        <image name="chain_eth_icon" width="24" height="24"/>
+        <image name="chain_switch_icon" width="20" height="20"/>
         <image name="deposit_invest_icon" width="30" height="30"/>
         <image name="krytal_invest_icon" width="26" height="25"/>
         <image name="swap_inverst_icon" width="30" height="30"/>

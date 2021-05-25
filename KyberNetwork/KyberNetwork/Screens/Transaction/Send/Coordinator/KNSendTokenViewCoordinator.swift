@@ -65,15 +65,12 @@ class KNSendTokenViewCoordinator: NSObject, Coordinator {
     navigationController: UINavigationController,
     session: KNSession,
     balances: [String: Balance],
-    from: TokenObject = KNSupportedTokenStorage.shared.ethToken
+    from: TokenObject = KNGeneralProvider.shared.isEthereum ? KNSupportedTokenStorage.shared.ethToken : KNSupportedTokenStorage.shared.bnbToken
     ) {
     self.navigationController = navigationController
     self.session = session
     self.balances = balances
     self.from = from
-    if self.from.isPromoToken {
-      self.from = KNSupportedTokenStorage.shared.ethToken
-    }
   }
 
   func start() {

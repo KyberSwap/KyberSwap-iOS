@@ -112,6 +112,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
   @IBOutlet weak var pendingTxIndicatorView: UIView!
   @IBOutlet weak var searchTextField: UITextField!
   @IBOutlet weak var hideBalanceButton: UIButton!
+  @IBOutlet weak var currentChainIcon: UIImageView!
   
   init(viewModel: OverviewContainerViewModel, marketViewController: OverviewMarketViewController, assetsViewController: OverviewAssetsViewController, depositViewController: OverviewDepositViewController) {
     self.viewModel = viewModel
@@ -141,6 +142,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
       self.setupPageController()
     }
     self.updateUIPendingTxIndicatorView()
+    self.updateUISwitchChain()
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -235,6 +237,18 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.delegate?.overviewContainerViewController(self, run: .notifications)
   }
   
+  @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+    let popup = SwitchChainViewController()
+    popup.completionHandler = {
+      KNNotificationUtil.postNotification(for: kChangeChainNotificationKey)
+    }
+    self.present(popup, animated: true, completion: nil)
+  }
+  
+  fileprivate func updateUISwitchChain() {
+    let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
+    self.currentChainIcon.image = icon
+  }
   
   fileprivate func getViewControllerWithIndex(_ index: Int) -> UIViewController {
     switch index {
@@ -286,6 +300,15 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
   
   func coordinatorDidUpdatePendingTx() {
     self.updateUIPendingTxIndicatorView()
+  }
+  
+  func coordinatorDidUpdateChain() {
+    guard self.isViewLoaded else { return }
+    self.viewControllers.forEach { (viewController) in
+      viewController.coordinatorDidUpdateDidUpdateTokenList()
+    }
+    self.updateUITotalValue()
+    self.updateUISwitchChain()
   }
 }
 

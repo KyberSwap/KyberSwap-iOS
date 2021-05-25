@@ -66,7 +66,7 @@ class KNWalletPromoInfoStorage: NSObject {
   let expiredTimeKey = "expiredTimeKey"
   static let shared = KNWalletPromoInfoStorage()
   var kKeyPrefix: String {
-    return "\(KNEnvironment.default.displayName)_\(KNEnvironment.default.chainID)_"
+    return "\(KNEnvironment.default.displayName)_\(KNGeneralProvider.shared.customRPC.chainID)_"
   }
 
   override init() {}

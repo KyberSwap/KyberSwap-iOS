@@ -152,7 +152,8 @@ class ApproveTokenViewController: KNBaseViewController {
     self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: 16)
     self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.descriptionLabel.text = self.viewModel.subTitleText
-    self.contractAddressLabel.text = Constants.krystalProxyAddress
+    let address = KNGeneralProvider.shared.isEthereum ? Constants.krystalProxyAddress.lowercased() : Constants.krystalProxyAddressBSC.lowercased()
+    self.contractAddressLabel.text = address
   }
 
   override func viewDidLayoutSubviews() {

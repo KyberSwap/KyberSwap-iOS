@@ -24,21 +24,6 @@ extension KNTransactionReceipt {
     let cumulativeGasUsed = dictionary["cumulativeGasUsed"] as? String ?? ""
     let gasUsed = dictionary["gasUsed"] as? String ?? ""
     let contractAddress = dictionary["contractAddress"] as? String ?? ""
-    let customRPC: KNCustomRPC = KNEnvironment.default.knCustomRPC!
-    let logsData: String = {
-      if let logs: [JSONDictionary] = dictionary["logs"] as? [JSONDictionary] {
-        for log in logs {
-          let address = log["address"] as? String ?? ""
-          let topics = log["topics"] as? [String] ?? []
-          let data = log["data"] as? String ?? ""
-          if address.lowercased() == customRPC.networkAddress.lowercased(),
-          topics.first == customRPC.tradeTopic {
-            return data
-          }
-        }
-      }
-      return ""
-    }()
 
     let logsBloom = dictionary["logsBloom"] as? String ?? ""
     let status = dictionary["status"] as? String ?? ""
@@ -51,7 +36,7 @@ extension KNTransactionReceipt {
       gasUsed: BigInt(gasUsed.drop0x, radix: 16)?.fullString(units: .ether) ?? "",
       cumulativeGasUsed: BigInt(cumulativeGasUsed.drop0x, radix: 16)?.fullString(units: .ether) ?? "",
       contractAddress: contractAddress,
-      logsData: logsData,
+      logsData: "",
       logsBloom: logsBloom,
       status: status.drop0x
     )

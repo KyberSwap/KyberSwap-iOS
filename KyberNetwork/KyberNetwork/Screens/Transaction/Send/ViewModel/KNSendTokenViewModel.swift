@@ -99,6 +99,7 @@ class KNSendTokenViewModel: NSObject {
   }
 
   fileprivate func formatFeeStringFor(gasPrice: BigInt) -> String {
+    let sourceToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
     let fee = gasPrice * self.gasLimit
     let feeString: String = fee.displayRate(decimals: 18)
     var typeString = ""
@@ -114,7 +115,7 @@ class KNSendTokenViewModel: NSObject {
     default:
       break
     }
-    return "Gas fee: \(feeString) ETH (\(typeString))"
+    return "Gas fee: \(feeString) \(sourceToken) (\(typeString))"
   }
 
   var gasFeeString: String {

@@ -34,34 +34,36 @@ enum KNEnvironment: Int {
   }
 
   static var `default`: KNEnvironment {
-    return .production
+    return .ropsten
   }
 
   var isMainnet: Bool {
     return KNEnvironment.default == .mainnetTest || KNEnvironment.default == .production || KNEnvironment.default == .staging
   }
-
-  var chainID: Int {
-    return self.customRPC?.chainID ?? 0
+  
+  var envPrefix: String {
+    let chain = KNGeneralProvider.shared.isEthereum ? "eth" : "bsc"
+    return chain + "-" + self.displayName + "-"
   }
-
-  var etherScanIOURLString: String {
-    return self.knCustomRPC?.etherScanEndpoint ?? ""
-  }
-
-  var enjinXScanIOURLString: String {
-    return self.knCustomRPC?.enjinScanEndpoint ?? ""
-  }
-
-  var customRPC: CustomRPC? {
-    return self.knCustomRPC?.customRPC
-  }
-
-  var knCustomRPC: KNCustomRPC? {
-    guard let json = KNJSONLoaderUtil.jsonDataFromFile(with: self.configFileName) else {
-      return nil
+  
+  var ethRPC: CustomRPC {
+    switch self {
+    case .ropsten:
+      return Constants.ethRoptenPRC
+    case .staging:
+      return Constants.ethStaggingPRC
+    default:
+      return Constants.ethMainnetPRC
     }
-    return KNCustomRPC(dictionary: json)
+  }
+  
+  var bscRPC: CustomRPC {
+    switch self {
+    case .ropsten:
+      return Constants.bscRoptenPRC
+    default:
+      return Constants.bscMainnetPRC
+    }
   }
 
   var configFileName: String {

@@ -17,6 +17,8 @@ class EarnOverviewViewController: KNBaseViewController {
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var walletListButton: UIButton!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
+  @IBOutlet weak var currentChainIcon: UIImageView!
+  @IBOutlet weak var bscNotSupportView: UIView!
   
   weak var delegate: EarnOverviewViewControllerDelegate?
   weak var navigationDelegate: NavigationBarDelegate?
@@ -61,11 +63,14 @@ class EarnOverviewViewController: KNBaseViewController {
       UserDefaults.standard.set(true, forKey: "earn-tutorial")
     }
     if self.depositViewController.viewModel.totalValueBigInt == BigInt(0) {
-      if self.firstTimeLoaded == false {
-        self.delegate?.earnOverviewViewControllerDidSelectExplore(self)
+      if KNGeneralProvider.shared.isEthereum {
+        if self.firstTimeLoaded == false {
+          self.delegate?.earnOverviewViewControllerDidSelectExplore(self)
+        }
       }
     }
     self.firstTimeLoaded = true
+    self.updateUISwitchChain()
   }
 
   override func viewDidLayoutSubviews() {
@@ -80,6 +85,12 @@ class EarnOverviewViewController: KNBaseViewController {
     }
     self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
   }
+  
+  fileprivate func updateUISwitchChain() {
+    let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
+    self.currentChainIcon.image = icon
+    self.bscNotSupportView.isHidden = KNGeneralProvider.shared.isEthereum
+  }
 
   @IBAction func exploreButtonTapped(_ sender: UIButton) {
     self.delegate?.earnOverviewViewControllerDidSelectExplore(self)
@@ -91,6 +102,14 @@ class EarnOverviewViewController: KNBaseViewController {
   
   @IBAction func walletListButtonTapped(_ sender: UIButton) {
     self.navigationDelegate?.viewControllerDidSelectWallets(self)
+  }
+  
+  @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+    let popup = SwitchChainViewController()
+    popup.completionHandler = {
+      KNNotificationUtil.postNotification(for: kChangeChainNotificationKey)
+    }
+    self.present(popup, animated: true, completion: nil)
   }
   
   fileprivate func updateUIWalletSelectButton(_ wallet: Wallet) {
@@ -107,5 +126,9 @@ class EarnOverviewViewController: KNBaseViewController {
 
   func coordinatorDidUpdatePendingTx() {
     self.updateUIPendingTxIndicatorView()
+  }
+  
+  func coordinatorDidUpdateChain() {
+    self.updateUISwitchChain()
   }
 }

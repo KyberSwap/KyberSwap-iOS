@@ -30,6 +30,7 @@
                 <outlet property="bottomPaddingConstraintForScrollView" destination="oxA-wg-TwX" id="ooe-8a-ZBl"/>
                 <outlet property="changeRateButton" destination="9PL-XD-kXQ" id="X6D-zG-BpU"/>
                 <outlet property="continueButton" destination="YJW-Oi-0g6" id="8t8-Bj-5r4"/>
+                <outlet property="currentChainIcon" destination="LsP-oY-uMF" id="TDC-DU-AI1"/>
                 <outlet property="equivalentUSDValueLabel" destination="ThL-2a-mea" id="xvo-BU-ibi"/>
                 <outlet property="exchangeRateLabel" destination="WYb-EV-F1u" id="rUE-lk-LLG"/>
                 <outlet property="fromAmountTextField" destination="FRx-Np-XK9" id="YoV-GF-962"/>
@@ -119,16 +120,54 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hkR-gJ-1nG">
+                            <rect key="frame" x="151" y="60.5" width="63" height="32"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chain_switch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="zpE-xd-OKZ">
+                                    <rect key="frame" x="38" y="6" width="20" height="20"/>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chain_eth_icon" translatesAutoresizingMaskIntoConstraints="NO" id="LsP-oY-uMF">
+                                    <rect key="frame" x="5" y="4" width="24" height="24"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="okm-ii-Eiw">
+                                    <rect key="frame" x="0.0" y="0.0" width="63" height="32"/>
+                                    <connections>
+                                        <action selector="switchChainButtonTapped:" destination="-1" eventType="touchUpInside" id="rif-SC-wUo"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="LsP-oY-uMF" firstAttribute="centerY" secondItem="hkR-gJ-1nG" secondAttribute="centerY" id="2ss-9n-SdM"/>
+                                <constraint firstAttribute="width" constant="63" id="JvN-5Q-Gen"/>
+                                <constraint firstItem="zpE-xd-OKZ" firstAttribute="centerY" secondItem="hkR-gJ-1nG" secondAttribute="centerY" id="Oy5-7D-vt8"/>
+                                <constraint firstItem="okm-ii-Eiw" firstAttribute="top" secondItem="hkR-gJ-1nG" secondAttribute="top" id="YlQ-7V-2Mu"/>
+                                <constraint firstAttribute="trailing" secondItem="zpE-xd-OKZ" secondAttribute="trailing" constant="5" id="fID-Ho-Px1"/>
+                                <constraint firstItem="okm-ii-Eiw" firstAttribute="leading" secondItem="hkR-gJ-1nG" secondAttribute="leading" id="hCO-k4-URj"/>
+                                <constraint firstAttribute="trailing" secondItem="okm-ii-Eiw" secondAttribute="trailing" id="hsG-AV-5ZI"/>
+                                <constraint firstAttribute="height" constant="32" id="xIB-HH-tMq"/>
+                                <constraint firstAttribute="bottom" secondItem="okm-ii-Eiw" secondAttribute="bottom" id="y1w-L2-kQE"/>
+                                <constraint firstItem="LsP-oY-uMF" firstAttribute="leading" secondItem="hkR-gJ-1nG" secondAttribute="leading" constant="5" id="zWt-ts-ilG"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="9cQ-df-sfG" firstAttribute="leading" secondItem="Sua-kO-m25" secondAttribute="leading" id="3fU-Dv-NXK"/>
                         <constraint firstItem="icW-gp-OKH" firstAttribute="centerY" secondItem="V4f-Nd-lmp" secondAttribute="centerY" id="6fL-AV-Ffn"/>
+                        <constraint firstItem="Sua-kO-m25" firstAttribute="centerY" secondItem="hkR-gJ-1nG" secondAttribute="centerY" id="9og-bL-cOK"/>
                         <constraint firstAttribute="bottom" secondItem="V4f-Nd-lmp" secondAttribute="bottom" constant="26" id="INd-rv-9og"/>
                         <constraint firstItem="icW-gp-OKH" firstAttribute="leading" secondItem="Sua-kO-m25" secondAttribute="trailing" constant="10" id="T2V-Ko-I8b"/>
                         <constraint firstItem="V4f-Nd-lmp" firstAttribute="leading" secondItem="vbp-fJ-pmC" secondAttribute="leading" constant="37" id="fYU-h9-MtD"/>
                         <constraint firstAttribute="height" constant="113" id="ftb-Ys-LFW"/>
                         <constraint firstAttribute="trailing" secondItem="icW-gp-OKH" secondAttribute="trailing" constant="14" id="gRK-VM-7vz"/>
+                        <constraint firstItem="Sua-kO-m25" firstAttribute="leading" secondItem="hkR-gJ-1nG" secondAttribute="trailing" constant="11" id="iCs-c3-zVe"/>
                         <constraint firstItem="Sua-kO-m25" firstAttribute="centerY" secondItem="V4f-Nd-lmp" secondAttribute="centerY" id="vxb-xm-Slp"/>
                         <constraint firstItem="9cQ-df-sfG" firstAttribute="top" secondItem="Sua-kO-m25" secondAttribute="top" id="yas-Hf-s7h"/>
                     </constraints>
@@ -531,6 +570,8 @@
     <resources>
         <image name="arrow_down_icon_white" width="10" height="6"/>
         <image name="arrow_down_template" width="12" height="9"/>
+        <image name="chain_eth_icon" width="24" height="24"/>
+        <image name="chain_switch_icon" width="20" height="20"/>
         <image name="chi" width="16" height="16"/>
         <image name="config_icon" width="14" height="14"/>
         <image name="history_icon" width="22" height="20"/>

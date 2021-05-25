@@ -6,8 +6,8 @@ import SafariServices
 class KNTransactionDetailsCoordinator: Coordinator {
 
   let navigationController: UINavigationController
-  let etherScanURL: String = KNEnvironment.default.etherScanIOURLString
-  let enjinScanURL: String = KNEnvironment.default.enjinXScanIOURLString
+  let etherScanURL: String = KNGeneralProvider.shared.customRPC.etherScanEndpoint
+  
   var coordinators: [Coordinator] = []
 
   var rootViewController: KNTransactionDetailsViewController

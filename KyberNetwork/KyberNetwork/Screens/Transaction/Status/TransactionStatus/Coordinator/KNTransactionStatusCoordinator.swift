@@ -50,7 +50,7 @@ class KNTransactionStatusCoordinator: Coordinator {
 
 extension KNTransactionStatusCoordinator: KNTransactionStatusViewControllerDelegate {
   func transactionStatusVCUserDidTapToView(transaction: KNTransaction) {
-    let urlString = KNEnvironment.default.etherScanIOURLString + "tx/\(transaction.id)"
+    let urlString = KNGeneralProvider.shared.customRPC.etherScanEndpoint + "tx/\(transaction.id)"
     self.rootViewController?.openSafari(with: urlString)
   }
 

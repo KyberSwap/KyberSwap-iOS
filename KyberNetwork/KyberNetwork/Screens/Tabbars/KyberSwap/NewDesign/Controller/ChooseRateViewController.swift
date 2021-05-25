@@ -32,19 +32,23 @@ class ChooseRateViewModel {
   }
 
   var uniRateText: String {
-    return rateStringFor(platform: "uniswap")
+    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwapV1"
+    return rateStringFor(platform: key)
   }
 
   var kyberRateText: String {
-    return rateStringFor(platform: "kyber")
+    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwapV2"
+    return rateStringFor(platform: key)
   }
   
   var uniFeeText: String {
-    return feeStringFor(platform: "uniswap")
+    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwapV1"
+    return feeStringFor(platform: key)
   }
   
   var kyberFeeText: String {
-    return feeStringFor(platform: "kyber")
+    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwapV2"
+    return feeStringFor(platform: key)
   }
 
   fileprivate func rateStringFor(platform: String) -> String {
@@ -97,6 +101,11 @@ class ChooseRateViewController: KNBaseViewController {
   
   @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
   @IBOutlet weak var contentView: UIView!
+  @IBOutlet weak var firstplatformNameLabel: UILabel!
+  @IBOutlet weak var secondPlatformLabel: UILabel!
+  @IBOutlet weak var firstPlatformIconImage: UIImageView!
+  @IBOutlet weak var secondPlatformIconImage: UIImageView!
+  
   weak var delegate: ChooseRateViewControllerDelegate?
   let viewModel: ChooseRateViewModel
   let transitor = TransitionDelegate()
@@ -125,14 +134,21 @@ class ChooseRateViewController: KNBaseViewController {
       self.feeUniTitleLabel.isHidden = true
       self.feeKyberTitleLabel.isHidden = true
     }
-    
+    if !KNGeneralProvider.shared.isEthereum {
+      self.firstPlatformIconImage.image = UIImage(named: "pancake_icon")
+      self.secondPlatformIconImage.image = UIImage(named: "pancake_icon")
+      self.firstplatformNameLabel.text = "PancakeSwapV1"
+      self.secondPlatformLabel.text = "PancakeSwapV2"
+    }
   }
 
   @IBAction func chooseRateButtonTapped(_ sender: UIButton) {
     if sender.tag == 0 {
-      self.delegate?.chooseRateViewController(self, didSelect: "kyber")
+      let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwapV2"
+      self.delegate?.chooseRateViewController(self, didSelect: key)
     } else {
-      self.delegate?.chooseRateViewController(self, didSelect: "uniswap")
+      let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwapV1"
+      self.delegate?.chooseRateViewController(self, didSelect: key)
     }
     self.dismiss(animated: true, completion: nil)
   }

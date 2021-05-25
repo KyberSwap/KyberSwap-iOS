@@ -174,7 +174,7 @@ extension KNTransaction {
         do {
           let keystore = try EtherKeystore()
           guard let wallet = keystore.recentlyUsedWallet else { return nil }
-          let config = RealmConfiguration.configuration(for: wallet, chainID: KNEnvironment.default.chainID)
+          let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
           do {
             let realm = try Realm(configuration: config)
             return KNTokenStorage(realm: realm)
@@ -219,7 +219,7 @@ extension KNTransaction {
       do {
         let keystore = try EtherKeystore()
         guard let wallet = keystore.recentlyUsedWallet else { return nil }
-        let config = RealmConfiguration.configuration(for: wallet, chainID: KNEnvironment.default.chainID)
+        let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
         do {
           let realm = try Realm(configuration: config)
           return KNTokenStorage(realm: realm)
@@ -262,7 +262,7 @@ extension KNTransaction {
         do {
           let keystore = try EtherKeystore()
           guard let wallet = keystore.recentlyUsedWallet else { return nil }
-          let config = RealmConfiguration.configuration(for: wallet, chainID: KNEnvironment.default.chainID)
+          let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
           do {
             let realm = try Realm(configuration: config)
             return KNTokenStorage(realm: realm)

@@ -226,6 +226,10 @@ extension KNExchangeTokenCoordinator {
       topVC.applicationDidEnterBackground()
     }
   }
+  
+  func appCoordinatorDidUpdateChain() {
+    self.rootViewController.coordinatorDidUpdateChain()
+  }
 }
 
 // MARK: Network requests

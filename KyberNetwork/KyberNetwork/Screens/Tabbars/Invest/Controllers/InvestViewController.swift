@@ -46,6 +46,7 @@ class InvestViewController: KNBaseViewController {
   @IBOutlet weak var bannerPagerControl: FSPageControl!
   @IBOutlet weak var patnerCollectionView: UICollectionView!
   @IBOutlet weak var collectionViewHeightContraint: NSLayoutConstraint!
+  @IBOutlet weak var currentChainIcon: UIImageView!
   
   let viewModel: InvestViewModel = InvestViewModel()
   weak var delegate: InvestViewControllerDelegate?
@@ -65,7 +66,13 @@ class InvestViewController: KNBaseViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     self.bannerPagerView.itemSize = self.bannerPagerView.frame.size
+    self.updateUISwitchChain()
     
+  }
+  
+  fileprivate func updateUISwitchChain() {
+    let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
+    self.currentChainIcon.image = icon
   }
   
   @IBAction func swapButtonTapped(_ sender: UIButton) {
@@ -84,6 +91,14 @@ class InvestViewController: KNBaseViewController {
     self.delegate?.investViewController(self, run: .krytal)
   }
   
+  @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+    let popup = SwitchChainViewController()
+    popup.completionHandler = {
+      KNNotificationUtil.postNotification(for: kChangeChainNotificationKey)
+    }
+    self.present(popup, animated: true, completion: nil)
+  }
+  
   func coordinatorDidUpdateMarketingAssets(_ assets: [Asset]) {
     self.viewModel.dataSource = assets
     guard self.isViewLoaded else { return }
@@ -99,6 +114,13 @@ class InvestViewController: KNBaseViewController {
   fileprivate func updateUIBannerPagerView() {
     self.bannerPagerControl.numberOfPages = self.viewModel.bannerDataSource.count
     self.bannerPagerView.reloadData()
+  }
+  
+  func coordinatorDidUpdateChain() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.updateUISwitchChain()
   }
 }
 

@@ -84,7 +84,8 @@ class KSwapViewController: KNBaseViewController {
   @IBOutlet weak var rateWarningContainerView: UIView!
   @IBOutlet weak var isUseGasTokenIcon: UIImageView!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
-  
+  @IBOutlet weak var currentChainIcon: UIImageView!
+
   fileprivate var estRateTimer: Timer?
   fileprivate var estGasLimitTimer: Timer?
   fileprivate var previousCallEvent: KSwapViewEvent?
@@ -125,6 +126,7 @@ class KSwapViewController: KNBaseViewController {
       }
     }
     self.updateUIForSendApprove(isShowApproveButton: false)
+    self.updateUISwitchChain()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -257,6 +259,11 @@ class KSwapViewController: KNBaseViewController {
   }
 
   fileprivate func setUpChangeRateButton() {
+    guard KNGeneralProvider.shared.isEthereum else {
+      let icon = UIImage(named: "pancake_icon")?.resizeImage(to: CGSize(width: 16, height: 16))
+      self.changeRateButton.setImage(icon, for: .normal)
+      return
+    }
     if self.viewModel.currentFlatform == "uniswap" {
       let icon = UIImage(named: "uni_icon_medium")?.resizeImage(to: CGSize(width: 16, height: 16))
       self.changeRateButton.setImage(icon, for: .normal)
@@ -409,6 +416,19 @@ class KSwapViewController: KNBaseViewController {
   @objc func keyboardDoneButtonPressed(_ sender: Any) {
     self.view.endEditing(true)
     self.view.layoutIfNeeded()
+  }
+  
+  @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+    let popup = SwitchChainViewController()
+    popup.completionHandler = {
+      KNNotificationUtil.postNotification(for: kChangeChainNotificationKey)
+    }
+    self.present(popup, animated: true, completion: nil)
+  }
+  
+  fileprivate func updateUISwitchChain() {
+    let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
+    self.currentChainIcon.image = icon
   }
 
   func coordinatorUpdateGasPriceCached() {
@@ -984,6 +1004,10 @@ extension KSwapViewController {
   }
 
   fileprivate func updateGasTokenArea() {
+    guard KNGeneralProvider.shared.isEthereum else {
+      self.isUseGasTokenIcon.isHidden = true
+      return
+    }
     self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
   }
   
@@ -1002,6 +1026,20 @@ extension KSwapViewController {
   func coordinatorDidUpdatePendingTx() {
     self.updateUIPendingTxIndicatorView()
     self.checkUpdateApproveButton()
+  }
+  
+  func coordinatorDidUpdateChain() {
+    self.updateUISwitchChain()
+    self.viewModel.resetDefaultTokensPair()
+    self.fromAmountTextField.text = ""
+    self.toAmountTextField.text = ""
+    self.viewModel.updateAmount("", isSource: true)
+    self.viewModel.updateAmount("", isSource: false)
+    self.updateTokensView()
+    self.updateViewAmountDidChange()
+    self.updateGasTokenArea()
+    self.balanceLabel.text = self.viewModel.balanceDisplayText
+    self.setUpChangeRateButton()
   }
 }
 

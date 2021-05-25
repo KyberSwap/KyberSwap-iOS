@@ -13,9 +13,11 @@ class KNExternalProvider {
   let keystore: Keystore
   fileprivate var account: Account
   let web3Swift: Web3Swift
-  let knCustomRPC: KNCustomRPC!
   let networkAddress: Address!
-  let limitOrderAddress: Address!
+  
+  var isEthereum: Bool {
+    return KNGeneralProvider.shared.isEthereum
+  }
 
   var minTxCount: Int {
     didSet {
@@ -27,11 +29,14 @@ class KNExternalProvider {
     self.keystore = keystore
     self.account = account
     self.web3Swift = web3
-    let customRPC: KNCustomRPC = KNEnvironment.default.knCustomRPC!
-    self.knCustomRPC = customRPC
-    self.networkAddress = Address(string: Constants.krystalProxyAddress)! //TODO: hard code ropten remove leater
+    let address = KNGeneralProvider.shared.isEthereum ? Constants.krystalProxyAddress.lowercased() : Constants.krystalProxyAddressBSC.lowercased()
+    
+    self.networkAddress = Address(string: address)!
     self.minTxCount = 0
-    self.limitOrderAddress = Address(string: customRPC.limitOrderAddress)
+  }
+  
+  var customRPC: CustomRPC {
+    return self.isEthereum ? KNEnvironment.default.ethRPC : KNEnvironment.default.bscRPC
   }
 
   func updateNonceWithLastRecordedTxNonce(_ nonce: Int) {
@@ -238,7 +243,7 @@ class KNExternalProvider {
           data: data,
           gasPrice: gasPrice,
           gasLimit: gasLimit,
-          chainID: KNEnvironment.default.chainID
+          chainID: KNGeneralProvider.shared.customRPC.chainID
         )
         self.signTransactionData(from: signTx) { [weak self] signResult in
           switch signResult {
@@ -327,15 +332,6 @@ class KNExternalProvider {
     )
   }
 
-  func getAllowanceLimitOrder(token: TokenObject, completion: @escaping (Result<BigInt, AnyError>) -> Void) {
-    KNGeneralProvider.shared.getAllowance(
-      for: token,
-      address: self.account.address,
-      networkAddress: self.limitOrderAddress,
-      completion: completion
-    )
-  }
-
   // Encode function, get transaction count, sign transaction, send signed data
   func sendApproveERC20Token(exchangeTransaction: KNDraftExchangeTransaction, completion: @escaping (Result<Bool, AnyError>) -> Void) {
     self.sendApproveERCToken(
@@ -388,26 +384,6 @@ class KNExternalProvider {
     }
   }
 
-  func sendApproveERCTokenLimitOrder(for token: TokenObject, value: BigInt, gasPrice: BigInt, completion: @escaping (Result<Bool, AnyError>) -> Void) {
-    KNGeneralProvider.shared.approve(
-      token: token,
-      value: value,
-      account: self.account,
-      keystore: self.keystore,
-      currentNonce: self.minTxCount,
-      networkAddress: self.limitOrderAddress,
-      gasPrice: gasPrice
-    ) { [weak self] result in
-      guard let `self` = self else { return }
-      switch result {
-      case .success(let txCount):
-        self.minTxCount = txCount
-        completion(.success(true))
-      case .failure(let error):
-        completion(.failure(error))
-      }
-    }
-  }
 
   // MARK: Rate
   func getExpectedRate(from: TokenObject, to: TokenObject, amount: BigInt, hint: String = "", withKyber: Bool = false, completion: @escaping (Result<(BigInt, BigInt), AnyError>) -> Void) {
@@ -519,7 +495,7 @@ class KNExternalProvider {
       data: data ?? Data(),
       gasPrice: transaction.gasPrice ?? KNGasConfiguration.gasPriceDefault,
       gasLimit: transaction.gasLimit ?? defaultGasLimit,
-      chainID: KNEnvironment.default.chainID
+      chainID: KNGeneralProvider.shared.customRPC.chainID
     )
     
     
@@ -536,7 +512,7 @@ class KNExternalProvider {
       data: data,
       gasPrice: exchange.gasPrice ?? KNGasConfiguration.gasPriceDefault,
       gasLimit: exchange.gasLimit ?? KNGasConfiguration.exchangeTokensGasLimitDefault,
-      chainID: KNEnvironment.default.chainID
+      chainID: KNGeneralProvider.shared.customRPC.chainID
     )
     self.signTransactionData(from: signTransaction, completion: completion)
   }
@@ -550,7 +526,7 @@ class KNExternalProvider {
       data: data,
       gasPrice: gasPrice,
       gasLimit: gasLimit,
-      chainID: KNEnvironment.default.chainID
+      chainID: KNGeneralProvider.shared.customRPC.chainID
     )
     self.signTransactionData(from: signTransaction, completion: completion)
   }

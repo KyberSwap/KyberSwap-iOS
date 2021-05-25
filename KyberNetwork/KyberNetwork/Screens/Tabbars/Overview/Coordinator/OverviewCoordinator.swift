@@ -125,6 +125,11 @@ class OverviewCoordinator: NSObject, Coordinator {
     if self.sendCoordinator?.coordinatorDidUpdateTransaction(tx) == true { return true }
     return self.withdrawCoordinator?.appCoordinatorUpdateTransaction(tx) ?? false
   }
+  
+  func appCoordinatorDidUpdateChain() {
+    self.rootViewController.coordinatorDidUpdateChain()
+  }
+  
 }
 
 extension OverviewCoordinator: OverviewTokenListViewDelegate {
@@ -188,7 +193,7 @@ extension OverviewCoordinator: ChartViewControllerDelegate {
     case .invest(token: let token):
       break
     case .openEtherscan(address: let address):
-      self.openCommunityURL("\(KNEnvironment.default.etherScanIOURLString)address/\(address)")
+      self.openCommunityURL("\(KNGeneralProvider.shared.customRPC.etherScanEndpoint)address/\(address)")
     case .openWebsite(url: let url):
       self.openCommunityURL(url)
     case .openTwitter(name: let name):

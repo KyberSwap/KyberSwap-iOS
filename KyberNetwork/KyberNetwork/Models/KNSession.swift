@@ -27,7 +27,7 @@ class KNSession {
        wallet: Wallet) {
     self.keystore = keystore
     self.wallet = wallet
-    if let customRPC = KNEnvironment.default.customRPC, let path = URL(string: customRPC.endpoint + KNEnvironment.default.nodeEndpoint) {
+    if let path = URL(string: KNGeneralProvider.shared.customRPC.endpoint + KNEnvironment.default.nodeEndpoint) {
       self.web3Swift = Web3Swift(url: path)
     } else {
       self.web3Swift = Web3Swift()
@@ -38,7 +38,7 @@ class KNSession {
     if case .real(let acc) = self.wallet.type {
       account = acc
     }
-    let config = RealmConfiguration.configuration(for: wallet, chainID: KNEnvironment.default.chainID)
+    let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
     self.realm = try! Realm(configuration: config)
     self.transactionStorage = TransactionsStorage(realm: self.realm)
     self.tokenStorage = KNTokenStorage(realm: self.realm)
@@ -96,7 +96,7 @@ class KNSession {
       self.externalProvider = nil
     }
 
-    let config = RealmConfiguration.configuration(for: wallet, chainID: KNEnvironment.default.chainID)
+    let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
     self.realm = try! Realm(configuration: config)
     self.transactionStorage = TransactionsStorage(realm: self.realm)
     self.tokenStorage = KNTokenStorage(realm: self.realm)
@@ -135,7 +135,7 @@ class KNSession {
     KNAppTracker.resetAppTrackerData(for: wallet.address)
     for env in KNEnvironment.allEnvironments() {
       // Remove token and transaction storage
-      let config = RealmConfiguration.configuration(for: wallet, chainID: env.chainID)
+      let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
       let realm = try! Realm(configuration: config)
       let transactionStorage = TransactionsStorage(realm: realm)
       transactionStorage.deleteAll()
@@ -143,7 +143,7 @@ class KNSession {
       tokenStorage.deleteAll()
 
       // Remove wallet storage
-      let globalConfig = RealmConfiguration.globalConfiguration(for: env.chainID)
+      let globalConfig = RealmConfiguration.globalConfiguration(for: KNGeneralProvider.shared.customRPC.chainID)
       let globalRealm = try! Realm(configuration: globalConfig)
       if let walletObject = globalRealm.object(ofType: KNWalletObject.self, forPrimaryKey: wallet.address.description) {
         KNWalletPromoInfoStorage.shared.removeWalletPromoInfo(address: walletObject.address)

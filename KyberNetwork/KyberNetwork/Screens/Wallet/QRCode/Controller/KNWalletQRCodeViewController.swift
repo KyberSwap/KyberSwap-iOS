@@ -69,12 +69,14 @@ class KNWalletQRCodeViewController: KNBaseViewController {
       NSLocalizedString("share", value: "Share", comment: ""),
       for: .normal
     )
-    let attributedString = NSMutableAttributedString(string: "send.only.ERC20.tokens.to.this.address".toBeLocalised(), attributes: [
+    let token = KNGeneralProvider.shared.isEthereum ? "ERC20" : "BEP20"
+    let quoteToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
+    let attributedString = NSMutableAttributedString(string: "Only send \(quoteToken) or any \(token) token to this address\n\n*Sending any other tokens may result in loss of your funds", attributes: [
       .font: UIFont.Kyber.latoRegular(with: 14),
       .foregroundColor: UIColor.Kyber.SWWhiteTextColor,
       .kern: 0.0,
     ])
-    if let range = attributedString.string.range(of: "only.send.ETH.or.any.ERC-20".toBeLocalised()) {
+    if let range = attributedString.string.range(of: "Only send \(quoteToken) or any \(token)".toBeLocalised()) {
       let r = NSRange(range, in: attributedString.string)
       attributedString.addAttribute(.font, value: UIFont.Kyber.latoRegular(with: 14), range: r)
     }

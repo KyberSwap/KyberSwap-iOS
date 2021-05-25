@@ -31,8 +31,9 @@ class KNHistoryCoordinator: NSObject, Coordinator {
   var coordinators: [Coordinator] = []
   weak var delegate: KNHistoryCoordinatorDelegate?
   fileprivate weak var transactionStatusVC: KNTransactionStatusPopUp?
-  let etherScanURL: String = KNEnvironment.default.etherScanIOURLString
-  let enjinScanURL: String = KNEnvironment.default.enjinXScanIOURLString
+  var etherScanURL: String {
+    return KNGeneralProvider.shared.customRPC.etherScanEndpoint
+  }
 
   lazy var rootViewController: KNHistoryViewController = {
     let viewModel = KNHistoryViewModel(
@@ -228,8 +229,9 @@ extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
       let urlString = "\(self.etherScanURL)address/\(self.session.wallet.address.description)"
       self.rootViewController.openSafari(with: urlString)
     case .openKyberWalletPage:
-      let urlString = "\(self.enjinScanURL)eth/address/\(self.session.wallet.address.description)"
-      self.rootViewController.openSafari(with: urlString)
+//      let urlString = "\(self.enjinScanURL)eth/address/\(self.session.wallet.address.description)"
+//      self.rootViewController.openSafari(with: urlString)
+    break
     case .openWalletsListPopup:
       let viewModel = WalletsListViewModel(
         walletObjects: KNWalletStorage.shared.wallets,
@@ -273,7 +275,8 @@ extension KNHistoryCoordinator: KNHistoryViewControllerDelegate {
   }
 
   fileprivate func openEtherScanForTransaction(with hash: String) {
-    if let etherScanEndpoint = KNEnvironment.default.knCustomRPC?.etherScanEndpoint, let url = URL(string: "\(etherScanEndpoint)tx/\(hash)") {
+    
+    if let etherScanEndpoint = self.session.externalProvider?.customRPC.etherScanEndpoint, let url = URL(string: "\(etherScanEndpoint)tx/\(hash)") {
       self.rootViewController.openSafari(with: url)
     }
   }

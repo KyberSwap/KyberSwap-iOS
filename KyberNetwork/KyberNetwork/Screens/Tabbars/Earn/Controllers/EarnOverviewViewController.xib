@@ -18,7 +18,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EarnOverviewViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="bscNotSupportView" destination="W2J-Yb-hbf" id="swY-pJ-JQm"/>
                 <outlet property="contentView" destination="4Pv-jk-W5c" id="bJB-ej-wmK"/>
+                <outlet property="currentChainIcon" destination="fSp-Rn-gNZ" id="ddh-YN-dF4"/>
                 <outlet property="exploreButton" destination="JYK-Ol-cwQ" id="u99-Mf-u7P"/>
                 <outlet property="pendingTxIndicatorView" destination="UOz-TX-1yR" id="C7R-OA-KIK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -34,7 +36,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EARN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjs-6P-8Nn">
-                            <rect key="frame" x="37" y="66" width="46.5" height="21"/>
+                            <rect key="frame" x="37" y="66" width="48" height="21"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -95,6 +97,42 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPv-ML-Fas">
+                            <rect key="frame" x="151" y="60.5" width="63" height="32"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chain_switch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Itd-vu-znu">
+                                    <rect key="frame" x="38" y="6" width="20" height="20"/>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chain_eth_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fSp-Rn-gNZ">
+                                    <rect key="frame" x="5" y="4" width="24" height="24"/>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNd-zy-Vqd">
+                                    <rect key="frame" x="0.0" y="0.0" width="63" height="32"/>
+                                    <connections>
+                                        <action selector="switchChainButtonTapped:" destination="-1" eventType="touchUpInside" id="0se-0x-gu6"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="TNd-zy-Vqd" firstAttribute="top" secondItem="JPv-ML-Fas" secondAttribute="top" id="G6J-8G-Lu5"/>
+                                <constraint firstItem="fSp-Rn-gNZ" firstAttribute="centerY" secondItem="JPv-ML-Fas" secondAttribute="centerY" id="PVJ-pk-u84"/>
+                                <constraint firstAttribute="height" constant="32" id="Ugo-Hx-IMr"/>
+                                <constraint firstItem="TNd-zy-Vqd" firstAttribute="leading" secondItem="JPv-ML-Fas" secondAttribute="leading" id="WOw-FP-BHD"/>
+                                <constraint firstAttribute="trailing" secondItem="Itd-vu-znu" secondAttribute="trailing" constant="5" id="Zvv-Ol-xGC"/>
+                                <constraint firstItem="Itd-vu-znu" firstAttribute="centerY" secondItem="JPv-ML-Fas" secondAttribute="centerY" id="dwq-pF-jnT"/>
+                                <constraint firstAttribute="trailing" secondItem="TNd-zy-Vqd" secondAttribute="trailing" id="nzT-PM-bCD"/>
+                                <constraint firstItem="fSp-Rn-gNZ" firstAttribute="leading" secondItem="JPv-ML-Fas" secondAttribute="leading" constant="5" id="oN2-qO-Paa"/>
+                                <constraint firstAttribute="bottom" secondItem="TNd-zy-Vqd" secondAttribute="bottom" id="pe8-ba-nWP"/>
+                                <constraint firstAttribute="width" constant="63" id="wyd-Tx-juY"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -103,9 +141,11 @@
                         <constraint firstAttribute="height" constant="113" id="DjA-NJ-ouz"/>
                         <constraint firstItem="UOz-TX-1yR" firstAttribute="leading" secondItem="8UZ-Ei-oCv" secondAttribute="leading" id="Ikb-QA-Xn5"/>
                         <constraint firstItem="8UZ-Ei-oCv" firstAttribute="centerY" secondItem="kjs-6P-8Nn" secondAttribute="centerY" id="Irf-St-XdO"/>
+                        <constraint firstItem="8UZ-Ei-oCv" firstAttribute="centerY" secondItem="JPv-ML-Fas" secondAttribute="centerY" id="MXs-sZ-sGe"/>
                         <constraint firstAttribute="bottom" secondItem="kjs-6P-8Nn" secondAttribute="bottom" constant="26" id="TeS-0w-xyf"/>
                         <constraint firstItem="2vM-tm-Nr8" firstAttribute="leading" secondItem="8UZ-Ei-oCv" secondAttribute="trailing" constant="10" id="ZoT-o6-WGv"/>
                         <constraint firstItem="2vM-tm-Nr8" firstAttribute="centerY" secondItem="kjs-6P-8Nn" secondAttribute="centerY" id="cwn-06-Dzm"/>
+                        <constraint firstItem="8UZ-Ei-oCv" firstAttribute="leading" secondItem="JPv-ML-Fas" secondAttribute="trailing" constant="11" id="hpQ-tk-gb9"/>
                         <constraint firstAttribute="trailing" secondItem="2vM-tm-Nr8" secondAttribute="trailing" constant="14" id="rE6-Qs-cHM"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -133,6 +173,30 @@
                     <rect key="frame" x="0.0" y="143" width="375" height="442"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W2J-Yb-hbf">
+                    <rect key="frame" x="0.0" y="113" width="375" height="554"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chain_empty_icon" translatesAutoresizingMaskIntoConstraints="NO" id="riV-72-aXi">
+                            <rect key="frame" x="138.5" y="48" width="98" height="119"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdi-dv-wfG">
+                            <rect key="frame" x="47" y="200" width="281" height="57.5"/>
+                            <string key="text">We are sorry. 
+Currently we support earn functionality only on Ethereum chain.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="riV-72-aXi" firstAttribute="centerX" secondItem="W2J-Yb-hbf" secondAttribute="centerX" id="F8b-Zk-pCo"/>
+                        <constraint firstItem="wdi-dv-wfG" firstAttribute="leading" secondItem="W2J-Yb-hbf" secondAttribute="leading" constant="47" id="NQf-7B-zZP"/>
+                        <constraint firstItem="wdi-dv-wfG" firstAttribute="top" secondItem="riV-72-aXi" secondAttribute="bottom" constant="33" id="NVK-BP-lwL"/>
+                        <constraint firstAttribute="trailing" secondItem="wdi-dv-wfG" secondAttribute="trailing" constant="47" id="Rea-ce-aWE"/>
+                        <constraint firstItem="riV-72-aXi" firstAttribute="top" secondItem="W2J-Yb-hbf" secondAttribute="top" constant="48" id="zd2-T6-T4o"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -141,11 +205,15 @@
                 <constraint firstItem="ESA-T6-5qz" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="6cU-zS-QFX"/>
                 <constraint firstItem="ESA-T6-5qz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8ih-HK-u23"/>
                 <constraint firstItem="4Pv-jk-W5c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Jg8-V2-NAD"/>
+                <constraint firstItem="W2J-Yb-hbf" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="N8I-WX-M3w"/>
                 <constraint firstItem="4Pv-jk-W5c" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="OD8-8i-tK6"/>
+                <constraint firstItem="W2J-Yb-hbf" firstAttribute="top" secondItem="ESA-T6-5qz" secondAttribute="bottom" id="PJw-FG-SgS"/>
+                <constraint firstItem="W2J-Yb-hbf" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="VPA-WF-EDu"/>
                 <constraint firstItem="JYK-Ol-cwQ" firstAttribute="top" secondItem="4Pv-jk-W5c" secondAttribute="bottom" constant="20" id="YLV-AZ-rsp"/>
                 <constraint firstItem="JYK-Ol-cwQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="Zul-65-G5I"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JYK-Ol-cwQ" secondAttribute="trailing" constant="37" id="bP4-hL-qyZ"/>
                 <constraint firstItem="ESA-T6-5qz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dDP-6M-dOM"/>
+                <constraint firstItem="W2J-Yb-hbf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="gW5-Hi-CxR"/>
                 <constraint firstItem="4Pv-jk-W5c" firstAttribute="top" secondItem="ESA-T6-5qz" secondAttribute="bottom" constant="30" id="r9c-jV-GRB"/>
             </constraints>
             <point key="canvasLocation" x="140" y="103.89805097451276"/>
@@ -153,6 +221,9 @@
     </objects>
     <resources>
         <image name="arrow_down_template" width="12" height="9"/>
+        <image name="chain_empty_icon" width="98" height="119"/>
+        <image name="chain_eth_icon" width="24" height="24"/>
+        <image name="chain_switch_icon" width="20" height="20"/>
         <image name="history_icon" width="22" height="20"/>
     </resources>
 </document>

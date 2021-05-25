@@ -12,19 +12,17 @@ class KNTrackerRateStorage {
   private var allPrices: [TokenPrice]
 
   init() {
-    if KNEnvironment.default == .ropsten {
-      self.allPrices = KNTrackerRateStorage.loadPricesFromLocalData()
-    } else {
-      self.allPrices = []
-    }
+    self.allPrices = KNTrackerRateStorage.loadPricesFromLocalData()
   }
 
-  
+  func reloadData() {
+    self.allPrices = KNTrackerRateStorage.loadPricesFromLocalData()
+  }
 
   //MARK: new implementation
   static func loadPricesFromLocalData() -> [TokenPrice] {
     if KNEnvironment.default != .ropsten {
-      return Storage.retrieve(Constants.coingeckoPricesStoreFileName, as: [TokenPrice].self) ?? []
+      return Storage.retrieve(KNEnvironment.default.envPrefix + Constants.coingeckoPricesStoreFileName, as: [TokenPrice].self) ?? []
     } else {
       if let json = KNJSONLoaderUtil.jsonDataFromFile(with: "tokens_price") as? [String: JSONDictionary] {
         var result: [TokenPrice] = []
@@ -79,7 +77,7 @@ class KNTrackerRateStorage {
         self.allPrices.append(item)
       }
     }
-    Storage.store(self.allPrices, as: Constants.coingeckoPricesStoreFileName)
+    Storage.store(self.allPrices, as: KNEnvironment.default.envPrefix + Constants.coingeckoPricesStoreFileName)
   }
 }
 

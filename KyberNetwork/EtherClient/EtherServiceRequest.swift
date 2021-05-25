@@ -11,7 +11,7 @@ struct EtherServiceRequest<Batch: JSONRPCKit.Batch>: APIKit.Request {
 
     var baseURL: URL {
       // Change to KyberNetwork endpoint
-      if let customRPC = KNEnvironment.default.customRPC, let path = URL(string: customRPC.endpoint + KNEnvironment.default.nodeEndpoint) {
+      if let path = URL(string: KNGeneralProvider.shared.customRPC.endpoint + KNEnvironment.default.nodeEndpoint) {
         return path
       }
       let config = Config()
@@ -42,7 +42,7 @@ struct EtherServiceKyberRequest<Batch: JSONRPCKit.Batch>: APIKit.Request {
 
   var baseURL: URL {
     // Change to KyberNetwork endpoint
-    if let path = URL(string: KNEnvironment.default.kyberEndpointURL + KNEnvironment.default.nodeEndpoint) {
+    if let path = URL(string: KNGeneralProvider.shared.customRPC.endpointKyber + KNEnvironment.default.nodeEndpoint) {
       return path
     }
     let config = Config()
@@ -73,7 +73,7 @@ struct EtherServiceAlchemyRequest<Batch: JSONRPCKit.Batch>: APIKit.Request {
 
   var baseURL: URL {
     // Change to KyberNetwork endpoint
-    if let customRPC = KNEnvironment.default.customRPC, let path = URL(string: customRPC.endpointAlchemy + KNEnvironment.default.nodeEndpoint) {
+    if let path = URL(string: KNGeneralProvider.shared.customRPC.endpointAlchemy + KNEnvironment.default.nodeEndpoint) {
       return path
     }
     let config = Config()

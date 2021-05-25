@@ -6,7 +6,7 @@ import Moya
 class KNSupportedTokenCoordinator {
 
   static let shared = KNSupportedTokenCoordinator()
-  fileprivate let provider = MoyaProvider<KrytalService>()
+  fileprivate let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
 
   fileprivate var timer: Timer?
 

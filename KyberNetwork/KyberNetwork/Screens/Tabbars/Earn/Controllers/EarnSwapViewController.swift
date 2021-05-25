@@ -211,7 +211,7 @@ class EarnSwapViewModel {
         data: Data(hex: object.data.drop0x),
         gasPrice: gasPrice,
         gasLimit: gasLimit,
-        chainID: KNEnvironment.default.chainID
+        chainID: KNGeneralProvider.shared.customRPC.chainID
       )
     } else {
       //TODO: handle watch wallet type

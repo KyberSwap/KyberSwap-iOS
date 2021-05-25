@@ -325,7 +325,7 @@ extension KNAppCoordinator {
   }
 
   func appDidReceiveLocalNotification(transactionHash: String) {
-    let urlString = KNEnvironment.default.etherScanIOURLString + "tx/\(transactionHash)"
+    let urlString = KNGeneralProvider.shared.customRPC.etherScanEndpoint + "tx/\(transactionHash)"
     if self.transactionStatusCoordinator != nil {
       self.transactionStatusCoordinator.rootViewController?.openSafari(with: urlString)
     } else {
