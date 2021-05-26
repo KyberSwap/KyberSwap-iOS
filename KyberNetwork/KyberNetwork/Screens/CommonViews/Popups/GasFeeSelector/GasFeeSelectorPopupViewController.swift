@@ -94,7 +94,8 @@ class GasFeeSelectorPopupViewModel {
   fileprivate func formatFeeStringFor(gasPrice: BigInt) -> String {
     let fee = gasPrice * self.gasLimit
     let feeString: String = fee.displayRate(decimals: 18)
-    return "~ \(feeString) ETH"
+    let quoteToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
+    return "~ \(feeString) \(quoteToken)"
   }
 
   func updateGasLimit(value: BigInt) {

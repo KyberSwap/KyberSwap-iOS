@@ -31,7 +31,7 @@ class KNSendTokenViewModel: NSObject {
   }
 
   var allTokenBalanceString: String {
-    if self.from.isETH {
+    if self.from.isETH  || self.from.isBNB {
       let balance = self.from.getBalanceBigInt()
       let availableValue = max(BigInt(0), balance - self.allETHBalanceFee)
       let string = availableValue.string(
@@ -188,7 +188,7 @@ class KNSendTokenViewModel: NSObject {
   }
 
   var isAmountTooSmall: Bool {
-    if self.from.isETH { return false }
+    if self.from.isETH || self.from.isBNB { return false }
     return self.amountBigInt == BigInt(0)
   }
 
@@ -211,20 +211,20 @@ class KNSendTokenViewModel: NSObject {
 
   var isHavingEnoughETHForFee: Bool {
     var fee = self.ethFeeBigInt
-    if self.from.isETH { fee += self.amountBigInt }
-    let ethBal = BalanceStorage.shared.getBalanceETHBigInt()
+    if self.from.isETH || self.from.isBNB { fee += self.amountBigInt }
+    let ethBal = KNGeneralProvider.shared.isEthereum ? BalanceStorage.shared.getBalanceETHBigInt() : BalanceStorage.shared.getBalanceBNBBigInt()
     return ethBal >= fee
   }
 
   var unconfirmTransaction: UnconfirmedTransaction {
     let transferType: TransferType = {
-      if self.from.isETH {
+      if self.from.isETH || self.from.isBNB {
         return TransferType.ether(destination: self.address)
       }
       return TransferType.token(self.from)
     }()
     let amount: BigInt = {
-      if self.from.isETH {
+      if self.from.isETH || self.from.isBNB {
         // eth needs to minus some fee
         if !self.isSendAllBalanace { return self.amountBigInt } // not send all balance
         let balance = self.from.getBalanceBigInt()

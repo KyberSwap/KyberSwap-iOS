@@ -124,6 +124,10 @@ class TokenObject: Object {
     var isETH: Bool {
       return self.symbol == "ETH" && self.name.lowercased() == "ethereum"
     }
+  
+  var isBNB: Bool {
+    return self.address.lowercased() == Constants.bnbAddress.lowercased()
+  }
 
     var isWETH: Bool {
       return self.symbol == "WETH"

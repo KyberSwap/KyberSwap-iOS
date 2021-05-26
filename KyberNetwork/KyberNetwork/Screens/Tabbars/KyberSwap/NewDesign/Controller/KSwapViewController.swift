@@ -528,11 +528,12 @@ class KSwapViewController: KNBaseViewController {
       return true
     }
     if isConfirming {
+      let quoteToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
       guard self.viewModel.isHavingEnoughETHForFee else {
         let fee = self.viewModel.feeBigInt
         self.showWarningTopBannerMessage(
-          with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
-          message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
+          with: NSLocalizedString("Insufficient \(quoteToken) for transaction", value: "Insufficient \(quoteToken) for transaction", comment: ""),
+          message: String(format: "Deposit more \(quoteToken) or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
         )
         return true
       }
@@ -1040,6 +1041,7 @@ extension KSwapViewController {
     self.updateGasTokenArea()
     self.balanceLabel.text = self.viewModel.balanceDisplayText
     self.setUpChangeRateButton()
+    self.setUpGasFeeView()
   }
 }
 

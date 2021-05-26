@@ -18,10 +18,10 @@ class EtherscanTransactionStorage {
 
   func updateCurrentWallet(_ wallet: Wallet) {
     self.wallet = wallet
-    self.tokenTransactions = Storage.retrieve(wallet.address.description + Constants.etherscanTokenTransactionsStoreFileName, as: [EtherscanTokenTransaction].self) ?? []
-    self.internalTransaction = Storage.retrieve(wallet.address.description + Constants.etherscanInternalTransactionsStoreFileName, as: [EtherscanInternalTransaction].self) ?? []
-    self.transactions = Storage.retrieve(wallet.address.description + Constants.etherscanTransactionsStoreFileName, as: [EtherscanTransaction].self) ?? []
-    self.historyTransactionModel = Storage.retrieve(wallet.address.description + Constants.historyTransactionsStoreFileName, as: [HistoryTransaction].self) ?? []
+    self.tokenTransactions = Storage.retrieve(wallet.address.description + KNEnvironment.default.envPrefix + Constants.etherscanTokenTransactionsStoreFileName, as: [EtherscanTokenTransaction].self) ?? []
+    self.internalTransaction = Storage.retrieve(wallet.address.description + KNEnvironment.default.envPrefix + Constants.etherscanInternalTransactionsStoreFileName, as: [EtherscanInternalTransaction].self) ?? []
+    self.transactions = Storage.retrieve(wallet.address.description + KNEnvironment.default.envPrefix + Constants.etherscanTransactionsStoreFileName, as: [EtherscanTransaction].self) ?? []
+    self.historyTransactionModel = Storage.retrieve(wallet.address.description + KNEnvironment.default.envPrefix + Constants.historyTransactionsStoreFileName, as: [HistoryTransaction].self) ?? []
     DispatchQueue.global(qos: .background).async {
       self.generateKrytalTransactionModel()
     }
@@ -32,7 +32,7 @@ class EtherscanTransactionStorage {
       return
     }
     self.tokenTransactions = transactions
-    Storage.store(transactions, as: unwrapped.address.description + Constants.etherscanTokenTransactionsStoreFileName)
+    Storage.store(transactions, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.etherscanTokenTransactionsStoreFileName)
   }
 
   func setInternalTransactions(_ transactions: [EtherscanInternalTransaction]) {
@@ -40,7 +40,7 @@ class EtherscanTransactionStorage {
       return
     }
     self.internalTransaction = transactions
-    Storage.store(transactions, as: unwrapped.address.description + Constants.etherscanInternalTransactionsStoreFileName)
+    Storage.store(transactions, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.etherscanInternalTransactionsStoreFileName)
   }
 
   func setTransactions(_ transactions: [EtherscanTransaction]) {
@@ -48,7 +48,7 @@ class EtherscanTransactionStorage {
       return
     }
     self.transactions = transactions
-    Storage.store(transactions, as: unwrapped.address.description + Constants.etherscanTransactionsStoreFileName)
+    Storage.store(transactions, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.etherscanTransactionsStoreFileName)
   }
 
   func getTokenTransaction() -> [EtherscanTokenTransaction] {
@@ -79,7 +79,7 @@ class EtherscanTransactionStorage {
     }
     
     let result = newTx + self.tokenTransactions
-    Storage.store(result, as: unwrapped.address.description + Constants.etherscanTokenTransactionsStoreFileName)
+    Storage.store(result, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.etherscanTokenTransactionsStoreFileName)
     self.tokenTransactions = result
   }
   
@@ -112,7 +112,7 @@ class EtherscanTransactionStorage {
       return
     }
     let result = newTx + self.internalTransaction
-    Storage.store(result, as: unwrapped.address.description + Constants.etherscanInternalTransactionsStoreFileName)
+    Storage.store(result, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.etherscanInternalTransactionsStoreFileName)
     self.internalTransaction = result
   }
 
@@ -131,7 +131,7 @@ class EtherscanTransactionStorage {
       return
     }
     let result = newTx + self.transactions
-    Storage.store(result, as: unwrapped.address.description + Constants.etherscanTransactionsStoreFileName)
+    Storage.store(result, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.etherscanTransactionsStoreFileName)
     self.transactions = result
   }
 
@@ -220,7 +220,7 @@ class EtherscanTransactionStorage {
     print("[ESStorage][NewTX] \(newestTxs)")
     
     self.historyTransactionModel = historyModel
-    Storage.store(self.historyTransactionModel, as: unwrapped.address.description + Constants.historyTransactionsStoreFileName)
+    Storage.store(self.historyTransactionModel, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.historyTransactionsStoreFileName)
     DispatchQueue.main.async {
       KNNotificationUtil.postNotification(for: kTokenTransactionListDidUpdateNotificationKey)
       

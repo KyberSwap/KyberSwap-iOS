@@ -222,6 +222,9 @@ extension KNAppCoordinator {
     self.exchangeCoordinator?.appCoordinatorDidUpdateChain()
     self.overviewTabCoordinator?.appCoordinatorDidUpdateChain()
     self.investCoordinator?.appCoordinatorDidUpdateChain()
+    self.session.externalProvider?.minTxCount = 0
+    EtherscanTransactionStorage.shared.updateCurrentWallet(self.session.wallet)
+    
   }
 
   @objc func tokenBalancesDidUpdateNotification(_ sender: Any?) {

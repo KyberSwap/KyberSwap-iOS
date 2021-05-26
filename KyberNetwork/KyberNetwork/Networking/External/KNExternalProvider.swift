@@ -112,7 +112,9 @@ class KNExternalProvider {
                     self.minTxCount += 1
                     completion(.success((hash, signData.1)))
                   }
-                  
+                  if case .failure(let error) = result {
+                    completion(.failure(error))
+                  }
                 })
               case .failure(let error):
                 completion(.failure(error))
@@ -497,9 +499,7 @@ class KNExternalProvider {
       gasLimit: transaction.gasLimit ?? defaultGasLimit,
       chainID: KNGeneralProvider.shared.customRPC.chainID
     )
-    
-    
-    
+
     self.signTransactionData(from: signTransaction, completion: completion)
   }
 

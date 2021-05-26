@@ -19,10 +19,24 @@ class KNGeneralProvider {
   var customRPC: CustomRPC {
     return self.isEthereum ? KNEnvironment.default.ethRPC : KNEnvironment.default.bscRPC
   }
+  
+  var currentWeb3: Web3Swift = Web3Swift()
+  
+  var quoteToken: String {
+    let quoteToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
+    return quoteToken
+  }
 
   var web3Swift: Web3Swift {
     if let path = URL(string: self.customRPC.endpoint + KNEnvironment.default.nodeEndpoint) {
-      return Web3Swift(url: path)
+      let web3 = Web3Swift(url: path)
+      if web3.url != self.currentWeb3.url {
+        self.currentWeb3 = web3
+        DispatchQueue.main.async {
+          self.currentWeb3.start()
+        }
+      }
+      return self.currentWeb3
     } else {
       return Web3Swift()
     }
@@ -53,7 +67,8 @@ class KNGeneralProvider {
     return Address(string: self.customRPC.wrappedAddress)!
   }
 
-  init() { DispatchQueue.main.async { self.web3Swift.start() } }
+  init() {
+  }
 
   // MARK: Balance
   func getETHBalanace(for address: String, completion: @escaping (Result<Balance, AnyError>) -> Void) {
@@ -246,7 +261,7 @@ class KNGeneralProvider {
   }
 
   func getAllowance(for token: TokenObject, address: Address, networkAddress: Address, completion: @escaping (Result<BigInt, AnyError>) -> Void) {
-    if token.isETH {
+    if token.isETH || token.isBNB {
       // ETH no need to request for approval
       completion(.success(BigInt(2).power(255)))
       return

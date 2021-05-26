@@ -105,7 +105,7 @@ class KSwapViewModel {
   }
 
   var allFromTokenBalanceString: String {
-    if self.from.isETH {
+    if self.from.isETH || self.from.isBNB {
       let balance = self.from.getBalanceBigInt()
       if balance <= self.feeBigInt { return "0" }
       let fee = self.allETHBalanceFee
@@ -281,7 +281,7 @@ class KSwapViewModel {
   // Amount should > 0 and <= balance
   var isAmountTooSmall: Bool {
     if self.amountFromBigInt <= BigInt(0) { return true }
-    if self.from.isETH || self.from.isWETH {
+    if self.from.isETH || self.from.isWETH || self.from.isBNB {
       return self.amountFromBigInt < BigInt(0.001 * Double(EthereumUnit.ether.rawValue))
     }
     if self.to.isETH || self.to.isWETH {
@@ -311,7 +311,7 @@ class KSwapViewModel {
   }
 
   var isETHSwapAmountAndFeeTooBig: Bool {
-    if !self.from.isETH { return false } // not ETH
+    if !self.from.isETH || self.from.isBNB { return false } // not ETH
     let totalValue = self.feeBigInt + self.amountFromBigInt
     let balance = self.from.getBalanceBigInt()
     return balance < totalValue
@@ -349,8 +349,8 @@ class KSwapViewModel {
 
   var isHavingEnoughETHForFee: Bool {
     var fee = self.gasPrice * self.estimateGasLimit
-    if self.from.isETH { fee += self.amountFromBigInt }
-    let ethBal = BalanceStorage.shared.getBalanceETHBigInt()
+    if self.from.isETH || self.from.isBNB { fee += self.amountFromBigInt }
+    let ethBal = KNGeneralProvider.shared.isEthereum ? BalanceStorage.shared.getBalanceETHBigInt() : BalanceStorage.shared.getBalanceBNBBigInt()
     return ethBal >= fee
   }
 

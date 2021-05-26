@@ -305,10 +305,11 @@ class KSendTokenViewController: KNBaseViewController {
     if !isConfirming && self.isViewDisappeared { return false }
     if isConfirming {
       guard self.viewModel.isHavingEnoughETHForFee else {
+        let quoteToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
         let fee = self.viewModel.ethFeeBigInt
         self.showWarningTopBannerMessage(
-          with: NSLocalizedString("Insufficient ETH for transaction", value: "Insufficient ETH for transaction", comment: ""),
-          message: String(format: "Deposit more ETH or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
+          with: NSLocalizedString("Insufficient \(quoteToken) for transaction", value: "Insufficient \(quoteToken) for transaction", comment: ""),
+          message: String(format: "Deposit more \(quoteToken) or click Advanced to lower GAS fee".toBeLocalised(), fee.shortString(units: .ether, maxFractionDigits: 6))
         )
         return true
       }

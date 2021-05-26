@@ -78,8 +78,9 @@ struct KConfirmSwapViewModel {
   }
 
   var feeETHString: String {
+    let quoteToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
     let string: String = self.transactionFee.displayRate(decimals: 18)
-    return "\(string) ETH"
+    return "\(string) \(quoteToken)"
   }
 
   var feeUSDString: String {

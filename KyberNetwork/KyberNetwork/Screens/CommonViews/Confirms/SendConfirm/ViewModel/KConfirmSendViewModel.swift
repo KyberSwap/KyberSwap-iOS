@@ -77,7 +77,7 @@ struct KConfirmSendViewModel {
       return gasPrice * gasLimit
     }()
     let feeString: String = fee?.displayRate(decimals: 18) ?? "---"
-    return "\(feeString) ETH"
+    return "\(feeString) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   var transactionFeeUSDString: String {

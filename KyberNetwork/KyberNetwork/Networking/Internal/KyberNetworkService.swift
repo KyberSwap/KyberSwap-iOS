@@ -1155,7 +1155,8 @@ extension CoinGeckoService: TargetType {
     let chainPath = KNGeneralProvider.shared.isEthereum ? "ethereum" : "binance-smart-chain"
     switch self {
     case .getChartData(let address, _ , _, _):
-      return address.isNativeAddress() ? "/v3/coins/\(chainPath)/market_chart/range" : "/v3/coins/ethereum/contract/\(address)/market_chart/range"
+      let coin = KNGeneralProvider.shared.isEthereum ? "ethereum" : "binancecoin"
+      return address.isNativeAddress() ? "/v3/coins/\(coin)/market_chart/range" : "/v3/coins/\(chainPath)/contract/\(address)/market_chart/range"
     case .getTokenDetailInfo(address: let address):
       return address.isNativeAddress() ? "/v3/coins/\(chainPath)" : "/v3/coins/\(chainPath)/contract/\(address)"
     case .getPriceETH:
