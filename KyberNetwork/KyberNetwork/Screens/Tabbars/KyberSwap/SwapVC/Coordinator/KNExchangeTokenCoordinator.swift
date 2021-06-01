@@ -156,8 +156,9 @@ extension KNExchangeTokenCoordinator {
   func appCoordinatorShouldOpenExchangeForToken(_ token: TokenObject, isReceived: Bool = false) {
     self.navigationController.popToRootViewController(animated: true)
     let otherToken: TokenObject = token.isETH ? KNSupportedTokenStorage.shared.kncToken : KNSupportedTokenStorage.shared.ethToken
+    let otherTokenBsc: TokenObject = token.isBNB ? KNSupportedTokenStorage.shared.busdToken : KNSupportedTokenStorage.shared.bnbToken
     self.rootViewController.coordinatorUpdateSelectedToken(token, isSource: !isReceived, isWarningShown: false)
-    self.rootViewController.coordinatorUpdateSelectedToken(otherToken, isSource: isReceived, isWarningShown: true)
+    self.rootViewController.coordinatorUpdateSelectedToken(KNGeneralProvider.shared.isEthereum ? otherToken : otherTokenBsc, isSource: isReceived, isWarningShown: true)
     self.rootViewController.tabBarController?.selectedIndex = 1
   }
 
@@ -1014,6 +1015,7 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
           amount: amount,
           gasLimit: estimate
         )
+        
         self.gasFeeSelectorVC?.coordinatorDidUpdateGasLimit(estimate)
       }
     }
@@ -1049,7 +1051,11 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
 
   fileprivate func openSendTokenView() {
     let from: TokenObject = {
-      return self.session.tokenStorage.ethToken
+      if KNGeneralProvider.shared.isEthereum {
+        return KNSupportedTokenStorage.shared.ethToken
+      } else {
+        return KNSupportedTokenStorage.shared.bnbToken
+      }
     }()
     let coordinator = KNSendTokenViewCoordinator(
       navigationController: self.navigationController,
@@ -1162,9 +1168,15 @@ extension KNExchangeTokenCoordinator: KNHistoryCoordinatorDelegate {
 //    self.historyCoordinator = nil
   }
 
-  func historyCoordinatorDidUpdateWalletObjects() {}
-  func historyCoordinatorDidSelectRemoveWallet(_ wallet: Wallet) {}
-  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {}
+  func historyCoordinatorDidUpdateWalletObjects() {
+    
+  }
+  func historyCoordinatorDidSelectRemoveWallet(_ wallet: Wallet) {
+    
+  }
+  func historyCoordinatorDidSelectWallet(_ wallet: Wallet) {
+    self.delegate?.exchangeTokenCoordinatorDidSelectWallet(wallet)
+  }
 }
 
 extension KNExchangeTokenCoordinator: KNTransactionStatusPopUpDelegate {
@@ -1416,7 +1428,7 @@ extension KNExchangeTokenCoordinator: ApproveTokenViewControllerDelegate {
       self.navigationController.hideLoading()
       switch resetResult {
       case .success:
-        provider.sendApproveERCToken(for: token, value: BigInt(2).power(256) - BigInt(1), gasPrice: KNGasCoordinator.shared.defaultKNGas) { (result) in
+        provider.sendApproveERCToken(for: token, value: BigInt(2).power(256) - BigInt(1), gasPrice: KNGasCoordinator.shared.maxKNGas) { (result) in
           switch result {
           case .success:
             self.rootViewController.coordinatorSuccessApprove(token: token)

@@ -88,6 +88,10 @@ class InvestViewController: KNBaseViewController {
   }
 
   @IBAction func krytalButtonTapped(_ sender: UIButton) {
+    guard KNGeneralProvider.shared.isEthereum else {
+      self.showTopBannerView(message: "Krystal point on BSC will be supported soon")
+      return
+    }
     self.delegate?.investViewController(self, run: .krytal)
   }
   

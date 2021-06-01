@@ -12,6 +12,7 @@ import SwipeCellKit
 class OverviewAssetsCellViewModel {
   let token: Token
   var currencyType: CurrencyType = .usd
+  var hideBalanceStatus: Bool = true
   
   init(token: Token) {
     self.token = token
@@ -30,6 +31,9 @@ class OverviewAssetsCellViewModel {
   }
   
   var displayTokenBalance: String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     return self.balanceBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
   }
 
@@ -63,6 +67,9 @@ class OverviewAssetsCellViewModel {
   }
   
   var diplayValue: String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let valueString = self.valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
     switch self.currencyType {
     case .usd:

@@ -59,9 +59,12 @@ class KSwapViewModel {
           return false
         }
       }
-      if let estGasString = dict?["estimatedGas"] as? NSNumber, let estGas = BigInt(estGasString.stringValue) {
-        self.estimateGasLimit = estGas
-      }
+//      if let estGasString = dict?["estimatedGas"] as? NSNumber, let estGas = BigInt(estGasString.stringValue) {
+//        guard self.estimateGasLimit != KNGasConfiguration.exchangeTokensGasLimitDefault else {
+//          return
+//        }
+//        self.estimateGasLimit = estGas
+//      }
     }
   }
   var remainApprovedAmount: (TokenObject, BigInt)?
@@ -95,6 +98,9 @@ class KSwapViewModel {
   }
 
   var isUseGasToken: Bool {
+    if !KNGeneralProvider.shared.isEthereum {
+      return false
+    }
     var data: [String: Bool] = [:]
     if let saved = UserDefaults.standard.object(forKey: Constants.useGasTokenDataKey) as? [String: Bool] {
       data = saved
@@ -390,8 +396,8 @@ class KSwapViewModel {
   
   func resetDefaultTokensPair() {
     if KNGeneralProvider.shared.isEthereum {
-      self.from = self.eth
-      self.to = self.knc
+      self.from = KNSupportedTokenStorage.shared.ethToken
+      self.to = KNSupportedTokenStorage.shared.kncToken
     } else {
       self.from = KNSupportedTokenStorage.shared.bnbToken
       self.to = KNSupportedTokenStorage.shared.busdToken

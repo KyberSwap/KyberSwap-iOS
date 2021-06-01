@@ -282,7 +282,7 @@ class KNRateCoordinator {
         var output: [TokenPrice] = []
         json.keys.forEach { (jsonKey) in
           var dict = json[jsonKey]
-          dict?["address"] = Constants.ethAddress
+          dict?["address"] = KNGeneralProvider.shared.isEthereum ? Constants.ethAddress : Constants.bnbAddress
           if let notNil = dict {
             let price = TokenPrice(dictionary: notNil)
             output.append(price)

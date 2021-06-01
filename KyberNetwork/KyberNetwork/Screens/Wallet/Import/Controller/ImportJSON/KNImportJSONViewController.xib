@@ -27,12 +27,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNImportJSONViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="containerRefCodeView" destination="hQw-xX-Rk1" id="A3Y-cz-xTF"/>
                 <outlet property="enterPasswordTextField" destination="5OF-yq-LyQ" id="8PM-fi-EUJ"/>
                 <outlet property="importJSONButton" destination="Kef-NW-6Ru" id="JJq-I7-DXO"/>
                 <outlet property="nameWalletTextField" destination="iET-Mn-45p" id="nzd-Oi-pbV"/>
                 <outlet property="nextButton" destination="6bU-jo-KwQ" id="GbB-ut-Cna"/>
                 <outlet property="passwordFieldContainer" destination="ARt-9j-4Vp" id="lZP-vf-Bjo"/>
                 <outlet property="refCodeField" destination="hVz-Pk-opY" id="bkn-dw-oxE"/>
+                <outlet property="refCodeTitleLabel" destination="3L6-oN-Yti" id="vCA-zH-FPs"/>
                 <outlet property="secureTextButton" destination="1UL-D2-Ny2" id="GqO-Cc-CuF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

@@ -259,7 +259,7 @@ enum HistoryModelType: Codable {
       return .earn
     case "0xa9059cbb":
       return .transferToken
-    case "0xcf512b53", "0x12342114", "0xae591d54":
+    case "0xcf512b53", "0x12342114", "0xae591d54", "0x7a6c0dfe":
       return .swap
     default:
       return .contractInteraction

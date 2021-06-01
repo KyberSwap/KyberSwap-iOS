@@ -184,13 +184,7 @@ struct KNHistoryViewModel {
         return data
       }()
       self.displayingPendingTxData = [:]
-//      self.displayingPendingTxHeaders.forEach({
-//        var txs = self.pendingTxData[$0] ?? []
-//        txs = txs.filter({ return self.isTransactionIncluded($0) })
-//        if !txs.isEmpty { self.displayingPendingTxData[$0] = txs }
-//      })
-//      self.displayingPendingTxHeaders = self.displayingPendingTxHeaders.filter({ return self.displayingPendingTxData[$0] != nil })
-      //TODO: fileter data
+
       self.displayingPendingTxHeaders.forEach { (header) in
         let items = self.pendingTxData[header]?.map({ (item) -> PendingInternalHistoryTransactonViewModel in
           return PendingInternalHistoryTransactonViewModel(index: 0, transaction: item)
@@ -257,10 +251,14 @@ struct KNHistoryViewModel {
       }
     }
     if tx.type == .transferETH || tx.type == .receiveETH {
-      tokenMatched = self.filters.tokens.contains("ETH")
+      tokenMatched = self.filters.tokens.contains(KNGeneralProvider.shared.quoteToken)
     } else {
       if transactionToken.isEmpty {
-        tokenMatched = false
+        if tx.type == .allowance, let approveTx = tx.transacton.first, let token = KNSupportedTokenStorage.shared.getTokenWith(address: approveTx.to) {
+          return self.filters.tokens.contains(token.symbol)
+        } else {
+          tokenMatched = true
+        }
       } else {
         tokenMatched = Set(transactionToken).isSubset(of: Set(self.filters.tokens))
       }

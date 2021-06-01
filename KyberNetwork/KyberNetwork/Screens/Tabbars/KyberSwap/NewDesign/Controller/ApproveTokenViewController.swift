@@ -40,7 +40,7 @@ class ApproveTokenViewModelForTokenObject: ApproveTokenViewModel {
   func getFeeString() -> String {
     let fee = self.getFee()
     let feeString: String = fee.displayRate(decimals: 18)
-    return "\(feeString) ETH"
+    return "\(feeString) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   func getFeeUSDString() -> String {
@@ -99,7 +99,7 @@ class ApproveTokenViewModelForTokenAddress: ApproveTokenViewModel {
   func getFeeString() -> String {
     let fee = self.getFee()
     let feeString: String = fee.displayRate(decimals: 18)
-    return "\(feeString) ETH"
+    return "\(feeString) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   func getFeeUSDString() -> String {
@@ -163,7 +163,7 @@ class ApproveTokenViewController: KNBaseViewController {
   }
 
   @IBAction func approveButtonTapped(_ sender: UIButton) {
-    let ethBalance = KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt()
+    let ethBalance = KNGeneralProvider.shared.isEthereum ? KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt() : KNSupportedTokenStorage.shared.bnbToken.getBalanceBigInt()
     guard self.viewModel.getFee() < ethBalance else {
       self.showWarningTopBannerMessage(
         with: NSLocalizedString("amount.too.big", value: "Amount too big", comment: ""),

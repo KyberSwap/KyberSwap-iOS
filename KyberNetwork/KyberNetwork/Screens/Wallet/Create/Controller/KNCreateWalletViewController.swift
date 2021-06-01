@@ -22,6 +22,9 @@ class KNCreateWalletViewController: KNBaseViewController {
   @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var refCodeField: UITextField!
+  @IBOutlet weak var containerRefCodeView: UIView!
+  @IBOutlet weak var refCodeTitleLabel: UILabel!
+  
   let transitor = TransitionDelegate()
 
   weak var delegate: KNCreateWalletViewControllerDelegate?
@@ -44,7 +47,7 @@ class KNCreateWalletViewController: KNBaseViewController {
   fileprivate func setupUI() {
     self.containerView.rounded(radius: 5.0)
     self.confirmLabel.text = NSLocalizedString("confirm", value: "Confirm", comment: "").uppercased()
-    self.descLabel.text = "This creates a new Ethereum wallet for you to receive and transfer tokens."
+    self.descLabel.text = "This will create a new wallet for you to send and receive tokens. Same wallet can be used on both chains ETH and BSC."
     self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
     self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.confirmButton.setTitle(
@@ -53,6 +56,8 @@ class KNCreateWalletViewController: KNBaseViewController {
     )
     self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.view.isUserInteractionEnabled = true
+//    self.containerRefCodeView.isHidden = !KNGeneralProvider.shared.isEthereum
+//    self.refCodeTitleLabel.isHidden = !KNGeneralProvider.shared.isEthereum
   }
 
   override func viewDidLayoutSubviews() {

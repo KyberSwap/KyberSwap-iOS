@@ -78,7 +78,7 @@ struct KNTransactionDetailsViewModel {
 
   var displayFee: String? {
     if let fee = self.transaction?.feeBigInt {
-      return "\(fee.displayRate(decimals: 18)) ETH"
+      return "\(fee.displayRate(decimals: 18)) \(KNGeneralProvider.shared.quoteToken)"
     }
     return nil
   }
@@ -127,7 +127,7 @@ struct KNTransactionDetailsViewModel {
     let displayETH = gasPriceBigNo.fullString(decimals: 18)
     let displayGWei = gasPriceBigNo.fullString(units: .gwei)
 
-    return "\(displayETH) ETH (\(displayGWei) Gwei)"
+    return "\(displayETH) \(KNGeneralProvider.shared.quoteToken) (\(displayGWei) Gwei)"
   }
 
   var displayRateTextString: String {
@@ -383,7 +383,7 @@ struct InternalTransactionDetailViewModel: TransactionDetailsViewModel {
       return ""
     }
     let fee = gasPrice * gasLimit
-    return "\(fee.displayRate(decimals: 18)) ETH"
+    return "\(fee.displayRate(decimals: 18)) \(KNGeneralProvider.shared.quoteToken)"
   }
   
   var displayHash: String {
@@ -511,12 +511,12 @@ struct EtherscanTransactionDetailViewModel: TransactionDetailsViewModel {
       let gasPrice = BigInt(transaction.gasPrice) ?? BigInt(0)
       let gasLimit = BigInt(transaction.gasUsed) ?? BigInt(0)
       let fee = gasPrice * gasLimit
-      return "\(fee.displayRate(decimals: 18)) ETH"
+      return "\(fee.displayRate(decimals: 18)) \(KNGeneralProvider.shared.quoteToken)"
     } else if let tokenTx = self.data.data.tokenTransactions.first {
       let gasPrice = BigInt(tokenTx.gasPrice) ?? BigInt(0)
       let gasLimit = BigInt(tokenTx.gasUsed) ?? BigInt(0)
       let fee = gasPrice * gasLimit
-      return "\(fee.displayRate(decimals: 18)) ETH"
+      return "\(fee.displayRate(decimals: 18)) \(KNGeneralProvider.shared.quoteToken)"
     } else {
       return "---"
     }

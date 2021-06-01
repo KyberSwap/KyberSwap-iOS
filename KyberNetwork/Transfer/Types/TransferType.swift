@@ -38,7 +38,7 @@ extension TransferType {
   func tokenObject() -> TokenObject {
     switch self {
     case .ether:
-      return KNSupportedTokenStorage.shared.ethToken
+      return KNGeneralProvider.shared.isEthereum ? KNSupportedTokenStorage.shared.ethToken : KNSupportedTokenStorage.shared.bnbToken
     case .token(let object):
       return object
     }

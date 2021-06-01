@@ -49,9 +49,6 @@ class KNSendTokenViewModel: NSObject {
   }
 
   var equivalentUSDAmount: BigInt? {
-//    if let usdRate = KNRateCoordinator.shared.usdRate(for: self.from) {
-//      return usdRate.rate * self.amountBigInt / BigInt(10).power(self.from.decimals)
-//    }
     guard let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.from.address) else { return nil }
     
     return self.amountBigInt * BigInt(tokenPrice.usd * pow(10.0, 18.0)) / BigInt(10).power(self.from.decimals)

@@ -19,7 +19,7 @@ public struct Constants {
   public static let gasTokenAddress = KNEnvironment.default == .ropsten ? "0x0000000000b3F879cb30FE243b4Dfee438691c04" : "0x0000000000004946c0e9F43F4Dee607b0eF1fA1c"
 
   public static let krystalProxyAddress = KNEnvironment.default == .ropsten ? "0x1e49809B423C1E45645E523804E77584414963E6" : "0xCf276A0A972C504b88224E92d047b3DaD6A4a426"
-  public static let krystalProxyAddressBSC = "0x8565Fb7dfB5D36b2aA00086ffc920cfF20db4F2f"
+  public static let krystalProxyAddressBSC = KNEnvironment.default == .ropsten ? "0x8565Fb7dfB5D36b2aA00086ffc920cfF20db4F2f" : "0x2FA1e7dF142665320cA916AFDA9DFD9A97C9b986"
   public static let tokenStoreFileName = "token.data"
   public static let balanceStoreFileName = "_balance.data"
   public static let customBalanceStoreFileName = "-custom-balance.data"
@@ -41,6 +41,7 @@ public struct Constants {
   public static let acceptedTermKey = "accepted-terms-key"
   public static let lendingTokensStoreFileName = "lending-tokens.data"
   public static let platformWallet = KNEnvironment.default == .production ? "0x5250b8202AEBca35328E2c217C687E894d70Cd31" : "0x5250b8202AEBca35328E2c217C687E894d70Cd31"
+  public static let currentChainSaveKey = "current-chain-save-key"
 
   public static let ethMainnetPRC = CustomRPC(
     chainID: 1,

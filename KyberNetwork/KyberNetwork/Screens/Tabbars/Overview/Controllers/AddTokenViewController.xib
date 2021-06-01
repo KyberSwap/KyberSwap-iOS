@@ -22,6 +22,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddTokenViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="addressField" destination="Mos-5c-xjL" id="Q6V-lM-P6e"/>
+                <outlet property="blockchainField" destination="OKt-3y-6Iq" id="ns5-Qn-kKb"/>
                 <outlet property="decimalsField" destination="mmn-6o-dhI" id="OXI-Xm-IeI"/>
                 <outlet property="doneButton" destination="sSh-ox-nfP" id="nPI-kW-dnc"/>
                 <outlet property="symbolField" destination="YCD-po-quv" id="d1y-Nq-rrt"/>
@@ -201,7 +202,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSh-ox-nfP">
-                    <rect key="frame" x="125.5" y="456" width="124" height="32"/>
+                    <rect key="frame" x="125.5" y="529" width="124" height="32"/>
                     <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="124" id="9e1-dD-jLy"/>
@@ -221,6 +222,37 @@
                         <action selector="doneButtonTapped:" destination="-1" eventType="touchUpInside" id="nT5-Ll-mvP"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsa-Jy-2Li">
+                    <rect key="frame" x="40" y="459" width="295" height="42"/>
+                    <subviews>
+                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="100" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Ethereum" placeholder="Decimals" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OKt-3y-6Iq">
+                            <rect key="frame" x="16" y="0.0" width="263" height="42"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="OKt-3y-6Iq" firstAttribute="leading" secondItem="lsa-Jy-2Li" secondAttribute="leading" constant="16" id="6fd-Rd-ewI"/>
+                        <constraint firstAttribute="bottom" secondItem="OKt-3y-6Iq" secondAttribute="bottom" id="Rab-Xb-wRB"/>
+                        <constraint firstAttribute="height" constant="42" id="WtX-hZ-z8z"/>
+                        <constraint firstAttribute="trailing" secondItem="OKt-3y-6Iq" secondAttribute="trailing" constant="16" id="Xtl-gR-nT3"/>
+                        <constraint firstItem="OKt-3y-6Iq" firstAttribute="top" secondItem="lsa-Jy-2Li" secondAttribute="top" id="sFL-R9-jRh"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blockchain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbQ-bW-Hpm">
+                    <rect key="frame" x="40" y="429" width="67" height="17"/>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -232,19 +264,24 @@
                 <constraint firstItem="c4I-Q9-X0l" firstAttribute="top" secondItem="M86-sM-Ke7" secondAttribute="bottom" constant="13" id="Gat-x2-0ux"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Zp1-AP-dOe" secondAttribute="trailing" constant="40" id="H3g-lE-4im"/>
                 <constraint firstItem="9R9-nZ-aqo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="LSX-sD-5Wb"/>
+                <constraint firstItem="lsa-Jy-2Li" firstAttribute="top" secondItem="SbQ-bW-Hpm" secondAttribute="bottom" constant="13" id="Mdt-dJ-yZ9"/>
                 <constraint firstItem="lDN-8E-8sA" firstAttribute="top" secondItem="c4I-Q9-X0l" secondAttribute="bottom" constant="20" id="NKL-MZ-IKE"/>
                 <constraint firstItem="c4I-Q9-X0l" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="SEJ-qD-1qs"/>
-                <constraint firstItem="sSh-ox-nfP" firstAttribute="top" secondItem="Zp1-AP-dOe" secondAttribute="bottom" constant="47" id="WMZ-6d-eJg"/>
+                <constraint firstItem="sSh-ox-nfP" firstAttribute="top" secondItem="Zp1-AP-dOe" secondAttribute="bottom" constant="120" id="WMZ-6d-eJg"/>
                 <constraint firstItem="u4A-55-mi9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="XH6-iD-Iw9"/>
                 <constraint firstItem="9R9-nZ-aqo" firstAttribute="top" secondItem="u4A-55-mi9" secondAttribute="bottom" constant="40" id="YXR-nH-VvO"/>
                 <constraint firstItem="M86-sM-Ke7" firstAttribute="top" secondItem="95T-Z4-rGH" secondAttribute="bottom" constant="20" id="a5u-TR-tpy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lsa-Jy-2Li" secondAttribute="trailing" constant="40" id="b9F-7C-siH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="95T-Z4-rGH" secondAttribute="trailing" constant="40" id="f4y-DW-6Kg"/>
                 <constraint firstItem="sSh-ox-nfP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ifE-EZ-RAw"/>
                 <constraint firstItem="Zp1-AP-dOe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="igM-Vz-yAt"/>
+                <constraint firstItem="lsa-Jy-2Li" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="mm9-59-MrZ"/>
                 <constraint firstItem="95T-Z4-rGH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="tdJ-ur-Ewh"/>
+                <constraint firstItem="SbQ-bW-Hpm" firstAttribute="top" secondItem="Zp1-AP-dOe" secondAttribute="bottom" constant="20" id="wcz-hS-noO"/>
                 <constraint firstItem="Zp1-AP-dOe" firstAttribute="top" secondItem="lDN-8E-8sA" secondAttribute="bottom" constant="13" id="y0L-qg-WsQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="c4I-Q9-X0l" secondAttribute="trailing" constant="40" id="z0z-mY-RJN"/>
                 <constraint firstItem="M86-sM-Ke7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="z4c-aM-san"/>
+                <constraint firstItem="SbQ-bW-Hpm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="zMi-Ye-aGH"/>
             </constraints>
             <point key="canvasLocation" x="141" y="100"/>
         </view>

@@ -16,9 +16,11 @@ protocol OverviewDepositCellViewModel {
   var valueBigInt: BigInt { get }
   var currencyType: CurrencyType { get set }
   func updateCurrencyType(_ type: CurrencyType)
+  var hideBalanceStatus: Bool { get set }
 }
 
 class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
+  var hideBalanceStatus: Bool = true
   func updateCurrencyType(_ type: CurrencyType) {
     self.currencyType = type
   }
@@ -30,6 +32,9 @@ class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
   }
   
   var displayBalance: NSAttributedString {
+    guard !self.hideBalanceStatus else {
+      return NSAttributedString(string: "********")
+    }
     let balanceString = self.balanceBigInt.string(decimals: self.balance.decimals, minFractionDigits: 0, maxFractionDigits: 6)
     let rateString = String(format: "%.2f", self.balance.supplyRate * 100)
     let amountAttributes: [NSAttributedStringKey: Any] = [
@@ -47,6 +52,9 @@ class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
   }
   
   var displayValue: String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let string = self.valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
     switch self.currencyType {
     case .usd:
@@ -84,6 +92,7 @@ class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
 }
 
 class OverviewDepositDistributionBalanceCellViewModel: OverviewDepositCellViewModel {
+  var hideBalanceStatus: Bool = true
   func updateCurrencyType(_ type: CurrencyType) {
     self.currencyType = type
   }
@@ -93,6 +102,9 @@ class OverviewDepositDistributionBalanceCellViewModel: OverviewDepositCellViewMo
   }
 
   var displayBalance: NSAttributedString {
+    guard !self.hideBalanceStatus else {
+      return NSAttributedString(string: "********")
+    }
     let balanceString = self.balanceBigInt.string(decimals: self.balance.decimal, minFractionDigits: 0, maxFractionDigits: 6)
     let text = "\(balanceString) \(self.balance.symbol)"
     let amountAttributes: [NSAttributedStringKey: Any] = [
@@ -103,6 +115,9 @@ class OverviewDepositDistributionBalanceCellViewModel: OverviewDepositCellViewMo
   }
 
   var displayValue: String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let string = self.valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
     switch self.currencyType {
     case .usd:

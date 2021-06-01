@@ -15,7 +15,7 @@ struct ClaimRewardViewModel {
   }
   
   var displayValue: String {
-    guard let rate = KNTrackerRateStorage.shared.getPriceWithAddress("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee") else { return "---" }
+    guard let rate = KNTrackerRateStorage.shared.getETHPrice() else { return "---" }
     let ethAmount: Double = Double(self.claimablePoint) / 10000.0
     return "$\(ethAmount * rate.usd)"
   }

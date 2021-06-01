@@ -32,6 +32,7 @@ class KConfirmSendViewController: KNBaseViewController {
   @IBOutlet weak var gasPriceTextLabel: UILabel!
   @IBOutlet weak var contentView: UIView!
   @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
+  @IBOutlet weak var warningMessage: UILabel!
   
   fileprivate let viewModel: KConfirmSendViewModel
   weak var delegate: KConfirmSendViewControllerDelegate?
@@ -92,6 +93,8 @@ class KConfirmSendViewController: KNBaseViewController {
     self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
     self.amountToSendTextLabel.text = NSLocalizedString("amount.to.send", value: "Amount To Transfer", comment: "")
     self.transactionFeeTextLabel.text = NSLocalizedString("Maximum gas fee", value: "Transaction Fee", comment: "")
+    let chain = KNGeneralProvider.shared.isEthereum ? "Ethereum" : "Binance Smart Chain"
+    self.warningMessage.text = "Please sure that this address supports \(chain) network. You will lose your assets if this address doesn't support \(chain) compatible retrieval"
   }
 
   @IBAction func confirmButtonPressed(_ sender: Any) {
@@ -102,7 +105,7 @@ class KConfirmSendViewController: KNBaseViewController {
     switch self.viewModel.transaction.transferType {
     case .ether:
       type = .transferETH
-      symbol = "ETH"
+      symbol = KNGeneralProvider.shared.quoteToken
     case .token(let token):
       type = .transferToken
       symbol = token.symbol
@@ -154,7 +157,7 @@ extension KConfirmSendViewController: BottomPopUpAbstract {
   }
 
   func getPopupHeight() -> CGFloat {
-    return 400
+    return 500
   }
 
   func getPopupContentView() -> UIView {

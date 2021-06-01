@@ -219,9 +219,13 @@ extension KNAppCoordinator {
     KNRateCoordinator.shared.resume()
     KNTrackerRateStorage.shared.reloadData()
     
+    KNGasCoordinator.shared.pause()
+    KNGasCoordinator.shared.resume()
+    
     self.exchangeCoordinator?.appCoordinatorDidUpdateChain()
     self.overviewTabCoordinator?.appCoordinatorDidUpdateChain()
     self.investCoordinator?.appCoordinatorDidUpdateChain()
+    self.earnCoordinator?.appCoordinatorDidUpdateChain()
     self.session.externalProvider?.minTxCount = 0
     EtherscanTransactionStorage.shared.updateCurrentWallet(self.session.wallet)
     

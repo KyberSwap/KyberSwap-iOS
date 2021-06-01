@@ -89,9 +89,25 @@ class ChartViewModel {
   
   var displayUSDBalance: String {
     guard let balance = BalanceStorage.shared.balanceForAddress(self.token.address), let rate = KNTrackerRateStorage.shared.getPriceWithAddress(self.token.address), let balanceBigInt = BigInt(balance.balance) else { return "---" }
-    let rateBigInt = BigInt(rate.usd * pow(10.0, 18.0))
+    var price = 0.0
+    if self.currency == "eth" {
+      price = rate.eth
+    } else if self.currency == "btc" {
+      price = rate.btc
+    } else {
+      price = rate.usd
+    }
+    let rateBigInt = BigInt(price * pow(10.0, 18.0))
     let valueBigInt = balanceBigInt * rateBigInt / BigInt(10).power(18)
-    return "$" + valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
+    if self.currency == "eth" {
+      return valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6)) + " ETH"
+    } else if self.currency == "btc" {
+      return valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6)) + " BTC"
+    } else {
+      return "$" + valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
+    }
+    
+    
   }
   
   var displayMarketCap: String {

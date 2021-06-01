@@ -23,6 +23,8 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
 
   @IBOutlet weak var nextButton: UIButton!
   @IBOutlet weak var refCodeField: UITextField!
+  @IBOutlet weak var containerRefCodeView: UIView!
+  @IBOutlet weak var refCodeTitleLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -53,6 +55,8 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
     self.walletNameTextField.rounded(radius: 8)
     self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.resetUI()
+//    self.containerRefCodeView.isHidden = !KNGeneralProvider.shared.isEthereum
+//    self.refCodeTitleLabel.isHidden = !KNGeneralProvider.shared.isEthereum
   }
 
   func resetUI() {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BigInt
 
 enum CurrencyType {
   case eth
@@ -53,7 +54,13 @@ class OverviewContainerViewModel {
     guard !self.hideBalanceStatus else {
       return "********"
     }
-    let totalValueBigInt = self.assetsViewModel.totalValueBigInt + self.depositViewModel.totalValueBigInt
+    var totalValueBigInt = BigInt(0)
+    if KNGeneralProvider.shared.isEthereum {
+      totalValueBigInt = self.assetsViewModel.totalValueBigInt + self.depositViewModel.totalValueBigInt
+    } else {
+      totalValueBigInt = self.assetsViewModel.totalValueBigInt
+    }
+    
     let totalString = totalValueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
     switch self.currencyType {
     case .usd:
@@ -224,6 +231,10 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
   }
   
   @IBAction func krytalButtonTapped(_ sender: UIButton) {
+    guard KNGeneralProvider.shared.isEthereum else {
+      self.showTopBannerView(message: "Krystal point on BSC will be supported soon")
+      return
+    }
     self.delegate?.overviewContainerViewController(self, run: .krytal)
   }
   
@@ -231,6 +242,8 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.viewModel.hideBalanceStatus = !self.viewModel.hideBalanceStatus
     self.updateUIHideBalanceButton()
     self.updateUITotalValue()
+    self.assetsViewController.containerDidUpdateHideBalanceStatus(self.viewModel.hideBalanceStatus)
+    self.depositViewController.containerDidUpdateHideBalanceStatus(self.viewModel.hideBalanceStatus)
   }
   
   @IBAction func notificationButtonTapped(_ sender: UIButton) {

@@ -114,6 +114,7 @@ class KSwapViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.viewModel.resetDefaultTokensPair()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -373,7 +374,7 @@ class KSwapViewController: KNBaseViewController {
 
   @IBAction func warningRateButtonTapped(_ sender: UIButton) {
     guard !self.viewModel.refPriceDiffText.isEmpty else { return }
-    let message = String(format: "There.is.a.difference.between.the.estimated.price".toBeLocalised(), self.viewModel.refPriceDiffText)
+    let message = KNGeneralProvider.shared.isEthereum ? String(format: "There.is.a.difference.between.the.estimated.price".toBeLocalised(), self.viewModel.refPriceDiffText) : String(format: "There.is.a.difference.between.the.estimated.price.bsc".toBeLocalised(), self.viewModel.refPriceDiffText)
     self.showTopBannerView(
       with: "",
       message: message,
@@ -429,6 +430,7 @@ class KSwapViewController: KNBaseViewController {
   fileprivate func updateUISwitchChain() {
     let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
     self.currentChainIcon.image = icon
+    self.setUpGasFeeView()
   }
 
   func coordinatorUpdateGasPriceCached() {
@@ -969,6 +971,7 @@ extension KSwapViewController {
       }()
       return expectedExchange
     }()
+    let gasLimit = BigInt(object.gasLimit.drop0x, radix: 16) ?? self.viewModel.estimateGasLimit
     let exchange = KNDraftExchangeTransaction(
       from: self.viewModel.from,
       to: self.viewModel.to,
@@ -977,7 +980,7 @@ extension KSwapViewController {
       expectedRate: rate,
       minRate: self.viewModel.minRate,
       gasPrice: self.viewModel.gasPrice,
-      gasLimit: self.viewModel.estimateGasLimit,
+      gasLimit: gasLimit,
       expectedReceivedString: self.viewModel.amountTo,
       hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address, amount: self.viewModel.amountFromBigInt, platform: self.viewModel.currentFlatform)
     )
@@ -1041,7 +1044,7 @@ extension KSwapViewController {
     self.updateGasTokenArea()
     self.balanceLabel.text = self.viewModel.balanceDisplayText
     self.setUpChangeRateButton()
-    self.setUpGasFeeView()
+    
   }
 }
 
@@ -1076,7 +1079,7 @@ extension KSwapViewController: UITextFieldDelegate {
     self.viewModel.updateFocusingField(textField == self.fromAmountTextField)
     self.viewModel.updateAmount(text, isSource: textField == self.fromAmountTextField)
     self.updateViewAmountDidChange()
-
+    
     return false
   }
 

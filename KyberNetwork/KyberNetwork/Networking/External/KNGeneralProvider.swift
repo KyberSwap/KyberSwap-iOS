@@ -14,7 +14,11 @@ class KNGeneralProvider {
 
   static let shared = KNGeneralProvider()
   
-  var isEthereum = true
+  var isEthereum: Bool {
+    didSet {
+      UserDefaults.standard.set(self.isEthereum, forKey: Constants.currentChainSaveKey)
+    }
+  }
   
   var customRPC: CustomRPC {
     return self.isEthereum ? KNEnvironment.default.ethRPC : KNEnvironment.default.bscRPC
@@ -68,6 +72,11 @@ class KNGeneralProvider {
   }
 
   init() {
+    if let saved = UserDefaults.standard.object(forKey: Constants.currentChainSaveKey) as? Bool {
+      self.isEthereum = saved
+    } else {
+      self.isEthereum = true
+    }
   }
 
   // MARK: Balance
@@ -578,6 +587,7 @@ class KNGeneralProvider {
         }
       case .failure(let er):
         error = er
+        print(error.debugDescription)
       }
       group.leave()
     }

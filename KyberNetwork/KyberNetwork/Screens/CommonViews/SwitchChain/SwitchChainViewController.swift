@@ -64,6 +64,9 @@ class SwitchChainViewController: KNBaseViewController {
     self.dismiss(animated: true, completion: nil)
   }
   
+  @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
+    self.dismiss(animated: true, completion: nil)
+  }
 }
 
 extension SwitchChainViewController: BottomPopUpAbstract {

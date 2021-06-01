@@ -87,6 +87,9 @@ class EarnOverviewViewController: KNBaseViewController {
   }
   
   fileprivate func updateUISwitchChain() {
+    guard self.isViewLoaded else {
+      return
+    }
     let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
     self.currentChainIcon.image = icon
     self.bscNotSupportView.isHidden = KNGeneralProvider.shared.isEthereum

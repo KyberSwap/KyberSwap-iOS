@@ -13,8 +13,11 @@ class KNExternalProvider {
   let keystore: Keystore
   fileprivate var account: Account
   let web3Swift: Web3Swift
-  let networkAddress: Address!
-  
+  var networkAddress: Address {
+    let address = KNGeneralProvider.shared.isEthereum ? Constants.krystalProxyAddress.lowercased() : Constants.krystalProxyAddressBSC.lowercased()
+    return Address(string: address)!
+  }
+
   var isEthereum: Bool {
     return KNGeneralProvider.shared.isEthereum
   }
@@ -29,9 +32,7 @@ class KNExternalProvider {
     self.keystore = keystore
     self.account = account
     self.web3Swift = web3
-    let address = KNGeneralProvider.shared.isEthereum ? Constants.krystalProxyAddress.lowercased() : Constants.krystalProxyAddressBSC.lowercased()
     
-    self.networkAddress = Address(string: address)!
     self.minTxCount = 0
   }
   

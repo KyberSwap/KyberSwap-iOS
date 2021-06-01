@@ -29,11 +29,13 @@
             <connections>
                 <outlet property="confirmButton" destination="I6g-JK-yXd" id="e9y-Uk-DtP"/>
                 <outlet property="confirmLabel" destination="mkX-Uy-4zc" id="6fk-UA-WcS"/>
+                <outlet property="containerRefCodeView" destination="oCt-2N-iOr" id="U5B-y1-jiy"/>
                 <outlet property="containerView" destination="UUg-NH-uqh" id="VDR-NV-fxV"/>
                 <outlet property="contentView" destination="UUg-NH-uqh" id="TC3-RL-VCe"/>
                 <outlet property="contentViewTopContraint" destination="6gt-mv-QQ9" id="I1t-uD-9po"/>
                 <outlet property="descLabel" destination="Rv2-pO-lJc" id="XSH-y7-lVi"/>
                 <outlet property="refCodeField" destination="2uD-j5-XKo" id="giy-WZ-mGu"/>
+                <outlet property="refCodeTitleLabel" destination="QF3-47-FdY" id="zq8-Va-pBq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,7 +54,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I6g-JK-yXd">
-                            <rect key="frame" x="37" y="280" width="301" height="45"/>
+                            <rect key="frame" x="37" y="296.5" width="301" height="45"/>
                             <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="33L-EA-WhD"/>
@@ -65,26 +67,26 @@
                                 <action selector="confirmButtonPressed:" destination="-1" eventType="touchUpInside" id="GST-Kg-Ooa"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This creates a new Ethereum wallet for you to receive and transfer tokens." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rv2-pO-lJc">
-                            <rect key="frame" x="37" y="66" width="301" height="34"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This will create a new wallet for you to send and receive tokens. Same wallet can be used on both chains ETH and BSC." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rv2-pO-lJc">
+                            <rect key="frame" x="37" y="66" width="301" height="50.5"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your wallet details are securely stored on this device. Only you can access them." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKn-9w-xrr">
-                            <rect key="frame" x="37" y="121" width="301" height="29"/>
+                            <rect key="frame" x="37" y="137.5" width="301" height="29"/>
                             <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
                             <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste your Referral Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QF3-47-FdY">
-                            <rect key="frame" x="37" y="178" width="301" height="17"/>
+                            <rect key="frame" x="37" y="194.5" width="301" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oCt-2N-iOr">
-                            <rect key="frame" x="37" y="208" width="301" height="42"/>
+                            <rect key="frame" x="37" y="224.5" width="301" height="42"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Paste your referral link" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2uD-j5-XKo">
                                     <rect key="frame" x="16" y="0.0" width="196" height="42"/>

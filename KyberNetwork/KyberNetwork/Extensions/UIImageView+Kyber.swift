@@ -70,7 +70,10 @@ extension UIImageView {
     let icon = symbol.lowercased()
     let image = UIImage(named: icon.lowercased())
     let placeHolderImg = image ?? UIImage(named: "default_token")!
-    let url = "https://files.kyberswap.com/DesignAssets/tokens/iOS/\(icon).png"
+    var url = "https://files.kyberswap.com/DesignAssets/tokens/iOS/\(icon).png"
+    if let token = KNSupportedTokenStorage.shared.getTokenWith(symbol: symbol) {
+      url = token.logo
+    }
     self.setImage(
       with: url,
       placeholder: placeHolderImg,

@@ -27,11 +27,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KNImportSeedsViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="containerRefCodeView" destination="jK1-EP-QLr" id="WM8-2I-9mr"/>
                 <outlet property="descLabel" destination="WhK-I2-j2i" id="yS3-eD-pSd"/>
                 <outlet property="nextButton" destination="F1b-jf-zFf" id="e4a-Tj-fzb"/>
                 <outlet property="qrcodeButton" destination="gSr-h0-m7v" id="3XM-4R-dIJ"/>
                 <outlet property="recoverSeedsLabel" destination="vYN-r3-AGA" id="kto-oO-YzR"/>
                 <outlet property="refCodeField" destination="6RC-FU-2sJ" id="iPg-c0-FY9"/>
+                <outlet property="refCodeTitleLabel" destination="EdX-wY-aLD" id="WtL-TV-JR6"/>
                 <outlet property="seedsFieldContainer" destination="Aww-v7-GKm" id="Xty-rj-ro6"/>
                 <outlet property="seedsTextField" destination="Ij9-VL-InI" id="WiC-tJ-Z0A"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

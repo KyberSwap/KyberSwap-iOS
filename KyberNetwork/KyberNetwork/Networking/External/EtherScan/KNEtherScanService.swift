@@ -3,7 +3,7 @@
 import Moya
 
 let apiKey = KNSecret.etherscanAPIKey
-
+let apiKeyBSC = KNSecret.bscscanAPIKey
 enum KNEtherScanService {
   case getListTransactions(address: String, startBlock: Int)
   case getListTokenTransactions(address: String, startBlock: Int)
@@ -11,16 +11,20 @@ enum KNEtherScanService {
 }
 
 extension KNEtherScanService: TargetType {
+  
   var baseURL: URL {
     switch self {
     case .getListTransactions(let address, let startBlock):
-      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=txlist&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
+      let key = KNGeneralProvider.shared.isEthereum ? apiKey : apiKeyBSC
+      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=txlist&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(key)"
       return URL(string: baseURLString)!
     case .getListTokenTransactions(let address, let startBlock):
-      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=tokentx&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
+      let key = KNGeneralProvider.shared.isEthereum ? apiKey : apiKeyBSC
+      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=tokentx&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(key)"
       return URL(string: baseURLString)!
     case .getListInternalTransactions(let address, let startBlock):
-      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=txlistinternal&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(apiKey)"
+      let key = KNGeneralProvider.shared.isEthereum ? apiKey : apiKeyBSC
+      let baseURLString = "\(KNGeneralProvider.shared.customRPC.apiEtherscanEndpoint)api?module=account&action=txlistinternal&address=\(address)&startblock=\(startBlock)&sort=desc&apikey=\(key)"
       return URL(string: baseURLString)!
     }
   }

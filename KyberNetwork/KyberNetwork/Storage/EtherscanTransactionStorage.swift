@@ -172,7 +172,6 @@ class EtherscanTransactionStorage {
     
     let storedHashs = self.historyTransactionModel.map { $0.hash }
     
-    
     var historyModel: [HistoryTransaction] = []
     self.getTransaction().forEach { (transaction) in
       var type = HistoryModelType.typeFromInput(transaction.input)
@@ -223,10 +222,11 @@ class EtherscanTransactionStorage {
     Storage.store(self.historyTransactionModel, as: unwrapped.address.description + KNEnvironment.default.envPrefix + Constants.historyTransactionsStoreFileName)
     DispatchQueue.main.async {
       KNNotificationUtil.postNotification(for: kTokenTransactionListDidUpdateNotificationKey)
-      
       newestTxs.forEach { (item) in
-        if item.type == .receiveETH || item.type == .receiveToken || item.type == .earn {
-          KNNotificationUtil.postNotification(for: kNewReceivedTransactionKey, object: item)
+        if item.date.addingTimeInterval(10800) > Date() {
+          if item.type == .receiveETH || item.type == .receiveToken || item.type == .earn {
+            KNNotificationUtil.postNotification(for: kNewReceivedTransactionKey, object: item)
+          }
         }
       }
     }
@@ -275,7 +275,7 @@ class EtherscanTransactionStorage {
 
   func getEtherscanToken() -> [Token] {
     var tokenSet = Set<Token>()
-    let eth = Token(name: "Ethereum", symbol: "ETH", address: "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", decimals: 18, logo: "ETH")
+    let eth = KNGeneralProvider.shared.isEthereum ? KNSupportedTokenStorage.shared.ethToken.toToken() : KNSupportedTokenStorage.shared.bnbToken.toToken()
     tokenSet.insert(eth)
     self.tokenTransactions.forEach { (transaction) in
       let token = Token(name: transaction.tokenName, symbol: transaction.tokenSymbol, address: transaction.contractAddress, decimals: Int(transaction.tokenDecimal) ?? 0, logo: transaction.tokenSymbol)

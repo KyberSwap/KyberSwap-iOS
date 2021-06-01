@@ -21,6 +21,7 @@ class OverviewAssetsViewModel {
   var currencyType: CurrencyType = .usd
   var soringType: AssetsOverviewSortingType = .balance(dec: true)
   var searchText: String = ""
+  var hideBalanceStatus: Bool = true
   
   init() {
     self.reloadAllData()
@@ -41,6 +42,7 @@ class OverviewAssetsViewModel {
         return
       }
       let viewModel = OverviewAssetsCellViewModel(token: token)
+      viewModel.hideBalanceStatus = self.hideBalanceStatus
       self.data.append(viewModel)
     }
     self.reloadDataSource()
@@ -81,6 +83,9 @@ class OverviewAssetsViewModel {
   }
   
   var totalValueString: String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let totalString = self.totalValueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
     return self.currencyType == .usd ? "$" + totalString : totalString
   }
@@ -147,6 +152,7 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
     self.tableView.reloadData()
     self.updateUITotalValue()
     self.emptyView.isHidden = !self.viewModel.dataSource.isEmpty
+    self.buyETHButton.isHidden = !KNGeneralProvider.shared.isEthereum
   }
   
   @IBAction func currencyTypeButtonTapped(_ sender: UIButton) {
@@ -227,12 +233,20 @@ class OverviewAssetsViewController: KNBaseViewController, OverviewViewController
   func coordinatorUpdateNewSession(wallet: Wallet) {
     self.coordinatorDidUpdateDidUpdateTokenList()
   }
-  
+
   func coordinatorDidUpdateSearchText(_ text: String) {
     self.viewModel.searchText = text
     guard self.isViewLoaded else { return }
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
+  }
+  
+  func containerDidUpdateHideBalanceStatus(_ status: Bool) {
+    self.viewModel.hideBalanceStatus = status
+    guard self.isViewLoaded else { return }
+    self.viewModel.reloadAllData()
+    self.tableView.reloadData()
+    self.updateUITotalValue()
   }
 }
 

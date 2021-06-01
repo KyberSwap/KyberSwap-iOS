@@ -89,6 +89,12 @@ class KNSupportedTokenStorage {
       return token.address.lowercased() == address.lowercased()
     }
   }
+  
+  func getTokenWith(symbol: String) -> Token? {
+    return self.allTokens.first { (token) -> Bool in
+      return token.symbol.lowercased() == symbol.lowercased()
+    }
+  }
 
   func getFavedTokenWithAddress(_ address: String) -> FavedToken? {
     let faved = self.favedTokens.first { (token) -> Bool in

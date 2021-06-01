@@ -53,7 +53,12 @@ class KNTrackerRateStorage {
   }
   
   func getETHPrice() -> TokenPrice? {
-    return self.getPriceWithAddress("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    if KNGeneralProvider.shared.isEthereum {
+      return self.getPriceWithAddress("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    } else {
+      return self.getPriceWithAddress(Constants.bnbAddress)
+    }
+    
   }
   
   func updatePrices(_ prices: [TokenPrice]) {

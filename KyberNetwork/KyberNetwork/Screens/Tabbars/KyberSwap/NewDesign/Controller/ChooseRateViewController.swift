@@ -32,22 +32,22 @@ class ChooseRateViewModel {
   }
 
   var uniRateText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwapV1"
+    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwap v2"
     return rateStringFor(platform: key)
   }
 
   var kyberRateText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwapV2"
+    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwap v1"
     return rateStringFor(platform: key)
   }
   
   var uniFeeText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwapV1"
+    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwap v2"
     return feeStringFor(platform: key)
   }
   
   var kyberFeeText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwapV2"
+    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwap v1"
     return feeStringFor(platform: key)
   }
 
@@ -75,12 +75,12 @@ class ChooseRateViewModel {
       }
     }
     if let estGasString = dict?["estimatedGas"] as? NSNumber, let estGas = BigInt(estGasString.stringValue) {
-      let rate = KNTrackerRateStorage.shared.getPriceWithAddress("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+      let rate = KNTrackerRateStorage.shared.getETHPrice()
       let rateUSDDouble = rate?.usd ?? 0
       let fee = estGas * gasPrice
       let rateBigInt = BigInt(rateUSDDouble * pow(10.0, 18.0))
       let feeUSD = fee * rateBigInt / BigInt(10).power(18)
-      return "\(fee.displayRate(decimals: 18)) ETH ~ $\(feeUSD.displayRate(decimals: 18))"
+      return "\(fee.displayRate(decimals: 18)) \(KNGeneralProvider.shared.quoteToken) ~ $\(feeUSD.displayRate(decimals: 18))"
     } else {
       return "---"
     }
@@ -137,17 +137,17 @@ class ChooseRateViewController: KNBaseViewController {
     if !KNGeneralProvider.shared.isEthereum {
       self.firstPlatformIconImage.image = UIImage(named: "pancake_icon")
       self.secondPlatformIconImage.image = UIImage(named: "pancake_icon")
-      self.firstplatformNameLabel.text = "PancakeSwapV1"
-      self.secondPlatformLabel.text = "PancakeSwapV2"
+      self.firstplatformNameLabel.text = "PancakeSwap v1"
+      self.secondPlatformLabel.text = "PancakeSwap v2"
     }
   }
 
   @IBAction func chooseRateButtonTapped(_ sender: UIButton) {
     if sender.tag == 0 {
-      let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwapV2"
+      let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwap v1"
       self.delegate?.chooseRateViewController(self, didSelect: key)
     } else {
-      let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwapV1"
+      let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwap v2"
       self.delegate?.chooseRateViewController(self, didSelect: key)
     }
     self.dismiss(animated: true, completion: nil)

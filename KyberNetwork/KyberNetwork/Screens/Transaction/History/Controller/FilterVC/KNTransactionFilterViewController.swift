@@ -433,7 +433,7 @@ extension KNTransactionFilterViewController: UITableViewDataSource {
     if self.viewModel.supportedTokens.count <= 4 {
       return 1
     } else {
-      return self.viewModel.isSeeMore ? (self.viewModel.supportedTokens.count + 3) / 4 : 3
+      return self.viewModel.isSeeMore ? (self.viewModel.supportedTokens.count + 3) / 4 : 2
     }
   }
 

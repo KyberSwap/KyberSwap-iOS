@@ -25,6 +25,7 @@ class AddTokenViewController: KNBaseViewController {
   @IBOutlet weak var decimalsField: UITextField!
   @IBOutlet weak var doneButton: UIButton!
   @IBOutlet weak var titleHeader: UILabel!
+  @IBOutlet weak var blockchainField: UITextField!
   
   weak var delegate: AddTokenViewControllerDelegate?
   var token: Token?
@@ -55,6 +56,7 @@ class AddTokenViewController: KNBaseViewController {
     self.addressField.attributedPlaceholder = NSAttributedString(string: "Smart contract", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.symbolField.attributedPlaceholder = NSAttributedString(string: "Token symbol", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.decimalsField.attributedPlaceholder = NSAttributedString(string: "Decimals", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
+    self.blockchainField.text = KNGeneralProvider.shared.isEthereum ? "Ethereum" : "Binance Smart Chain"
   }
   
   override func viewDidLayoutSubviews() {

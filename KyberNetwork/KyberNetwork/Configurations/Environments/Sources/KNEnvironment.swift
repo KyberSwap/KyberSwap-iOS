@@ -34,13 +34,13 @@ enum KNEnvironment: Int {
   }
 
   static var `default`: KNEnvironment {
-    return .staging
+    return .production
   }
 
   var isMainnet: Bool {
     return KNEnvironment.default == .mainnetTest || KNEnvironment.default == .production || KNEnvironment.default == .staging
   }
-  
+
   var envPrefix: String {
     let chain = KNGeneralProvider.shared.isEthereum ? "eth" : "bsc"
     return chain + "-" + self.displayName + "-"

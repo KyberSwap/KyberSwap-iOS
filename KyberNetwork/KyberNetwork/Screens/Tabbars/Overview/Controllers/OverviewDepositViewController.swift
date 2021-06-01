@@ -12,6 +12,7 @@ class OverviewDepositViewModel {
   var dataSource: [String: [OverviewDepositCellViewModel]] = [:]
   var sectionKeys: [String] = []
   var currencyType: CurrencyType = .usd
+  var hideBalanceStatus: Bool = true
   
   init() {
     self.reloadAllData()
@@ -25,6 +26,7 @@ class OverviewDepositViewModel {
       var balances: [OverviewDepositLendingBalanceCellViewModel] = []
       item.balances.forEach { (balanceItem) in
         let viewModel = OverviewDepositLendingBalanceCellViewModel(balance: balanceItem)
+        viewModel.hideBalanceStatus = self.hideBalanceStatus
         balances.append(viewModel)
       }
       if !balances.isEmpty {
@@ -33,7 +35,9 @@ class OverviewDepositViewModel {
       }
     }
     if let otherData = BalanceStorage.shared.getDistributionBalance() {
-      self.dataSource["OTHER"] = [OverviewDepositDistributionBalanceCellViewModel(balance: otherData)]
+      let viewModel = OverviewDepositDistributionBalanceCellViewModel(balance: otherData)
+      viewModel.hideBalanceStatus = self.hideBalanceStatus
+      self.dataSource["OTHER"] = [viewModel]
       self.sectionKeys.append("OTHER")
     }
   }
@@ -61,6 +65,9 @@ class OverviewDepositViewModel {
   }
   
   func displayTotalValueForSection(_ section: Int) -> String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let valueBigInt = self.getTotalValueForSection(section)
     let totalString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
     return self.currencyType == .usd ? "$" + totalString : totalString
@@ -75,6 +82,9 @@ class OverviewDepositViewModel {
   }
 
   var totalValueString: String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let totalString = self.totalValueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
     switch self.currencyType {
     case .usd:
@@ -197,6 +207,14 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
     self.viewModel.reloadAllData()
     guard self.isViewLoaded else { return }
     self.reloadUI()
+  }
+  
+  func containerDidUpdateHideBalanceStatus(_ status: Bool) {
+    self.viewModel.hideBalanceStatus = status
+    guard self.isViewLoaded else { return }
+    self.viewModel.reloadAllData()
+    self.updateUITotalValue()
+    self.tableView.reloadData()
   }
 }
 

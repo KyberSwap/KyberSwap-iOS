@@ -32,7 +32,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
       return outTx.tokenSymbol
     }
      
-    return "ETH"
+    return KNGeneralProvider.shared.quoteToken
   }
   
   var toIconSymbol: String {
@@ -43,7 +43,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     if let receiveEthTx = self.data.internalTransactions.first(where: { (transaction) -> Bool in
       return transaction.to.lowercased() == self.data.wallet
     }) {
-      return "ETH"
+      return KNGeneralProvider.shared.quoteToken
     }
     
     if let inTx = self.data.tokenTransactions.first(where: { (transaction) -> Bool in
@@ -70,7 +70,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     } else if let sendEthTx = self.data.transacton.first {
       let valueBigInt = BigInt(sendEthTx.value) ?? BigInt(0)
       let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-      result += "\(valueString) ETH -> "
+      result += "\(valueString) \(KNGeneralProvider.shared.quoteToken) -> "
     }
     
     if let inTx = self.data.tokenTransactions.first(where: { (transaction) -> Bool in
@@ -86,7 +86,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
     }) {
       let valueBigInt = BigInt(receiveEthTx.value) ?? BigInt(0)
       let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-      result += "\(valueString) ETH"
+      result += "\(valueString) \(KNGeneralProvider.shared.quoteToken)"
     }
 
     return result
@@ -108,7 +108,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
       if let sendEthTx = self.data.transacton.first {
         let valueBigInt = BigInt(sendEthTx.value) ?? BigInt(0)
         let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-        return "- \(valueString) ETH"
+        return "- \(valueString) \(KNGeneralProvider.shared.quoteToken)"
       }
       return ""
     case .receiveETH:
@@ -117,13 +117,13 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
       }) {
         let valueBigInt = BigInt(receiveEthTx.value) ?? BigInt(0)
         let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-        return "+ \(valueString) ETH"
+        return "+ \(valueString) \(KNGeneralProvider.shared.quoteToken)"
       } else if let receiveEthTx = self.data.transacton.first(where: { (transaction) -> Bool in
         return transaction.to.lowercased() == self.data.wallet
       }) {
         let valueBigInt = BigInt(receiveEthTx.value) ?? BigInt(0)
         let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-        return "+ \(valueString) ETH"
+        return "+ \(valueString) \(KNGeneralProvider.shared.quoteToken)"
       }
       return ""
     case .transferToken:
@@ -165,7 +165,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
       if let sendEthTx = self.data.transacton.first {
         let valueBigInt = BigInt(sendEthTx.value) ?? BigInt(0)
         let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
-        return "- \(valueString) ETH"
+        return "- \(valueString) \(KNGeneralProvider.shared.quoteToken)"
       }
       return ""
     }
@@ -191,7 +191,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
       } else if let sendEthTx = self.data.transacton.first {
         let valueBigInt = BigInt(sendEthTx.value) ?? BigInt(0)
         fromValue = valueBigInt
-        fromSymbol = "ETH"
+        fromSymbol = KNGeneralProvider.shared.quoteToken
         fromDecimal = 18
       }
       
@@ -209,7 +209,7 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
       }) {
         let valueBigInt = BigInt(receiveEthTx.value) ?? BigInt(0)
         toValue = valueBigInt
-        toSymbol = "ETH"
+        toSymbol = KNGeneralProvider.shared.quoteToken
         toDecimal = 18
       }
       guard !toSymbol.isEmpty, !fromSymbol.isEmpty else {
@@ -398,11 +398,11 @@ class PendingInternalHistoryTransactonViewModel: AbstractHistoryTransactionViewM
       return "SELF"
     }
   }
-  
+
   var isError: Bool {
     return false
   }
-  
+
   var transactionTypeImage: UIImage {
     switch self.internalTransaction.type {
     case .swap:
@@ -427,11 +427,11 @@ class PendingInternalHistoryTransactonViewModel: AbstractHistoryTransactionViewM
       return UIImage(named: "history_send_icon")!
     }
   }
-  
+
   var displayTime: String {
     return DateFormatterUtil.shared.historyTransactionDateFormatter.string(from: self.internalTransaction.time)
   }
-  
+
   init(index: Int, transaction: InternalHistoryTransaction) {
     self.index = index
     self.internalTransaction = transaction

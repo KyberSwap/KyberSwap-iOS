@@ -207,10 +207,14 @@ extension OverviewCoordinator: ChartViewControllerDelegate {
 
   fileprivate func openSendTokenView(_ token: Token?) {
     let from: TokenObject = {
-      if let unwrapped = token, let fromTokenObj = self.session.tokenStorage.get(forPrimaryKey: unwrapped.address) {
-        return fromTokenObj
+      if let fromToken = token {
+        return fromToken.toObject()
       }
-      return self.session.tokenStorage.ethToken
+      if KNGeneralProvider.shared.isEthereum {
+        return KNSupportedTokenStorage.shared.ethToken
+      } else {
+        return KNSupportedTokenStorage.shared.bnbToken
+      }
     }()
     self.sendCoordinator = nil
     let coordinator = KNSendTokenViewCoordinator(

@@ -15,7 +15,7 @@ class SpeedUpCustomGasSelectViewModel {
   }
 
   func updateGasPrices(fast: BigInt, medium: BigInt, slow: BigInt, superFast: BigInt) {
-    let extraGas = KNGasConfiguration.extraGasPromoWallet //TODO: max with current * 1.2
+    let extraGas = KNGasConfiguration.extraGasPromoWallet
     self.fast = fast + extraGas
     self.medium = medium
     self.slow = slow
@@ -73,7 +73,7 @@ class SpeedUpCustomGasSelectViewModel {
       return gasPrice * gasLimit
     }()
     let feeString: String = fee?.displayRate(decimals: 18) ?? "---"
-    return "~ \(feeString) ETH"
+    return "~ \(feeString) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   func attributedString(for gasPrice: BigInt, text: String) -> NSAttributedString {
@@ -102,13 +102,13 @@ class SpeedUpCustomGasSelectViewModel {
       return gasPrice * gasLimit
     }()
     let feeString: String = fee?.displayRate(decimals: 18) ?? "---"
-    return "\(feeString) ETH"
+    return "\(feeString) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   func getNewTransactionFeeETHString() -> String {
     let fee = getNewTransactionFeeETH()
     let feeString: String = fee.displayRate(decimals: 18)
-    return "\(feeString) ETH"
+    return "\(feeString) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   func getNewTransactionGasPriceETH() -> BigInt { //TODO: check again formular 1.2 * current

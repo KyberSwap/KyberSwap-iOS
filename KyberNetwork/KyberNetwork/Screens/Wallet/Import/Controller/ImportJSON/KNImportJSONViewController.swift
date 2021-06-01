@@ -28,6 +28,8 @@ class KNImportJSONViewController: KNBaseViewController {
 
   @IBOutlet weak var nextButton: UIButton!
   @IBOutlet weak var refCodeField: UITextField!
+  @IBOutlet weak var containerRefCodeView: UIView!
+  @IBOutlet weak var refCodeTitleLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -79,6 +81,8 @@ class KNImportJSONViewController: KNBaseViewController {
     self.secureTextButton.setImage(UIImage(named: !self.enterPasswordTextField.isSecureTextEntry ? "hide_secure_text_blue" : "show_secure_text_blue"), for: .normal)
     self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.resetUIs()
+//    self.containerRefCodeView.isHidden = !KNGeneralProvider.shared.isEthereum
+//    self.refCodeTitleLabel.isHidden = !KNGeneralProvider.shared.isEthereum
   }
 
   override func viewDidLayoutSubviews() {

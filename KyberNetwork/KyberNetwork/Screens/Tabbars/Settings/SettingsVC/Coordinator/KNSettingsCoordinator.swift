@@ -459,7 +459,11 @@ extension KNSettingsCoordinator: KNListContactViewControllerDelegate {
 
   fileprivate func openSendToken(address: String) {
     let from: TokenObject = {
-      return self.session.tokenStorage.ethToken
+      if KNGeneralProvider.shared.isEthereum {
+        return KNSupportedTokenStorage.shared.ethToken
+      } else {
+        return KNSupportedTokenStorage.shared.bnbToken
+      }
     }()
     self.sendTokenCoordinator = KNSendTokenViewCoordinator(
       navigationController: self.navigationController,

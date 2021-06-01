@@ -219,6 +219,8 @@ class EarnCoordinator: NSObject, Coordinator {
   func appCoordinatorDidUpdateChain() {
     self.navigationController.popToRootViewController(animated: false)
     self.rootViewController.coordinatorDidUpdateChain()
+    self.loadCachedLendingTokens()
+    self.getLendingOverview()
   }
 }
 
@@ -622,7 +624,11 @@ extension EarnCoordinator: KNTransactionStatusPopUpDelegate { //TODO: popup scre
 
   fileprivate func openSendTokenView() {
     let from: TokenObject = {
-      return self.session.tokenStorage.ethToken
+      if KNGeneralProvider.shared.isEthereum {
+        return KNSupportedTokenStorage.shared.ethToken
+      } else {
+        return KNSupportedTokenStorage.shared.bnbToken
+      }
     }()
     let coordinator = KNSendTokenViewCoordinator(
       navigationController: self.navigationController,
