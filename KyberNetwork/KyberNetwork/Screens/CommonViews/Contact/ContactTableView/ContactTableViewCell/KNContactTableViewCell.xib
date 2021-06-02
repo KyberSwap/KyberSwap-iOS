@@ -23,20 +23,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mike Le" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bvL-3L-qp2">
-                        <rect key="frame" x="70" y="18" width="48" height="17"/>
+                        <rect key="frame" x="82" y="18" width="48" height="17"/>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                         <color key="textColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Mc-Y9-uql">
-                        <rect key="frame" x="24" y="18" width="32" height="32"/>
+                        <rect key="frame" x="36" y="18" width="32" height="32"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="32" id="XOy-dq-eSF"/>
                             <constraint firstAttribute="height" constant="32" id="aNH-TA-WeL"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0x98ixu…7uhyt8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8U-GJ-d6G">
-                        <rect key="frame" x="70" y="33" width="128" height="17"/>
+                        <rect key="frame" x="82" y="33" width="128" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="128" id="XHy-bo-LNI"/>
                         </constraints>
@@ -44,27 +44,37 @@
                         <color key="textColor" red="0.43529411764705883" green="0.46274509803921571" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check_icon_green" translatesAutoresizingMaskIntoConstraints="NO" id="Wcf-g6-kRa">
+                        <rect key="frame" x="15" y="29" width="14" height="10"/>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="M8U-GJ-d6G" firstAttribute="bottom" secondItem="4Mc-Y9-uql" secondAttribute="bottom" id="CUG-zC-V9t"/>
                     <constraint firstItem="4Mc-Y9-uql" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="DeT-II-QXF"/>
                     <constraint firstItem="M8U-GJ-d6G" firstAttribute="leading" secondItem="bvL-3L-qp2" secondAttribute="leading" id="Jl5-Du-y3C"/>
-                    <constraint firstItem="bvL-3L-qp2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="70" id="WRE-Yc-0iQ"/>
+                    <constraint firstItem="Wcf-g6-kRa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Z0N-ec-bCG"/>
+                    <constraint firstItem="bvL-3L-qp2" firstAttribute="leading" secondItem="4Mc-Y9-uql" secondAttribute="trailing" constant="14" id="ZMQ-4W-Nxn"/>
+                    <constraint firstItem="Wcf-g6-kRa" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="akp-pU-86j"/>
                     <constraint firstAttribute="trailingMargin" secondItem="M8U-GJ-d6G" secondAttribute="trailing" constant="24" id="bql-Nm-3kB"/>
                     <constraint firstItem="bvL-3L-qp2" firstAttribute="top" secondItem="4Mc-Y9-uql" secondAttribute="top" id="lyl-UC-rtX"/>
-                    <constraint firstItem="4Mc-Y9-uql" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="qfv-Nr-Cyq"/>
+                    <constraint firstItem="4Mc-Y9-uql" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="36" id="qfv-Nr-Cyq"/>
                     <constraint firstAttribute="trailingMargin" secondItem="bvL-3L-qp2" secondAttribute="trailing" constant="24" id="ytK-FW-yN9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="addressImageLeftPaddingContraint" destination="qfv-Nr-Cyq" id="CLe-vZ-LRp"/>
                 <outlet property="addressImageView" destination="4Mc-Y9-uql" id="aev-Cl-1TD"/>
+                <outlet property="checkIcon" destination="Wcf-g6-kRa" id="pft-Fo-GUv"/>
                 <outlet property="contactAddressLabel" destination="M8U-GJ-d6G" id="THu-RK-3Mp"/>
                 <outlet property="contactNameLabel" destination="bvL-3L-qp2" id="SJy-2j-b8B"/>
             </connections>
-            <point key="canvasLocation" x="141" y="129"/>
+            <point key="canvasLocation" x="140.80000000000001" y="128.63568215892056"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="check_icon_green" width="14" height="10"/>
+    </resources>
 </document>

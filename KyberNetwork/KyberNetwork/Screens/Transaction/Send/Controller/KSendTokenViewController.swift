@@ -59,6 +59,7 @@ class KSendTokenViewController: KNBaseViewController {
   @IBOutlet weak var currentTokenButton: UIButton!
   @IBOutlet weak var walletsSelectButton: UIButton!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
+  @IBOutlet weak var currentChainIcon: UIImageView!
 
   lazy var toolBar: KNCustomToolbar = {
     return KNCustomToolbar(
@@ -111,6 +112,7 @@ class KSendTokenViewController: KNBaseViewController {
     self.updateUIAddressQRCode()
     self.updateUIPendingTxIndicatorView()
     KNCrashlyticsUtil.logCustomEvent(withName: "krystal_open_send_view", customAttributes: nil)
+    self.updateUISwitchChain()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -360,6 +362,15 @@ class KSendTokenViewController: KNBaseViewController {
     }
     return false
   }
+  
+  @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+    let popup = SwitchChainViewController()
+    popup.completionHandler = {
+      let secondPopup = SwitchChainWalletsListViewController()
+      self.present(secondPopup, animated: true, completion: nil)
+    }
+    self.present(popup, animated: true, completion: nil)
+  }
 }
 
 // MARK: Update UIs
@@ -397,6 +408,11 @@ extension KSendTokenViewController {
       return
     }
     self.pendingTxIndicatorView.isHidden = EtherscanTransactionStorage.shared.getInternalHistoryTransaction().isEmpty
+  }
+  
+  fileprivate func updateUISwitchChain() {
+    let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
+    self.currentChainIcon.image = icon
   }
 }
 
@@ -511,6 +527,15 @@ extension KSendTokenViewController {
     self.viewModel.currentWalletAddress = wallet.address.description
     self.setupNavigationView()
     self.updateUIBalanceDidChange()
+  }
+  
+  func coordinatorDidUpdateChain() {
+    guard self.isViewLoaded else { return }
+    self.updateUISwitchChain()
+    self.viewModel.resetFromToken()
+    self.updateGasFeeUI()
+    self.tokenBalanceLabel.text = self.viewModel.totalBalanceText
+    self.currentTokenButton.setTitle(self.viewModel.tokenButtonText, for: .normal)
   }
 }
 

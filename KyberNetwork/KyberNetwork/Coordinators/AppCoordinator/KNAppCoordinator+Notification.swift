@@ -206,14 +206,13 @@ extension KNAppCoordinator {
   }
   
   @objc func chainDidUpdateNotification(_ sender: Notification) {
+    if let address = sender.object as? String, let wal = self.session.keystore.wallets.first(where: { $0.address.description.lowercased() == address.lowercased() }) {
+      self.restartNewSession(wal)
+    }
 
     KNSupportedTokenCoordinator.shared.pause()
     KNSupportedTokenCoordinator.shared.resume()
     KNSupportedTokenStorage.shared.reloadData()
-    
-    BalanceStorage.shared.updateCurrentWallet(self.session.wallet)
-    self.loadBalanceCoordinator?.pause()
-    self.loadBalanceCoordinator?.resume()
     
     KNRateCoordinator.shared.pause()
     KNRateCoordinator.shared.resume()
@@ -226,8 +225,8 @@ extension KNAppCoordinator {
     self.overviewTabCoordinator?.appCoordinatorDidUpdateChain()
     self.investCoordinator?.appCoordinatorDidUpdateChain()
     self.earnCoordinator?.appCoordinatorDidUpdateChain()
+    self.settingsCoordinator?.appCoordinatorDidUpdateChain()
     self.session.externalProvider?.minTxCount = 0
-    EtherscanTransactionStorage.shared.updateCurrentWallet(self.session.wallet)
     
   }
 

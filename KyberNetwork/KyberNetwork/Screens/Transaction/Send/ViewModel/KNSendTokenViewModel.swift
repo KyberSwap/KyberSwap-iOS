@@ -94,9 +94,17 @@ class KNSendTokenViewModel: NSObject {
   var tokenButtonText: String {
     return String(self.from.symbol.prefix(8))
   }
+  
+  func resetFromToken() {
+    if KNGeneralProvider.shared.isEthereum {
+      self.from = KNSupportedTokenStorage.shared.ethToken
+    } else {
+      self.from = KNSupportedTokenStorage.shared.bnbToken
+    }
+  }
 
   fileprivate func formatFeeStringFor(gasPrice: BigInt) -> String {
-    let sourceToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
+    let sourceToken = KNGeneralProvider.shared.quoteToken
     let fee = gasPrice * self.gasLimit
     let feeString: String = fee.displayRate(decimals: 18)
     var typeString = ""

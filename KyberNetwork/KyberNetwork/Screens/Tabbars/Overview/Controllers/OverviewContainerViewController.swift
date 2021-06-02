@@ -253,7 +253,8 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
   @IBAction func switchChainButtonTapped(_ sender: UIButton) {
     let popup = SwitchChainViewController()
     popup.completionHandler = {
-      KNNotificationUtil.postNotification(for: kChangeChainNotificationKey)
+      let secondPopup = SwitchChainWalletsListViewController()
+      self.present(secondPopup, animated: true, completion: nil)
     }
     self.present(popup, animated: true, completion: nil)
   }

@@ -230,6 +230,7 @@ extension KNExchangeTokenCoordinator {
   
   func appCoordinatorDidUpdateChain() {
     self.rootViewController.coordinatorDidUpdateChain()
+    self.sendTokenCoordinator?.appCoordinatorDidUpdateChain()
   }
 }
 
@@ -516,7 +517,16 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     case .setGasPrice(let gasPrice, let gasLimit):
       self.openSetGasPrice(gasPrice: gasPrice, estGasLimit: gasLimit)
     case .confirmSwap(let data, let tx, let hasRateWarning, let platform, let rawTransaction):
-      self.showConfirmSwapScreen(data: data, transaction: tx, hasRateWarning: hasRateWarning, platform: platform, rawTransaction: rawTransaction)
+      self.navigationController.displayLoading()
+      KNGeneralProvider.shared.getEstimateGasLimit(transaction: tx) { (result) in
+        self.navigationController.hideLoading()
+        switch result {
+        case .success:
+          self.showConfirmSwapScreen(data: data, transaction: tx, hasRateWarning: hasRateWarning, platform: platform, rawTransaction: rawTransaction)
+        case .failure(let error):
+          self.navigationController.showErrorTopBannerMessage(message: error.description)
+        }
+      }
     case .quickTutorial(let step, let pointsAndRadius):
       self.openQuickTutorial(controller, step: step, pointsAndRadius: pointsAndRadius)
     case .openGasPriceSelect(let gasLimit, let type, let pair, let percent):

@@ -113,7 +113,6 @@ class OverviewCoordinator: NSObject, Coordinator {
   }
   
   func appCoordinatorPendingTransactionsDidUpdate() {
-//    self.rootViewController.coordinatorUpdatePendingTransactions(transactions)
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
     self.rootViewController.coordinatorDidUpdatePendingTx()
     self.sendCoordinator?.coordinatorDidUpdatePendingTx()
@@ -128,8 +127,8 @@ class OverviewCoordinator: NSObject, Coordinator {
   
   func appCoordinatorDidUpdateChain() {
     self.rootViewController.coordinatorDidUpdateChain()
+    self.sendCoordinator?.appCoordinatorDidUpdateChain()
   }
-  
 }
 
 extension OverviewCoordinator: OverviewTokenListViewDelegate {

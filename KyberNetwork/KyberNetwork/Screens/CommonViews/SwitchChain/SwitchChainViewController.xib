@@ -22,6 +22,7 @@
                 <outlet property="contentView" destination="fwm-wF-0kt" id="Gez-OA-H2t"/>
                 <outlet property="contentViewTopContraint" destination="Mpl-9g-hWa" id="LiZ-Li-oHa"/>
                 <outlet property="ethCheckMarkIcon" destination="Nga-Em-0iA" id="5Bj-CT-yCM"/>
+                <outlet property="nextButton" destination="ivL-dP-f0M" id="CU9-kr-4og"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -181,6 +182,7 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="ivL-dP-f0M" firstAttribute="leading" secondItem="fwm-wF-0kt" secondAttribute="leading" constant="37" id="0hH-bL-O4V"/>
                         <constraint firstAttribute="trailing" secondItem="ivL-dP-f0M" secondAttribute="trailing" constant="37" id="368-6A-AiE"/>
@@ -195,6 +197,9 @@
                         <constraint firstItem="ivL-dP-f0M" firstAttribute="top" secondItem="M0x-hU-DEP" secondAttribute="bottom" constant="26" id="fxO-cn-hLk"/>
                         <constraint firstAttribute="trailing" secondItem="oOn-q0-SjN" secondAttribute="trailing" constant="37" id="jhL-IG-cha"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="AcZ-mP-NlR" appends="YES" id="bz7-5I-3ny"/>
+                    </connections>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -215,6 +220,7 @@
                 <action selector="tapOutsidePopup:" destination="-1" id="vQ0-LY-if9"/>
             </connections>
         </tapGestureRecognizer>
+        <tapGestureRecognizer id="AcZ-mP-NlR"/>
     </objects>
     <resources>
         <image name="chain_bsc_big_icon" width="84" height="84"/>

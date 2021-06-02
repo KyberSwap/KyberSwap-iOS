@@ -173,14 +173,6 @@ extension KNAppCoordinator {
       
       BalanceStorage.shared.updateCurrentWallet(wallet)
       EtherscanTransactionStorage.shared.updateCurrentWallet(wallet)
-      
-      print("[Balance][New session] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
-
-//      let isPromo = KNWalletPromoInfoStorage.shared.getDestinationToken(from: wallet.address.description) != nil
-//      if isPromo {
-//        // default select swap for PT wallet
-//        self.tabbarController.selectedIndex = 1
-//      }
 
       self.exchangeCoordinator?.appCoordinatorDidUpdateNewSession(
         self.session,

@@ -109,36 +109,45 @@ extension WithdrawCoordinator: WithdrawViewControllerDelegate {
             do {
               let data = try decoder.decode(TransactionResponse.self, from: resp.data)
               if let transaction = data.txObject.convertToSignTransaction(wallet: self.session.wallet) {
-                blockchainProvider.signTransactionData(from: transaction) { [weak self] result in
-                  guard let `self` = self else { return }
+                KNGeneralProvider.shared.getEstimateGasLimit(transaction: transaction) { (result) in
                   switch result {
-                  case .success(let signedData):
-                    KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
-                      controller.hideLoading()
-                      switch sendResult {
-                      case .success(let hash):
-                        print(hash)
-                        blockchainProvider.minTxCount += 1
-                        let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
-                        self.session.addNewPendingTransaction(tx)
-                        
-                        historyTransaction.hash = hash
-                        historyTransaction.time = Date()
-                        historyTransaction.nonce = transaction.nonce
-                        historyTransaction.transactionObject = transaction.toSignTransactionObject()
-                        EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
+                  case .success:
+                    blockchainProvider.signTransactionData(from: transaction) { [weak self] result in
+                      guard let `self` = self else { return }
+                      switch result {
+                      case .success(let signedData):
+                        KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
+                          controller.hideLoading()
+                          switch sendResult {
+                          case .success(let hash):
+                            print(hash)
+                            blockchainProvider.minTxCount += 1
+                            let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
+                            self.session.addNewPendingTransaction(tx)
+                            
+                            historyTransaction.hash = hash
+                            historyTransaction.time = Date()
+                            historyTransaction.nonce = transaction.nonce
+                            historyTransaction.transactionObject = transaction.toSignTransactionObject()
+                            EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
 
-                        controller.dismiss(animated: true) {
-                          self.openTransactionStatusPopUp(transaction: historyTransaction)
-                        }
-                      case .failure(let error):
-                        self.navigationController.showTopBannerView(message: error.localizedDescription)
+                            controller.dismiss(animated: true) {
+                              self.openTransactionStatusPopUp(transaction: historyTransaction)
+                            }
+                          case .failure(let error):
+                            self.navigationController.showTopBannerView(message: error.localizedDescription)
+                          }
+                        })
+                      case .failure:
+                        controller.hideLoading()
                       }
-                    })
-                  case .failure:
-                    controller.hideLoading()
+                    }
+                  case .failure(let error):
+                    self.navigationController.hideLoading()
+                    self.navigationController.showErrorTopBannerMessage(message: error.description)
                   }
                 }
+                
               } else {
                 controller.hideLoading()
                 self.navigationController.showErrorTopBannerMessage(message: "Watched wallet is not supported")
@@ -495,34 +504,43 @@ extension WithdrawCoordinator: WithdrawConfirmPopupViewControllerDelegate {
               switch result {
               case .success(let txObj):
                 if let transaction = txObj.convertToSignTransaction(wallet: self.session.wallet) {
-                  blockchainProvider.signTransactionData(from: transaction) { [weak self] result in
-                    guard let `self` = self else { return }
+                  KNGeneralProvider.shared.getEstimateGasLimit(transaction: transaction) { (result) in
                     switch result {
-                    case .success(let signedData):
-                      KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
-                        controller.hideLoading()
-                        switch sendResult {
-                        case .success(let hash):
-                          print(hash)
-                          blockchainProvider.minTxCount += 1
-                          let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
-                          self.session.addNewPendingTransaction(tx)
-                          let historyTransaction = InternalHistoryTransaction(type: .contractInteraction, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: "Claim", transactionDetailDescription: "", transactionObj: transaction.toSignTransactionObject())
-                          historyTransaction.hash = hash
-                          historyTransaction.time = Date()
-                          historyTransaction.nonce = transaction.nonce
-                          EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
-                          controller.dismiss(animated: true) {
-                            self.openTransactionStatusPopUp(transaction: historyTransaction)
-                          }
-                        case .failure(let error):
-                          self.navigationController.showTopBannerView(message: error.localizedDescription)
+                    case .success:
+                      blockchainProvider.signTransactionData(from: transaction) { [weak self] result in
+                        guard let `self` = self else { return }
+                        switch result {
+                        case .success(let signedData):
+                          KNGeneralProvider.shared.sendSignedTransactionData(signedData.0, completion: { sendResult in
+                            controller.hideLoading()
+                            switch sendResult {
+                            case .success(let hash):
+                              print(hash)
+                              blockchainProvider.minTxCount += 1
+                              let tx = transaction.toTransaction(hash: hash, fromAddr: self.session.wallet.address.description, type: .withdraw)
+                              self.session.addNewPendingTransaction(tx)
+                              let historyTransaction = InternalHistoryTransaction(type: .contractInteraction, state: .pending, fromSymbol: "", toSymbol: "", transactionDescription: "Claim", transactionDetailDescription: "", transactionObj: transaction.toSignTransactionObject())
+                              historyTransaction.hash = hash
+                              historyTransaction.time = Date()
+                              historyTransaction.nonce = transaction.nonce
+                              EtherscanTransactionStorage.shared.appendInternalHistoryTransaction(historyTransaction)
+                              controller.dismiss(animated: true) {
+                                self.openTransactionStatusPopUp(transaction: historyTransaction)
+                              }
+                            case .failure(let error):
+                              controller.hideLoading()
+                              self.navigationController.showTopBannerView(message: error.localizedDescription)
+                            }
+                          })
+                        case .failure:
+                          controller.hideLoading()
                         }
-                      })
-                    case .failure:
-                      controller.hideLoading()
+                      }
+                    case .failure(let error):
+                      self.navigationController.showErrorTopBannerMessage(message: error.description)
                     }
                   }
+                  
                 } else {
                   self.navigationController.showErrorTopBannerMessage(message: "Watched wallet is not supported")
                 }

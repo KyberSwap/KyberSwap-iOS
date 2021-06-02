@@ -17,7 +17,8 @@ class SwitchChainViewController: KNBaseViewController {
   @IBOutlet weak var ethCheckMarkIcon: UIImageView!
   @IBOutlet weak var bscCheckMarkIcon: UIImageView!
   var isEthChainSelected: Bool
-  var completionHandler: ()->Void = { }
+  var completionHandler: () -> Void = { }
+  @IBOutlet weak var nextButton: UIButton!
   
   
   init() {
@@ -41,6 +42,10 @@ class SwitchChainViewController: KNBaseViewController {
   fileprivate func updateSelectedChainUI() {
     self.ethCheckMarkIcon.isHidden = !self.isEthChainSelected
     self.bscCheckMarkIcon.isHidden = self.isEthChainSelected
+    let enableNextButton = self.isEthChainSelected != KNGeneralProvider.shared.isEthereum
+    self.nextButton.isEnabled = enableNextButton
+    self.nextButton.alpha = enableNextButton ? 1.0 : 0.5
+    
   }
   
   @IBAction func ethButtonTapped(_ sender: UIButton) {
@@ -54,7 +59,7 @@ class SwitchChainViewController: KNBaseViewController {
   }
   
   @IBAction func nextButtonTapped(_ sender: UIButton) {
-    KNGeneralProvider.shared.isEthereum = self.isEthChainSelected
+    
     self.dismiss(animated: true, completion: {
       self.completionHandler()
     })

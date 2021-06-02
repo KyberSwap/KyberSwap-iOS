@@ -134,7 +134,10 @@ extension KNSendTokenViewCoordinator {
   
   func appCoordinatorDidUpdateNewSession(_ session: KNSession) {
     self.rootViewController.coordinatorUpdateNewSession(wallet: session.wallet)
-    
+  }
+
+  func appCoordinatorDidUpdateChain() {
+    self.rootViewController.coordinatorDidUpdateChain()
   }
 }
 

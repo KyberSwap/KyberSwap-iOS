@@ -964,4 +964,24 @@ extension KNGeneralProvider {
       }
     }
   }
+  
+  func getEstimateGasLimit(transaction: SignTransaction, completion: @escaping (Result<BigInt, AnyError>) -> Void) {
+    let request = KNEstimateGasLimitRequest(
+      from: transaction.account.address.description,
+      to: transaction.to?.description,
+      value: transaction.value,
+      data: transaction.data,
+      gasPrice: transaction.gasPrice
+    )
+    Session.send(EtherServiceAlchemyRequest(batch: BatchFactory().create(request))) { result in
+      switch result {
+      case .success(let value):
+        let limit = BigInt(value.drop0x, radix: 16) ?? BigInt()
+        completion(.success(limit))
+      case .failure(let error):
+        NSLog("------ Estimate gas used failed: \(error.localizedDescription) ------")
+        completion(.failure(AnyError(error)))
+      }
+    }
+  }
 }

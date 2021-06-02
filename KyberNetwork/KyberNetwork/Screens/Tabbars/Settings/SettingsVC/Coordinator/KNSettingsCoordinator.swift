@@ -405,6 +405,10 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     self.customTokenCoordinator.start()
     self.customTokenCoordinator.coordinatorDidUpdateTokenObject(token)
   }
+  
+  func appCoordinatorDidUpdateChain() {
+    self.sendTokenCoordinator?.appCoordinatorDidUpdateChain()
+  }
 }
 
 extension KNSettingsCoordinator: KNCreatePasswordViewControllerDelegate {

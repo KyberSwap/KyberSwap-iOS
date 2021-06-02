@@ -39,6 +39,21 @@ struct KNContactTableViewCellModel {
   }
 }
 
+struct KNWalletTableCellViewModel {
+  let wallet: KNWalletObject
+  
+  var addressImage: UIImage? {
+    guard let data = Address(string: self.wallet.address.description)?.data else { return nil }
+    return UIImage.generateImage(with: 32, hash: data)
+  }
+
+  var displayedName: String { return self.wallet.name }
+  var displayedAddress: String {
+    let address = self.wallet.address.description.lowercased()
+    return "\(address.prefix(20))...\(address.suffix(6))"
+  }
+}
+
 class KNContactTableViewCell: SwipeTableViewCell {
 
   static let height: CGFloat = 56
@@ -46,7 +61,10 @@ class KNContactTableViewCell: SwipeTableViewCell {
   @IBOutlet weak var addressImageView: UIImageView!
   @IBOutlet weak var contactNameLabel: UILabel!
   @IBOutlet weak var contactAddressLabel: UILabel!
-
+  
+  @IBOutlet weak var checkIcon: UIImageView!
+  @IBOutlet weak var addressImageLeftPaddingContraint: NSLayoutConstraint!
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     self.contactNameLabel.text = ""
@@ -60,6 +78,19 @@ class KNContactTableViewCell: SwipeTableViewCell {
     self.contactNameLabel.addLetterSpacing()
     self.contactAddressLabel.text = viewModel.displayedAddress
     self.contactAddressLabel.addLetterSpacing()
+    self.addressImageLeftPaddingContraint.constant = 24
+    self.checkIcon.isHidden = true
+    self.layoutIfNeeded()
+  }
+  
+  func update(with viewModel: KNWalletTableCellViewModel, selected: String) {
+    self.addressImageView.image = viewModel.addressImage
+    self.contactNameLabel.text = viewModel.displayedName
+    self.contactNameLabel.addLetterSpacing()
+    self.contactAddressLabel.text = viewModel.displayedAddress
+    self.contactAddressLabel.addLetterSpacing()
+    self.addressImageLeftPaddingContraint.constant = 36
+    self.checkIcon.isHidden = viewModel.wallet.address.description.lowercased() != selected.lowercased()
     self.layoutIfNeeded()
   }
 }
