@@ -77,6 +77,7 @@
                     <constraint firstItem="zVR-rW-lJB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="W9C-g4-hPD"/>
                     <constraint firstAttribute="trailing" secondItem="zVR-rW-lJB" secondAttribute="trailing" constant="45" id="fWG-ao-HDu"/>
                     <constraint firstAttribute="trailing" secondItem="jCp-0n-dsi" secondAttribute="trailing" constant="148" id="rnO-90-DTE"/>
+                    <constraint firstItem="jCp-0n-dsi" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f9s-3i-Qzj" secondAttribute="trailing" constant="5" id="w3e-By-7LH"/>
                     <constraint firstItem="jCp-0n-dsi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yzy-ev-KFy"/>
                 </constraints>
             </tableViewCellContentView>

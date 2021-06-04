@@ -65,6 +65,7 @@
                     <constraint firstItem="Ffs-6u-60h" firstAttribute="leading" secondItem="wLd-DK-4sb" secondAttribute="trailing" constant="8" id="A5i-Ly-i2b"/>
                     <constraint firstItem="JQh-or-p9r" firstAttribute="top" secondItem="Ffs-6u-60h" secondAttribute="bottom" constant="2" id="Eso-pc-bTA"/>
                     <constraint firstItem="ZRy-fy-M51" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="MTo-Xb-sws"/>
+                    <constraint firstItem="ZRy-fy-M51" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ffs-6u-60h" secondAttribute="trailing" constant="5" id="PTD-2p-D7a"/>
                     <constraint firstItem="wLd-DK-4sb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="S1L-Km-T9g"/>
                     <constraint firstItem="ZRy-fy-M51" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Xad-eI-yiF"/>
                     <constraint firstItem="wLd-DK-4sb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="YH1-nW-cMI"/>

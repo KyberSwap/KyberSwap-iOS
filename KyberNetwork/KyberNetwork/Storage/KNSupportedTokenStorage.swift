@@ -16,13 +16,12 @@ class KNSupportedTokenStorage {
   }
   
   static let shared = KNSupportedTokenStorage()
-  
-  
-  
+
   init() {
     self.supportedToken = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.tokenStoreFileName, as: [Token].self) ?? []
     self.favedTokens = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.favedTokenStoreFileName, as: [FavedToken].self) ?? []
     self.customTokens = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName, as: [Token].self) ?? []
+    self.migrationCustomTokenIfNeeded()
   }
 
   //TODO: temp wrap method delete later
@@ -74,7 +73,7 @@ class KNSupportedTokenStorage {
     self.supportedToken = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.tokenStoreFileName, as: [Token].self) ?? []
     self.customTokens = Storage.retrieve(KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName, as: [Token].self) ?? []
   }
-  
+
   func getSupportedTokens() -> [Token] {
     return self.supportedToken
   }
@@ -89,7 +88,7 @@ class KNSupportedTokenStorage {
       return token.address.lowercased() == address.lowercased()
     }
   }
-  
+
   func getTokenWith(symbol: String) -> Token? {
     return self.allTokens.first { (token) -> Bool in
       return token.symbol.lowercased() == symbol.lowercased()
@@ -135,13 +134,13 @@ class KNSupportedTokenStorage {
   func getCustomToken() -> [Token] {
     return self.customTokens
   }
-  
+
   func getCustomTokenWith(address: String) -> Token? {
     return self.customTokens.first { (token) -> Bool in
       return token.address.lowercased() == address.lowercased()
     }
   }
-  
+
   func deleteCustomToken(address: String) {
     guard let index = self.customTokens.firstIndex(where: { (token) -> Bool in
       return token.address.lowercased() == address.lowercased()
@@ -174,5 +173,41 @@ class KNSupportedTokenStorage {
     return self.supportedToken.first { (item) -> Bool in
       return item.symbol == "KNC"
     } ?? Token(name: "KyberNetwork", symbol: "KNC", address: "0x7b2810576aa1cce68f2b118cef1f36467c648f92", decimals: 18, logo: "knc")
+  }
+  
+  func checkAddCustomTokenIfNeeded() {
+    var unknown: [Token] = []
+    let all = self.allTokens
+    let etherscanTokens = EtherscanTransactionStorage.shared.getEtherscanToken()
+    etherscanTokens.forEach { (token) in
+      if !all.contains(token) {
+        unknown.append(token)
+      }
+    }
+    guard !unknown.isEmpty else {
+      return
+    }
+    self.customTokens.append(contentsOf: unknown)
+    Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
+  }
+  
+  func migrationCustomTokenIfNeeded() {
+    guard KNGeneralProvider.shared.isEthereum, Storage.isFileExistAtPath(Constants.customTokenStoreFileName) else {
+      return
+    }
+    let token = Storage.retrieve(Constants.customTokenStoreFileName, as: [Token].self) ?? []
+    guard !token.isEmpty else {
+      return
+    }
+    let all = self.allTokens
+    var add: [Token] = []
+    token.forEach { (item) in
+      if !all.contains(item) {
+        add.append(item)
+      }
+    }
+    self.customTokens.append(contentsOf: add)
+    Storage.removeFileAtPath(Constants.customTokenStoreFileName)
+    Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
   }
 }

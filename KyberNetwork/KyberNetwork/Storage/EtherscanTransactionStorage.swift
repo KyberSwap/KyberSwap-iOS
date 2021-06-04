@@ -285,4 +285,6 @@ class EtherscanTransactionStorage {
       return left.symbol > right.symbol
     }
   }
+  
+  
 }

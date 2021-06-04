@@ -54,7 +54,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxb-dr-nSP">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH/USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-zE-84E">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="ETH/USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Xw-zE-84E">
                             <rect key="frame" x="149.5" y="65.5" width="76" height="21.5"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -80,6 +80,7 @@
                         <constraint firstItem="r3Q-Ff-reg" firstAttribute="leading" secondItem="fxb-dr-nSP" secondAttribute="leading" constant="23" id="BfU-Vw-GPt"/>
                         <constraint firstAttribute="height" constant="113" id="EIK-2V-Dtf"/>
                         <constraint firstAttribute="bottom" secondItem="7Xw-zE-84E" secondAttribute="bottom" constant="26" id="IT7-Wf-gfg"/>
+                        <constraint firstItem="7Xw-zE-84E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="r3Q-Ff-reg" secondAttribute="trailing" constant="5" id="NMA-6Z-xcN"/>
                         <constraint firstItem="7Xw-zE-84E" firstAttribute="centerX" secondItem="fxb-dr-nSP" secondAttribute="centerX" id="fN0-Wk-KNm"/>
                         <constraint firstItem="7Xw-zE-84E" firstAttribute="centerY" secondItem="r3Q-Ff-reg" secondAttribute="centerY" id="rzD-jM-EII"/>
                     </constraints>
@@ -117,7 +118,7 @@
                             <color key="textColor" red="0.64313725489999995" green="0.6705882353" blue="0.73333333329999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.93 ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5JN-3d-A7T">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="5.93 ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5JN-3d-A7T">
                             <rect key="frame" x="294.5" y="27" width="65.5" height="19.5"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -470,6 +471,7 @@
                         <constraint firstAttribute="bottom" secondItem="t95-BV-F1P" secondAttribute="bottom" constant="95" id="Vqg-42-iaj"/>
                         <constraint firstItem="kpd-Ie-Axg" firstAttribute="top" secondItem="1Rg-Gc-aeW" secondAttribute="bottom" constant="17" id="W9F-vn-s6X"/>
                         <constraint firstAttribute="trailing" secondItem="RvK-Tz-qjN" secondAttribute="trailing" constant="15" id="WDe-tC-xkv"/>
+                        <constraint firstItem="5JN-3d-A7T" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rig-RH-skP" secondAttribute="trailing" constant="5" id="X98-Qn-wRM"/>
                         <constraint firstItem="7pU-d9-FWK" firstAttribute="leading" secondItem="VQr-Jp-lwB" secondAttribute="trailing" constant="20" id="bKc-HQ-a69"/>
                         <constraint firstItem="HI4-LR-6cR" firstAttribute="width" secondItem="VQr-Jp-lwB" secondAttribute="width" id="bYb-IR-zlq"/>
                         <constraint firstItem="7pU-d9-FWK" firstAttribute="width" secondItem="VQr-Jp-lwB" secondAttribute="width" id="cpu-yA-hck"/>

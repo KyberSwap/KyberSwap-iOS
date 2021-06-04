@@ -292,11 +292,11 @@ struct InternalTransactionDetailViewModel: TransactionDetailsViewModel {
     case .transferETH:
       return "To Wallet".toBeLocalised()
     case .receiveETH:
-      return "From Wallet".toBeLocalised()
+      return "To Wallet".toBeLocalised()
     case .transferToken:
       return "To Wallet".toBeLocalised()
     case .receiveToken:
-      return "From Wallet".toBeLocalised()
+      return "To Wallet".toBeLocalised()
     case .allowance:
       return "Application".toBeLocalised()
     case .earn:
@@ -443,11 +443,11 @@ struct EtherscanTransactionDetailViewModel: TransactionDetailsViewModel {
     case .transferETH:
       return "To Wallet".toBeLocalised()
     case .receiveETH:
-      return "From Wallet".toBeLocalised()
+      return "To Wallet".toBeLocalised()
     case .transferToken:
       return "To Wallet".toBeLocalised()
     case .receiveToken:
-      return "From Wallet".toBeLocalised()
+      return "To Wallet".toBeLocalised()
     case .allowance:
       return "Application".toBeLocalised()
     case .earn:

@@ -122,7 +122,7 @@
                                 <action selector="sortingButtonTapped:" destination="-1" eventType="touchUpInside" id="kl2-7h-QY5"/>
                             </connections>
                         </button>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" image="down_arrow_overview_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fEj-vb-UXq">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" image="up_arrow_overview_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fEj-vb-UXq">
                             <rect key="frame" x="65" y="8" width="8" height="8"/>
                         </imageView>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OwM-T2-4jq">
@@ -229,8 +229,8 @@
     </objects>
     <resources>
         <image name="add_blue_icon" width="12" height="12"/>
-        <image name="down_arrow_overview_icon" width="8" height="8"/>
         <image name="empty_asset_icon" width="91" height="105"/>
         <image name="no_arrow_overview_icon" width="8" height="8"/>
+        <image name="up_arrow_overview_icon" width="8" height="8"/>
     </resources>
 </document>

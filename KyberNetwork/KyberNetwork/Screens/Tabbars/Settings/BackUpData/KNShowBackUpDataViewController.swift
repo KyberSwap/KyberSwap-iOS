@@ -64,7 +64,7 @@ class KNShowBackUpDataViewController: KNBaseViewController {
   }
 
   @IBAction func saveButtonPressed(_ sender: Any) {
-    let fileName = "kyberswap_backup_\(self.wallet.description)_\(DateFormatterUtil.shared.backupDateFormatter.string(from: Date())).json"
+    let fileName = "krystal_backup_\(self.wallet.description)_\(DateFormatterUtil.shared.backupDateFormatter.string(from: Date())).json"
     let url = URL(fileURLWithPath: NSTemporaryDirectory().appending(fileName))
     do {
       try self.backupData.data(using: .utf8)!.write(to: url)

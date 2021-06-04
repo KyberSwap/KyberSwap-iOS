@@ -41,8 +41,8 @@
                         <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolosit amet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egf-1d-0oq">
-                        <rect key="frame" x="52" y="36" width="135" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolosit amet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egf-1d-0oq">
+                        <rect key="frame" x="52" y="36" width="135" height="14.5"/>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                         <color key="textColor" red="0.92549019610000005" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -62,11 +62,12 @@
                     <constraint firstItem="sBn-Kl-Qf9" firstAttribute="top" secondItem="bDB-rO-H5l" secondAttribute="top" id="7co-qF-icZ"/>
                     <constraint firstItem="Ku0-mB-8NT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="JrZ-vZ-w8a"/>
                     <constraint firstItem="wNI-A2-Vea" firstAttribute="leading" secondItem="sBn-Kl-Qf9" secondAttribute="trailing" constant="5" id="RG9-jq-H2C"/>
+                    <constraint firstItem="bDB-rO-H5l" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="UGN-nk-1FU"/>
                     <constraint firstAttribute="bottom" secondItem="Ku0-mB-8NT" secondAttribute="bottom" id="YSV-zz-7q2"/>
                     <constraint firstItem="wNI-A2-Vea" firstAttribute="bottom" secondItem="sBn-Kl-Qf9" secondAttribute="bottom" id="c7t-mq-GhX"/>
                     <constraint firstItem="bDB-rO-H5l" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="def-gi-Qw4"/>
+                    <constraint firstItem="Ku0-mB-8NT" firstAttribute="top" secondItem="egf-1d-0oq" secondAttribute="bottom" constant="8.5" id="dqk-OH-w4a"/>
                     <constraint firstItem="egf-1d-0oq" firstAttribute="top" secondItem="sBn-Kl-Qf9" secondAttribute="bottom" constant="3" id="drq-I1-nky"/>
-                    <constraint firstItem="bDB-rO-H5l" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eKL-C8-WF0"/>
                     <constraint firstItem="egf-1d-0oq" firstAttribute="leading" secondItem="sBn-Kl-Qf9" secondAttribute="leading" id="nqH-ks-oTT"/>
                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="egf-1d-0oq" secondAttribute="trailing" constant="20" id="r5E-Dc-DDE"/>
                 </constraints>

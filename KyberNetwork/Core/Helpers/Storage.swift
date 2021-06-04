@@ -51,4 +51,19 @@ class Storage {
       print("[Store file][Error] \(error.localizedDescription)")
     }
   }
+  
+  static func isFileExistAtPath(_ fileName: String) -> Bool {
+    let url = getDocumentsDirectory().appendingPathComponent(fileName, isDirectory: false)
+    return FileManager.default.fileExists(atPath: url.path)
+  }
+  
+  static func removeFileAtPath(_ fileName: String) {
+    let url = getDocumentsDirectory().appendingPathComponent(fileName, isDirectory: false)
+    do {
+      try FileManager.default.removeItem(at: url)
+      print("[Delete file][Success]")
+    } catch {
+      print("[Delete file][Error] \(error.localizedDescription)")
+    }
+  }
 }

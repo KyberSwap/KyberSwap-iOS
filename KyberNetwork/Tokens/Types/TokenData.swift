@@ -49,8 +49,8 @@ class Token: Codable, Equatable, Hashable {
     return price
   }
   
-  static func ==(lhs: Token, rhs: Token) -> Bool {
-    return lhs.address == rhs.address
+  static func == (lhs: Token, rhs: Token) -> Bool {
+    return lhs.address.lowercased() == rhs.address.lowercased()
   }
   
   func hash(into hasher: inout Hasher) {
