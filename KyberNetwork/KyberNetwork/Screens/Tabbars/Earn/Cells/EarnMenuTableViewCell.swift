@@ -12,6 +12,7 @@ struct EarnMenuTableViewCellViewModel {
   let sym: String
   let borrowRateAPY: String
   let token: TokenData
+  let supplyRate: Double
   init(token: TokenData) {
     self.name = token.name
     self.sym = token.symbol.uppercased()
@@ -21,8 +22,10 @@ struct EarnMenuTableViewCellViewModel {
 
     if let notNilValue = optimizeValue {
       self.borrowRateAPY = String(format: "%.6f", notNilValue.supplyRate * 100.0) + "%"
+      self.supplyRate = notNilValue.supplyRate
     } else {
       self.borrowRateAPY = ""
+      self.supplyRate = 0
     }
     self.token = token
   }

@@ -20,6 +20,8 @@ class EarnMenuViewController: KNBaseViewController {
   @IBOutlet weak var menuTableView: UITableView!
   @IBOutlet weak var walletsSelectButton: UIButton!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
+  @IBOutlet weak var currentChainIcon: UIImageView!
+  @IBOutlet var warningContainerView: UIView!
   
   let viewModel: EarnMenuViewModel
   weak var delegate: EarnMenuViewControllerDelegate?
@@ -47,12 +49,23 @@ class EarnMenuViewController: KNBaseViewController {
     if let notNil = self.viewModel.wallet {
       self.updateUIWalletSelectButton(notNil)
     }
+    self.menuTableView.tableFooterView = self.warningContainerView
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.isViewSetup = true
     self.updateUIPendingTxIndicatorView()
+    self.updateUISwitchChain()
+  }
+
+  fileprivate func updateUISwitchChain() {
+    guard self.isViewLoaded else {
+      return
+    }
+    let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
+    self.currentChainIcon.image = icon
   }
   
   fileprivate func updateUIWalletSelectButton(_ wallet: Wallet) {
@@ -66,7 +79,7 @@ class EarnMenuViewController: KNBaseViewController {
   @IBAction func walletsButtonTapped(_ sender: UIButton) {
     self.navigationDelegate?.viewControllerDidSelectWallets(self)
   }
-  
+
   @IBAction func backButtonTapped(_ sender: UIButton) {
     self.navigationController?.popViewController(animated: true)
   }
@@ -78,6 +91,15 @@ class EarnMenuViewController: KNBaseViewController {
       time: 10
     )
   }
+
+  @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+    let popup = SwitchChainViewController()
+    popup.completionHandler = {
+      let secondPopup = SwitchChainWalletsListViewController()
+      self.present(secondPopup, animated: true, completion: nil)
+    }
+    self.present(popup, animated: true, completion: nil)
+  }
   
   fileprivate func updateUIPendingTxIndicatorView() {
     guard self.isViewLoaded else {
@@ -87,7 +109,9 @@ class EarnMenuViewController: KNBaseViewController {
   }
   
   func coordinatorDidUpdateLendingToken(_ tokens: [TokenData]) {
-    self.viewModel.dataSource = tokens.map { EarnMenuTableViewCellViewModel(token: $0) }
+    self.viewModel.dataSource = tokens.map { EarnMenuTableViewCellViewModel(token: $0) }.sorted(by: { (left, right) -> Bool in
+      return left.supplyRate > right.supplyRate
+    })
     if self.isViewSetup {
       self.menuTableView.reloadData()
     }
@@ -102,6 +126,10 @@ class EarnMenuViewController: KNBaseViewController {
   
   func coordinatorDidUpdatePendingTx() {
     self.updateUIPendingTxIndicatorView()
+  }
+  
+  func coordinatorDidUpdateChain() {
+    self.updateUISwitchChain()
   }
 }
 

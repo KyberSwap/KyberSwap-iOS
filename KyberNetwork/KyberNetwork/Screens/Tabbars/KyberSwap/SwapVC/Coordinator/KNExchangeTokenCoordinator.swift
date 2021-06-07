@@ -10,6 +10,7 @@ import APIKit
 import QRCodeReaderViewController
 import WalletConnect
 import MBProgressHUD
+import JSONRPCKit
 
 protocol KNExchangeTokenCoordinatorDelegate: class {
   func exchangeTokenCoordinatorDidSelectWallet(_ wallet: KNWalletObject)
@@ -524,7 +525,13 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
         case .success:
           self.showConfirmSwapScreen(data: data, transaction: tx, hasRateWarning: hasRateWarning, platform: platform, rawTransaction: rawTransaction)
         case .failure(let error):
-          self.navigationController.showErrorTopBannerMessage(message: error.description)
+          var errorMessage = "Can not estimate Gas Limit"
+          if case let APIKit.SessionTaskError.responseError(apiKitError) = error.error {
+            if case let JSONRPCKit.JSONRPCError.responseError(_, message, _) = apiKitError {
+              errorMessage = message
+            }
+          }
+          self.navigationController.showErrorTopBannerMessage(message: errorMessage)
         }
       }
     case .quickTutorial(let step, let pointsAndRadius):
@@ -1438,7 +1445,7 @@ extension KNExchangeTokenCoordinator: ApproveTokenViewControllerDelegate {
       self.navigationController.hideLoading()
       switch resetResult {
       case .success:
-        provider.sendApproveERCToken(for: token, value: BigInt(2).power(256) - BigInt(1), gasPrice: KNGasCoordinator.shared.maxKNGas) { (result) in
+        provider.sendApproveERCToken(for: token, value: BigInt(2).power(256) - BigInt(1), gasPrice: KNGasCoordinator.shared.defaultKNGas) { (result) in
           switch result {
           case .success:
             self.rootViewController.coordinatorSuccessApprove(token: token)

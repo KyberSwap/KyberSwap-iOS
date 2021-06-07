@@ -13,6 +13,8 @@ import TrustCore
 import QRCodeReaderViewController
 import WalletConnect
 import MBProgressHUD
+import APIKit
+import JSONRPCKit
 
 protocol NavigationBarDelegate: class {
   func viewControllerDidSelectHistory(_ controller: KNBaseViewController)
@@ -223,6 +225,10 @@ class EarnCoordinator: NSObject, Coordinator {
     self.getLendingOverview()
     self.sendCoordinator?.appCoordinatorDidUpdateChain()
   }
+  
+  func appCoodinatorDidUpdateHideBalanceStatus(_ status: Bool) {
+    self.rootViewController.coordinatorDidUpdateHideBalanceStatus(status)
+  }
 }
 
 extension EarnCoordinator: EarnMenuViewControllerDelegate {
@@ -306,7 +312,13 @@ extension EarnCoordinator: EarnViewControllerDelegate {
             self.navigationController.present(controller, animated: true, completion: nil)
           }
         case .failure(let error):
-          self.navigationController.showErrorTopBannerMessage(message: error.description)
+          var errorMessage = "Can not estimate Gas Limit"
+          if case let APIKit.SessionTaskError.responseError(apiKitError) = error.error {
+            if case let JSONRPCKit.JSONRPCError.responseError(_, message, _) = apiKitError {
+              errorMessage = message
+            }
+          }
+          self.navigationController.showErrorTopBannerMessage(message: errorMessage)
         }
       }
       

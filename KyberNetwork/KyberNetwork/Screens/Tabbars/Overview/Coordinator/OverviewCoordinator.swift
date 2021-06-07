@@ -18,6 +18,7 @@ protocol OverviewCoordinatorDelegate: class {
   func overviewCoordinatorDidSelectSwapToken(token: Token, isBuy: Bool)
   func overviewCoordinatorDidSelectDepositMore(tokenAddress: String)
   func overviewCoordinatorDidSelectAddToken(_ token: TokenObject)
+  func overviewCoordinatorDidChangeHideBalanceStatus(_ status: Bool)
 }
 
 class OverviewCoordinator: NSObject, Coordinator {
@@ -249,6 +250,8 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
       self.notificationsCoordinator = coordinator
     case .selectedCurrency(type: let type):
       self.currentCurrencyType = type
+    case .changeHideBalanceStatus(status: let status):
+      self.delegate?.overviewCoordinatorDidChangeHideBalanceStatus(status)
     }
   }
   

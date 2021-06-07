@@ -113,6 +113,10 @@ extension KNAppCoordinator: EarnCoordinatorDelegate {
 }
 
 extension KNAppCoordinator: OverviewCoordinatorDelegate {
+  func overviewCoordinatorDidChangeHideBalanceStatus(_ status: Bool) {
+    self.earnCoordinator?.appCoodinatorDidUpdateHideBalanceStatus(status)
+  }
+
   func overviewCoordinatorDidSelectAddToken(_ token: TokenObject) {
     self.tabbarController.selectedIndex = 4
     self.settingsCoordinator?.appCoordinatorDidSelectAddToken(token)

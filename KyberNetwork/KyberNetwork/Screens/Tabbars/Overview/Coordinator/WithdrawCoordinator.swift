@@ -10,6 +10,8 @@ import Moya
 import BigInt
 import TrustCore
 import Result
+import APIKit
+import JSONRPCKit
 
 protocol WithdrawCoordinatorDelegate: class {
   func withdrawCoordinatorDidSelectAddWallet()
@@ -144,7 +146,13 @@ extension WithdrawCoordinator: WithdrawViewControllerDelegate {
                     }
                   case .failure(let error):
                     self.navigationController.hideLoading()
-                    self.navigationController.showErrorTopBannerMessage(message: error.description)
+                    var errorMessage = "Can not estimate Gas Limit"
+                    if case let APIKit.SessionTaskError.responseError(apiKitError) = error.error {
+                      if case let JSONRPCKit.JSONRPCError.responseError(_, message, _) = apiKitError {
+                        errorMessage = message
+                      }
+                    }
+                    self.navigationController.showErrorTopBannerMessage(message: errorMessage)
                   }
                 }
                 
@@ -537,7 +545,13 @@ extension WithdrawCoordinator: WithdrawConfirmPopupViewControllerDelegate {
                         }
                       }
                     case .failure(let error):
-                      self.navigationController.showErrorTopBannerMessage(message: error.description)
+                      var errorMessage = "Can not estimate Gas Limit"
+                      if case let APIKit.SessionTaskError.responseError(apiKitError) = error.error {
+                        if case let JSONRPCKit.JSONRPCError.responseError(_, message, _) = apiKitError {
+                          errorMessage = message
+                        }
+                      }
+                      self.navigationController.showErrorTopBannerMessage(message: errorMessage)
                     }
                   }
                   

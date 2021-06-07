@@ -32,6 +32,7 @@ enum OverviewContainerViewEvent {
   case krytal
   case notifications
   case selectedCurrency(type: CurrencyType)
+  case changeHideBalanceStatus(status: Bool)
 }
 
 class OverviewContainerViewModel {
@@ -244,6 +245,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.updateUITotalValue()
     self.assetsViewController.containerDidUpdateHideBalanceStatus(self.viewModel.hideBalanceStatus)
     self.depositViewController.containerDidUpdateHideBalanceStatus(self.viewModel.hideBalanceStatus)
+    self.delegate?.overviewContainerViewController(self, run: .changeHideBalanceStatus(status: self.viewModel.hideBalanceStatus))
   }
   
   @IBAction func notificationButtonTapped(_ sender: UIButton) {

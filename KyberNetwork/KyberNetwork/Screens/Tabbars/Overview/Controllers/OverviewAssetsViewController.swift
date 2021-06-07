@@ -19,7 +19,7 @@ class OverviewAssetsViewModel {
   var data: [OverviewAssetsCellViewModel] = []
   var dataSource: [OverviewAssetsCellViewModel] = []
   var currencyType: CurrencyType = .usd
-  var soringType: AssetsOverviewSortingType = .balance(dec: false)
+  var soringType: AssetsOverviewSortingType = .value(dec: false)
   var searchText: String = ""
   var hideBalanceStatus: Bool = true
   

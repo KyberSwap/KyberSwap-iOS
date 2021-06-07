@@ -11,7 +11,6 @@ protocol KNSearchTokenTableViewCellDelegate: class {
 class KNSearchTokenTableViewCell: UITableViewCell {
 
   @IBOutlet weak var iconImageView: UIImageView!
-  @IBOutlet weak var tokenNameLabel: UILabel!
   @IBOutlet weak var tokenSymbolLabel: UILabel!
   @IBOutlet weak var balanceLabel: UILabel!
   @IBOutlet weak var addButton: UIButton!
@@ -20,7 +19,6 @@ class KNSearchTokenTableViewCell: UITableViewCell {
 
   override func awakeFromNib() {
     super.awakeFromNib()
-    self.tokenNameLabel.text = ""
     self.tokenSymbolLabel.text = ""
     self.addButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.addButton.frame.size.height / 2)
   }
@@ -29,9 +27,6 @@ class KNSearchTokenTableViewCell: UITableViewCell {
     self.token = token
     self.iconImageView.setSymbolImage(symbol: token.symbol, size: iconImageView.frame.size)
     self.tokenSymbolLabel.text = "\(token.symbol.prefix(8))"
-    self.tokenSymbolLabel.addLetterSpacing()
-    self.tokenNameLabel.text = token.name
-    self.tokenNameLabel.addLetterSpacing()
     let balText: String = {
       let value = token.getBalanceBigInt().string(
         decimals: token.decimals,

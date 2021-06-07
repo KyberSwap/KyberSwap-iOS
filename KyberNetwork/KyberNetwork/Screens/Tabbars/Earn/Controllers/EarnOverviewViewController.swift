@@ -135,4 +135,8 @@ class EarnOverviewViewController: KNBaseViewController {
   func coordinatorDidUpdateChain() {
     self.updateUISwitchChain()
   }
+  
+  func coordinatorDidUpdateHideBalanceStatus(_ status: Bool) {
+    self.depositViewController.containerDidUpdateHideBalanceStatus(status)
+  }
 }
