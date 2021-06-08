@@ -500,6 +500,14 @@
 		C3263B0225EDE6FB005FBB60 /* WithdrawCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3263B0125EDE6FB005FBB60 /* WithdrawCoordinator.swift */; };
 		C3263B0725EDE837005FBB60 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3263B0525EDE837005FBB60 /* WithdrawViewController.swift */; };
 		C3263B0825EDE837005FBB60 /* WithdrawViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3263B0625EDE837005FBB60 /* WithdrawViewController.xib */; };
+		C32656AC266F546100C69561 /* ActionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32656A6266F546000C69561 /* ActionData.swift */; };
+		C32656AD266F546100C69561 /* ActionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32656A7266F546000C69561 /* ActionController.swift */; };
+		C32656AE266F546100C69561 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32656A8266F546000C69561 /* Action.swift */; };
+		C32656AF266F546100C69561 /* ActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32656A9266F546100C69561 /* ActionCell.swift */; };
+		C32656B0266F546100C69561 /* ActionControllerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32656AA266F546100C69561 /* ActionControllerSettings.swift */; };
+		C32656B1266F546100C69561 /* DynamicCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32656AB266F546100C69561 /* DynamicCollectionViewFlowLayout.swift */; };
+		C32656B5266F55E200C69561 /* KrystalActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32656B3266F55E200C69561 /* KrystalActionSheetCell.swift */; };
+		C32656B6266F55E200C69561 /* KrystalActionSheetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32656B4266F55E200C69561 /* KrystalActionSheetCell.xib */; };
 		C326703F2579E4B70063AA1F /* GasFeeSelectorPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C326703D2579E4B70063AA1F /* GasFeeSelectorPopupViewController.swift */; };
 		C32670402579E4B70063AA1F /* GasFeeSelectorPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C326703E2579E4B70063AA1F /* GasFeeSelectorPopupViewController.xib */; };
 		C326C68A256D04B000B35E8F /* InputPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C326C688256D04B000B35E8F /* InputPopUpViewController.swift */; };
@@ -1203,6 +1211,14 @@
 		C3263B0125EDE6FB005FBB60 /* WithdrawCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawCoordinator.swift; sourceTree = "<group>"; };
 		C3263B0525EDE837005FBB60 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
 		C3263B0625EDE837005FBB60 /* WithdrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawViewController.xib; sourceTree = "<group>"; };
+		C32656A6266F546000C69561 /* ActionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionData.swift; sourceTree = "<group>"; };
+		C32656A7266F546000C69561 /* ActionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionController.swift; sourceTree = "<group>"; };
+		C32656A8266F546000C69561 /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		C32656A9266F546100C69561 /* ActionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionCell.swift; sourceTree = "<group>"; };
+		C32656AA266F546100C69561 /* ActionControllerSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionControllerSettings.swift; sourceTree = "<group>"; };
+		C32656AB266F546100C69561 /* DynamicCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		C32656B3266F55E200C69561 /* KrystalActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrystalActionSheetCell.swift; sourceTree = "<group>"; };
+		C32656B4266F55E200C69561 /* KrystalActionSheetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KrystalActionSheetCell.xib; sourceTree = "<group>"; };
 		C326703D2579E4B70063AA1F /* GasFeeSelectorPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GasFeeSelectorPopupViewController.swift; sourceTree = "<group>"; };
 		C326703E2579E4B70063AA1F /* GasFeeSelectorPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GasFeeSelectorPopupViewController.xib; sourceTree = "<group>"; };
 		C326C688256D04B000B35E8F /* InputPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPopUpViewController.swift; sourceTree = "<group>"; };
@@ -1968,6 +1984,7 @@
 		25696F4720BD0ED5002CC53F /* CommonViews */ = {
 			isa = PBXGroup;
 			children = (
+				C32656A5266F544100C69561 /* CustomActionSheet */,
 				C3018DC826579379003C8114 /* SwitchChain */,
 				C326C687256D003A00B35E8F /* TextFieldPopup */,
 				C360D21B255E94DB00B166E0 /* CustomTransition */,
@@ -3668,6 +3685,29 @@
 			path = CreateWalletMenu;
 			sourceTree = "<group>";
 		};
+		C32656A5266F544100C69561 /* CustomActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				C32656B2266F554F00C69561 /* KrystalActionSheet */,
+				C32656A8266F546000C69561 /* Action.swift */,
+				C32656A9266F546100C69561 /* ActionCell.swift */,
+				C32656A7266F546000C69561 /* ActionController.swift */,
+				C32656AA266F546100C69561 /* ActionControllerSettings.swift */,
+				C32656A6266F546000C69561 /* ActionData.swift */,
+				C32656AB266F546100C69561 /* DynamicCollectionViewFlowLayout.swift */,
+			);
+			path = CustomActionSheet;
+			sourceTree = "<group>";
+		};
+		C32656B2266F554F00C69561 /* KrystalActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				C32656B3266F55E200C69561 /* KrystalActionSheetCell.swift */,
+				C32656B4266F55E200C69561 /* KrystalActionSheetCell.xib */,
+			);
+			path = KrystalActionSheet;
+			sourceTree = "<group>";
+		};
 		C326703C2579E40E0063AA1F /* GasFeeSelector */ = {
 			isa = PBXGroup;
 			children = (
@@ -4344,6 +4384,7 @@
 				25C45AE220AD75EC00CDA1FF /* KNImportSeedsViewController.xib in Resources */,
 				25929C6A20DA5C760045CFA3 /* SF-Pro-Text-Semibold.otf in Resources */,
 				255A70F0214FB908005D7A6A /* KNEditWalletViewController.xib in Resources */,
+				C32656B6266F55E200C69561 /* KrystalActionSheetCell.xib in Resources */,
 				25929C6320DA5C760045CFA3 /* SF-Pro-Text-Light.otf in Resources */,
 				25929C5820DA5C760045CFA3 /* SF-Pro-Text-MediumItalic.otf in Resources */,
 				25C45ADB20AD40F400CDA1FF /* KNImportPrivateKeyViewController.xib in Resources */,
@@ -4655,6 +4696,7 @@
 				25CE6F7220723F7C00A3A2F9 /* KNAppTracker.swift in Sources */,
 				255F6F2620BBC9C000EF808F /* UIImage+Kyber.swift in Sources */,
 				C31371FF260490A1003D432B /* ShareReferralLinkViewController.swift in Sources */,
+				C32656B0266F546100C69561 /* ActionControllerSettings.swift in Sources */,
 				291795051F95F60100539A30 /* Web3RequestType.swift in Sources */,
 				C3263B0725EDE837005FBB60 /* WithdrawViewController.swift in Sources */,
 				C315AD5E240F845200620096 /* CustomAxisValueFormatter.swift in Sources */,
@@ -4668,6 +4710,7 @@
 				25D3D3EC20F61DC10071D599 /* KNTrackerRateStorage.swift in Sources */,
 				257740C120579335003323EB /* UIView+Kyber.swift in Sources */,
 				C31D05FF25F723E8000739D2 /* EtherscanTransactionStorage.swift in Sources */,
+				C32656B5266F55E200C69561 /* KrystalActionSheetCell.swift in Sources */,
 				C313720D26078051003D432B /* CustomTokenTableViewCell.swift in Sources */,
 				291ED08F1F6F613200E7E93A /* GetTransactionRequest.swift in Sources */,
 				C33696102595A387000EDD5D /* ApproveTokenViewController.swift in Sources */,
@@ -4678,6 +4721,7 @@
 				29C80D491FB51C380037B1E0 /* Dictionary.swift in Sources */,
 				29FA00CE201CA64E002F7DC5 /* DappCommand.swift in Sources */,
 				C31F74A325DCEC58008B21F7 /* OverviewMarketViewController.swift in Sources */,
+				C32656AD266F546100C69561 /* ActionController.swift in Sources */,
 				29FF12F61F74799D00AFD326 /* NSAttributedString.swift in Sources */,
 				C3409E1A25AEAEEC00C7C662 /* WalletListSectionTableViewCell.swift in Sources */,
 				255C40EB2092D64F00475871 /* KNTokenStorage.swift in Sources */,
@@ -4741,6 +4785,7 @@
 				257A377C205B01F000E86794 /* BigInt+Kyber.swift in Sources */,
 				25CC0AAB2058F1A00009D0D5 /* KNGetTokenAllowance.swift in Sources */,
 				259925B320EF286500CCF2D6 /* KNListContactViewController.swift in Sources */,
+				C32656AC266F546100C69561 /* ActionData.swift in Sources */,
 				29FC0CB81F8299510036089F /* Coordinator.swift in Sources */,
 				29E9CFCF1FE7347200017744 /* ERC20Token.swift in Sources */,
 				25CE6F77207291EC00A3A2F9 /* KNEtherScanService.swift in Sources */,
@@ -4822,6 +4867,7 @@
 				259925B920EF2D4900CCF2D6 /* KNContactTableViewCell.swift in Sources */,
 				C331133E2629753200E6F7E1 /* GetSymbol.swift in Sources */,
 				2561455B20C795AF00FB00CF /* KNChartObject.swift in Sources */,
+				C32656AF266F546100C69561 /* ActionCell.swift in Sources */,
 				C37AF0CD25CCFB47006FB880 /* EarnSwapConfirmViewController.swift in Sources */,
 				61C359E02002AA5A0097B04D /* TransactionSigning.swift in Sources */,
 				2963B6BF1F9AB9A2003063C1 /* ContractERC20Transfer.swift in Sources */,
@@ -4841,6 +4887,7 @@
 				25931F1420AEEBF000BAC774 /* KNBackUpWalletViewModel.swift in Sources */,
 				25C45ADA20AD40F400CDA1FF /* KNImportPrivateKeyViewController.swift in Sources */,
 				29EB102A1F6CBD23000907A4 /* UIAlertController.swift in Sources */,
+				C32656AE266F546100C69561 /* Action.swift in Sources */,
 				257740C720579457003323EB /* KNSplashScreenViewController.swift in Sources */,
 				2519E11020CFBB6A00D8AFC5 /* UIImageView+Kyber.swift in Sources */,
 				296AF9A51F736BA20058AF78 /* Config.swift in Sources */,
@@ -4950,6 +4997,7 @@
 				C3F367B925C3CC58003207B7 /* TokenData.swift in Sources */,
 				C31371F92603B194003D432B /* KrytalTableViewCell.swift in Sources */,
 				25696F6820BE9EB6002CC53F /* KNSearchTokenViewController.swift in Sources */,
+				C32656B1266F546100C69561 /* DynamicCollectionViewFlowLayout.swift in Sources */,
 				25C45AC720AC3EF600CDA1FF /* KNLandingPageCoordinator.swift in Sources */,
 				291ED08D1F6F5F0A00E7E93A /* KeyStoreError.swift in Sources */,
 				C31371F12603579D003D432B /* Krytal.swift in Sources */,

@@ -289,13 +289,26 @@ extension OverviewCoordinator: NavigationBarDelegate {
   }
 
   func viewControllerDidSelectWallets(_ controller: KNBaseViewController) {
-    let viewModel = WalletsListViewModel(
-      walletObjects: KNWalletStorage.shared.wallets,
-      currentWallet: self.currentWallet
-    )
-    let walletsList = WalletsListViewController(viewModel: viewModel)
-    walletsList.delegate = self
-    self.navigationController.present(walletsList, animated: true, completion: nil)
+    let actionController = KrystalActionSheetController()
+    
+    actionController.headerData = "Tokens Data"
+    actionController.addAction(Action(ActionData(title: "Add to Watch Later", image: UIImage(named: "knc")!), style: .default, handler: { action in
+    }))
+    actionController.addAction(Action(ActionData(title: "Add to Playlist...", image: UIImage(named: "knc")!), style: .default, handler: { action in
+    }))
+    actionController.addAction(Action(ActionData(title: "Share...", image: UIImage(named: "knc")!), style: .default, handler: { action in
+    }))
+    actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "knc")!), style: .destructive, handler: nil))
+    
+    self.navigationController.present(actionController, animated: true, completion: nil)
+    
+//    let viewModel = WalletsListViewModel(
+//      walletObjects: KNWalletStorage.shared.wallets,
+//      currentWallet: self.currentWallet
+//    )
+//    let walletsList = WalletsListViewController(viewModel: viewModel)
+//    walletsList.delegate = self
+//    self.navigationController.present(walletsList, animated: true, completion: nil)
   }
 }
 
