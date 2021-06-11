@@ -19,7 +19,7 @@ class KrytalViewModel {
   
   var displayTotalETHPoint: String {
     guard let unwrapped = self.overview else { return "---" }
-    return "\(Double(unwrapped.claimablePoint) / 1000.0) ETH"
+    return "\(Double(unwrapped.claimablePoint) / 10000.0) ETH"
   }
 
   var displayReferralCodes: [KrytalCellViewModel] {

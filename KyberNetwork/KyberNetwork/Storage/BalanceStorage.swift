@@ -123,5 +123,68 @@ class BalanceStorage {
     return BigInt(self.balanceBNB()) ?? BigInt(0)
   }
   
+  func getTotalAssetBalanceUSD() -> BigInt {
+    var total = BigInt(0)
+    let tokens = KNSupportedTokenStorage.shared.allTokens
+    let lendingBalances = BalanceStorage.shared.getAllLendingBalances()
+    var lendingSymbols: [String] = []
+    lendingBalances.forEach { (lendingPlatform) in
+      lendingPlatform.balances.forEach { (balance) in
+        lendingSymbols.append(balance.interestBearingTokenSymbol.lowercased())
+      }
+    }
+    
+    tokens.forEach { (token) in
+      guard token.getBalanceBigInt() > BigInt(0), !lendingSymbols.contains(token.symbol.lowercased()) else {
+        return
+      }
+      
+      let balance = token.getBalanceBigInt()
+      let rateBigInt = BigInt(token.getTokenPrice().usd * pow(10.0, 18.0))
+      let valueBigInt = balance * rateBigInt / BigInt(10).power(token.decimals)
+      total += valueBigInt
+    }
+    return total
+  }
   
+  func getTotalSupplyBalance() -> BigInt {
+    var total = BigInt(0)
+    let allBalances: [LendingPlatformBalance] = self.getAllLendingBalances()
+    
+    allBalances.forEach { (item) in
+      item.balances.forEach { (balanceItem) in
+        let balance = BigInt(balanceItem.supplyBalance) ?? BigInt(0)
+        let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(balanceItem.address)?.usd ?? 0.0
+        let value = balance * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(balanceItem.decimals)
+        total += value
+      }
+    }
+    
+    if let otherData = BalanceStorage.shared.getDistributionBalance() {
+      let balance = BigInt(otherData.unclaimed) ?? BigInt(0)
+      let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(otherData.address)?.usd ?? 0.0
+      let value = balance * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(otherData.decimal)
+      total += value
+    }
+    
+    return total
+  }
+  
+  func getSupplyBalances() -> ([String], JSONDictionary) {
+    var sectionKeys: [String] = []
+    var balanceDict: JSONDictionary = [:]
+    let allBalances: [LendingPlatformBalance] = BalanceStorage.shared.getAllLendingBalances()
+    allBalances.forEach { (item) in
+      if !item.balances.isEmpty {
+        balanceDict[item.name] = item.balances
+        sectionKeys.append(item.name)
+      }
+    }
+    if let otherData = BalanceStorage.shared.getDistributionBalance() {
+      balanceDict["OTHER"] = [otherData]
+      sectionKeys.append("OTHER")
+    }
+    
+    return (sectionKeys, balanceDict)
+  }
 }

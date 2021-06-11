@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,46 +24,64 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WWd-If-kvV">
-                        <rect key="frame" x="0.0" y="3" width="320" height="42"/>
-                        <color key="backgroundColor" red="0.031372549019607843" green="0.25882352941176467" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="16" y="3" width="288" height="42"/>
+                        <color key="backgroundColor" name="toolbarBgColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="8"/>
+                                <integer key="value" value="16"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="knc" translatesAutoresizingMaskIntoConstraints="NO" id="T3D-Z5-H1Y">
-                        <rect key="frame" x="18" y="15.5" width="17" height="17"/>
+                        <rect key="frame" x="30" y="12" width="24" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="17" id="1TL-Wd-7Ah"/>
-                            <constraint firstAttribute="width" constant="17" id="gGC-Yy-fbR"/>
+                            <constraint firstAttribute="height" constant="24" id="1TL-Wd-7Ah"/>
+                            <constraint firstAttribute="width" constant="24" id="gGC-Yy-fbR"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="2,2000000000000 Dai 24.35% APY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJT-Lc-ITt">
-                        <rect key="frame" x="43" y="15.5" width="209" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="2,2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sJT-Lc-ITt">
+                        <rect key="frame" x="62" y="15.5" width="43" height="17"/>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                         <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$2,210 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0FU-6W-I6H">
-                        <rect key="frame" x="257" y="15.5" width="47" height="17"/>
+                        <rect key="frame" x="238" y="15.5" width="47" height="17"/>
                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                         <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  2.76%  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gd8-ej-5Yd">
+                        <rect key="frame" x="116" y="12" width="49.5" height="24"/>
+                        <color key="backgroundColor" name="navButtonBgColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="Pki-gf-b9p"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" name="buttonBackgroundColor"/>
+                        <nil key="highlightedColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="16"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="WWd-If-kvV" secondAttribute="trailing" id="0GW-Mw-nID"/>
+                    <constraint firstAttribute="trailing" secondItem="WWd-If-kvV" secondAttribute="trailing" constant="16" id="0GW-Mw-nID"/>
                     <constraint firstItem="T3D-Z5-H1Y" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="B1c-dH-zhH"/>
                     <constraint firstAttribute="bottom" secondItem="WWd-If-kvV" secondAttribute="bottom" constant="3" id="D7C-on-P2r"/>
-                    <constraint firstAttribute="trailing" secondItem="0FU-6W-I6H" secondAttribute="trailing" constant="16" id="SBR-gI-axF"/>
-                    <constraint firstItem="T3D-Z5-H1Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="Scj-xL-ZKx"/>
-                    <constraint firstItem="0FU-6W-I6H" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sJT-Lc-ITt" secondAttribute="trailing" constant="5" id="dCp-Oo-LQj"/>
+                    <constraint firstAttribute="trailing" secondItem="0FU-6W-I6H" secondAttribute="trailing" constant="35" id="SBR-gI-axF"/>
+                    <constraint firstItem="T3D-Z5-H1Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Scj-xL-ZKx"/>
+                    <constraint firstItem="Gd8-ej-5Yd" firstAttribute="leading" secondItem="sJT-Lc-ITt" secondAttribute="trailing" constant="11" id="eNN-Im-To4"/>
+                    <constraint firstItem="0FU-6W-I6H" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Gd8-ej-5Yd" secondAttribute="trailing" constant="5" id="eab-BN-JUJ"/>
                     <constraint firstItem="WWd-If-kvV" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="frW-H4-0yE"/>
                     <constraint firstItem="WWd-If-kvV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="3" id="gdK-Og-IX8"/>
-                    <constraint firstItem="WWd-If-kvV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="iDQ-TV-y42"/>
+                    <constraint firstItem="WWd-If-kvV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="iDQ-TV-y42"/>
                     <constraint firstItem="sJT-Lc-ITt" firstAttribute="leading" secondItem="T3D-Z5-H1Y" secondAttribute="trailing" constant="8" id="ihf-F8-KXh"/>
+                    <constraint firstItem="Gd8-ej-5Yd" firstAttribute="centerY" secondItem="sJT-Lc-ITt" secondAttribute="centerY" id="qXM-Iy-yQK"/>
                     <constraint firstItem="0FU-6W-I6H" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="tMG-xZ-pgJ"/>
                     <constraint firstItem="sJT-Lc-ITt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="z7a-tN-yHw"/>
                 </constraints>
@@ -79,5 +98,14 @@
     </objects>
     <resources>
         <image name="knc" width="36" height="36"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29399999976158142" green="0.31000000238418579" blue="0.3059999942779541" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="toolbarBgColor">
+            <color red="0.13300000131130219" green="0.13300000131130219" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

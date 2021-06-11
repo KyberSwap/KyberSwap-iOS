@@ -35,16 +35,19 @@ class OverviewCoordinator: NSObject, Coordinator {
   var notificationsCoordinator: NotificationCoordinator?
   var currentCurrencyType: CurrencyType = .usd
 
-  lazy var rootViewController: OverviewContainerViewController = {
-    print("[Balance][Overview][\(session.wallet.address.description)] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
-    let viewModel = OverviewContainerViewModel(session: self.session, marketViewModel: self.marketViewController.viewModel, assetsViewModel: self.assetsViewController.viewModel, depositViewModel: self.depositViewController.viewModel)
-    let controller = OverviewContainerViewController(viewModel: viewModel, marketViewController: self.marketViewController, assetsViewController: self.assetsViewController, depositViewController: self.depositViewController)
-    self.assetsViewController.container = controller
-    self.marketViewController.container = controller
-    self.depositViewController.container = controller
-    controller.delegate = self
-    controller.navigationDelegate = self
-    return controller
+  lazy var rootViewController: OverviewMainViewController = {
+//    print("[Balance][Overview][\(session.wallet.address.description)] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
+//    let viewModel = OverviewContainerViewModel(session: self.session, marketViewModel: self.marketViewController.viewModel, assetsViewModel: self.assetsViewController.viewModel, depositViewModel: self.depositViewController.viewModel)
+//    let controller = OverviewContainerViewController(viewModel: viewModel, marketViewController: self.marketViewController, assetsViewController: self.assetsViewController, depositViewController: self.depositViewController)
+//    self.assetsViewController.container = controller
+//    self.marketViewController.container = controller
+//    self.depositViewController.container = controller
+//    controller.delegate = self
+//    controller.navigationDelegate = self
+//    return controller
+    
+    let viewController = OverviewMainViewController()
+    return viewController
   }()
   
   lazy var marketViewController: OverviewMarketViewController = {
@@ -101,13 +104,13 @@ class OverviewCoordinator: NSObject, Coordinator {
   
   //TODO: coordinator update balance, coordinator change wallet
   func appCoordinatorDidUpdateTokenList() {
-    self.rootViewController.coordinatorDidUpdateDidUpdateTokenList()
+//    self.rootViewController.coordinatorDidUpdateDidUpdateTokenList()
     self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
   
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
     self.session = session
-    self.rootViewController.coordinatorDidUpdateNewSession(session)
+//    self.rootViewController.coordinatorDidUpdateNewSession(session)
     self.sendCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.historyCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.krytalCoordinator?.appCoordinatorDidUpdateNewSession(session)
@@ -115,7 +118,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   
   func appCoordinatorPendingTransactionsDidUpdate() {
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
-    self.rootViewController.coordinatorDidUpdatePendingTx()
+//    self.rootViewController.coordinatorDidUpdatePendingTx()
     self.sendCoordinator?.coordinatorDidUpdatePendingTx()
     self.withdrawCoordinator?.coordinatorDidUpdatePendingTx()
     self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
@@ -127,7 +130,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   }
   
   func appCoordinatorDidUpdateChain() {
-    self.rootViewController.coordinatorDidUpdateChain()
+//    self.rootViewController.coordinatorDidUpdateChain()
     self.sendCoordinator?.appCoordinatorDidUpdateChain()
   }
 }

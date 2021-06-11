@@ -458,6 +458,8 @@
 		C3018DCC265793E1003C8114 /* SwitchChainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3018DCA265793E1003C8114 /* SwitchChainViewController.xib */; };
 		C30292F0260317EA001929E1 /* MarketingPartnerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */; };
 		C30292F1260317EA001929E1 /* MarketingPartnerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C30292EF260317E9001929E1 /* MarketingPartnerCollectionViewCell.xib */; };
+		C30568AB2670B87700F331CE /* OverviewMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30568A92670B87700F331CE /* OverviewMainViewController.swift */; };
+		C30568AC2670B87700F331CE /* OverviewMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C30568AA2670B87700F331CE /* OverviewMainViewController.xib */; };
 		C3114370249B1C2300084CD8 /* KNMigrationTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */; };
 		C3114371249B1C2300084CD8 /* KNMigrationTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311436F249B1C2300084CD8 /* KNMigrationTutorialViewController.xib */; };
 		C31371E52603511F003D432B /* KrytalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31371E42603511F003D432B /* KrytalCoordinator.swift */; };
@@ -607,6 +609,8 @@
 		C3ED1E2D261871FA0024970C /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ED1E2C261871F80024970C /* LoginInfo.swift */; };
 		C3EDDCC225C1829400A99CC8 /* EarnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EDDCC025C1829300A99CC8 /* EarnViewController.swift */; };
 		C3EDDCC325C1829400A99CC8 /* EarnViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3EDDCC125C1829300A99CC8 /* EarnViewController.xib */; };
+		C3EEA45B2671EF840011DB97 /* OverviewMainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EEA4592671EF840011DB97 /* OverviewMainViewCell.swift */; };
+		C3EEA45C2671EF840011DB97 /* OverviewMainViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3EEA45A2671EF840011DB97 /* OverviewMainViewCell.xib */; };
 		C3F08B572620AD9200DA6FCB /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F08B552620AD9200DA6FCB /* TermsAndConditionsViewController.swift */; };
 		C3F08B582620AD9200DA6FCB /* TermsAndConditionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3F08B562620AD9200DA6FCB /* TermsAndConditionsViewController.xib */; };
 		C3F367B925C3CC58003207B7 /* TokenData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F367B825C3CC58003207B7 /* TokenData.swift */; };
@@ -1169,6 +1173,8 @@
 		C3018DCA265793E1003C8114 /* SwitchChainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchChainViewController.xib; sourceTree = "<group>"; };
 		C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingPartnerCollectionViewCell.swift; sourceTree = "<group>"; };
 		C30292EF260317E9001929E1 /* MarketingPartnerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketingPartnerCollectionViewCell.xib; sourceTree = "<group>"; };
+		C30568A92670B87700F331CE /* OverviewMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewMainViewController.swift; sourceTree = "<group>"; };
+		C30568AA2670B87700F331CE /* OverviewMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewMainViewController.xib; sourceTree = "<group>"; };
 		C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNMigrationTutorialViewController.swift; sourceTree = "<group>"; };
 		C311436F249B1C2300084CD8 /* KNMigrationTutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNMigrationTutorialViewController.xib; sourceTree = "<group>"; };
 		C31371E42603511F003D432B /* KrytalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrytalCoordinator.swift; sourceTree = "<group>"; };
@@ -1321,6 +1327,8 @@
 		C3ED1E2C261871F80024970C /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
 		C3EDDCC025C1829300A99CC8 /* EarnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnViewController.swift; sourceTree = "<group>"; };
 		C3EDDCC125C1829300A99CC8 /* EarnViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarnViewController.xib; sourceTree = "<group>"; };
+		C3EEA4592671EF840011DB97 /* OverviewMainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewMainViewCell.swift; sourceTree = "<group>"; };
+		C3EEA45A2671EF840011DB97 /* OverviewMainViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewMainViewCell.xib; sourceTree = "<group>"; };
 		C3F08B552620AD9200DA6FCB /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
 		C3F08B562620AD9200DA6FCB /* TermsAndConditionsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TermsAndConditionsViewController.xib; sourceTree = "<group>"; };
 		C3F367B825C3CC58003207B7 /* TokenData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenData.swift; sourceTree = "<group>"; };
@@ -3659,6 +3667,8 @@
 				C38E5D7325F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.xib */,
 				C3D560A8260C641E00408875 /* OverviewClaimViewController.swift */,
 				C3D560A9260C641E00408875 /* OverviewClaimViewController.xib */,
+				C30568A92670B87700F331CE /* OverviewMainViewController.swift */,
+				C30568AA2670B87700F331CE /* OverviewMainViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3672,6 +3682,8 @@
 				C31F74B425DD3284008B21F7 /* OverviewAssetsTableViewCell.xib */,
 				C31F74B925DD32A6008B21F7 /* OverviewDepositTableViewCell.swift */,
 				C31F74BA25DD32A6008B21F7 /* OverviewDepositTableViewCell.xib */,
+				C3EEA4592671EF840011DB97 /* OverviewMainViewCell.swift */,
+				C3EEA45A2671EF840011DB97 /* OverviewMainViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4212,6 +4224,7 @@
 				257B84A72074C2B9003DD40E /* KNDebugMenuViewController.xib in Resources */,
 				C3A6911425638DE700F57756 /* Lato-Thin.ttf in Resources */,
 				25929C6720DA5C760045CFA3 /* SF-Pro-Text-Medium.otf in Resources */,
+				C3EEA45C2671EF840011DB97 /* OverviewMainViewCell.xib in Resources */,
 				25369F1220F88C52007231FE /* KNWelcomeScreenCollectionView.xib in Resources */,
 				C31F749E25DCDAAA008B21F7 /* OverviewAssetsViewController.xib in Resources */,
 				C3F08B582620AD9200DA6FCB /* TermsAndConditionsViewController.xib in Resources */,
@@ -4354,6 +4367,7 @@
 				C3A6911725638DE700F57756 /* Lato-Regular.ttf in Resources */,
 				25929C9120DA5CC10045CFA3 /* SFCompactText-Light.otf in Resources */,
 				25369F0C20F88A87007231FE /* KNWelcomeScreenCollectionViewCell.xib in Resources */,
+				C30568AC2670B87700F331CE /* OverviewMainViewController.xib in Resources */,
 				251ABCB220578F6E0069687F /* config_env_production.json in Resources */,
 				25929C5D20DA5C760045CFA3 /* SF-Pro-Display-Black.otf in Resources */,
 				255A70EB214F9ECE005D7A6A /* KNSettingsTabViewController.xib in Resources */,
@@ -4708,6 +4722,7 @@
 				C3114370249B1C2300084CD8 /* KNMigrationTutorialViewController.swift in Sources */,
 				290B2B5F1F9177860053C83E /* UIImage.swift in Sources */,
 				25D3D3EC20F61DC10071D599 /* KNTrackerRateStorage.swift in Sources */,
+				C30568AB2670B87700F331CE /* OverviewMainViewController.swift in Sources */,
 				257740C120579335003323EB /* UIView+Kyber.swift in Sources */,
 				C31D05FF25F723E8000739D2 /* EtherscanTransactionStorage.swift in Sources */,
 				C32656B5266F55E200C69561 /* KrystalActionSheetCell.swift in Sources */,
@@ -4725,6 +4740,7 @@
 				29FF12F61F74799D00AFD326 /* NSAttributedString.swift in Sources */,
 				C3409E1A25AEAEEC00C7C662 /* WalletListSectionTableViewCell.swift in Sources */,
 				255C40EB2092D64F00475871 /* KNTokenStorage.swift in Sources */,
+				C3EEA45B2671EF840011DB97 /* OverviewMainViewCell.swift in Sources */,
 				C347DA3825C02BE3000D6E81 /* EarnMenuViewController.swift in Sources */,
 				C37AF0BF25CA5639006FB880 /* EarnConfirmViewController.swift in Sources */,
 				259EC46920E2A4A20081B2FC /* KNHistoryTransactionCollectionViewCell.swift in Sources */,
