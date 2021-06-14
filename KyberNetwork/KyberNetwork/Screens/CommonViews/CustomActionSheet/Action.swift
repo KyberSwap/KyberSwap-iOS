@@ -29,6 +29,7 @@ import UIKit
 public enum ActionStyle {
     case `default`
     case cancel
+    case selected
     case destructive
 }
 

@@ -405,9 +405,28 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     self.customTokenCoordinator.start()
     self.customTokenCoordinator.coordinatorDidUpdateTokenObject(token)
   }
-  
+
   func appCoordinatorDidUpdateChain() {
     self.sendTokenCoordinator?.appCoordinatorDidUpdateChain()
+  }
+  
+  func appCoordinatorDidSelectRenameWallet() {
+    self.listWalletsCoordinator.startEditWallet()
+  }
+  
+  func appCoordinatorDidSelectExportWallet() {
+    let listWallets: [KNWalletObject] = KNWalletStorage.shared.wallets
+    let curWallet: KNWalletObject = listWallets.first(where: { $0.address.lowercased() == self.session.wallet.address.description.lowercased() })!
+    self.settingsViewControllerBackUpButtonPressed(wallet: curWallet)
+  }
+  
+  func appCoordinatorDidSelectDeleteWallet() {
+    let alert = UIAlertController(title: "", message: NSLocalizedString("do.you.want.to.remove.this.wallet", value: "Do you want to remove this wallet?", comment: ""), preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cacnel", comment: ""), style: .cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: NSLocalizedString("remove", value: "Remove", comment: ""), style: .destructive, handler: { _ in
+      self.delegate?.settingsCoordinatorUserDidRemoveWallet(self.session.wallet)
+    }))
+    self.navigationController.present(alert, animated: true, completion: nil)
   }
 }
 

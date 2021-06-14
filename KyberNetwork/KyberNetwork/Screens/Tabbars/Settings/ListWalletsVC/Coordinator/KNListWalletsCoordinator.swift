@@ -53,6 +53,26 @@ class KNListWalletsCoordinator: Coordinator {
       self.navigationController.pushViewController(self.rootViewController, animated: true)
     }
   }
+  
+  func startEditWallet() {
+    let listWallets: [KNWalletObject] = KNWalletStorage.shared.wallets
+    let curWallet: KNWalletObject = listWallets.first(where: { $0.address.lowercased() == self.session.wallet.address.description.lowercased() })!
+    self.selectedWallet = curWallet
+    if !curWallet.isWatchWallet {
+      let viewModel = KNEditWalletViewModel(wallet: curWallet)
+      let controller = KNEditWalletViewController(viewModel: viewModel)
+      controller.loadViewIfNeeded()
+      controller.delegate = self
+      self.navigationController.pushViewController(controller, animated: true)
+    } else {
+      let coordinator = KNAddNewWalletCoordinator(keystore: self.session.keystore)
+      coordinator.delegate = self
+      self.navigationController.present(coordinator.navigationController, animated: true) {
+        coordinator.start(type: .watch, wallet: curWallet)
+        self.addWalletCoordinator = coordinator
+      }
+    }
+  }
 
   func stop() {
     self.navigationController.popViewController(animated: true)

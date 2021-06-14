@@ -19,6 +19,9 @@ protocol OverviewCoordinatorDelegate: class {
   func overviewCoordinatorDidSelectDepositMore(tokenAddress: String)
   func overviewCoordinatorDidSelectAddToken(_ token: TokenObject)
   func overviewCoordinatorDidChangeHideBalanceStatus(_ status: Bool)
+  func overviewCoordinatorDidSelectRenameWallet()
+  func overviewCoordinatorDidSelectExportWallet()
+  func overviewCoordinatorDidSelectDeleteWallet()
 }
 
 class OverviewCoordinator: NSObject, Coordinator {
@@ -47,6 +50,7 @@ class OverviewCoordinator: NSObject, Coordinator {
 //    return controller
     
     let viewController = OverviewMainViewController()
+    viewController.delegate = self
     return viewController
   }()
   
@@ -468,4 +472,79 @@ extension OverviewCoordinator: KrytalCoordinatorDelegate {
   func krytalCoordinatorDidSelectManageWallet() {
     self.delegate?.overviewCoordinatorDidSelectManageWallet()
   }
+}
+
+extension OverviewCoordinator: OverviewMainViewControllerDelegate {
+  func overviewMainViewController(_ controller: OverviewMainViewController, run event: OverviewMainViewEvent) {
+    switch event {
+    case .changeMode(current: let mode):
+      let actionController = KrystalActionSheetController()
+      
+      actionController.headerData = "Tokens Data"
+      let supplyType = mode == .supply ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Show Supply", image: UIImage(named: "supply_actionsheet_icon")!), style: supplyType, handler: { _ in
+        controller.coordinatorDidSelectMode(.supply)
+      }))
+      let assetType = mode == .asset ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Show Asset", image: UIImage(named: "asset_actionsheet_icon")!), style: assetType, handler: { _ in
+        controller.coordinatorDidSelectMode(.asset)
+      }))
+      let marketType = mode == .market ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Show Market", image: UIImage(named: "market_actionsheet_icon")!), style: marketType, handler: { _ in
+        controller.coordinatorDidSelectMode(.market)
+      }))
+//      let favType = mode == .market ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Favorites", image: UIImage(named: "favorites_actionsheet_icon")!), style: .default, handler: nil))
+      
+      self.navigationController.present(actionController, animated: true, completion: nil)
+    case .walletConfig:
+      let actionController = KrystalActionSheetController()
+      
+      actionController.headerData = "Wallet Details"
+      
+      actionController.addAction(Action(ActionData(title: "Copy Address", image: UIImage(named: "copy_actionsheet_icon")!), style: .default, handler: { _ in
+        UIPasteboard.general.string = self.session.wallet.address.description
+        let hud = MBProgressHUD.showAdded(to: controller.view, animated: true)
+        hud.mode = .text
+        hud.label.text = NSLocalizedString("copied", value: "Copied", comment: "")
+        hud.hide(animated: true, afterDelay: 1.5)
+      }))
+      
+      actionController.addAction(Action(ActionData(title: "Share Address", image: UIImage(named: "share_actionsheet_icon")!), style: .default, handler: { _ in
+        let activityItems: [Any] = {
+          var items: [Any] = []
+          items.append(self.session.wallet.address.description)
+          return items
+        }()
+        let activityViewController = UIActivityViewController(
+          activityItems: activityItems,
+          applicationActivities: nil
+        )
+        activityViewController.popoverPresentationController?.sourceView = controller.view
+        controller.present(activityViewController, animated: true, completion: nil)
+      }))
+      actionController.addAction(Action(ActionData(title: "Rename Wallet", image: UIImage(named: "rename_actionsheet_icon")!), style: .default, handler: { _ in
+        self.delegate?.overviewCoordinatorDidSelectRenameWallet()
+      }))
+      actionController.addAction(Action(ActionData(title: "Show History", image: UIImage(named: "history_actionsheet_icon")!), style: .default, handler: { _ in
+        self.openHistoryScreen()
+      }))
+      actionController.addAction(Action(ActionData(title: "Export Wallet", image: UIImage(named: "export_actionsheet_icon")!), style: .default, handler: { _ in
+        self.delegate?.overviewCoordinatorDidSelectExportWallet()
+      }))
+      actionController.addAction(Action(ActionData(title: "DELETE", image: UIImage(named: "delete_actionsheet_icon")!), style: .destructive, handler: { _ in
+        self.delegate?.overviewCoordinatorDidSelectDeleteWallet()
+      }))
+      actionController.addAction(Action(ActionData(title: "Etherscan", image: UIImage(named: "etherscan_actionsheet_icon")!), style: .default, handler: { _ in
+        if let etherScanEndpoint = self.session.externalProvider?.customRPC.etherScanEndpoint, let url = URL(string: "\(etherScanEndpoint)address/\(self.session.wallet.address.description)") {
+          self.rootViewController.openSafari(with: url)
+        }
+      }))
+      self.navigationController.present(actionController, animated: true, completion: nil)
+    default:
+      break
+    }
+  }
+  
+  
 }

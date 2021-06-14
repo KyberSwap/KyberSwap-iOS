@@ -45,6 +45,9 @@ class OverviewMainCellViewModel {
     case .asset(token: let token):
       return token.symbol
     case .supply(balance: let balance):
+      guard !self.hideBalanceStatus else {
+        return "********"
+      }
       if let lendingBalance = balance as? LendingBalance {
         let balanceBigInt = BigInt(lendingBalance.supplyBalance) ?? BigInt(0)
         let balanceString = balanceBigInt.string(decimals: lendingBalance.decimals, minFractionDigits: 0, maxFractionDigits: 6)
@@ -57,9 +60,8 @@ class OverviewMainCellViewModel {
         return ""
       }
     }
-    
   }
-  
+
   var displaySubTitleDetail: String {
     switch self.mode {
     case .market(token: let token):
@@ -79,13 +81,16 @@ class OverviewMainCellViewModel {
       }
     }
   }
-  
+
   var displayAccessoryTitle: String {
     switch self.mode {
     case .market(token: let token):
       let change24 = token.getTokenPrice().usd24hChange
       return String(format: "%.2f", change24) + "%"
     case .asset(token: let token):
+      guard !self.hideBalanceStatus else {
+        return "********"
+      }
       let rateBigInt = BigInt(token.getTokenPrice().usd * pow(10.0, 18.0))
       let valueBigInt = token.getBalanceBigInt() * rateBigInt / BigInt(10).power(token.decimals)
       let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))

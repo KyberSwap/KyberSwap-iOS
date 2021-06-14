@@ -113,6 +113,21 @@ extension KNAppCoordinator: EarnCoordinatorDelegate {
 }
 
 extension KNAppCoordinator: OverviewCoordinatorDelegate {
+  func overviewCoordinatorDidSelectExportWallet() {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.appCoordinatorDidSelectExportWallet()
+  }
+  
+  func overviewCoordinatorDidSelectDeleteWallet() {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.appCoordinatorDidSelectDeleteWallet()
+  }
+  
+  func overviewCoordinatorDidSelectRenameWallet() {
+    self.tabbarController.selectedIndex = 4
+    self.settingsCoordinator?.appCoordinatorDidSelectRenameWallet()
+  }
+  
   func overviewCoordinatorDidChangeHideBalanceStatus(_ status: Bool) {
     self.earnCoordinator?.appCoodinatorDidUpdateHideBalanceStatus(status)
   }

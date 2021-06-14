@@ -187,4 +187,8 @@ class BalanceStorage {
     
     return (sectionKeys, balanceDict)
   }
+  
+  func getTotalBalance() -> BigInt {
+    return self.getTotalAssetBalanceUSD() + self.getTotalSupplyBalance()
+  }
 }

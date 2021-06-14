@@ -8,10 +8,23 @@
 import UIKit
 import BigInt
 
+enum OverviewMainViewEvent {
+  case send
+  case receive
+  case search
+  case notifications
+  case changeMode(current: ViewMode)
+  case walletConfig
+}
+
 enum ViewMode {
   case market
   case asset
   case supply
+}
+
+protocol OverviewMainViewControllerDelegate: class {
+  func overviewMainViewController(_ controller: OverviewMainViewController, run event: OverviewMainViewEvent)
 }
 
 class OverviewMainViewModel {
@@ -40,8 +53,7 @@ class OverviewMainViewModel {
       var total = BigInt(0)
       let models = assetTokens.map { (item) -> OverviewMainCellViewModel in
         total += item.getValueUSDBigInt()
-        
-        return OverviewMainCellViewModel(mode: .market(token: item))
+        return OverviewMainCellViewModel(mode: .asset(token: item))
       }
       self.dataSource = ["": models]
       self.displayDataSource = ["": models]
@@ -89,18 +101,30 @@ class OverviewMainViewModel {
   }
   
   var displayPageTotalValue: String {
-//    guard !self.hideBalanceStatus else {
-//      return "********"
-//    }
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     return self.displayTotalValues["all"] ?? ""
   }
   
   func getTotalValueForSection(_ section: Int) -> String {
-//    guard !self.hideBalanceStatus else {
-//      return "********"
-//    }
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
     let key = self.displayHeader[section]
     return self.displayTotalValues[key] ?? ""
+  }
+  
+  var displayTotalValue: String {
+    guard !self.hideBalanceStatus else {
+      return "********"
+    }
+    let total = BalanceStorage.shared.getTotalBalance()
+    return "$" + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+  }
+  
+  var displayHideBalanceImage: UIImage {
+    return self.hideBalanceStatus ? UIImage(named: "hide_eye_icon")! : UIImage(named: "show_eye_icon")!
   }
 }
 
@@ -114,7 +138,10 @@ class OverviewMainViewController: KNBaseViewController {
   @IBOutlet weak var notificationButton: UIButton!
   @IBOutlet weak var searchButton: UIButton!
   @IBOutlet weak var totalPageValueLabel: UILabel!
+  @IBOutlet weak var currentPageNameLabel: UILabel!
+  @IBOutlet weak var totalValueLabel: UILabel!
   
+  weak var delegate: OverviewMainViewControllerDelegate?
   
   let viewModel = OverviewMainViewModel()
   required init?(coder aDecoder: NSCoder) {
@@ -141,25 +168,60 @@ class OverviewMainViewController: KNBaseViewController {
     )
     
     self.tableView.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
-    
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    self.viewModel.reloadAllData()
+    
   }
   
+  fileprivate func updateUIHideBalanceButton() {
+    self.hideBalanceButton.setImage(self.viewModel.displayHideBalanceImage, for: .normal)
+  }
+
+  fileprivate func reloadUI() {
+    self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
+    self.viewModel.reloadAllData()
+    self.totalValueLabel.text = self.viewModel.displayTotalValue
+    self.updateUIHideBalanceButton()
+    self.tableView.reloadData()
+  }
+
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
+    self.reloadUI()
   }
-  
+
   @IBAction func sendButtonTapped(_ sender: UIButton) {
     print("Send")
   }
   
   @IBAction func receiveButtonTapped(_ sender: UIButton) {
     print("Tapped")
+  }
+  
+  @IBAction func walletsListButtonTapped(_ sender: UIButton) {
+  }
+  
+  @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+  }
+  
+  @IBAction func hideBalanceButtonTapped(_ sender: UIButton) {
+    self.viewModel.hideBalanceStatus = !self.viewModel.hideBalanceStatus
+    self.reloadUI()
+  }
+
+  @IBAction func toolbarOptionButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewMainViewController(self, run: .changeMode(current: self.viewModel.currentMode))
+  }
+
+  @IBAction func walletOptionButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewMainViewController(self, run: .walletConfig)
+  }
+  
+  func coordinatorDidSelectMode(_ mode: ViewMode) {
+    self.viewModel.currentMode = mode
+    self.reloadUI()
   }
 }
 
@@ -181,6 +243,7 @@ extension OverviewMainViewController: UITableViewDataSource {
       ) as! OverviewMainViewCell
       
       let cellModel = self.viewModel.getViewModelsForSection(indexPath.section)[indexPath.row]
+      cellModel.hideBalanceStatus = self.viewModel.hideBalanceStatus
       cell.updateCell(cellModel)
       
       return cell
@@ -190,10 +253,10 @@ extension OverviewMainViewController: UITableViewDataSource {
         for: indexPath
       ) as! OverviewDepositTableViewCell
       let cellModel = self.viewModel.getViewModelsForSection(indexPath.section)[indexPath.row]
+      cellModel.hideBalanceStatus = self.viewModel.hideBalanceStatus
       cell.updateCell(cellModel)
       return cell
     }
-    
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -241,7 +304,6 @@ extension OverviewMainViewController: UITableViewDelegate {
 
 extension OverviewMainViewController: UIScrollViewDelegate {
   func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
     let alpha = scrollView.contentOffset.y <= 0 ? abs(scrollView.contentOffset.y) / 200.0 : 0.0
     self.totalBalanceContainerView.alpha = alpha
   }

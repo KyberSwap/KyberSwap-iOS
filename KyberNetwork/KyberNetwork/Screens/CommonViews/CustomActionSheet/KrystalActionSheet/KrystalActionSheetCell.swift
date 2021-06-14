@@ -8,7 +8,9 @@
 import UIKit
 
 class KrystalActionSheetCell: ActionCell {
-
+  @IBOutlet weak var checkMarkImage: UIImageView!
+  @IBOutlet weak var selectedBackground: UIView!
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -65,6 +67,8 @@ class KrystalActionSheetController: ActionController<KrystalActionSheetCell, Act
       if action.style == .destructive {
         cell.actionTitleLabel?.textColor = .red
       }
+      cell.checkMarkImage.isHidden = action.style != .selected
+      cell.selectedBackground.isHidden = action.style != .selected
     }
     
     onConfigureHeader = { header, title in
