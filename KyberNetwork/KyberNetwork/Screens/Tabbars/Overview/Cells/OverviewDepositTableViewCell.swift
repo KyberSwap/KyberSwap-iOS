@@ -163,10 +163,20 @@ class OverviewDepositTableViewCell: UITableViewCell {
   @IBOutlet weak var iconImageView: UIImageView!
   @IBOutlet weak var tokenBalanceInfoLabel: UILabel!
   @IBOutlet weak var valueLabel: UILabel!
+  @IBOutlet weak var tokenApyInfo: UILabel!
+  
 
   func updateCell(viewModel: OverviewDepositCellViewModel) {
     self.iconImageView.setSymbolImage(symbol: viewModel.symbol)
     self.tokenBalanceInfoLabel.attributedText = viewModel.displayBalance
     self.valueLabel.text = viewModel.displayValue
+  }
+  
+  func updateCell(_ viewModel: OverviewMainCellViewModel) {
+    self.iconImageView.setSymbolImage(symbol: viewModel.tokenSymbol)
+    self.tokenBalanceInfoLabel.text = viewModel.displayTitle
+    self.tokenApyInfo.text = viewModel.displaySubTitleDetail
+    self.valueLabel.text = viewModel.displayAccessoryTitle
+    self.tokenApyInfo.isHidden = viewModel.displaySubTitleDetail.isEmpty
   }
 }

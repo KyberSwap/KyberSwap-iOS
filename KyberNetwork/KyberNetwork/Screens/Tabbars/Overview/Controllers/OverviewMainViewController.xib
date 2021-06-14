@@ -18,6 +18,7 @@
                 <outlet property="tableView" destination="EhA-J1-X3N" id="mmO-HQ-8TB"/>
                 <outlet property="totalBalanceContainerView" destination="g7y-sy-lYU" id="olM-D2-frT"/>
                 <outlet property="totalBalanceLabel" destination="ZXL-MS-g3w" id="Roi-u0-Qrx"/>
+                <outlet property="totalPageValueLabel" destination="XVo-h3-Re9" id="6is-s7-Yoo"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EhA-J1-X3N">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="EhA-J1-X3N">
                     <rect key="frame" x="0.0" y="40" width="375" height="627"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="AQD-Qn-mCt">
@@ -291,10 +292,10 @@
         <image name="search_overview_icon" width="33" height="33"/>
         <image name="show_eye_icon" width="24" height="24"/>
         <namedColor name="buttonBackgroundColor">
-            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="buttonTextColor">
-            <color red="0.058823529411764705" green="0.058823529411764705" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.059000000357627869" green="0.059000000357627869" blue="0.059000000357627869" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="mainViewBgColor">
             <color red="0.0040000001899898052" green="0.0040000001899898052" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

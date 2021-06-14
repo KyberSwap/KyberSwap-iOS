@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BigInt
 
 enum ViewMode {
   case market
@@ -18,7 +19,8 @@ class OverviewMainViewModel {
   var dataSource: [String: [OverviewMainCellViewModel]] = [:]
   var displayDataSource: [String: [OverviewMainCellViewModel]] = [:]
   var displayHeader: [String] = []
-  
+  var displayTotalValues: [String: String] = [:]
+  var hideBalanceStatus: Bool = true
   
   func reloadAllData() {
     switch self.currentMode {
@@ -30,18 +32,46 @@ class OverviewMainViewModel {
       }
       self.dataSource = ["": models]
       self.displayDataSource = ["": models]
+      self.displayTotalValues = [:]
     case .asset:
       let assetTokens = KNSupportedTokenStorage.shared.getAssetTokens()
       self.displayHeader = []
+      self.displayTotalValues = [:]
+      var total = BigInt(0)
       let models = assetTokens.map { (item) -> OverviewMainCellViewModel in
+        total += item.getValueUSDBigInt()
+        
         return OverviewMainCellViewModel(mode: .market(token: item))
       }
       self.dataSource = ["": models]
       self.displayDataSource = ["": models]
+      let displayTotalString = "$" + total.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
+      self.displayTotalValues["all"] = displayTotalString
     case .supply:
       let supplyBalance = BalanceStorage.shared.getSupplyBalances()
       self.displayHeader = supplyBalance.0
-      
+      let data = supplyBalance.1
+      var models: [String: [OverviewMainCellViewModel]] = [:]
+      var total = BigInt(0)
+      self.displayHeader.forEach { (key) in
+        var sectionModels: [OverviewMainCellViewModel] = []
+        var totalSection = BigInt(0)
+        data[key]?.forEach({ (item) in
+          if let lendingBalance = item as? LendingBalance {
+            totalSection += lendingBalance.getValueBigInt()
+          } else if let distributionBalance = item as? LendingDistributionBalance {
+            totalSection += distributionBalance.getValueBigInt()
+          }
+          sectionModels.append(OverviewMainCellViewModel(mode: .supply(balance: item)))
+        })
+        models[key] = sectionModels
+        let displayTotalSection = "$" + totalSection.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+        self.displayTotalValues[key] = displayTotalSection
+        total += totalSection
+      }
+      self.dataSource = models
+      self.displayDataSource = models
+      self.displayTotalValues["all"] = "$" + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
     }
   }
   
@@ -57,6 +87,21 @@ class OverviewMainViewModel {
     let key = self.displayHeader[section]
     return self.displayDataSource[key] ?? []
   }
+  
+  var displayPageTotalValue: String {
+//    guard !self.hideBalanceStatus else {
+//      return "********"
+//    }
+    return self.displayTotalValues["all"] ?? ""
+  }
+  
+  func getTotalValueForSection(_ section: Int) -> String {
+//    guard !self.hideBalanceStatus else {
+//      return "********"
+//    }
+    let key = self.displayHeader[section]
+    return self.displayTotalValues[key] ?? ""
+  }
 }
 
 class OverviewMainViewController: KNBaseViewController {
@@ -68,6 +113,8 @@ class OverviewMainViewController: KNBaseViewController {
   @IBOutlet weak var hideBalanceButton: UIButton!
   @IBOutlet weak var notificationButton: UIButton!
   @IBOutlet weak var searchButton: UIButton!
+  @IBOutlet weak var totalPageValueLabel: UILabel!
+  
   
   let viewModel = OverviewMainViewModel()
   required init?(coder aDecoder: NSCoder) {
@@ -86,7 +133,12 @@ class OverviewMainViewController: KNBaseViewController {
       nib,
       forCellReuseIdentifier: OverviewMainViewCell.kCellID
     )
-    self.tableView.rowHeight = OverviewMainViewCell.kCellHeight
+    
+    let nibSupply = UINib(nibName: OverviewDepositTableViewCell.className, bundle: nil)
+    self.tableView.register(
+      nibSupply,
+      forCellReuseIdentifier: OverviewDepositTableViewCell.kCellID
+    )
     
     self.tableView.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
     
@@ -97,6 +149,11 @@ class OverviewMainViewController: KNBaseViewController {
     self.viewModel.reloadAllData()
   }
   
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
+  }
+  
   @IBAction func sendButtonTapped(_ sender: UIButton) {
     print("Send")
   }
@@ -104,8 +161,6 @@ class OverviewMainViewController: KNBaseViewController {
   @IBAction func receiveButtonTapped(_ sender: UIButton) {
     print("Tapped")
   }
-  
-  
 }
 
 extension OverviewMainViewController: UITableViewDataSource {
@@ -118,29 +173,44 @@ extension OverviewMainViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(
-      withIdentifier: OverviewMainViewCell.kCellID,
-      for: indexPath
-    ) as! OverviewMainViewCell
+    switch self.viewModel.currentMode {
+    case .asset, .market:
+      let cell = tableView.dequeueReusableCell(
+        withIdentifier: OverviewMainViewCell.kCellID,
+        for: indexPath
+      ) as! OverviewMainViewCell
+      
+      let cellModel = self.viewModel.getViewModelsForSection(indexPath.section)[indexPath.row]
+      cell.updateCell(cellModel)
+      
+      return cell
+    default:
+      let cell = tableView.dequeueReusableCell(
+        withIdentifier: OverviewDepositTableViewCell.kCellID,
+        for: indexPath
+      ) as! OverviewDepositTableViewCell
+      let cellModel = self.viewModel.getViewModelsForSection(indexPath.section)[indexPath.row]
+      cell.updateCell(cellModel)
+      return cell
+    }
     
-    let cellModel = self.viewModel.getViewModelsForSection(indexPath.section)[indexPath.row]
-    cell.updateCell(cellModel)
-    
-    return cell
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    guard self.viewModel.currentMode == .supply else {
+      return nil
+    }
     let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 40))
     view.backgroundColor = .clear
-    let titleLabel = UILabel(frame: CGRect(x: 18, y: 0, width: 100, height: 40))
+    let titleLabel = UILabel(frame: CGRect(x: 35, y: 0, width: 100, height: 40))
     titleLabel.center.y = view.center.y
-//    titleLabel.text = self.viewModel.sectionKeys[section]
-    titleLabel.font = UIFont.Kyber.latoBold(with: 12)
+    titleLabel.text = self.viewModel.displayHeader[section]
+    titleLabel.font = UIFont.Kyber.latoBold(with: 18)
     titleLabel.textColor = UIColor.Kyber.SWWhiteTextColor
     view.addSubview(titleLabel)
     
-    let valueLabel = UILabel(frame: CGRect(x: tableView.frame.size.width - 100 - 18, y: 0, width: 100, height: 40))
-//    valueLabel.text = self.viewModel.displayTotalValueForSection(section)
+    let valueLabel = UILabel(frame: CGRect(x: tableView.frame.size.width - 100 - 35, y: 0, width: 100, height: 40))
+    valueLabel.text = self.viewModel.getTotalValueForSection(section)
     valueLabel.font = UIFont.Kyber.latoBold(with: 14)
     valueLabel.textAlignment = .right
     valueLabel.textColor = UIColor.Kyber.SWWhiteTextColor
@@ -157,6 +227,15 @@ extension OverviewMainViewController: UITableViewDataSource {
 extension OverviewMainViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    switch self.viewModel.currentMode {
+    case .asset, .market:
+      return OverviewMainViewCell.kCellHeight
+    default:
+      return OverviewDepositTableViewCell.kCellHeight
+    }
   }
 }
 

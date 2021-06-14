@@ -170,9 +170,9 @@ class BalanceStorage {
     return total
   }
   
-  func getSupplyBalances() -> ([String], JSONDictionary) {
+  func getSupplyBalances() -> ([String], [String : [Any]]) {
     var sectionKeys: [String] = []
-    var balanceDict: JSONDictionary = [:]
+    var balanceDict: [String : [Any]] = [:]
     let allBalances: [LendingPlatformBalance] = BalanceStorage.shared.getAllLendingBalances()
     allBalances.forEach { (item) in
       if !item.balances.isEmpty {

@@ -90,6 +90,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="iconImageView" destination="T3D-Z5-H1Y" id="L0e-ro-ziR"/>
+                <outlet property="tokenApyInfo" destination="Gd8-ej-5Yd" id="6P9-j6-zzB"/>
                 <outlet property="tokenBalanceInfoLabel" destination="sJT-Lc-ITt" id="IvA-uO-c9I"/>
                 <outlet property="valueLabel" destination="0FU-6W-I6H" id="WXD-S4-HIq"/>
             </connections>

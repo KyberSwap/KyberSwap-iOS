@@ -56,6 +56,17 @@ class Token: Codable, Equatable, Hashable {
   func hash(into hasher: inout Hasher) {
     hasher.combine(self.address)
   }
+  
+  func getValueUSDBigInt() -> BigInt {
+    let rateBigInt = BigInt(self.getTokenPrice().usd * pow(10.0, 18.0))
+    let valueBigInt = self.getBalanceBigInt() * rateBigInt / BigInt(10).power(self.decimals)
+    return valueBigInt
+  }
+  
+  func getValueUSDString() -> String {
+    let valueString = self.getValueUSDBigInt().string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(self.decimals, 6))
+    return "$" + valueString
+  }
 }
 
 class TokenBalance: Codable {
@@ -149,6 +160,12 @@ struct LendingBalance: Codable {
     self.interestBearingTokenDecimal = dictionary["interestBearingTokenDecimal"] as? Int ?? 0
     self.interestBearningTokenBalance = dictionary["interestBearingTokenBalance"] as? String ?? ""
   }
+  
+  func getValueBigInt() -> BigInt {
+    let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.address)?.usd ?? 0.0
+    let balanceBigInt = BigInt(self.supplyBalance) ?? BigInt(0)
+    return balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(self.decimals)
+  }
 }
 
 struct LendingPlatformBalance: Codable {
@@ -171,6 +188,12 @@ struct LendingDistributionBalance: Codable {
     self.decimal = dictionary["decimal"] as? Int ?? 0
     self.current = dictionary["current"] as? String ?? ""
     self.unclaimed = dictionary["unclaimed"] as? String ?? ""
+  }
+  
+  func getValueBigInt() -> BigInt {
+    let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(self.address)?.usd ?? 0.0
+    let balanceBigInt = BigInt(self.unclaimed) ?? BigInt(0)
+    return balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(self.decimal)
   }
 }
 

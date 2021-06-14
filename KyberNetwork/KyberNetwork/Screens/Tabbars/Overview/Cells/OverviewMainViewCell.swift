@@ -21,6 +21,23 @@ class OverviewMainCellViewModel {
     self.mode = mode
   }
   
+  var tokenSymbol: String {
+    switch self.mode {
+    case .market(token: let token):
+      return token.symbol
+    case .asset(token: let token):
+      return token.symbol
+    case .supply(balance: let balance):
+      if let lendingBalance = balance as? LendingBalance {
+        return lendingBalance.symbol
+      } else if let distributionBalance = balance as? LendingDistributionBalance {
+        return distributionBalance.symbol
+      } else {
+        return ""
+      }
+    }
+  }
+  
   var displayTitle: String {
     switch self.mode {
     case .market(token: let token):
@@ -28,7 +45,17 @@ class OverviewMainCellViewModel {
     case .asset(token: let token):
       return token.symbol
     case .supply(balance: let balance):
-      return ""
+      if let lendingBalance = balance as? LendingBalance {
+        let balanceBigInt = BigInt(lendingBalance.supplyBalance) ?? BigInt(0)
+        let balanceString = balanceBigInt.string(decimals: lendingBalance.decimals, minFractionDigits: 0, maxFractionDigits: 6)
+        return "\(balanceString) \(lendingBalance.symbol)"
+      } else if let distributionBalance = balance as? LendingDistributionBalance {
+        let balanceBigInt = BigInt(distributionBalance.unclaimed) ?? BigInt(0)
+        let balanceString = balanceBigInt.string(decimals: distributionBalance.decimal, minFractionDigits: 0, maxFractionDigits: 6)
+        return "\(balanceString) \(distributionBalance.symbol)"
+      } else {
+        return ""
+      }
     }
     
   }
@@ -43,8 +70,13 @@ class OverviewMainCellViewModel {
         return "********"
       }
       return token.getBalanceBigInt().string(decimals: token.decimals, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))
-    default:
-      return ""
+    case .supply(balance: let balance):
+      if let lendingBalance = balance as? LendingBalance {
+        let rateString = String(format: "%.2f", lendingBalance.supplyRate * 100)
+        return "\(rateString)%".paddingString()
+      } else {
+        return ""
+      }
     }
   }
   
@@ -58,8 +90,23 @@ class OverviewMainCellViewModel {
       let valueBigInt = token.getBalanceBigInt() * rateBigInt / BigInt(10).power(token.decimals)
       let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))
       return "$" + valueString
-    default:
-      return ""
+    case .supply(balance: let balance):
+      if let lendingBalance = balance as? LendingBalance {
+        guard !self.hideBalanceStatus else {
+          return "********"
+        }
+        let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(lendingBalance.address)?.usd ?? 0.0
+        let balanceBigInt = BigInt(lendingBalance.supplyBalance) ?? BigInt(0)
+        let valueBigInt = balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(lendingBalance.decimals)
+        return "$" + valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+      } else if let distributionBalance = balance as? LendingDistributionBalance {
+        let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(distributionBalance.address)?.usd ?? 0.0
+        let balanceBigInt = BigInt(distributionBalance.unclaimed) ?? BigInt(0)
+        let valueBigInt = balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(distributionBalance.decimal)
+        return "$" + valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+      } else {
+        return ""
+      }
     }
   }
 
@@ -72,7 +119,7 @@ class OverviewMainCellViewModel {
       let change24 = token.getTokenPrice().usd24hChange
       return change24 > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
     default:
-      return nil
+      return UIColor(named: "buttonBackgroundColor")
     }
   }
   
