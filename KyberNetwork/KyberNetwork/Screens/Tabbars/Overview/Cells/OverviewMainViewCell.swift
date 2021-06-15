@@ -105,6 +105,9 @@ class OverviewMainCellViewModel {
         let valueBigInt = balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(lendingBalance.decimals)
         return "$" + valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
       } else if let distributionBalance = balance as? LendingDistributionBalance {
+        guard !self.hideBalanceStatus else {
+          return "********"
+        }
         let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(distributionBalance.address)?.usd ?? 0.0
         let balanceBigInt = BigInt(distributionBalance.unclaimed) ?? BigInt(0)
         let valueBigInt = balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(distributionBalance.decimal)

@@ -38,7 +38,9 @@ class OverviewMainViewModel {
   func reloadAllData() {
     switch self.currentMode {
     case .market:
-      let marketToken = KNSupportedTokenStorage.shared.allTokens
+      let marketToken = KNSupportedTokenStorage.shared.allTokens.sorted { (left, right) -> Bool in
+        return left.getTokenPrice().usd24hChange > right.getTokenPrice().usd24hChange
+      }
       self.displayHeader = []
       let models = marketToken.map { (item) -> OverviewMainCellViewModel in
         return OverviewMainCellViewModel(mode: .market(token: item))
@@ -47,7 +49,9 @@ class OverviewMainViewModel {
       self.displayDataSource = ["": models]
       self.displayTotalValues = [:]
     case .asset:
-      let assetTokens = KNSupportedTokenStorage.shared.getAssetTokens()
+      let assetTokens = KNSupportedTokenStorage.shared.getAssetTokens().sorted { (left, right) -> Bool in
+        return left.getValueUSDBigInt() > right.getValueUSDBigInt()
+      }
       self.displayHeader = []
       self.displayTotalValues = [:]
       var total = BigInt(0)
@@ -126,6 +130,17 @@ class OverviewMainViewModel {
   var displayHideBalanceImage: UIImage {
     return self.hideBalanceStatus ? UIImage(named: "hide_eye_icon")! : UIImage(named: "show_eye_icon")!
   }
+  
+  var displayCurrentPageName: String {
+    switch self.currentMode {
+    case .asset:
+      return "Assets"
+    case .market:
+      return "Market"
+    case .supply:
+      return "Supply"
+    }
+  }
 }
 
 class OverviewMainViewController: KNBaseViewController {
@@ -152,7 +167,7 @@ class OverviewMainViewController: KNBaseViewController {
   init() {
     super.init(nibName: OverviewMainViewController.className, bundle: nil)
   }
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -170,12 +185,12 @@ class OverviewMainViewController: KNBaseViewController {
     
     self.tableView.contentInset = UIEdgeInsets(top: 200, left: 0, bottom: 0, right: 0)
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.updateUISwitchChain()
   }
-  
+
   fileprivate func updateUIHideBalanceButton() {
     self.hideBalanceButton.setImage(self.viewModel.displayHideBalanceImage, for: .normal)
   }
@@ -184,10 +199,11 @@ class OverviewMainViewController: KNBaseViewController {
     self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
     self.viewModel.reloadAllData()
     self.totalValueLabel.text = self.viewModel.displayTotalValue
+    self.currentPageNameLabel.text = self.viewModel.displayCurrentPageName
     self.updateUIHideBalanceButton()
     self.tableView.reloadData()
   }
-  
+
   fileprivate func updateUISwitchChain() {
     let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
     self.currentChainIcon.image = icon
