@@ -140,6 +140,7 @@ class OverviewMainViewController: KNBaseViewController {
   @IBOutlet weak var totalPageValueLabel: UILabel!
   @IBOutlet weak var currentPageNameLabel: UILabel!
   @IBOutlet weak var totalValueLabel: UILabel!
+  @IBOutlet weak var currentChainIcon: UIImageView!
   
   weak var delegate: OverviewMainViewControllerDelegate?
   
@@ -172,7 +173,7 @@ class OverviewMainViewController: KNBaseViewController {
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
+    self.updateUISwitchChain()
   }
   
   fileprivate func updateUIHideBalanceButton() {
@@ -185,6 +186,11 @@ class OverviewMainViewController: KNBaseViewController {
     self.totalValueLabel.text = self.viewModel.displayTotalValue
     self.updateUIHideBalanceButton()
     self.tableView.reloadData()
+  }
+  
+  fileprivate func updateUISwitchChain() {
+    let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
+    self.currentChainIcon.image = icon
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -204,6 +210,12 @@ class OverviewMainViewController: KNBaseViewController {
   }
   
   @IBAction func switchChainButtonTapped(_ sender: UIButton) {
+    let popup = SwitchChainViewController()
+    popup.completionHandler = {
+      let secondPopup = SwitchChainWalletsListViewController()
+      self.present(secondPopup, animated: true, completion: nil)
+    }
+    self.present(popup, animated: true, completion: nil)
   }
   
   @IBAction func hideBalanceButtonTapped(_ sender: UIButton) {
@@ -219,9 +231,18 @@ class OverviewMainViewController: KNBaseViewController {
     self.delegate?.overviewMainViewController(self, run: .walletConfig)
   }
   
+  
+  
   func coordinatorDidSelectMode(_ mode: ViewMode) {
     self.viewModel.currentMode = mode
     self.reloadUI()
+  }
+  
+  func coordinatorDidUpdateChain() {
+    guard self.isViewLoaded else {
+      return
+    }
+    self.updateUISwitchChain()
   }
 }
 

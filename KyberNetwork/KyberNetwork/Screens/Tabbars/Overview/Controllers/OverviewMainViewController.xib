@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewMainViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
+                <outlet property="currentChainIcon" destination="uhh-Fg-Eh4" id="VYV-QL-UY5"/>
                 <outlet property="currentPageNameLabel" destination="HNo-ND-wfP" id="JtI-eF-6kZ"/>
                 <outlet property="currentWalletLabel" destination="HFZ-f3-6Cw" id="av4-6L-tcf"/>
                 <outlet property="hideBalanceButton" destination="22d-pN-OWF" id="5LQ-ns-sHl"/>

@@ -134,7 +134,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   }
   
   func appCoordinatorDidUpdateChain() {
-//    self.rootViewController.coordinatorDidUpdateChain()
+    self.rootViewController.coordinatorDidUpdateChain()
     self.sendCoordinator?.appCoordinatorDidUpdateChain()
   }
 }

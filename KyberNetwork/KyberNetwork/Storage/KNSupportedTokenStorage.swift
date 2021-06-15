@@ -178,6 +178,9 @@ class KNSupportedTokenStorage {
   func checkAddCustomTokenIfNeeded() {
     var unknown: [Token] = []
     let all = self.allTokens
+    guard !all.isEmpty else {
+      return
+    }
     let etherscanTokens = EtherscanTransactionStorage.shared.getEtherscanToken()
     etherscanTokens.forEach { (token) in
       if !all.contains(token) {
