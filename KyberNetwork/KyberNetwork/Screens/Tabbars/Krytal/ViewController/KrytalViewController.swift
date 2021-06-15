@@ -19,7 +19,7 @@ class KrytalViewModel {
   
   var displayTotalETHPoint: String {
     guard let unwrapped = self.overview else { return "---" }
-    return "\(Double(unwrapped.claimablePoint) / 10000.0) ETH"
+    return "\(Double(unwrapped.claimablePoint) / 10000.0) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   var displayReferralCodes: [KrytalCellViewModel] {
@@ -77,7 +77,7 @@ class KrytalViewModel {
 
   var displayTier: String {
     guard let unwrapped = self.overview else { return "---" }
-    return "\(unwrapped.minTier) ETH - \(unwrapped.maxTier) ETH"
+    return "\(unwrapped.minTier) \(KNGeneralProvider.shared.quoteToken) - \(unwrapped.maxTier) \(KNGeneralProvider.shared.quoteToken)"
   }
 
   var displayRealizedPoint: String {
@@ -109,6 +109,9 @@ class KrytalViewController: KNBaseViewController {
   @IBOutlet weak var totalConfirmedVolLabel: UILabel!
   @IBOutlet weak var tierLabel: UILabel!
   @IBOutlet weak var realizedPointLabel: UILabel!
+  @IBOutlet weak var pendingVolTitleLabel: UILabel!
+  @IBOutlet weak var confirmVolTitleLabel: UILabel!
+  
   
   let viewModel = KrytalViewModel()
   weak var delegate: KrytalViewControllerDelegate?
@@ -132,6 +135,8 @@ class KrytalViewController: KNBaseViewController {
     self.totalConfirmedVolLabel.text = self.viewModel.displayTotalConfirmedVol
     self.tierLabel.text = self.viewModel.displayTier
     self.realizedPointLabel.text = self.viewModel.displayRealizedPoint
+    self.pendingVolTitleLabel.text = "Pending\nVol. (\(KNGeneralProvider.shared.quoteToken))"
+    self.confirmVolTitleLabel.text = "Confirmed\nVol. (\(KNGeneralProvider.shared.quoteToken))"
     self.referralCodeTableView.reloadData()
   }
 

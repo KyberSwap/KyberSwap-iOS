@@ -23,7 +23,9 @@
             <connections>
                 <outlet property="cashbackConfirmedVolLabel" destination="K7t-lN-19q" id="WvE-WT-eLO"/>
                 <outlet property="cashbackPendingVolLabel" destination="6Fq-gU-ibV" id="yid-Nm-5Bg"/>
+                <outlet property="confirmVolTitleLabel" destination="2kZ-Iw-cwd" id="uyn-HC-9oU"/>
                 <outlet property="introLabel" destination="tyV-3T-aPM" id="w2p-Zr-cMK"/>
+                <outlet property="pendingVolTitleLabel" destination="u5Z-cG-pvv" id="iG2-J9-WdC"/>
                 <outlet property="realizedPointLabel" destination="NCb-VD-4TB" id="hxD-Wv-8Kv"/>
                 <outlet property="referralCodeTableView" destination="ct4-zK-wY1" id="sOQ-lO-ppb"/>
                 <outlet property="tierLabel" destination="2uY-sg-I5T" id="n4c-Zy-1wE"/>

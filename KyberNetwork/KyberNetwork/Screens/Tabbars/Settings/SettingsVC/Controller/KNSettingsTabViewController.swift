@@ -1,6 +1,7 @@
 // Copyright SIX DAY LLC. All rights reserved.
 
 import UIKit
+import LocalAuthentication
 
 enum KNSettingsTabViewEvent {
   case manageWallet
@@ -37,96 +38,62 @@ class KNSettingsTabViewController: KNBaseViewController {
 
   weak var delegate: KNSettingsTabViewControllerDelegate?
 
+  @IBOutlet weak var securitySectionHeightContraint: NSLayoutConstraint!
   @IBOutlet weak var shareWithFriendsButton: UIButton!
   @IBOutlet weak var fingerprintSwitch: UISwitch!
   @IBOutlet weak var versionLabel: UILabel!
+  @IBOutlet weak var fingerprintButton: UIButton!
+  var error: NSError?
+  let context = LAContext()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-//    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
-//    self.navTitleLabel.text = NSLocalizedString("settings", value: "Settings", comment: "")
-//    self.manageWalletButton.setTitle(
-//      NSLocalizedString("manage.wallet", value: "Manage Wallet", comment: ""),
-//      for: .normal
-//    )
-//    self.manageWalletButton.addTextSpacing()
-//    self.manageAlerts.setTitle(NSLocalizedString("Manage Alert", comment: ""), for: .normal)
-//    self.manageAlerts.addTextSpacing()
-//    self.manageAlerts.isHidden = !KNAppTracker.isPriceAlertEnabled
-//    self.alertMethodsButton.setTitle(NSLocalizedString("Alert Method", comment: ""), for: .normal)
-//    self.alertMethodsButton.addTextSpacing()
-//    self.alertMethodsButton.isHidden = !KNAppTracker.isPriceAlertEnabled
-//    self.contactButton.setTitle(
-//      NSLocalizedString("contact", value: "Contact", comment: ""),
-//      for: .normal
-//    )
-//    self.contactButton.addTextSpacing()
-//    self.supportButton.setTitle(
-//      NSLocalizedString("support", value: "Support", comment: ""),
-//      for: .normal
-//    )
-//    self.supportButton.addTextSpacing()
-//    self.changePINButton.setTitle(
-//      NSLocalizedString("change.pin", value: "Change PIN", comment: ""),
-//      for: .normal
-//    )
-//    self.changePINButton.addTextSpacing()
-//    self.aboutButton.setTitle(
-//      NSLocalizedString("Get Started", value: "Get Started", comment: ""),
-//      for: .normal
-//    )
-//    self.aboutButton.addTextSpacing()
-//    self.community.setTitle(
-//      NSLocalizedString("community", value: "Community", comment: ""),
-//      for: .normal
-//    )
-//    self.community.addTextSpacing()
-//    self.shareWithFriendsButton.setTitle(
-//      NSLocalizedString("share.with.friends", value: "Share with friends", comment: ""),
-//      for: .normal
-//    )
-//    self.reportBugsButton.setTitle(
-//      NSLocalizedString("report.bugs", value: "Report Bugs", comment: ""),
-//      for: .normal
-//    )
-//    self.rateOurAppButton.setTitle(
-//      NSLocalizedString("rate.our.app", value: "Rate our App", comment: ""),
-//      for: .normal
-//    )
-//    self.shareWithFriendsButton.addTextSpacing()
-//    var version = Bundle.main.versionNumber ?? ""
-//    version += " - \(Bundle.main.buildNumber ?? "")"
-//    version += " - \(KNEnvironment.default.displayName)"
-//    self.versionLabel.text = "\(NSLocalizedString("version", value: "Version", comment: "")) \(version)"
-//
-//    self.unreadBadgeLabel.rounded(color: .white, width: 1, radius: self.unreadBadgeLabel.frame.height / 2)
-//
-//    NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name(FRESHCHAT_UNREAD_MESSAGE_COUNT_CHANGED), object: nil)
+
     self.fingerprintSwitch.isOn = UserDefaults.standard.bool(forKey: "bio-auth")
     
     if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
       self.versionLabel.text = version + "-\(KNEnvironment.default.displayName)"
        }
+    
+    
+    guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
+      self.fingerprintSwitch.isHidden = true
+      self.fingerprintButton.isHidden = true
+      self.securitySectionHeightContraint.constant = 90
+      return
+    }
+    
+    self.fingerprintButton.setImage(
+      UIImage(named: context.biometryType == LABiometryType.faceID ? "faceid_blue_icon" : "touchid_blue_icon"),
+      for: .normal
+    )
+    
+    self.fingerprintButton.setTitle(context.biometryType == LABiometryType.faceID ? "FaceID" : "Fingerprint", for: .normal)
   }
-
-//  deinit {
-//    let name = Notification.Name(FRESHCHAT_UNREAD_MESSAGE_COUNT_CHANGED)
-//    NotificationCenter.default.removeObserver(self, name: name, object: nil)
-//  }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-//    self.checkUnreadMessage()
   }
 
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-//    self.headerContainerView.removeSublayer(at: 0)
-//    self.headerContainerView.applyGradient(with: UIColor.Kyber.headerColors)
   }
-  
+
   @IBAction func fingerprintValueChanged(_ sender: UISwitch) {
-    self.delegate?.settingsTabViewController(self, run: .fingerPrint(status: sender.isOn))
+    if sender.isOn {
+      context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: NSLocalizedString("use.touchid/faceid.to.secure.your.account", value: "Use touchID/faceID to secure your account", comment: "")) { [weak self] (success, error) in
+        guard let `self` = self else { return }
+        DispatchQueue.main.async {
+          if success {
+            self.delegate?.settingsTabViewController(self, run: .fingerPrint(status: sender.isOn))
+          } else {
+            sender.isOn = !sender.isOn
+          }
+        }
+      }
+    } else {
+      self.delegate?.settingsTabViewController(self, run: .fingerPrint(status: sender.isOn))
+    }
   }
   
 
@@ -249,5 +216,58 @@ class KNSettingsTabViewController: KNBaseViewController {
     self.delegate?.settingsTabViewController(self, run: .medium)
   }
   
-  
+  func errorMessageForLAErrorCode(_ errorCode: Int ) -> String? {
+    if #available(iOS 11.0, *) {
+      switch errorCode {
+      case LAError.biometryLockout.rawValue:
+        return NSLocalizedString(
+          "too.many.failed.attempts",
+          value: "Too many failed attempts. Please try to use PIN",
+          comment: ""
+        )
+      case LAError.biometryNotAvailable.rawValue:
+        return NSLocalizedString(
+          "touchid.faceid.is.not.available",
+          value: "TouchID/FaceID is not available on the device",
+          comment: ""
+        )
+      default:
+        break
+      }
+    }
+    switch errorCode {
+    case LAError.authenticationFailed.rawValue:
+      return NSLocalizedString(
+        "invalid.authentication",
+        value: "Invalid authentication.",
+        comment: ""
+      )
+    case LAError.passcodeNotSet.rawValue:
+      return NSLocalizedString(
+        "pin.is.not.set.on.the.device",
+        value: "PIN is not set on the device",
+        comment: ""
+      )
+    case LAError.biometryLockout.rawValue:
+      return NSLocalizedString(
+        "too.many.failed.attempts",
+        value: "Too many failed attempts. Please try to use PIN",
+        comment: ""
+      )
+    case LAError.biometryNotAvailable.rawValue:
+      return NSLocalizedString(
+        "touchid.faceid.is.not.available",
+        value: "TouchID/FaceID is not available on the device",
+        comment: ""
+      )
+    case LAError.appCancel.rawValue, LAError.userCancel.rawValue, LAError.userFallback.rawValue:
+      return nil
+    default:
+      return NSLocalizedString(
+        "something.went.wrong.try.to.use.pin",
+        value: "Something went wrong. Try to use PIN",
+        comment: ""
+      )
+    }
+  }
 }
