@@ -66,7 +66,6 @@ class KNSession {
     self.transacionCoordinator?.start()
     BalanceStorage.shared.updateCurrentWallet(self.wallet)
     EtherscanTransactionStorage.shared.updateCurrentWallet(self.wallet)
-    print("[Balance][Start session][\(self.wallet.address.description)] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
   }
 
   func stopSession() {
@@ -106,14 +105,17 @@ class KNSession {
       externalProvider: self.externalProvider,
       wallet: self.wallet
     )
-    self.transacionCoordinator?.start()
+    let seconds = 5.0
+    DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+      self.transacionCoordinator?.start()
+    }
+    
     let pendingTxs = self.transactionStorage.kyberPendingTransactions
     if let tx = pendingTxs.first(where: { $0.from.lowercased() == wallet.address.description.lowercased() }), let nonce = Int(tx.nonce) {
       self.externalProvider?.updateNonceWithLastRecordedTxNonce(nonce)
     }
 
     BalanceStorage.shared.updateCurrentWallet(self.wallet)
-    print("[Balance][Switch session] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
   }
 
   // Remove a wallet, it should not be a current wallet
