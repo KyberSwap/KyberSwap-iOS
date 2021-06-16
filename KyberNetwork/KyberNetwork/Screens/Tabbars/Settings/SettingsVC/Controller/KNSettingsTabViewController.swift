@@ -49,7 +49,7 @@ class KNSettingsTabViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    self.fingerprintSwitch.isOn = UserDefaults.standard.bool(forKey: "bio-auth")
+    self.fingerprintSwitch.isOn = UserDefaults.standard.object(forKey: "bio-auth") as? Bool ?? true
     
     if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
       self.versionLabel.text = version + "-\(KNEnvironment.default.displayName)"

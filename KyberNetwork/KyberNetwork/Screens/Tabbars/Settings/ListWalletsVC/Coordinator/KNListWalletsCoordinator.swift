@@ -50,6 +50,9 @@ class KNListWalletsCoordinator: Coordinator {
         with: listWallets,
         currentWallet: curWallet
       )
+      guard !self.navigationController.viewControllers.contains(self.rootViewController) else {
+        return
+      }
       self.navigationController.pushViewController(self.rootViewController, animated: true)
     }
   }
