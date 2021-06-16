@@ -294,7 +294,7 @@ extension KNNewContactViewController: QRCodeReaderDelegate {
       self.updateUI()
       return
     }
-    DispatchQueue.global().async {
+    DispatchQueue.main.async {
       KNGeneralProvider.shared.getAddressByEnsName(name.lowercased()) { [weak self] result in
         guard let `self` = self else { return }
         DispatchQueue.main.async {
