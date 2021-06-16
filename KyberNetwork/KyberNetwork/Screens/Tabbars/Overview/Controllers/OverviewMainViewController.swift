@@ -159,6 +159,8 @@ class OverviewMainViewController: KNBaseViewController {
   @IBOutlet weak var currentPageNameLabel: UILabel!
   @IBOutlet weak var totalValueLabel: UILabel!
   @IBOutlet weak var currentChainIcon: UIImageView!
+  @IBOutlet weak var currentChainLabel: UILabel!
+  @IBOutlet weak var sortingContainerView: UIView!
   
   weak var delegate: OverviewMainViewControllerDelegate?
   
@@ -210,6 +212,7 @@ class OverviewMainViewController: KNBaseViewController {
   fileprivate func updateUISwitchChain() {
     let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
     self.currentChainIcon.image = icon
+    self.currentChainLabel.text = KNGeneralProvider.shared.isEthereum ? "ETH" : "BSC"
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -249,9 +252,7 @@ class OverviewMainViewController: KNBaseViewController {
   @IBAction func walletOptionButtonTapped(_ sender: UIButton) {
     self.delegate?.overviewMainViewController(self, run: .walletConfig)
   }
-  
-  
-  
+
   func coordinatorDidSelectMode(_ mode: ViewMode) {
     self.viewModel.currentMode = mode
     self.reloadUI()
@@ -323,6 +324,9 @@ extension OverviewMainViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    guard self.viewModel.currentMode == .supply else {
+      return 0
+    }
     return 40
   }
 }

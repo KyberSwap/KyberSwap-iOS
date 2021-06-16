@@ -12,11 +12,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewMainViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="currentChainIcon" destination="uhh-Fg-Eh4" id="VYV-QL-UY5"/>
+                <outlet property="currentChainLabel" destination="8HD-f0-AMK" id="Rre-zZ-4J1"/>
                 <outlet property="currentPageNameLabel" destination="HNo-ND-wfP" id="JtI-eF-6kZ"/>
                 <outlet property="currentWalletLabel" destination="HFZ-f3-6Cw" id="av4-6L-tcf"/>
                 <outlet property="hideBalanceButton" destination="22d-pN-OWF" id="5LQ-ns-sHl"/>
                 <outlet property="notificationButton" destination="aSf-cz-DTw" id="8Fu-ML-9f7"/>
                 <outlet property="searchButton" destination="IGF-fz-Lgs" id="Nb2-tr-xJd"/>
+                <outlet property="sortingContainerView" destination="DeA-0M-bg5" id="P6U-8o-Lob"/>
                 <outlet property="tableView" destination="EhA-J1-X3N" id="mmO-HQ-8TB"/>
                 <outlet property="totalBalanceContainerView" destination="g7y-sy-lYU" id="olM-D2-frT"/>
                 <outlet property="totalBalanceLabel" destination="ZXL-MS-g3w" id="Roi-u0-Qrx"/>
@@ -54,15 +56,33 @@
                                         </constraints>
                                         <state key="normal" image="sort_down_icon"/>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24h Chg%  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Qq-qF-bu6" userLabel="Token">
+                                        <rect key="frame" x="253" y="0.0" width="76" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" name="normalTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-uC-ejJ">
+                                        <rect key="frame" x="329" y="0.0" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="Lyj-Lk-iY5"/>
+                                            <constraint firstAttribute="width" constant="17" id="ddY-5T-SUB"/>
+                                        </constraints>
+                                        <state key="normal" image="sort_none_icon"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="FHd-bK-u0h"/>
+                                    <constraint firstItem="Ih9-uC-ejJ" firstAttribute="centerY" secondItem="DeA-0M-bg5" secondAttribute="centerY" id="Lod-b2-4Kf"/>
                                     <constraint firstItem="RXK-up-Jn3" firstAttribute="centerY" secondItem="x3v-0U-qKY" secondAttribute="centerY" id="O4K-Wo-Rbz"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ih9-uC-ejJ" secondAttribute="trailing" constant="29" id="OzK-NR-lPn"/>
                                     <constraint firstItem="x3v-0U-qKY" firstAttribute="leading" secondItem="DeA-0M-bg5" secondAttribute="leading" constant="26" id="RWH-14-N1P"/>
                                     <constraint firstItem="RXK-up-Jn3" firstAttribute="leading" secondItem="x3v-0U-qKY" secondAttribute="trailing" id="VsM-Wp-yAX"/>
                                     <constraint firstAttribute="bottom" secondItem="x3v-0U-qKY" secondAttribute="bottom" id="nf4-T1-QJE"/>
+                                    <constraint firstItem="Ih9-uC-ejJ" firstAttribute="centerY" secondItem="5Qq-qF-bu6" secondAttribute="centerY" id="pbZ-au-RrT"/>
+                                    <constraint firstItem="Ih9-uC-ejJ" firstAttribute="leading" secondItem="5Qq-qF-bu6" secondAttribute="trailing" id="yrl-1J-ewQ"/>
                                     <constraint firstItem="x3v-0U-qKY" firstAttribute="top" secondItem="DeA-0M-bg5" secondAttribute="top" id="zrk-5b-Ygb"/>
                                 </constraints>
                             </view>
@@ -379,6 +399,7 @@
         <image name="search_overview_icon" width="33" height="33"/>
         <image name="show_eye_icon" width="24" height="24"/>
         <image name="sort_down_icon" width="16" height="16"/>
+        <image name="sort_none_icon" width="16" height="16"/>
         <namedColor name="buttonBackgroundColor">
             <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
