@@ -94,7 +94,7 @@ class OverviewMainViewModel {
   var numberOfSections: Int {
     return self.displayHeader.isEmpty ? 1 : self.displayHeader.count
   }
-  
+
   func getViewModelsForSection(_ section: Int) -> [OverviewMainCellViewModel]  {
     guard !self.displayHeader.isEmpty else {
       return self.displayDataSource[""] ?? []
@@ -105,6 +105,9 @@ class OverviewMainViewModel {
   }
   
   var displayPageTotalValue: String {
+    guard self.currentMode != .market else {
+      return ""
+    }
     guard !self.hideBalanceStatus else {
       return "********"
     }

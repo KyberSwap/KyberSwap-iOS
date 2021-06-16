@@ -34,9 +34,38 @@
                     <rect key="frame" x="0.0" y="40" width="375" height="627"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <view key="tableHeaderView" contentMode="scaleToFill" id="AQD-Qn-mCt">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeA-0M-bg5">
+                                <rect key="frame" x="0.0" y="63" width="375" height="17"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-0U-qKY">
+                                        <rect key="frame" x="26" y="0.0" width="43" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" name="normalTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXK-up-Jn3">
+                                        <rect key="frame" x="69" y="0.0" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="17" id="2Wl-xk-9QT"/>
+                                            <constraint firstAttribute="width" constant="17" id="863-fm-hLi"/>
+                                        </constraints>
+                                        <state key="normal" image="sort_down_icon"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="FHd-bK-u0h"/>
+                                    <constraint firstItem="RXK-up-Jn3" firstAttribute="centerY" secondItem="x3v-0U-qKY" secondAttribute="centerY" id="O4K-Wo-Rbz"/>
+                                    <constraint firstItem="x3v-0U-qKY" firstAttribute="leading" secondItem="DeA-0M-bg5" secondAttribute="leading" constant="26" id="RWH-14-N1P"/>
+                                    <constraint firstItem="RXK-up-Jn3" firstAttribute="leading" secondItem="x3v-0U-qKY" secondAttribute="trailing" id="VsM-Wp-yAX"/>
+                                    <constraint firstAttribute="bottom" secondItem="x3v-0U-qKY" secondAttribute="bottom" id="nf4-T1-QJE"/>
+                                    <constraint firstItem="x3v-0U-qKY" firstAttribute="top" secondItem="DeA-0M-bg5" secondAttribute="top" id="zrk-5b-Ygb"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HuO-ub-YO7">
                                 <rect key="frame" x="12" y="10" width="351" height="40"/>
                                 <subviews>
@@ -85,9 +114,12 @@
                         <viewLayoutGuide key="safeArea" id="CgZ-cO-HwY"/>
                         <color key="backgroundColor" name="mainViewBgColor"/>
                         <constraints>
-                            <constraint firstItem="HuO-ub-YO7" firstAttribute="centerY" secondItem="AQD-Qn-mCt" secondAttribute="centerY" id="ODf-v3-LEH"/>
+                            <constraint firstItem="CgZ-cO-HwY" firstAttribute="trailing" secondItem="DeA-0M-bg5" secondAttribute="trailing" id="Qdr-pB-EhQ"/>
                             <constraint firstItem="HuO-ub-YO7" firstAttribute="leading" secondItem="CgZ-cO-HwY" secondAttribute="leading" constant="12" id="ZzX-Cw-9i0"/>
+                            <constraint firstItem="DeA-0M-bg5" firstAttribute="bottom" secondItem="CgZ-cO-HwY" secondAttribute="bottom" id="awK-OD-J4Y"/>
                             <constraint firstItem="CgZ-cO-HwY" firstAttribute="trailing" secondItem="HuO-ub-YO7" secondAttribute="trailing" constant="12" id="rLs-kf-pL1"/>
+                            <constraint firstItem="DeA-0M-bg5" firstAttribute="leading" secondItem="CgZ-cO-HwY" secondAttribute="leading" id="rVq-eD-gfw"/>
+                            <constraint firstItem="HuO-ub-YO7" firstAttribute="top" secondItem="CgZ-cO-HwY" secondAttribute="top" constant="10" id="uqt-lm-Poe"/>
                         </constraints>
                     </view>
                     <connections>
@@ -346,6 +378,7 @@
         <image name="option_overview_icon" width="25" height="25"/>
         <image name="search_overview_icon" width="33" height="33"/>
         <image name="show_eye_icon" width="24" height="24"/>
+        <image name="sort_down_icon" width="16" height="16"/>
         <namedColor name="buttonBackgroundColor">
             <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -357,6 +390,9 @@
         </namedColor>
         <namedColor name="navButtonBgColor">
             <color red="0.29399999976158142" green="0.31000000238418579" blue="0.3059999942779541" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="popupBackgroundColor">
             <color red="0.16099999845027924" green="0.17599999904632568" blue="0.17299999296665192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
