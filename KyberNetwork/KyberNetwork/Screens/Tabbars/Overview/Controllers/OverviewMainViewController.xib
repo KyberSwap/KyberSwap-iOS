@@ -8,6 +8,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewMainViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
@@ -18,6 +26,8 @@
                 <outlet property="hideBalanceButton" destination="22d-pN-OWF" id="5LQ-ns-sHl"/>
                 <outlet property="notificationButton" destination="aSf-cz-DTw" id="8Fu-ML-9f7"/>
                 <outlet property="searchButton" destination="IGF-fz-Lgs" id="Nb2-tr-xJd"/>
+                <outlet property="sortMarketByCh24Button" destination="Ih9-uC-ejJ" id="sHj-uS-odB"/>
+                <outlet property="sortMarketByNameButton" destination="RXK-up-Jn3" id="78S-2R-VkD"/>
                 <outlet property="sortingContainerView" destination="DeA-0M-bg5" id="P6U-8o-Lob"/>
                 <outlet property="tableView" destination="EhA-J1-X3N" id="mmO-HQ-8TB"/>
                 <outlet property="totalBalanceContainerView" destination="g7y-sy-lYU" id="olM-D2-frT"/>
@@ -39,7 +49,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeA-0M-bg5">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeA-0M-bg5">
                                 <rect key="frame" x="0.0" y="63" width="375" height="17"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3v-0U-qKY">
@@ -48,13 +58,16 @@
                                         <color key="textColor" name="normalTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXK-up-Jn3">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RXK-up-Jn3">
                                         <rect key="frame" x="69" y="0.0" width="17" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="2Wl-xk-9QT"/>
                                             <constraint firstAttribute="width" constant="17" id="863-fm-hLi"/>
                                         </constraints>
-                                        <state key="normal" image="sort_down_icon"/>
+                                        <state key="normal" image="sort_none_icon"/>
+                                        <connections>
+                                            <action selector="sortingButtonTapped:" destination="-1" eventType="touchUpInside" id="mfx-9U-eeb"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24h Chg%  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Qq-qF-bu6" userLabel="Token">
                                         <rect key="frame" x="253" y="0.0" width="76" height="17"/>
@@ -62,13 +75,16 @@
                                         <color key="textColor" name="normalTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-uC-ejJ">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-uC-ejJ">
                                         <rect key="frame" x="329" y="0.0" width="17" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="Lyj-Lk-iY5"/>
                                             <constraint firstAttribute="width" constant="17" id="ddY-5T-SUB"/>
                                         </constraints>
-                                        <state key="normal" image="sort_none_icon"/>
+                                        <state key="normal" image="sort_down_icon"/>
+                                        <connections>
+                                            <action selector="sortingButtonTapped:" destination="-1" eventType="touchUpInside" id="weo-bu-2al"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -170,8 +186,8 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0xb2…f2c" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HFZ-f3-6Cw">
-                                            <rect key="frame" x="16" y="8.5" width="54" height="15"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <rect key="frame" x="16" y="9" width="54" height="14"/>
+                                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -198,13 +214,13 @@
                                     </userDefinedRuntimeAttributes>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$5,678.986" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXL-MS-g3w">
-                                    <rect key="frame" x="100.5" y="78" width="150" height="34"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                    <rect key="frame" x="105.5" y="78.5" width="140.5" height="33"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="28"/>
                                     <color key="textColor" white="1" alpha="0.95625535102739723" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22d-pN-OWF">
-                                    <rect key="frame" x="263.5" y="83" width="24" height="24"/>
+                                    <rect key="frame" x="259" y="83" width="24" height="24"/>
                                     <state key="normal" image="show_eye_icon"/>
                                     <connections>
                                         <action selector="hideBalanceButtonTapped:" destination="-1" eventType="touchUpInside" id="EfH-Ou-3Ws"/>
@@ -216,7 +232,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="38" id="RFe-Bu-Dq4"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                                     <state key="normal" title="Send">
                                         <color key="titleColor" name="buttonTextColor"/>
                                     </state>
@@ -236,7 +252,7 @@
                                     <constraints>
                                         <constraint firstAttribute="height" constant="38" id="gmP-WD-nru"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                    <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                                     <state key="normal" title="Receive">
                                         <color key="titleColor" name="buttonTextColor"/>
                                     </state>
@@ -332,8 +348,8 @@
                                     <rect key="frame" x="71" y="6" width="20" height="20"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8HD-f0-AMK">
-                                    <rect key="frame" x="38" y="8.5" width="24" height="15"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <rect key="frame" x="38" y="9" width="23" height="14"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>

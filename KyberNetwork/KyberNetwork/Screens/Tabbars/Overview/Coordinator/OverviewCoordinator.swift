@@ -541,6 +541,8 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
         }
       }))
       self.navigationController.present(actionController, animated: true, completion: nil)
+    case .select(token: let token):
+      self.openChartView(token: token)
     default:
       break
     }

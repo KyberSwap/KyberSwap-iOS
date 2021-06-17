@@ -15,12 +15,18 @@ enum OverviewMainViewEvent {
   case notifications
   case changeMode(current: ViewMode)
   case walletConfig
+  case select(token: Token)
 }
 
 enum ViewMode {
   case market
   case asset
   case supply
+}
+
+enum MarketSortType {
+  case name(des: Bool)
+  case ch24(des: Bool)
 }
 
 protocol OverviewMainViewControllerDelegate: class {
@@ -34,12 +40,18 @@ class OverviewMainViewModel {
   var displayHeader: [String] = []
   var displayTotalValues: [String: String] = [:]
   var hideBalanceStatus: Bool = true
+  var marketSortType: MarketSortType = .ch24(des: true)
   
   func reloadAllData() {
     switch self.currentMode {
     case .market:
       let marketToken = KNSupportedTokenStorage.shared.allTokens.sorted { (left, right) -> Bool in
-        return left.getTokenPrice().usd24hChange > right.getTokenPrice().usd24hChange
+        switch self.marketSortType {
+        case .name(des: let des):
+          return des ? left.symbol > right.symbol : left.symbol < right.symbol
+        case .ch24(des: let des):
+          return des ? left.getTokenPrice().usd24hChange > right.getTokenPrice().usd24hChange : left.getTokenPrice().usd24hChange < right.getTokenPrice().usd24hChange
+        }
       }
       self.displayHeader = []
       let models = marketToken.map { (item) -> OverviewMainCellViewModel in
@@ -113,7 +125,7 @@ class OverviewMainViewModel {
     }
     return self.displayTotalValues["all"] ?? ""
   }
-  
+
   func getTotalValueForSection(_ section: Int) -> String {
     guard !self.hideBalanceStatus else {
       return "********"
@@ -121,7 +133,7 @@ class OverviewMainViewModel {
     let key = self.displayHeader[section]
     return self.displayTotalValues[key] ?? ""
   }
-  
+
   var displayTotalValue: String {
     guard !self.hideBalanceStatus else {
       return "********"
@@ -129,11 +141,11 @@ class OverviewMainViewModel {
     let total = BalanceStorage.shared.getTotalBalance()
     return "$" + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
   }
-  
+
   var displayHideBalanceImage: UIImage {
     return self.hideBalanceStatus ? UIImage(named: "hide_eye_icon")! : UIImage(named: "show_eye_icon")!
   }
-  
+
   var displayCurrentPageName: String {
     switch self.currentMode {
     case .asset:
@@ -161,6 +173,8 @@ class OverviewMainViewController: KNBaseViewController {
   @IBOutlet weak var currentChainIcon: UIImageView!
   @IBOutlet weak var currentChainLabel: UILabel!
   @IBOutlet weak var sortingContainerView: UIView!
+  @IBOutlet weak var sortMarketByNameButton: UIButton!
+  @IBOutlet weak var sortMarketByCh24Button: UIButton!
   
   weak var delegate: OverviewMainViewControllerDelegate?
   
@@ -206,6 +220,7 @@ class OverviewMainViewController: KNBaseViewController {
     self.totalValueLabel.text = self.viewModel.displayTotalValue
     self.currentPageNameLabel.text = self.viewModel.displayCurrentPageName
     self.updateUIHideBalanceButton()
+    self.sortingContainerView.isHidden = self.viewModel.currentMode != .market
     self.tableView.reloadData()
   }
 
@@ -251,6 +266,40 @@ class OverviewMainViewController: KNBaseViewController {
 
   @IBAction func walletOptionButtonTapped(_ sender: UIButton) {
     self.delegate?.overviewMainViewController(self, run: .walletConfig)
+  }
+  
+  @IBAction func sortingButtonTapped(_ sender: UIButton) {
+    if sender.tag == 1 {
+      if case let .name(dec) = self.viewModel.marketSortType {
+        self.viewModel.marketSortType = .name(des: !dec)
+        self.updateUIForIndicatorView(button: sender, dec: !dec)
+      } else {
+        self.viewModel.marketSortType = .name(des: true)
+        self.updateUIForIndicatorView(button: sender, dec: true)
+      }
+      self.sortMarketByCh24Button.setImage(UIImage(named: "sort_none_icon"), for: .normal)
+    } else if sender.tag == 2 {
+      if case let .ch24(dec) = self.viewModel.marketSortType {
+        self.viewModel.marketSortType = .ch24(des: !dec)
+        self.updateUIForIndicatorView(button: sender, dec: !dec)
+      } else {
+        self.viewModel.marketSortType = .ch24(des: true)
+        self.updateUIForIndicatorView(button: sender, dec: true)
+      }
+      self.sortMarketByNameButton.setImage(UIImage(named: "sort_none_icon"), for: .normal)
+    }
+    self.viewModel.reloadAllData()
+    self.reloadUI()
+  }
+  
+  fileprivate func updateUIForIndicatorView(button: UIButton, dec: Bool) {
+    if dec {
+      let img = UIImage(named: "sort_down_icon")
+      button.setImage(img, for: .normal)
+    } else {
+      let img = UIImage(named: "sort_up_icon")
+      button.setImage(img, for: .normal)
+    }
   }
 
   func coordinatorDidSelectMode(_ mode: ViewMode) {
@@ -319,7 +368,7 @@ extension OverviewMainViewController: UITableViewDataSource {
     valueLabel.textAlignment = .right
     valueLabel.textColor = UIColor.Kyber.SWWhiteTextColor
     view.addSubview(valueLabel)
-    
+
     return view
   }
 
@@ -333,9 +382,18 @@ extension OverviewMainViewController: UITableViewDataSource {
 
 extension OverviewMainViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
+    tableView.deselectRow(at: indexPath, animated: true)
+    let cellModel = self.viewModel.getViewModelsForSection(indexPath.section)[indexPath.row]
+    switch cellModel.mode {
+    case .asset(token: let token):
+      self.delegate?.overviewMainViewController(self, run: .select(token: token))
+    case .market(token: let token):
+      self.delegate?.overviewMainViewController(self, run: .select(token: token))
+    case .supply(balance: let balance):
+      break
+    }
   }
-  
+
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     switch self.viewModel.currentMode {
     case .asset, .market:

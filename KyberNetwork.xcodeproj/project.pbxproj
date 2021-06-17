@@ -609,6 +609,24 @@
 		C3ED1E2D261871FA0024970C /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ED1E2C261871F80024970C /* LoginInfo.swift */; };
 		C3EDDCC225C1829400A99CC8 /* EarnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EDDCC025C1829300A99CC8 /* EarnViewController.swift */; };
 		C3EDDCC325C1829400A99CC8 /* EarnViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3EDDCC125C1829300A99CC8 /* EarnViewController.xib */; };
+		C3EE06BA267A15E50090B432 /* Karla-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06A7267A15E50090B432 /* Karla-Italic-VariableFont_wght.ttf */; };
+		C3EE06BB267A15E50090B432 /* Karla-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06A9267A15E50090B432 /* Karla-Italic.ttf */; };
+		C3EE06BC267A15E50090B432 /* Karla-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06AA267A15E50090B432 /* Karla-SemiBold.ttf */; };
+		C3EE06BD267A15E50090B432 /* Karla-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06AB267A15E50090B432 /* Karla-ExtraBold.ttf */; };
+		C3EE06BE267A15E50090B432 /* Karla-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06AC267A15E50090B432 /* Karla-MediumItalic.ttf */; };
+		C3EE06BF267A15E50090B432 /* Karla-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06AD267A15E50090B432 /* Karla-Light.ttf */; };
+		C3EE06C0267A15E50090B432 /* Karla-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06AE267A15E50090B432 /* Karla-ExtraLightItalic.ttf */; };
+		C3EE06C1267A15E50090B432 /* Karla-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06AF267A15E50090B432 /* Karla-ExtraBoldItalic.ttf */; };
+		C3EE06C2267A15E50090B432 /* Karla-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B0267A15E50090B432 /* Karla-Medium.ttf */; };
+		C3EE06C3267A15E50090B432 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B1267A15E50090B432 /* Karla-Regular.ttf */; };
+		C3EE06C4267A15E50090B432 /* Karla-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B2267A15E50090B432 /* Karla-SemiBoldItalic.ttf */; };
+		C3EE06C5267A15E50090B432 /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B3267A15E50090B432 /* Karla-BoldItalic.ttf */; };
+		C3EE06C6267A15E50090B432 /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B4267A15E50090B432 /* Karla-Bold.ttf */; };
+		C3EE06C7267A15E50090B432 /* Karla-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B5267A15E50090B432 /* Karla-ExtraLight.ttf */; };
+		C3EE06C8267A15E50090B432 /* Karla-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B6267A15E50090B432 /* Karla-LightItalic.ttf */; };
+		C3EE06C9267A15E50090B432 /* Karla-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B7267A15E50090B432 /* Karla-VariableFont_wght.ttf */; };
+		C3EE06CA267A15E50090B432 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B8267A15E50090B432 /* OFL.txt */; };
+		C3EE06CB267A15E50090B432 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EE06B9267A15E50090B432 /* README.txt */; };
 		C3EEA45B2671EF840011DB97 /* OverviewMainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3EEA4592671EF840011DB97 /* OverviewMainViewCell.swift */; };
 		C3EEA45C2671EF840011DB97 /* OverviewMainViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3EEA45A2671EF840011DB97 /* OverviewMainViewCell.xib */; };
 		C3F08B572620AD9200DA6FCB /* TermsAndConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3F08B552620AD9200DA6FCB /* TermsAndConditionsViewController.swift */; };
@@ -1327,6 +1345,24 @@
 		C3ED1E2C261871F80024970C /* LoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
 		C3EDDCC025C1829300A99CC8 /* EarnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarnViewController.swift; sourceTree = "<group>"; };
 		C3EDDCC125C1829300A99CC8 /* EarnViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarnViewController.xib; sourceTree = "<group>"; };
+		C3EE06A7267A15E50090B432 /* Karla-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		C3EE06A9267A15E50090B432 /* Karla-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Italic.ttf"; sourceTree = "<group>"; };
+		C3EE06AA267A15E50090B432 /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-SemiBold.ttf"; sourceTree = "<group>"; };
+		C3EE06AB267A15E50090B432 /* Karla-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-ExtraBold.ttf"; sourceTree = "<group>"; };
+		C3EE06AC267A15E50090B432 /* Karla-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-MediumItalic.ttf"; sourceTree = "<group>"; };
+		C3EE06AD267A15E50090B432 /* Karla-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Light.ttf"; sourceTree = "<group>"; };
+		C3EE06AE267A15E50090B432 /* Karla-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		C3EE06AF267A15E50090B432 /* Karla-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		C3EE06B0267A15E50090B432 /* Karla-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Medium.ttf"; sourceTree = "<group>"; };
+		C3EE06B1267A15E50090B432 /* Karla-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Regular.ttf"; sourceTree = "<group>"; };
+		C3EE06B2267A15E50090B432 /* Karla-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		C3EE06B3267A15E50090B432 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-BoldItalic.ttf"; sourceTree = "<group>"; };
+		C3EE06B4267A15E50090B432 /* Karla-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Bold.ttf"; sourceTree = "<group>"; };
+		C3EE06B5267A15E50090B432 /* Karla-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C3EE06B6267A15E50090B432 /* Karla-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-LightItalic.ttf"; sourceTree = "<group>"; };
+		C3EE06B7267A15E50090B432 /* Karla-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		C3EE06B8267A15E50090B432 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		C3EE06B9267A15E50090B432 /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		C3EEA4592671EF840011DB97 /* OverviewMainViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewMainViewCell.swift; sourceTree = "<group>"; };
 		C3EEA45A2671EF840011DB97 /* OverviewMainViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewMainViewCell.xib; sourceTree = "<group>"; };
 		C3F08B552620AD9200DA6FCB /* TermsAndConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsViewController.swift; sourceTree = "<group>"; };
@@ -2276,6 +2312,7 @@
 		25929C3320DA5C4C0045CFA3 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				C3EE06A6267A15E50090B432 /* Karla */,
 				C3A6910625638DE700F57756 /* Lato */,
 				C37CC084245803C90081FB32 /* Roboto */,
 				25073D05211AF1F600833C92 /* Montserrat */,
@@ -3957,6 +3994,39 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		C3EE06A6267A15E50090B432 /* Karla */ = {
+			isa = PBXGroup;
+			children = (
+				C3EE06A7267A15E50090B432 /* Karla-Italic-VariableFont_wght.ttf */,
+				C3EE06A8267A15E50090B432 /* static */,
+				C3EE06B7267A15E50090B432 /* Karla-VariableFont_wght.ttf */,
+				C3EE06B8267A15E50090B432 /* OFL.txt */,
+				C3EE06B9267A15E50090B432 /* README.txt */,
+			);
+			path = Karla;
+			sourceTree = "<group>";
+		};
+		C3EE06A8267A15E50090B432 /* static */ = {
+			isa = PBXGroup;
+			children = (
+				C3EE06A9267A15E50090B432 /* Karla-Italic.ttf */,
+				C3EE06AA267A15E50090B432 /* Karla-SemiBold.ttf */,
+				C3EE06AB267A15E50090B432 /* Karla-ExtraBold.ttf */,
+				C3EE06AC267A15E50090B432 /* Karla-MediumItalic.ttf */,
+				C3EE06AD267A15E50090B432 /* Karla-Light.ttf */,
+				C3EE06AE267A15E50090B432 /* Karla-ExtraLightItalic.ttf */,
+				C3EE06AF267A15E50090B432 /* Karla-ExtraBoldItalic.ttf */,
+				C3EE06B0267A15E50090B432 /* Karla-Medium.ttf */,
+				C3EE06B1267A15E50090B432 /* Karla-Regular.ttf */,
+				C3EE06B2267A15E50090B432 /* Karla-SemiBoldItalic.ttf */,
+				C3EE06B3267A15E50090B432 /* Karla-BoldItalic.ttf */,
+				C3EE06B4267A15E50090B432 /* Karla-Bold.ttf */,
+				C3EE06B5267A15E50090B432 /* Karla-ExtraLight.ttf */,
+				C3EE06B6267A15E50090B432 /* Karla-LightItalic.ttf */,
+			);
+			path = static;
+			sourceTree = "<group>";
+		};
 		C680C11B2382753E00A621CB /* AppStoreRating */ = {
 			isa = PBXGroup;
 			children = (
@@ -4200,9 +4270,11 @@
 				C31F74BC25DD32A6008B21F7 /* OverviewDepositTableViewCell.xib in Resources */,
 				25929C5520DA5C760045CFA3 /* SF-Pro-Display-RegularItalic.otf in Resources */,
 				25929C9620DA5CC10045CFA3 /* SFCompactDisplay-Semibold.otf in Resources */,
+				C3EE06BE267A15E50090B432 /* Karla-MediumItalic.ttf in Resources */,
 				C37AF0C025CA5639006FB880 /* EarnConfirmViewController.xib in Resources */,
 				C326C68B256D04B000B35E8F /* InputPopUpViewController.xib in Resources */,
 				25073D2B211AF20D00833C92 /* Montserrat-ExtraBold.ttf in Resources */,
+				C3EE06C7267A15E50090B432 /* Karla-ExtraLight.ttf in Resources */,
 				25929C8E20DA5CC10045CFA3 /* SFCompactText-RegularItalic.otf in Resources */,
 				255C98902122E22A0087B3E2 /* KSendTokenViewController.xib in Resources */,
 				C3FA3D982591AB3E00E17B47 /* ChooseRateViewController.xib in Resources */,
@@ -4261,6 +4333,7 @@
 				25929C8A20DA5CC10045CFA3 /* SFCompactText-LightItalic.otf in Resources */,
 				C37CC094245803CA0081FB32 /* Roboto-Regular.ttf in Resources */,
 				C31F749825DCDA50008B21F7 /* OverviewContainerViewController.xib in Resources */,
+				C3EE06C1267A15E50090B432 /* Karla-ExtraBoldItalic.ttf in Resources */,
 				C3409E1B25AEAEEC00C7C662 /* WalletListSectionTableViewCell.xib in Resources */,
 				25931F1020AEE85200BAC774 /* KNBackUpWalletViewController.xib in Resources */,
 				259925B420EF286500CCF2D6 /* KNListContactViewController.xib in Resources */,
@@ -4268,7 +4341,9 @@
 				C38E5D7525F5CD3000E5FC48 /* WithdrawConfirmPopupViewController.xib in Resources */,
 				25A4B4B421242DE000924351 /* KNCreateWalletViewController.xib in Resources */,
 				C313720726077A44003D432B /* CustomTokenListViewController.xib in Resources */,
+				C3EE06C4267A15E50090B432 /* Karla-SemiBoldItalic.ttf in Resources */,
 				25929C5E20DA5C760045CFA3 /* SF-Pro-Text-RegularItalic.otf in Resources */,
+				C3EE06CA267A15E50090B432 /* OFL.txt in Resources */,
 				C313720E26078051003D432B /* CustomTokenTableViewCell.xib in Resources */,
 				25696F6E20BEAD97002CC53F /* KNSearchTokenTableViewCell.xib in Resources */,
 				25929C9C20DA5CC10045CFA3 /* SFCompactText-HeavyItalic.otf in Resources */,
@@ -4282,6 +4357,7 @@
 				25929C9320DA5CC10045CFA3 /* SFCompactText-Medium.otf in Resources */,
 				C3263B0825EDE837005FBB60 /* WithdrawViewController.xib in Resources */,
 				25073D1E211AF20D00833C92 /* Montserrat-SemiBold.ttf in Resources */,
+				C3EE06BB267A15E50090B432 /* Karla-Italic.ttf in Resources */,
 				C3114371249B1C2300084CD8 /* KNMigrationTutorialViewController.xib in Resources */,
 				25073D20211AF20D00833C92 /* Montserrat-BlackItalic.ttf in Resources */,
 				25929C6620DA5C760045CFA3 /* SF-Pro-Display-Semibold.otf in Resources */,
@@ -4298,6 +4374,7 @@
 				296106CE1F777E410006164B /* LaunchScreen.storyboard in Resources */,
 				25929C9720DA5CC10045CFA3 /* SFCompactDisplay-Heavy.otf in Resources */,
 				290B2B541F8F50030053C83E /* Localizable.strings in Resources */,
+				C3EE06C8267A15E50090B432 /* Karla-LightItalic.ttf in Resources */,
 				C3357DB524768C400028F4A9 /* CustomFCTheme.plist in Resources */,
 				2542604621215C120015ECC7 /* KSwapViewController.xib in Resources */,
 				C31F74AA25DCEDA0008B21F7 /* OverviewDepositViewController.xib in Resources */,
@@ -4313,10 +4390,12 @@
 				25073D1F211AF20D00833C92 /* Montserrat-Black.ttf in Resources */,
 				25929C6920DA5C760045CFA3 /* SF-Pro-Display-HeavyItalic.otf in Resources */,
 				251E22672271CBF40038679C /* KNTransactionFilterViewController.xib in Resources */,
+				C3EE06C0267A15E50090B432 /* Karla-ExtraLightItalic.ttf in Resources */,
 				25929C5A20DA5C760045CFA3 /* SF-Pro-Display-Ultralight.otf in Resources */,
 				25929C5F20DA5C760045CFA3 /* SF-Pro-Display-BlackItalic.otf in Resources */,
 				C31F74B025DD3211008B21F7 /* OverviewMarketTableViewCell.xib in Resources */,
 				257C9FCA2078F6A600EE0128 /* KNCreatePasswordViewController.xib in Resources */,
+				C3EE06BF267A15E50090B432 /* Karla-Light.ttf in Resources */,
 				C37CC093245803CA0081FB32 /* Roboto-Light.ttf in Resources */,
 				C31BE89925B045700070A832 /* AddWatchWalletViewController.xib in Resources */,
 				25696F5520BD2B72002CC53F /* KNDataDetailsView.xib in Resources */,
@@ -4338,6 +4417,7 @@
 				C33C33B825ECC70700F347E5 /* AddTokenViewController.xib in Resources */,
 				25C45AD420AD398C00CDA1FF /* KNImportJSONViewController.xib in Resources */,
 				C3D560AB260C641E00408875 /* OverviewClaimViewController.xib in Resources */,
+				C3EE06C3267A15E50090B432 /* Karla-Regular.ttf in Resources */,
 				25485B052272F938004B7454 /* KNTransactionFilterTableViewCell.xib in Resources */,
 				25073D1A211AF20D00833C92 /* Montserrat-ExtraLightItalic.ttf in Resources */,
 				2567B3F1216B10060006D963 /* index.html in Resources */,
@@ -4346,6 +4426,8 @@
 				257740C620579457003323EB /* KNSplashScreenViewController.xib in Resources */,
 				C37CC09E245803CA0081FB32 /* Roboto-Black.ttf in Resources */,
 				2503440020DA37F700528810 /* KNSaveContactViewController.xib in Resources */,
+				C3EE06C6267A15E50090B432 /* Karla-Bold.ttf in Resources */,
+				C3EE06C5267A15E50090B432 /* Karla-BoldItalic.ttf in Resources */,
 				25073D19211AF20D00833C92 /* Montserrat-LightItalic.ttf in Resources */,
 				C3A2419C2567AD610073703C /* WalletsListViewController.xib in Resources */,
 				C3F71C852618A47200285935 /* KrytalHistoryViewController.xib in Resources */,
@@ -4371,11 +4453,13 @@
 				251ABCB220578F6E0069687F /* config_env_production.json in Resources */,
 				25929C5D20DA5C760045CFA3 /* SF-Pro-Display-Black.otf in Resources */,
 				255A70EB214F9ECE005D7A6A /* KNSettingsTabViewController.xib in Resources */,
+				C3EE06BA267A15E50090B432 /* Karla-Italic-VariableFont_wght.ttf in Resources */,
 				253F50E821E5B5290068813D /* KNPromoCodeViewController.xib in Resources */,
 				25929C6820DA5C760045CFA3 /* SF-Pro-Display-Light.otf in Resources */,
 				2502AC19209475BE007F23CD /* KNListWalletsTableViewCell.xib in Resources */,
 				C3D6996E26410CCB004B34E1 /* GoogleService-Info.plist in Resources */,
 				25929C5220DA5C760045CFA3 /* SF-Pro-Text-BoldItalic.otf in Resources */,
+				C3EE06BC267A15E50090B432 /* Karla-SemiBold.ttf in Resources */,
 				C37AF0C825CCFB29006FB880 /* EarnSwapViewController.xib in Resources */,
 				C3ED1DCE2616F0090024970C /* NotificationsViewController.xib in Resources */,
 				254BB359211D9F1400B8E75D /* KConfirmSendViewController.xib in Resources */,
@@ -4384,12 +4468,15 @@
 				C33696112595A387000EDD5D /* ApproveTokenViewController.xib in Resources */,
 				25073D2A211AF20D00833C92 /* Montserrat-BoldItalic.ttf in Resources */,
 				C37CC098245803CA0081FB32 /* Roboto-LightItalic.ttf in Resources */,
+				C3EE06C2267A15E50090B432 /* Karla-Medium.ttf in Resources */,
 				25929C9F20DA5CCC0045CFA3 /* SF Compact Font License.rtf in Resources */,
+				C3EE06C9267A15E50090B432 /* Karla-VariableFont_wght.ttf in Resources */,
 				25682B7520EE06CD009738C4 /* KNTransactionDetailsViewController.xib in Resources */,
 				25929C9220DA5CC10045CFA3 /* SFCompactText-SemiboldItalic.otf in Resources */,
 				C3A6911825638DE700F57756 /* Lato-BlackItalic.ttf in Resources */,
 				C399118D249B553100A7C251 /* KNTutorialPagerCell.xib in Resources */,
 				25F96F8121537B6400D7F927 /* KNHoldingDocumentInfoPopUp.xib in Resources */,
+				C3EE06CB267A15E50090B432 /* README.txt in Resources */,
 				25929C5620DA5C760045CFA3 /* SF-Pro-Text-HeavyItalic.otf in Resources */,
 				C3A6911525638DE700F57756 /* Lato-Bold.ttf in Resources */,
 				257C9FC52078A9F800EE0128 /* KNTransactionCollectionReusableView.xib in Resources */,
@@ -4405,6 +4492,7 @@
 				C37CC099245803CA0081FB32 /* Roboto-Italic.ttf in Resources */,
 				C3A6911B25638DE700F57756 /* Lato-Light.ttf in Resources */,
 				C32670402579E4B70063AA1F /* GasFeeSelectorPopupViewController.xib in Resources */,
+				C3EE06BD267A15E50090B432 /* Karla-ExtraBold.ttf in Resources */,
 				C347DA4025C03144000D6E81 /* EarnMenuTableViewCell.xib in Resources */,
 				25929C9B20DA5CC10045CFA3 /* SFCompactText-Regular.otf in Resources */,
 				25929C7120DA5C820045CFA3 /* SF Pro Font License.rtf in Resources */,
