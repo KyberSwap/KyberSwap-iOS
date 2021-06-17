@@ -106,7 +106,7 @@ class KNSession {
       externalProvider: self.externalProvider,
       wallet: self.wallet
     )
-    self.transacionCoordinator?.start()
+//    self.transacionCoordinator?.start()
     let pendingTxs = self.transactionStorage.kyberPendingTransactions
     if let tx = pendingTxs.first(where: { $0.from.lowercased() == wallet.address.description.lowercased() }), let nonce = Int(tx.nonce) {
       self.externalProvider?.updateNonceWithLastRecordedTxNonce(nonce)

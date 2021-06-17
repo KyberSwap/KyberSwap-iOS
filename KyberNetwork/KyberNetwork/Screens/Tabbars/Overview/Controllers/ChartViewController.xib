@@ -29,6 +29,7 @@
                 <outlet property="chartView" destination="ueJ-8I-pMk" id="mhm-uU-lyR"/>
                 <outlet property="descriptionTextView" destination="yx2-K4-ikS" id="rud-bP-2OX"/>
                 <outlet property="ethBalanceLabel" destination="5JN-3d-A7T" id="xcI-7T-t4b"/>
+                <outlet property="favButton" destination="ak7-Ym-9X3" id="JHD-bG-e95"/>
                 <outlet property="investButton" destination="HI4-LR-6cR" id="2hL-Qn-ZYj"/>
                 <outlet property="marketCapLabel" destination="ncE-iU-gdT" id="0eE-JV-6Kl"/>
                 <outlet property="noDataLabel" destination="Fcp-jR-KcB" id="Zdc-30-20s"/>
@@ -75,6 +76,17 @@
                                 <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="tlN-eR-Ymv"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ak7-Ym-9X3">
+                            <rect key="frame" x="326" y="60.5" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="32" id="BQF-HN-clt"/>
+                                <constraint firstAttribute="width" constant="32" id="SAQ-xd-0Ci"/>
+                            </constraints>
+                            <state key="normal" image="unFav_star_icon"/>
+                            <connections>
+                                <action selector="favButtonTapped:" destination="-1" eventType="touchUpInside" id="Y7I-7f-mhM"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
@@ -82,8 +94,10 @@
                         <constraint firstAttribute="height" constant="113" id="EIK-2V-Dtf"/>
                         <constraint firstAttribute="bottom" secondItem="7Xw-zE-84E" secondAttribute="bottom" constant="26" id="IT7-Wf-gfg"/>
                         <constraint firstItem="7Xw-zE-84E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="r3Q-Ff-reg" secondAttribute="trailing" constant="5" id="NMA-6Z-xcN"/>
+                        <constraint firstItem="ak7-Ym-9X3" firstAttribute="centerY" secondItem="7Xw-zE-84E" secondAttribute="centerY" id="O57-fz-zNh"/>
                         <constraint firstItem="7Xw-zE-84E" firstAttribute="centerX" secondItem="fxb-dr-nSP" secondAttribute="centerX" id="fN0-Wk-KNm"/>
                         <constraint firstItem="7Xw-zE-84E" firstAttribute="centerY" secondItem="r3Q-Ff-reg" secondAttribute="centerY" id="rzD-jM-EII"/>
+                        <constraint firstAttribute="trailing" secondItem="ak7-Ym-9X3" secondAttribute="trailing" constant="17" id="yXq-o5-Msf"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -520,6 +534,7 @@
     </designables>
     <resources>
         <image name="back_blue_icon" width="17" height="14"/>
+        <image name="unFav_star_icon" width="22" height="21"/>
         <namedColor name="mainViewBgColor">
             <color red="0.0040000001899898052" green="0.0040000001899898052" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -19,10 +19,12 @@ class ChartViewModel {
   var chartData: ChartData?
   var chartOriginTimeStamp: Double = 0
   var currency: String
+  var isFaved: Bool
   
   init(token: Token, currency: String) {
     self.token = token
     self.currency = currency
+    self.isFaved = KNSupportedTokenStorage.shared.getFavedStatusWithAddress(token.address)
   }
   
   func updateChartData(_ data: ChartData) {
@@ -106,8 +108,6 @@ class ChartViewModel {
     } else {
       return "$" + valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
     }
-    
-    
   }
   
   var displayMarketCap: String {
@@ -219,6 +219,10 @@ class ChartViewModel {
     attributedText.append(NSAttributedString(string: "$\(volumeBigInt.string(decimals: 18, minFractionDigits: 4, maxFractionDigits: 4))", attributes: normalAttributes))
     return attributedText
   }
+  
+  var displayFavIcon: UIImage? {
+    return self.isFaved ? UIImage(named: "fav_star_icon") : UIImage(named: "unFav_star_icon")
+  }
 }
 
 enum ChartViewEvent {
@@ -281,6 +285,7 @@ class ChartViewController: KNBaseViewController {
   @IBOutlet weak var descriptionTextView: GrowingTextView!
   @IBOutlet weak var chartDetailLabel: UILabel!
   @IBOutlet weak var noDataLabel: UILabel!
+  @IBOutlet weak var favButton: UIButton!
   
   weak var delegate: ChartViewControllerDelegate?
   let viewModel: ChartViewModel
@@ -308,6 +313,7 @@ class ChartViewController: KNBaseViewController {
     self.transferButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.size.height / 2)
     self.swapButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.size.height / 2)
     self.investButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.size.height / 2)
+    self.favButton.setImage(self.viewModel.displayFavIcon, for: .normal)
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -354,6 +360,13 @@ class ChartViewController: KNBaseViewController {
   @IBAction func twitterButtonTapped(_ sender: UIButton) {
     self.delegate?.chartViewController(self, run: .openTwitter(name: self.viewModel.detailInfo?.links.twitterScreenName ?? ""))
   }
+  
+  @IBAction func favButtonTapped(_ sender: UIButton) {
+    viewModel.isFaved = !viewModel.isFaved
+    KNSupportedTokenStorage.shared.setFavedStatusWithAddress(viewModel.token.address, status: viewModel.isFaved)
+    self.favButton.setImage(self.viewModel.displayFavIcon, for: .normal)
+  }
+  
   
   fileprivate func updateUIChartInfo() {
     self.volumeLabel.text = self.viewModel.display24hVol
