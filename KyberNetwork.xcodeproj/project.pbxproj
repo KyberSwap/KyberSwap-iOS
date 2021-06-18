@@ -5247,7 +5247,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "KyberNetwork/KyberSwap - Crypto ExchangeDebug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				CODE_SIGN_IDENTITY = "Apple Development: Minh Quân Tạ (G52WUM3453)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 10;

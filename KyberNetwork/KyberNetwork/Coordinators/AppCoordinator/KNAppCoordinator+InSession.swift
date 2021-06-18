@@ -157,11 +157,12 @@ extension KNAppCoordinator {
       self.loadBalanceCoordinator?.exit()
       EtherscanTransactionStorage.shared.updateCurrentWallet(wallet)
       BalanceStorage.shared.updateCurrentWallet(wallet)
-      self.session.switchSession(wallet)
+      
       self.doLogin()
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+      self.session.switchSession(wallet)
       self.loadBalanceCoordinator?.restartNewSession(self.session)
       self.exchangeCoordinator?.appCoordinatorDidUpdateNewSession(
         self.session,
