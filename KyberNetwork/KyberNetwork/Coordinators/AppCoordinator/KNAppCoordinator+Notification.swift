@@ -52,6 +52,9 @@ extension KNAppCoordinator {
       object: nil
     )
     
+  }
+
+  func addInternalObserveNotification() {
     let changeChain = Notification.Name(kChangeChainNotificationKey)
     NotificationCenter.default.addObserver(
       self,
@@ -59,21 +62,14 @@ extension KNAppCoordinator {
       name: changeChain,
       object: nil
     )
-  }
-
-  func addInternalObserveNotification() {
+    
     let rateTokensName = Notification.Name(kExchangeTokenRateNotificationKey)
     NotificationCenter.default.addObserver(
       self,
       selector: #selector(self.exchangeRateTokenDidUpdateNotification(_:)),
       name: rateTokensName,
       object: nil)
-//    let prodCachedRateName = Notification.Name(kProdCachedRateSuccessToLoadNotiKey)
-//    NotificationCenter.default.addObserver(
-//      self,
-//      selector: #selector(self.prodCachedRateTokenDidUpdateNotification(_:)),
-//      name: prodCachedRateName,
-//      object: nil)
+
     let rateUSDName = Notification.Name(kExchangeUSDRateNotificationKey)
     NotificationCenter.default.addObserver(
       self,

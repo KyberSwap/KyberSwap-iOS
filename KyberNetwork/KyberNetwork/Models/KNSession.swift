@@ -89,33 +89,28 @@ class KNSession {
     if case .real(let acc) = self.wallet.type {
       account = acc
     }
-    if let realAccount = account {
-      self.externalProvider = KNExternalProvider(web3: self.web3Swift, keystore: self.keystore, account: realAccount)
-    } else {
-      self.externalProvider = nil
-    }
+    DispatchQueue.main.async {
+      if let realAccount = account {
+        self.externalProvider = KNExternalProvider(web3: self.web3Swift, keystore: self.keystore, account: realAccount)
+      } else {
+        self.externalProvider = nil
+      }
 
-    let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
-    self.realm = try! Realm(configuration: config)
-    self.transactionStorage = TransactionsStorage(realm: self.realm)
-    self.tokenStorage = KNTokenStorage(realm: self.realm)
-    self.transacionCoordinator = KNTransactionCoordinator(
-      transactionStorage: self.transactionStorage,
-      tokenStorage: self.tokenStorage,
-      externalProvider: self.externalProvider,
-      wallet: self.wallet
-    )
-    let seconds = 5.0
-    DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-      self.transacionCoordinator?.start()
+      let config = RealmConfiguration.configuration(for: wallet, chainID: KNGeneralProvider.shared.customRPC.chainID)
+      self.realm = try! Realm(configuration: config)
+      self.transactionStorage = TransactionsStorage(realm: self.realm)
+      self.tokenStorage = KNTokenStorage(realm: self.realm)
+      self.transacionCoordinator = KNTransactionCoordinator(
+        transactionStorage: self.transactionStorage,
+        tokenStorage: self.tokenStorage,
+        externalProvider: self.externalProvider,
+        wallet: self.wallet
+      )
+      let pendingTxs = self.transactionStorage.kyberPendingTransactions
+      if let tx = pendingTxs.first(where: { $0.from.lowercased() == wallet.address.description.lowercased() }), let nonce = Int(tx.nonce) {
+        self.externalProvider?.updateNonceWithLastRecordedTxNonce(nonce)
+      }
     }
-    
-    let pendingTxs = self.transactionStorage.kyberPendingTransactions
-    if let tx = pendingTxs.first(where: { $0.from.lowercased() == wallet.address.description.lowercased() }), let nonce = Int(tx.nonce) {
-      self.externalProvider?.updateNonceWithLastRecordedTxNonce(nonce)
-    }
-
-    BalanceStorage.shared.updateCurrentWallet(self.wallet)
   }
 
   // Remove a wallet, it should not be a current wallet

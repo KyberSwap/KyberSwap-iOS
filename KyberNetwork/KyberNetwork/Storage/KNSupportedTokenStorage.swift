@@ -229,4 +229,10 @@ class KNSupportedTokenStorage {
     Storage.removeFileAtPath(Constants.customTokenStoreFileName)
     Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
   }
+  
+  func findTokensWithAddresses(addresses: [String]) -> [Token] {
+    return self.allTokens.filter { (token) -> Bool in
+      return addresses.contains(token.address.lowercased())
+    }
+  }
 }

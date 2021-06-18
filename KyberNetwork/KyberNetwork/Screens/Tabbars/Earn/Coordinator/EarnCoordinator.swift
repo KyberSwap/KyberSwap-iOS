@@ -101,47 +101,45 @@ class EarnCoordinator: NSObject, Coordinator {
       let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
       provider.request(.getLendingOverview) { [weak self] (result) in
         guard let `self` = self else { return }
-        DispatchQueue.main.async {
-          if case .success(let data) = result, let json = try? data.mapJSON() as? JSONDictionary ?? [:], let result = json["result"] as? [JSONDictionary] {
-            let addresses = result.map { (dict) -> String in
-              return dict["address"] as? String ?? ""
-            }.map { $0.lowercased() }
-            //Find tokens object with loaded address
-            //TODO: improve with struct data type
-            var lendingTokensData: [TokenData] = []
-            let lendingTokens = self.session.tokenStorage.findTokensWithAddresses(addresses: addresses)
-            //Get token decimal to init token data
-            lendingTokens.forEach { (token) in
-              let tokenDict = result.first { (tokenDict) -> Bool in
-                if let tokenAddress = tokenDict["address"] as? String {
-                  return token.contract.lowercased() == tokenAddress.lowercased()
-                } else {
-                  return false
-                }
+        if case .success(let data) = result, let json = try? data.mapJSON() as? JSONDictionary ?? [:], let result = json["result"] as? [JSONDictionary] {
+          let addresses = result.map { (dict) -> String in
+            return dict["address"] as? String ?? ""
+          }.map { $0.lowercased() }
+          //Find tokens object with loaded address
+          //TODO: improve with struct data type
+          var lendingTokensData: [TokenData] = []
+          let lendingTokens = KNSupportedTokenStorage.shared.findTokensWithAddresses(addresses: addresses)
+          //Get token decimal to init token data
+          lendingTokens.forEach { (token) in
+            let tokenDict = result.first { (tokenDict) -> Bool in
+              if let tokenAddress = tokenDict["address"] as? String {
+                return token.address.lowercased() == tokenAddress.lowercased()
+              } else {
+                return false
               }
-              var platforms: [LendingPlatformData] = []
-              if let platformDicts = tokenDict?["overview"] as? [JSONDictionary] {
-                platformDicts.forEach { (platformDict) in
-                  let platform = LendingPlatformData(
-                    name: platformDict["name"] as? String ?? "",
-                    supplyRate: platformDict["supplyRate"] as? Double ?? 0.0,
-                    stableBorrowRate: platformDict["stableBorrowRate"] as? Double ?? 0.0,
-                    variableBorrowRate: platformDict["variableBorrowRate"] as? Double ?? 0.0,
-                    distributionSupplyRate: platformDict["distributionSupplyRate"] as? Double ?? 0.0,
-                    distributionBorrowRate: platformDict["distributionBorrowRate"] as? Double ?? 0.0
-                  )
-                  platforms.append(platform)
-                }
-              }
-              let tokenData = TokenData(address: token.contract, name: token.name, symbol: token.symbol, decimals: token.decimals, lendingPlatforms: platforms)
-              lendingTokensData.append(tokenData)
             }
-            self.lendingTokens = lendingTokensData
-            self.menuViewController.coordinatorDidUpdateLendingToken(self.lendingTokens)
-            Storage.store(self.lendingTokens, as: Constants.lendingTokensStoreFileName)
-          } else {
-            self.loadCachedLendingTokens()
+            var platforms: [LendingPlatformData] = []
+            if let platformDicts = tokenDict?["overview"] as? [JSONDictionary] {
+              platformDicts.forEach { (platformDict) in
+                let platform = LendingPlatformData(
+                  name: platformDict["name"] as? String ?? "",
+                  supplyRate: platformDict["supplyRate"] as? Double ?? 0.0,
+                  stableBorrowRate: platformDict["stableBorrowRate"] as? Double ?? 0.0,
+                  variableBorrowRate: platformDict["variableBorrowRate"] as? Double ?? 0.0,
+                  distributionSupplyRate: platformDict["distributionSupplyRate"] as? Double ?? 0.0,
+                  distributionBorrowRate: platformDict["distributionBorrowRate"] as? Double ?? 0.0
+                )
+                platforms.append(platform)
+              }
+            }
+            let tokenData = TokenData(address: token.address, name: token.name, symbol: token.symbol, decimals: token.decimals, lendingPlatforms: platforms)
+            lendingTokensData.append(tokenData)
           }
+          self.lendingTokens = lendingTokensData
+          self.menuViewController.coordinatorDidUpdateLendingToken(self.lendingTokens)
+          Storage.store(self.lendingTokens, as: Constants.lendingTokensStoreFileName)
+        } else {
+          self.loadCachedLendingTokens()
         }
       }
     }
