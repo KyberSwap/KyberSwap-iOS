@@ -37,18 +37,20 @@ class Storage {
   }
 
   static func store<T: Encodable>(_ object: T, as fileName: String) {
-    let url = getDocumentsDirectory().appendingPathComponent(fileName, isDirectory: false)
-    
-    let encoder = JSONEncoder()
-    do {
-      let data = try encoder.encode(object)
-      if FileManager.default.fileExists(atPath: url.path) {
-        try FileManager.default.removeItem(at: url)
+    DispatchQueue.global(qos: .background).async {
+      let url = getDocumentsDirectory().appendingPathComponent(fileName, isDirectory: false)
+      
+      let encoder = JSONEncoder()
+      do {
+        let data = try encoder.encode(object)
+        if FileManager.default.fileExists(atPath: url.path) {
+          try FileManager.default.removeItem(at: url)
+        }
+        FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
+        print("[Store file][Success] \(fileName)")
+      } catch {
+        print("[Store file][Error] \(error.localizedDescription)")
       }
-      FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
-      print("[Store file][Success] \(fileName)")
-    } catch {
-      print("[Store file][Error] \(error.localizedDescription)")
     }
   }
   

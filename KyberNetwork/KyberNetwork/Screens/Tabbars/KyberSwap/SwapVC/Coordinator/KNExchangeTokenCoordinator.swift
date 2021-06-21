@@ -488,8 +488,17 @@ extension KNExchangeTokenCoordinator: KConfirmSwapViewControllerDelegate {
             }
             self.rootViewController.coordinatorSuccessSendTransaction()
           case .failure(let error):
-            print("[Debug] error send \(error)")
-            self.rootViewController.coordinatorFailSendTransaction()
+            var errorMessage = "Something went wrong. Please try again"
+            if case let APIKit.SessionTaskError.responseError(apiKitError) = error.error {
+              if case let JSONRPCKit.JSONRPCError.responseError(_, message, _) = apiKitError {
+                errorMessage = message
+              }
+            }
+            self.navigationController.showErrorTopBannerMessage(
+              with: "Error",
+              message: errorMessage,
+              time: 1.5
+            )
           }
         })
       case .failure:
@@ -1424,9 +1433,15 @@ extension KNExchangeTokenCoordinator: ApproveTokenViewControllerDelegate {
         self.rootViewController.coordinatorUpdateIsUseGasToken(state)
         self.gasFeeSelectorVC?.coordinatorDidUpdateUseGasTokenState(state)
       case .failure(let error):
+        var errorMessage = "Something went wrong. Please try again"
+        if case let APIKit.SessionTaskError.responseError(apiKitError) = error.error {
+          if case let JSONRPCKit.JSONRPCError.responseError(_, message, _) = apiKitError {
+            errorMessage = message
+          }
+        }
         self.navigationController.showErrorTopBannerMessage(
-          with: NSLocalizedString("error", value: "Error", comment: ""),
-          message: error.localizedDescription,
+          with: "Error",
+          message: errorMessage,
           time: 1.5
         )
         self.rootViewController.coordinatorUpdateIsUseGasToken(!state)
@@ -1450,9 +1465,15 @@ extension KNExchangeTokenCoordinator: ApproveTokenViewControllerDelegate {
           case .success:
             self.rootViewController.coordinatorSuccessApprove(token: token)
           case .failure(let error):
+            var errorMessage = "Something went wrong. Please try again"
+            if case let APIKit.SessionTaskError.responseError(apiKitError) = error.error {
+              if case let JSONRPCKit.JSONRPCError.responseError(_, message, _) = apiKitError {
+                errorMessage = message
+              }
+            }
             self.navigationController.showErrorTopBannerMessage(
-              with: NSLocalizedString("error", value: "Error", comment: ""),
-              message: error.localizedDescription,
+              with: "Error",
+              message: errorMessage,
               time: 1.5
             )
             self.rootViewController.coordinatorFailApprove(token: token)

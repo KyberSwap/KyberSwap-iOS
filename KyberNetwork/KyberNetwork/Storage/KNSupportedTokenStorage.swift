@@ -190,7 +190,23 @@ class KNSupportedTokenStorage {
     guard !unknown.isEmpty else {
       return
     }
-    self.customTokens.append(contentsOf: unknown)
+    var customTokenCache = self.customTokens
+    customTokenCache.append(contentsOf: unknown)
+    
+    //Check duplicate with support token list
+    var duplicateToken: [Token] = []
+    customTokenCache.forEach { (token) in
+      if all.contains(token) {
+        duplicateToken.append(token)
+      }
+    }
+    duplicateToken.forEach { (token) in
+      if let idx = customTokenCache.firstIndex(where: { $0 == token }) {
+        customTokenCache.remove(at: idx)
+      }
+    }
+
+    self.customTokens = customTokenCache
     Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
   }
   
@@ -231,5 +247,11 @@ class KNSupportedTokenStorage {
       result.append(token)
     }
     return result
+  }
+  
+  func findTokensWithAddresses(addresses: [String]) -> [Token] {
+    return self.allTokens.filter { (token) -> Bool in
+      return addresses.contains(token.address.lowercased())
+    }
   }
 }

@@ -27,8 +27,6 @@ class KNLoadBalanceCoordinator {
 
   deinit {
     self.exit()
-//    let name = Notification.Name(kRefreshBalanceNotificationKey)
-//    NotificationCenter.default.removeObserver(self, name: name, object: nil)
   }
 
   init(session: KNSession) {

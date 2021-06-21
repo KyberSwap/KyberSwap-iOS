@@ -113,7 +113,10 @@ class EarnMenuViewController: KNBaseViewController {
       return left.supplyRate > right.supplyRate
     })
     if self.isViewSetup {
-      self.menuTableView.reloadData()
+      DispatchQueue.main.async {
+        self.menuTableView.reloadData()
+      }
+      
     }
   }
 

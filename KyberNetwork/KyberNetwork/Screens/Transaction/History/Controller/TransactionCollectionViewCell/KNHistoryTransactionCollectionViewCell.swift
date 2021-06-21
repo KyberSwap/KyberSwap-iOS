@@ -66,7 +66,6 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
       let valueBigInt = BigInt(outTx.value) ?? BigInt(0)
       let valueString = valueBigInt.string(decimals: Int(outTx.tokenDecimal) ?? 18, minFractionDigits: 0, maxFractionDigits: Int(outTx.tokenDecimal) ?? 6)
       result += "\(valueString) \(outTx.tokenSymbol) -> "
-      
     } else if let sendEthTx = self.data.transacton.first {
       let valueBigInt = BigInt(sendEthTx.value) ?? BigInt(0)
       let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
@@ -174,6 +173,9 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
   var transactionDetailsString: String {
     switch self.data.type {
     case .swap:
+      guard self.data.transacton.first?.isError != "1" else {
+        return ""
+      }
       var fromValue = BigInt.zero
       var toValue = BigInt.zero
       var fromSymbol = ""

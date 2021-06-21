@@ -99,10 +99,6 @@ class KNPasscodeViewController: KNBaseViewController {
   }
 
   func showBioAuthenticationIfNeeded() {
-//    guard UserDefaults.standard.bool(forKey: "bio-auth") == true else {
-//      self.bioAuthenButton.isHidden = true
-//      return
-//    }
     self.bioAuthenButton.isHidden = true
     if case .verifyPasscode = self.viewType { return }
     guard case .authenticate(let isUpdating) = self.viewType, !isUpdating else { return }
@@ -112,7 +108,8 @@ class KNPasscodeViewController: KNBaseViewController {
     }
     var error: NSError?
     let context = LAContext()
-    guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
+    let userEnableBioMatrix = UserDefaults.standard.object(forKey: "bio-auth") as? Bool ?? true
+    guard context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error), userEnableBioMatrix == true else {
       return
     }
     self.bioAuthenButton.isHidden = false

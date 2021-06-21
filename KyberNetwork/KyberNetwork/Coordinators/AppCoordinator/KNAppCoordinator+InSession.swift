@@ -35,16 +35,6 @@ extension KNAppCoordinator {
     self.addCoordinator(self.exchangeCoordinator!)
     self.exchangeCoordinator?.start()
 
-//    self.limitOrderCoordinator = {
-//      let coordinator = KNLimitOrderTabCoordinatorV2(
-//        session: self.session
-//      )
-//      coordinator.delegate = self
-//      return coordinator
-//    }()
-//    self.addCoordinator(self.limitOrderCoordinator!)
-//    self.limitOrderCoordinator?.start()
-
     // Settings tab
     self.settingsCoordinator = {
       let coordinator = KNSettingsCoordinator(
@@ -133,7 +123,6 @@ extension KNAppCoordinator {
   func stopAllSessions() {
     KNPasscodeUtil.shared.deletePasscode()
     self.landingPageCoordinator.navigationController.popToRootViewController(animated: false)
-    self.removeObserveNotificationFromSession()
 
     self.loadBalanceCoordinator?.exit()
     self.loadBalanceCoordinator = nil
@@ -164,16 +153,17 @@ extension KNAppCoordinator {
   // Switching account, restart a new session
   func restartNewSession(_ wallet: Wallet, isLoading: Bool = true) {
     if isLoading { self.navigationController.displayLoading() }
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-      self.removeObserveNotificationFromSession()
-
+    DispatchQueue.global(qos: .background).async {
       self.loadBalanceCoordinator?.exit()
+      EtherscanTransactionStorage.shared.updateCurrentWallet(wallet)
+      BalanceStorage.shared.updateCurrentWallet(wallet)
+      
+      self.doLogin()
+    }
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
       self.session.switchSession(wallet)
       self.loadBalanceCoordinator?.restartNewSession(self.session)
-      
-      BalanceStorage.shared.updateCurrentWallet(wallet)
-      EtherscanTransactionStorage.shared.updateCurrentWallet(wallet)
-
       self.exchangeCoordinator?.appCoordinatorDidUpdateNewSession(
         self.session,
         resetRoot: true
@@ -192,15 +182,13 @@ extension KNAppCoordinator {
       self.settingsCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
       
       self.investCoordinator?.appCoordinatorDidUpdateNewSession(self.session)
-      
-      self.addObserveNotificationFromSession()
-      self.updateLocalData()
+
       KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
       self.exchangeCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
       )
       self.overviewTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
       )
-      self.doLogin()
+      
       if isLoading { self.navigationController.hideLoading() }
     }
   }
