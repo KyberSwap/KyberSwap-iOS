@@ -22,6 +22,7 @@ enum ViewMode {
   case market
   case asset
   case supply
+  case favourite
 }
 
 enum MarketSortType {
@@ -100,6 +101,24 @@ class OverviewMainViewModel {
       self.dataSource = models
       self.displayDataSource = models
       self.displayTotalValues["all"] = "$" + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+    case .favourite:
+      let marketToken = KNSupportedTokenStorage.shared.allTokens.sorted { (left, right) -> Bool in
+        switch self.marketSortType {
+        case .name(des: let des):
+          return des ? left.symbol > right.symbol : left.symbol < right.symbol
+        case .ch24(des: let des):
+          return des ? left.getTokenPrice().usd24hChange > right.getTokenPrice().usd24hChange : left.getTokenPrice().usd24hChange < right.getTokenPrice().usd24hChange
+        }
+      }.filter { (token) -> Bool in
+        return KNSupportedTokenStorage.shared.getFavedStatusWithAddress(token.address)
+      }
+      self.displayHeader = []
+      let models = marketToken.map { (item) -> OverviewMainCellViewModel in
+        return OverviewMainCellViewModel(mode: .market(token: item))
+      }
+      self.dataSource = ["": models]
+      self.displayDataSource = ["": models]
+      self.displayTotalValues = [:]
     }
   }
   
@@ -107,7 +126,7 @@ class OverviewMainViewModel {
     return self.displayHeader.isEmpty ? 1 : self.displayHeader.count
   }
 
-  func getViewModelsForSection(_ section: Int) -> [OverviewMainCellViewModel]  {
+  func getViewModelsForSection(_ section: Int) -> [OverviewMainCellViewModel] {
     guard !self.displayHeader.isEmpty else {
       return self.displayDataSource[""] ?? []
     }
@@ -154,6 +173,8 @@ class OverviewMainViewModel {
       return "Market"
     case .supply:
       return "Supply"
+    case .favourite:
+      return "Favourite"
     }
   }
 }
@@ -326,7 +347,7 @@ extension OverviewMainViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch self.viewModel.currentMode {
-    case .asset, .market:
+    case .asset, .market, .favourite:
       let cell = tableView.dequeueReusableCell(
         withIdentifier: OverviewMainViewCell.kCellID,
         for: indexPath

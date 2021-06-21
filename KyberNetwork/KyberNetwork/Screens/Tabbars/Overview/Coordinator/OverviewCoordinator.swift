@@ -493,8 +493,10 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       actionController.addAction(Action(ActionData(title: "Show Market", image: UIImage(named: "market_actionsheet_icon")!), style: marketType, handler: { _ in
         controller.coordinatorDidSelectMode(.market)
       }))
-//      let favType = mode == .market ? ActionStyle.selected : ActionStyle.default
-      actionController.addAction(Action(ActionData(title: "Favorites", image: UIImage(named: "favorites_actionsheet_icon")!), style: .default, handler: nil))
+      let favType = mode == .favourite ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Favorites", image: UIImage(named: "favorites_actionsheet_icon")!), style: favType, handler: { _ in
+        controller.coordinatorDidSelectMode(.favourite)
+      }))
       
       self.navigationController.present(actionController, animated: true, completion: nil)
     case .walletConfig:
