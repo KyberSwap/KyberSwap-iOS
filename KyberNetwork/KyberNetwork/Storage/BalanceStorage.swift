@@ -67,8 +67,10 @@ class BalanceStorage {
       self.allLendingBalance = Storage.retrieve(KNEnvironment.default.envPrefix + wallet.address.description.lowercased() + Constants.lendingBalanceStoreFileName, as: [LendingPlatformBalance].self) ?? []
       self.distributionBalance = Storage.retrieve(KNEnvironment.default.envPrefix + wallet.address.description.lowercased() + Constants.lendingDistributionBalanceStoreFileName, as: LendingDistributionBalance.self)
       self.customTokenBalances = Storage.retrieve(KNEnvironment.default.envPrefix + wallet.address.description.lowercased() + Constants.customBalanceStoreFileName, as: [TokenBalance].self) ?? []
+      DispatchQueue.main.async {
+        KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
+      }
     }
-    print("[Balance][Update wallet] ")
   }
 
   func balanceForAddress(_ address: String) -> TokenBalance? {
