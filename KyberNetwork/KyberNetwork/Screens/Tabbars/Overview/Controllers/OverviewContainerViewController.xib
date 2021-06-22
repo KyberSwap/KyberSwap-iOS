@@ -24,11 +24,13 @@
                 <outlet property="addTokenButton" destination="9Dq-xG-7Y4" id="LVk-o5-Ioq"/>
                 <outlet property="currentChainIcon" destination="751-lu-cQ8" id="ITO-Fo-ZPS"/>
                 <outlet property="hideBalanceButton" destination="lcR-VL-8uB" id="U4c-SS-Hiq"/>
+                <outlet property="marketPageSelectButton" destination="kB5-y4-tvA" id="8Ee-ua-dmJ"/>
                 <outlet property="pageSelectButtonsContainerView" destination="QNL-Uh-WZa" id="aU1-fY-NRi"/>
                 <outlet property="pagerContainerView" destination="Rib-O2-44T" id="ipy-g5-EjY"/>
                 <outlet property="pendingTxIndicatorView" destination="8Ei-SU-i1J" id="YZQ-zq-dbg"/>
                 <outlet property="receiveButton" destination="fHc-od-Wc3" id="z9Q-0C-UAx"/>
                 <outlet property="searchTextField" destination="heD-3b-V1k" id="Vu5-a7-AXv"/>
+                <outlet property="supplyPageSelectButton" destination="Qab-JS-Q4J" id="0no-re-7m2"/>
                 <outlet property="totalValueLabel" destination="DbN-gQ-AW3" id="ub7-2R-A27"/>
                 <outlet property="transferButton" destination="Vdy-Ol-4AD" id="Fen-Wb-ffY"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

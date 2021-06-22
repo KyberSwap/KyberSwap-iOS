@@ -122,6 +122,8 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
   @IBOutlet weak var searchTextField: UITextField!
   @IBOutlet weak var hideBalanceButton: UIButton!
   @IBOutlet weak var currentChainIcon: UIImageView!
+  @IBOutlet weak var supplyPageSelectButton: UIButton!
+  @IBOutlet weak var marketPageSelectButton: UIButton!
   
   init(viewModel: OverviewContainerViewModel, marketViewController: OverviewMarketViewController, assetsViewController: OverviewAssetsViewController, depositViewController: OverviewDepositViewController) {
     self.viewModel = viewModel
@@ -152,6 +154,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     }
     self.updateUIPendingTxIndicatorView()
     self.updateUISwitchChain()
+    self.hideDepositPageIfNeeded()
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -322,13 +325,22 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     }
     self.updateUITotalValue()
     self.updateUISwitchChain()
+    self.hideDepositPageIfNeeded()
+  }
+
+  fileprivate func hideDepositPageIfNeeded() {
+    guard !KNGeneralProvider.shared.isEthereum else {
+      self.supplyPageSelectButton.isHidden = false
+      return
+    }
+    self.supplyPageSelectButton.isHidden = true
+    self.overviewTypeButtonTapped(self.marketPageSelectButton)
   }
 }
 
 extension OverviewContainerViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
-    print("[Debug] \(text)")
     self.marketViewController.coordinatorDidUpdateSearchText(text)
     self.assetsViewController.coordinatorDidUpdateSearchText(text)
     return true
