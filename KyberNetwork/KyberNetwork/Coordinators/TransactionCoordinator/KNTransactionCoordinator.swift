@@ -44,9 +44,9 @@ class KNTransactionCoordinator {
     self.wallet = wallet
   }
 
-  func start() {
+  func start(isReloadData: Bool = true) {
     self.isLoadingEnabled = true
-    self.startUpdatingCompletedTransactions()
+    if isReloadData { self.startUpdatingCompletedTransactions() }
     self.startUpdatingPendingTransactions()
 
     // remove some old txs
