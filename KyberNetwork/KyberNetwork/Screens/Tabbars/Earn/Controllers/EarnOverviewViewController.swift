@@ -125,6 +125,8 @@ class EarnOverviewViewController: KNBaseViewController {
     if self.isViewLoaded {
       self.updateUIWalletSelectButton(wallet)
       self.depositViewController.coordinatorUpdateNewSession(wallet: wallet)
+      self.updateUIPendingTxIndicatorView()
+      self.updateUIPendingTxIndicatorView()
     }
   }
 

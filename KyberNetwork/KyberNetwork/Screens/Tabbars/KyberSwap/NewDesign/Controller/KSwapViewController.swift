@@ -731,6 +731,7 @@ extension KSwapViewController {
     self.walletsListButton.setTitle(self.viewModel.wallet.address.description, for: .normal)
     self.updateGasTokenArea()
     self.balanceLabel.text = self.viewModel.balanceDisplayText
+    self.updateUIPendingTxIndicatorView()
     self.view.layoutIfNeeded()
   }
 
@@ -1045,7 +1046,6 @@ extension KSwapViewController {
     self.updateGasTokenArea()
     self.balanceLabel.text = self.viewModel.balanceDisplayText
     self.setUpChangeRateButton()
-    
   }
 }
 

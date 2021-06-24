@@ -311,6 +311,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.updateUITotalValue()
     self.depositViewController.coordinatorUpdateNewSession(wallet: session.wallet)
     self.assetsViewController.coordinatorUpdateNewSession(wallet: session.wallet)
+    self.updateUIPendingTxIndicatorView()
   }
   
   func coordinatorDidUpdatePendingTx() {
