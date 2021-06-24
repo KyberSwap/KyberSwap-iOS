@@ -157,7 +157,6 @@ extension KNAppCoordinator {
       self.loadBalanceCoordinator?.exit()
       EtherscanTransactionStorage.shared.updateCurrentWallet(wallet)
       BalanceStorage.shared.updateCurrentWallet(wallet)
-      
       self.doLogin()
     }
     

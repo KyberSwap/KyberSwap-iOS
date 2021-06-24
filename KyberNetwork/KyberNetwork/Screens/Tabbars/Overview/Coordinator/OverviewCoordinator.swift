@@ -39,17 +39,8 @@ class OverviewCoordinator: NSObject, Coordinator {
   var currentCurrencyType: CurrencyType = .usd
 
   lazy var rootViewController: OverviewMainViewController = {
-//    print("[Balance][Overview][\(session.wallet.address.description)] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
-//    let viewModel = OverviewContainerViewModel(session: self.session, marketViewModel: self.marketViewController.viewModel, assetsViewModel: self.assetsViewController.viewModel, depositViewModel: self.depositViewController.viewModel)
-//    let controller = OverviewContainerViewController(viewModel: viewModel, marketViewController: self.marketViewController, assetsViewController: self.assetsViewController, depositViewController: self.depositViewController)
-//    self.assetsViewController.container = controller
-//    self.marketViewController.container = controller
-//    self.depositViewController.container = controller
-//    controller.delegate = self
-//    controller.navigationDelegate = self
-//    return controller
-    
-    let viewController = OverviewMainViewController()
+    let viewModel = OverviewMainViewModel(session: self.session)
+    let viewController = OverviewMainViewController(viewModel: viewModel)
     viewController.delegate = self
     return viewController
   }()
@@ -108,13 +99,13 @@ class OverviewCoordinator: NSObject, Coordinator {
   
   //TODO: coordinator update balance, coordinator change wallet
   func appCoordinatorDidUpdateTokenList() {
-//    self.rootViewController.coordinatorDidUpdateDidUpdateTokenList()
+    self.rootViewController.coordinatorDidUpdateDidUpdateTokenList()
     self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
   }
   
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
     self.session = session
-//    self.rootViewController.coordinatorDidUpdateNewSession(session)
+    self.rootViewController.coordinatorDidUpdateNewSession(session)
     self.sendCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.historyCoordinator?.appCoordinatorDidUpdateNewSession(session)
     self.krytalCoordinator?.appCoordinatorDidUpdateNewSession(session)
@@ -309,13 +300,7 @@ extension OverviewCoordinator: NavigationBarDelegate {
     
     self.navigationController.present(actionController, animated: true, completion: nil)
     
-//    let viewModel = WalletsListViewModel(
-//      walletObjects: KNWalletStorage.shared.wallets,
-//      currentWallet: self.currentWallet
-//    )
-//    let walletsList = WalletsListViewController(viewModel: viewModel)
-//    walletsList.delegate = self
-//    self.navigationController.present(walletsList, animated: true, completion: nil)
+    
   }
 }
 
@@ -545,10 +530,24 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       self.navigationController.present(actionController, animated: true, completion: nil)
     case .select(token: let token):
       self.openChartView(token: token)
+    case .selectListWallet:
+      let viewModel = WalletsListViewModel(
+        walletObjects: KNWalletStorage.shared.wallets,
+        currentWallet: self.currentWallet
+      )
+      let walletsList = WalletsListViewController(viewModel: viewModel)
+      walletsList.delegate = self
+      self.navigationController.present(walletsList, animated: true, completion: nil)
+    case .send:
+      self.openSendTokenView(nil)
+    case .receive:
+      self.openQRCodeScreen()
+    case .notifications:
+      let coordinator = NotificationCoordinator(navigationController: self.navigationController)
+      coordinator.start()
+      self.notificationsCoordinator = coordinator
     default:
       break
     }
   }
-  
-  
 }

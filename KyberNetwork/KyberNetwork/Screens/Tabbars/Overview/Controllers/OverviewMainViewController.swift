@@ -16,6 +16,7 @@ enum OverviewMainViewEvent {
   case changeMode(current: ViewMode)
   case walletConfig
   case select(token: Token)
+  case selectListWallet
 }
 
 enum ViewMode {
@@ -35,6 +36,7 @@ protocol OverviewMainViewControllerDelegate: class {
 }
 
 class OverviewMainViewModel {
+  fileprivate var session: KNSession!
   var currentMode: ViewMode = .asset
   var dataSource: [String: [OverviewMainCellViewModel]] = [:]
   var displayDataSource: [String: [OverviewMainCellViewModel]] = [:]
@@ -43,6 +45,10 @@ class OverviewMainViewModel {
   var hideBalanceStatus: Bool = true
   var marketSortType: MarketSortType = .ch24(des: true)
   
+  init(session: KNSession) {
+    self.session = session
+  }
+
   func reloadAllData() {
     switch self.currentMode {
     case .market:
@@ -136,7 +142,7 @@ class OverviewMainViewModel {
   }
   
   var displayPageTotalValue: String {
-    guard self.currentMode != .market else {
+    guard self.currentMode != .market, self.currentMode != .favourite else {
       return ""
     }
     guard !self.hideBalanceStatus else {
@@ -196,16 +202,20 @@ class OverviewMainViewController: KNBaseViewController {
   @IBOutlet weak var sortingContainerView: UIView!
   @IBOutlet weak var sortMarketByNameButton: UIButton!
   @IBOutlet weak var sortMarketByCh24Button: UIButton!
+  @IBOutlet weak var walletListButton: UIButton!
+  @IBOutlet weak var walletNameLabel: UILabel!
   
   weak var delegate: OverviewMainViewControllerDelegate?
   
-  let viewModel = OverviewMainViewModel()
-  required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
+  let viewModel: OverviewMainViewModel
+  
+  init(viewModel: OverviewMainViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: OverviewMainViewController.className, bundle: nil)
   }
   
-  init() {
-    super.init(nibName: OverviewMainViewController.className, bundle: nil)
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 
   override func viewDidLoad() {
@@ -234,6 +244,10 @@ class OverviewMainViewController: KNBaseViewController {
   fileprivate func updateUIHideBalanceButton() {
     self.hideBalanceButton.setImage(self.viewModel.displayHideBalanceImage, for: .normal)
   }
+  
+  fileprivate func updateUIWalletList() {
+    self.walletNameLabel.text = self.viewModel.session.wallet.address.description
+  }
 
   fileprivate func reloadUI() {
     self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
@@ -242,6 +256,7 @@ class OverviewMainViewController: KNBaseViewController {
     self.currentPageNameLabel.text = self.viewModel.displayCurrentPageName
     self.updateUIHideBalanceButton()
     self.sortingContainerView.isHidden = self.viewModel.currentMode != .market
+    self.updateUIWalletList()
     self.tableView.reloadData()
   }
 
@@ -257,14 +272,15 @@ class OverviewMainViewController: KNBaseViewController {
   }
 
   @IBAction func sendButtonTapped(_ sender: UIButton) {
-    print("Send")
+    self.delegate?.overviewMainViewController(self, run: .send)
   }
   
   @IBAction func receiveButtonTapped(_ sender: UIButton) {
-    print("Tapped")
+    self.delegate?.overviewMainViewController(self, run: .receive)
   }
   
   @IBAction func walletsListButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewMainViewController(self, run: .selectListWallet)
   }
   
   @IBAction func switchChainButtonTapped(_ sender: UIButton) {
@@ -313,6 +329,14 @@ class OverviewMainViewController: KNBaseViewController {
     self.reloadUI()
   }
   
+  @IBAction func notificationsButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewMainViewController(self, run: .notifications)
+  }
+
+  @IBAction func searchButtonTapped(_ sender: UIButton) {
+    self.delegate?.overviewMainViewController(self, run: .search)
+  }
+
   fileprivate func updateUIForIndicatorView(button: UIButton, dec: Bool) {
     if dec {
       let img = UIImage(named: "sort_down_icon")
@@ -334,6 +358,25 @@ class OverviewMainViewController: KNBaseViewController {
     }
     self.updateUISwitchChain()
   }
+  
+  func coordinatorDidUpdateNewSession(_ session: KNSession) {
+    self.viewModel.session = session
+    guard self.isViewLoaded else { return }
+    self.updateUIWalletList()
+    self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
+    self.totalValueLabel.text = self.viewModel.displayTotalValue
+    self.viewModel.reloadAllData()
+    self.tableView.reloadData()
+  }
+  
+  func coordinatorDidUpdateDidUpdateTokenList() {
+    guard self.isViewLoaded else { return }
+    self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
+    self.totalValueLabel.text = self.viewModel.displayTotalValue
+    self.viewModel.reloadAllData()
+    self.tableView.reloadData()
+  }
+  
 }
 
 extension OverviewMainViewController: UITableViewDataSource {

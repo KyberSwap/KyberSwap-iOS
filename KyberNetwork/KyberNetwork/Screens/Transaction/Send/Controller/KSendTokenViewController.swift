@@ -93,13 +93,6 @@ class KSendTokenViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.sendButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.sendButton.removeSublayer(at: 0)
-    self.sendButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   override func viewWillAppear(_ animated: Bool) {

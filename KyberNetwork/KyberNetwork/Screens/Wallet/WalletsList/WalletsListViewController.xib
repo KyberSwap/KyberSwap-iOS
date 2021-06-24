@@ -4,15 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -53,13 +51,6 @@
                                 <outlet property="delegate" destination="-1" id="1mP-va-TO6"/>
                             </connections>
                         </tableView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZy-qe-vSk">
-                            <rect key="frame" x="0.0" y="440" width="414" height="30"/>
-                            <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="30" id="I1N-9c-XcE"/>
-                            </constraints>
-                        </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAL-vB-3Tm">
                             <rect key="frame" x="21" y="389" width="372" height="1"/>
                             <color key="backgroundColor" red="0.090196078430000007" green="0.43921568630000002" blue="0.55294117649999996" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
@@ -72,7 +63,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="46" id="UcE-VB-Ofg"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
                             <state key="normal" title="Manage Wallet">
                                 <color key="titleColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
@@ -85,7 +76,7 @@
                             <constraints>
                                 <constraint firstAttribute="height" constant="46" id="s8t-mz-QBo"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
                             <state key="normal" title="WalletConnect">
                                 <color key="titleColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
@@ -94,10 +85,10 @@
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="qr_code_blue_icon" translatesAutoresizingMaskIntoConstraints="NO" id="plp-pS-lvt">
-                            <rect key="frame" x="371" y="353" width="22" height="22"/>
+                            <rect key="frame" x="373" y="354" width="20" height="20"/>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="popupBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="16g-oT-S4q" firstAttribute="top" secondItem="HAL-vB-3Tm" secondAttribute="bottom" constant="2" id="28K-Hd-ZJI"/>
                         <constraint firstItem="IL6-Em-hFa" firstAttribute="leading" secondItem="uTk-Ha-UYF" secondAttribute="leading" constant="32" id="5OW-G5-0QK"/>
@@ -105,17 +96,14 @@
                         <constraint firstItem="IL6-Em-hFa" firstAttribute="trailing" secondItem="plp-pS-lvt" secondAttribute="trailing" id="CTj-tl-1bN"/>
                         <constraint firstAttribute="trailing" secondItem="16g-oT-S4q" secondAttribute="trailing" constant="32" id="LZb-rN-sgm"/>
                         <constraint firstItem="AbD-5x-c9Z" firstAttribute="top" secondItem="uTk-Ha-UYF" secondAttribute="top" constant="35" id="NcV-JX-JkY"/>
-                        <constraint firstAttribute="bottom" secondItem="hZy-qe-vSk" secondAttribute="bottom" id="QgI-RK-hKA"/>
                         <constraint firstItem="HAL-vB-3Tm" firstAttribute="top" secondItem="IL6-Em-hFa" secondAttribute="bottom" constant="2" id="QnV-q9-hNu"/>
                         <constraint firstItem="C3c-EY-Obj" firstAttribute="leading" secondItem="uTk-Ha-UYF" secondAttribute="leading" constant="21" id="UOw-Ay-epa"/>
                         <constraint firstItem="IL6-Em-hFa" firstAttribute="top" secondItem="C3c-EY-Obj" secondAttribute="bottom" constant="2" id="aLK-sc-S2w"/>
                         <constraint firstItem="plp-pS-lvt" firstAttribute="centerY" secondItem="IL6-Em-hFa" secondAttribute="centerY" id="ail-ZG-21G"/>
                         <constraint firstItem="16g-oT-S4q" firstAttribute="leading" secondItem="uTk-Ha-UYF" secondAttribute="leading" constant="32" id="dGy-zL-sVY"/>
-                        <constraint firstItem="hZy-qe-vSk" firstAttribute="top" secondItem="16g-oT-S4q" secondAttribute="bottom" constant="2" id="dJ1-v2-46c"/>
                         <constraint firstAttribute="trailing" secondItem="plp-pS-lvt" secondAttribute="trailing" constant="21" id="fTb-8M-TAR"/>
                         <constraint firstAttribute="trailing" secondItem="C3c-EY-Obj" secondAttribute="trailing" constant="21" id="gGb-GM-fOM"/>
-                        <constraint firstItem="hZy-qe-vSk" firstAttribute="leading" secondItem="uTk-Ha-UYF" secondAttribute="leading" id="je2-uQ-WqJ"/>
-                        <constraint firstAttribute="trailing" secondItem="hZy-qe-vSk" secondAttribute="trailing" id="t1d-sy-1d6"/>
+                        <constraint firstAttribute="bottom" secondItem="16g-oT-S4q" secondAttribute="bottom" constant="32" id="hjC-t8-ief"/>
                         <constraint firstAttribute="trailing" secondItem="AbD-5x-c9Z" secondAttribute="trailing" id="vdG-32-uwF"/>
                         <constraint firstAttribute="trailing" secondItem="HAL-vB-3Tm" secondAttribute="trailing" constant="21" id="vwW-uJ-1Cy"/>
                         <constraint firstItem="C3c-EY-Obj" firstAttribute="top" secondItem="AbD-5x-c9Z" secondAttribute="bottom" constant="12" id="wXn-Uh-wts"/>
@@ -143,6 +131,9 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="qr_code_blue_icon" width="22" height="22"/>
+        <image name="qr_code_blue_icon" width="20" height="20"/>
+        <namedColor name="popupBackgroundColor">
+            <color red="0.16099999845027924" green="0.17599999904632568" blue="0.17299999296665192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

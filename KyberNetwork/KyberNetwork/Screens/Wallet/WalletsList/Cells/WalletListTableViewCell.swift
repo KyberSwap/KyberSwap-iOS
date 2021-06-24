@@ -26,7 +26,8 @@ class WalletListTableViewCell: UITableViewCell {
   @IBOutlet weak var walletNameLabel: UILabel!
   @IBOutlet weak var walletAddressLabel: UILabel!
   @IBOutlet weak var checkIconImage: UIImageView!
-
+  @IBOutlet weak var leftPaddingContraint: NSLayoutConstraint!
+  
   weak var delegate: WalletListTableViewCellDelegate?
   var viewModel: WalletListTableViewCellViewModel?
 
@@ -40,6 +41,7 @@ class WalletListTableViewCell: UITableViewCell {
     self.walletNameLabel.text = viewModel.walletName
     self.walletAddressLabel.text = viewModel.walletAddress.lowercased()
     self.checkIconImage.isHidden = !viewModel.isCurrentWallet
+    self.leftPaddingContraint.constant = viewModel.isCurrentWallet ? 66.0 : 40.0
   }
 
   @IBAction func copyButtonTapped(_ sender: UIButton) {

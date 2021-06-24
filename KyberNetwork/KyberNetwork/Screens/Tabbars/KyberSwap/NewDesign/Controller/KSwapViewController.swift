@@ -685,36 +685,6 @@ extension KSwapViewController {
   }
 }
 
-
-
-//extension KSwapViewController {
-//  fileprivate func addObserveNotifications() {
-////    let name = Notification.Name(kProdCachedRateFailedToLoadNotiKey)
-////    NotificationCenter.default.addObserver(
-////      self,
-////      selector: #selector(self.prodCachedRateFailedToLoad(_:)),
-////      name: name,
-////      object: nil
-////    )
-//
-////    let notiReachabilityName = Notification.Name(rawValue: KNReachability.kNetworkReachableNotificationKey)
-////    NotificationCenter.default.addObserver(
-////      self,
-////      selector: #selector(self.notificationReachabilityDidUpdate(notification:)),
-////      name: notiReachabilityName,
-////      object: nil
-////    )
-//  }
-//
-//  fileprivate func removeObserveNotification() {
-////    let name = Notification.Name(kProdCachedRateFailedToLoadNotiKey)
-////    NotificationCenter.default.removeObserver(self, name: name, object: nil)
-//
-////    let notiReachabilityName = Notification.Name(rawValue: KNReachability.kNetworkReachableNotificationKey)
-////    NotificationCenter.default.removeObserver(self, name: notiReachabilityName, object: nil)
-//  }
-//}
-
 // MARK: Update from coordinator
 extension KSwapViewController {
   /*
