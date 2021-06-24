@@ -124,6 +124,7 @@ class EarnMenuViewController: KNBaseViewController {
     self.viewModel.wallet = wallet
     if self.isViewSetup {
       self.updateUIWalletSelectButton(wallet)
+      self.updateUIPendingTxIndicatorView()
     }
   }
   

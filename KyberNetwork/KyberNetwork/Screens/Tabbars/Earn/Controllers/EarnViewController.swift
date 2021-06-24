@@ -543,6 +543,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
     self.viewModel.resetBalances()
     self.updateUIBalanceDidChange()
     self.updateUIWalletSelectButton()
+    self.updateUIPendingTxIndicatorView()
   }
 
   fileprivate func updateAmountFieldUIForTransferAllETHIfNeeded() {

@@ -950,6 +950,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
       self.updateUIBalanceDidChange()
       self.updateUIWalletSelectButton()
       self.updateUIWalletSelectButton()
+      self.updateUIPendingTxIndicatorView()
     }
   }
 }

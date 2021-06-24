@@ -520,6 +520,7 @@ extension KSendTokenViewController {
     self.viewModel.currentWalletAddress = wallet.address.description
     self.setupNavigationView()
     self.updateUIBalanceDidChange()
+    self.updateUIPendingTxIndicatorView()
   }
   
   func coordinatorDidUpdateChain() {

@@ -263,6 +263,9 @@ extension KNAppCoordinator {
     let updateEarn = self.earnCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     let updateInvest = self.investCoordinator?.appCoordinatorUpdateTransaction(transaction) ?? false
     if !(updateOverview || updateExchange || updateEarn || updateInvest) {
+      guard transaction.isEth == KNGeneralProvider.shared.isEthereum else {
+        return
+      }
       if transaction.state == .done {
         self.loadBalanceCoordinator?.loadAllBalances()
         self.navigationController.showSuccessTopBannerMessage(
