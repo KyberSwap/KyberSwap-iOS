@@ -4,15 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -37,13 +38,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5JI-zn-Q2P">
-                            <rect key="frame" x="155" y="78" width="65" height="19"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="147" y="73.5" width="81.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eUV-Ge-Xk8">
-                            <rect key="frame" x="16" y="69.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="67.5" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="80v-IN-6Qp"/>
                                 <constraint firstAttribute="height" constant="36" id="CBq-lN-jej"/>
@@ -54,7 +55,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="5JI-zn-Q2P" secondAttribute="bottom" constant="16" id="9zb-0C-2Hs"/>
                         <constraint firstAttribute="height" constant="113" id="Uy4-cI-igf"/>
@@ -72,21 +73,21 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your contact is empty" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APl-2d-Lg3">
                             <rect key="frame" x="20" y="188" width="335" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                            <color key="textColor" red="0.67450980392156867" green="0.70196078431372544" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                            <color key="textColor" name="normalTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CLT-QW-LlX">
-                            <rect key="frame" x="112.5" y="270" width="150" height="36"/>
+                            <rect key="frame" x="37" y="270" width="301" height="38"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="150" id="0A4-2a-X8r"/>
-                                <constraint firstAttribute="height" constant="36" id="JGi-40-gbu"/>
+                                <constraint firstAttribute="height" constant="38" id="JGi-40-gbu"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                            <color key="tintColor" name="normalTextColor"/>
                             <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Add Contact" image="add_blue_icon">
-                                <color key="titleColor" red="0.13333333333333333" green="0.65098039215686276" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="addButtonPressed:" destination="-1" eventType="touchUpInside" id="ynT-Me-YRh"/>
@@ -96,37 +97,29 @@
                             <rect key="frame" x="136" y="60" width="103" height="104"/>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="APl-2d-Lg3" firstAttribute="leading" secondItem="O1V-Us-qFQ" secondAttribute="leading" constant="20" id="6PX-Vk-24Z"/>
                         <constraint firstItem="r8k-jM-7uG" firstAttribute="top" secondItem="O1V-Us-qFQ" secondAttribute="top" constant="60" id="7A2-KY-uVP"/>
+                        <constraint firstAttribute="trailing" secondItem="CLT-QW-LlX" secondAttribute="trailing" constant="37" id="GsL-7T-eYL"/>
                         <constraint firstItem="CLT-QW-LlX" firstAttribute="centerX" secondItem="O1V-Us-qFQ" secondAttribute="centerX" id="XBj-CU-kkq"/>
+                        <constraint firstItem="CLT-QW-LlX" firstAttribute="leading" secondItem="O1V-Us-qFQ" secondAttribute="leading" constant="37" id="dfk-9l-e79"/>
                         <constraint firstItem="r8k-jM-7uG" firstAttribute="centerX" secondItem="O1V-Us-qFQ" secondAttribute="centerX" id="fvS-gn-fgq"/>
                         <constraint firstAttribute="trailing" secondItem="APl-2d-Lg3" secondAttribute="trailing" constant="20" id="gtz-Cs-UQf"/>
                         <constraint firstItem="APl-2d-Lg3" firstAttribute="top" secondItem="O1V-Us-qFQ" secondAttribute="top" constant="188" id="oKM-vK-jgL"/>
                         <constraint firstItem="CLT-QW-LlX" firstAttribute="top" secondItem="APl-2d-Lg3" secondAttribute="bottom" constant="65" id="u92-EX-Pn2"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mti-wR-Dba">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="lhX-qZ-3wV"/>
-                    </constraints>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="O1V-Us-qFQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="3Ch-Vu-Dr8"/>
-                <constraint firstItem="mti-wR-Dba" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="3jz-Au-dsv"/>
                 <constraint firstItem="6Nx-3L-1U6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DuY-ql-7gd"/>
-                <constraint firstItem="mti-wR-Dba" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="IVf-v5-g0F"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="0eJ-nQ-IR7" secondAttribute="bottom" id="KoO-dy-EQH"/>
                 <constraint firstItem="0eJ-nQ-IR7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Lgr-Zb-axb"/>
                 <constraint firstItem="O1V-Us-qFQ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="N7s-O6-5AF"/>
-                <constraint firstItem="mti-wR-Dba" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="PVk-am-V5f"/>
                 <constraint firstItem="0eJ-nQ-IR7" firstAttribute="top" secondItem="6Nx-3L-1U6" secondAttribute="bottom" id="a2b-HW-UT0"/>
                 <constraint firstItem="O1V-Us-qFQ" firstAttribute="top" secondItem="6Nx-3L-1U6" secondAttribute="bottom" id="hD1-Yc-ARg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0eJ-nQ-IR7" secondAttribute="trailing" id="i3V-6j-0oh"/>
@@ -148,7 +141,16 @@
     </objects>
     <resources>
         <image name="add_blue_icon" width="12" height="12"/>
-        <image name="back_blue_icon" width="17" height="14"/>
+        <image name="back_blue_icon" width="22" height="18"/>
         <image name="no_contact_icon" width="103" height="104"/>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

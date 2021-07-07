@@ -681,7 +681,6 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
       nextButtonTitle: nextButtonText
     )
     controller.tabBarController!.view.addSubview(overlayer)
-    KNCrashlyticsUtil.logCustomEvent(withName: "tut_swap_show_quick_tutorial", customAttributes: ["step": step])
   }
 
   fileprivate func openSearchToken(from: TokenObject, to: TokenObject, isSource: Bool) {
@@ -700,40 +699,6 @@ extension KNExchangeTokenCoordinator: KSwapViewControllerDelegate {
     self.navigationController.present(self.searchTokensViewController!, animated: true, completion: nil)
     self.searchTokensViewController?.updateBalances(self.balances)
   }
-
-//  fileprivate func exchangeButtonPressed(data: KNDraftExchangeTransaction) {
-//    if KNWalletPromoInfoStorage.shared.getDestinationToken(from: self.session.wallet.address.description) != nil {
-//      if let topVC = self.navigationController.topViewController, topVC is KNPromoSwapConfirmViewController { return }
-//      let address = self.session.wallet.address.description
-//      // promo code wallet
-//      let destWallet = KNWalletPromoInfoStorage.shared.getDestWallet(from: address) ?? address
-//      let expiredDate: Date = {
-//        let time = KNWalletPromoInfoStorage.shared.getExpiredTime(from: address) ?? 0.0
-//        return Date(timeIntervalSince1970: time)
-//      }()
-//      let viewModel = KNPromoSwapConfirmViewModel(
-//        transaction: data,
-//        srcWallet: self.session.wallet.address.description,
-//        destWallet: destWallet,
-//        expiredDate: expiredDate
-//      )
-//      self.promoConfirmSwapVC = KNPromoSwapConfirmViewController(viewModel: viewModel)
-//      self.promoConfirmSwapVC?.loadViewIfNeeded()
-//      self.promoConfirmSwapVC?.delegate = self
-//      self.navigationController.pushViewController(self.promoConfirmSwapVC!, animated: true)
-//    } else {
-////      if let topVC = self.navigationController.topViewController, topVC is KConfirmSwapViewController { return }
-////      self.confirmSwapVC = {
-////        let ethBal = self.balances[KNSupportedTokenStorage.shared.ethToken.contract]?.value ?? BigInt(0)
-////        let viewModel = KConfirmSwapViewModel(transaction: data, ethBalance: ethBal)
-////        let controller = KConfirmSwapViewController(viewModel: viewModel)
-////        controller.loadViewIfNeeded()
-////        controller.delegate = self
-////        return controller
-////      }()
-////      self.navigationController.present(self.confirmSwapVC!, animated: true, completion: nil)
-//    }
-//  }
 
   fileprivate func showConfirmSwapScreen(data: KNDraftExchangeTransaction, transaction: SignTransaction, hasRateWarning: Bool, platform: String, rawTransaction: TxObject) {
     self.confirmSwapVC = {

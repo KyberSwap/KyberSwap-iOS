@@ -4,12 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
@@ -36,7 +37,7 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UzJ-IU-9Wk">
                             <rect key="frame" x="37" y="37" width="20" height="20"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="5po-R6-dxH"/>
                                 <constraint firstAttribute="width" constant="20" id="Yu5-JH-TkN"/>
@@ -48,14 +49,14 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="grk-gB-eq9">
-                            <rect key="frame" x="97" y="109" width="181" height="30"/>
+                            <rect key="frame" x="37" y="109" width="301" height="38"/>
+                            <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="88q-Og-BMf"/>
-                                <constraint firstAttribute="width" constant="181" id="NCE-r7-HAx"/>
+                                <constraint firstAttribute="height" constant="38" id="88q-Og-BMf"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                            <state key="normal" title="Next" backgroundImage="krystal_button_bg">
-                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
+                            <state key="normal" title="Next">
+                                <color key="titleColor" name="mainViewBgColor"/>
                             </state>
                             <connections>
                                 <action selector="nextButtonTapped:" destination="-1" eventType="touchUpInside" id="e8u-fJ-vc7"/>
@@ -72,11 +73,13 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="grk-gB-eq9" firstAttribute="top" secondItem="CNq-3m-cNP" secondAttribute="bottom" constant="24" id="3uB-60-fSZ"/>
                         <constraint firstItem="UzJ-IU-9Wk" firstAttribute="top" secondItem="fV3-RJ-AlE" secondAttribute="top" constant="37" id="5l9-BL-h9I"/>
+                        <constraint firstAttribute="trailing" secondItem="grk-gB-eq9" secondAttribute="trailing" constant="37" id="7p1-5O-DYo"/>
+                        <constraint firstItem="grk-gB-eq9" firstAttribute="leading" secondItem="fV3-RJ-AlE" secondAttribute="leading" constant="37" id="ZHy-8c-nUV"/>
                         <constraint firstAttribute="height" constant="202" id="iOS-Sb-WsQ"/>
                         <constraint firstItem="CNq-3m-cNP" firstAttribute="leading" secondItem="UzJ-IU-9Wk" secondAttribute="trailing" constant="10" id="ljU-rk-7gk"/>
                         <constraint firstItem="UzJ-IU-9Wk" firstAttribute="leading" secondItem="fV3-RJ-AlE" secondAttribute="leading" constant="37" id="nDf-gf-hsE"/>
@@ -117,6 +120,11 @@
     </objects>
     <resources>
         <image name="filter_check_icon" width="10" height="8"/>
-        <image name="krystal_button_bg" width="300" height="42"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

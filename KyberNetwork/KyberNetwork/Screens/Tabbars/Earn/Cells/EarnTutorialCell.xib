@@ -8,8 +8,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -23,11 +23,11 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="earn_intro_1" translatesAutoresizingMaskIntoConstraints="NO" id="sh3-Dw-SrF">
-                        <rect key="frame" x="35" y="0.0" width="165" height="204"/>
+                        <rect key="frame" x="38" y="0.0" width="159" height="198"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Supply tokens to earn interest (APY). Withdraw anytime." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPN-87-u5H">
-                        <rect key="frame" x="0.0" y="263.5" width="235" height="86.5"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="24"/>
+                        <rect key="frame" x="0.0" y="286.5" width="235" height="63.5"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
                         <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -50,6 +50,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="earn_intro_1" width="165" height="204"/>
+        <image name="earn_intro_1" width="159" height="198"/>
     </resources>
 </document>

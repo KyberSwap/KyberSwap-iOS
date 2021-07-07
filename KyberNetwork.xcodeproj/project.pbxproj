@@ -458,6 +458,8 @@
 		C3018DCC265793E1003C8114 /* SwitchChainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3018DCA265793E1003C8114 /* SwitchChainViewController.xib */; };
 		C30292F0260317EA001929E1 /* MarketingPartnerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */; };
 		C30292F1260317EA001929E1 /* MarketingPartnerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C30292EF260317E9001929E1 /* MarketingPartnerCollectionViewCell.xib */; };
+		C3053AF82685D2990079B505 /* OverviewSearchTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3053AF62685D2980079B505 /* OverviewSearchTokenViewController.swift */; };
+		C3053AF92685D2990079B505 /* OverviewSearchTokenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3053AF72685D2980079B505 /* OverviewSearchTokenViewController.xib */; };
 		C30568AB2670B87700F331CE /* OverviewMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30568A92670B87700F331CE /* OverviewMainViewController.swift */; };
 		C30568AC2670B87700F331CE /* OverviewMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C30568AA2670B87700F331CE /* OverviewMainViewController.xib */; };
 		C3114370249B1C2300084CD8 /* KNMigrationTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */; };
@@ -514,6 +516,7 @@
 		C32670402579E4B70063AA1F /* GasFeeSelectorPopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C326703E2579E4B70063AA1F /* GasFeeSelectorPopupViewController.xib */; };
 		C326C68A256D04B000B35E8F /* InputPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C326C688256D04B000B35E8F /* InputPopUpViewController.swift */; };
 		C326C68B256D04B000B35E8F /* InputPopUpViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C326C689256D04B000B35E8F /* InputPopUpViewController.xib */; };
+		C32BD4A3268DDC7E00ABAA59 /* UISegmentedControl+Kyber.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32BD4A2268DDC7E00ABAA59 /* UISegmentedControl+Kyber.swift */; };
 		C32EA22B246934AA00866968 /* KNPrettyAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32EA229246934AA00866968 /* KNPrettyAlertController.swift */; };
 		C32EA22C246934AA00866968 /* KNPrettyAlertController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C32EA22A246934AA00866968 /* KNPrettyAlertController.xib */; };
 		C32F1F632431ABCD00990706 /* KNMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32F1F622431ABCD00990706 /* KNMarket.swift */; };
@@ -1191,6 +1194,8 @@
 		C3018DCA265793E1003C8114 /* SwitchChainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchChainViewController.xib; sourceTree = "<group>"; };
 		C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingPartnerCollectionViewCell.swift; sourceTree = "<group>"; };
 		C30292EF260317E9001929E1 /* MarketingPartnerCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketingPartnerCollectionViewCell.xib; sourceTree = "<group>"; };
+		C3053AF62685D2980079B505 /* OverviewSearchTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewSearchTokenViewController.swift; sourceTree = "<group>"; };
+		C3053AF72685D2980079B505 /* OverviewSearchTokenViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewSearchTokenViewController.xib; sourceTree = "<group>"; };
 		C30568A92670B87700F331CE /* OverviewMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewMainViewController.swift; sourceTree = "<group>"; };
 		C30568AA2670B87700F331CE /* OverviewMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewMainViewController.xib; sourceTree = "<group>"; };
 		C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNMigrationTutorialViewController.swift; sourceTree = "<group>"; };
@@ -1247,6 +1252,7 @@
 		C326703E2579E4B70063AA1F /* GasFeeSelectorPopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GasFeeSelectorPopupViewController.xib; sourceTree = "<group>"; };
 		C326C688256D04B000B35E8F /* InputPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPopUpViewController.swift; sourceTree = "<group>"; };
 		C326C689256D04B000B35E8F /* InputPopUpViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InputPopUpViewController.xib; sourceTree = "<group>"; };
+		C32BD4A2268DDC7E00ABAA59 /* UISegmentedControl+Kyber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Kyber.swift"; sourceTree = "<group>"; };
 		C32EA229246934AA00866968 /* KNPrettyAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNPrettyAlertController.swift; sourceTree = "<group>"; };
 		C32EA22A246934AA00866968 /* KNPrettyAlertController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNPrettyAlertController.xib; sourceTree = "<group>"; };
 		C32F1F622431ABCD00990706 /* KNMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNMarket.swift; sourceTree = "<group>"; };
@@ -1612,6 +1618,7 @@
 				C65D31E921D4DCD1005D0B04 /* UITextField+Kyber.swift */,
 				C33F748F25E8E8AE0065F333 /* GrowingTextView.swift */,
 				C3ED1DDB2617027A0024970C /* Date+Kyber.swift */,
+				C32BD4A2268DDC7E00ABAA59 /* UISegmentedControl+Kyber.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3706,6 +3713,8 @@
 				C3D560A9260C641E00408875 /* OverviewClaimViewController.xib */,
 				C30568A92670B87700F331CE /* OverviewMainViewController.swift */,
 				C30568AA2670B87700F331CE /* OverviewMainViewController.xib */,
+				C3053AF62685D2980079B505 /* OverviewSearchTokenViewController.swift */,
+				C3053AF72685D2980079B505 /* OverviewSearchTokenViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4466,6 +4475,7 @@
 				C3A6911C25638DE700F57756 /* Lato-ThinItalic.ttf in Resources */,
 				C37CC092245803CA0081FB32 /* Roboto-Medium.ttf in Resources */,
 				C33696112595A387000EDD5D /* ApproveTokenViewController.xib in Resources */,
+				C3053AF92685D2990079B505 /* OverviewSearchTokenViewController.xib in Resources */,
 				25073D2A211AF20D00833C92 /* Montserrat-BoldItalic.ttf in Resources */,
 				C37CC098245803CA0081FB32 /* Roboto-LightItalic.ttf in Resources */,
 				C3EE06C2267A15E50090B432 /* Karla-Medium.ttf in Resources */,
@@ -4805,6 +4815,7 @@
 				253F50E221E5B40E0068813D /* KNPromoCodeCoordinator.swift in Sources */,
 				29C80D511FB67A110037B1E0 /* ArrayResponse.swift in Sources */,
 				257A377E205B7BFA00E86794 /* UINavigationController+Kyber.swift in Sources */,
+				C32BD4A3268DDC7E00ABAA59 /* UISegmentedControl+Kyber.swift in Sources */,
 				25F96F8021537B6400D7F927 /* KNHoldingDocumentInfoPopUp.swift in Sources */,
 				C31371EC26035182003D432B /* KrytalViewController.swift in Sources */,
 				C3114370249B1C2300084CD8 /* KNMigrationTutorialViewController.swift in Sources */,
@@ -5033,6 +5044,7 @@
 				25C45ADD20AD5EF900CDA1FF /* KNImportWalletCoordinator.swift in Sources */,
 				257A37A9205DA06400E86794 /* KNTransactionStatusCoordinator.swift in Sources */,
 				C3C0B0CB2602F8C6001A1710 /* Marketing.swift in Sources */,
+				C3053AF82685D2990079B505 /* OverviewSearchTokenViewController.swift in Sources */,
 				25C45AE120AD75EC00CDA1FF /* KNImportSeedsViewController.swift in Sources */,
 				25CC0ABC20591DFB0009D0D5 /* KNGasCoordinator.swift in Sources */,
 				25696F6D20BEAD97002CC53F /* KNSearchTokenTableViewCell.swift in Sources */,
@@ -5367,23 +5379,23 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "KyberNetwork/KyberSwap - Crypto ExchangeDebug.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Minh Quân Tạ (G52WUM3453)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Minh Quân Tạ (G52WUM3453)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "e5075762-0411-4d14-9957-1b8590f82682";
 				"PROVISIONING_PROFILE[arch=*]" = "e5075762-0411-4d14-9957-1b8590f82682";
-				PROVISIONING_PROFILE_SPECIFIER = "Krytal Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Krytal profile production";
 				SWIFT_OBJC_BRIDGING_HEADER = "KyberNetwork/KyberSwap-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -5402,14 +5414,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				INFOPLIST_FILE = KyberNetwork/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "d08d5f84-6398-4202-b037-8e45e693b687";
@@ -5506,23 +5518,23 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "Apple Development: Minh Quân Tạ (G52WUM3453)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Minh Quân Tạ (G52WUM3453)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios.onesignal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = dev_profile;
+				PROVISIONING_PROFILE_SPECIFIER = "Krytal Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5540,12 +5552,12 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0.9;
+				MARKETING_VERSION = 1.1.0;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios.KrystalNotificationServiceExtension;

@@ -55,7 +55,8 @@ class KNBackUpWalletViewController: KNBaseViewController {
       NSLocalizedString("next", value: "Next", comment: ""),
       for: .normal
     )
-    self.completeButton.rounded(radius: self.completeButton.frame.size.height / 2)
+    self.nextButton.rounded(radius: 16)
+    self.completeButton.rounded(radius: 16)
     self.completeButton.setTitle(
       "continue".toBeLocalised().capitalized,
       for: .normal

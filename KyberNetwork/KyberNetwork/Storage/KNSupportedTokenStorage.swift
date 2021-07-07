@@ -191,12 +191,16 @@ class KNSupportedTokenStorage {
       return
     }
     var customTokenCache = self.customTokens
-    customTokenCache.append(contentsOf: unknown)
-    
+    unknown.forEach { (token) in
+      if !customTokenCache.contains(token) {
+        customTokenCache.append(token)
+      }
+    }
+
     //Check duplicate with support token list
     var duplicateToken: [Token] = []
     customTokenCache.forEach { (token) in
-      if all.contains(token) {
+      if self.supportedToken.contains(token) {
         duplicateToken.append(token)
       }
     }

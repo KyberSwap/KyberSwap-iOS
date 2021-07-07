@@ -4,15 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -36,19 +37,19 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EARN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjs-6P-8Nn">
-                            <rect key="frame" x="37" y="66" width="48" height="21"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
+                            <rect key="frame" x="37" y="63.5" width="53.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2vM-tm-Nr8">
-                            <rect key="frame" x="267" y="60.5" width="94" height="32"/>
-                            <color key="backgroundColor" red="0.090196078430000007" green="0.43921568630000002" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="226" y="59.5" width="94" height="32"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="94" id="JKw-JZ-Zlh"/>
                                 <constraint firstAttribute="height" constant="32" id="zaQ-Mf-ked"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                             <color key="tintColor" red="0.81568627449999997" green="0.83137254900000002" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="27" maxY="0.0"/>
                             <inset key="imageEdgeInsets" minX="72" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -65,26 +66,8 @@
                                 <action selector="walletListButtonTapped:" destination="-1" eventType="touchUpInside" id="tHm-t8-FUJ"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UZ-Ei-oCv">
-                            <rect key="frame" x="225" y="60.5" width="32" height="32"/>
-                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="32" id="CGC-1N-FAO"/>
-                                <constraint firstAttribute="height" constant="32" id="DUG-Fb-fT7"/>
-                            </constraints>
-                            <state key="normal" image="history_icon"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="10"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="historyButtonTapped:" destination="-1" eventType="touchUpInside" id="rBw-TI-zyU"/>
-                            </connections>
-                        </button>
                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UOz-TX-1yR">
-                            <rect key="frame" x="225" y="60.5" width="16" height="16"/>
+                            <rect key="frame" x="326" y="59.5" width="16" height="16"/>
                             <color key="backgroundColor" red="0.97647058819999999" green="0.34901960780000002" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="16" id="koc-k6-WDi"/>
@@ -98,7 +81,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JPv-ML-Fas">
-                            <rect key="frame" x="151" y="60.5" width="63" height="32"/>
+                            <rect key="frame" x="151" y="59.5" width="63" height="32"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chain_switch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Itd-vu-znu">
                                     <rect key="frame" x="38" y="6" width="20" height="20"/>
@@ -113,7 +96,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="toolbarBgColor"/>
                             <constraints>
                                 <constraint firstItem="TNd-zy-Vqd" firstAttribute="top" secondItem="JPv-ML-Fas" secondAttribute="top" id="G6J-8G-Lu5"/>
                                 <constraint firstItem="fSp-Rn-gNZ" firstAttribute="centerY" secondItem="JPv-ML-Fas" secondAttribute="centerY" id="PVJ-pk-u84"/>
@@ -133,20 +116,38 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UZ-Ei-oCv">
+                            <rect key="frame" x="326" y="59.5" width="32" height="32"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="32" id="CGC-1N-FAO"/>
+                                <constraint firstAttribute="height" constant="32" id="DUG-Fb-fT7"/>
+                            </constraints>
+                            <state key="normal" image="history_actionsheet_icon"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="10"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="historyButtonTapped:" destination="-1" eventType="touchUpInside" id="rBw-TI-zyU"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="kjs-6P-8Nn" firstAttribute="leading" secondItem="ESA-T6-5qz" secondAttribute="leading" constant="37" id="514-DJ-akE"/>
+                        <constraint firstAttribute="trailing" secondItem="8UZ-Ei-oCv" secondAttribute="trailing" constant="17" id="9vW-Cf-6PB"/>
                         <constraint firstItem="UOz-TX-1yR" firstAttribute="top" secondItem="8UZ-Ei-oCv" secondAttribute="top" id="Auw-gc-s3R"/>
                         <constraint firstAttribute="height" constant="113" id="DjA-NJ-ouz"/>
+                        <constraint firstItem="2vM-tm-Nr8" firstAttribute="leading" secondItem="JPv-ML-Fas" secondAttribute="trailing" constant="12" id="Gd4-x9-MZH"/>
                         <constraint firstItem="UOz-TX-1yR" firstAttribute="leading" secondItem="8UZ-Ei-oCv" secondAttribute="leading" id="Ikb-QA-Xn5"/>
                         <constraint firstItem="8UZ-Ei-oCv" firstAttribute="centerY" secondItem="kjs-6P-8Nn" secondAttribute="centerY" id="Irf-St-XdO"/>
                         <constraint firstItem="8UZ-Ei-oCv" firstAttribute="centerY" secondItem="JPv-ML-Fas" secondAttribute="centerY" id="MXs-sZ-sGe"/>
                         <constraint firstAttribute="bottom" secondItem="kjs-6P-8Nn" secondAttribute="bottom" constant="26" id="TeS-0w-xyf"/>
-                        <constraint firstItem="2vM-tm-Nr8" firstAttribute="leading" secondItem="8UZ-Ei-oCv" secondAttribute="trailing" constant="10" id="ZoT-o6-WGv"/>
                         <constraint firstItem="2vM-tm-Nr8" firstAttribute="centerY" secondItem="kjs-6P-8Nn" secondAttribute="centerY" id="cwn-06-Dzm"/>
-                        <constraint firstItem="8UZ-Ei-oCv" firstAttribute="leading" secondItem="JPv-ML-Fas" secondAttribute="trailing" constant="11" id="hpQ-tk-gb9"/>
-                        <constraint firstAttribute="trailing" secondItem="2vM-tm-Nr8" secondAttribute="trailing" constant="14" id="rE6-Qs-cHM"/>
+                        <constraint firstItem="8UZ-Ei-oCv" firstAttribute="leading" secondItem="2vM-tm-Nr8" secondAttribute="trailing" constant="6" id="vpy-dU-mDB"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -157,20 +158,20 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JYK-Ol-cwQ">
                     <rect key="frame" x="37" y="605" width="301" height="42"/>
-                    <color key="backgroundColor" red="0.92941176469999998" green="0.6705882353" blue="0.1843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="buttonBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="q2y-MW-sRJ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                    <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                     <state key="normal" title="Explore">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" name="mainViewBgColor"/>
                     </state>
                     <connections>
                         <action selector="exploreButtonTapped:" destination="-1" eventType="touchUpInside" id="PQ8-BS-oPA"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Pv-jk-W5c">
-                    <rect key="frame" x="0.0" y="143" width="375" height="442"/>
+                    <rect key="frame" x="0.0" y="113" width="375" height="472"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W2J-Yb-hbf">
@@ -180,15 +181,15 @@
                             <rect key="frame" x="138.5" y="48" width="98" height="119"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdi-dv-wfG">
-                            <rect key="frame" x="47" y="200" width="281" height="57.5"/>
+                            <rect key="frame" x="47" y="200" width="281" height="59.5"/>
                             <string key="text">We are sorry. 
 Currently we support earn functionality only on Ethereum chain.</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="17"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="riV-72-aXi" firstAttribute="centerX" secondItem="W2J-Yb-hbf" secondAttribute="centerX" id="F8b-Zk-pCo"/>
                         <constraint firstItem="wdi-dv-wfG" firstAttribute="leading" secondItem="W2J-Yb-hbf" secondAttribute="leading" constant="47" id="NQf-7B-zZP"/>
@@ -199,7 +200,7 @@ Currently we support earn functionality only on Ethereum chain.</string>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="JYK-Ol-cwQ" secondAttribute="bottom" constant="20" id="3gI-A3-FBu"/>
                 <constraint firstItem="ESA-T6-5qz" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="6cU-zS-QFX"/>
@@ -214,16 +215,31 @@ Currently we support earn functionality only on Ethereum chain.</string>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JYK-Ol-cwQ" secondAttribute="trailing" constant="37" id="bP4-hL-qyZ"/>
                 <constraint firstItem="ESA-T6-5qz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dDP-6M-dOM"/>
                 <constraint firstItem="W2J-Yb-hbf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="gW5-Hi-CxR"/>
-                <constraint firstItem="4Pv-jk-W5c" firstAttribute="top" secondItem="ESA-T6-5qz" secondAttribute="bottom" constant="30" id="r9c-jV-GRB"/>
+                <constraint firstItem="4Pv-jk-W5c" firstAttribute="top" secondItem="ESA-T6-5qz" secondAttribute="bottom" id="r9c-jV-GRB"/>
             </constraints>
             <point key="canvasLocation" x="140" y="103.89805097451276"/>
         </view>
     </objects>
     <resources>
-        <image name="arrow_down_template" width="12" height="9"/>
+        <image name="arrow_down_template" width="24" height="24"/>
         <image name="chain_empty_icon" width="98" height="119"/>
         <image name="chain_eth_icon" width="24" height="24"/>
         <image name="chain_switch_icon" width="20" height="20"/>
-        <image name="history_icon" width="22" height="20"/>
+        <image name="history_actionsheet_icon" width="24" height="24"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29411764705882354" green="0.30980392156862746" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="toolbarBgColor">
+            <color red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

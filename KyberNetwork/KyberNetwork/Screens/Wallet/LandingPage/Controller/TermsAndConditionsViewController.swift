@@ -31,15 +31,16 @@ class TermsAndConditionsViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.checkBoxButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: 5)
+    self.checkBoxButton.rounded(radius: 2)
+    self.nextButton.rounded(radius: 16)
     self.updateUI()
     let linkAttributes: [String: Any] = [
-      NSAttributedStringKey.font.rawValue: UIFont.Kyber.latoRegular(with: 14),
-      NSAttributedStringKey.foregroundColor.rawValue: UIColor.Kyber.SWYellow,
+      NSAttributedStringKey.font.rawValue: UIFont.Kyber.regular(with: 14),
+      NSAttributedStringKey.foregroundColor.rawValue: UIColor(named: "buttonBackgroundColor")!,
     ]
     let amountAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 15),
+      NSAttributedStringKey.foregroundColor: UIColor(named: "textWhiteColor")!,
     ]
     let attributionString = NSMutableAttributedString(string: "I accept Terms of Use and Privacy Policy", attributes: amountAttributes)
     attributionString.addAttribute(.link, value: "https://files.krystal.app/terms.pdf", range: NSRange(location: 9, length: 12))

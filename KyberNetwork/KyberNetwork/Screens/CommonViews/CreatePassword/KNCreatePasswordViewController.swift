@@ -21,14 +21,18 @@ class KNCreatePasswordViewController: KNBaseViewController {
   @IBOutlet weak var confirmPasswordTextLabel: UILabel!
 
   @IBOutlet weak var warningMessageLabel: UILabel!
+  @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
 
   fileprivate weak var delegate: KNCreatePasswordViewControllerDelegate?
   fileprivate let wallet: Wallet
+  let transitor = TransitionDelegate()
 
   init(wallet: Wallet, delegate: KNCreatePasswordViewControllerDelegate) {
     self.delegate = delegate
     self.wallet = wallet
     super.init(nibName: "KNCreatePasswordViewController", bundle: nil)
+    self.modalPresentationStyle = .custom
+    self.transitioningDelegate = transitor
   }
 
   required init?(coder aDecoder: NSCoder) {
@@ -43,12 +47,6 @@ class KNCreatePasswordViewController: KNBaseViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.passwordTextField.becomeFirstResponder()
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.doneButton.removeSublayer(at: 0)
-    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   fileprivate func setupUI() {
@@ -74,8 +72,8 @@ class KNCreatePasswordViewController: KNBaseViewController {
 
     self.doneButton.setTitle("Done".toBeLocalised(), for: .normal)
 
-    self.doneButton.rounded(radius: self.doneButton.frame.size.height / 2)
-    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.doneButton.rounded(radius: 16)
+    self.containerView.rounded(radius: 20)
 
     let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapOutSideToDismiss(_:)))
     self.view.addGestureRecognizer(tapGesture)
@@ -115,5 +113,19 @@ extension KNCreatePasswordViewController: UITextFieldDelegate {
     self.errorConfirmPasswordLabel.isHidden = true
     self.errorPasswordLabel.isHidden = true
     return true
+  }
+}
+
+extension KNCreatePasswordViewController: BottomPopUpAbstract {
+  func setTopContrainConstant(value: CGFloat) {
+    self.contentViewTopContraint.constant = value
+  }
+
+  func getPopupHeight() -> CGFloat {
+    return 433
+  }
+
+  func getPopupContentView() -> UIView {
+    return self.containerView
   }
 }

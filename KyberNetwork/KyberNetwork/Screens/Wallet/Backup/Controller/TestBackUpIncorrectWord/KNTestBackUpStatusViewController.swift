@@ -101,22 +101,26 @@ class KNTestBackUpStatusViewController: KNBaseViewController, BottomPopUpAbstrac
     if self.viewModel.numberButtons == 1 {
       self.secondButtonWidthConstraint.constant = 0
       self.paddingConstraintForButtons.constant = 0
-      self.firstButton.rounded(radius: self.firstButton.frame.size.height / 2)
+      self.firstButton.rounded(radius: 16)
       self.firstButton.setTitle(self.viewModel.firstButtonTitle, for: .normal)
-      self.firstButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-      self.firstButton.setTitleColor(.white, for: .normal)
+      self.firstButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+      self.firstButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
     } else {
       self.firstButton.rounded(color: UIColor.Kyber.SWButtonYellow, width: 1, radius: self.firstButton.frame.size.height / 2)
       self.firstButton.setTitle(self.viewModel.firstButtonTitle, for: .normal)
-      self.secondButton.rounded(radius: self.secondButton.frame.size.height / 2)
+      self.secondButton.rounded(radius: 16)
       self.secondButton.setTitle(self.viewModel.secondButtonTitle, for: .normal)
-      self.secondButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
 
       self.paddingConstraintForButtons.constant = 16
       self.secondButtonWidthConstraint.constant = (self.containerView.frame.width - 48) / 2.0
-      self.secondButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-      self.firstButton.setTitleColor(UIColor.Kyber.SWButtonYellow, for: .normal)
-      self.secondButton.setTitleColor(.white, for: .normal)
+      
+      self.secondButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+      self.secondButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
+      
+      self.firstButton.backgroundColor = UIColor(named: "navButtonBgColor")
+      self.firstButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
+      
+      
     }
     self.view.updateConstraints()
     if self.viewModel.isSuccess {
@@ -137,17 +141,6 @@ class KNTestBackUpStatusViewController: KNBaseViewController, BottomPopUpAbstrac
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
     self.view.endEditing(true)
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    if self.viewModel.numberButtons == 1 {
-      self.firstButton.removeSublayer(at: 0)
-      self.firstButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    } else {
-      self.secondButton.removeSublayer(at: 0)
-      self.secondButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    }
   }
 
   @IBAction func firstButtonPressed(_ sender: Any) {

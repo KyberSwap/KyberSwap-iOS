@@ -32,7 +32,7 @@ class EarnSelectTableViewCellViewModel {
     if self.supplyRate == 0 {
       return ""
     } else {
-      return String(format: "%.6f", self.supplyRate * 100.0) + "%"
+      return String(format: "%.2f", self.supplyRate * 100.0) + "%"
     }
   }
 }
@@ -54,7 +54,7 @@ class EarnSelectTableViewCell: UITableViewCell {
   }
   
   func updateCellViewViewModel(_ viewModel: EarnSelectTableViewCellViewModel) {
-    let selectColor = viewModel.isSelected ? UIColor(hex: "ffdc00") : UIColor(hex: "3fa3c4")
+    let selectColor = viewModel.isSelected ? UIColor(named: "buttonBackgroundColor")! : UIColor(named: "investButtonBgColor")!
     let selectedBorder = viewModel.isSelected ? 5 : 1
     self.checkStatusIndicator.rounded(color: selectColor, width: CGFloat(selectedBorder), radius: 8)
     //TODO: temp soluton with only 2 platform and aave ropten is not correct name
@@ -65,5 +65,4 @@ class EarnSelectTableViewCell: UITableViewCell {
     self.distributionSupplyRateLabel.text = viewModel.distributionSupplyRateDiplayString()
     self.stableBorrowRateLabel.text = viewModel.stableBorrowRateDiplayString()
   }
-  
 }

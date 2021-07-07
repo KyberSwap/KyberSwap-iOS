@@ -109,13 +109,13 @@ class GasFeeSelectorPopupViewModel {
   func attributedString(for gasPrice: BigInt, text: String) -> NSAttributedString {
     let gasPriceString: String = gasPrice.string(units: .gwei, minFractionDigits: 2, maxFractionDigits: 2)
     let gasPriceAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
-      NSAttributedStringKey.font: UIFont.Kyber.latoBold(with: 12),
+      NSAttributedStringKey.foregroundColor: UIColor(named: "textWhiteColor")!,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 16),
       NSAttributedStringKey.kern: 0.0,
     ]
     let feeAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 10),
+      NSAttributedStringKey.foregroundColor: UIColor(named: "normalTextColor")!,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 12),
       NSAttributedStringKey.kern: 0.0,
     ]
     let attributedString = NSMutableAttributedString()
@@ -304,7 +304,7 @@ class GasFeeSelectorPopupViewController: KNBaseViewController {
     self.updateGasPriceUIs()
     self.updateMinRateUIs()
     if self.viewModel.isContainSippageSectionOption {
-      self.slippageRateSectionHeighContraint.constant = 140
+      self.slippageRateSectionHeighContraint.constant = 160
       self.slippageSectionContainerView.isHidden = false
     } else {
       self.slippageRateSectionHeighContraint.constant = 0
@@ -330,13 +330,13 @@ class GasFeeSelectorPopupViewController: KNBaseViewController {
     let normalWidth: CGFloat = 1.0
 
     self.threePercentButton.rounded(
-      color: UIColor.Kyber.SWActivePageControlColor,
+      color: UIColor(named: "buttonBackgroundColor")!,
       width: self.viewModel.minRateTypeInt == 0 ? selectedWidth : normalWidth,
       radius: self.threePercentButton.frame.height / 2.0
     )
 
     self.customButton.rounded(
-      color: UIColor.Kyber.SWActivePageControlColor,
+      color: UIColor(named: "buttonBackgroundColor")!,
       width: self.viewModel.minRateTypeInt == 2 ? selectedWidth : normalWidth,
       radius: self.customButton.frame.height / 2.0
     )
@@ -367,25 +367,25 @@ class GasFeeSelectorPopupViewController: KNBaseViewController {
     let normalWidth: CGFloat = 1.0
 
     self.superFastGasButton.rounded(
-      color: UIColor.Kyber.SWActivePageControlColor,
+      color: UIColor(named: "buttonBackgroundColor")!,
       width: self.viewModel.selectedType == .superFast ? selectedWidth : normalWidth,
       radius: self.fasGasButton.frame.height / 2.0
     )
 
     self.fasGasButton.rounded(
-      color: UIColor.Kyber.SWActivePageControlColor,
+      color: UIColor(named: "buttonBackgroundColor")!,
       width: self.viewModel.selectedType == .fast ? selectedWidth : normalWidth,
       radius: self.fasGasButton.frame.height / 2.0
     )
 
     self.mediumGasButton.rounded(
-      color: UIColor.Kyber.SWActivePageControlColor,
+      color: UIColor(named: "buttonBackgroundColor")!,
       width: self.viewModel.selectedType == .medium ? selectedWidth : normalWidth,
       radius: self.mediumGasButton.frame.height / 2.0
     )
 
     self.slowGasButton.rounded(
-      color: UIColor.Kyber.SWActivePageControlColor,
+      color: UIColor(named: "buttonBackgroundColor")!,
       width: self.viewModel.selectedType == .slow ? selectedWidth : normalWidth,
       radius: self.slowGasButton.frame.height / 2.0
     )

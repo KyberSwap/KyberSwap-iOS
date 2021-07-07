@@ -58,12 +58,6 @@ class KConfirmSwapViewController: KNBaseViewController {
     self.setupUI()
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.confirmButton.removeSublayer(at: 0)
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
-
   fileprivate func setupUI() {
     self.fromAmountLabel.text = self.viewModel.leftAmountString
     self.fromAmountLabel.addLetterSpacing()
@@ -92,17 +86,15 @@ class KConfirmSwapViewController: KNBaseViewController {
     transactionGasPriceLabel.addLetterSpacing()
 
     self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
+    self.cancelButton.rounded(radius: self.cancelButton.frame.size.height / 2)
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal
     )
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.cancelButton.setTitle(
       NSLocalizedString("cancel", value: "Cancel", comment: ""),
       for: .normal
     )
-    self.cancelButton.rounded(color: UIColor(red: 35, green: 167, blue: 181), width: 1, radius: self.cancelButton.frame.size.height / 2)
-
     self.minAcceptableRateTextLabel.text = NSLocalizedString("min.acceptable.rate", value: "Min Acceptable Rate", comment: "")
     self.transactionFeeTextLabel.text = "Maximum gas fee".toBeLocalised()
     self.transactionFeeTextLabel.addLetterSpacing()
@@ -169,7 +161,7 @@ extension KConfirmSwapViewController: BottomPopUpAbstract {
   }
 
   func getPopupHeight() -> CGFloat {
-    return 574
+    return 600
   }
 
   func getPopupContentView() -> UIView {

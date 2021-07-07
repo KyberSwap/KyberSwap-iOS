@@ -22,6 +22,8 @@ class EarnMenuViewController: KNBaseViewController {
   @IBOutlet weak var pendingTxIndicatorView: UIView!
   @IBOutlet weak var currentChainIcon: UIImageView!
   @IBOutlet var warningContainerView: UIView!
+  @IBOutlet weak var mainInfoTitle: UILabel!
+  
   
   let viewModel: EarnMenuViewModel
   weak var delegate: EarnMenuViewControllerDelegate?
@@ -50,7 +52,20 @@ class EarnMenuViewController: KNBaseViewController {
       self.updateUIWalletSelectButton(notNil)
     }
     self.menuTableView.tableFooterView = self.warningContainerView
-    
+    let attributedString = NSMutableAttributedString(string: "Select the token you wish to supply to earn interest. Interest rate may change as per market dynamics.\n", attributes: [
+      .font: UIFont(name: "Karla-Regular", size: 16.0)!,
+      .foregroundColor: UIColor(named: "textWhiteColor"),
+      .kern: 0.0
+    ])
+    attributedString.addAttributes([
+      .font: UIFont(name: "Karla-Bold", size: 16.0)!,
+      .foregroundColor: UIColor(named: "buttonBackgroundColor")
+    ], range: NSRange(location: 29, length: 6))
+    attributedString.addAttributes([
+      .font: UIFont(name: "Karla-Bold", size: 16.0)!,
+      .foregroundColor: UIColor(named: "buttonBackgroundColor")
+    ], range: NSRange(location: 39, length: 13))
+    self.mainInfoTitle.attributedText = attributedString
   }
   
   override func viewWillAppear(_ animated: Bool) {

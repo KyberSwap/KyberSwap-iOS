@@ -44,18 +44,12 @@ class ShareReferralLinkViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.okButton.rounded(radius: self.okButton.frame.size.height / 2)
-    self.okButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
+    self.okButton.rounded(radius: 16)
+    self.cancelButton.rounded(radius: 16)
     self.ratioLabel.text = self.viewModel.displayRatioString
     self.refCodeLabel.text = self.viewModel.refCode
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.okButton.removeSublayer(at: 0)
-    self.okButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
 
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
     self.dismiss(animated: true, completion: nil)

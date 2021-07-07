@@ -5,17 +5,17 @@ import UIKit
 extension UIFont {
   enum Kyber {
     static func black(with size: CGFloat, italic: Bool = false) -> UIFont {
-      if !italic { return UIFont(name: "Roboto-Black", size: size)! }
+      if !italic { return UIFont(name: "Karla-Black", size: size)! }
       return UIFont(name: "Karla-BlackItalic", size: size)!
     }
 
     static func bold(with size: CGFloat, italic: Bool = false) -> UIFont {
-      if !italic { return UIFont(name: "Roboto-Bold", size: size)! }
+      if !italic { return UIFont(name: "Karla-Bold", size: size)! }
       return UIFont(name: "Karla-BoldItalic", size: size)!
     }
 
     static func light(with size: CGFloat, italic: Bool = false) -> UIFont {
-      if !italic { return UIFont(name: "Roboto-Light", size: size)! }
+      if !italic { return UIFont(name: "Karla-Light", size: size)! }
       return UIFont(name: "Karla-LightItalic", size: size)!
     }
 
@@ -24,7 +24,7 @@ extension UIFont {
     }
 
     static func medium(with size: CGFloat, italic: Bool = false) -> UIFont {
-      if !italic { return UIFont(name: "Roboto-Medium", size: size)! }
+      if !italic { return UIFont(name: "Karla-Medium", size: size)! }
       return UIFont(name: "Karla-MediumItalic", size: size)!
     }
 

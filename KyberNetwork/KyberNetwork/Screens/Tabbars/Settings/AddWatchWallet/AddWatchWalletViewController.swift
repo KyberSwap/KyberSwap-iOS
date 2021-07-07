@@ -113,19 +113,13 @@ class AddWatchWalletViewController: UIViewController {
   }
 
   fileprivate func setupUI() {
-    self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
-    self.addButton.rounded(radius: self.addButton.frame.size.height / 2)
+    self.cancelButton.rounded(radius: 16)
+    self.addButton.rounded(radius: 16)
     self.addButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.titleLabel.text = self.viewModel.displayTitle
     self.walletLabelTextField.text = self.viewModel.wallet?.name
     self.walletAddressTextField.text = self.viewModel.wallet?.address
     self.addButton.setTitle(self.viewModel.displayAddButtonTitle, for: .normal)
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.addButton.removeSublayer(at: 0)
-    self.addButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   @IBAction func cancelButtonTapped(_ sender: UIButton) {

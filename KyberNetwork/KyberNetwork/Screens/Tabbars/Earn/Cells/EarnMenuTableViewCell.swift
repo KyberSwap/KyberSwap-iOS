@@ -21,7 +21,7 @@ struct EarnMenuTableViewCellViewModel {
     }
 
     if let notNilValue = optimizeValue {
-      self.borrowRateAPY = String(format: "%.6f", notNilValue.supplyRate * 100.0) + "%"
+      self.borrowRateAPY = String(format: "%.4f", notNilValue.supplyRate * 100.0) + "%"
       self.supplyRate = notNilValue.supplyRate
     } else {
       self.borrowRateAPY = ""

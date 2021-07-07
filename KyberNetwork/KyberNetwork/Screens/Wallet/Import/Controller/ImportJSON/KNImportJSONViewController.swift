@@ -15,7 +15,7 @@ class KNImportJSONViewController: KNBaseViewController {
 
   lazy var buttonAttributes: [NSAttributedStringKey: Any] = {
     return [
-      NSAttributedStringKey.foregroundColor: UIColor(red: 35, green: 167, blue: 181),
+      NSAttributedStringKey.foregroundColor: UIColor(named: "normalTextColor")!,
       NSAttributedStringKey.kern: 0.0,
     ]
   }()
@@ -52,23 +52,22 @@ class KNImportJSONViewController: KNBaseViewController {
     self.nameWalletTextField.text = ""
     self.enterPasswordTextField.text = ""
     self.enterPasswordTextField.isSecureTextEntry = true
-    self.secureTextButton.setImage(UIImage(named: !self.enterPasswordTextField.isSecureTextEntry ? "hide_secure_text_blue" : "show_secure_text_blue"), for: .normal)
+    self.secureTextButton.setImage(UIImage(named: !self.enterPasswordTextField.isSecureTextEntry ? "hide_eye_icon" : "show_eye_icon"), for: .normal)
 
     self.updateNextButton()
   }
 
   fileprivate func setupUI() {
     self.importJSONButton.rounded(
-      color: UIColor(red: 35, green: 167, blue: 181),
+      color: UIColor(named: "normalTextColor")!,
       width: 1,
-      radius: self.importJSONButton.frame.size.height / 2
+      radius: 16
     )
     self.enterPasswordTextField.delegate = self
     self.passwordFieldContainer.rounded(radius: 8)
     self.nameWalletTextField.rounded(radius: 8)
 
-    self.nextButton.rounded(radius: self.nextButton.frame.size.height / 2)
-    self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.nextButton.rounded(radius: 16)
     self.nextButton.setTitle(
       NSLocalizedString("Connect", value: "Connect", comment: ""),
       for: .normal
@@ -81,14 +80,8 @@ class KNImportJSONViewController: KNBaseViewController {
     self.secureTextButton.setImage(UIImage(named: !self.enterPasswordTextField.isSecureTextEntry ? "hide_secure_text_blue" : "show_secure_text_blue"), for: .normal)
     self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.resetUIs()
-//    self.containerRefCodeView.isHidden = !KNGeneralProvider.shared.isEthereum
-//    self.refCodeTitleLabel.isHidden = !KNGeneralProvider.shared.isEthereum
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.updateNextButton()
-  }
 
   fileprivate func updateNextButton() {
     let enabled: Bool = {
@@ -97,7 +90,6 @@ class KNImportJSONViewController: KNBaseViewController {
     }()
     self.nextButton.isEnabled = enabled
     if enabled {
-      self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
       self.nextButton.alpha = 1
     } else {
       self.nextButton.alpha = 0.2

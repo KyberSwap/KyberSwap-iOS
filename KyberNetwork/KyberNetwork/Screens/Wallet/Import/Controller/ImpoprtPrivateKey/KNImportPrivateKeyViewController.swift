@@ -39,8 +39,7 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
     self.privateKeyNoteLabel.text = "*\(NSLocalizedString("private.key.has.to.be.64.characters", value: "Private key has to be 64 characters", comment: ""))"
     self.privateKeyNoteLabel.addLetterSpacing()
 
-    self.nextButton.rounded(radius: self.nextButton.frame.size.height / 2)
-    self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.nextButton.rounded(radius: 16)
     self.nextButton.setTitle(
       NSLocalizedString("Connect", value: "Connect", comment: ""),
       for: .normal
@@ -55,8 +54,6 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
     self.walletNameTextField.rounded(radius: 8)
     self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.resetUI()
-//    self.containerRefCodeView.isHidden = !KNGeneralProvider.shared.isEthereum
-//    self.refCodeTitleLabel.isHidden = !KNGeneralProvider.shared.isEthereum
   }
 
   func resetUI() {
@@ -68,13 +65,8 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
     self.updateNextButton()
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.updateNextButton()
-  }
-
   fileprivate func updateSecureTextEntry() {
-    let secureTextImage = UIImage(named: !self.isSecureText ? "hide_secure_text_blue" : "show_secure_text_blue")
+    let secureTextImage = UIImage(named: !self.isSecureText ? "hide_eye_icon" : "show_eye_icon")
     self.secureTextButton.setImage(secureTextImage, for: .normal)
     self.enterPrivateKeyTextField.isSecureTextEntry = self.isSecureText
   }
@@ -92,7 +84,6 @@ class KNImportPrivateKeyViewController: KNBaseViewController {
     }()
     self.privateKeyNoteLabel.textColor = noteColor
     if enabled {
-      self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
       self.nextButton.alpha = 1
     } else {
       self.nextButton.alpha = 0.2

@@ -167,7 +167,7 @@ class EarnSwapViewModel {
     default:
       break
     }
-    return "Gas fee: \(feeString) ETH (\(typeString))"
+    return "\(feeString) ETH (\(typeString))"
   }
   //TODO: can be improve with extension
   var gasFeeString: String {
@@ -390,7 +390,7 @@ class EarnSwapViewModel {
   
   var slippageString: String {
     let doubleStr = String(format: "%.2f", self.minRatePercent)
-    return "Slippage: \(doubleStr)%"
+    return "\(doubleStr)%"
   }
 
   var isUseGasToken: Bool {
@@ -460,7 +460,6 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   
   @IBOutlet weak var walletsSelectButton: UIButton!
   
-  @IBOutlet weak var isUseGasTokenIcon: UIImageView!
   @IBOutlet weak var slippageLabel: UILabel!
   @IBOutlet weak var approveButtonLeftPaddingContraint: NSLayoutConstraint!
   @IBOutlet weak var approveButtonRightPaddingContaint: NSLayoutConstraint!
@@ -678,7 +677,6 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   fileprivate func setUpGasFeeView() {
     self.selectedGasFeeLabel.text = self.viewModel.gasFeeString
     self.slippageLabel.text = self.viewModel.slippageString
-    self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
   }
   
   fileprivate func updateAllowance() {
@@ -836,10 +834,6 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.setUpGasFeeView()
   }
   
-  fileprivate func updateGasTokenArea() {
-    self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
-  }
-  
   func updateUIBalanceDidChange() {
     guard self.isViewSetup else {
       return
@@ -860,7 +854,6 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   }
   
   func coordinatorUpdateIsUseGasToken(_ state: Bool) {
-    self.updateGasTokenArea()
   }
   
   func coordinatorDidUpdateAllowance(token: TokenData, allowance: BigInt) {

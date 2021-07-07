@@ -82,7 +82,6 @@ class KSwapViewController: KNBaseViewController {
   @IBOutlet weak var approveButtonWidthContraint: NSLayoutConstraint!
   @IBOutlet weak var rateWarningLabel: UILabel!
   @IBOutlet weak var rateWarningContainerView: UIView!
-  @IBOutlet weak var isUseGasTokenIcon: UIImageView!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
   @IBOutlet weak var currentChainIcon: UIImageView!
 
@@ -90,18 +89,6 @@ class KSwapViewController: KNBaseViewController {
   fileprivate var estGasLimitTimer: Timer?
   fileprivate var previousCallEvent: KSwapViewEvent?
   fileprivate var previousCallTimeStamp: TimeInterval = 0
-
-//  lazy var toolBar: KNCustomToolbar = {
-//    return KNCustomToolbar(
-//      leftBtnTitle: NSLocalizedString("swap.all", value: "Swap All", comment: ""),
-//      rightBtnTitle: NSLocalizedString("done", value: "Done", comment: ""),
-//      barTintColor: UIColor.Kyber.enygold,
-//      delegate: self)
-//  }()
-
-//  deinit {
-//    self.removeObserveNotification()
-//  }
 
   init(viewModel: KSwapViewModel) {
     self.viewModel = viewModel
@@ -194,7 +181,6 @@ class KSwapViewController: KNBaseViewController {
 
     self.fromAmountTextField.text = ""
     self.fromAmountTextField.adjustsFontSizeToFitWidth = true
-//    self.fromAmountTextField.inputAccessoryView = self.toolBar
     self.fromAmountTextField.delegate = self
 
     self.viewModel.updateAmount("", isSource: true)
@@ -214,9 +200,8 @@ class KSwapViewController: KNBaseViewController {
 
   fileprivate func setUpGasFeeView() {
     self.viewModel.updateSelectedGasPriceType(self.viewModel.selectedGasPriceType)
-    self.gasFeeLabel.text = self.viewModel.gasFeeString
+    self.gasFeeLabel.attributedText = self.viewModel.gasFeeString
     self.slippageLabel.text = self.viewModel.slippageString
-    self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
   }
 
   fileprivate func updateUIPendingTxIndicatorView() {
@@ -627,22 +612,7 @@ extension KSwapViewController {
   fileprivate func updateAllowance() {
     self.delegate?.kSwapViewController(self, run: .checkAllowance(token: self.viewModel.from))
   }
-  /*
-  fileprivate func updateAdvancedSettingsView() {
-    let rate = self.viewModel.estimatedRateDouble
-    let percent = self.viewModel.minRatePercent
-    self.advancedSettingsView.updatePairToken("\(self.viewModel.from.symbol)-\(self.viewModel.to.symbol)")
-    self.advancedSettingsView.updateMinRate(rate, percent: percent)
 
-    self.advancedSettingsView.updateGasPrices(
-      fast: KNGasCoordinator.shared.fastKNGas,
-      medium: KNGasCoordinator.shared.standardKNGas,
-      slow: KNGasCoordinator.shared.lowKNGas,
-      superFast: KNGasCoordinator.shared.superFastKNGas
-    )
-    self.view.layoutIfNeeded()
-  }
-*/
   @objc func balanceLabelTapped(_ sender: Any) {
     self.keyboardSwapAllButtonPressed(sender)
   }
@@ -699,7 +669,6 @@ extension KSwapViewController {
     self.updateTokensView()
     self.updateViewAmountDidChange()
     self.walletsListButton.setTitle(self.viewModel.wallet.address.description, for: .normal)
-    self.updateGasTokenArea()
     self.balanceLabel.text = self.viewModel.balanceDisplayText
     self.updateUIPendingTxIndicatorView()
     self.view.layoutIfNeeded()
@@ -978,17 +947,8 @@ extension KSwapViewController {
     self.viewModel.updateRefPrice(from: from, to: to, change: change, source: source)
     self.updateUIRefPrice()
   }
-
-  fileprivate func updateGasTokenArea() {
-    guard KNGeneralProvider.shared.isEthereum else {
-      self.isUseGasTokenIcon.isHidden = true
-      return
-    }
-    self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
-  }
   
   func coordinatorUpdateIsUseGasToken(_ state: Bool) {
-    self.updateGasTokenArea()
   }
 
   fileprivate func showErrorMessage() {
@@ -1013,7 +973,6 @@ extension KSwapViewController {
     self.viewModel.updateAmount("", isSource: false)
     self.updateTokensView()
     self.updateViewAmountDidChange()
-    self.updateGasTokenArea()
     self.balanceLabel.text = self.viewModel.balanceDisplayText
     self.setUpChangeRateButton()
   }

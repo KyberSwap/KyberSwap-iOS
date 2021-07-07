@@ -52,7 +52,7 @@ class KNEditWalletViewController: KNBaseViewController {
     self.walletNameTextField.text = self.viewModel.wallet.name
     self.showBackupPhraseButton.setTitle(NSLocalizedString("show.backup.phrase", value: "Show Backup Phrase", comment: ""), for: .normal)
     self.deleteButton.setTitle(NSLocalizedString("delete.wallet", value: "Delete Wallet", comment: ""), for: .normal)
-    self.doneButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.doneButton.frame.size.height / 2)
+    self.doneButton.rounded(radius: 16)
   }
 
   override func viewDidAppear(_ animated: Bool) {

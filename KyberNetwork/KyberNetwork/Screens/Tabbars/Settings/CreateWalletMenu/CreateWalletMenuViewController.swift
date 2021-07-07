@@ -46,9 +46,9 @@ class CreateWalletMenuViewController: UIViewController {
   }
 
   fileprivate func setupUI() {
-    self.createRealWalletButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.createRealWalletButton.frame.size.height / 2)
-    self.importWalletButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.importWalletButton.frame.size.height / 2)
-    self.addWatchWalletButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.addWatchWalletButton.frame.size.height / 2)
+    self.createRealWalletButton.rounded(radius: 16)
+    self.importWalletButton.rounded(radius: 16)
+    self.addWatchWalletButton.rounded(radius: 16)
     self.addWatchWalletButton.isHidden = !isFull
   }
 

@@ -15,7 +15,7 @@ struct CustomTokenCellViewModel {
 
 class CustomTokenTableViewCell: SwipeTableViewCell {
   static let kCellID: String = "CustomTokenTableViewCell"
-  static let kCellHeight: CGFloat = 56
+  static let kCellHeight: CGFloat = 60
   
   @IBOutlet weak var imageIcon: UIImageView!
   @IBOutlet weak var tokenNameLabel: UILabel!

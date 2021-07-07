@@ -27,8 +27,7 @@ class KNShowBackUpDataViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.navTitleLabel.text = NSLocalizedString("backup.your.wallet", value: "Backup Your Wallet", comment: "")
-    self.saveButton.rounded(radius: self.saveButton.frame.height / 2)
-    self.saveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.saveButton.rounded(radius: 16)
     self.saveButton.setTitle(NSLocalizedString("save", value: "Save", comment: ""), for: .normal)
     let fullString = NSMutableAttributedString()
     let image1Attachment = NSTextAttachment()
@@ -44,13 +43,6 @@ class KNShowBackUpDataViewController: KNBaseViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     self.qrcodeImageView.image = UIImage.generateQRCode(from: self.backupData)
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    
-    self.saveButton.removeSublayer(at: 0)
-    self.saveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   @IBAction func edgePanGestureAction(_ sender: UIScreenEdgePanGestureRecognizer) {

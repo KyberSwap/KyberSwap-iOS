@@ -44,12 +44,11 @@ class KNListContactViewController: KNBaseViewController {
     self.contactTableView.isHidden = contacts.isEmpty
     self.emptyStateView.isHidden = !contacts.isEmpty
     self.contactEmptyLabel.text = NSLocalizedString("your.contact.is.empty", value: "Your contact is empty", comment: "")
-    self.addContactButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.addContactButton.frame.size.height / 2)
+    self.addContactButton.rounded(color: UIColor(named: "normalTextColor")!, width: 1, radius: 16)
     self.addContactButton.setTitle(
       NSLocalizedString("add.contact", value: "Add Contact", comment: ""),
       for: .normal
     )
-    self.headerContainerView.rounded(radius: 20)
   }
 
   override func viewWillAppear(_ animated: Bool) {

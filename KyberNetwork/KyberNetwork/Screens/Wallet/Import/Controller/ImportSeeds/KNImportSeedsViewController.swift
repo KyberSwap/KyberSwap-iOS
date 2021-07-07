@@ -34,8 +34,7 @@ class KNImportSeedsViewController: KNBaseViewController {
 
     self.recoverSeedsLabel.text = NSLocalizedString("recover.with.seeds", value: "Recover with seeds", comment: "")
     self.recoverSeedsLabel.addLetterSpacing()
-    self.nextButton.rounded(radius: self.nextButton.frame.size.height / 2)
-    self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.nextButton.rounded(radius: 16)
     self.nextButton.setTitle(
       "Connect".toBeLocalised(),
       for: .normal
@@ -49,8 +48,6 @@ class KNImportSeedsViewController: KNBaseViewController {
     self.walletNameTextField.rounded(radius: 8)
     self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.resetUIs()
-//    self.containerRefCodeView.isHidden = !KNGeneralProvider.shared.isEthereum
-//    self.refCodeTitleLabel.isHidden = !KNGeneralProvider.shared.isEthereum
   }
 
   func resetUIs() {
@@ -59,11 +56,6 @@ class KNImportSeedsViewController: KNBaseViewController {
     self.wordsCountLabel.textColor = UIColor.Kyber.border
     self.wordsCountLabel.addLetterSpacing()
     self.walletNameTextField.text = ""
-    self.updateNextButton()
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
     self.updateNextButton()
   }
 
@@ -76,7 +68,6 @@ class KNImportSeedsViewController: KNBaseViewController {
     }()
     self.nextButton.isEnabled = enabled
     if enabled {
-      self.nextButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
       self.nextButton.alpha = 1
     } else {
       self.nextButton.alpha = 0.2

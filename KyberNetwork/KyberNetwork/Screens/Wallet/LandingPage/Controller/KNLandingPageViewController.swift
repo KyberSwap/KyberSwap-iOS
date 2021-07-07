@@ -36,8 +36,8 @@ class KNLandingPageViewController: KNBaseViewController {
     )
     self.importWalletButton.addTextSpacing()
 
-    self.createWalletButton.rounded(color: UIColor.Kyber.SWYellow, width: 1.0, radius: 18)
-    self.importWalletButton.rounded(color: UIColor.Kyber.SWYellow, width: 1.0, radius: 18)
+    self.createWalletButton.rounded(radius: 16)
+    self.importWalletButton.rounded(radius: 16)
   }
 
   override func viewDidAppear(_ animated: Bool) {

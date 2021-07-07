@@ -19,6 +19,7 @@ class SwitchChainViewController: KNBaseViewController {
   var isEthChainSelected: Bool
   var completionHandler: () -> Void = { }
   @IBOutlet weak var nextButton: UIButton!
+  @IBOutlet weak var cancelButton: UIButton!
   
   
   init() {
@@ -37,6 +38,8 @@ class SwitchChainViewController: KNBaseViewController {
     super.viewDidLoad()
     
     self.updateSelectedChainUI()
+    self.cancelButton.rounded(radius: 16)
+    self.nextButton.rounded(radius: 16)
   }
   
   fileprivate func updateSelectedChainUI() {

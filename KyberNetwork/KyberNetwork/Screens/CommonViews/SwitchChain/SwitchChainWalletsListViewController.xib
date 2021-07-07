@@ -4,15 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -34,64 +32,71 @@
                     <rect key="frame" x="0.0" y="217" width="375" height="450"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose BSC Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sy-GM-5kx">
-                            <rect key="frame" x="110.5" y="51" width="154.5" height="22"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="99.5" y="51" width="176" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jlI-Bm-BD6">
-                            <rect key="frame" x="37" y="319" width="301" height="42"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="195" y="323" width="143" height="38"/>
+                            <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="42" id="Zbt-ds-LuO"/>
+                                <constraint firstAttribute="height" constant="38" id="Zbt-ds-LuO"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                            <state key="normal" title="Next" backgroundImage="krystal_button_bg">
-                                <color key="titleColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
+                            <state key="normal" title="Next">
+                                <color key="titleColor" name="buttonTextColor"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                    <integer key="value" value="21"/>
+                                    <integer key="value" value="16"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="nextButtonTapped:" destination="-1" eventType="touchUpInside" id="C0l-u8-Kd4"/>
                             </connections>
                         </button>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="URN-YH-RzQ">
+                            <rect key="frame" x="0.0" y="94.5" width="375" height="186.5"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </tableView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CL6-Sl-5kH">
-                            <rect key="frame" x="37" y="371" width="301" height="42"/>
+                            <rect key="frame" x="37" y="323" width="143" height="38"/>
+                            <color key="backgroundColor" name="popupBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="42" id="7zp-ez-T4l"/>
+                                <constraint firstAttribute="height" constant="38" id="7m9-de-CPQ"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                             <state key="normal" title="Cancel">
-                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="gqX-Nj-xne"/>
                             </connections>
                         </button>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="URN-YH-RzQ">
-                            <rect key="frame" x="0.0" y="93" width="375" height="206"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </tableView>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstItem="jlI-Bm-BD6" firstAttribute="top" secondItem="URN-YH-RzQ" secondAttribute="bottom" constant="20" id="015-Oj-nVH"/>
+                        <constraint firstItem="jlI-Bm-BD6" firstAttribute="top" secondItem="URN-YH-RzQ" secondAttribute="bottom" constant="42" id="015-Oj-nVH"/>
                         <constraint firstItem="7Sy-GM-5kx" firstAttribute="centerX" secondItem="EGp-ZY-9Jx" secondAttribute="centerX" id="0df-m5-4yg"/>
-                        <constraint firstItem="CL6-Sl-5kH" firstAttribute="leading" secondItem="EGp-ZY-9Jx" secondAttribute="leading" constant="37" id="2EE-QB-GLH"/>
                         <constraint firstAttribute="trailing" secondItem="URN-YH-RzQ" secondAttribute="trailing" id="67X-G1-qPn"/>
-                        <constraint firstItem="jlI-Bm-BD6" firstAttribute="leading" secondItem="EGp-ZY-9Jx" secondAttribute="leading" constant="37" id="CFO-NR-I56"/>
+                        <constraint firstItem="jlI-Bm-BD6" firstAttribute="leading" secondItem="CL6-Sl-5kH" secondAttribute="trailing" constant="15" id="CqG-hp-xm7"/>
                         <constraint firstAttribute="trailing" secondItem="jlI-Bm-BD6" secondAttribute="trailing" constant="37" id="DT8-gz-hOi"/>
-                        <constraint firstAttribute="trailing" secondItem="CL6-Sl-5kH" secondAttribute="trailing" constant="37" id="L5W-m6-EQ6"/>
                         <constraint firstItem="URN-YH-RzQ" firstAttribute="leading" secondItem="EGp-ZY-9Jx" secondAttribute="leading" id="RR5-qO-YP4"/>
+                        <constraint firstAttribute="bottom" secondItem="jlI-Bm-BD6" secondAttribute="bottom" constant="89" id="bq2-fU-nHf"/>
+                        <constraint firstItem="CL6-Sl-5kH" firstAttribute="leading" secondItem="EGp-ZY-9Jx" secondAttribute="leading" constant="37" id="hAJ-bN-weK"/>
                         <constraint firstAttribute="height" constant="450" id="iei-xI-xLP"/>
+                        <constraint firstItem="jlI-Bm-BD6" firstAttribute="centerY" secondItem="CL6-Sl-5kH" secondAttribute="centerY" id="kBH-hh-IOC"/>
                         <constraint firstItem="URN-YH-RzQ" firstAttribute="top" secondItem="7Sy-GM-5kx" secondAttribute="bottom" constant="20" id="lEQ-kh-4eW"/>
-                        <constraint firstItem="CL6-Sl-5kH" firstAttribute="top" secondItem="jlI-Bm-BD6" secondAttribute="bottom" constant="10" id="pyC-Pn-Ltk"/>
-                        <constraint firstAttribute="bottom" secondItem="CL6-Sl-5kH" secondAttribute="bottom" constant="37" id="s7V-4j-k0S"/>
+                        <constraint firstItem="jlI-Bm-BD6" firstAttribute="width" secondItem="CL6-Sl-5kH" secondAttribute="width" id="uZe-6y-vZ5"/>
                         <constraint firstItem="7Sy-GM-5kx" firstAttribute="top" secondItem="EGp-ZY-9Jx" secondAttribute="top" constant="51" id="yLK-0r-9m3"/>
                     </constraints>
                 </view>
@@ -108,6 +113,23 @@
         </view>
     </objects>
     <resources>
-        <image name="krystal_button_bg" width="300" height="42"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="buttonTextColor">
+            <color red="0.058823529411764705" green="0.058823529411764705" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0040000001899898052" green="0.0040000001899898052" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="popupBackgroundColor">
+            <color red="0.16078431372549021" green="0.17647058823529413" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

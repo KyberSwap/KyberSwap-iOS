@@ -339,12 +339,6 @@ class KSwapViewModel {
     return true
   }
 
-//  var isPairUnderMaintenance: Bool {
-//    let cachedRate = KNRateCoordinator.shared.getCachedProdRate(from: self.from, to: self.to) ?? BigInt(0)
-//    let estRate = self.estRate ?? BigInt(0)
-//    return estRate.isZero && cachedRate.isZero
-//  }
-
   var feeBigInt: BigInt {
     return self.gasPrice * self.estimateGasLimit
   }
@@ -369,7 +363,7 @@ class KSwapViewModel {
     return param
   }
 
-  var gasFeeString: String {
+  var gasFeeString: NSAttributedString {
     let sourceToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
     let fee = self.gasPrice * self.estimateGasLimit
     let feeString: String = fee.displayRate(decimals: 18)
@@ -386,14 +380,29 @@ class KSwapViewModel {
     default:
       break
     }
-    return "Gas fee: \(feeString) \(sourceToken) (\(typeString))"
+    
+    let gasPriceAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.foregroundColor: UIColor(named: "textWhiteColor")!,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 14),
+      NSAttributedStringKey.kern: 0.0,
+    ]
+    let feeAttributes: [NSAttributedStringKey: Any] = [
+      NSAttributedStringKey.foregroundColor: UIColor(named: "normalTextColor")!,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 14),
+      NSAttributedStringKey.kern: 0.0,
+    ]
+    
+    let attributedString = NSMutableAttributedString()
+    attributedString.append(NSAttributedString(string: "\(feeString) \(sourceToken) ", attributes: gasPriceAttributes))
+    attributedString.append(NSAttributedString(string: "(\(typeString))", attributes: feeAttributes))
+    return attributedString
   }
 
   var slippageString: String {
     let doubleStr = String(format: "%.2f", self.minRatePercent)
-    return "Slippage: \(doubleStr)%"
+    return "\(doubleStr)%"
   }
-  
+
   func resetDefaultTokensPair() {
     if KNGeneralProvider.shared.isEthereum {
       self.from = KNSupportedTokenStorage.shared.ethToken

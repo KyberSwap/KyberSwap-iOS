@@ -149,17 +149,11 @@ class ApproveTokenViewController: KNBaseViewController {
 
     self.gasFeeLabel.text = self.viewModel.getFeeString()
     self.gasFeeEstUSDLabel.text = self.viewModel.getFeeUSDString()
-    self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: 16)
-    self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.cancelButton.rounded(radius: 16)
+    self.approveButton.rounded(radius: 16)
     self.descriptionLabel.text = self.viewModel.subTitleText
     let address = KNGeneralProvider.shared.isEthereum ? Constants.krystalProxyAddress.lowercased() : Constants.krystalProxyAddressBSC.lowercased()
     self.contractAddressLabel.text = address
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.approveButton.removeSublayer(at: 0)
-    self.approveButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   @IBAction func approveButtonTapped(_ sender: UIButton) {

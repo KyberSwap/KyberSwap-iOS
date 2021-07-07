@@ -56,7 +56,7 @@ struct KNWalletTableCellViewModel {
 
 class KNContactTableViewCell: SwipeTableViewCell {
 
-  static let height: CGFloat = 56
+  static let height: CGFloat = 60
 
   @IBOutlet weak var addressImageView: UIImageView!
   @IBOutlet weak var contactNameLabel: UILabel!
@@ -89,8 +89,9 @@ class KNContactTableViewCell: SwipeTableViewCell {
     self.contactNameLabel.addLetterSpacing()
     self.contactAddressLabel.text = viewModel.displayedAddress
     self.contactAddressLabel.addLetterSpacing()
-    self.addressImageLeftPaddingContraint.constant = 36
-    self.checkIcon.isHidden = viewModel.wallet.address.description.lowercased() != selected.lowercased()
+    let isSelected = viewModel.wallet.address.description.lowercased() == selected.lowercased()
+    self.addressImageLeftPaddingContraint.constant = (isSelected ? 66.0 : 24.0)
+    self.checkIcon.isHidden = !isSelected
     self.layoutIfNeeded()
   }
 }

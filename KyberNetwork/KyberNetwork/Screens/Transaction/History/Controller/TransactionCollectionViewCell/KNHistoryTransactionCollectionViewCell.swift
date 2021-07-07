@@ -55,7 +55,8 @@ class CompletedHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
   }
   
   var backgroundColor: UIColor {
-    return self.index % 2 == 0 ? UIColor(red: 0, green: 50, blue: 67) : UIColor(red: 1, green: 40, blue: 53)
+//    return self.index % 2 == 0 ? UIColor(red: 0, green: 50, blue: 67) : UIColor(red: 1, green: 40, blue: 53)
+    return UIColor(named: "mainViewBgColor")!
   }
   
   func generateSwapAmountString() -> String {
@@ -589,7 +590,7 @@ class PendingHistoryTransactonViewModel: AbstractHistoryTransactionViewModel {
 class KNHistoryTransactionCollectionViewCell: SwipeCollectionViewCell {
 
   static let cellID: String = "kHistoryTransactionCellID"
-  static let height: CGFloat = 46.0
+  static let height: CGFloat = 68.0
 
   fileprivate var viewModel: AbstractHistoryTransactionViewModel!
 

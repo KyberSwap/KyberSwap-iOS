@@ -248,8 +248,9 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
 
   func settingsViewControllerBackUpButtonPressed(wallet: KNWalletObject) {
     let alertController = KNPrettyAlertController(
-      title: NSLocalizedString("export.at.your.own.risk", value: "Export at your own risk!", comment: ""),
-      message: "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen".toBeLocalised(),
+      title: "Export at your own risk!",
+      isWarning: true,
+      message: "NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen".toBeLocalised(),
       secondButtonTitle: NSLocalizedString("continue", value: "Continue", comment: ""),
       firstButtonTitle: NSLocalizedString("cancel", value: "Cancel", comment: ""),
       secondButtonAction: {
