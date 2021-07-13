@@ -126,7 +126,7 @@ class BalanceStorage {
     return BigInt(self.balanceBNB()) ?? BigInt(0)
   }
   
-  func getTotalAssetBalanceUSD() -> BigInt {
+  func getTotalAssetBalanceUSD(_ currency: CurrencyMode) -> BigInt {
     var total = BigInt(0)
     let tokens = KNSupportedTokenStorage.shared.allTokens
     let lendingBalances = BalanceStorage.shared.getAllLendingBalances()
@@ -143,21 +143,21 @@ class BalanceStorage {
       }
       
       let balance = token.getBalanceBigInt()
-      let rateBigInt = BigInt(token.getTokenPrice().usd * pow(10.0, 18.0))
+      let rateBigInt = BigInt(token.getTokenLastPrice(currency) * pow(10.0, 18.0))
       let valueBigInt = balance * rateBigInt / BigInt(10).power(token.decimals)
       total += valueBigInt
     }
     return total
   }
   
-  func getTotalSupplyBalance() -> BigInt {
+  func getTotalSupplyBalance(_ currency: CurrencyMode) -> BigInt {
     var total = BigInt(0)
     let allBalances: [LendingPlatformBalance] = self.getAllLendingBalances()
     
     allBalances.forEach { (item) in
       item.balances.forEach { (balanceItem) in
         let balance = BigInt(balanceItem.supplyBalance) ?? BigInt(0)
-        let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(balanceItem.address)?.usd ?? 0.0
+        let tokenPrice = KNTrackerRateStorage.shared.getLastPriceWith(address: balanceItem.address, currency: currency)
         let value = balance * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(balanceItem.decimals)
         total += value
       }
@@ -165,7 +165,7 @@ class BalanceStorage {
     
     if let otherData = BalanceStorage.shared.getDistributionBalance() {
       let balance = BigInt(otherData.unclaimed) ?? BigInt(0)
-      let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(otherData.address)?.usd ?? 0.0
+      let tokenPrice = KNTrackerRateStorage.shared.getLastPriceWith(address: otherData.address, currency: currency)
       let value = balance * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(otherData.decimal)
       total += value
     }
@@ -191,7 +191,7 @@ class BalanceStorage {
     return (sectionKeys, balanceDict)
   }
   
-  func getTotalBalance() -> BigInt {
-    return self.getTotalAssetBalanceUSD() + self.getTotalSupplyBalance()
+  func getTotalBalance(_ currency: CurrencyMode) -> BigInt {
+    return self.getTotalAssetBalanceUSD(currency) + self.getTotalSupplyBalance(currency)
   }
 }

@@ -12,7 +12,7 @@
         <array key="Karla-Bold.ttf">
             <string>Karla-Bold</string>
         </array>
-        <array key="Karla-VariableFont_wght.ttf">
+        <array key="Karla-Regular.ttf">
             <string>Karla-Regular</string>
         </array>
         <array key="Lato-Regular.ttf">
@@ -50,7 +50,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="145"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Krystal Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpw-tN-AwD">
-                            <rect key="frame" x="51" y="59" width="112.5" height="21"/>
+                            <rect key="frame" x="51" y="59" width="111.5" height="21"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -118,13 +118,13 @@
                                     <rect key="frame" x="17" y="8" width="24" height="24"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,809 KP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpx-LI-EY0">
-                                    <rect key="frame" x="49" y="10.5" width="60" height="19"/>
+                                    <rect key="frame" x="49" y="10.5" width="66" height="19"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I0q-zE-MnG">
-                                    <rect key="frame" x="262" y="6.5" width="56" height="27"/>
+                                    <rect key="frame" x="262" y="7" width="56" height="26"/>
                                     <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
                                     <state key="normal" title="CLAIM KP">
                                         <color key="titleColor" name="buttonBackgroundColor"/>
@@ -137,13 +137,13 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQ6-EW-ZXs">
-                                    <rect key="frame" x="117" y="10.5" width="8.5" height="19"/>
+                                    <rect key="frame" x="123" y="10.5" width="10" height="19"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" name="textWhiteColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.809 ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iv0-bg-Jac">
-                                    <rect key="frame" x="133.5" y="10.5" width="68.5" height="19"/>
+                                    <rect key="frame" x="141" y="10.5" width="75" height="19"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -210,7 +210,7 @@
                             <rect key="frame" x="0.0" y="77.5" width="375" height="430"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Month’s Performance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcZ-Tm-jRy">
-                                    <rect key="frame" x="20" y="15" width="214.5" height="21"/>
+                                    <rect key="frame" x="20" y="15" width="211.5" height="21"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
                                     <color key="textColor" name="textWhiteColor"/>
                                     <nil key="highlightedColor"/>
@@ -219,7 +219,7 @@
                                     <rect key="frame" x="20" y="51" width="335" height="46"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ule-G4-q2d">
-                                            <rect key="frame" x="95.5" y="9" width="64.5" height="28.5"/>
+                                            <rect key="frame" x="94.5" y="9" width="65.5" height="28"/>
                                             <string key="text">Share (%)
 You - Friend</string>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
@@ -227,13 +227,13 @@ You - Friend</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bp8-HE-V26">
-                                            <rect key="frame" x="169.5" y="16" width="41.5" height="14"/>
+                                            <rect key="frame" x="171" y="16" width="40" height="14"/>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5Z-cG-pvv">
-                                            <rect key="frame" x="216" y="9" width="51" height="28.5"/>
+                                            <rect key="frame" x="215" y="9" width="52" height="28"/>
                                             <string key="text">Pending
 Vol. (ETH)</string>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
@@ -241,7 +241,7 @@ Vol. (ETH)</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kZ-Iw-cwd">
-                                            <rect key="frame" x="270" y="9" width="58" height="28.5"/>
+                                            <rect key="frame" x="271.5" y="9" width="56.5" height="28"/>
                                             <string key="text">Confirmed
 Vol. (ETH)</string>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
@@ -249,7 +249,7 @@ Vol. (ETH)</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Referral Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G3l-Fa-Asu">
-                                            <rect key="frame" x="15" y="16" width="72.5" height="14"/>
+                                            <rect key="frame" x="15" y="16" width="74.5" height="14"/>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -302,7 +302,7 @@ Vol. (ETH)</string>
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earn from Referrer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQ6-XP-Bp9">
-                                    <rect key="frame" x="27" y="321" width="116.5" height="17"/>
+                                    <rect key="frame" x="27" y="321" width="115.5" height="17"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -320,13 +320,13 @@ Vol. (ETH)</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="TOTAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nG7-Ca-w71">
-                                    <rect key="frame" x="27" y="392" width="45.5" height="19"/>
+                                    <rect key="frame" x="27" y="392" width="48.5" height="19"/>
                                     <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
                                     <color key="textColor" name="textWhiteColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0000000000000000003" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkP-RY-zpM">
-                                    <rect key="frame" x="82.5" y="392" width="112.5" height="19"/>
+                                    <rect key="frame" x="85.5" y="392" width="109.5" height="19"/>
                                     <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
                                     <color key="textColor" name="textWhiteColor"/>
                                     <nil key="highlightedColor"/>
@@ -344,7 +344,7 @@ Vol. (ETH)</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Confirmed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEc-FY-t6R">
-                                    <rect key="frame" x="277" y="370" width="58" height="14"/>
+                                    <rect key="frame" x="278.5" y="370" width="56.5" height="14"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                                     <color key="textColor" name="normalTextColor"/>
                                     <nil key="highlightedColor"/>
@@ -388,25 +388,25 @@ Vol. (ETH)</string>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your tier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdn-Ml-hKC">
-                            <rect key="frame" x="26" y="531.5" width="53" height="17"/>
+                            <rect key="frame" x="26" y="531.5" width="52" height="17"/>
                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                             <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.1 ETH - 10 ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2uY-sg-I5T">
-                            <rect key="frame" x="226" y="530.5" width="109" height="19"/>
+                            <rect key="frame" x="209.5" y="530.5" width="125.5" height="19"/>
                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your realized Krystal Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nei-Pw-qKp">
-                            <rect key="frame" x="26" y="560.5" width="173.5" height="17"/>
+                            <rect key="frame" x="26" y="560.5" width="170.5" height="17"/>
                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                             <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12KP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCb-VD-4TB">
-                            <rect key="frame" x="301.5" y="559.5" width="33.5" height="19"/>
+                            <rect key="frame" x="296" y="559.5" width="39" height="19"/>
                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>

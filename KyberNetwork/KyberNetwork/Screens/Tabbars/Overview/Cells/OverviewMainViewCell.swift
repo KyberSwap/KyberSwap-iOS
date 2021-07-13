@@ -17,9 +17,11 @@ enum OverviewMainCellMode {
 
 class OverviewMainCellViewModel {
   let mode: OverviewMainCellMode
+  let currency: CurrencyMode
   var hideBalanceStatus: Bool = true
-  init(mode: OverviewMainCellMode) {
+  init(mode: OverviewMainCellMode, currency: CurrencyMode) {
     self.mode = mode
+    self.currency = currency
   }
   
   var tokenSymbol: String {
@@ -70,8 +72,8 @@ class OverviewMainCellViewModel {
   var displaySubTitleDetail: String {
     switch self.mode {
     case .market(token: let token, rightMode: let mode):
-      let price = token.getTokenPrice().usd
-      return "$" + String(format: "%.6f", price)
+      let price = token.getTokenLastPrice(self.currency)
+      return self.currency.symbol() + String(format: "%.6f", price)
     case .asset(token: let token, rightMode: let mode):
       guard !self.hideBalanceStatus else {
         return "********"
@@ -98,7 +100,7 @@ class OverviewMainCellViewModel {
         return String(format: "%.2f", change24) + "%"
       case .lastPrice:
         let price = token.getTokenPrice().usd
-      return "$" + String(format: "%.2f", price)
+        return self.currency.symbol() + String(format: "%.2f", price)
       default:
         return ""
       }
@@ -109,54 +111,53 @@ class OverviewMainCellViewModel {
       }
       switch mode {
       case .value:
-        let rateBigInt = BigInt(token.getTokenPrice().usd * pow(10.0, 18.0))
+        let rateBigInt = BigInt(token.getTokenLastPrice(self.currency) * pow(10.0, 18.0))
         let valueBigInt = token.getBalanceBigInt() * rateBigInt / BigInt(10).power(token.decimals)
         let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))
-        return "$" + valueString
+        return self.currency.symbol() + valueString
       case .ch24:
-        let change24 = token.getTokenPrice().usd24hChange
+        let change24 = token.getTokenChange24(self.currency)
         return String(format: "%.2f", change24) + "%"
       case .lastPrice:
-        let price = token.getTokenPrice().usd
-        return "$" + String(format: "%.2f", price)
+        let price = token.getTokenLastPrice(self.currency)
+        return self.currency.symbol() + String(format: "%.2f", price)
       }
-      
     case .supply(balance: let balance):
       if let lendingBalance = balance as? LendingBalance {
         guard !self.hideBalanceStatus else {
           return "********"
         }
-        let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(lendingBalance.address)?.usd ?? 0.0
+        let tokenPrice = KNTrackerRateStorage.shared.getLastPriceWith(address: lendingBalance.address, currency: self.currency)
         let balanceBigInt = BigInt(lendingBalance.supplyBalance) ?? BigInt(0)
         let valueBigInt = balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(lendingBalance.decimals)
-        return "$" + valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+        return self.currency.symbol() + valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
       } else if let distributionBalance = balance as? LendingDistributionBalance {
         guard !self.hideBalanceStatus else {
           return "********"
         }
-        let tokenPrice = KNTrackerRateStorage.shared.getPriceWithAddress(distributionBalance.address)?.usd ?? 0.0
+        let tokenPrice = KNTrackerRateStorage.shared.getLastPriceWith(address: distributionBalance.address, currency: self.currency)
         let balanceBigInt = BigInt(distributionBalance.unclaimed) ?? BigInt(0)
         let valueBigInt = balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(distributionBalance.decimal)
-        return "$" + valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+        return self.currency.symbol() + valueBigInt.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
       } else {
         return ""
       }
     case .search(token: let token):
       let price = token.getTokenPrice().usd
-      return "$" + String(format: "%.2f", price)
+      return self.currency.symbol() + String(format: "%.2f", price)
     }
   }
 
   var displayAccessoryColor: UIColor? {
     switch self.mode {
     case .market(token: let token, rightMode: let mode):
-      let change24 = token.getTokenPrice().usd24hChange
+      let change24 = token.getTokenChange24(self.currency)
       return change24 > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
     case .asset(token: let token, rightMode: let mode):
-      let change24 = token.getTokenPrice().usd24hChange
+      let change24 = token.getTokenChange24(self.currency)
       return change24 > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
     case .search(token: let token):
-      let change24 = token.getTokenPrice().usd24hChange
+      let change24 = token.getTokenChange24(self.currency)
       return change24 > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
     default:
       return UIColor(named: "buttonBackgroundColor")

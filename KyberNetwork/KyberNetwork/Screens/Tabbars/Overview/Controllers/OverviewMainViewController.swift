@@ -14,7 +14,7 @@ enum OverviewMainViewEvent {
   case search
   case notifications
   case changeMode(current: ViewMode)
-  case walletConfig
+  case walletConfig(currency: CurrencyMode)
   case select(token: Token)
   case selectListWallet
   case withdrawBalance(platform: String, balance: LendingBalance)
@@ -56,6 +56,23 @@ enum MarketSortType {
   case rightSide(des: Bool)
 }
 
+enum CurrencyMode: Int {
+  case usd = 0
+  case eth
+  case btc
+  
+  func symbol() -> String {
+    switch self {
+    case .usd:
+      return "$"
+    case .btc:
+      return "₿"
+    case .eth:
+      return "⧫"
+    }
+  }
+}
+
 protocol OverviewMainViewControllerDelegate: class {
   func overviewMainViewController(_ controller: OverviewMainViewController, run event: OverviewMainViewEvent)
 }
@@ -69,6 +86,7 @@ class OverviewMainViewModel {
   var displayTotalValues: [String: String] = [:]
   var hideBalanceStatus: Bool = true
   var marketSortType: MarketSortType = .rightSide(des: true)
+  var currencyMode: CurrencyMode = .usd
   
   init(session: KNSession) {
     self.session = session
@@ -93,36 +111,35 @@ class OverviewMainViewModel {
         case .rightSide(des: let des):
           switch mode {
           case .ch24:
-            return des ? left.getTokenPrice().usd24hChange > right.getTokenPrice().usd24hChange : left.getTokenPrice().usd24hChange < right.getTokenPrice().usd24hChange
+            return des ? left.getTokenChange24(self.currencyMode) > right.getTokenChange24(self.currencyMode) : left.getTokenChange24(self.currencyMode) < right.getTokenChange24(self.currencyMode)
           case .lastPrice:
-            return des ? left.getTokenPrice().usd > right.getTokenPrice().usd : left.getTokenPrice().usd < right.getTokenPrice().usd
+            return des ? left.getTokenLastPrice(self.currencyMode) > right.getTokenLastPrice(self.currencyMode) : left.getTokenLastPrice(self.currencyMode) < right.getTokenLastPrice(self.currencyMode)
           default:
             return false
           }
-          
         }
       }
       self.displayHeader = []
       let models = marketToken.map { (item) -> OverviewMainCellViewModel in
-        return OverviewMainCellViewModel(mode: .market(token: item, rightMode: mode))
+        return OverviewMainCellViewModel(mode: .market(token: item, rightMode: mode), currency: self.currencyMode)
       }
       self.dataSource = ["": models]
       self.displayDataSource = ["": models]
       self.displayTotalValues = [:]
     case .asset(let mode):
       let assetTokens = KNSupportedTokenStorage.shared.getAssetTokens().sorted { (left, right) -> Bool in
-        return left.getValueUSDBigInt() > right.getValueUSDBigInt()
+        return left.getValueBigInt(self.currencyMode) > right.getValueBigInt(self.currencyMode)
       }
       self.displayHeader = []
       self.displayTotalValues = [:]
       var total = BigInt(0)
       let models = assetTokens.map { (item) -> OverviewMainCellViewModel in
-        total += item.getValueUSDBigInt()
-        return OverviewMainCellViewModel(mode: .asset(token: item, rightMode: mode))
+        total += item.getValueBigInt(self.currencyMode)
+        return OverviewMainCellViewModel(mode: .asset(token: item, rightMode: mode), currency: self.currencyMode)
       }
       self.dataSource = ["": models]
       self.displayDataSource = ["": models]
-      let displayTotalString = "$" + total.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
+      let displayTotalString = self.currencyMode.symbol() + total.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
       self.displayTotalValues["all"] = displayTotalString
     case .supply:
       let supplyBalance = BalanceStorage.shared.getSupplyBalances()
@@ -135,20 +152,20 @@ class OverviewMainViewModel {
         var totalSection = BigInt(0)
         data[key]?.forEach({ (item) in
           if let lendingBalance = item as? LendingBalance {
-            totalSection += lendingBalance.getValueBigInt()
+            totalSection += lendingBalance.getValueBigInt(self.currencyMode)
           } else if let distributionBalance = item as? LendingDistributionBalance {
-            totalSection += distributionBalance.getValueBigInt()
+            totalSection += distributionBalance.getValueBigInt(self.currencyMode)
           }
-          sectionModels.append(OverviewMainCellViewModel(mode: .supply(balance: item)))
+          sectionModels.append(OverviewMainCellViewModel(mode: .supply(balance: item), currency: self.currencyMode))
         })
         models[key] = sectionModels
-        let displayTotalSection = "$" + totalSection.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+        let displayTotalSection = self.currencyMode.symbol() + totalSection.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
         self.displayTotalValues[key] = displayTotalSection
         total += totalSection
       }
       self.dataSource = models
       self.displayDataSource = models
-      self.displayTotalValues["all"] = "$" + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+      self.displayTotalValues["all"] = self.currencyMode.symbol() + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
     case .favourite(let mode):
       let marketToken = KNSupportedTokenStorage.shared.allTokens.sorted { (left, right) -> Bool in
         switch self.marketSortType {
@@ -162,7 +179,7 @@ class OverviewMainViewModel {
       }
       self.displayHeader = []
       let models = marketToken.map { (item) -> OverviewMainCellViewModel in
-        return OverviewMainCellViewModel(mode: .market(token: item, rightMode: mode))
+        return OverviewMainCellViewModel(mode: .market(token: item, rightMode: mode), currency: self.currencyMode)
       }
       self.dataSource = ["": models]
       self.displayDataSource = ["": models]
@@ -205,8 +222,8 @@ class OverviewMainViewModel {
     guard !self.hideBalanceStatus else {
       return "********"
     }
-    let total = BalanceStorage.shared.getTotalBalance()
-    return "$" + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
+    let total = BalanceStorage.shared.getTotalBalance(self.currencyMode)
+    return self.currencyMode.symbol() + total.string(decimals: 18, minFractionDigits: 6, maxFractionDigits: 6)
   }
 
   var displayHideBalanceImage: UIImage {
@@ -351,7 +368,7 @@ class OverviewMainViewController: KNBaseViewController {
   }
 
   @IBAction func walletOptionButtonTapped(_ sender: UIButton) {
-    self.delegate?.overviewMainViewController(self, run: .walletConfig)
+    self.delegate?.overviewMainViewController(self, run: .walletConfig(currency: self.viewModel.currencyMode))
   }
   
   @IBAction func sortingButtonTapped(_ sender: UIButton) {
@@ -445,6 +462,11 @@ class OverviewMainViewController: KNBaseViewController {
     self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
     self.totalValueLabel.text = self.viewModel.displayTotalValue
     self.tableView.reloadData()
+  }
+  
+  func coordinatorDidUpdateCurrencyMode(_ mode: CurrencyMode) {
+    self.viewModel.currencyMode = mode
+    self.reloadUI()
   }
 }
 

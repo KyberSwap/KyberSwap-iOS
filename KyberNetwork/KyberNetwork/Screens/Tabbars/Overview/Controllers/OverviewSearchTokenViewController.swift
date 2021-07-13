@@ -15,6 +15,7 @@ protocol OverviewSearchTokenViewControllerDelegate: class {
 class OverviewSearchTokenViewModel {
   var searchText = ""
   var dataSource: [OverviewMainCellViewModel] = []
+  var currencyMode: CurrencyMode = .usd
   
   func reloadAllData() {
     guard !self.searchText.isEmpty else {
@@ -30,7 +31,7 @@ class OverviewSearchTokenViewModel {
       return left.symbol < right.symbol
     }
     let viewModels = tokens.map { (token) -> OverviewMainCellViewModel in
-      return OverviewMainCellViewModel(mode: .search(token: token))
+      return OverviewMainCellViewModel(mode: .search(token: token), currency: self.currencyMode)
     }
     self.dataSource = viewModels
   }

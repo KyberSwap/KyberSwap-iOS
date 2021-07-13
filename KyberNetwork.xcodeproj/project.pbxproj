@@ -466,6 +466,8 @@
 		C30568AC2670B87700F331CE /* OverviewMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C30568AA2670B87700F331CE /* OverviewMainViewController.xib */; };
 		C3114370249B1C2300084CD8 /* KNMigrationTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */; };
 		C3114371249B1C2300084CD8 /* KNMigrationTutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311436F249B1C2300084CD8 /* KNMigrationTutorialViewController.xib */; };
+		C311AAD4269D86AD0082A728 /* OverviewChangeCurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C311AAD2269D86AC0082A728 /* OverviewChangeCurrencyViewController.swift */; };
+		C311AAD5269D86AD0082A728 /* OverviewChangeCurrencyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311AAD3269D86AC0082A728 /* OverviewChangeCurrencyViewController.xib */; };
 		C31371E52603511F003D432B /* KrytalCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31371E42603511F003D432B /* KrytalCoordinator.swift */; };
 		C31371EC26035182003D432B /* KrytalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31371EA26035182003D432B /* KrytalViewController.swift */; };
 		C31371ED26035182003D432B /* KrytalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C31371EB26035182003D432B /* KrytalViewController.xib */; };
@@ -1204,6 +1206,8 @@
 		C30568AA2670B87700F331CE /* OverviewMainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewMainViewController.xib; sourceTree = "<group>"; };
 		C311436E249B1C2300084CD8 /* KNMigrationTutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KNMigrationTutorialViewController.swift; sourceTree = "<group>"; };
 		C311436F249B1C2300084CD8 /* KNMigrationTutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KNMigrationTutorialViewController.xib; sourceTree = "<group>"; };
+		C311AAD2269D86AC0082A728 /* OverviewChangeCurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewChangeCurrencyViewController.swift; sourceTree = "<group>"; };
+		C311AAD3269D86AC0082A728 /* OverviewChangeCurrencyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewChangeCurrencyViewController.xib; sourceTree = "<group>"; };
 		C31371E42603511F003D432B /* KrytalCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrytalCoordinator.swift; sourceTree = "<group>"; };
 		C31371EA26035182003D432B /* KrytalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KrytalViewController.swift; sourceTree = "<group>"; };
 		C31371EB26035182003D432B /* KrytalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KrytalViewController.xib; sourceTree = "<group>"; };
@@ -3719,6 +3723,8 @@
 				C30568AA2670B87700F331CE /* OverviewMainViewController.xib */,
 				C3053AF62685D2980079B505 /* OverviewSearchTokenViewController.swift */,
 				C3053AF72685D2980079B505 /* OverviewSearchTokenViewController.xib */,
+				C311AAD2269D86AC0082A728 /* OverviewChangeCurrencyViewController.swift */,
+				C311AAD3269D86AC0082A728 /* OverviewChangeCurrencyViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4277,6 +4283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C311AAD5269D86AD0082A728 /* OverviewChangeCurrencyViewController.xib in Resources */,
 				C6B4CA2A23CC50190049C843 /* KNTransferConsentViewController.xib in Resources */,
 				C31F74A425DCEC58008B21F7 /* OverviewMarketViewController.xib in Resources */,
 				C3F71C91261AB0FF00285935 /* ClaimRewardViewController.xib in Resources */,
@@ -4911,6 +4918,7 @@
 				25CC0AAB2058F1A00009D0D5 /* KNGetTokenAllowance.swift in Sources */,
 				259925B320EF286500CCF2D6 /* KNListContactViewController.swift in Sources */,
 				C32656AC266F546100C69561 /* ActionData.swift in Sources */,
+				C311AAD4269D86AD0082A728 /* OverviewChangeCurrencyViewController.swift in Sources */,
 				29FC0CB81F8299510036089F /* Coordinator.swift in Sources */,
 				29E9CFCF1FE7347200017744 /* ERC20Token.swift in Sources */,
 				25CE6F77207291EC00A3A2F9 /* KNEtherScanService.swift in Sources */,

@@ -487,10 +487,18 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       }))
       
       self.navigationController.present(actionController, animated: true, completion: nil)
-    case .walletConfig:
+    case .walletConfig(currency: let currency):
       let actionController = KrystalActionSheetController()
       
       actionController.headerData = "Wallet Details"
+      
+      actionController.addAction(Action(ActionData(title: "Change Currency", image: UIImage(named: "currency_change_icon")!), style: .default, handler: { _ in
+        let controller = OverviewChangeCurrencyViewController(mode: currency)
+        controller.completeHandle = { mode in
+          self.rootViewController.coordinatorDidUpdateCurrencyMode(mode)
+        }
+        self.navigationController.present(controller, animated: true, completion: nil)
+      }))
       
       actionController.addAction(Action(ActionData(title: "Copy Address", image: UIImage(named: "copy_actionsheet_icon")!), style: .default, handler: { _ in
         UIPasteboard.general.string = self.session.wallet.address.description
@@ -585,11 +593,11 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       case .favourite(rightMode: let mode):
         let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default
         actionController.addAction(Action(ActionData(title: "Last Price", image: UIImage(named: "price_actionsheet_icon")!), style: priceType, handler: { _ in
-          controller.coordinatorDidSelectMode(.market(rightMode: .lastPrice))
+          controller.coordinatorDidSelectMode(.favourite(rightMode: .lastPrice))
         }))
         let ch24Type = mode == .ch24 ? ActionStyle.selected : ActionStyle.default
         actionController.addAction(Action(ActionData(title: "Percentage Change", image: UIImage(named: "24ch_actionsheet_icon")!), style: ch24Type, handler: { _ in
-          controller.coordinatorDidSelectMode(.market(rightMode: .ch24))
+          controller.coordinatorDidSelectMode(.favourite(rightMode: .ch24))
         }))
       case .asset(rightMode: let mode):
         let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default

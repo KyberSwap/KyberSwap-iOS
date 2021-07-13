@@ -61,8 +61,6 @@ class OverviewContainerViewModel {
     } else {
       totalValueBigInt = self.assetsViewModel.totalValueBigInt
     }
-    print("[Debug] normal \(BalanceStorage.shared.getTotalAssetBalanceUSD())")
-    print("[Debug] supply \(BalanceStorage.shared.getTotalSupplyBalance())")
     
     let totalString = totalValueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: 6)
     switch self.currencyType {
