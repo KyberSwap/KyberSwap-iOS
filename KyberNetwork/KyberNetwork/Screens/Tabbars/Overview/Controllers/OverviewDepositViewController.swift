@@ -129,8 +129,9 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
     self.updateUITotalValue()
-    self.supplyButton.rounded(color: UIColor.Kyber.SWYellow, width: 1, radius: self.supplyButton.frame.size.height / 2)
-    self.borrowButton.rounded(color: UIColor.Kyber.SWButtonBlueColor.withAlphaComponent(0.5), width: 1, radius: self.borrowButton.frame.size.height / 2)
+    self.supplyButton.rounded(color: UIColor(named: "normalTextColor")!, width: 1, radius: 16)
+    self.borrowButton.rounded(color: UIColor(named: "normalTextColor")!, width: 1, radius: 16)
+    self.borrowButton.alpha = 0.5
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -214,15 +215,15 @@ extension OverviewDepositViewController: UITableViewDelegate {
     let titleLabel = UILabel(frame: CGRect(x: 35, y: 0, width: 100, height: 40))
     titleLabel.center.y = view.center.y
     titleLabel.text = self.viewModel.sectionKeys[section]
-    titleLabel.font = UIFont.Kyber.latoBold(with: 18)
-    titleLabel.textColor = UIColor.Kyber.SWWhiteTextColor
+    titleLabel.font = UIFont.Kyber.regular(with: 18)
+    titleLabel.textColor = UIColor(named: "textWhiteColor")
     view.addSubview(titleLabel)
     
     let valueLabel = UILabel(frame: CGRect(x: tableView.frame.size.width - 100 - 35, y: 0, width: 100, height: 40))
     valueLabel.text = self.viewModel.displayTotalValueForSection(section)
-    valueLabel.font = UIFont.Kyber.latoBold(with: 14)
+    valueLabel.font = UIFont.Kyber.regular(with: 18)
     valueLabel.textAlignment = .right
-    valueLabel.textColor = UIColor.Kyber.SWWhiteTextColor
+    valueLabel.textColor = UIColor(named: "textWhiteColor")
     view.addSubview(valueLabel)
 
     return view

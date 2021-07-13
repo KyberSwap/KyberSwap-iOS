@@ -56,16 +56,8 @@ class KConfirmSendViewController: KNBaseViewController {
     self.setupUI()
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    if !self.isConfirmed {
-      self.confirmButton.removeSublayer(at: 0)
-      self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    }
-  }
 
   fileprivate func setupUI() {
-    self.titleLabel.text = self.viewModel.titleString
 
     self.contactImageView.rounded(radius: self.contactImageView.frame.height / 2.0)
     self.contactImageView.image = self.viewModel.addressToIcon
@@ -80,17 +72,16 @@ class KConfirmSendViewController: KNBaseViewController {
     self.feeUSDLabel.text = self.viewModel.transactionFeeUSDString
     gasPriceTextLabel.text = viewModel.transactionGasPriceString
 
-    self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
+    self.confirmButton.rounded(radius: 16)
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal
     )
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.cancelButton.setTitle(
       NSLocalizedString("cancel", value: "Cancel", comment: ""),
       for: .normal
     )
-    self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
+    self.cancelButton.rounded(radius: 16)
     self.amountToSendTextLabel.text = NSLocalizedString("amount.to.send", value: "Amount To Transfer", comment: "")
     self.transactionFeeTextLabel.text = NSLocalizedString("Maximum gas fee", value: "Transaction Fee", comment: "")
     let chain = KNGeneralProvider.shared.isEthereum ? "Ethereum" : "Binance Smart Chain"

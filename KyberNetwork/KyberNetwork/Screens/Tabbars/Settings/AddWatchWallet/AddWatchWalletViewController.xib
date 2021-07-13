@@ -52,7 +52,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B7Y-W5-qWR">
-                            <rect key="frame" x="37" y="115" width="340" height="42"/>
+                            <rect key="frame" x="37" y="115.5" width="340" height="42"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LNi-E8-U7l">
                                     <rect key="frame" x="16" y="0.0" width="308" height="42"/>
@@ -78,19 +78,19 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label of Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeL-gu-Zks">
-                            <rect key="frame" x="37" y="83.5" width="107" height="18.5"/>
-                            <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="16"/>
+                            <rect key="frame" x="37" y="83.5" width="105.5" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ENS domain or vaild ETH address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9M-Zw-HXt">
-                            <rect key="frame" x="37" y="181" width="340" height="18.5"/>
-                            <fontDescription key="fontDescription" name="Kefa-Regular" family="Kefa" pointSize="16"/>
+                            <rect key="frame" x="37" y="181.5" width="340" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ifp-2H-ZTk">
-                            <rect key="frame" x="217" y="292.5" width="160" height="38"/>
+                            <rect key="frame" x="217" y="293.5" width="160" height="38"/>
                             <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="VTu-qF-xfe"/>
@@ -104,7 +104,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzU-gK-Zlg">
-                            <rect key="frame" x="37" y="212.5" width="340" height="42"/>
+                            <rect key="frame" x="37" y="213.5" width="340" height="42"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PtF-ix-QOf">
                                     <rect key="frame" x="16" y="0.0" width="284" height="42"/>
@@ -146,7 +146,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ojt-Yd-sBW">
-                            <rect key="frame" x="37" y="292.5" width="160" height="38"/>
+                            <rect key="frame" x="37" y="293.5" width="160" height="38"/>
                             <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="38" id="jrE-rR-eKg"/>
@@ -160,7 +160,7 @@
                             </connections>
                         </button>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" text="0x4f2604aaC....24480B" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I2u-xI-NQM">
-                            <rect key="frame" x="37" y="262.5" width="105.5" height="12"/>
+                            <rect key="frame" x="37" y="263.5" width="105.5" height="12"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
                             <color key="textColor" systemColor="systemGreenColor"/>
                             <nil key="highlightedColor"/>

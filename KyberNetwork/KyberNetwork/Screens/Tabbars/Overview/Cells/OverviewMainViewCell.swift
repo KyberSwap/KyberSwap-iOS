@@ -9,9 +9,10 @@ import UIKit
 import BigInt
 
 enum OverviewMainCellMode {
-  case market(token: Token)
-  case asset(token: Token)
+  case market(token: Token, rightMode: RightMode)
+  case asset(token: Token, rightMode: RightMode)
   case supply(balance: Any)
+  case search(token: Token)
 }
 
 class OverviewMainCellViewModel {
@@ -23,9 +24,9 @@ class OverviewMainCellViewModel {
   
   var tokenSymbol: String {
     switch self.mode {
-    case .market(token: let token):
+    case .market(token: let token, rightMode: let mode):
       return token.symbol
-    case .asset(token: let token):
+    case .asset(token: let token, rightMode: let mode):
       return token.symbol
     case .supply(balance: let balance):
       if let lendingBalance = balance as? LendingBalance {
@@ -35,14 +36,16 @@ class OverviewMainCellViewModel {
       } else {
         return ""
       }
+    case .search(token: let token):
+      return token.symbol
     }
   }
   
   var displayTitle: String {
     switch self.mode {
-    case .market(token: let token):
+    case .market(token: let token, rightMode: let mode):
       return token.symbol
-    case .asset(token: let token):
+    case .asset(token: let token, rightMode: let mode):
       return token.symbol
     case .supply(balance: let balance):
       guard !self.hideBalanceStatus else {
@@ -59,15 +62,17 @@ class OverviewMainCellViewModel {
       } else {
         return ""
       }
+    case .search(token: let token):
+      return token.symbol
     }
   }
 
   var displaySubTitleDetail: String {
     switch self.mode {
-    case .market(token: let token):
+    case .market(token: let token, rightMode: let mode):
       let price = token.getTokenPrice().usd
       return "$" + String(format: "%.6f", price)
-    case .asset(token: let token):
+    case .asset(token: let token, rightMode: let mode):
       guard !self.hideBalanceStatus else {
         return "********"
       }
@@ -79,22 +84,43 @@ class OverviewMainCellViewModel {
       } else {
         return ""
       }
+    case .search(token: let token):
+      return token.name
     }
   }
 
   var displayAccessoryTitle: String {
     switch self.mode {
-    case .market(token: let token):
-      let change24 = token.getTokenPrice().usd24hChange
-      return String(format: "%.2f", change24) + "%"
-    case .asset(token: let token):
+    case .market(token: let token, rightMode: let mode):
+      switch mode {
+      case .ch24:
+        let change24 = token.getTokenPrice().usd24hChange
+        return String(format: "%.2f", change24) + "%"
+      case .lastPrice:
+        let price = token.getTokenPrice().usd
+      return "$" + String(format: "%.2f", price)
+      default:
+        return ""
+      }
+      
+    case .asset(token: let token, rightMode: let mode):
       guard !self.hideBalanceStatus else {
         return "********"
       }
-      let rateBigInt = BigInt(token.getTokenPrice().usd * pow(10.0, 18.0))
-      let valueBigInt = token.getBalanceBigInt() * rateBigInt / BigInt(10).power(token.decimals)
-      let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))
-      return "$" + valueString
+      switch mode {
+      case .value:
+        let rateBigInt = BigInt(token.getTokenPrice().usd * pow(10.0, 18.0))
+        let valueBigInt = token.getBalanceBigInt() * rateBigInt / BigInt(10).power(token.decimals)
+        let valueString = valueBigInt.string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(token.decimals, 6))
+        return "$" + valueString
+      case .ch24:
+        let change24 = token.getTokenPrice().usd24hChange
+        return String(format: "%.2f", change24) + "%"
+      case .lastPrice:
+        let price = token.getTokenPrice().usd
+        return "$" + String(format: "%.2f", price)
+      }
+      
     case .supply(balance: let balance):
       if let lendingBalance = balance as? LendingBalance {
         guard !self.hideBalanceStatus else {
@@ -115,15 +141,21 @@ class OverviewMainCellViewModel {
       } else {
         return ""
       }
+    case .search(token: let token):
+      let price = token.getTokenPrice().usd
+      return "$" + String(format: "%.2f", price)
     }
   }
 
   var displayAccessoryColor: UIColor? {
     switch self.mode {
-    case .market(token: let token):
+    case .market(token: let token, rightMode: let mode):
       let change24 = token.getTokenPrice().usd24hChange
       return change24 > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
-    case .asset(token: let token):
+    case .asset(token: let token, rightMode: let mode):
+      let change24 = token.getTokenPrice().usd24hChange
+      return change24 > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
+    case .search(token: let token):
       let change24 = token.getTokenPrice().usd24hChange
       return change24 > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
     default:
@@ -142,6 +174,7 @@ class OverviewMainViewCell: UITableViewCell {
   @IBOutlet weak var tokenLabel: UILabel!
   @IBOutlet weak var tokenBalanceLabel: UILabel!
   @IBOutlet weak var tokenValueLabel: UILabel!
+  var action: (() -> ())?
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -154,6 +187,10 @@ class OverviewMainViewCell: UITableViewCell {
     self.tokenBalanceLabel.text = viewModel.displaySubTitleDetail
     self.tokenValueLabel.text = viewModel.displayAccessoryTitle
     self.tokenValueLabel.textColor = viewModel.displayAccessoryColor
+  }
+  
+  @IBAction func tapOnRightSide(_ sender: Any) {
+    (self.action ?? {})()
   }
   
 }

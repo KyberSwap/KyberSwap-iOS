@@ -102,7 +102,6 @@ class WalletsListViewModel {
 }
 
 class WalletsListViewController: KNBaseViewController {
-  @IBOutlet weak var popupTitle: UILabel!
   @IBOutlet weak var walletTableView: UITableView!
   @IBOutlet weak var manageWalletButton: UIButton!
   @IBOutlet weak var connectWalletButton: UIButton!

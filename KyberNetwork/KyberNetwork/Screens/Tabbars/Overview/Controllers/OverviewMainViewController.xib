@@ -25,6 +25,7 @@
                 <outlet property="currentWalletLabel" destination="HFZ-f3-6Cw" id="av4-6L-tcf"/>
                 <outlet property="hideBalanceButton" destination="22d-pN-OWF" id="5LQ-ns-sHl"/>
                 <outlet property="notificationButton" destination="aSf-cz-DTw" id="8Fu-ML-9f7"/>
+                <outlet property="rightModeSortLabel" destination="5Qq-qF-bu6" id="Sab-Cf-EUf"/>
                 <outlet property="searchButton" destination="IGF-fz-Lgs" id="Nb2-tr-xJd"/>
                 <outlet property="sortMarketByCh24Button" destination="Ih9-uC-ejJ" id="sHj-uS-odB"/>
                 <outlet property="sortMarketByNameButton" destination="RXK-up-Jn3" id="78S-2R-VkD"/>
@@ -356,7 +357,7 @@
                                     <rect key="frame" x="71" y="6" width="20" height="20"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8HD-f0-AMK">
-                                    <rect key="frame" x="38" y="9" width="23" height="14"/>
+                                    <rect key="frame" x="38" y="9" width="21" height="14"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -425,7 +426,7 @@
         <image name="sort_down_icon" width="16" height="16"/>
         <image name="sort_none_icon" width="16" height="16"/>
         <namedColor name="buttonBackgroundColor">
-            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="buttonTextColor">
             <color red="0.058823529411764705" green="0.058823529411764705" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

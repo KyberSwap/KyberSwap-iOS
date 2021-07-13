@@ -250,7 +250,7 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     let alertController = KNPrettyAlertController(
       title: "Export at your own risk!",
       isWarning: true,
-      message: "NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen".toBeLocalised(),
+      message: "NEVER share Keystore/Private Key/Mnemonic with anyone (including Krystal). These data grant access to all your funds and they may get stolen".toBeLocalised(),
       secondButtonTitle: NSLocalizedString("continue", value: "Continue", comment: ""),
       firstButtonTitle: NSLocalizedString("cancel", value: "Cancel", comment: ""),
       secondButtonAction: {

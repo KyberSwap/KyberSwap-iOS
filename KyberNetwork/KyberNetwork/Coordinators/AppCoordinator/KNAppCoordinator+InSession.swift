@@ -16,7 +16,6 @@ extension KNAppCoordinator {
     self.loadBalanceCoordinator?.resume()
 
     self.tabbarController = KNTabBarController()
-    self.tabbarController.tabBar.barTintColor = .white
     
     let overviewCoordinator = OverviewCoordinator(session: self.session)
     self.addCoordinator(overviewCoordinator)
@@ -68,7 +67,7 @@ extension KNAppCoordinator {
       self.earnCoordinator!.navigationController,
       self.settingsCoordinator!.navigationController,
     ]
-    self.tabbarController.tabBar.tintColor = UIColor(named: "textWhiteColor")
+    self.tabbarController.tabBar.tintColor = UIColor(named: "buttonBackgroundColor")
     self.tabbarController.tabBar.barTintColor = UIColor(named: "toolbarBgColor")
     self.overviewTabCoordinator?.navigationController.tabBarItem = UITabBarItem(
       title: nil,

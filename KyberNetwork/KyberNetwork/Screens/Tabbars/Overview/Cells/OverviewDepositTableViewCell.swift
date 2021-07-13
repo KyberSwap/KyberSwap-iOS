@@ -10,13 +10,14 @@ import BigInt
 
 protocol OverviewDepositCellViewModel {
   var symbol: String { get }
-  var displayBalance: NSAttributedString { get }
+  var displayBalance: String { get }
   var displayValue: String { get }
   var balanceBigInt: BigInt { get }
   var valueBigInt: BigInt { get }
   var currencyType: CurrencyType { get set }
   func updateCurrencyType(_ type: CurrencyType)
   var hideBalanceStatus: Bool { get set }
+  var displayAPY: String { get }
 }
 
 class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
@@ -31,24 +32,13 @@ class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
     return self.balance.symbol
   }
   
-  var displayBalance: NSAttributedString {
+  var displayBalance: String {
     guard !self.hideBalanceStatus else {
-      return NSAttributedString(string: "********")
+      return "********"
     }
     let balanceString = self.balanceBigInt.string(decimals: self.balance.decimals, minFractionDigits: 0, maxFractionDigits: 6)
-    let rateString = String(format: "%.2f", self.balance.supplyRate * 100)
-    let amountAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
-    ]
-    let apyAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 12),
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
-    ]
-    let attributedText = NSMutableAttributedString()
-    attributedText.append(NSAttributedString(string: "\(balanceString) \(self.balance.symbol) ", attributes: amountAttributes))
-    attributedText.append(NSAttributedString(string: "\(rateString)% APY", attributes: apyAttributes))
-    return attributedText
+
+    return "\(balanceString) \(self.balance.symbol) "
   }
   
   var displayValue: String {
@@ -64,6 +54,11 @@ class OverviewDepositLendingBalanceCellViewModel: OverviewDepositCellViewModel {
     case .btc:
       return string + " BTC"
     }
+  }
+  
+  var displayAPY: String {
+    let rateString = String(format: "%.2f", self.balance.supplyRate * 100)
+    return "\(rateString)%".paddingString()
   }
   
   var balanceBigInt: BigInt {
@@ -101,17 +96,13 @@ class OverviewDepositDistributionBalanceCellViewModel: OverviewDepositCellViewMo
     return self.balance.symbol
   }
 
-  var displayBalance: NSAttributedString {
+  var displayBalance: String {
     guard !self.hideBalanceStatus else {
-      return NSAttributedString(string: "********")
+      return "********"
     }
     let balanceString = self.balanceBigInt.string(decimals: self.balance.decimal, minFractionDigits: 0, maxFractionDigits: 6)
-    let text = "\(balanceString) \(self.balance.symbol)"
-    let amountAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
-    ]
-    return NSAttributedString(string: text, attributes: amountAttributes)
+
+    return "\(balanceString) \(self.balance.symbol)"
   }
 
   var displayValue: String {
@@ -127,6 +118,10 @@ class OverviewDepositDistributionBalanceCellViewModel: OverviewDepositCellViewMo
     case .btc:
       return string + " BTC"
     }
+  }
+  
+  var displayAPY: String {
+    return ""
   }
   
   var balanceBigInt: BigInt {
@@ -168,8 +163,10 @@ class OverviewDepositTableViewCell: UITableViewCell {
 
   func updateCell(viewModel: OverviewDepositCellViewModel) {
     self.iconImageView.setSymbolImage(symbol: viewModel.symbol)
-    self.tokenBalanceInfoLabel.attributedText = viewModel.displayBalance
+    self.tokenBalanceInfoLabel.text = viewModel.displayBalance
     self.valueLabel.text = viewModel.displayValue
+    self.tokenApyInfo.text = viewModel.displayAPY
+    self.tokenApyInfo.isHidden = viewModel.displayAPY.isEmpty
   }
   
   func updateCell(_ viewModel: OverviewMainCellViewModel) {

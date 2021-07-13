@@ -297,20 +297,20 @@
                                 <constraint firstAttribute="height" constant="1" id="2pk-li-UFR"/>
                             </constraints>
                         </view>
-                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="74" translatesAutoresizingMaskIntoConstraints="NO" id="cri-x0-2Od">
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cri-x0-2Od">
                             <rect key="frame" x="15" y="564" width="345" height="44"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fW9-5B-7k6">
-                                    <rect key="frame" x="0.0" y="0.0" width="65.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="101.5" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Market Cap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b44-hv-Wee">
-                                            <rect key="frame" x="0.0" y="0.0" width="65.5" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="101.5" height="19"/>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                             <color key="textColor" name="normalTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ncE-iU-gdT">
-                                            <rect key="frame" x="0.0" y="25" width="65.5" height="19"/>
+                                            <rect key="frame" x="0.0" y="25" width="101.5" height="19"/>
                                             <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -329,16 +329,16 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="afc-Pp-tpw">
-                                    <rect key="frame" x="139.5" y="0.0" width="66" height="44"/>
+                                    <rect key="frame" x="121.5" y="0.0" width="102" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="All Time Low" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OC9-lv-LcJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="66" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="102" height="19"/>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                             <color key="textColor" name="normalTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ZFU-cs-HXo">
-                                            <rect key="frame" x="0.0" y="25" width="66" height="19"/>
+                                            <rect key="frame" x="0.0" y="25" width="102" height="19"/>
                                             <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -357,16 +357,16 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMK-2I-i3Z">
-                                    <rect key="frame" x="279.5" y="0.0" width="65.5" height="44"/>
+                                    <rect key="frame" x="243.5" y="0.0" width="101.5" height="44"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="All Time High" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vn-RI-LEB">
-                                            <rect key="frame" x="0.0" y="0.0" width="65.5" height="19"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="101.5" height="19"/>
                                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                             <color key="textColor" name="normalTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$41.2B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mSV-g5-nVV">
-                                            <rect key="frame" x="0.0" y="25" width="65.5" height="19"/>
+                                            <rect key="frame" x="0.0" y="25" width="101.5" height="19"/>
                                             <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -552,13 +552,13 @@
         <image name="unFav_star_icon" width="22" height="21"/>
         <image name="website_chart_icon" width="24" height="24"/>
         <namedColor name="buttonBackgroundColor">
-            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="grayBackgroundColor">
             <color red="0.23137254901960785" green="0.24313725490196078" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="mainViewBgColor">
-            <color red="0.0040000001899898052" green="0.0040000001899898052" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="normalTextColor">
             <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>

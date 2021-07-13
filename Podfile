@@ -43,6 +43,7 @@ target 'KyberNetwork' do
   pod 'FSPagerView'
   pod 'BetterSegmentedControl', '1.0'
   pod 'OneSignal', '>= 3.0.0', '< 4.0'
+  pod 'TagListView', '~> 1.0'
 
   target 'KyberNetworkTests' do
     inherit! :search_paths

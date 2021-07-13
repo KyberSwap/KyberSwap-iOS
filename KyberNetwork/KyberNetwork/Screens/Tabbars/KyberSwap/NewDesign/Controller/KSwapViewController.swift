@@ -74,17 +74,16 @@ class KSwapViewController: KNBaseViewController {
   @IBOutlet weak var gasFeeLabel: UILabel!
   @IBOutlet weak var slippageLabel: UILabel!
   @IBOutlet weak var changeRateButton: UIButton!
-  @IBOutlet weak var gasFeeSelectorContainerView: RectangularDashedView!
   @IBOutlet weak var approveButtonLeftPaddingContraint: NSLayoutConstraint!
   @IBOutlet weak var approveButtonRightPaddingContaint: NSLayoutConstraint!
   @IBOutlet weak var approveButton: UIButton!
   @IBOutlet weak var approveButtonEqualWidthContraint: NSLayoutConstraint!
   @IBOutlet weak var approveButtonWidthContraint: NSLayoutConstraint!
   @IBOutlet weak var rateWarningLabel: UILabel!
-  @IBOutlet weak var rateWarningContainerView: UIView!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
   @IBOutlet weak var currentChainIcon: UIImageView!
-
+  @IBOutlet weak var minReceivedAmount: UILabel!
+  
   fileprivate var estRateTimer: Timer?
   fileprivate var estGasLimitTimer: Timer?
   fileprivate var previousCallEvent: KSwapViewEvent?
@@ -279,6 +278,7 @@ class KSwapViewController: KNBaseViewController {
 
   @IBAction func swapButtonPressed(_ sender: UIButton) {
     if !self.viewModel.isFromTokenBtnEnabled { return }
+    self.viewModel.showingRevertRate = false
     self.viewModel.swapTokens()
     self.fromAmountTextField.text = ""
     self.toAmountTextField.text = ""
@@ -286,18 +286,8 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.updateAmount("", isSource: false)
     self.updateTokensView()
     self.updateEstimatedGasLimit()
+    self.updateUIMinReceiveAmount()
   }
-
-//  @IBAction func warningRateButtonPressed(_ sender: Any) {
-//    guard let string = self.viewModel.differentRatePercentageDisplay else { return }
-//    let message = String(format: "There.is.a.difference.between.the.estimated.price".toBeLocalised(), string)
-//    self.showTopBannerView(
-//      with: "",
-//      message: message,
-//      icon: UIImage(named: "info_blue_icon"),
-//      time: 5.0
-//    )
-//  }
 
   @IBAction func historyListButtonTapped(_ sender: UIButton) {
     self.delegate?.kSwapViewController(self, run: .openHistory)
@@ -306,15 +296,6 @@ class KSwapViewController: KNBaseViewController {
   @IBAction func walletsListButtonTapped(_ sender: UIButton) {
     self.delegate?.kSwapViewController(self, run: .openWalletsList)
   }
-
-//  @objc func prodCachedRateFailedToLoad(_ sender: Any?) {
-//    let event = KSwapViewEvent.estimateComparedRate(
-//      from: self.viewModel.from,
-//      to: self.viewModel.to,
-//      hint: self.viewModel.getHint(from: self.viewModel.from.address, to: self.viewModel.to.address, amount: self.viewModel.amountFromBigInt, platform: self.viewModel.currentFlatform)
-//    )
-//    self.delegate?.kSwapViewController(self, run: event)
-//  }
 
   /*
    Continue token pressed
@@ -377,7 +358,12 @@ class KSwapViewController: KNBaseViewController {
     self.viewModel.updateAmount(self.fromAmountTextField.text ?? "", isSource: true, forSwapAllETH: true)
     self.updateViewAmountDidChange()
   }
-
+  
+  @IBAction func revertRateButtonTapped(_ sender: UIButton) {
+    self.viewModel.showingRevertRate = !self.viewModel.showingRevertRate
+    self.updateExchangeRateField()
+  }
+  
   @objc func keyboardSwapAllButtonPressed(_ sender: Any) {
     self.view.endEditing(true)
     self.viewModel.updateFocusingField(true)
@@ -647,11 +633,14 @@ extension KSwapViewController {
 
     self.view.layoutIfNeeded()
   }
-  
+
   fileprivate func updateUIRefPrice() {
     let change = self.viewModel.refPriceDiffText
     self.rateWarningLabel.text = change
-    self.rateWarningContainerView.isHidden = change.isEmpty
+  }
+
+  fileprivate func updateUIMinReceiveAmount() {
+    self.minReceivedAmount.text = self.viewModel.displayMinDestAmount
   }
 }
 
@@ -729,6 +718,7 @@ extension KSwapViewController {
     if !isSource, !self.toTokenButton.isEnabled { return }
     if isSource, self.viewModel.from == token { return }
     if !isSource, self.viewModel.to == token { return }
+    self.viewModel.showingRevertRate = false
     self.viewModel.updateSelectedToken(token, isSource: isSource)
     // support for promo wallet
     let isUpdatedTo: Bool = {
@@ -986,7 +976,6 @@ extension KSwapViewController: UITextFieldDelegate {
     self.viewModel.updateAmount("", isSource: textField == self.fromAmountTextField)
     self.viewModel.isSwapAllBalance = false
     self.updateViewAmountDidChange()
-//    self.updateEstimatedRate(showError: true)
     self.updateEstimatedGasLimit()
     return false
   }
@@ -1009,7 +998,7 @@ extension KSwapViewController: UITextFieldDelegate {
     self.viewModel.updateFocusingField(textField == self.fromAmountTextField)
     self.viewModel.updateAmount(text, isSource: textField == self.fromAmountTextField)
     self.updateViewAmountDidChange()
-    
+
     return false
   }
 
@@ -1038,45 +1027,14 @@ extension KSwapViewController: UITextFieldDelegate {
 
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
   }
+  
+  
 
   fileprivate func updateViewAmountDidChange() {
     self.updateInputFieldsUI()
     self.updateAllRates()
     self.updateExchangeRateField()
+    self.updateUIMinReceiveAmount()
     self.view.layoutIfNeeded()
   }
-
-//  fileprivate func updateRateDestAmountDidChangeIfNeeded(prevDest: BigInt, isForceLoad: Bool = false) {
-//    let destAmount = self.viewModel.amountToBigInt
-//    let isChanged: Bool = {
-//      if isForceLoad { return true }
-//      if prevDest.isZero { return !destAmount.isZero }
-//      let percent = (Double(destAmount) - Double(prevDest)) / Double(prevDest) * 100.0
-//      return fabs(percent) >= 1.0
-//    }()
-//    if !isChanged { return } // no need to call if change is small
-//    KNRateCoordinator.shared.getCachedSourceAmount(
-//      from: self.viewModel.from,
-//      to: self.viewModel.to,
-//      destAmount: Double(destAmount) / pow(10.0, Double(self.viewModel.to.decimals))
-//    ) { [weak self] result in
-//      guard let `self` = self else { return }
-//      if case .success(let data) = result, let srcAmount = data, !srcAmount.isZero {
-//        let rate = destAmount * BigInt(10).power(self.viewModel.from.decimals) / srcAmount
-//        self.viewModel.updateAmount(
-//          srcAmount.fullString(decimals: self.viewModel.from.decimals).removeGroupSeparator(),
-//          isSource: true
-//        )
-//        self.viewModel.updateExchangeRate(
-//          for: self.viewModel.from,
-//          to: self.viewModel.to,
-//          amount: srcAmount,
-//          rate: rate,
-//          slippageRate: rate * BigInt(97) / BigInt(100)
-//        )
-//        self.updateTokensView(updatedFrom: false, updatedTo: false)
-//      }
-//      self.updateEstimatedRate(showError: true)
-//    }
-//  }
 }

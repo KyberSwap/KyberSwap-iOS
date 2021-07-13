@@ -88,7 +88,7 @@ class WithdrawViewModel {
     default:
       break
     }
-    return "Gas fee: \(feeString) ETH (\(typeString))"
+    return "\(feeString) ETH (\(typeString))"
   }
   
   var gasFeeString: String {
@@ -156,7 +156,6 @@ class WithdrawViewController: KNBaseViewController {
   @IBOutlet weak var withdrawableAmountLabel: UILabel!
   @IBOutlet weak var tokenButton: UIButton!
   @IBOutlet weak var selectedGasFeeLabel: UILabel!
-  @IBOutlet weak var gasTokenIcon: UIImageView!
   @IBOutlet weak var transactionGasPriceLabel: UILabel!
   
   let transitor = TransitionDelegate()
@@ -191,12 +190,6 @@ class WithdrawViewController: KNBaseViewController {
     self.updateUIWithdrawableAmount()
     self.updateUIFee()
   }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.withdrawButton.removeSublayer(at: 0)
-    self.withdrawButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
   
   fileprivate func updateUIFee() {
     self.ethFeeLabel.text = self.viewModel.feeETHString
@@ -214,10 +207,9 @@ class WithdrawViewController: KNBaseViewController {
     self.updateUIFee()
     self.updateUIWithdrawableAmount()
     self.tokenButton.setTitle(self.viewModel.balance.symbol.uppercased(), for: .normal)
-    self.withdrawButton.rounded(radius: self.withdrawButton.frame.size.height / 2)
-    self.withdrawButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.withdrawButton.rounded(radius: 16)
     self.updateUIforWithdrawButton()
-    self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
+    self.cancelButton.rounded(radius: 16)
   }
   
   fileprivate func loadWithdrawableAmount() {
@@ -262,10 +254,6 @@ class WithdrawViewController: KNBaseViewController {
   
   fileprivate func updateGasLimit() {
     self.delegate?.withdrawViewController(self, run: .updateGasLimit(platform: self.viewModel.platform, token: self.viewModel.balance.address, amount: self.viewModel.amountBigInt.description, gasPrice: self.viewModel.gasPrice.description, useGasToken: true))
-  }
-  
-  fileprivate func updateUIForUseGasTokenIcon() {
-    self.gasTokenIcon.isHidden = !self.viewModel.isUseGasToken
   }
   
   func coordinatorDidUpdateWithdrawableAmount(_ amount: String) {
@@ -328,7 +316,6 @@ class WithdrawViewController: KNBaseViewController {
   
   func coordinatorUpdateIsUseGasToken(_ status: Bool) {
     self.viewModel.isUseGasToken = status
-    self.updateUIForUseGasTokenIcon()
   }
   
   @IBAction func withdrawButtonTapped(_ sender: UIButton) {

@@ -165,7 +165,7 @@ class KrytalViewController: KNBaseViewController {
   }
   
   @IBAction func helpIconTapped(_ sender: UITapGestureRecognizer) {
-    self.navigationController?.showBottomBannerView(message: "Ask your friends to download Krystal App using your Referral Codes. If they enter your Referral Codes when importing/creating their wallets in Krystal, both you and your friends can start earning Referral Rewards (in Krystal Points) based on Tiers of Monthly Trading Volume. Learn more.(!) ", icon: UIImage(named: "info_waring_blue_icon")!, time: 10, tapHandler: {
+    self.navigationController?.showBottomBannerView(message: "Ask your friend to download Krystal app using your Referral Code. If they start using Krystal, We will automatically map the referral to you. You will earn rewards every time your friends transact via Krystal app.", icon: UIImage(named: "info_waring_blue_icon")!, time: 10, tapHandler: {
       self.openSafari(with: "https://support.krystal.app/support/solutions/articles/47001181546-referral-program")
     })
   }

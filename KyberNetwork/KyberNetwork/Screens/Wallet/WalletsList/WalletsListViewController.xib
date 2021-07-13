@@ -64,7 +64,7 @@
                                 <constraint firstAttribute="height" constant="46" id="UcE-VB-Ofg"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="16"/>
-                            <state key="normal" title="Manage Wallet">
+                            <state key="normal" title="Manage Wallets">
                                 <color key="titleColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
@@ -133,7 +133,7 @@
     <resources>
         <image name="qr_code_blue_icon" width="20" height="20"/>
         <namedColor name="popupBackgroundColor">
-            <color red="0.16099999845027924" green="0.17599999904632568" blue="0.17299999296665192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.16078431372549021" green="0.17647058823529413" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

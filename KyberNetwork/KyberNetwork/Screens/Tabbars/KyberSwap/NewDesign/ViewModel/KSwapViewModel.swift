@@ -40,11 +40,6 @@ class KSwapViewModel {
   var isSwapAllBalance: Bool = false
   var isTappedSwapAllBalance: Bool = false
 
-//  var estimatedRateDouble: Double {
-//    guard let rate = self.estRate else { return 0.0 }
-//    return Double(rate) / pow(10.0, Double(self.to.decimals))
-//  }
-
   fileprivate(set) var selectedGasPriceType: KNSelectedGasPriceType = .medium
   fileprivate(set) var gasPrice: BigInt = KNGasCoordinator.shared.standardKNGas
 
@@ -59,12 +54,6 @@ class KSwapViewModel {
           return false
         }
       }
-//      if let estGasString = dict?["estimatedGas"] as? NSNumber, let estGas = BigInt(estGasString.stringValue) {
-//        guard self.estimateGasLimit != KNGasConfiguration.exchangeTokensGasLimitDefault else {
-//          return
-//        }
-//        self.estimateGasLimit = estGas
-//      }
     }
   }
   var remainApprovedAmount: (TokenObject, BigInt)?
@@ -72,6 +61,7 @@ class KSwapViewModel {
   var refPrice: (TokenObject, TokenObject, String, [String])
   var gasPriceSelectedAmount: (String, String) = ("", "")
   var approvingToken: TokenObject?
+  var showingRevertRate: Bool = false
 
   init(wallet: Wallet,
        from: TokenObject,
@@ -255,10 +245,29 @@ class KSwapViewModel {
 
   // MARK: Rate
   var exchangeRateText: String {
+    if self.showingRevertRate {
+      return self.displayRevertRate
+    } else {
+      return displayExchangeRate
+    }
+  }
+  
+  var displayExchangeRate: String {
     let rateString: String = self.getSwapRate(from: self.from.address.lowercased(), to: self.to.address.lowercased(), amount: self.amountFromBigInt, platform: self.currentFlatform)
     let rate = BigInt(rateString)
     if let notNilRate = rate {
       return notNilRate.isZero ? "---" : "Rate: 1 \(self.from.symbol) = \(notNilRate.displayRate(decimals: 18)) \(self.to.symbol)"
+    } else {
+      return "---"
+    }
+  }
+
+  var displayRevertRate: String {
+    let rateString: String = self.getSwapRate(from: self.from.address.lowercased(), to: self.to.address.lowercased(), amount: self.amountFromBigInt, platform: self.currentFlatform)
+    let rate = BigInt(rateString)
+    if let notNilRate = rate, notNilRate != BigInt(0) {
+      let revertRate = BigInt(10).power(18) / ( notNilRate / BigInt(10).power(18) )
+      return notNilRate.isZero ? "---" : "Rate: 1 \(self.to.symbol) = \(revertRate.displayRate(decimals: 18)) \(self.from.symbol)"
     } else {
       return "---"
     }
@@ -293,16 +302,6 @@ class KSwapViewModel {
     if self.to.isETH || self.to.isWETH {
       return self.amountToBigInt < BigInt(0.001 * Double(EthereumUnit.ether.rawValue))
     }
-//    let ethRate: BigInt = {
-//      let cacheRate = KNRateCoordinator.shared.ethRate(for: self.from)
-//      return cacheRate?.rate ?? BigInt(0)
-//    }()
-//    if ethRate.isZero && self.estRate != nil && self.estRate?.isZero == false {
-//      return false
-//    }
-//    let valueInETH = ethRate * self.amountFromBigInt
-//    let valueMin = BigInt(0.001 * Double(EthereumUnit.ether.rawValue)) * BigInt(10).power(self.from.decimals)
-//    return valueInETH < valueMin
     return false
   }
 
@@ -347,6 +346,10 @@ class KSwapViewModel {
     return self.amountToBigInt * BigInt(10000.0 - self.minRatePercent * 100.0) / BigInt(10000.0)
   }
 
+  var displayMinDestAmount: String {
+    return self.minDestQty.string(decimals: self.to.decimals, minFractionDigits: 4, maxFractionDigits: 4) + " " + self.to.symbol
+  }
+  
   var isHavingEnoughETHForFee: Bool {
     var fee = self.gasPrice * self.estimateGasLimit
     if self.from.isETH || self.from.isBNB { fee += self.amountFromBigInt }
@@ -650,7 +653,7 @@ class KSwapViewModel {
 
   var refPriceDiffText: String {
     guard !self.amountFrom.isEmpty else {
-      return ""
+      return "---"
     }
     let refPrice = self.getRefPrice(from: self.from, to: self.to)
     let price = self.getSwapRate(from: self.from.address.description, to: self.to.address.description, amount: self.amountFromBigInt, platform: self.currentFlatform)
@@ -661,7 +664,7 @@ class KSwapViewModel {
     let priceDouble: Double = Double(priceBigInt) / pow(10.0, 18)
     let change = (priceDouble - refPriceDouble) / refPriceDouble * 100.0
     if change > -5.0 {
-      return ""
+      return "---"
     } else {
       let displayPercent = "\(change)".prefix(6)
       return "↓ \(displayPercent)%"

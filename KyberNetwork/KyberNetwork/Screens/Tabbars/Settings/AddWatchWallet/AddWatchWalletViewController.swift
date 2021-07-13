@@ -115,7 +115,6 @@ class AddWatchWalletViewController: UIViewController {
   fileprivate func setupUI() {
     self.cancelButton.rounded(radius: 16)
     self.addButton.rounded(radius: 16)
-    self.addButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.titleLabel.text = self.viewModel.displayTitle
     self.walletLabelTextField.text = self.viewModel.wallet?.name
     self.walletAddressTextField.text = self.viewModel.wallet?.address

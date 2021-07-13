@@ -470,17 +470,17 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       actionController.addAction(Action(ActionData(title: "Show Supply", image: UIImage(named: "supply_actionsheet_icon")!), style: supplyType, handler: { _ in
         controller.coordinatorDidSelectMode(.supply)
       }))
-      let assetType = mode == .asset ? ActionStyle.selected : ActionStyle.default
+      let assetType = mode == .asset(rightMode: .value) ? ActionStyle.selected : ActionStyle.default
       actionController.addAction(Action(ActionData(title: "Show Asset", image: UIImage(named: "asset_actionsheet_icon")!), style: assetType, handler: { _ in
-        controller.coordinatorDidSelectMode(.asset)
+        controller.coordinatorDidSelectMode(.asset(rightMode: .value))
       }))
-      let marketType = mode == .market ? ActionStyle.selected : ActionStyle.default
+      let marketType = mode == .market(rightMode: .ch24) ? ActionStyle.selected : ActionStyle.default
       actionController.addAction(Action(ActionData(title: "Show Market", image: UIImage(named: "market_actionsheet_icon")!), style: marketType, handler: { _ in
-        controller.coordinatorDidSelectMode(.market)
+        controller.coordinatorDidSelectMode(.market(rightMode: .ch24))
       }))
-      let favType = mode == .favourite ? ActionStyle.selected : ActionStyle.default
+      let favType = mode == .favourite(rightMode: .ch24) ? ActionStyle.selected : ActionStyle.default
       actionController.addAction(Action(ActionData(title: "Favorites", image: UIImage(named: "favorites_actionsheet_icon")!), style: favType, handler: { _ in
-        controller.coordinatorDidSelectMode(.favourite)
+        controller.coordinatorDidSelectMode(.favourite(rightMode: .ch24))
       }))
       
       self.navigationController.present(actionController, animated: true, completion: nil)
@@ -546,8 +546,71 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       let coordinator = NotificationCoordinator(navigationController: self.navigationController)
       coordinator.start()
       self.notificationsCoordinator = coordinator
-    default:
-      break
+    case .search:
+      let searchController = OverviewSearchTokenViewController()
+      searchController.delegate = self
+      self.navigationController.pushViewController(searchController, animated: true)
+    case .withdrawBalance(platform: let platform, balance: let balance):
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.platform = platform
+      coordinator.balance = balance
+      coordinator.start()
+      coordinator.delegate = self
+      self.withdrawCoordinator = coordinator
+    case .claim(balance: let balance):
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.claimBalance = balance
+      coordinator.start()
+      coordinator.delegate = self
+      self.withdrawCoordinator = coordinator
+    case .depositMore:
+      self.delegate?.overviewCoordinatorDidSelectDepositMore(tokenAddress: "")
+    case .changeRightMode(current: let current):
+      let actionController = KrystalActionSheetController()
+      actionController.headerData = "Display Data"
+      
+      switch current {
+      case .market(rightMode: let mode):
+        let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Last Price", image: UIImage(named: "price_actionsheet_icon")!), style: priceType, handler: { _ in
+          controller.coordinatorDidSelectMode(.market(rightMode: .lastPrice))
+        }))
+        let ch24Type = mode == .ch24 ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Percentage Change", image: UIImage(named: "24ch_actionsheet_icon")!), style: ch24Type, handler: { _ in
+          controller.coordinatorDidSelectMode(.market(rightMode: .ch24))
+        }))
+      case .favourite(rightMode: let mode):
+        let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Last Price", image: UIImage(named: "price_actionsheet_icon")!), style: priceType, handler: { _ in
+          controller.coordinatorDidSelectMode(.market(rightMode: .lastPrice))
+        }))
+        let ch24Type = mode == .ch24 ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Percentage Change", image: UIImage(named: "24ch_actionsheet_icon")!), style: ch24Type, handler: { _ in
+          controller.coordinatorDidSelectMode(.market(rightMode: .ch24))
+        }))
+      case .asset(rightMode: let mode):
+        let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Last Price", image: UIImage(named: "price_actionsheet_icon")!), style: priceType, handler: { _ in
+          controller.coordinatorDidSelectMode(.asset(rightMode: .lastPrice))
+        }))
+        let valueType = mode == .value ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Value", image: UIImage(named: "value_actionsheet_icon")!), style: valueType, handler: { _ in
+          controller.coordinatorDidSelectMode(.asset(rightMode: .value))
+        }))
+        let ch24Type = mode == .ch24 ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Percentage Change", image: UIImage(named: "24ch_actionsheet_icon")!), style: ch24Type, handler: { _ in
+          controller.coordinatorDidSelectMode(.asset(rightMode: .ch24))
+        }))
+      default:
+        break
+      }
+      self.navigationController.present(actionController, animated: true, completion: nil)
     }
+  }
+}
+
+extension OverviewCoordinator: OverviewSearchTokenViewControllerDelegate {
+  func overviewSearchTokenViewController(_ controller: OverviewSearchTokenViewController, open token: Token) {
+    self.openChartView(token: token)
   }
 }

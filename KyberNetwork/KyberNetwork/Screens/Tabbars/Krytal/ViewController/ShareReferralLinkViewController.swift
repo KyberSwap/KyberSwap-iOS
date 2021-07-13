@@ -77,6 +77,13 @@ class ShareReferralLinkViewController: UIViewController {
   @IBAction func shareDircordButtonTapped(_ sender: UIButton) {
   }
   
+  @IBAction func shareButtonTapped(_ sender: UIButton) {
+    let text = "Here's my referral code \(self.viewModel.refCode) to earn bonus rewards on the Krystal app! Use the code when connecting your wallet in the app. Details: https://krystal.app"
+    let activitiy = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+    activitiy.title = NSLocalizedString("share.with.friends", value: "Share with friends", comment: "")
+    activitiy.popoverPresentationController?.sourceView = self.view
+    self.present(activitiy, animated: true, completion: nil)
+  }
 }
 
 extension ShareReferralLinkViewController: BottomPopUpAbstract {

@@ -454,6 +454,8 @@
 		938288E2ED2CF2CECDBAEA28 /* Pods_KyberNetworkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3307D3057FDE081F5E731EEF /* Pods_KyberNetworkTests.framework */; };
 		BB03A8712042B01300649DA0 /* BalanceStatusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */; };
 		C154BB4E1861959DEFE1048F /* Pods_KrystalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97C64E77FB15CCDC5F0BA6B5 /* Pods_KrystalNotificationServiceExtension.framework */; };
+		C3012CC3269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3012CC1269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.swift */; };
+		C3012CC4269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3012CC2269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.xib */; };
 		C3018DCB265793E1003C8114 /* SwitchChainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3018DC9265793E1003C8114 /* SwitchChainViewController.swift */; };
 		C3018DCC265793E1003C8114 /* SwitchChainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3018DCA265793E1003C8114 /* SwitchChainViewController.xib */; };
 		C30292F0260317EA001929E1 /* MarketingPartnerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */; };
@@ -1190,6 +1192,8 @@
 		AF8FFDA00149AF7FF756410D /* Pods-KyberNetwork-KrystalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KyberNetwork-KrystalNotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-KyberNetwork-KrystalNotificationServiceExtension/Pods-KyberNetwork-KrystalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		B13A87D3BA5167741E5D0801 /* Pods-Trust.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trust.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trust/Pods-Trust.release.xcconfig"; sourceTree = "<group>"; };
 		BB03A8702042B01300649DA0 /* BalanceStatusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceStatusTests.swift; sourceTree = "<group>"; };
+		C3012CC1269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewEmptyTableViewCell.swift; sourceTree = "<group>"; };
+		C3012CC2269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OverviewEmptyTableViewCell.xib; sourceTree = "<group>"; };
 		C3018DC9265793E1003C8114 /* SwitchChainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchChainViewController.swift; sourceTree = "<group>"; };
 		C3018DCA265793E1003C8114 /* SwitchChainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwitchChainViewController.xib; sourceTree = "<group>"; };
 		C30292EE260317E9001929E1 /* MarketingPartnerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketingPartnerCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -3730,6 +3734,8 @@
 				C31F74BA25DD32A6008B21F7 /* OverviewDepositTableViewCell.xib */,
 				C3EEA4592671EF840011DB97 /* OverviewMainViewCell.swift */,
 				C3EEA45A2671EF840011DB97 /* OverviewMainViewCell.xib */,
+				C3012CC1269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.swift */,
+				C3012CC2269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4305,6 +4311,7 @@
 				257B84A72074C2B9003DD40E /* KNDebugMenuViewController.xib in Resources */,
 				C3A6911425638DE700F57756 /* Lato-Thin.ttf in Resources */,
 				25929C6720DA5C760045CFA3 /* SF-Pro-Text-Medium.otf in Resources */,
+				C3012CC4269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.xib in Resources */,
 				C3EEA45C2671EF840011DB97 /* OverviewMainViewCell.xib in Resources */,
 				25369F1220F88C52007231FE /* KNWelcomeScreenCollectionView.xib in Resources */,
 				C31F749E25DCDAAA008B21F7 /* OverviewAssetsViewController.xib in Resources */,
@@ -4695,6 +4702,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftChart/SwiftChart.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework",
 				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TagListView/TagListView.framework",
 				"${BUILT_PRODUCTS_DIR}/TrezorCrypto/TrezorCrypto.framework",
 				"${BUILT_PRODUCTS_DIR}/TrustCore/TrustCore.framework",
 				"${BUILT_PRODUCTS_DIR}/TrustKeystore/TrustKeystore.framework",
@@ -4740,6 +4748,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftChart.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftMessages.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TagListView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrezorCrypto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustKeystore.framework",
@@ -4844,6 +4853,7 @@
 				C37AF0BF25CA5639006FB880 /* EarnConfirmViewController.swift in Sources */,
 				259EC46920E2A4A20081B2FC /* KNHistoryTransactionCollectionViewCell.swift in Sources */,
 				25A4B4B321242DE000924351 /* KNCreateWalletViewController.swift in Sources */,
+				C3012CC3269C1D9300AB9BB8 /* OverviewEmptyTableViewCell.swift in Sources */,
 				29FC9BC61F830899000209CD /* MirgrationInitializer.swift in Sources */,
 				C335FC71257F90990015CC27 /* RectangularDashedView.swift in Sources */,
 				25E9E1EF208DE24F00A9090D /* BigInt.swift in Sources */,
@@ -5382,7 +5392,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
@@ -5414,7 +5424,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				ENABLE_BITCODE = YES;
 				ENABLE_ON_DEMAND_RESOURCES = NO;
@@ -5522,7 +5532,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
@@ -5552,7 +5562,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
 				INFOPLIST_FILE = KrystalNotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

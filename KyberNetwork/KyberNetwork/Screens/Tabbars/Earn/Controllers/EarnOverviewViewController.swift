@@ -134,4 +134,8 @@ class EarnOverviewViewController: KNBaseViewController {
   func coordinatorDidUpdateHideBalanceStatus(_ status: Bool) {
     self.depositViewController.containerDidUpdateHideBalanceStatus(status)
   }
+
+  func coordinatorDidUpdateDidUpdateTokenList() {
+    self.depositViewController.coordinatorDidUpdateDidUpdateTokenList()
+  }
 }

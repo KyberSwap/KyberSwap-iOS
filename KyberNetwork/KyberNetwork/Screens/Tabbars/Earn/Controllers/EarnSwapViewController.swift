@@ -22,6 +22,7 @@ class EarnSwapViewModel {
   fileprivate(set) var gasLimit: BigInt = KNGasConfiguration.earnGasLimitDefault
   fileprivate(set) var selectedGasPriceType: KNSelectedGasPriceType = .medium
   fileprivate(set) var wallet: Wallet
+  var showingRevertRate: Bool = false
   
   var swapRates: (String, String, BigInt, [JSONDictionary]) = ("", "", BigInt(0), [])
   var currentFlatform: String = "kyber" {
@@ -183,6 +184,11 @@ class EarnSwapViewModel {
   var minDestQty: BigInt {
     return self.amountToBigInt * BigInt(10000.0 - self.minRatePercent * 100.0) / BigInt(10000.0)
   }
+
+  var displayMinDestAmount: String {
+    return self.minDestQty.string(decimals: self.toTokenData.decimals, minFractionDigits: 4, maxFractionDigits: 4) + " " + self.toTokenData.symbol
+  }
+
   @discardableResult
   func updateGasLimit(_ value: BigInt, platform: String, tokenAddress: String) -> Bool {
     if self.selectedPlatform == platform && self.toTokenData.address.lowercased() == tokenAddress.lowercased() {
@@ -343,12 +349,31 @@ class EarnSwapViewModel {
       }
     }
   }
-  
+
   var exchangeRateText: String {
+    if self.showingRevertRate {
+      return self.displayRevertRate
+    } else {
+      return displayExchangeRate
+    }
+  }
+
+  var displayExchangeRate: String {
     let rateString: String = self.getSwapRate(from: self.fromTokenData.address.lowercased(), to: self.toTokenData.address.lowercased(), amount: self.amountFromBigInt, platform: self.currentFlatform)
     let rate = BigInt(rateString)
     if let notNilRate = rate {
       return notNilRate.isZero ? "---" : "Rate: 1 \(self.fromTokenData.symbol) = \(notNilRate.displayRate(decimals: 18)) \(self.toTokenData.symbol)"
+    } else {
+      return "---"
+    }
+  }
+  
+  var displayRevertRate: String {
+    let rateString: String = self.getSwapRate(from: self.fromTokenData.address.lowercased(), to: self.toTokenData.address.lowercased(), amount: self.amountFromBigInt, platform: self.currentFlatform)
+    let rate = BigInt(rateString)
+    if let notNilRate = rate, notNilRate != BigInt(0) {
+      let revertRate = BigInt(10).power(18) / ( notNilRate / BigInt(10).power(18) )
+      return notNilRate.isZero ? "---" : "Rate: 1 \(self.toTokenData.symbol) = \(revertRate.displayRate(decimals: 18)) \(self.fromTokenData.symbol)"
     } else {
       return "---"
     }
@@ -456,7 +481,6 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   @IBOutlet weak var exchangeRateLabel: UILabel!
   @IBOutlet weak var rateWarningLabel: UILabel!
   @IBOutlet weak var changeRateButton: UIButton!
-  @IBOutlet weak var rateWarningContainerView: UIView!
   
   @IBOutlet weak var walletsSelectButton: UIButton!
   
@@ -470,6 +494,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   @IBOutlet weak var selectDepositTitleLabel: UILabel!
   @IBOutlet weak var pendingTxIndicatorView: UIView!
   @IBOutlet weak var compInfoLabel: UILabel!
+  @IBOutlet weak var minReceivedAmount: UILabel!
   
   let viewModel: EarnSwapViewModel
   fileprivate var isViewSetup: Bool = false
@@ -609,6 +634,10 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.exchangeRateLabel.text = self.viewModel.exchangeRateText
   }
   
+  fileprivate func updateUIMinReceiveAmount() {
+    self.minReceivedAmount.text = self.viewModel.displayMinDestAmount
+  }
+  
   fileprivate func updateGasFeeUI() {
     self.selectedGasFeeLabel.text = self.viewModel.gasFeeString
   }
@@ -616,7 +645,6 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   fileprivate func updateUIRefPrice() {
     let change = self.viewModel.refPriceDiffText
     self.rateWarningLabel.text = change
-    self.rateWarningContainerView.isHidden = change.isEmpty
   }
   
   fileprivate func updateApproveButton() {
@@ -730,6 +758,11 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   
   @IBAction func walletsButtonTapped(_ sender: UIButton) {
     self.navigationDelegate?.viewControllerDidSelectWallets(self)
+  }
+  
+  @IBAction func revertRateButtonTapped(_ sender: UIButton) {
+    self.viewModel.showingRevertRate = !self.viewModel.showingRevertRate
+    self.updateExchangeRateField()
   }
   
   func keyboardSwapAllButtonPressed(_ sender: Any) {
@@ -915,6 +948,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   }
 
   func coordinatorUpdateSelectedToken(_ token: TokenData) {
+    self.viewModel.showingRevertRate = false
     self.viewModel.updateFromToken(token)
     self.updateUITokenDidChange(token)
     self.fromAmountTextField.text = ""
@@ -935,6 +969,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
     self.updateGasLimit()
     self.updateAllowance()
     self.updateAllRates()
+    self.updateUIMinReceiveAmount()
   }
 
   func coordinatorUpdateNewSession(wallet: Wallet) {
@@ -1088,6 +1123,7 @@ extension EarnSwapViewController: UITextFieldDelegate {
   fileprivate func updateViewAmountDidChange() {
     self.updateInputFieldsUI()
     self.updateExchangeRateField()
+    self.updateUIMinReceiveAmount()
   }
 
   fileprivate func updateInputFieldsUI() {

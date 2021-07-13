@@ -152,10 +152,6 @@ class KSendTokenViewController: KNBaseViewController {
     self.recentContactTableView.delegate = self
     self.recentContactTableView.updateScrolling(isEnabled: false)
     self.recentContactTableView.shouldUpdateContacts(nil)
-    self.moreContactButton.setTitleColor(
-      UIColor.Kyber.enygold,
-      for: .normal
-    )
     self.moreContactButton.setTitle(
       "more".toBeLocalised().uppercased(),
       for: .normal
