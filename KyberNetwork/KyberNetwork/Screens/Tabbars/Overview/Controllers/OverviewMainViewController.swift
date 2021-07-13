@@ -423,6 +423,10 @@ class OverviewMainViewController: KNBaseViewController {
       return
     }
     self.updateUISwitchChain()
+    if !KNGeneralProvider.shared.isEthereum && self.viewModel.currentMode == .supply {
+      self.viewModel.currentMode = .asset(rightMode: .value)
+      self.reloadUI()
+    }
   }
   
   func coordinatorDidUpdateNewSession(_ session: KNSession) {
@@ -432,7 +436,6 @@ class OverviewMainViewController: KNBaseViewController {
     self.viewModel.reloadAllData()
     self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
     self.totalValueLabel.text = self.viewModel.displayTotalValue
-    
     self.tableView.reloadData()
   }
   
@@ -441,7 +444,6 @@ class OverviewMainViewController: KNBaseViewController {
     self.viewModel.reloadAllData()
     self.totalPageValueLabel.text = self.viewModel.displayPageTotalValue
     self.totalValueLabel.text = self.viewModel.displayTotalValue
-    
     self.tableView.reloadData()
   }
 }
@@ -561,6 +563,9 @@ extension OverviewMainViewController: UITableViewDataSource {
 extension OverviewMainViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    guard !self.viewModel.isEmpty() else {
+      return
+    }
     let cellModel = self.viewModel.getViewModelsForSection(indexPath.section)[indexPath.row]
     switch cellModel.mode {
     case .asset(token: let token, _):

@@ -466,10 +466,13 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       let actionController = KrystalActionSheetController()
       
       actionController.headerData = "Tokens Data"
-      let supplyType = mode == .supply ? ActionStyle.selected : ActionStyle.default
-      actionController.addAction(Action(ActionData(title: "Show Supply", image: UIImage(named: "supply_actionsheet_icon")!), style: supplyType, handler: { _ in
-        controller.coordinatorDidSelectMode(.supply)
-      }))
+      if KNGeneralProvider.shared.isEthereum {
+        let supplyType = mode == .supply ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Show Supply", image: UIImage(named: "supply_actionsheet_icon")!), style: supplyType, handler: { _ in
+          controller.coordinatorDidSelectMode(.supply)
+        }))
+      }
+      
       let assetType = mode == .asset(rightMode: .value) ? ActionStyle.selected : ActionStyle.default
       actionController.addAction(Action(ActionData(title: "Show Asset", image: UIImage(named: "asset_actionsheet_icon")!), style: assetType, handler: { _ in
         controller.coordinatorDidSelectMode(.asset(rightMode: .value))

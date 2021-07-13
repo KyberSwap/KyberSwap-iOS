@@ -65,6 +65,12 @@
                                 <constraint firstItem="vHA-YC-Rnd" firstAttribute="leading" secondItem="puF-0q-Lpg" secondAttribute="leading" constant="20" id="rdg-Ig-bGo"/>
                                 <constraint firstAttribute="bottom" secondItem="vHA-YC-Rnd" secondAttribute="bottom" id="tYl-1n-q3l"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="16"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                     <color key="backgroundColor" name="popupBackgroundColor"/>
@@ -112,7 +118,7 @@
     </objects>
     <resources>
         <namedColor name="mainViewBgColor">
-            <color red="0.0040000001899898052" green="0.0040000001899898052" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="popupBackgroundColor">
             <color red="0.16078431372549021" green="0.17647058823529413" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

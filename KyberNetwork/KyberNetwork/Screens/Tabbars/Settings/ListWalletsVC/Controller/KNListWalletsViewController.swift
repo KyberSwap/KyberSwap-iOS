@@ -72,12 +72,11 @@ class KNListWalletsViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+    segmentedControl.highlightSelectedSegment()
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
-    segmentedControl.highlightSelectedSegment()
   }
 
   fileprivate func setupUI() {

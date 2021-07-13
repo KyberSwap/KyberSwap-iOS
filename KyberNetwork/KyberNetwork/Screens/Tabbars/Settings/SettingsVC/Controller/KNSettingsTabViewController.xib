@@ -278,7 +278,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dr4-La-f9X">
-                            <rect key="frame" x="15" y="561" width="345" height="300"/>
+                            <rect key="frame" x="15" y="561" width="345" height="400"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OTHERS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pf-32-VzG">
                                     <rect key="frame" x="24" y="18" width="64" height="19"/>
@@ -310,33 +310,6 @@
                                         <action selector="notificationsButtonPressed:" destination="-1" eventType="touchUpInside" id="YpB-1e-ccF"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i9-8v-ipm">
-                                    <rect key="frame" x="56" y="230" width="19" height="22"/>
-                                    <color key="tintColor" name="textWhiteColor"/>
-                                    <state key="normal" image="setting_telegram"/>
-                                    <connections>
-                                        <action selector="telegramButtonPressed:" destination="-1" eventType="touchUpInside" id="IZl-U1-MiA"/>
-                                        <action selector="telegramButtonTapped:" destination="-1" eventType="touchUpInside" id="hLy-Yy-imX"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se5-hf-B7q">
-                                    <rect key="frame" x="91" y="230" width="20" height="22"/>
-                                    <color key="tintColor" name="textWhiteColor"/>
-                                    <state key="normal" image="setting_twitter"/>
-                                    <connections>
-                                        <action selector="twitterButtonPressed:" destination="-1" eventType="touchUpInside" id="Aoc-2f-s5G"/>
-                                        <action selector="twitterButtonTapped:" destination="-1" eventType="touchUpInside" id="pk8-WR-GTp"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-VY-iwf">
-                                    <rect key="frame" x="127" y="230" width="20" height="22"/>
-                                    <color key="tintColor" name="textWhiteColor"/>
-                                    <state key="normal" image="setting_medium"/>
-                                    <connections>
-                                        <action selector="mediumButtonPressed:" destination="-1" eventType="touchUpInside" id="5Fl-hL-KJf"/>
-                                        <action selector="mediumButtonTapped:" destination="-1" eventType="touchUpInside" id="YUd-T2-oM3"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15o-dz-5Vr">
                                     <rect key="frame" x="24" y="85" width="297" height="25"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
@@ -350,7 +323,7 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver 1.0.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzz-dO-flI">
-                                    <rect key="frame" x="8" y="261" width="59" height="18"/>
+                                    <rect key="frame" x="8" y="361" width="59" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -379,10 +352,70 @@
                                         <action selector="rateOurAppButtonPressed:" destination="-1" eventType="touchUpInside" id="5gG-OX-NGi"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i9-8v-ipm">
+                                    <rect key="frame" x="95.5" y="295.5" width="38" height="39"/>
+                                    <color key="backgroundColor" name="navButtonBgColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="Dy8-8D-Px8"/>
+                                        <constraint firstAttribute="height" constant="39" id="yjc-di-gvP"/>
+                                    </constraints>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <state key="normal" image="setting_telegram"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="19"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="telegramButtonPressed:" destination="-1" eventType="touchUpInside" id="IZl-U1-MiA"/>
+                                        <action selector="telegramButtonTapped:" destination="-1" eventType="touchUpInside" id="hLy-Yy-imX"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se5-hf-B7q">
+                                    <rect key="frame" x="153.5" y="296" width="38" height="38"/>
+                                    <color key="backgroundColor" name="navButtonBgColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="I48-gO-TMf"/>
+                                        <constraint firstAttribute="width" constant="38" id="qAv-yn-Xw4"/>
+                                    </constraints>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <state key="normal" image="setting_twitter"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="19"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="twitterButtonPressed:" destination="-1" eventType="touchUpInside" id="Aoc-2f-s5G"/>
+                                        <action selector="twitterButtonTapped:" destination="-1" eventType="touchUpInside" id="pk8-WR-GTp"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-VY-iwf">
+                                    <rect key="frame" x="211.5" y="296" width="38" height="38"/>
+                                    <color key="backgroundColor" name="navButtonBgColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="50w-p6-JOS"/>
+                                        <constraint firstAttribute="height" constant="38" id="FJZ-um-Rcc"/>
+                                    </constraints>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <state key="normal" image="setting_medium"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="19"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="mediumButtonPressed:" destination="-1" eventType="touchUpInside" id="5Fl-hL-KJf"/>
+                                        <action selector="mediumButtonTapped:" destination="-1" eventType="touchUpInside" id="YUd-T2-oM3"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" name="mainViewBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="300" id="0Es-2T-Tjk"/>
+                                <constraint firstAttribute="height" constant="400" id="0Es-2T-Tjk"/>
                                 <constraint firstItem="4PM-RB-2d8" firstAttribute="top" secondItem="ijc-DN-FUu" secondAttribute="bottom" constant="12" id="1QN-MU-h2x"/>
                                 <constraint firstAttribute="trailing" secondItem="R5f-in-QUU" secondAttribute="trailing" constant="24" id="1St-vD-Gb6"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="3jS-hE-e1Y"/>
@@ -394,19 +427,19 @@
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="GOv-F5-MGe"/>
                                 <constraint firstItem="2pf-32-VzG" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="M08-gz-ggd"/>
                                 <constraint firstItem="ijc-DN-FUu" firstAttribute="top" secondItem="R5f-in-QUU" secondAttribute="bottom" constant="12" id="NeJ-zX-563"/>
-                                <constraint firstItem="1i9-8v-ipm" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="12" id="Nhy-v4-2Tk"/>
                                 <constraint firstAttribute="trailing" secondItem="dYZ-MB-rGO" secondAttribute="trailing" constant="24" id="Nnm-Ti-igv"/>
-                                <constraint firstItem="se5-hf-B7q" firstAttribute="leading" secondItem="1i9-8v-ipm" secondAttribute="trailing" constant="16" id="Nv1-G0-oIY"/>
-                                <constraint firstItem="NHl-VY-iwf" firstAttribute="leading" secondItem="se5-hf-B7q" secondAttribute="trailing" constant="16" id="O7d-fy-0JN"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="leading" secondItem="1i9-8v-ipm" secondAttribute="trailing" constant="20" id="Nv1-G0-oIY"/>
+                                <constraint firstItem="NHl-VY-iwf" firstAttribute="leading" secondItem="se5-hf-B7q" secondAttribute="trailing" constant="20" id="O7d-fy-0JN"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="78" id="ONT-yG-0C1"/>
                                 <constraint firstItem="dYZ-MB-rGO" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="VVl-pI-cke"/>
                                 <constraint firstItem="NHl-VY-iwf" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="Z84-Qo-KlY"/>
-                                <constraint firstItem="1i9-8v-ipm" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="56" id="b4H-S7-ygA"/>
                                 <constraint firstItem="4PM-RB-2d8" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="ccr-ap-bk3"/>
                                 <constraint firstItem="ijc-DN-FUu" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="e3B-Gc-vcf"/>
                                 <constraint firstAttribute="trailing" secondItem="4PM-RB-2d8" secondAttribute="trailing" constant="24" id="gEr-cm-Dge"/>
                                 <constraint firstAttribute="trailing" secondItem="ijc-DN-FUu" secondAttribute="trailing" constant="24" id="gXM-1u-RnE"/>
                                 <constraint firstItem="R5f-in-QUU" firstAttribute="top" secondItem="15o-dz-5Vr" secondAttribute="bottom" constant="12" id="hWz-rA-shy"/>
                                 <constraint firstAttribute="trailing" secondItem="15o-dz-5Vr" secondAttribute="trailing" constant="24" id="kaI-Lk-5sB"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="centerX" secondItem="Dr4-La-f9X" secondAttribute="centerX" id="nzA-gT-fko"/>
                                 <constraint firstItem="15o-dz-5Vr" firstAttribute="top" secondItem="dYZ-MB-rGO" secondAttribute="bottom" constant="12" id="pd3-3v-2gH"/>
                                 <constraint firstItem="15o-dz-5Vr" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="qo7-Ht-EbK"/>
                                 <constraint firstAttribute="bottom" secondItem="nzz-dO-flI" secondAttribute="bottom" constant="21" id="sKN-Wt-cCM"/>
@@ -473,10 +506,13 @@
         <image name="settings_share" width="24" height="24"/>
         <image name="settings_wallet" width="20" height="20"/>
         <namedColor name="buttonBackgroundColor">
-            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="mainViewBgColor">
             <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29411764705882354" green="0.30980392156862746" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textWhiteColor">
             <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>

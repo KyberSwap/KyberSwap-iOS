@@ -114,7 +114,7 @@ class WalletsListViewController: KNBaseViewController {
   fileprivate let kWalletTableViewCellID: String = "WalletListTableViewCell"
   fileprivate let kWalletSectionTableViewCellID: String = "WalletListSectionTableViewCell"
   let transitor = TransitionDelegate()
-  weak var delegate: WalletsListViewControllerDelegate?
+  var delegate: WalletsListViewControllerDelegate?
 
   init(viewModel: WalletsListViewModel) {
     self.viewModel = viewModel

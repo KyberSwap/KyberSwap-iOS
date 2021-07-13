@@ -61,7 +61,7 @@ class OverviewSearchTokenViewModel {
     if KNGeneralProvider.shared.isEthereum {
       return ["ETH", "USDC", "USDT", "WBTC", "DAI", "UNI", "LINK", "AAVE"]
     } else {
-      return ["BNB", "BUSD", "MATIC", "USDT", "WBTC", "miMATIC", "DAI", "QUICK"]
+      return ["BNB", "BUSD", "CAKE", "USDT", "BTCB", "ETH", "USDC", "SAFEMOON"]
     }
   }
 }

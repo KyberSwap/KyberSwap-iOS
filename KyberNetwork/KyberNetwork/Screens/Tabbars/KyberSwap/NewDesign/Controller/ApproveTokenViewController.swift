@@ -109,7 +109,7 @@ class ApproveTokenViewModelForTokenAddress: ApproveTokenViewModel {
   }
 
   var subTitleText: String {
-    return "You need to approve Krystal to spend \(self.symbol.uppercased())".toBeLocalised()
+    return "You need to approve Krystal to spend \(self.symbol.uppercased())"
   }
 }
 

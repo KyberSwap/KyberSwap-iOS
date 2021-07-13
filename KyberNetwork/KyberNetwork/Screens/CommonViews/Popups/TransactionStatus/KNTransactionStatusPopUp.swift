@@ -137,7 +137,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
         } else if self.transaction.type == .transferETH || self.transaction.type == .transferToken {
           return "Transferred successfully".toBeLocalised()
         } else if self.transaction.type == .earn {
-          return "Successfully supplied".toBeLocalised()
+          return "Successfully earned".toBeLocalised()
         } else if self.transaction.type == .withdraw {
           return "Successfully withdraw".toBeLocalised()
         } else if self.transaction.type == .contractInteraction {

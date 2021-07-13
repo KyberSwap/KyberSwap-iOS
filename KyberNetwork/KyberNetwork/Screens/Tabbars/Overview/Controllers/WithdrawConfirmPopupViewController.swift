@@ -152,9 +152,9 @@ class WithdrawConfirmPopupViewController: KNBaseViewController {
       self.firstButton.titleLabel?.font = UIFont.Kyber.bold(with: 15)
       self.firstButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
       
-      self.secondButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
-      self.secondButton.titleLabel?.font = UIFont.Kyber.regular(with: 16)
-      self.secondButton.backgroundColor = UIColor(named: "navButtonBgColor")
+      self.secondButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
+      self.secondButton.titleLabel?.font = UIFont.Kyber.bold(with: 15)
+      self.secondButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
     } else {
       
       self.firstButton.setTitle("Cancel".toBeLocalised(), for: .normal)
