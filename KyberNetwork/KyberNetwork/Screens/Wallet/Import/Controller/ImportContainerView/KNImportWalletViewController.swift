@@ -92,7 +92,7 @@ class KNImportWalletViewController: KNBaseViewController {
 
   fileprivate func setupImportTypeButtons() {
     self.headerContainerView.rounded(radius: 30)
-    self.navTitleLabel.text = "Connect wallet".toBeLocalised().uppercased()
+    self.navTitleLabel.text = "Import wallet".uppercased()
     self.navTitleLabel.addLetterSpacing()
     self.jsonButton.rounded(radius: 10.0)
     self.jsonButton.setBackgroundColor(UIColor(named: "importJsonSelectedColor")!, forState: .selected)

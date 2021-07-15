@@ -71,6 +71,17 @@ enum CurrencyMode: Int {
       return "⧫"
     }
   }
+  
+  func toString() -> String {
+    switch self {
+    case .eth:
+      return "eth"
+    case .usd:
+      return "usd"
+    case .btc:
+      return "btc"
+    }
+  }
 }
 
 protocol OverviewMainViewControllerDelegate: class {

@@ -36,7 +36,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   var withdrawCoordinator: WithdrawCoordinator?
   var krytalCoordinator: KrytalCoordinator?
   var notificationsCoordinator: NotificationCoordinator?
-  var currentCurrencyType: CurrencyType = .usd
+  var currentCurrencyType: CurrencyMode = .usd
 
   lazy var rootViewController: OverviewMainViewController = {
     let viewModel = OverviewMainViewModel(session: self.session)
@@ -247,7 +247,8 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
       coordinator.start()
       self.notificationsCoordinator = coordinator
     case .selectedCurrency(type: let type):
-      self.currentCurrencyType = type
+//      self.currentCurrencyType = type
+    break
     case .changeHideBalanceStatus(status: let status):
       self.delegate?.overviewCoordinatorDidChangeHideBalanceStatus(status)
     }
@@ -496,6 +497,7 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
         let controller = OverviewChangeCurrencyViewController(mode: currency)
         controller.completeHandle = { mode in
           self.rootViewController.coordinatorDidUpdateCurrencyMode(mode)
+          self.currentCurrencyType = mode
         }
         self.navigationController.present(controller, animated: true, completion: nil)
       }))
@@ -559,6 +561,7 @@ extension OverviewCoordinator: OverviewMainViewControllerDelegate {
       self.notificationsCoordinator = coordinator
     case .search:
       let searchController = OverviewSearchTokenViewController()
+      searchController.coordinatorUpdateCurrency(self.currentCurrencyType)
       searchController.delegate = self
       self.navigationController.pushViewController(searchController, animated: true)
     case .withdrawBalance(platform: let platform, balance: let balance):

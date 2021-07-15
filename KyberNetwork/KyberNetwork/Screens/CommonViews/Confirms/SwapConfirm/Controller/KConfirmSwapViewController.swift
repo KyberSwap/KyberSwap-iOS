@@ -16,7 +16,6 @@ class KConfirmSwapViewController: KNBaseViewController {
   @IBOutlet weak var toAmountLabel: UILabel!
 
   @IBOutlet weak var equivalentUSDValueLabel: UILabel!
-  @IBOutlet weak var minAcceptableRateTextLabel: UILabel!
   @IBOutlet weak var transactionFeeTextLabel: UILabel!
 
   @IBOutlet weak var expectedRateLabel: UILabel!
@@ -66,7 +65,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
     self.expectedRateLabel.text = self.viewModel.displayEstimatedRate
     self.expectedRateLabel.addLetterSpacing()
-    self.minAcceptableRateValueButton.setTitle(self.viewModel.minRateString, for: .normal)
+    self.minAcceptableRateValueButton.setTitle(self.viewModel.displayMinDestAmount, for: .normal)
     self.minAcceptableRateValueButton.setTitleColor(
       self.viewModel.warningMinAcceptableRateMessage == nil ? UIColor(red: 245, green: 246, blue: 249) : UIColor(red: 250, green: 101, blue: 102),
       for: .normal
@@ -95,7 +94,6 @@ class KConfirmSwapViewController: KNBaseViewController {
       NSLocalizedString("cancel", value: "Cancel", comment: ""),
       for: .normal
     )
-    self.minAcceptableRateTextLabel.text = NSLocalizedString("min.acceptable.rate", value: "Min Acceptable Rate", comment: "")
     self.transactionFeeTextLabel.text = "Maximum gas fee".toBeLocalised()
     self.transactionFeeTextLabel.addLetterSpacing()
     self.equivalentUSDValueLabel.text = self.viewModel.displayEquivalentUSDAmount
@@ -114,7 +112,7 @@ class KConfirmSwapViewController: KNBaseViewController {
 
     self.reserveRoutingMessageLabel.text = self.viewModel.reverseRoutingText
     self.rateWarningLabel.isHidden = !self.viewModel.hasRateWarning
-    self.rateTopContraint.constant = self.viewModel.hasRateWarning ? 60.0 : 14.0
+    self.rateTopContraint.constant = self.viewModel.hasRateWarning ? 90.0 : 14.0
 
     self.view.layoutIfNeeded()
   }

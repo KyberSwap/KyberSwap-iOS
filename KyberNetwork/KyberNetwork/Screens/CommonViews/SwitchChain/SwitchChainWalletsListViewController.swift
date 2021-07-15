@@ -20,11 +20,8 @@ class SwitchChainWalletsListViewModel {
   }
   
   var title: String {
-    let network = KNGeneralProvider.shared.isEthereum ? "Ethereum" : "BSC"
-    return "Choose \(network) Wallet and vice versa"
+    return "Choose Wallet"
   }
-  
-  
 }
 
 class SwitchChainWalletsListViewController: KNBaseViewController {

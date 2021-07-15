@@ -251,7 +251,7 @@ class KSwapViewModel {
       return displayExchangeRate
     }
   }
-  
+
   var displayExchangeRate: String {
     let rateString: String = self.getSwapRate(from: self.from.address.lowercased(), to: self.to.address.lowercased(), amount: self.amountFromBigInt, platform: self.currentFlatform)
     let rate = BigInt(rateString)
@@ -266,7 +266,7 @@ class KSwapViewModel {
     let rateString: String = self.getSwapRate(from: self.from.address.lowercased(), to: self.to.address.lowercased(), amount: self.amountFromBigInt, platform: self.currentFlatform)
     let rate = BigInt(rateString)
     if let notNilRate = rate, notNilRate != BigInt(0) {
-      let revertRate = BigInt(10).power(18) / ( notNilRate / BigInt(10).power(18) )
+      let revertRate = BigInt(10).power(36) / notNilRate
       return notNilRate.isZero ? "---" : "Rate: 1 \(self.to.symbol) = \(revertRate.displayRate(decimals: 18)) \(self.from.symbol)"
     } else {
       return "---"

@@ -467,7 +467,7 @@ extension GasFeeSelectorPopupViewController: BottomPopUpAbstract {
 extension GasFeeSelectorPopupViewController: UITextFieldDelegate {
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     let text = ((textField.text ?? "") as NSString).replacingCharacters(in: range, with: string)
-    let number = text.removeGroupSeparator()
+    let number = text.replacingOccurrences(of: ",", with: ".")
     let value: Double? = number.isEmpty ? 0 : Double(number)
     let maxMinRatePercent: Double = 100.0
     if let val = value, val >= 0, val <= maxMinRatePercent {

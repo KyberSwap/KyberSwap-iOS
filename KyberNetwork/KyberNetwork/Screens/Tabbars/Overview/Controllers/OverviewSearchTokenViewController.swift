@@ -118,6 +118,10 @@ class OverviewSearchTokenViewController: KNBaseViewController {
       self.emptyView.isHidden = true
     }
   }
+  
+  func coordinatorUpdateCurrency(_ mode: CurrencyMode) {
+    self.viewModel.currencyMode = mode
+  }
 }
 
 extension OverviewSearchTokenViewController: UITableViewDataSource {

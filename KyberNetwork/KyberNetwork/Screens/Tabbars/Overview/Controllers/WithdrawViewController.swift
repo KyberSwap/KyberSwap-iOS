@@ -155,7 +155,6 @@ class WithdrawViewController: KNBaseViewController {
   @IBOutlet weak var withdrawButton: UIButton!
   @IBOutlet weak var withdrawableAmountLabel: UILabel!
   @IBOutlet weak var tokenButton: UIButton!
-  @IBOutlet weak var selectedGasFeeLabel: UILabel!
   @IBOutlet weak var transactionGasPriceLabel: UILabel!
   
   let transitor = TransitionDelegate()
@@ -194,7 +193,6 @@ class WithdrawViewController: KNBaseViewController {
   fileprivate func updateUIFee() {
     self.ethFeeLabel.text = self.viewModel.feeETHString
     self.usdFeeLabel.text = self.viewModel.feeUSDString
-    self.selectedGasFeeLabel.text = self.viewModel.gasFeeString
     self.transactionGasPriceLabel.text = self.viewModel.transactionGasPriceString
   }
   

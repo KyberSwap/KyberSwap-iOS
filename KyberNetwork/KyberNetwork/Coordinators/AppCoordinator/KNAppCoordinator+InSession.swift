@@ -156,7 +156,7 @@ extension KNAppCoordinator {
       self.loadBalanceCoordinator?.exit()
       EtherscanTransactionStorage.shared.updateCurrentWallet(wallet)
       BalanceStorage.shared.updateCurrentWallet(wallet)
-      self.doLogin()
+      
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
@@ -186,7 +186,7 @@ extension KNAppCoordinator {
       )
       self.overviewTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
       )
-      
+      self.doLogin()
       if isLoading { self.navigationController.hideLoading() }
     }
   }

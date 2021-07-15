@@ -615,7 +615,6 @@ class KNHistoryTransactionCollectionViewCell: SwipeCollectionViewCell {
   func updateCell(with model: AbstractHistoryTransactionViewModel) {
     self.viewModel = model
     let hasFromToIcon = !self.viewModel.fromIconSymbol.isEmpty && !self.viewModel.toIconSymbol.isEmpty
-    self.backgroundColor = model.backgroundColor
     self.transactionAmountLabel.text = model.displayedAmountString
     self.transactionDetailsLabel.text = model.transactionDetailsString
     self.transactionTypeLabel.text = model.transactionTypeString.uppercased()

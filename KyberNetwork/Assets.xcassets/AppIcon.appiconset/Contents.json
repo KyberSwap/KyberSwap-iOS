@@ -11,55 +11,55 @@
       "size" : "20x20"
     },
     {
-      "filename" : "krystal_icon_512 copy.png",
+      "filename" : "Krystal_icon_29.png",
       "idiom" : "iphone",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "krystal_icon_512 copy 2.png",
+      "filename" : "Krystal_icon_29@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "krystal_icon_512 copy 3.png",
+      "filename" : "Krystal_icon_29@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "krystal_icon_512 copy-1.png",
+      "filename" : "Krystal_icon_40@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "krystal_icon_512 copy 2-1.png",
+      "filename" : "Krystal_icon_40@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "krystal_icon_512 copy-2.png",
+      "filename" : "Krystal_icon_57.png",
       "idiom" : "iphone",
       "scale" : "1x",
       "size" : "57x57"
     },
     {
-      "filename" : "krystal_icon_512 copy 2-2.png",
+      "filename" : "Krystal_icon_57@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "57x57"
     },
     {
-      "filename" : "krystal_icon_512 copy 3-1.png",
+      "filename" : "Krystal_icon_60@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "krystal_icon_512 copy 4.png",
+      "filename" : "Krystal_icon_60@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
@@ -75,25 +75,25 @@
       "size" : "20x20"
     },
     {
-      "filename" : "krystal_icon_512 copy-3.png",
+      "filename" : "Krystal_icon_29-1.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "krystal_icon_512 copy 2-3.png",
+      "filename" : "Krystal_icon_29@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "krystal_icon_512 copy 3-2.png",
+      "filename" : "Krystal_icon_40.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "krystal_icon_512 copy 4-1.png",
+      "filename" : "Krystal_icon_40@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
@@ -134,7 +134,7 @@
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "krystal_icon_1024.png",
+      "filename" : "Krystal_icon_1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"

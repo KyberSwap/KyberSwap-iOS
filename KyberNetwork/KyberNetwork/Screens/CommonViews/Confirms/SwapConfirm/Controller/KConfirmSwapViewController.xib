@@ -12,7 +12,7 @@
         <array key="Karla-Bold.ttf">
             <string>Karla-Bold</string>
         </array>
-        <array key="Karla-Regular.ttf">
+        <array key="Karla-VariableFont_wght.ttf">
             <string>Karla-Regular</string>
         </array>
         <array key="Lato-Bold.ttf">
@@ -29,7 +29,6 @@
                 <outlet property="equivalentUSDValueLabel" destination="gkf-4M-ngk" id="iNP-zk-7yb"/>
                 <outlet property="expectedRateLabel" destination="gkk-HI-Saw" id="4Cf-YN-6he"/>
                 <outlet property="fromAmountLabel" destination="ptv-4N-PR6" id="UIk-MJ-11r"/>
-                <outlet property="minAcceptableRateTextLabel" destination="oao-ep-AZ6" id="frf-Ah-Qee"/>
                 <outlet property="minAcceptableRateValueButton" destination="c2k-AU-AQn" id="nty-Ax-9rq"/>
                 <outlet property="rateTopContraint" destination="z5G-Zb-uwa" id="vAJ-qg-4Re"/>
                 <outlet property="rateWarningLabel" destination="NUm-Ao-hb7" id="8AW-3Z-Jyu"/>
@@ -114,7 +113,7 @@
                             <color key="textColor" name="normalTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123.765.8 EOS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ptv-4N-PR6">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123.765.8 EOS" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ptv-4N-PR6">
                             <rect key="frame" x="37" y="101" width="134.5" height="21"/>
                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
                             <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -136,23 +135,20 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oE1-zv-9df">
                             <rect key="frame" x="37" y="299" width="301" height="113.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Min Acceptable Rate" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oao-ep-AZ6">
-                                    <rect key="frame" x="14" y="20" width="112.5" height="14"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Minimum recieved" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oao-ep-AZ6">
+                                    <rect key="frame" x="14" y="20" width="98.5" height="14"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                                     <color key="textColor" name="normalTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c2k-AU-AQn">
-                                    <rect key="frame" x="204" y="17" width="83" height="20"/>
+                                    <rect key="frame" x="224" y="18.5" width="63" height="17"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                                     <inset key="contentEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                                     <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="4" maxY="0.0"/>
-                                    <state key="normal" title="9999999" image="info_red_icon">
+                                    <state key="normal" title="9999999">
                                         <color key="titleColor" name="textWhiteColor"/>
                                     </state>
-                                    <connections>
-                                        <action selector="tapMinAcceptableRateValue:" destination="-1" eventType="touchUpInside" id="Qu5-f3-ekE"/>
-                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iK5-x6-6Wa">
                                     <rect key="frame" x="14" y="49" width="85" height="14"/>
@@ -239,7 +235,7 @@
                                 <constraint firstAttribute="height" constant="13" id="KLd-GX-qFD"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999999 ETH" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JeZ-f9-d1J">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999999999 ETH" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JeZ-f9-d1J">
                             <rect key="frame" x="203.5" y="101" width="134.5" height="21"/>
                             <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
                             <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -349,7 +345,6 @@
     <resources>
         <image name="arrow_right_blue" width="17" height="14"/>
         <image name="help_icon_blue" width="14" height="14"/>
-        <image name="info_red_icon" width="20" height="20"/>
         <image name="saving_icon" width="16" height="14"/>
         <image name="warning_swap_all_icon" width="16" height="13"/>
         <namedColor name="buttonBackgroundColor">

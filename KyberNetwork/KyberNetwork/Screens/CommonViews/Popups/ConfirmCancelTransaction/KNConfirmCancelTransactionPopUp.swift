@@ -54,10 +54,10 @@ class KNConfirmCancelTransactionPopUp: KNBaseViewController {
       width: 1.0
     )
     self.noButton.setTitle("No".toBeLocalised(), for: .normal)
-    self.noButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.noButton.frame.size.height / 2)
+    self.noButton.rounded(radius: 16)
     self.yesButton.setTitle("Yes".toBeLocalised(), for: .normal)
-    self.yesButton.rounded(radius: self.yesButton.frame.size.height / 2)
-    self.yesButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.yesButton.rounded(radius: 16)
+    
     
     questionTitleLabel.text = "Attempt to Cancel?".toBeLocalised()
     titleLabel.text = "Cancellation Gas Fee".toBeLocalised()
@@ -66,12 +66,6 @@ class KNConfirmCancelTransactionPopUp: KNBaseViewController {
     self.view.isUserInteractionEnabled = true
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.yesButton.removeSublayer(at: 0)
-    self.yesButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
-
   @IBAction func yesButtonTapped(_ sender: UIButton) {
     
     delegate?.didConfirmCancelTransactionPopup(self, transaction: viewModel.transaction)

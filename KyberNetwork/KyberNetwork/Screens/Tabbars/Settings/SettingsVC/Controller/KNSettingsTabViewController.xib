@@ -287,7 +287,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijc-DN-FUu">
-                                    <rect key="frame" x="24" y="158" width="297" height="24"/>
+                                    <rect key="frame" x="24" y="194" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -299,7 +299,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5f-in-QUU">
-                                    <rect key="frame" x="24" y="122" width="297" height="24"/>
+                                    <rect key="frame" x="24" y="158" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -341,7 +341,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PM-RB-2d8">
-                                    <rect key="frame" x="24" y="194" width="297" height="24"/>
+                                    <rect key="frame" x="24" y="230" width="297" height="24"/>
                                     <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -353,7 +353,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i9-8v-ipm">
-                                    <rect key="frame" x="95.5" y="295.5" width="38" height="39"/>
+                                    <rect key="frame" x="95.5" y="303.5" width="38" height="39"/>
                                     <color key="backgroundColor" name="navButtonBgColor"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="38" id="Dy8-8D-Px8"/>
@@ -373,7 +373,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se5-hf-B7q">
-                                    <rect key="frame" x="153.5" y="296" width="38" height="38"/>
+                                    <rect key="frame" x="153.5" y="304" width="38" height="38"/>
                                     <color key="backgroundColor" name="navButtonBgColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="38" id="I48-gO-TMf"/>
@@ -393,7 +393,7 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-VY-iwf">
-                                    <rect key="frame" x="211.5" y="296" width="38" height="38"/>
+                                    <rect key="frame" x="211.5" y="304" width="38" height="38"/>
                                     <color key="backgroundColor" name="navButtonBgColor"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="38" id="50w-p6-JOS"/>
@@ -412,6 +412,18 @@
                                         <action selector="mediumButtonTapped:" destination="-1" eventType="touchUpInside" id="YUd-T2-oM3"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oF6-qz-r8D">
+                                    <rect key="frame" x="24" y="122" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Referral Policy" image="ref_policy_icon">
+                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="referralPolicyButtonTapped:" destination="-1" eventType="touchUpInside" id="Y58-NN-Kob"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" name="mainViewBgColor"/>
                             <constraints>
@@ -419,25 +431,28 @@
                                 <constraint firstItem="4PM-RB-2d8" firstAttribute="top" secondItem="ijc-DN-FUu" secondAttribute="bottom" constant="12" id="1QN-MU-h2x"/>
                                 <constraint firstAttribute="trailing" secondItem="R5f-in-QUU" secondAttribute="trailing" constant="24" id="1St-vD-Gb6"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="3jS-hE-e1Y"/>
+                                <constraint firstItem="oF6-qz-r8D" firstAttribute="top" secondItem="15o-dz-5Vr" secondAttribute="bottom" constant="12" id="6rR-hR-joS"/>
                                 <constraint firstItem="R5f-in-QUU" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="AAe-sw-0GJ"/>
                                 <constraint firstItem="NHl-VY-iwf" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="BLJ-ML-6bu"/>
                                 <constraint firstItem="2pf-32-VzG" firstAttribute="top" secondItem="Dr4-La-f9X" secondAttribute="top" constant="18" id="Ei2-Z5-ycL"/>
                                 <constraint firstItem="nzz-dO-flI" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="8" id="F1C-9l-hVb"/>
                                 <constraint firstItem="dYZ-MB-rGO" firstAttribute="top" secondItem="2pf-32-VzG" secondAttribute="bottom" constant="12" id="FoA-3u-hSp"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="GOv-F5-MGe"/>
+                                <constraint firstAttribute="trailing" secondItem="oF6-qz-r8D" secondAttribute="trailing" constant="24" id="Hug-Ky-l7l"/>
+                                <constraint firstItem="R5f-in-QUU" firstAttribute="top" secondItem="oF6-qz-r8D" secondAttribute="bottom" constant="12" id="LWn-wZ-XmI"/>
                                 <constraint firstItem="2pf-32-VzG" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="M08-gz-ggd"/>
                                 <constraint firstItem="ijc-DN-FUu" firstAttribute="top" secondItem="R5f-in-QUU" secondAttribute="bottom" constant="12" id="NeJ-zX-563"/>
                                 <constraint firstAttribute="trailing" secondItem="dYZ-MB-rGO" secondAttribute="trailing" constant="24" id="Nnm-Ti-igv"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="leading" secondItem="1i9-8v-ipm" secondAttribute="trailing" constant="20" id="Nv1-G0-oIY"/>
                                 <constraint firstItem="NHl-VY-iwf" firstAttribute="leading" secondItem="se5-hf-B7q" secondAttribute="trailing" constant="20" id="O7d-fy-0JN"/>
-                                <constraint firstItem="se5-hf-B7q" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="78" id="ONT-yG-0C1"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="50" id="ONT-yG-0C1"/>
                                 <constraint firstItem="dYZ-MB-rGO" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="VVl-pI-cke"/>
                                 <constraint firstItem="NHl-VY-iwf" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="Z84-Qo-KlY"/>
                                 <constraint firstItem="4PM-RB-2d8" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="ccr-ap-bk3"/>
                                 <constraint firstItem="ijc-DN-FUu" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="e3B-Gc-vcf"/>
+                                <constraint firstItem="oF6-qz-r8D" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="esq-Yg-kSk"/>
                                 <constraint firstAttribute="trailing" secondItem="4PM-RB-2d8" secondAttribute="trailing" constant="24" id="gEr-cm-Dge"/>
                                 <constraint firstAttribute="trailing" secondItem="ijc-DN-FUu" secondAttribute="trailing" constant="24" id="gXM-1u-RnE"/>
-                                <constraint firstItem="R5f-in-QUU" firstAttribute="top" secondItem="15o-dz-5Vr" secondAttribute="bottom" constant="12" id="hWz-rA-shy"/>
                                 <constraint firstAttribute="trailing" secondItem="15o-dz-5Vr" secondAttribute="trailing" constant="24" id="kaI-Lk-5sB"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerX" secondItem="Dr4-La-f9X" secondAttribute="centerX" id="nzA-gT-fko"/>
                                 <constraint firstItem="15o-dz-5Vr" firstAttribute="top" secondItem="dYZ-MB-rGO" secondAttribute="bottom" constant="12" id="pd3-3v-2gH"/>
@@ -489,6 +504,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ref_policy_icon" width="24" height="24"/>
         <image name="setting_add_custom_token" width="19" height="19"/>
         <image name="setting_email_icon" width="24" height="24"/>
         <image name="setting_fa0" width="24" height="24"/>

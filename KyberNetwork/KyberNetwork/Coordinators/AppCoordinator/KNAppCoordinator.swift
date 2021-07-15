@@ -176,28 +176,31 @@ class KNAppCoordinator: NSObject, Coordinator {
     guard case .real(let account) = self.session.wallet.type else {
       return
     }
-    let timestamp = Int(NSDate().timeIntervalSince1970)
-    let message = "\(self.session.wallet.address.description)_\(timestamp)"
-    let data = Data(message.utf8)
-    let prefix = "\u{19}Ethereum Signed Message:\n\(data.count)".data(using: .utf8)!
-    let sendData = prefix + data
-    let result = self.session.keystore.signMessage(sendData, for: account)
-    switch result {
-    case .success(let signedData):
-      let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
-      provider.request(.login(address: self.session.wallet.address.description, timestamp: timestamp, signature: signedData.hexEncoded)) { (result) in
-        if case .success(let resp) = result {
-          let decoder = JSONDecoder()
-          do {
-            let data = try decoder.decode(LoginToken.self, from: resp.data)
-            Storage.store(data, as: self.session.wallet.address.description + Constants.loginTokenStoreFileName)
-          } catch let error {
-            print("[Login] \(error.localizedDescription)")
+    DispatchQueue.global(qos: .background).async {
+      let timestamp = Int(NSDate().timeIntervalSince1970)
+      let message = "\(self.session.wallet.address.description)_\(timestamp)"
+      let data = Data(message.utf8)
+      let prefix = "\u{19}Ethereum Signed Message:\n\(data.count)".data(using: .utf8)!
+      let sendData = prefix + data
+      let result = self.session.keystore.signMessage(sendData, for: account)
+      switch result {
+      case .success(let signedData):
+        let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+        provider.request(.login(address: self.session.wallet.address.description, timestamp: timestamp, signature: signedData.hexEncoded)) { (result) in
+          if case .success(let resp) = result {
+            print(resp.debugDescription)
+            let decoder = JSONDecoder()
+            do {
+              let data = try decoder.decode(LoginToken.self, from: resp.data)
+              Storage.store(data, as: self.session.wallet.address.description + Constants.loginTokenStoreFileName)
+            } catch let error {
+              print("[Login] \(error.localizedDescription)")
+            }
           }
         }
+      case .failure(let error):
+        self.doLogin()
       }
-    case .failure(let error):
-      self.doLogin()
     }
   }
 }

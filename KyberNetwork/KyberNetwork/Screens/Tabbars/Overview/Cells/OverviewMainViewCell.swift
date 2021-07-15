@@ -96,10 +96,10 @@ class OverviewMainCellViewModel {
     case .market(token: let token, rightMode: let mode):
       switch mode {
       case .ch24:
-        let change24 = token.getTokenPrice().usd24hChange
+        let change24 = token.getTokenChange24(self.currency)
         return String(format: "%.2f", change24) + "%"
       case .lastPrice:
-        let price = token.getTokenPrice().usd
+        let price = token.getTokenLastPrice(self.currency)
         return self.currency.symbol() + String(format: "%.2f", price)
       default:
         return ""
@@ -143,7 +143,7 @@ class OverviewMainCellViewModel {
         return ""
       }
     case .search(token: let token):
-      let price = token.getTokenPrice().usd
+      let price = token.getTokenLastPrice(self.currency)
       return self.currency.symbol() + String(format: "%.2f", price)
     }
   }

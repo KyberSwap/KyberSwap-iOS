@@ -693,7 +693,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   }
 
   fileprivate func setUpChangeRateButton() {
-    if self.viewModel.currentFlatform == "uniswap" {
+    if self.viewModel.currentFlatform == "Uniswap" {
       let icon = UIImage(named: "uni_icon_medium")?.resizeImage(to: CGSize(width: 16, height: 16))
       self.changeRateButton.setImage(icon, for: .normal)
     } else {
@@ -709,6 +709,17 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   
   fileprivate func updateAllowance() {
     self.delegate?.earnViewController(self, run: .checkAllowance(token: self.viewModel.fromTokenData))
+  }
+  
+  @IBAction func warningRateButtonTapped(_ sender: UIButton) {
+    guard !self.viewModel.refPriceDiffText.isEmpty else { return }
+    let message = KNGeneralProvider.shared.isEthereum ? String(format: "There.is.a.difference.between.the.estimated.price".toBeLocalised(), self.viewModel.refPriceDiffText) : String(format: "There.is.a.difference.between.the.estimated.price.bsc".toBeLocalised(), self.viewModel.refPriceDiffText)
+    self.showTopBannerView(
+      with: "",
+      message: message,
+      icon: UIImage(named: "info_blue_icon"),
+      time: 5.0
+    )
   }
   
   @IBAction func gasFeeAreaTapped(_ sender: UIButton) {
@@ -865,6 +876,7 @@ class EarnSwapViewController: KNBaseViewController, AbstractEarnViewControler {
   func coordinatorDidUpdateMinRatePercentage(_ value: CGFloat) {
     self.viewModel.updateExchangeMinRatePercent(Double(value))
     self.setUpGasFeeView()
+    self.updateUIMinReceiveAmount()
   }
   
   func updateUIBalanceDidChange() {

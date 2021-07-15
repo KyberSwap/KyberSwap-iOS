@@ -190,6 +190,8 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.navigationController.openSafari(with: "https://files.krystal.app/privacy.pdf")
     case .fingerPrint(status: let status):
       UserDefaults.standard.setValue(status, forKey: "bio-auth")
+    case .refPolicy:
+      self.navigationController.openSafari(with: "https://files.krystal.app/referral.pdf")
     }
   }
 

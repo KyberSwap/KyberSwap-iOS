@@ -28,6 +28,7 @@ enum KNSettingsTabViewEvent {
   case termOfUse
   case privacyPolicy
   case fingerPrint(status: Bool)
+  case refPolicy
 }
 
 protocol KNSettingsTabViewControllerDelegate: class {
@@ -177,24 +178,10 @@ class KNSettingsTabViewController: KNBaseViewController {
     self.delegate?.settingsTabViewController(self, run: .manangeCustomToken)
   }
   
+  @IBAction func referralPolicyButtonTapped(_ sender: UIButton) {
+    self.delegate?.settingsTabViewController(self, run: .refPolicy)
+  }
   
-
-//  fileprivate func checkUnreadMessage() {
-//    Freshchat.sharedInstance().unreadCount { (num: Int) -> Void in
-//      if num > 0 {
-//        self.unreadBadgeLabel.isHidden = false
-//        self.unreadBadgeLabel.text = num.description
-//        self.navigationController?.tabBarItem.badgeValue = num.description
-//      } else {
-//        self.unreadBadgeLabel.isHidden = true
-//        self.navigationController?.tabBarItem.badgeValue = nil
-//      }
-//    }
-//  }
-//
-//  @objc func methodOfReceivedNotification(notification: Notification) {
-//    self.checkUnreadMessage()
-//  }
   
   @IBAction func termOfUseButtonTapped(_ sender: UIButton) {
     self.delegate?.settingsTabViewController(self, run: .termOfUse)

@@ -82,7 +82,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="default_token" width="36" height="36"/>
+        <image name="default_token" width="25" height="25"/>
         <namedColor name="toolbarBgColor">
             <color red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
