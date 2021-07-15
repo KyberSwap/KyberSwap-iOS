@@ -99,7 +99,6 @@ protocol OverviewTokenListViewDelegate: class {
 }
 
 class OverviewContainerViewController: KNBaseViewController, OverviewViewController {
-  
   let viewModel: OverviewContainerViewModel
   private let marketViewController: OverviewMarketViewController
   private let assetsViewController: OverviewAssetsViewController
@@ -144,7 +143,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.updateUIWalletList()
     self.setupUI()
   }
-  
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     if !self.isViewSetup {
@@ -155,12 +154,12 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     self.updateUISwitchChain()
     self.hideDepositPageIfNeeded()
   }
-  
+
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     self.updateUITotalValue()
   }
-  
+
   fileprivate func setupUI() {
     self.transferButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.height / 2)
     self.receiveButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.receiveButton.frame.height / 2)
@@ -259,7 +258,7 @@ class OverviewContainerViewController: KNBaseViewController, OverviewViewControl
     }
     self.present(popup, animated: true, completion: nil)
   }
-  
+
   fileprivate func updateUISwitchChain() {
     let icon = KNGeneralProvider.shared.isEthereum ? UIImage(named: "chain_eth_icon") : UIImage(named: "chain_bsc_icon")
     self.currentChainIcon.image = icon

@@ -4,18 +4,19 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
+        </array>
         <array key="Lato-Bold.ttf">
             <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
-        </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -40,13 +41,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="114"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgD-62-9w1">
-                            <rect key="frame" x="133.5" y="78.5" width="108.5" height="19.5"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="121.5" y="74.5" width="132.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2hM-eU-a7S">
-                            <rect key="frame" x="16" y="70.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="68.5" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="Bbd-7V-59E"/>
                                 <constraint firstAttribute="width" constant="46" id="Sh3-iR-M5l"/>
@@ -57,7 +58,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="2hM-eU-a7S" firstAttribute="centerY" secondItem="HgD-62-9w1" secondAttribute="centerY" id="7Ta-9c-nOR"/>
                         <constraint firstAttribute="height" constant="114" id="jAV-Oc-DaV"/>
@@ -67,44 +68,43 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of your wallet (optional)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aY-6e-4Tj">
-                    <rect key="frame" x="37" y="156" width="184.5" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="37" y="156" width="213" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wgn-HA-Ifn">
-                    <rect key="frame" x="125.5" y="392" width="124" height="32"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="37" y="394" width="301" height="38"/>
+                    <color key="backgroundColor" name="buttonBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="124" id="3FK-mb-kyj"/>
-                        <constraint firstAttribute="height" constant="32" id="yRq-lR-rXj"/>
+                        <constraint firstAttribute="height" constant="38" id="yRq-lR-rXj"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <state key="normal" title="Done">
-                        <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" name="mainViewBgColor"/>
                     </state>
                     <connections>
                         <action selector="saveButtonPressed:" destination="-1" eventType="touchUpInside" id="8rJ-Q7-hUH"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqw-5i-L8J">
-                    <rect key="frame" x="37" y="268" width="301" height="1"/>
+                    <rect key="frame" x="37" y="270" width="301" height="1"/>
                     <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="fFV-ud-fn0"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCb-aE-mjh">
-                    <rect key="frame" x="37" y="186" width="301" height="42"/>
+                    <rect key="frame" x="37" y="188" width="301" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Satoshi Nakamoto" placeholder="Give your wallet a name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cyD-4H-2LB">
                             <rect key="frame" x="16" y="0.0" width="269" height="42"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                            <color key="textColor" name="textWhiteColor"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="toolbarBgColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="cyD-4H-2LB" secondAttribute="bottom" id="AyN-XK-lbe"/>
                         <constraint firstAttribute="height" constant="42" id="HeQ-nG-xYL"/>
@@ -120,13 +120,13 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lb3-xn-Ygt">
-                    <rect key="frame" x="37" y="289" width="24" height="24"/>
+                    <rect key="frame" x="37" y="291" width="24" height="24"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="backup_pharase_icon" translatesAutoresizingMaskIntoConstraints="NO" id="FNb-zS-Mam">
-                            <rect key="frame" x="6" y="5" width="12" height="14"/>
+                            <rect key="frame" x="4" y="2" width="16" height="20"/>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="24" id="25e-LI-bEl"/>
                         <constraint firstItem="FNb-zS-Mam" firstAttribute="centerY" secondItem="Lb3-xn-Ygt" secondAttribute="centerY" id="Hpf-xQ-h02"/>
@@ -141,13 +141,13 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xrD-MN-d5L">
-                    <rect key="frame" x="37" y="333" width="24" height="24"/>
+                    <rect key="frame" x="37" y="335" width="24" height="24"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="delete_blue_icon" translatesAutoresizingMaskIntoConstraints="NO" id="WyU-vk-40w">
-                            <rect key="frame" x="6" y="5" width="12" height="14"/>
+                            <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="WyU-vk-40w" firstAttribute="centerX" secondItem="xrD-MN-d5L" secondAttribute="centerX" id="8mx-J2-9au"/>
                         <constraint firstItem="WyU-vk-40w" firstAttribute="centerY" secondItem="xrD-MN-d5L" secondAttribute="centerY" id="HVG-9Y-C7J"/>
@@ -162,22 +162,22 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EmV-ul-qQx">
-                    <rect key="frame" x="37" y="289" width="301" height="24"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <rect key="frame" x="37" y="291" width="301" height="24"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                     <inset key="titleEdgeInsets" minX="28" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Show Backup Phrase">
-                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" name="textWhiteColor"/>
                     </state>
                     <connections>
                         <action selector="showBackUpPhraseButtonPressed:" destination="-1" eventType="touchUpInside" id="OIl-Zc-8Mk"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwY-eC-zbg">
-                    <rect key="frame" x="37" y="333" width="301" height="24"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <rect key="frame" x="37" y="335" width="301" height="24"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                     <inset key="titleEdgeInsets" minX="28" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Delete Wallet">
-                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" name="textRedColor"/>
                     </state>
                     <connections>
                         <action selector="deleteButtonPressed:" destination="-1" eventType="touchUpInside" id="9WN-kw-iau"/>
@@ -185,7 +185,7 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="Wgn-HA-Ifn" firstAttribute="top" secondItem="xrD-MN-d5L" secondAttribute="bottom" constant="35" id="1QS-f2-eTe"/>
@@ -199,8 +199,10 @@
                 <constraint firstItem="EmV-ul-qQx" firstAttribute="bottom" secondItem="Lb3-xn-Ygt" secondAttribute="bottom" id="KL9-X2-T5l"/>
                 <constraint firstItem="eV5-M1-8S1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="KmJ-Xg-Z9p"/>
                 <constraint firstItem="VCb-aE-mjh" firstAttribute="top" secondItem="7aY-6e-4Tj" secondAttribute="bottom" constant="13" id="MYE-d2-CZs"/>
+                <constraint firstItem="Wgn-HA-Ifn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="P7z-va-YbA"/>
                 <constraint firstItem="EmV-ul-qQx" firstAttribute="top" secondItem="Lb3-xn-Ygt" secondAttribute="top" id="REo-BA-0Eh"/>
                 <constraint firstItem="7aY-6e-4Tj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="RQh-Nj-33b"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Wgn-HA-Ifn" secondAttribute="trailing" constant="37" id="UbA-1R-7Pm"/>
                 <constraint firstItem="Lb3-xn-Ygt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="VTn-r2-ZTm"/>
                 <constraint firstItem="eV5-M1-8S1" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dIa-nG-kD4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EmV-ul-qQx" secondAttribute="trailing" constant="37" id="dUB-dp-6Fk"/>
@@ -227,8 +229,23 @@
         </screenEdgePanGestureRecognizer>
     </objects>
     <resources>
-        <image name="back_blue_icon" width="17" height="14"/>
-        <image name="backup_pharase_icon" width="12" height="14"/>
-        <image name="delete_blue_icon" width="12" height="14"/>
+        <image name="back_blue_icon" width="22" height="18"/>
+        <image name="backup_pharase_icon" width="16" height="20"/>
+        <image name="delete_blue_icon" width="24" height="24"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textRedColor">
+            <color red="0.9570000171661377" green="0.33300000429153442" blue="0.19599999487400055" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="toolbarBgColor">
+            <color red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

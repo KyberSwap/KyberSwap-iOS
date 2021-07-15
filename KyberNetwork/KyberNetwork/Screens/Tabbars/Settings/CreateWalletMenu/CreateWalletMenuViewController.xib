@@ -4,12 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-Regular.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -32,55 +36,55 @@
                     <rect key="frame" x="0.0" y="600" width="414" height="296"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What would you like to do?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fGt-mF-TdA">
-                            <rect key="frame" x="123" y="32" width="168.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <rect key="frame" x="85.5" y="32" width="243.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zEE-bM-tvz">
-                            <rect key="frame" x="37" y="82" width="340" height="36"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="37" y="88.5" width="340" height="36"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="nvi-IP-O5D"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Create a new wallet">
-                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="createRealWalletButtonTapped:" destination="-1" eventType="touchUpInside" id="CuJ-hG-snX"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zf4-kI-r09">
-                            <rect key="frame" x="37" y="138" width="340" height="36"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="37" y="144.5" width="340" height="38"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="36" id="4Zz-5W-nK3"/>
+                                <constraint firstAttribute="height" constant="38" id="4Zz-5W-nK3"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Import a wallet">
-                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="importWalletButtonTapped:" destination="-1" eventType="touchUpInside" id="N9W-PI-P6L"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpH-K0-ZSL">
-                            <rect key="frame" x="37" y="194" width="340" height="36"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="37" y="202.5" width="340" height="38"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="36" id="Prl-VX-gcX"/>
+                                <constraint firstAttribute="height" constant="38" id="Prl-VX-gcX"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Add a new watched wallet">
-                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="createWatchWalletButtonTapped:" destination="-1" eventType="touchUpInside" id="faF-RE-XOV"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="popupBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="fGt-mF-TdA" firstAttribute="top" secondItem="MHq-lZ-NUu" secondAttribute="top" constant="32" id="1sv-oY-8Fh"/>
                         <constraint firstItem="hpH-K0-ZSL" firstAttribute="top" secondItem="zf4-kI-r09" secondAttribute="bottom" constant="20" id="6oy-WA-Y8f"/>
@@ -116,4 +120,15 @@
             </connections>
         </tapGestureRecognizer>
     </objects>
+    <resources>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29411764705882354" green="0.30980392156862746" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="popupBackgroundColor">
+            <color red="0.16078431372549021" green="0.17647058823529413" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewMainViewCell" rowHeight="60" id="KGk-i7-Jjw" customClass="OverviewMainViewCell" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="knc" translatesAutoresizingMaskIntoConstraints="NO" id="b02-dF-rWJ">
+                        <rect key="frame" x="23" y="18" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="0n8-sc-oHe"/>
+                            <constraint firstAttribute="width" constant="24" id="Q44-HM-Hsr"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="KNC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ppJ-L7-xeq">
+                        <rect key="frame" x="62" y="14" width="38" height="21"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7,809.4580" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YM5-ez-Woj">
+                        <rect key="frame" x="62" y="39" width="70" height="16.5"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$89,003.53" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjX-su-bMY">
+                        <rect key="frame" x="199.5" y="9.5" width="90.5" height="30"/>
+                        <gestureRecognizers/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
+                        <color key="textColor" name="buttonBackgroundColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fko-B0-l9s">
+                        <rect key="frame" x="199.5" y="9.5" width="90.5" height="30"/>
+                        <connections>
+                            <action selector="tapOnRightSide:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="V5k-xm-G2J"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fko-B0-l9s" firstAttribute="leading" secondItem="bjX-su-bMY" secondAttribute="leading" id="0EA-oe-ceh"/>
+                    <constraint firstItem="bjX-su-bMY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ppJ-L7-xeq" secondAttribute="trailing" constant="5" id="181-JL-XdT"/>
+                    <constraint firstAttribute="trailing" secondItem="bjX-su-bMY" secondAttribute="trailing" constant="30" id="6wg-A4-f2e"/>
+                    <constraint firstItem="ppJ-L7-xeq" firstAttribute="top" secondItem="b02-dF-rWJ" secondAttribute="top" constant="-4" id="BWe-Da-Rsy"/>
+                    <constraint firstItem="fko-B0-l9s" firstAttribute="trailing" secondItem="bjX-su-bMY" secondAttribute="trailing" id="McQ-yR-Y9c"/>
+                    <constraint firstItem="fko-B0-l9s" firstAttribute="top" secondItem="bjX-su-bMY" secondAttribute="top" id="RD4-fT-bwX"/>
+                    <constraint firstItem="fko-B0-l9s" firstAttribute="bottom" secondItem="bjX-su-bMY" secondAttribute="bottom" id="Rp5-bK-wL4"/>
+                    <constraint firstItem="YM5-ez-Woj" firstAttribute="top" secondItem="ppJ-L7-xeq" secondAttribute="bottom" constant="4" id="RrH-4M-jeZ"/>
+                    <constraint firstItem="YM5-ez-Woj" firstAttribute="leading" secondItem="ppJ-L7-xeq" secondAttribute="leading" id="Spp-DO-E5L"/>
+                    <constraint firstItem="b02-dF-rWJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Wtl-eu-kVJ"/>
+                    <constraint firstItem="b02-dF-rWJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="23" id="oMX-5g-Sas"/>
+                    <constraint firstItem="ppJ-L7-xeq" firstAttribute="leading" secondItem="b02-dF-rWJ" secondAttribute="trailing" constant="15" id="qFl-F3-N5B"/>
+                    <constraint firstItem="bjX-su-bMY" firstAttribute="centerY" secondItem="ppJ-L7-xeq" secondAttribute="centerY" id="saE-WQ-Ze5"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
+            <connections>
+                <outlet property="iconImageView" destination="b02-dF-rWJ" id="p1y-Ip-vPg"/>
+                <outlet property="tokenBalanceLabel" destination="YM5-ez-Woj" id="AHn-24-SsJ"/>
+                <outlet property="tokenLabel" destination="ppJ-L7-xeq" id="xEG-tu-NMB"/>
+                <outlet property="tokenValueLabel" destination="bjX-su-bMY" id="NaQ-yG-gGZ"/>
+            </connections>
+            <point key="canvasLocation" x="111.59420289855073" y="91.741071428571431"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="knc" width="36" height="36"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

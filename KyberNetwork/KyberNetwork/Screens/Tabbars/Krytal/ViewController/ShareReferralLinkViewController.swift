@@ -44,18 +44,12 @@ class ShareReferralLinkViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.okButton.rounded(radius: self.okButton.frame.size.height / 2)
-    self.okButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    self.cancelButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.cancelButton.frame.size.height / 2)
+    self.okButton.rounded(radius: 16)
+    self.cancelButton.rounded(radius: 16)
     self.ratioLabel.text = self.viewModel.displayRatioString
     self.refCodeLabel.text = self.viewModel.refCode
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.okButton.removeSublayer(at: 0)
-    self.okButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
 
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
     self.dismiss(animated: true, completion: nil)
@@ -83,6 +77,13 @@ class ShareReferralLinkViewController: UIViewController {
   @IBAction func shareDircordButtonTapped(_ sender: UIButton) {
   }
   
+  @IBAction func shareButtonTapped(_ sender: UIButton) {
+    let text = "Here's my referral code \(self.viewModel.refCode) to earn bonus rewards on the Krystal app! Use the code when connecting your wallet in the app. Details: https://krystal.app"
+    let activitiy = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+    activitiy.title = NSLocalizedString("share.with.friends", value: "Share with friends", comment: "")
+    activitiy.popoverPresentationController?.sourceView = self.view
+    self.present(activitiy, animated: true, completion: nil)
+  }
 }
 
 extension ShareReferralLinkViewController: BottomPopUpAbstract {

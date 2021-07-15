@@ -48,22 +48,13 @@ class KNCreateWalletViewController: KNBaseViewController {
     self.containerView.rounded(radius: 5.0)
     self.confirmLabel.text = NSLocalizedString("confirm", value: "Confirm", comment: "").uppercased()
     self.descLabel.text = "This will create a new wallet for you to send and receive tokens. Same wallet can be used on both chains ETH and BSC."
-    self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.confirmButton.rounded(radius: 16)
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal
     )
     self.refCodeField.attributedPlaceholder = NSAttributedString(string: "Paste your Referral Code", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.view.isUserInteractionEnabled = true
-//    self.containerRefCodeView.isHidden = !KNGeneralProvider.shared.isEthereum
-//    self.refCodeTitleLabel.isHidden = !KNGeneralProvider.shared.isEthereum
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.confirmButton.removeSublayer(at: 0)
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {

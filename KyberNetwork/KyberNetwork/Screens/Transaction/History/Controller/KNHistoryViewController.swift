@@ -315,19 +315,16 @@ class KNHistoryViewController: KNBaseViewController {
 
   @IBOutlet weak var emptyStateContainerView: UIView!
 
-  @IBOutlet weak var rateMightChangeContainerView: UIView!
-  @IBOutlet weak var ratesMightChangeTextLabel: UILabel!
-  @IBOutlet weak var ratesMightChangeDescTextLabel: UILabel!
-  @IBOutlet weak var bottomPaddingConstraintForRateMightChange: NSLayoutConstraint!
-
   @IBOutlet weak var transactionCollectionView: UICollectionView!
   @IBOutlet weak var transactionCollectionViewBottomConstraint: NSLayoutConstraint!
   fileprivate var quickTutorialTimer: Timer?
   var animatingCell: UICollectionViewCell?
-  @IBOutlet weak var segmentedControl: BetterSegmentedControl!
+//  @IBOutlet weak var segmentedControl: BetterSegmentedControl!
   @IBOutlet weak var filterButton: UIButton!
   @IBOutlet weak var walletSelectButton: UIButton!
   @IBOutlet weak var swapNowButton: UIButton!
+  @IBOutlet weak var segmentedControl: SegmentedControl!
+  
   
   init(viewModel: KNHistoryViewModel) {
     self.viewModel = viewModel
@@ -348,6 +345,7 @@ class KNHistoryViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+    segmentedControl.highlightSelectedSegment()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -366,25 +364,6 @@ class KNHistoryViewController: KNBaseViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-//    if !self.viewModel.pendingTxData.isEmpty && NSObject.isNeedShowTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView) {
-//      NSObject.updateDoneTutorial(for: Constants.isDoneShowQuickTutorialForHistoryView, duplicateCheck: true)
-//      self.showQuickTutorial()
-//      KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_startup_quick_tutorial", customAttributes: nil)
-//    }
-//    if !self.viewModel.isShowQuickTutorialForLongPendingTx {
-//      self.quickTutorialTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true, block: { (_) in
-//        if self.checkHavePendingTxOver5Min() && self.viewModel.isShowingQuickTutorial == false {
-//          self.showQuickTutorial()
-//          self.quickTutorialTimer?.invalidate()
-//          self.quickTutorialTimer = nil
-//          UserDefaults.standard.set(true, forKey: Constants.kisShowQuickTutorialForLongPendingTx)
-//          KNCrashlyticsUtil.logCustomEvent(withName: "tut_history_show_after_over_5_min_tx", customAttributes: nil)
-//        }
-//      })
-//    } else {
-//      self.quickTutorialTimer?.invalidate()
-//      self.quickTutorialTimer = nil
-//    }
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -400,19 +379,12 @@ class KNHistoryViewController: KNBaseViewController {
   fileprivate func setupUI() {
     self.setupNavigationBar()
     self.setupCollectionView()
-    
-    self.segmentedControl.segments = LabelSegment.segments(withTitles: ["completed".toBeLocalised().uppercased(), "pending".toBeLocalised().uppercased()],
-                                                           normalFont: UIFont(name: "Lato-Bold", size: 8)!,
-                                                           normalTextColor: UIColor(red: 226, green: 231, blue: 244),
-                                                           selectedFont: UIFont(name: "Lato-Bold", size: 8)!,
-                                                           selectedTextColor: UIColor.white
-    )
-    self.segmentedControl.setIndex(1)
-    self.segmentedControl.addTarget(self, action: #selector(KNHistoryViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
     self.filterButton.rounded(radius: 10)
     self.walletSelectButton.rounded(radius: self.walletSelectButton.frame.size.height / 2)
     self.walletSelectButton.setTitle(self.viewModel.currentWallet.address, for: .normal)
     self.swapNowButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.swapNowButton.frame.size.height / 2)
+    segmentedControl.frame = CGRect(x: self.segmentedControl.frame.minX, y: self.segmentedControl.frame.minY, width: segmentedControl.frame.width, height: 30)
+    segmentedControl.selectedSegmentIndex = 1
   }
 
   override func quickTutorialNextAction() {
@@ -491,9 +463,6 @@ class KNHistoryViewController: KNBaseViewController {
     self.transactionCollectionView.delegate = self
     self.transactionCollectionView.dataSource = self
 
-    self.ratesMightChangeTextLabel.text = NSLocalizedString("rates.might.change", value: "Rates might change", comment: "")
-    self.ratesMightChangeDescTextLabel.text = NSLocalizedString("rates.for.token.swap.are.not.final.until.mined", value: "Rates for token swap are not final until swapping transactions are completed (mined)", comment: "")
-    self.bottomPaddingConstraintForRateMightChange.constant = self.bottomPaddingSafeArea()
     self.updateUIWhenDataDidChange()
   }
 
@@ -503,7 +472,6 @@ class KNHistoryViewController: KNBaseViewController {
     }
     self.emptyStateContainerView.isHidden = self.viewModel.isEmptyStateHidden
 
-    self.rateMightChangeContainerView.isHidden = self.viewModel.isRateMightChangeHidden
     self.transactionCollectionView.isHidden = self.viewModel.isTransactionCollectionViewHidden
     self.transactionCollectionViewBottomConstraint.constant = self.viewModel.transactionCollectionViewBottomPaddingConstraint + self.bottomPaddingSafeArea()
     
@@ -554,11 +522,12 @@ class KNHistoryViewController: KNBaseViewController {
     self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openKyberWalletPage)
   }
 
-  @objc func segmentedControlValueChanged(_ sender: BetterSegmentedControl) {
-    self.viewModel.updateIsShowingPending(sender.index == 1)
+  @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+    segmentedControl.underlinePosition()
+    self.viewModel.updateIsShowingPending(sender.selectedSegmentIndex == 1)
     self.updateUIWhenDataDidChange()
   }
-
+  
   @IBAction func walletSelectButtonTapped(_ sender: UIButton) {
     self.delegate?.historyViewController(self, run: KNHistoryViewEvent.openWalletsListPopup)
   }
@@ -689,18 +658,18 @@ extension KNHistoryViewController: SwipeCollectionViewCellDelegate {
     }
     speedUp.hidesWhenSelected = true
     speedUp.title = NSLocalizedString("speed up", value: "Speed Up", comment: "").uppercased()
-    speedUp.textColor = UIColor.Kyber.SWYellow
-    speedUp.font = UIFont.Kyber.latoBold(with: 10)
+    speedUp.textColor = UIColor(named: "normalTextColor")
+    speedUp.font = UIFont.Kyber.medium(with: 12)
     let bgImg = UIImage(named: "history_cell_edit_bg")!
-    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 46))!
+    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 68))!
     speedUp.backgroundColor = UIColor(patternImage: resized)
     let cancel = SwipeAction(style: .destructive, title: nil) { _, _ in
       self.delegate?.historyViewController(self, run: .cancelTransaction(transaction: transaction.internalTransaction))
     }
 
     cancel.title = NSLocalizedString("cancel", value: "Cancel", comment: "").uppercased()
-    cancel.textColor = UIColor.Kyber.SWYellow
-    cancel.font = UIFont.Kyber.latoBold(with: 10)
+    cancel.textColor = UIColor(named: "normalTextColor")
+    cancel.font = UIFont.Kyber.medium(with: 12)
     cancel.backgroundColor = UIColor(patternImage: resized)
     return [cancel, speedUp]
   }

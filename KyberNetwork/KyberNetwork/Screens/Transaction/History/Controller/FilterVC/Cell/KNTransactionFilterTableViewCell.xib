@@ -90,7 +90,7 @@
                 <outletCollection property="tokenButtons" destination="r30-Rz-c8I" collectionClass="NSMutableArray" id="WF2-ek-Phl"/>
                 <outletCollection property="tokenButtons" destination="kQ2-oe-qS6" collectionClass="NSMutableArray" id="wSo-1e-PKl"/>
             </connections>
-            <point key="canvasLocation" x="138" y="66"/>
+            <point key="canvasLocation" x="136.95652173913044" y="65.625"/>
         </tableViewCell>
     </objects>
 </document>

@@ -59,10 +59,11 @@ class KNContactTableView: XibLoaderView {
       NSLocalizedString("add.contact", value: "Add Contact", comment: ""),
       for: .normal
     )
-    button.titleLabel?.font = UIFont.Kyber.latoBold(with: 14)
-    button.setTitleColor(UIColor.Kyber.SWButtonBlueColor, for: .normal)
+    button.titleLabel?.font = UIFont.Kyber.bold(with: 14)
+    button.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
     button.setImage(UIImage(named: "add_blue_icon"), for: .normal)
     button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
+    button.tintColor = UIColor(named: "normalTextColor")
     containerView.addSubview(button)
     let contraints = [
       button.widthAnchor.constraint(equalToConstant: 150),
@@ -71,7 +72,7 @@ class KNContactTableView: XibLoaderView {
       button.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
     ]
     NSLayoutConstraint.activate(contraints)
-    button.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: button.frame.size.height / 2)
+    button.rounded(color: UIColor(named: "normalTextColor")!, width: 1, radius: button.frame.size.height / 2)
     button.addTarget(self, action: #selector(addContactTapped(_:)), for: .touchUpInside)
     self.tableView.tableFooterView = containerView
   }
@@ -177,7 +178,7 @@ extension KNContactTableView: SwipeTableViewCellDelegate {
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
     guard orientation == .right else { return nil }
     let bgImg = UIImage(named: "history_cell_edit_bg")!
-    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 56))!
+    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 60))!
 
     let transfer = SwipeAction(style: .default, title: nil) { (_, idx) in
       self.delegate?.contactTableView(
@@ -187,8 +188,8 @@ extension KNContactTableView: SwipeTableViewCellDelegate {
     }
     transfer.hidesWhenSelected = true
     transfer.title = "transfer".toBeLocalised().uppercased()
-    transfer.textColor = UIColor.Kyber.SWYellow
-    transfer.font = UIFont.Kyber.latoBold(with: 10)
+    transfer.textColor = UIColor(named: "normalTextColor")
+    transfer.font = UIFont.Kyber.medium(with: 12)
     transfer.backgroundColor = UIColor(patternImage: resized)
 
     let edit = SwipeAction(style: .default, title: nil) { (_, idx) in
@@ -199,8 +200,8 @@ extension KNContactTableView: SwipeTableViewCellDelegate {
     }
     edit.hidesWhenSelected = true
     edit.title = "edit".toBeLocalised().uppercased()
-    edit.textColor = UIColor.Kyber.SWYellow
-    edit.font = UIFont.Kyber.latoBold(with: 10)
+    edit.textColor = UIColor(named: "normalTextColor")
+    edit.font = UIFont.Kyber.medium(with: 12)
     edit.backgroundColor = UIColor(patternImage: resized)
 
     let delete = SwipeAction(style: .default, title: nil) { (_, idx) in
@@ -211,8 +212,8 @@ extension KNContactTableView: SwipeTableViewCellDelegate {
     }
     delete.hidesWhenSelected = true
     delete.title = "delete".toBeLocalised().uppercased()
-    delete.textColor = UIColor.Kyber.SWYellow
-    delete.font = UIFont.Kyber.latoBold(with: 10)
+    delete.textColor = UIColor(named: "normalTextColor")
+    delete.font = UIFont.Kyber.medium(with: 12)
     delete.backgroundColor = UIColor(patternImage: resized)
     return [delete, edit, transfer]
   }

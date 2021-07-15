@@ -105,8 +105,8 @@ extension CustomTokenListViewController: SwipeTableViewCellDelegate {
     }
     edit.hidesWhenSelected = true
     edit.title = "Edit".toBeLocalised().uppercased()
-    edit.textColor = UIColor.Kyber.SWYellow
-    edit.font = UIFont.Kyber.latoBold(with: 10)
+    edit.textColor = UIColor(named: "normalTextColor")
+    edit.font = UIFont.Kyber.medium(with: 12)
     let bgImg = UIImage(named: "history_cell_edit_bg")!
     let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: CustomTokenTableViewCell.kCellHeight))!
     edit.backgroundColor = UIColor(patternImage: resized)
@@ -115,8 +115,8 @@ extension CustomTokenListViewController: SwipeTableViewCellDelegate {
       self.delegate?.customTokenListViewController(self, run: .delete(token: token))
     }
     delete.title = "Delete".toBeLocalised().uppercased()
-    delete.textColor = UIColor.Kyber.SWYellow
-    delete.font = UIFont.Kyber.latoBold(with: 10)
+    delete.textColor = UIColor(named: "normalTextColor")
+    delete.font = UIFont.Kyber.medium(with: 12)
     delete.backgroundColor = UIColor(patternImage: resized)
 
     return [edit, delete]

@@ -38,8 +38,7 @@ class EarnOverviewViewController: KNBaseViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.exploreButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-    self.exploreButton.rounded(radius: self.exploreButton.frame.size.height / 2)
+    self.exploreButton.rounded(radius: 16)
     self.addChildViewController(self.depositViewController)
     self.contentView.addSubview(self.depositViewController.view)
     self.depositViewController.didMove(toParentViewController: self)
@@ -71,12 +70,6 @@ class EarnOverviewViewController: KNBaseViewController {
     }
     self.firstTimeLoaded = true
     self.updateUISwitchChain()
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.exploreButton.removeSublayer(at: 0)
-    self.exploreButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
   
   fileprivate func updateUIPendingTxIndicatorView() {
@@ -140,5 +133,9 @@ class EarnOverviewViewController: KNBaseViewController {
   
   func coordinatorDidUpdateHideBalanceStatus(_ status: Bool) {
     self.depositViewController.containerDidUpdateHideBalanceStatus(status)
+  }
+
+  func coordinatorDidUpdateDidUpdateTokenList() {
+    self.depositViewController.coordinatorDidUpdateDidUpdateTokenList()
   }
 }

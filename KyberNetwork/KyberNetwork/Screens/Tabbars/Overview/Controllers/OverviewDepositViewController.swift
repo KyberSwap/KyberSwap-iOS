@@ -12,7 +12,7 @@ class OverviewDepositViewModel {
   var dataSource: [String: [OverviewDepositCellViewModel]] = [:]
   var sectionKeys: [String] = []
   var currencyType: CurrencyType = .usd
-  var hideBalanceStatus: Bool = true
+  var hideBalanceStatus: Bool = false
   
   init() {
     self.reloadAllData()
@@ -109,11 +109,7 @@ protocol OverviewDepositViewControllerDelegate: class {
 
 class OverviewDepositViewController: KNBaseViewController, OverviewViewController {
   @IBOutlet weak var tableView: UITableView!
-  @IBOutlet var currencySelectButtons: [UIButton]!
   @IBOutlet weak var totalStringLabel: UILabel!
-  @IBOutlet weak var usdButton: UIButton!
-  @IBOutlet weak var ethButton: UIButton!
-  @IBOutlet weak var btcButton: UIButton!
   @IBOutlet weak var emptyView: UIView!
   @IBOutlet weak var supplyButton: UIButton!
   @IBOutlet weak var borrowButton: UIButton!
@@ -133,8 +129,9 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
     self.updateUITotalValue()
-    self.supplyButton.rounded(color: UIColor.Kyber.SWYellow, width: 1, radius: self.supplyButton.frame.size.height / 2)
-    self.borrowButton.rounded(color: UIColor.Kyber.SWButtonBlueColor.withAlphaComponent(0.5), width: 1, radius: self.borrowButton.frame.size.height / 2)
+    self.supplyButton.rounded(color: UIColor(named: "normalTextColor")!, width: 1, radius: 16)
+    self.borrowButton.rounded(color: UIColor(named: "normalTextColor")!, width: 1, radius: 16)
+    self.borrowButton.alpha = 0.5
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -152,36 +149,9 @@ class OverviewDepositViewController: KNBaseViewController, OverviewViewControlle
       return
     }
     self.emptyView.isHidden = self.viewModel.totalValueBigInt != BigInt(0)
-    switch self.viewModel.currencyType {
-    case .usd:
-      self.usdButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
-      self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
-      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
-    case .eth:
-      self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
-      self.ethButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
-      self.btcButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
-    case .btc:
-      self.usdButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
-      self.ethButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
-      self.btcButton.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
-    }
     self.viewModel.reloadDataSource()
     self.tableView.reloadData()
     self.updateUITotalValue()
-  }
-
-  @IBAction func currencyTypeButtonTapped(_ sender: UIButton) {
-    if sender.tag == 1 {
-      self.viewModel.currencyType = .usd
-    } else if sender.tag == 2 {
-      self.viewModel.currencyType = .eth
-    } else {
-      self.viewModel.currencyType = .btc
-    }
-    self.reloadUI()
-    
-    self.container?.viewControllerDidChangeCurrencyType(self, type: self.viewModel.currencyType)
   }
 
   @IBAction func supplyButtonTapped(_ sender: UIButton) {
@@ -242,20 +212,20 @@ extension OverviewDepositViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 40))
     view.backgroundColor = .clear
-    let titleLabel = UILabel(frame: CGRect(x: 18, y: 0, width: 100, height: 40))
+    let titleLabel = UILabel(frame: CGRect(x: 35, y: 0, width: 100, height: 40))
     titleLabel.center.y = view.center.y
     titleLabel.text = self.viewModel.sectionKeys[section]
-    titleLabel.font = UIFont.Kyber.latoBold(with: 12)
-    titleLabel.textColor = UIColor.Kyber.SWWhiteTextColor
+    titleLabel.font = UIFont.Kyber.regular(with: 18)
+    titleLabel.textColor = UIColor(named: "textWhiteColor")
     view.addSubview(titleLabel)
     
-    let valueLabel = UILabel(frame: CGRect(x: tableView.frame.size.width - 100 - 18, y: 0, width: 100, height: 40))
+    let valueLabel = UILabel(frame: CGRect(x: tableView.frame.size.width - 100 - 35, y: 0, width: 100, height: 40))
     valueLabel.text = self.viewModel.displayTotalValueForSection(section)
-    valueLabel.font = UIFont.Kyber.latoBold(with: 14)
+    valueLabel.font = UIFont.Kyber.regular(with: 18)
     valueLabel.textAlignment = .right
-    valueLabel.textColor = UIColor.Kyber.SWWhiteTextColor
+    valueLabel.textColor = UIColor(named: "textWhiteColor")
     view.addSubview(valueLabel)
-    
+
     return view
   }
 

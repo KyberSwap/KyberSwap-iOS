@@ -28,7 +28,6 @@ class EarnTutorialViewController: UIViewController {
     didSet {
       let nib = UINib(nibName: EarnTutorialCell.className, bundle: nil)
       self.bannerPagerView.register(nib, forCellWithReuseIdentifier: "EarnTutorialCell")
-//      self.bannerPagerView.register(EarnTutorialCell.self, forCellWithReuseIdentifier: "EarnTutorialCell")
     }
   }
   @IBOutlet weak var bannerPagerControl: FSPageControl!
@@ -37,8 +36,8 @@ class EarnTutorialViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.bannerPagerControl.setFillColor(UIColor.Kyber.SWButtonBlueColor, for: .selected)
-    self.bannerPagerControl.setFillColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+    self.bannerPagerControl.setFillColor(UIColor(named: "buttonBackgroundColor")!, for: .selected)
+    self.bannerPagerControl.setFillColor(UIColor(named: "normalTextColor")!, for: .normal)
     self.bannerPagerControl.numberOfPages = 0
     self.bannerPagerControl.numberOfPages = self.viewModel.dataSource.count
   }

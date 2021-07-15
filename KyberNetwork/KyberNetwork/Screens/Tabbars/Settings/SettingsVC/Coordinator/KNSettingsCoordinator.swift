@@ -190,6 +190,8 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
       self.navigationController.openSafari(with: "https://files.krystal.app/privacy.pdf")
     case .fingerPrint(status: let status):
       UserDefaults.standard.setValue(status, forKey: "bio-auth")
+    case .refPolicy:
+      self.navigationController.openSafari(with: "https://files.krystal.app/referral.pdf")
     }
   }
 
@@ -248,8 +250,9 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
 
   func settingsViewControllerBackUpButtonPressed(wallet: KNWalletObject) {
     let alertController = KNPrettyAlertController(
-      title: NSLocalizedString("export.at.your.own.risk", value: "Export at your own risk!", comment: ""),
-      message: "⚠️NEVER share Keystore/Private Key/Mnemonic with anyone (including KyberSwap). These data grant access to all your funds and they may get stolen".toBeLocalised(),
+      title: "Export at your own risk!",
+      isWarning: true,
+      message: "NEVER share Keystore/Private Key/Mnemonic with anyone (including Krystal). These data grant access to all your funds and they may get stolen".toBeLocalised(),
       secondButtonTitle: NSLocalizedString("continue", value: "Continue", comment: ""),
       firstButtonTitle: NSLocalizedString("cancel", value: "Cancel", comment: ""),
       secondButtonAction: {
@@ -405,9 +408,28 @@ extension KNSettingsCoordinator: KNSettingsTabViewControllerDelegate {
     self.customTokenCoordinator.start()
     self.customTokenCoordinator.coordinatorDidUpdateTokenObject(token)
   }
-  
+
   func appCoordinatorDidUpdateChain() {
     self.sendTokenCoordinator?.appCoordinatorDidUpdateChain()
+  }
+  
+  func appCoordinatorDidSelectRenameWallet() {
+    self.listWalletsCoordinator.startEditWallet()
+  }
+  
+  func appCoordinatorDidSelectExportWallet() {
+    let listWallets: [KNWalletObject] = KNWalletStorage.shared.wallets
+    let curWallet: KNWalletObject = listWallets.first(where: { $0.address.lowercased() == self.session.wallet.address.description.lowercased() })!
+    self.settingsViewControllerBackUpButtonPressed(wallet: curWallet)
+  }
+  
+  func appCoordinatorDidSelectDeleteWallet() {
+    let alert = UIAlertController(title: "", message: NSLocalizedString("do.you.want.to.remove.this.wallet", value: "Do you want to remove this wallet?", comment: ""), preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", value: "Cacnel", comment: ""), style: .cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: NSLocalizedString("remove", value: "Remove", comment: ""), style: .destructive, handler: { _ in
+      self.delegate?.settingsCoordinatorUserDidRemoveWallet(self.session.wallet)
+    }))
+    self.navigationController.present(alert, animated: true, completion: nil)
   }
 }
 

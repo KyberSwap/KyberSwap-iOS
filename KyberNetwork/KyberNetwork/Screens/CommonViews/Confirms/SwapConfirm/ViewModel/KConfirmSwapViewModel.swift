@@ -11,14 +11,16 @@ struct KConfirmSwapViewModel {
   let hasRateWarning: Bool
   let platform: String
   let rawTransaction: TxObject
+  let minDestAmount: BigInt
 
-  init(transaction: KNDraftExchangeTransaction, ethBalance: BigInt, signTransaction: SignTransaction, hasRateWarning: Bool, platform: String, rawTransaction: TxObject) {
+  init(transaction: KNDraftExchangeTransaction, ethBalance: BigInt, signTransaction: SignTransaction, hasRateWarning: Bool, platform: String, rawTransaction: TxObject, minDestAmount: BigInt) {
     self.transaction = transaction
     self.ethBalance = ethBalance
     self.signTransaction = signTransaction
     self.hasRateWarning = hasRateWarning
     self.platform = platform
     self.rawTransaction = rawTransaction
+    self.minDestAmount = minDestAmount
   }
 
   var titleString: String {
@@ -70,6 +72,11 @@ struct KConfirmSwapViewModel {
     let minRate = self.transaction.minRate ?? BigInt(0)
     return minRate.displayRate(decimals: 18)
   }
+  
+  var displayMinDestAmount: String {
+    return self.minDestAmount.string(decimals: self.transaction.to.decimals, minFractionDigits: 4, maxFractionDigits: 4) + " " + self.transaction.to.symbol
+  }
+  
 
   var transactionFee: BigInt {
     let gasPrice: BigInt = self.transaction.gasPrice ?? KNGasCoordinator.shared.fastKNGas

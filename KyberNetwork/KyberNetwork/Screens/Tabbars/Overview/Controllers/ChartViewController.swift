@@ -19,10 +19,12 @@ class ChartViewModel {
   var chartData: ChartData?
   var chartOriginTimeStamp: Double = 0
   var currency: String
+  var isFaved: Bool
   
   init(token: Token, currency: String) {
     self.token = token
     self.currency = currency
+    self.isFaved = KNSupportedTokenStorage.shared.getFavedStatusWithAddress(token.address)
   }
   
   func updateChartData(_ data: ChartData) {
@@ -43,7 +45,7 @@ class ChartViewModel {
   var series: ChartSeries {
     let series = ChartSeries(data: self.dataSource)
     series.area = true
-    series.colors = (above: UIColor(red: 35, green: 167, blue: 181), below: UIColor(red: 36, green: 83, blue: 98), 0)
+    series.colors = (above: self.displayDiffColor!, below: UIColor(named: "mainViewBgColor")!, 0)
     return series
   }
   
@@ -73,12 +75,12 @@ class ChartViewModel {
     return String(format: "%.2f", diff / firstPrice) + "%"
   }
   
-  var displayDiffColor: UIColor {
+  var displayDiffColor: UIColor? {
     guard let firstPrice = self.chartData?.prices.first?[1], let lastPrice =  self.chartData?.prices.last?[1] else {
       return UIColor.clear
     }
     let diff = lastPrice - firstPrice
-    return diff > 0 ? UIColor.Kyber.SWGreen : UIColor.Kyber.SWRed
+    return diff > 0 ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "textRedColor")
   }
   
   var diplayBalance: String {
@@ -106,8 +108,6 @@ class ChartViewModel {
     } else {
       return "$" + valueBigInt.string(decimals: self.token.decimals, minFractionDigits: 0, maxFractionDigits: min(self.token.decimals, 6))
     }
-    
-    
   }
   
   var displayMarketCap: String {
@@ -133,7 +133,7 @@ class ChartViewModel {
       return "$\(ath)"
     }
   }
-  
+
   var displayAllTimeLow: String {
     guard let atl = self.detailInfo?.marketData.atl?[self.currency] else { return "---"}
     if self.currency == "eth" {
@@ -144,7 +144,7 @@ class ChartViewModel {
       return "$\(atl)"
     }
   }
-  
+
   var displayDescription: String {
     guard let description = self.detailInfo?.tokenDetailDataDescription.en, !description.isEmpty else {
       return self.detailInfo?.icoData?.icoDataDescription ?? ""
@@ -162,13 +162,13 @@ class ChartViewModel {
     }
     let string = NSMutableAttributedString(attributedString: attributedString)
     string.addAttributes([
-      NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
+      NSAttributedString.Key.foregroundColor: UIColor(named: "normalTextColor") as Any,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 14),
     ], range: NSRange(location: 0, length: attributedString.length)
     )
     return string
   }
-  
+
   var headerTitle: String {
     return "\(self.token.symbol.uppercased())/\(self.currency.uppercased())"
   }
@@ -218,6 +218,10 @@ class ChartViewModel {
     attributedText.append(NSAttributedString(string: "  Volume" + ": ", attributes: boldAttributes))
     attributedText.append(NSAttributedString(string: "$\(volumeBigInt.string(decimals: 18, minFractionDigits: 4, maxFractionDigits: 4))", attributes: normalAttributes))
     return attributedText
+  }
+  
+  var displayFavIcon: UIImage? {
+    return self.isFaved ? UIImage(named: "fav_star_icon") : UIImage(named: "unFav_star_icon")
   }
 }
 
@@ -281,6 +285,7 @@ class ChartViewController: KNBaseViewController {
   @IBOutlet weak var descriptionTextView: GrowingTextView!
   @IBOutlet weak var chartDetailLabel: UILabel!
   @IBOutlet weak var noDataLabel: UILabel!
+  @IBOutlet weak var favButton: UIButton!
   
   weak var delegate: ChartViewControllerDelegate?
   let viewModel: ChartViewModel
@@ -305,9 +310,13 @@ class ChartViewController: KNBaseViewController {
     self.chartView.delegate = self
     self.updateUIPeriodSelectButtons()
     self.titleView.text = self.viewModel.headerTitle
-    self.transferButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.size.height / 2)
-    self.swapButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.size.height / 2)
-    self.investButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.transferButton.frame.size.height / 2)
+    self.transferButton.rounded(radius: 16)
+    self.swapButton.rounded(radius: 16)
+    self.investButton.rounded(radius: 16)
+    self.favButton.setImage(self.viewModel.displayFavIcon, for: .normal)
+    periodChartSelectButtons.forEach { (button) in
+      button.rounded(radius: 7)
+    }
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -355,6 +364,13 @@ class ChartViewController: KNBaseViewController {
     self.delegate?.chartViewController(self, run: .openTwitter(name: self.viewModel.detailInfo?.links.twitterScreenName ?? ""))
   }
   
+  @IBAction func favButtonTapped(_ sender: UIButton) {
+    viewModel.isFaved = !viewModel.isFaved
+    KNSupportedTokenStorage.shared.setFavedStatusWithAddress(viewModel.token.address, status: viewModel.isFaved)
+    self.favButton.setImage(self.viewModel.displayFavIcon, for: .normal)
+  }
+  
+  
   fileprivate func updateUIChartInfo() {
     self.volumeLabel.text = self.viewModel.display24hVol
     self.ethBalanceLabel.text = self.viewModel.diplayBalance
@@ -362,6 +378,11 @@ class ChartViewController: KNBaseViewController {
     self.marketCapLabel.text = self.viewModel.displayMarketCap
     self.priceDiffPercentageLabel.text = self.viewModel.displayDiffPercent
     self.priceDiffPercentageLabel.textColor = self.viewModel.displayDiffColor
+    self.swapButton.backgroundColor = self.viewModel.displayDiffColor
+    self.transferButton.backgroundColor = self.viewModel.displayDiffColor
+    self.investButton.backgroundColor = self.viewModel.displayDiffColor
+    self.updateUIPeriodSelectButtons()
+    
   }
 
   fileprivate func updateUITokenInfo() {
@@ -383,9 +404,11 @@ class ChartViewController: KNBaseViewController {
   fileprivate func updateUIPeriodSelectButtons() {
     self.periodChartSelectButtons.forEach { (button) in
       if button.tag == self.viewModel.periodType.rawValue {
-        button.setTitleColor(UIColor.Kyber.SWYellow, for: .normal)
+        button.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
+        button.backgroundColor = self.viewModel.displayDiffColor
       } else {
-        button.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+        button.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
+        button.backgroundColor = .clear
       }
     }
   }
@@ -419,6 +442,7 @@ class ChartViewController: KNBaseViewController {
         return "\(month)/\(year)"
       }
     }
+    
   }
 
   func coordinatorFailUpdateApi(_ error: Error) {

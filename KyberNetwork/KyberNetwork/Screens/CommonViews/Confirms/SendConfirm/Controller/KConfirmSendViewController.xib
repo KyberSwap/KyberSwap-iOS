@@ -4,12 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
@@ -46,60 +50,54 @@
                     <rect key="frame" x="0.0" y="161" width="375" height="500"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rgo-Jm-drU">
-                            <rect key="frame" x="37" y="88" width="24" height="24"/>
+                            <rect key="frame" x="37" y="94.5" width="32" height="32"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="24" id="8GU-vB-Cig"/>
-                                <constraint firstAttribute="width" constant="24" id="jEs-eg-aSh"/>
+                                <constraint firstAttribute="height" constant="32" id="8GU-vB-Cig"/>
+                                <constraint firstAttribute="width" constant="32" id="jEs-eg-aSh"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="John Smith" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="glf-Jz-f5I">
-                            <rect key="frame" x="68" y="91.5" width="69.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <rect key="frame" x="77" y="94.5" width="71.5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                             <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98i76yuin7uhy643xu…...7uhyt8" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsV-RK-NrS">
-                            <rect key="frame" x="144.5" y="92.5" width="167.5" height="15"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                            <color key="textColor" red="0.54117647058823526" green="0.64313725490196072" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rZg-Gu-XDk">
-                            <rect key="frame" x="37" y="130" width="301" height="1"/>
-                            <color key="backgroundColor" red="0.29803921568627451" green="0.40000000000000002" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="37" y="144.5" width="301" height="1"/>
+                            <color key="backgroundColor" name="separatorColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="1" id="n0Y-b6-0bc"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMOUNT TO SEND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Y8-Ij-obY">
-                            <rect key="frame" x="37" y="191" width="106" height="15"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount to Transfer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Y8-Ij-obY">
+                            <rect key="frame" x="37" y="205.5" width="119.5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                             <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120 KNC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6bT-vz-8ub">
-                            <rect key="frame" x="273" y="191" width="65" height="20"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                            <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="273" y="205.5" width="65" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~ 64.343 USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6P-E7-ol5">
-                            <rect key="frame" x="252" y="216" width="86" height="17"/>
+                            <rect key="frame" x="249.5" y="229.5" width="88.5" height="17"/>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
                             <color key="textColor" red="0.61960784310000006" green="0.63137254899999995" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tld-AE-eoi">
-                            <rect key="frame" x="37" y="243" width="301" height="92"/>
+                            <rect key="frame" x="37" y="256.5" width="301" height="92"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Fee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="795-i2-XIw">
-                                    <rect key="frame" x="12" y="23" width="83" height="15"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                    <color key="textColor" red="0.54117647058823526" green="0.64313725490196072" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="12" y="23" width="100" height="16.5"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                                    <color key="textColor" name="normalTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b7G-Wf-cAK">
-                                    <rect key="frame" x="99" y="24" width="25" height="25"/>
+                                    <rect key="frame" x="116" y="24" width="25" height="25"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="25" id="7Al-9C-2kF"/>
                                         <constraint firstAttribute="height" constant="25" id="p8A-Z4-x0S"/>
@@ -111,25 +109,25 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.001231 ETH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsS-2N-J67">
-                                    <rect key="frame" x="197" y="22" width="90" height="17"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                                    <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="198" y="23" width="89" height="17"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                                    <color key="textColor" name="textWhiteColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~ 0.213 USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHX-M3-Kta">
-                                    <rect key="frame" x="220" y="41" width="67" height="15"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                    <color key="textColor" red="0.54117647058823526" green="0.64313725490196072" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="206.5" y="42" width="80.5" height="16.5"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                                    <color key="textColor" name="normalTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="80 (Gas Price) *. 394,140 (Gas. Limit)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nO-I2-g11">
-                                    <rect key="frame" x="98.5" y="58" width="188.5" height="15"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                                    <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="57.5" y="60.5" width="229.5" height="16.5"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                                    <color key="textColor" name="normalTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="innerContainerBgColor"/>
                             <constraints>
                                 <constraint firstItem="KsS-2N-J67" firstAttribute="centerY" secondItem="795-i2-XIw" secondAttribute="centerY" id="4sW-7X-sA7"/>
                                 <constraint firstAttribute="height" constant="92" id="9Mn-kd-1f1"/>
@@ -151,67 +149,73 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="diw-ba-bzt">
-                            <rect key="frame" x="37" y="365" width="134.5" height="32"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="37" y="378.5" width="134.5" height="38"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="32" id="1KZ-1Z-Cge"/>
+                                <constraint firstAttribute="height" constant="38" id="1KZ-1Z-Cge"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Cancel">
-                                <color key="titleColor" red="0.098039215686274508" green="0.65490196078431373" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="backButtonPressed:" destination="-1" eventType="touchUpInside" id="MNr-NX-OZW"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sending Confirm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZS-VO-Hih">
-                            <rect key="frame" x="135.5" y="40" width="104" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
-                            <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRANSFER CONFIRM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WZS-VO-Hih">
+                            <rect key="frame" x="87.5" y="40" width="200.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKs-uB-fHq">
-                            <rect key="frame" x="203.5" y="365" width="134.5" height="32"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="203.5" y="378.5" width="134.5" height="38"/>
+                            <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="32" id="Kmw-Wc-FbA"/>
+                                <constraint firstAttribute="height" constant="38" id="Kmw-Wc-FbA"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                             <state key="normal" title="Confirm">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" name="mainViewBgColor"/>
                             </state>
                             <connections>
                                 <action selector="confirmButtonPressed:" destination="-1" eventType="touchUpInside" id="3xe-he-cXL"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhE-f3-fba">
-                            <rect key="frame" x="37" y="139" width="301" height="36"/>
+                            <rect key="frame" x="37" y="153.5" width="301" height="35"/>
                             <string key="text">Please sure that this address supports Ethereum network. You will lose your assets if this address doesn't support Ethereum compatible retrieval</string>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="10"/>
-                            <color key="textColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" name="warningColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98i76yuin7uhy643xu…...7uhyt8" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsV-RK-NrS">
+                            <rect key="frame" x="77" y="110" width="261" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                            <color key="textColor" red="0.54117647058823526" green="0.64313725490196072" blue="0.68235294117647061" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="popupBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="WZS-VO-Hih" firstAttribute="top" secondItem="40u-Se-dwp" secondAttribute="top" constant="40" id="1Fr-FF-jwh"/>
                         <constraint firstAttribute="trailing" secondItem="H6P-E7-ol5" secondAttribute="trailing" constant="37" id="1Ke-cm-2X3"/>
-                        <constraint firstItem="glf-Jz-f5I" firstAttribute="centerY" secondItem="Rgo-Jm-drU" secondAttribute="centerY" id="1hW-Ln-iVh"/>
                         <constraint firstItem="diw-ba-bzt" firstAttribute="top" secondItem="tld-AE-eoi" secondAttribute="bottom" constant="30" id="4BN-Vl-FfO"/>
                         <constraint firstItem="UKs-uB-fHq" firstAttribute="centerY" secondItem="diw-ba-bzt" secondAttribute="centerY" id="4zV-gS-CYi"/>
-                        <constraint firstItem="wsV-RK-NrS" firstAttribute="leading" secondItem="glf-Jz-f5I" secondAttribute="trailing" constant="7" id="6uJ-SM-36x"/>
+                        <constraint firstAttribute="trailing" secondItem="wsV-RK-NrS" secondAttribute="trailing" constant="37" id="7DQ-lB-X5f"/>
                         <constraint firstAttribute="height" constant="500" id="Bk4-9E-pwL"/>
-                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="wsV-RK-NrS" secondAttribute="trailing" constant="37" id="CXw-gm-Qlk"/>
                         <constraint firstItem="UKs-uB-fHq" firstAttribute="leading" secondItem="diw-ba-bzt" secondAttribute="trailing" constant="32" id="Ca8-sB-rKg"/>
+                        <constraint firstItem="glf-Jz-f5I" firstAttribute="top" secondItem="Rgo-Jm-drU" secondAttribute="top" id="Ctk-bu-ctt"/>
                         <constraint firstItem="WZS-VO-Hih" firstAttribute="centerX" secondItem="40u-Se-dwp" secondAttribute="centerX" id="Gaf-3a-M5Q"/>
                         <constraint firstItem="8Y8-Ij-obY" firstAttribute="top" secondItem="rZg-Gu-XDk" secondAttribute="bottom" constant="60" id="H6Q-TQ-E9o"/>
                         <constraint firstItem="Rgo-Jm-drU" firstAttribute="top" secondItem="WZS-VO-Hih" secondAttribute="bottom" constant="31" id="HmW-vX-Mbq"/>
-                        <constraint firstItem="wsV-RK-NrS" firstAttribute="centerY" secondItem="Rgo-Jm-drU" secondAttribute="centerY" id="IMw-H7-5u1"/>
                         <constraint firstItem="tld-AE-eoi" firstAttribute="leading" secondItem="40u-Se-dwp" secondAttribute="leading" constant="37" id="JGM-pf-nVu"/>
                         <constraint firstAttribute="trailing" secondItem="6bT-vz-8ub" secondAttribute="trailing" constant="37" id="M3c-Id-Dyz"/>
                         <constraint firstItem="UKs-uB-fHq" firstAttribute="width" secondItem="diw-ba-bzt" secondAttribute="width" id="R1D-KA-Mev"/>
+                        <constraint firstItem="wsV-RK-NrS" firstAttribute="leading" secondItem="Rgo-Jm-drU" secondAttribute="trailing" constant="8" id="Sok-bc-vAw"/>
                         <constraint firstAttribute="trailing" secondItem="rZg-Gu-XDk" secondAttribute="trailing" constant="37" id="UHy-HM-4Sn"/>
-                        <constraint firstItem="glf-Jz-f5I" firstAttribute="leading" secondItem="Rgo-Jm-drU" secondAttribute="trailing" constant="7" id="Ybk-b5-Ok0"/>
+                        <constraint firstItem="glf-Jz-f5I" firstAttribute="leading" secondItem="Rgo-Jm-drU" secondAttribute="trailing" constant="8" id="Vcf-RQ-3qf"/>
+                        <constraint firstItem="wsV-RK-NrS" firstAttribute="bottom" secondItem="Rgo-Jm-drU" secondAttribute="bottom" id="bYT-sC-YlM"/>
                         <constraint firstItem="H6P-E7-ol5" firstAttribute="top" secondItem="6bT-vz-8ub" secondAttribute="bottom" constant="5" id="cFU-eK-5BW"/>
                         <constraint firstItem="rZg-Gu-XDk" firstAttribute="leading" secondItem="40u-Se-dwp" secondAttribute="leading" constant="37" id="cVi-rA-hON"/>
                         <constraint firstItem="8Y8-Ij-obY" firstAttribute="leading" secondItem="40u-Se-dwp" secondAttribute="leading" constant="37" id="d5t-ba-2uQ"/>
@@ -255,5 +259,32 @@
     </objects>
     <resources>
         <image name="help_icon_blue" width="14" height="14"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="innerContainerBgColor">
+            <color red="0.10588235294117647" green="0.11372549019607843" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29411764705882354" green="0.30980392156862746" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="popupBackgroundColor">
+            <color red="0.16078431372549021" green="0.17647058823529413" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="separatorColor">
+            <color red="0.22745098039215686" green="0.22745098039215686" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="warningColor">
+            <color red="1" green="0.75294117647058822" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

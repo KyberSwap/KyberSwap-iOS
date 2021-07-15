@@ -4,12 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -26,26 +27,26 @@
                         <rect key="frame" x="0.0" y="5" width="320" height="42"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="default_token" translatesAutoresizingMaskIntoConstraints="NO" id="Ggn-wo-DFO">
-                                <rect key="frame" x="12" y="15" width="12" height="12"/>
+                                <rect key="frame" x="12" y="9" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="12" id="LQU-kf-LMe"/>
-                                    <constraint firstAttribute="height" constant="12" id="iT0-rC-A6h"/>
+                                    <constraint firstAttribute="width" constant="24" id="LQU-kf-LMe"/>
+                                    <constraint firstAttribute="height" constant="24" id="iT0-rC-A6h"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USDC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXS-BS-Ybv">
-                                <rect key="frame" x="30" y="12.5" width="38" height="17"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                <rect key="frame" x="42" y="11.5" width="45" height="19"/>
+                                <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                 <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.50%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVU-YB-fux">
-                                <rect key="frame" x="269" y="12.5" width="38" height="17"/>
-                                <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                <rect key="frame" x="259.5" y="11.5" width="47.5" height="19"/>
+                                <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                 <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="toolbarBgColor"/>
                         <constraints>
                             <constraint firstItem="uVU-YB-fux" firstAttribute="centerY" secondItem="GT1-d3-LM4" secondAttribute="centerY" id="CLB-Ty-Rgw"/>
                             <constraint firstItem="Ggn-wo-DFO" firstAttribute="centerY" secondItem="GT1-d3-LM4" secondAttribute="centerY" id="JSL-Xg-2qa"/>
@@ -81,6 +82,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="default_token" width="36" height="36"/>
+        <image name="default_token" width="25" height="25"/>
+        <namedColor name="toolbarBgColor">
+            <color red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

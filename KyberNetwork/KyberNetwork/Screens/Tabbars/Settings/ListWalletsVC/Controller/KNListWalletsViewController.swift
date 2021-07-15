@@ -54,11 +54,11 @@ class KNListWalletsViewController: KNBaseViewController {
   @IBOutlet weak var walletTableView: UITableView!
   @IBOutlet weak var bottomPaddingConstraintForTableView: NSLayoutConstraint!
   fileprivate var longPressTimer: Timer?
-  @IBOutlet weak var segmentedControl: BetterSegmentedControl!
   @IBOutlet weak var emptyView: UIView!
   @IBOutlet weak var emptyMessageLabel: UILabel!
   @IBOutlet weak var emptyViewAddButton: UIButton!
   @IBOutlet weak var addWalletButton: UIButton!
+  @IBOutlet weak var segmentedControl: SegmentedControl!
   
   init(viewModel: KNListWalletsViewModel) {
     self.viewModel = viewModel
@@ -72,10 +72,11 @@ class KNListWalletsViewController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.setupUI()
+    segmentedControl.highlightSelectedSegment()
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
   }
 
   fileprivate func setupUI() {
@@ -84,17 +85,18 @@ class KNListWalletsViewController: KNBaseViewController {
     self.setupSegmentedControl()
     self.emptyViewAddButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.emptyViewAddButton.frame.size.height / 2)
     self.updateEmptyView()
+    self.addWalletButton.rounded(color: UIColor(named: "normalTextColor")!, width: 1, radius: 16)
   }
 
+  @IBAction func segmentedControlDidChange(_ sender: UISegmentedControl) {
+    segmentedControl.underlinePosition()
+    self.viewModel.isDisplayWatchWallets = self.segmentedControl.selectedSegmentIndex == 1
+    self.updateEmptyView()
+    self.walletTableView.reloadData()
+  }
+  
   fileprivate func setupSegmentedControl() {
-    self.segmentedControl.segments = LabelSegment.segments(withTitles: ["Imported".toBeLocalised().uppercased(), "Watched".toBeLocalised().uppercased()],
-                                                               normalFont: UIFont(name: "Lato-Bold", size: 8)!,
-                                                               normalTextColor: UIColor(red: 226, green: 231, blue: 244),
-                                                               selectedFont: UIFont(name: "Lato-Bold", size: 8)!,
-                                                               selectedTextColor: UIColor.white
-        )
-        self.segmentedControl.setIndex(0)
-        self.segmentedControl.addTarget(self, action: #selector(KNListWalletsViewController.segmentedControlValueChanged(_:)), for: .valueChanged)
+    segmentedControl.frame = CGRect(x: self.segmentedControl.frame.minX, y: self.segmentedControl.frame.minY, width: segmentedControl.frame.width, height: 30)
   }
 
   fileprivate func setupNavigationBar() {
@@ -103,7 +105,7 @@ class KNListWalletsViewController: KNBaseViewController {
   fileprivate func setupWalletTableView() {
     let nib = UINib(nibName: KNListWalletsTableViewCell.className, bundle: nil)
     self.walletTableView.register(nib, forCellReuseIdentifier: kCellID)
-    self.walletTableView.rowHeight = 56.0
+    self.walletTableView.rowHeight = 60.0
     self.walletTableView.delegate = self
     self.walletTableView.dataSource = self
     self.bottomPaddingConstraintForTableView.constant = self.bottomPaddingSafeArea()
@@ -122,7 +124,7 @@ class KNListWalletsViewController: KNBaseViewController {
 
   fileprivate func updateEmptyView() {
     self.emptyView.isHidden = !self.viewModel.displayWallets.isEmpty
-    let walletString = self.segmentedControl.index == 0 ? "wallet" : "watched wallet"
+    let walletString = self.segmentedControl.selectedSegmentIndex == 0 ? "wallet" : "watched wallet"
     self.emptyMessageLabel.text = "Your list of \(walletString)s is empty.".toBeLocalised()
     self.addWalletButton.setTitle("Add " + walletString, for: .normal)
   }
@@ -130,12 +132,6 @@ class KNListWalletsViewController: KNBaseViewController {
   func coordinatorDidUpdateWalletsList() {
     //TODO: perform wait wallet save to disk
     self.viewModel.listWallets = KNWalletStorage.shared.wallets
-    self.walletTableView.reloadData()
-  }
-
-  @objc func segmentedControlValueChanged(_ sender: BetterSegmentedControl) {
-    self.viewModel.isDisplayWatchWallets = sender.index == 1
-    self.updateEmptyView()
     self.walletTableView.reloadData()
   }
 
@@ -224,26 +220,26 @@ extension KNListWalletsViewController: SwipeTableViewCellDelegate {
     }
     copy.hidesWhenSelected = true
     copy.title = "copy".toBeLocalised().uppercased()
-    copy.textColor = UIColor.Kyber.SWYellow
-    copy.font = UIFont.Kyber.latoBold(with: 10)
+    copy.textColor = UIColor(named: "normalTextColor")
+    copy.font = UIFont.Kyber.medium(with: 12)
     let bgImg = UIImage(named: "history_cell_edit_bg")!
-    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 56))!
+    let resized = bgImg.resizeImage(to: CGSize(width: 1000, height: 60))!
     copy.backgroundColor = UIColor(patternImage: resized)
 
     let edit = SwipeAction(style: .default, title: nil) { _, _ in
       self.delegate?.listWalletsViewController(self, run: .edit(wallet: wallet))
     }
     edit.title = "edit".toBeLocalised().uppercased()
-    edit.textColor = UIColor.Kyber.SWYellow
-    edit.font = UIFont.Kyber.latoBold(with: 10)
+    edit.textColor = UIColor(named: "normalTextColor")
+    edit.font = UIFont.Kyber.medium(with: 12)
     edit.backgroundColor = UIColor(patternImage: resized)
 
     let delete = SwipeAction(style: .default, title: nil) { _, _ in
       self.delegate?.listWalletsViewController(self, run: .remove(wallet: wallet))
     }
     delete.title = "delete".toBeLocalised().uppercased()
-    delete.textColor = UIColor.Kyber.SWYellow
-    delete.font = UIFont.Kyber.latoBold(with: 10)
+    delete.textColor = UIColor(named: "normalTextColor")
+    delete.font = UIFont.Kyber.medium(with: 12)
     delete.backgroundColor = UIColor(patternImage: resized)
 
     return [delete, edit, copy]

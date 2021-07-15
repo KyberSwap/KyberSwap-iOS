@@ -32,22 +32,22 @@ class ChooseRateViewModel {
   }
 
   var uniRateText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwap v2"
+    let key = KNGeneralProvider.shared.isEthereum ? "Uniswap" : "PancakeSwap v2"
     return rateStringFor(platform: key)
   }
 
   var kyberRateText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwap v1"
+    let key = KNGeneralProvider.shared.isEthereum ? "Kyber Network" : "PancakeSwap v1"
     return rateStringFor(platform: key)
   }
   
   var uniFeeText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwap v2"
+    let key = KNGeneralProvider.shared.isEthereum ? "Uniswap" : "PancakeSwap v2"
     return feeStringFor(platform: key)
   }
   
   var kyberFeeText: String {
-    let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwap v1"
+    let key = KNGeneralProvider.shared.isEthereum ? "Kyber Network" : "PancakeSwap v1"
     return feeStringFor(platform: key)
   }
 
@@ -144,10 +144,10 @@ class ChooseRateViewController: KNBaseViewController {
 
   @IBAction func chooseRateButtonTapped(_ sender: UIButton) {
     if sender.tag == 0 {
-      let key = KNGeneralProvider.shared.isEthereum ? "kyber" : "PancakeSwap v1"
+      let key = KNGeneralProvider.shared.isEthereum ? "Kyber Network" : "PancakeSwap v1"
       self.delegate?.chooseRateViewController(self, didSelect: key)
     } else {
-      let key = KNGeneralProvider.shared.isEthereum ? "uniswap" : "PancakeSwap v2"
+      let key = KNGeneralProvider.shared.isEthereum ? "Uniswap" : "PancakeSwap v2"
       self.delegate?.chooseRateViewController(self, didSelect: key)
     }
     self.dismiss(animated: true, completion: nil)

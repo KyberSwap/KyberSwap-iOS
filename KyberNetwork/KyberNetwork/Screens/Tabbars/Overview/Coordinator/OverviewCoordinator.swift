@@ -19,6 +19,9 @@ protocol OverviewCoordinatorDelegate: class {
   func overviewCoordinatorDidSelectDepositMore(tokenAddress: String)
   func overviewCoordinatorDidSelectAddToken(_ token: TokenObject)
   func overviewCoordinatorDidChangeHideBalanceStatus(_ status: Bool)
+  func overviewCoordinatorDidSelectRenameWallet()
+  func overviewCoordinatorDidSelectExportWallet()
+  func overviewCoordinatorDidSelectDeleteWallet()
 }
 
 class OverviewCoordinator: NSObject, Coordinator {
@@ -33,18 +36,13 @@ class OverviewCoordinator: NSObject, Coordinator {
   var withdrawCoordinator: WithdrawCoordinator?
   var krytalCoordinator: KrytalCoordinator?
   var notificationsCoordinator: NotificationCoordinator?
-  var currentCurrencyType: CurrencyType = .usd
+  var currentCurrencyType: CurrencyMode = .usd
 
-  lazy var rootViewController: OverviewContainerViewController = {
-    print("[Balance][Overview][\(session.wallet.address.description)] \(KNSupportedTokenStorage.shared.ethToken.getBalanceBigInt().description)")
-    let viewModel = OverviewContainerViewModel(session: self.session, marketViewModel: self.marketViewController.viewModel, assetsViewModel: self.assetsViewController.viewModel, depositViewModel: self.depositViewController.viewModel)
-    let controller = OverviewContainerViewController(viewModel: viewModel, marketViewController: self.marketViewController, assetsViewController: self.assetsViewController, depositViewController: self.depositViewController)
-    self.assetsViewController.container = controller
-    self.marketViewController.container = controller
-    self.depositViewController.container = controller
-    controller.delegate = self
-    controller.navigationDelegate = self
-    return controller
+  lazy var rootViewController: OverviewMainViewController = {
+    let viewModel = OverviewMainViewModel(session: self.session)
+    let viewController = OverviewMainViewController(viewModel: viewModel)
+    viewController.delegate = self
+    return viewController
   }()
   
   lazy var marketViewController: OverviewMarketViewController = {
@@ -115,7 +113,7 @@ class OverviewCoordinator: NSObject, Coordinator {
   
   func appCoordinatorPendingTransactionsDidUpdate() {
     self.historyCoordinator?.appCoordinatorPendingTransactionDidUpdate()
-    self.rootViewController.coordinatorDidUpdatePendingTx()
+//    self.rootViewController.coordinatorDidUpdatePendingTx()
     self.sendCoordinator?.coordinatorDidUpdatePendingTx()
     self.withdrawCoordinator?.coordinatorDidUpdatePendingTx()
     self.sendCoordinator?.coordinatorTokenBalancesDidUpdate(balances: [:])
@@ -249,7 +247,8 @@ extension OverviewCoordinator: OverviewContainerViewControllerDelegate {
       coordinator.start()
       self.notificationsCoordinator = coordinator
     case .selectedCurrency(type: let type):
-      self.currentCurrencyType = type
+//      self.currentCurrencyType = type
+    break
     case .changeHideBalanceStatus(status: let status):
       self.delegate?.overviewCoordinatorDidChangeHideBalanceStatus(status)
     }
@@ -289,13 +288,20 @@ extension OverviewCoordinator: NavigationBarDelegate {
   }
 
   func viewControllerDidSelectWallets(_ controller: KNBaseViewController) {
-    let viewModel = WalletsListViewModel(
-      walletObjects: KNWalletStorage.shared.wallets,
-      currentWallet: self.currentWallet
-    )
-    let walletsList = WalletsListViewController(viewModel: viewModel)
-    walletsList.delegate = self
-    self.navigationController.present(walletsList, animated: true, completion: nil)
+    let actionController = KrystalActionSheetController()
+    
+    actionController.headerData = "Tokens Data"
+    actionController.addAction(Action(ActionData(title: "Add to Watch Later", image: UIImage(named: "knc")!), style: .default, handler: { action in
+    }))
+    actionController.addAction(Action(ActionData(title: "Add to Playlist...", image: UIImage(named: "knc")!), style: .default, handler: { action in
+    }))
+    actionController.addAction(Action(ActionData(title: "Share...", image: UIImage(named: "knc")!), style: .default, handler: { action in
+    }))
+    actionController.addAction(Action(ActionData(title: "Cancel", image: UIImage(named: "knc")!), style: .destructive, handler: nil))
+    
+    self.navigationController.present(actionController, animated: true, completion: nil)
+    
+    
   }
 }
 
@@ -451,5 +457,174 @@ extension OverviewCoordinator: KrytalCoordinatorDelegate {
   
   func krytalCoordinatorDidSelectManageWallet() {
     self.delegate?.overviewCoordinatorDidSelectManageWallet()
+  }
+}
+
+extension OverviewCoordinator: OverviewMainViewControllerDelegate {
+  func overviewMainViewController(_ controller: OverviewMainViewController, run event: OverviewMainViewEvent) {
+    switch event {
+    case .changeMode(current: let mode):
+      let actionController = KrystalActionSheetController()
+      
+      actionController.headerData = "Tokens Data"
+      if KNGeneralProvider.shared.isEthereum {
+        let supplyType = mode == .supply ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Show Supply", image: UIImage(named: "supply_actionsheet_icon")!), style: supplyType, handler: { _ in
+          controller.coordinatorDidSelectMode(.supply)
+        }))
+      }
+      
+      let assetType = mode == .asset(rightMode: .value) ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Show Asset", image: UIImage(named: "asset_actionsheet_icon")!), style: assetType, handler: { _ in
+        controller.coordinatorDidSelectMode(.asset(rightMode: .value))
+      }))
+      let marketType = mode == .market(rightMode: .ch24) ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Show Market", image: UIImage(named: "market_actionsheet_icon")!), style: marketType, handler: { _ in
+        controller.coordinatorDidSelectMode(.market(rightMode: .ch24))
+      }))
+      let favType = mode == .favourite(rightMode: .ch24) ? ActionStyle.selected : ActionStyle.default
+      actionController.addAction(Action(ActionData(title: "Favorites", image: UIImage(named: "favorites_actionsheet_icon")!), style: favType, handler: { _ in
+        controller.coordinatorDidSelectMode(.favourite(rightMode: .ch24))
+      }))
+      
+      self.navigationController.present(actionController, animated: true, completion: nil)
+    case .walletConfig(currency: let currency):
+      let actionController = KrystalActionSheetController()
+      
+      actionController.headerData = "Wallet Details"
+      
+      actionController.addAction(Action(ActionData(title: "Change Currency", image: UIImage(named: "currency_change_icon")!), style: .default, handler: { _ in
+        let controller = OverviewChangeCurrencyViewController(mode: currency)
+        controller.completeHandle = { mode in
+          self.rootViewController.coordinatorDidUpdateCurrencyMode(mode)
+          self.currentCurrencyType = mode
+        }
+        self.navigationController.present(controller, animated: true, completion: nil)
+      }))
+      
+      actionController.addAction(Action(ActionData(title: "Copy Address", image: UIImage(named: "copy_actionsheet_icon")!), style: .default, handler: { _ in
+        UIPasteboard.general.string = self.session.wallet.address.description
+        let hud = MBProgressHUD.showAdded(to: controller.view, animated: true)
+        hud.mode = .text
+        hud.label.text = NSLocalizedString("copied", value: "Copied", comment: "")
+        hud.hide(animated: true, afterDelay: 1.5)
+      }))
+      
+      actionController.addAction(Action(ActionData(title: "Share Address", image: UIImage(named: "share_actionsheet_icon")!), style: .default, handler: { _ in
+        let activityItems: [Any] = {
+          var items: [Any] = []
+          items.append(self.session.wallet.address.description)
+          return items
+        }()
+        let activityViewController = UIActivityViewController(
+          activityItems: activityItems,
+          applicationActivities: nil
+        )
+        activityViewController.popoverPresentationController?.sourceView = controller.view
+        controller.present(activityViewController, animated: true, completion: nil)
+      }))
+      actionController.addAction(Action(ActionData(title: "Rename Wallet", image: UIImage(named: "rename_actionsheet_icon")!), style: .default, handler: { _ in
+        self.delegate?.overviewCoordinatorDidSelectRenameWallet()
+      }))
+      actionController.addAction(Action(ActionData(title: "Show History", image: UIImage(named: "history_actionsheet_icon")!), style: .default, handler: { _ in
+        self.openHistoryScreen()
+      }))
+      actionController.addAction(Action(ActionData(title: "Export Wallet", image: UIImage(named: "export_actionsheet_icon")!), style: .default, handler: { _ in
+        self.delegate?.overviewCoordinatorDidSelectExportWallet()
+      }))
+      actionController.addAction(Action(ActionData(title: "DELETE", image: UIImage(named: "delete_actionsheet_icon")!), style: .destructive, handler: { _ in
+        self.delegate?.overviewCoordinatorDidSelectDeleteWallet()
+      }))
+      actionController.addAction(Action(ActionData(title: "Etherscan", image: UIImage(named: "etherscan_actionsheet_icon")!), style: .default, handler: { _ in
+        if let etherScanEndpoint = self.session.externalProvider?.customRPC.etherScanEndpoint, let url = URL(string: "\(etherScanEndpoint)address/\(self.session.wallet.address.description)") {
+          self.rootViewController.openSafari(with: url)
+        }
+      }))
+      self.navigationController.present(actionController, animated: true, completion: nil)
+    case .select(token: let token):
+      self.openChartView(token: token)
+    case .selectListWallet:
+      let viewModel = WalletsListViewModel(
+        walletObjects: KNWalletStorage.shared.wallets,
+        currentWallet: self.currentWallet
+      )
+      let walletsList = WalletsListViewController(viewModel: viewModel)
+      walletsList.delegate = self
+      self.navigationController.present(walletsList, animated: true, completion: nil)
+    case .send:
+      self.openSendTokenView(nil)
+    case .receive:
+      self.openQRCodeScreen()
+    case .notifications:
+      let coordinator = NotificationCoordinator(navigationController: self.navigationController)
+      coordinator.start()
+      self.notificationsCoordinator = coordinator
+    case .search:
+      let searchController = OverviewSearchTokenViewController()
+      searchController.coordinatorUpdateCurrency(self.currentCurrencyType)
+      searchController.delegate = self
+      self.navigationController.pushViewController(searchController, animated: true)
+    case .withdrawBalance(platform: let platform, balance: let balance):
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.platform = platform
+      coordinator.balance = balance
+      coordinator.start()
+      coordinator.delegate = self
+      self.withdrawCoordinator = coordinator
+    case .claim(balance: let balance):
+      let coordinator = WithdrawCoordinator(navigationController: self.navigationController, session: self.session)
+      coordinator.claimBalance = balance
+      coordinator.start()
+      coordinator.delegate = self
+      self.withdrawCoordinator = coordinator
+    case .depositMore:
+      self.delegate?.overviewCoordinatorDidSelectDepositMore(tokenAddress: "")
+    case .changeRightMode(current: let current):
+      let actionController = KrystalActionSheetController()
+      actionController.headerData = "Display Data"
+      
+      switch current {
+      case .market(rightMode: let mode):
+        let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Last Price", image: UIImage(named: "price_actionsheet_icon")!), style: priceType, handler: { _ in
+          controller.coordinatorDidSelectMode(.market(rightMode: .lastPrice))
+        }))
+        let ch24Type = mode == .ch24 ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Percentage Change", image: UIImage(named: "24ch_actionsheet_icon")!), style: ch24Type, handler: { _ in
+          controller.coordinatorDidSelectMode(.market(rightMode: .ch24))
+        }))
+      case .favourite(rightMode: let mode):
+        let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Last Price", image: UIImage(named: "price_actionsheet_icon")!), style: priceType, handler: { _ in
+          controller.coordinatorDidSelectMode(.favourite(rightMode: .lastPrice))
+        }))
+        let ch24Type = mode == .ch24 ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Percentage Change", image: UIImage(named: "24ch_actionsheet_icon")!), style: ch24Type, handler: { _ in
+          controller.coordinatorDidSelectMode(.favourite(rightMode: .ch24))
+        }))
+      case .asset(rightMode: let mode):
+        let priceType = mode == .lastPrice ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Last Price", image: UIImage(named: "price_actionsheet_icon")!), style: priceType, handler: { _ in
+          controller.coordinatorDidSelectMode(.asset(rightMode: .lastPrice))
+        }))
+        let valueType = mode == .value ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Value", image: UIImage(named: "value_actionsheet_icon")!), style: valueType, handler: { _ in
+          controller.coordinatorDidSelectMode(.asset(rightMode: .value))
+        }))
+        let ch24Type = mode == .ch24 ? ActionStyle.selected : ActionStyle.default
+        actionController.addAction(Action(ActionData(title: "Percentage Change", image: UIImage(named: "24ch_actionsheet_icon")!), style: ch24Type, handler: { _ in
+          controller.coordinatorDidSelectMode(.asset(rightMode: .ch24))
+        }))
+      default:
+        break
+      }
+      self.navigationController.present(actionController, animated: true, completion: nil)
+    }
+  }
+}
+
+extension OverviewCoordinator: OverviewSearchTokenViewControllerDelegate {
+  func overviewSearchTokenViewController(_ controller: OverviewSearchTokenViewController, open token: Token) {
+    self.openChartView(token: token)
   }
 }

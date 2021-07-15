@@ -30,7 +30,7 @@ class KNWelcomeScreenCollectionView: XibLoaderView {
 
   fileprivate func updateSelectedPageView(index: Int) {
     self.pageViews.forEach { view in
-      view.backgroundColor = view.tag == index ? UIColor.Kyber.SWButtonBlueColor : UIColor(red: 10, green: 75, blue: 97)
+      view.backgroundColor = view.tag == index ? UIColor(named: "buttonBackgroundColor") : UIColor(named: "warningBoxBgColor")
     }
   }
 

@@ -4,18 +4,19 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
+        </array>
         <array key="Lato-Bold.ttf">
             <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
-        </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -39,13 +40,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Custom Token" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXP-3m-yG8">
-                            <rect key="frame" x="111.5" y="68" width="152" height="21"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="102" y="68" width="171.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJU-Tb-jaV">
-                            <rect key="frame" x="16" y="60.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="62" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="Pw5-po-mxh"/>
                                 <constraint firstAttribute="height" constant="36" id="ald-Fa-VZc"/>
@@ -56,7 +57,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="xXP-3m-yG8" firstAttribute="top" secondItem="u4A-55-mi9" secondAttribute="top" constant="68" id="Kuh-fA-Pw7"/>
@@ -73,12 +74,12 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="95T-Z4-rGH">
-                    <rect key="frame" x="40" y="183" width="295" height="42"/>
+                    <rect key="frame" x="40" y="185" width="295" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Smart contract" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Mos-5c-xjL">
                             <rect key="frame" x="16" y="0.0" width="191" height="42"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" name="textWhiteColor"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TU4-8i-6iE">
@@ -94,12 +95,12 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfG-1C-7FK">
                             <rect key="frame" x="217" y="12" width="36" height="18"/>
-                            <color key="backgroundColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="36" id="830-Ie-KxD"/>
                                 <constraint firstAttribute="height" constant="18" id="f1m-1W-Ylz"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="10"/>
                             <state key="normal" title="Paste">
                                 <color key="titleColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -114,7 +115,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="toolbarBgColor"/>
                     <constraints>
                         <constraint firstItem="Mos-5c-xjL" firstAttribute="leading" secondItem="95T-Z4-rGH" secondAttribute="leading" constant="16" id="Dd3-aV-Eo5"/>
                         <constraint firstAttribute="trailing" secondItem="TU4-8i-6iE" secondAttribute="trailing" constant="8" id="I6N-oy-etB"/>
@@ -134,22 +135,22 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token Contract Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9R9-nZ-aqo">
-                    <rect key="frame" x="40" y="153" width="147" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="40" y="153" width="172.5" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c4I-Q9-X0l">
-                    <rect key="frame" x="40" y="275" width="295" height="42"/>
+                    <rect key="frame" x="40" y="279" width="295" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Token symbol" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YCD-po-quv">
                             <rect key="frame" x="16" y="0.0" width="263" height="42"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" name="textWhiteColor"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="toolbarBgColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="G5V-vi-Opr"/>
                         <constraint firstAttribute="bottom" secondItem="YCD-po-quv" secondAttribute="bottom" id="Inx-NH-cYM"/>
@@ -165,22 +166,22 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token Symbol" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M86-sM-Ke7">
-                    <rect key="frame" x="40" y="245" width="85" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="40" y="247" width="101" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zp1-AP-dOe">
-                    <rect key="frame" x="40" y="367" width="295" height="42"/>
+                    <rect key="frame" x="40" y="373" width="295" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="100" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Decimals" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mmn-6o-dhI">
                             <rect key="frame" x="16" y="0.0" width="263" height="42"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" name="textWhiteColor"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="toolbarBgColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="7TU-aW-abh"/>
                         <constraint firstAttribute="trailing" secondItem="mmn-6o-dhI" secondAttribute="trailing" constant="16" id="Rux-15-8d3"/>
@@ -196,21 +197,20 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Decimals of Precision" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDN-8E-8sA">
-                    <rect key="frame" x="40" y="337" width="131.5" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="40" y="341" width="154.5" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sSh-ox-nfP">
-                    <rect key="frame" x="125.5" y="529" width="124" height="32"/>
-                    <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="37" y="535" width="301" height="38"/>
+                    <color key="backgroundColor" name="buttonBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="124" id="9e1-dD-jLy"/>
-                        <constraint firstAttribute="height" constant="32" id="TPe-5p-DfA"/>
+                        <constraint firstAttribute="height" constant="38" id="TPe-5p-DfA"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <state key="normal" title="Done">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" name="mainViewBgColor"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -223,16 +223,16 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lsa-Jy-2Li">
-                    <rect key="frame" x="40" y="459" width="295" height="42"/>
+                    <rect key="frame" x="40" y="467" width="295" height="42"/>
                     <subviews>
                         <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="100" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Ethereum" placeholder="Decimals" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OKt-3y-6Iq">
                             <rect key="frame" x="16" y="0.0" width="263" height="42"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <color key="textColor" name="textWhiteColor"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="toolbarBgColor"/>
                     <constraints>
                         <constraint firstItem="OKt-3y-6Iq" firstAttribute="leading" secondItem="lsa-Jy-2Li" secondAttribute="leading" constant="16" id="6fd-Rd-ewI"/>
                         <constraint firstAttribute="bottom" secondItem="OKt-3y-6Iq" secondAttribute="bottom" id="Rab-Xb-wRB"/>
@@ -248,16 +248,18 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blockchain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbQ-bW-Hpm">
-                    <rect key="frame" x="40" y="429" width="67" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="40" y="435" width="79.5" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
                 <constraint firstItem="u4A-55-mi9" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="08o-hi-eoP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sSh-ox-nfP" secondAttribute="trailing" constant="37" id="3XQ-la-dJ7"/>
+                <constraint firstItem="sSh-ox-nfP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="3sQ-wi-hZW"/>
                 <constraint firstItem="u4A-55-mi9" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="6qE-Tp-nf0"/>
                 <constraint firstItem="lDN-8E-8sA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="D7a-6E-pHh"/>
                 <constraint firstItem="95T-Z4-rGH" firstAttribute="top" secondItem="9R9-nZ-aqo" secondAttribute="bottom" constant="13" id="ENr-3A-KJP"/>
@@ -287,7 +289,19 @@
         </view>
     </objects>
     <resources>
-        <image name="back_blue_icon" width="17" height="14"/>
-        <image name="qr_code_blue_icon" width="22" height="22"/>
+        <image name="back_blue_icon" width="22" height="18"/>
+        <image name="qr_code_blue_icon" width="20" height="20"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="toolbarBgColor">
+            <color red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

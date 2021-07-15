@@ -44,7 +44,7 @@ class KNLoadBalanceCoordinator {
     self.loadLendingDistributionBalance()
     self.loadBalanceForCustomToken()
   }
-  
+
   func resume() {
     fetchBalanceTimer?.invalidate()
     fetchBalanceTimer = Timer.scheduledTimer(
@@ -311,4 +311,5 @@ class KNLoadBalanceCoordinator {
       }
     }
   }
+  
 }

@@ -57,12 +57,6 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     self.updateGasPriceUIs()
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.doneButton.removeSublayer(at: 0)
-    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
-
   fileprivate func updateUI() {
     self.navigationTitleLabel.text = "Customize Gas".toBeLocalised()
     self.mainTextTitle.text = "Select.higher.tx.fee.to.accelerate".toBeLocalised()
@@ -72,8 +66,7 @@ class SpeedUpCustomGasSelectViewController: KNBaseViewController {
     self.doneButton.setTitle("done".toBeLocalised(), for: .normal)
 
     self.currentFeeLabel.text = self.viewModel.currentTransactionFeeETHString
-    self.doneButton.rounded(radius: self.doneButton.frame.size.height / 2)
-    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.doneButton.rounded(radius: 16)
     self.superFastEstimateFeeLabel.text = self.viewModel.estimateFeeSuperFastString
     self.fastEstimateFeeLabel.text = self.viewModel.estimateFeeFastString
     self.regularEstimateFeeLabel.text = self.viewModel.estimateRegularFeeString

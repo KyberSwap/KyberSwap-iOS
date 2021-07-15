@@ -142,7 +142,7 @@ class KNNewContactViewController: KNBaseViewController {
         NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
       ]
     )
-    self.doneButton.rounded(color: UIColor.Kyber.SWActivePageControlColor, width: 1, radius: self.doneButton.frame.size.height / 2)
+    self.doneButton.rounded(radius: 16)
     self.updateUI()
   }
 

@@ -49,6 +49,30 @@ class Token: Codable, Equatable, Hashable {
     return price
   }
   
+  func getTokenLastPrice(_ mode: CurrencyMode) -> Double {
+    let price = self.getTokenPrice()
+    switch mode {
+    case .usd:
+      return price.usd
+    case .eth:
+      return price.eth
+    case .btc:
+      return price.btc
+    }
+  }
+  
+  func getTokenChange24(_ mode: CurrencyMode) -> Double {
+    let price = self.getTokenPrice()
+    switch mode {
+    case .usd:
+      return price.usd24hChange
+    case .eth:
+      return price.eth24hChange
+    case .btc:
+      return price.btc24hChange
+    }
+  }
+  
   static func == (lhs: Token, rhs: Token) -> Bool {
     return lhs.address.lowercased() == rhs.address.lowercased()
   }
@@ -56,6 +80,17 @@ class Token: Codable, Equatable, Hashable {
   func hash(into hasher: inout Hasher) {
     hasher.combine(self.address)
   }
+  
+  func getValueBigInt(_ currency: CurrencyMode) -> BigInt {
+    let rateBigInt = BigInt(self.getTokenLastPrice(currency) * pow(10.0, 18.0))
+    let valueBigInt = self.getBalanceBigInt() * rateBigInt / BigInt(10).power(self.decimals)
+    return valueBigInt
+  }
+  
+//  func getValueUSDString() -> String {
+//    let valueString = self.getValueBigInt().string(decimals: 18, minFractionDigits: 0, maxFractionDigits: min(self.decimals, 6))
+//    return "$" + valueString
+//  }
 }
 
 class TokenBalance: Codable {
@@ -149,6 +184,12 @@ struct LendingBalance: Codable {
     self.interestBearingTokenDecimal = dictionary["interestBearingTokenDecimal"] as? Int ?? 0
     self.interestBearningTokenBalance = dictionary["interestBearingTokenBalance"] as? String ?? ""
   }
+  
+  func getValueBigInt(_ currency: CurrencyMode) -> BigInt {
+    let tokenPrice = KNTrackerRateStorage.shared.getLastPriceWith(address: self.address, currency: currency)
+    let balanceBigInt = BigInt(self.supplyBalance) ?? BigInt(0)
+    return balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(self.decimals)
+  }
 }
 
 struct LendingPlatformBalance: Codable {
@@ -171,6 +212,12 @@ struct LendingDistributionBalance: Codable {
     self.decimal = dictionary["decimal"] as? Int ?? 0
     self.current = dictionary["current"] as? String ?? ""
     self.unclaimed = dictionary["unclaimed"] as? String ?? ""
+  }
+  
+  func getValueBigInt(_ currency: CurrencyMode) -> BigInt {
+    let tokenPrice = KNTrackerRateStorage.shared.getLastPriceWith(address: self.address, currency: currency)
+    let balanceBigInt = BigInt(self.unclaimed) ?? BigInt(0)
+    return balanceBigInt * BigInt(tokenPrice * pow(10.0, 18.0)) / BigInt(10).power(self.decimal)
   }
 }
 

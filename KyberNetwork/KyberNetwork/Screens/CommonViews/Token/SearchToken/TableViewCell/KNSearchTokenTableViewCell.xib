@@ -4,15 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
+        </array>
         <array key="Lato-Bold.ttf">
             <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -39,24 +40,24 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ETH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bs2-7M-3Jc">
-                        <rect key="frame" x="45" y="13.5" width="27" height="17"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                        <rect key="frame" x="45" y="11.5" width="34.5" height="21"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
                         <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="3,123.31" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h28-7P-YHQ">
-                        <rect key="frame" x="249" y="13.5" width="55" height="17"/>
+                        <rect key="frame" x="233.5" y="11.5" width="70.5" height="21"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
                         <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xx4-mr-5b3">
-                        <rect key="frame" x="261" y="9.5" width="43" height="25"/>
+                        <rect key="frame" x="261" y="10" width="43" height="24"/>
                         <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
                         <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                         <state key="normal" title="Add">
-                            <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleColor" name="buttonBackgroundColor"/>
                         </state>
                         <connections>
                             <action selector="tapAddButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2Mn-9B-oa0"/>
@@ -93,5 +94,8 @@
     </objects>
     <resources>
         <image name="eth" width="32" height="32"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

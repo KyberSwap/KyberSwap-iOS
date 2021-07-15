@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
+        </array>
         <array key="Lato-Bold.ttf">
             <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
         </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
@@ -48,7 +52,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jtu-F5-xff">
-                            <rect key="frame" x="16" y="69.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="67.5" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="8aO-rq-Tvb"/>
                                 <constraint firstAttribute="height" constant="36" id="hTa-Fx-ov8"/>
@@ -59,13 +63,13 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Rs-OX-FDh">
-                            <rect key="frame" x="142.5" y="77.5" width="90.5" height="19.5"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                            <rect key="frame" x="131" y="73.5" width="113.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="jtu-F5-xff" firstAttribute="centerY" secondItem="3Rs-OX-FDh" secondAttribute="centerY" id="6jd-vX-mqi"/>
                         <constraint firstItem="3Rs-OX-FDh" firstAttribute="centerX" secondItem="BZJ-op-odJ" secondAttribute="centerX" id="NAV-wd-T27"/>
@@ -81,17 +85,17 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xWc-5e-EYd">
-                    <rect key="frame" x="37" y="183" width="301" height="42"/>
+                    <rect key="frame" x="37" y="185" width="301" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0ca-fd-JG1">
                             <rect key="frame" x="16" y="0.0" width="269" height="42"/>
-                            <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textColor" red="0.81568627450980391" green="0.83137254901960778" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                            <color key="backgroundColor" name="toolbarBgColor"/>
+                            <color key="textColor" name="textWhiteColor"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="toolbarBgColor"/>
                     <constraints>
                         <constraint firstItem="0ca-fd-JG1" firstAttribute="top" secondItem="xWc-5e-EYd" secondAttribute="top" id="JJQ-td-WRC"/>
                         <constraint firstAttribute="bottom" secondItem="0ca-fd-JG1" secondAttribute="bottom" id="MOA-QE-8Di"/>
@@ -107,13 +111,13 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFH-fp-KDg">
-                    <rect key="frame" x="37" y="275" width="301" height="42"/>
+                    <rect key="frame" x="37" y="279" width="301" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="s16-ZQ-yPb">
                             <rect key="frame" x="16" y="0.0" width="241" height="42"/>
-                            <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="textColor" red="0.81568627450980391" green="0.83137254901960778" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                            <color key="backgroundColor" name="toolbarBgColor"/>
+                            <color key="textColor" name="textWhiteColor"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <textInputTraits key="textInputTraits" textContentType="name"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vl5-9Y-Ubp">
@@ -128,7 +132,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="toolbarBgColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="s16-ZQ-yPb" secondAttribute="bottom" id="0BY-8u-d8a"/>
                         <constraint firstItem="s16-ZQ-yPb" firstAttribute="top" secondItem="mFH-fp-KDg" secondAttribute="top" id="2YU-FH-mFA"/>
@@ -146,41 +150,41 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4SF-HT-RtA">
-                    <rect key="frame" x="37" y="359" width="301" height="1"/>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="37" y="363" width="301" height="1"/>
+                    <color key="backgroundColor" name="separatorColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="ClK-tR-2Zd"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid address or ens is not mapped yet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIj-eA-ik6">
-                    <rect key="frame" x="37" y="325" width="301" height="16.5"/>
-                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                    <rect key="frame" x="37" y="329" width="301" height="16.5"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                     <color key="textColor" systemColor="systemTealColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="np8-uI-H75">
-                    <rect key="frame" x="37" y="153" width="37" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <rect key="frame" x="37" y="153" width="43" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                     <color key="textColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5A-76-V0t">
-                    <rect key="frame" x="37" y="245" width="51" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                    <rect key="frame" x="37" y="247" width="59" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RAp-Rx-Ukw">
-                    <rect key="frame" x="37" y="380" width="301" height="24"/>
+                    <rect key="frame" x="37" y="384" width="301" height="24"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iWJ-rI-z3e">
                             <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="send_icon_blue" translatesAutoresizingMaskIntoConstraints="NO" id="KnL-sx-KhO">
-                                    <rect key="frame" x="4" y="7" width="16" height="10"/>
+                                    <rect key="frame" x="1" y="6" width="22" height="12"/>
                                 </imageView>
                             </subviews>
-                            <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="SDL-UO-pEv"/>
                                 <constraint firstItem="KnL-sx-KhO" firstAttribute="centerX" secondItem="iWJ-rI-z3e" secondAttribute="centerX" id="Z1G-KR-5Ck"/>
@@ -195,9 +199,9 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujD-tz-fbn">
-                            <rect key="frame" x="31" y="3.5" width="31" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                            <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="31" y="2.5" width="37.5" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UgQ-zj-c6L">
@@ -226,16 +230,16 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sjm-r8-yE9">
-                    <rect key="frame" x="37" y="424" width="301" height="24"/>
+                    <rect key="frame" x="37" y="428" width="301" height="24"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Myx-OD-Gys">
                             <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bin_icon_blue" translatesAutoresizingMaskIntoConstraints="NO" id="mXR-PR-z8d">
-                                    <rect key="frame" x="6" y="5" width="12" height="14"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                 </imageView>
                             </subviews>
-                            <color key="backgroundColor" red="0.0039215686269999999" green="0.14901960780000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="mXR-PR-z8d" firstAttribute="centerY" secondItem="Myx-OD-Gys" secondAttribute="centerY" id="95B-i7-hvN"/>
                                 <constraint firstItem="mXR-PR-z8d" firstAttribute="centerX" secondItem="Myx-OD-Gys" secondAttribute="centerX" id="S0n-zI-Eae"/>
@@ -250,9 +254,9 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nGK-bQ-YGh">
-                            <rect key="frame" x="31" y="3.5" width="93.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                            <color key="textColor" red="0.92549019610000005" green="0.92941176469999998" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="31" y="2.5" width="107" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                            <color key="textColor" name="textRedColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgh-cw-bBf">
@@ -277,23 +281,15 @@
                         <constraint firstItem="sgh-cw-bBf" firstAttribute="top" secondItem="sjm-r8-yE9" secondAttribute="top" id="ujn-kJ-NyR"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Klu-TA-gTk">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="A0C-dm-PAf"/>
-                    </constraints>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kf3-lS-DJe">
-                    <rect key="frame" x="112.5" y="501" width="150" height="36"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="37" y="505" width="301" height="38"/>
+                    <color key="backgroundColor" name="buttonBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="6GX-sz-Ueu"/>
-                        <constraint firstAttribute="width" constant="150" id="i1U-jh-jxk"/>
+                        <constraint firstAttribute="height" constant="38" id="6GX-sz-Ueu"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
                     <state key="normal" title="Done">
-                        <color key="titleColor" red="0.1333333333" green="0.65098039220000004" blue="0.70980392160000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" name="mainViewBgColor"/>
                     </state>
                     <connections>
                         <action selector="saveButtonPressed:" destination="-1" eventType="touchUpInside" id="KUt-sR-dva"/>
@@ -301,7 +297,7 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="BIj-eA-ik6" firstAttribute="top" secondItem="mFH-fp-KDg" secondAttribute="bottom" constant="8" symbolic="YES" id="0NC-he-Q7w"/>
@@ -315,6 +311,7 @@
                 <constraint firstItem="BZJ-op-odJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="D88-EM-4l3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RAp-Rx-Ukw" secondAttribute="trailing" constant="37" id="Dma-Ne-q77"/>
                 <constraint firstItem="sjm-r8-yE9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="Elw-jP-lbm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kf3-lS-DJe" secondAttribute="trailing" constant="37" id="Hti-sM-AdU"/>
                 <constraint firstItem="kf3-lS-DJe" firstAttribute="top" secondItem="mFH-fp-KDg" secondAttribute="bottom" constant="184" id="Kmu-1R-PGC"/>
                 <constraint firstItem="mFH-fp-KDg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="RRb-5c-IaE"/>
                 <constraint firstItem="BZJ-op-odJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Yki-ah-Wjj"/>
@@ -323,16 +320,14 @@
                 <constraint firstItem="b5A-76-V0t" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="bSE-d0-GWm"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sjm-r8-yE9" secondAttribute="trailing" constant="37" id="ddP-Gw-16v"/>
                 <constraint firstItem="4SF-HT-RtA" firstAttribute="top" secondItem="mFH-fp-KDg" secondAttribute="bottom" constant="42" id="ddj-j3-Kx7"/>
-                <constraint firstItem="Klu-TA-gTk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eJC-Wi-jML"/>
                 <constraint firstItem="RAp-Rx-Ukw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="egD-Ht-Faq"/>
                 <constraint firstItem="b5A-76-V0t" firstAttribute="top" secondItem="xWc-5e-EYd" secondAttribute="bottom" constant="20" id="eyU-cy-fG2"/>
                 <constraint firstItem="4SF-HT-RtA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="37" id="fVk-0n-KYM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="BIj-eA-ik6" secondAttribute="trailing" constant="37" id="gdw-vG-bVN"/>
-                <constraint firstItem="Klu-TA-gTk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="hfq-m2-D1i"/>
                 <constraint firstItem="RAp-Rx-Ukw" firstAttribute="top" secondItem="4SF-HT-RtA" secondAttribute="bottom" constant="20" id="imB-je-WMc"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mFH-fp-KDg" secondAttribute="trailing" constant="37" id="mRV-AP-hHf"/>
                 <constraint firstItem="BIj-eA-ik6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="sgM-86-Mm7"/>
-                <constraint firstItem="Klu-TA-gTk" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="zQw-k2-L01"/>
+                <constraint firstItem="kf3-lS-DJe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="vZr-NS-ZoE"/>
                 <constraint firstItem="np8-uI-H75" firstAttribute="top" secondItem="BZJ-op-odJ" secondAttribute="bottom" constant="40" id="ze2-S1-0qf"/>
             </constraints>
             <connections>
@@ -348,10 +343,28 @@
         </screenEdgePanGestureRecognizer>
     </objects>
     <resources>
-        <image name="back_blue_icon" width="17" height="14"/>
-        <image name="bin_icon_blue" width="12" height="14"/>
-        <image name="qr_code_blue_icon" width="22" height="22"/>
-        <image name="send_icon_blue" width="16" height="10"/>
+        <image name="back_blue_icon" width="22" height="18"/>
+        <image name="bin_icon_blue" width="24" height="24"/>
+        <image name="qr_code_blue_icon" width="20" height="20"/>
+        <image name="send_icon_blue" width="22" height="12"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="separatorColor">
+            <color red="0.22745098039215686" green="0.22745098039215686" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textRedColor">
+            <color red="0.9570000171661377" green="0.33300000429153442" blue="0.19599999487400055" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="toolbarBgColor">
+            <color red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemTealColor">
             <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

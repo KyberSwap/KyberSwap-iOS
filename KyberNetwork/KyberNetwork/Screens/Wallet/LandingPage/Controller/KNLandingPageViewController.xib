@@ -4,15 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-Regular.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -31,66 +32,77 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSF-ar-Svx">
-                    <rect key="frame" x="192.5" y="534" width="147.5" height="36"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="37" y="548" width="301" height="42"/>
+                    <color key="backgroundColor" name="buttonBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="36" id="cA3-Bd-5lh"/>
+                        <constraint firstAttribute="height" constant="42" id="tMk-ci-8be"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                     <state key="normal" title="Import Wallet">
-                        <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" name="mainViewBgColor"/>
                     </state>
                     <connections>
                         <action selector="importWalletButtonPressed:" destination="-1" eventType="touchUpInside" id="VSM-qD-bU9"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-Xx-uQV">
-                    <rect key="frame" x="148" y="584" width="79" height="29"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Terms of Use">
-                        <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="termAndConditionButtonPressed:" destination="-1" eventType="touchUpInside" id="bFH-li-6Cc"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tFk-DS-wvQ" customClass="KNWelcomeScreenCollectionView" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
-                    <rect key="frame" x="50" y="94" width="275" height="400"/>
+                    <rect key="frame" x="20" y="20" width="335" height="450"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="400" id="DOl-rp-h6x"/>
+                        <constraint firstAttribute="height" constant="450" id="DOl-rp-h6x"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nN-NM-xeF">
-                    <rect key="frame" x="35" y="534" width="147.5" height="36"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                    <rect key="frame" x="37" y="491" width="301" height="42"/>
+                    <color key="backgroundColor" name="buttonBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="caa-B8-7WU"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                     <state key="normal" title="Create Wallet">
-                        <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" name="mainViewBgColor"/>
                     </state>
                     <connections>
                         <action selector="createWalletButtonPressed:" destination="-1" eventType="touchUpInside" id="GeJ-aC-c1g"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="y2C-Xx-uQV">
+                    <rect key="frame" x="37" y="605" width="301" height="31"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Terms of Use">
+                        <color key="titleColor" name="buttonBackgroundColor"/>
+                    </state>
+                    <connections>
+                        <action selector="termAndConditionButtonPressed:" destination="-1" eventType="touchUpInside" id="bFH-li-6Cc"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
-                <constraint firstItem="tFk-DS-wvQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="23k-02-WgT"/>
-                <constraint firstItem="hSF-ar-Svx" firstAttribute="leading" secondItem="7nN-NM-xeF" secondAttribute="trailing" constant="10" id="91H-Ar-ufI"/>
-                <constraint firstItem="tFk-DS-wvQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="94" id="MTS-Px-o0V"/>
-                <constraint firstItem="hSF-ar-Svx" firstAttribute="centerY" secondItem="7nN-NM-xeF" secondAttribute="centerY" id="Npm-AH-g0a"/>
-                <constraint firstItem="hSF-ar-Svx" firstAttribute="height" secondItem="7nN-NM-xeF" secondAttribute="height" id="StO-e9-Tbf"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hSF-ar-Svx" secondAttribute="trailing" constant="35" id="Wgf-Of-pa0"/>
-                <constraint firstItem="7nN-NM-xeF" firstAttribute="top" secondItem="tFk-DS-wvQ" secondAttribute="bottom" constant="40" id="h4O-Br-gIg"/>
-                <constraint firstItem="hSF-ar-Svx" firstAttribute="width" secondItem="7nN-NM-xeF" secondAttribute="width" id="j9g-cw-ZX6"/>
-                <constraint firstItem="y2C-Xx-uQV" firstAttribute="top" secondItem="hSF-ar-Svx" secondAttribute="bottom" constant="14" id="ks2-I0-iHf"/>
-                <constraint firstItem="tFk-DS-wvQ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-50" id="luu-T1-JBr"/>
-                <constraint firstItem="7nN-NM-xeF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="35" id="wIo-Vy-VEy"/>
-                <constraint firstItem="y2C-Xx-uQV" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="yWW-ia-7GG"/>
+                <constraint firstItem="tFk-DS-wvQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="23k-02-WgT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hSF-ar-Svx" secondAttribute="trailing" constant="37" id="B1h-gb-bsM"/>
+                <constraint firstItem="y2C-Xx-uQV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="LAd-d6-SlT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="y2C-Xx-uQV" secondAttribute="trailing" constant="37" id="LUb-hE-Dk6"/>
+                <constraint firstItem="tFk-DS-wvQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="MTS-Px-o0V"/>
+                <constraint firstItem="y2C-Xx-uQV" firstAttribute="top" secondItem="hSF-ar-Svx" secondAttribute="bottom" constant="15" id="TsL-1g-B5Q"/>
+                <constraint firstItem="hSF-ar-Svx" firstAttribute="top" secondItem="7nN-NM-xeF" secondAttribute="bottom" constant="15" id="fi1-vh-7zO"/>
+                <constraint firstItem="7nN-NM-xeF" firstAttribute="top" secondItem="tFk-DS-wvQ" secondAttribute="bottom" constant="21" id="h4O-Br-gIg"/>
+                <constraint firstItem="tFk-DS-wvQ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-20" id="luu-T1-JBr"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7nN-NM-xeF" secondAttribute="trailing" constant="37" id="vq6-hh-dIM"/>
+                <constraint firstItem="7nN-NM-xeF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="wIo-Vy-VEy"/>
+                <constraint firstItem="hSF-ar-Svx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="37" id="zn3-8y-aUK"/>
             </constraints>
             <point key="canvasLocation" x="140" y="154.27286356821591"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

@@ -52,14 +52,12 @@ class KNWalletQRCodeViewController: KNBaseViewController {
 
   fileprivate func setupButtons() {
     self.shareButton.rounded(
-      color: UIColor.Kyber.SWButtonBlueColor,
-      width: 1.0,
-      radius: self.shareButton.frame.size.height / 2
+      radius: 16
     )
     self.copyWalletButton.rounded(
       color: UIColor.Kyber.SWButtonBlueColor,
       width: 1.0,
-      radius: self.copyWalletButton.frame.size.height / 2
+      radius: 16
     )
     self.copyWalletButton.setTitle(
       NSLocalizedString("copy", value: "Copy", comment: ""),
@@ -72,13 +70,13 @@ class KNWalletQRCodeViewController: KNBaseViewController {
     let token = KNGeneralProvider.shared.isEthereum ? "ERC20" : "BEP20"
     let quoteToken = KNGeneralProvider.shared.isEthereum ? "ETH" : "BNB"
     let attributedString = NSMutableAttributedString(string: "Only send \(quoteToken) or any \(token) token to this address\n\n*Sending any other tokens may result in loss of your funds", attributes: [
-      .font: UIFont.Kyber.latoRegular(with: 14),
+      .font: UIFont.Kyber.regular(with: 14),
       .foregroundColor: UIColor.Kyber.SWWhiteTextColor,
       .kern: 0.0,
     ])
     if let range = attributedString.string.range(of: "Only send \(quoteToken) or any \(token)".toBeLocalised()) {
       let r = NSRange(range, in: attributedString.string)
-      attributedString.addAttribute(.font, value: UIFont.Kyber.latoRegular(with: 14), range: r)
+      attributedString.addAttribute(.font, value: UIFont.Kyber.regular(with: 14), range: r)
     }
     self.infoLabel.attributedText = attributedString
   }

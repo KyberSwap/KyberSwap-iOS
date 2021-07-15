@@ -92,31 +92,37 @@ class KNImportWalletViewController: KNBaseViewController {
 
   fileprivate func setupImportTypeButtons() {
     self.headerContainerView.rounded(radius: 30)
-    self.navTitleLabel.text = "Connect wallet".toBeLocalised().uppercased()
+    self.navTitleLabel.text = "Import wallet".uppercased()
     self.navTitleLabel.addLetterSpacing()
     self.jsonButton.rounded(radius: 10.0)
-    self.jsonButton.setBackgroundColor(UIColor(red: 1, green: 38, blue: 51), forState: .selected)
-    self.jsonButton.setBackgroundColor(UIColor(red: 10, green: 75, blue: 97), forState: .normal)
+    self.jsonButton.setBackgroundColor(UIColor(named: "importJsonSelectedColor")!, forState: .selected)
+    self.jsonButton.setBackgroundColor(UIColor(named: "investButtonBgColor")!, forState: .normal)
     self.jsonButton.setImage(UIImage(named: "json_import_icon"), for: .normal)
-    self.jsonButton.setTitleColor(UIColor(red: 208, green: 212, blue: 221), for: .normal)
+    self.jsonButton.setImage(UIImage(named: "json_import_select_icon"), for: .selected)
+    self.jsonButton.setTitleColor(UIColor(named: "textWhiteColor"), for: .normal)
+    self.jsonButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .selected)
     self.jsonButton.centerVertically(padding: 10)
 
     self.privateKeyButton.rounded(radius: 10.0)
-    self.privateKeyButton.setBackgroundColor(UIColor(red: 1, green: 38, blue: 51), forState: .selected)
+    self.privateKeyButton.setBackgroundColor(UIColor(named: "importPKSelectedColor")!, forState: .selected)
+    self.privateKeyButton.setBackgroundColor(UIColor(named: "investButtonBgColor")!, forState: .normal)
     self.privateKeyButton.setImage(UIImage(named: "private_key_import_icon"), for: .normal)
+    self.privateKeyButton.setImage(UIImage(named: "private_key_import_select_icon"), for: .selected)
     self.privateKeyButton.setTitle(
       NSLocalizedString("private.key", value: "Private Key", comment: ""),
       for: .normal
     )
-    self.privateKeyButton.setBackgroundColor(UIColor(red: 10, green: 75, blue: 97), forState: .normal)
-    self.privateKeyButton.setTitleColor(UIColor(red: 208, green: 212, blue: 221), for: .normal)
+    self.privateKeyButton.setTitleColor(UIColor(named: "textWhiteColor"), for: .normal)
+    self.privateKeyButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .selected)
     self.privateKeyButton.centerVertically(padding: 10)
 
     self.seedsButton.rounded(radius: 10.0)
-    self.seedsButton.setBackgroundColor(UIColor(red: 1, green: 38, blue: 51), forState: .selected)
+    self.seedsButton.setBackgroundColor(UIColor(named: "importSeedsSelectedColor")!, forState: .selected)
+    self.seedsButton.setBackgroundColor(UIColor(named: "investButtonBgColor")!, forState: .normal)
     self.seedsButton.setImage(UIImage(named: "seeds_import_icon"), for: .normal)
-    self.seedsButton.setBackgroundColor(UIColor(red: 10, green: 75, blue: 97), forState: .normal)
-    self.seedsButton.setTitleColor(UIColor(red: 208, green: 212, blue: 221), for: .normal)
+    self.seedsButton.setImage(UIImage(named: "seeds_import_select_icon"), for: .selected)
+    self.seedsButton.setTitleColor(UIColor(named: "textWhiteColor"), for: .normal)
+    self.seedsButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .selected)
     self.seedsButton.centerVertically(padding: 10)
   }
 

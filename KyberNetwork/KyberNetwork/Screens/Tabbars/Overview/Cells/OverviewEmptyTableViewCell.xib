@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OverviewEmptyTableViewCell" id="KGk-i7-Jjw" customClass="OverviewEmptyTableViewCell" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_asset_icon" translatesAutoresizingMaskIntoConstraints="NO" id="rAA-7v-NRJ">
+                        <rect key="frame" x="114.5" y="61" width="91" height="105"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your balance is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Nq-pt-4PI">
+                        <rect key="frame" x="81" y="183" width="158" height="19"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                        <color key="textColor" name="normalTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AoD-b9-3to">
+                        <rect key="frame" x="37" y="279" width="246" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="RVk-wk-cyV"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                        <state key="normal" title="Borrow tokens (Coming Soon)">
+                            <color key="titleColor" name="normalTextColor"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lgg-0t-bGZ">
+                        <rect key="frame" x="37" y="223" width="246" height="36"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="36" id="H9P-EP-vPh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                        <state key="normal" title="Supply tokens to earn interest">
+                            <color key="titleColor" name="normalTextColor"/>
+                        </state>
+                        <connections>
+                            <action selector="button1Tapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Seb-9h-6gt"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" name="mainViewBgColor"/>
+                <constraints>
+                    <constraint firstItem="9Nq-pt-4PI" firstAttribute="top" secondItem="rAA-7v-NRJ" secondAttribute="bottom" constant="17" id="1AB-aa-NcT"/>
+                    <constraint firstItem="Lgg-0t-bGZ" firstAttribute="top" secondItem="9Nq-pt-4PI" secondAttribute="bottom" constant="21" id="3D2-xI-e5U"/>
+                    <constraint firstAttribute="trailing" secondItem="AoD-b9-3to" secondAttribute="trailing" constant="37" id="5ec-Pv-lCe"/>
+                    <constraint firstItem="9Nq-pt-4PI" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="7gJ-kc-uBl"/>
+                    <constraint firstItem="AoD-b9-3to" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="37" id="81T-tn-CqN"/>
+                    <constraint firstAttribute="trailing" secondItem="Lgg-0t-bGZ" secondAttribute="trailing" constant="37" id="CXg-Zg-5i7"/>
+                    <constraint firstItem="Lgg-0t-bGZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="37" id="CbT-kf-bQS"/>
+                    <constraint firstItem="rAA-7v-NRJ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Lxh-p5-KUA"/>
+                    <constraint firstItem="rAA-7v-NRJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="50" id="PyF-ep-Cu8"/>
+                    <constraint firstItem="AoD-b9-3to" firstAttribute="top" secondItem="Lgg-0t-bGZ" secondAttribute="bottom" constant="20" id="jGK-Dy-mET"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="button1" destination="Lgg-0t-bGZ" id="4ZO-3y-48X"/>
+                <outlet property="button2" destination="AoD-b9-3to" id="ezS-h1-7cF"/>
+                <outlet property="imageIcon" destination="rAA-7v-NRJ" id="WCC-Lu-mRK"/>
+                <outlet property="titleLabel" destination="9Nq-pt-4PI" id="0qH-iF-cYv"/>
+            </connections>
+            <point key="canvasLocation" x="141" y="104"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="empty_asset_icon" width="91" height="105"/>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

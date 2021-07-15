@@ -16,7 +16,6 @@ extension KNAppCoordinator {
     self.loadBalanceCoordinator?.resume()
 
     self.tabbarController = KNTabBarController()
-    self.tabbarController.tabBar.barTintColor = .white
     
     let overviewCoordinator = OverviewCoordinator(session: self.session)
     self.addCoordinator(overviewCoordinator)
@@ -68,17 +67,17 @@ extension KNAppCoordinator {
       self.earnCoordinator!.navigationController,
       self.settingsCoordinator!.navigationController,
     ]
-    self.tabbarController.tabBar.tintColor = UIColor.Kyber.SWYellow
-    self.tabbarController.tabBar.barTintColor = UIColor.Kyber.SWDarkBlueBackground
+    self.tabbarController.tabBar.tintColor = UIColor(named: "buttonBackgroundColor")
+    self.tabbarController.tabBar.barTintColor = UIColor(named: "toolbarBgColor")
     self.overviewTabCoordinator?.navigationController.tabBarItem = UITabBarItem(
-      title: "Summary".toBeLocalised(),
+      title: nil,
       image: UIImage(named: "tabbar_summary_icon"),
       selectedImage: nil
     )
     self.overviewTabCoordinator?.navigationController.tabBarItem.tag = 0
 
     self.exchangeCoordinator?.navigationController.tabBarItem = UITabBarItem(
-      title: "Swap".toBeLocalised(),
+      title: nil,
       image: UIImage(named: "tabbar_swap_icon"),
       selectedImage: nil
     )
@@ -86,20 +85,20 @@ extension KNAppCoordinator {
 
     self.investCoordinator?.navigationController.tabBarItem.tag = 2
     self.investCoordinator?.navigationController.tabBarItem = UITabBarItem(
-      title: "Explore",
+      title: nil,
       image: UIImage(named: "tabbar_invest_icon"),
       selectedImage: nil
     )
 
     self.earnCoordinator?.navigationController.tabBarItem = UITabBarItem(
-      title: "Earn".toBeLocalised(),
+      title: nil,
       image: UIImage(named: "tabbar_earn_icon"),
       selectedImage: nil
     )
     self.earnCoordinator?.navigationController.tabBarItem.tag = 3
 
     self.settingsCoordinator?.navigationController.tabBarItem = UITabBarItem(
-      title: NSLocalizedString("settings", value: "Settings", comment: ""),
+      title: nil,
       image: UIImage(named: "tabbar_setting_icon"),
       selectedImage: nil
     )
@@ -157,7 +156,7 @@ extension KNAppCoordinator {
       self.loadBalanceCoordinator?.exit()
       EtherscanTransactionStorage.shared.updateCurrentWallet(wallet)
       BalanceStorage.shared.updateCurrentWallet(wallet)
-      self.doLogin()
+      
     }
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
@@ -187,7 +186,7 @@ extension KNAppCoordinator {
       )
       self.overviewTabCoordinator?.appCoordinatorPendingTransactionsDidUpdate(
       )
-      
+      self.doLogin()
       if isLoading { self.navigationController.hideLoading() }
     }
   }

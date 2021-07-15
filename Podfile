@@ -31,13 +31,8 @@ target 'KyberNetwork' do
   pod 'SwiftChart'
   pod 'JdenticonSwift', '~> 0.0.1'
   pod 'MSCircularSlider', '~> 1.2.2'
-#  pod 'EasyTipView', '~> 2.0.1'
   pod 'OneSignal', '>= 3.0.0', '< 4.0'
 
-#  pod 'FBSDKLoginKit/Swift'
-#  pod 'FBSDKLoginKit/Swift'
-#  pod 'GoogleSignIn', '~> 5.0.2'
-#  pod 'TwitterKit5'
   pod 'Starscream', '~> 3.1'
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'
@@ -48,6 +43,7 @@ target 'KyberNetwork' do
   pod 'FSPagerView'
   pod 'BetterSegmentedControl', '1.0'
   pod 'OneSignal', '>= 3.0.0', '< 4.0'
+  pod 'TagListView', '~> 1.0'
 
   target 'KyberNetworkTests' do
     inherit! :search_paths

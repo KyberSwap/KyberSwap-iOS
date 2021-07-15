@@ -33,7 +33,6 @@ class AddTokenViewController: KNBaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -57,12 +56,6 @@ class AddTokenViewController: KNBaseViewController {
     self.symbolField.attributedPlaceholder = NSAttributedString(string: "Token symbol", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.decimalsField.attributedPlaceholder = NSAttributedString(string: "Decimals", attributes: [NSAttributedString.Key.foregroundColor: UIColor.Kyber.SWPlaceHolder])
     self.blockchainField.text = KNGeneralProvider.shared.isEthereum ? "Ethereum" : "Binance Smart Chain"
-  }
-  
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.doneButton.removeSublayer(at: 0)
-    self.doneButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
   
   fileprivate func updateUI(_ token: Token) {

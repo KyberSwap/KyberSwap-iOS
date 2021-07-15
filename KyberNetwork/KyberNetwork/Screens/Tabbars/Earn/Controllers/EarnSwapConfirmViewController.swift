@@ -148,25 +148,18 @@ class EarnSwapConfirmViewController: KNBaseViewController {
   @IBAction func tapOutsidePopup(_ sender: UITapGestureRecognizer) {
     self.dismiss(animated: true, completion: nil)
   }
-  
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.confirmButton.removeSublayer(at: 0)
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
-  
+
   fileprivate func setupUI() {
-    self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
+    self.confirmButton.rounded(radius: 16)
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal
     )
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.cancelButton.setTitle(
       NSLocalizedString("cancel", value: "Cancel", comment: ""),
       for: .normal
     )
-    self.cancelButton.rounded(color: UIColor(red: 35, green: 167, blue: 181), width: 1, radius: self.cancelButton.frame.size.height / 2)
+    self.cancelButton.rounded(radius: 16)
     self.toAmountLabel.text = self.viewModel.toAmountString
     self.fromAmountLabel.text = self.viewModel.fromAmountString
     
@@ -227,7 +220,6 @@ class EarnSwapConfirmViewController: KNBaseViewController {
       time: 3
     )
   }
-  
 }
 
 extension EarnSwapConfirmViewController: BottomPopUpAbstract {

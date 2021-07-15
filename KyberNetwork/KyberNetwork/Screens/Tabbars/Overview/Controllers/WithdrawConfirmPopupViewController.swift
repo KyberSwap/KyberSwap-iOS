@@ -142,28 +142,32 @@ class WithdrawConfirmPopupViewController: KNBaseViewController {
     self.iconImageView.setSymbolImage(symbol: self.viewModel.symbol, size: CGSize(width: 17, height: 17))
     self.balanceLabel.attributedText = self.viewModel.displayBalance
     self.valueLabel.text = self.viewModel.displayValue
-    self.firstButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.firstButton.frame.size.height / 2)
+    self.firstButton.rounded(radius: 16)
+    self.secondButton.rounded(radius: 16)
     if self.viewModel.isWithdraw {
-      self.secondButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.secondButton.frame.size.height / 2)
       self.firstButton.setTitle("Withdraw".toBeLocalised(), for: .normal)
       self.secondButton.setTitle("Supply More".toBeLocalised(), for: .normal)
-      self.secondButton.setTitleColor(UIColor.Kyber.SWButtonBlueColor, for: .normal)
+      
+      self.firstButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
+      self.firstButton.titleLabel?.font = UIFont.Kyber.bold(with: 15)
+      self.firstButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+      
+      self.secondButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
+      self.secondButton.titleLabel?.font = UIFont.Kyber.bold(with: 15)
+      self.secondButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
     } else {
-      self.secondButton.rounded(radius: self.secondButton.frame.size.height / 2)
-      self.secondButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+      
       self.firstButton.setTitle("Cancel".toBeLocalised(), for: .normal)
       self.secondButton.setTitle("Claim Reward".toBeLocalised(), for: .normal)
-      self.secondButton.setTitleColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+      
+      self.firstButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
+      self.firstButton.titleLabel?.font = UIFont.Kyber.regular(with: 16)
+      self.firstButton.backgroundColor = UIColor(named: "navButtonBgColor")
+      
+      self.secondButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
+      self.secondButton.titleLabel?.font = UIFont.Kyber.bold(with: 15)
+      self.secondButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
     }
-  }
-  
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    guard !self.viewModel.isWithdraw else {
-      return
-    }
-    self.secondButton.removeSublayer(at: 0)
-    self.secondButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
   }
 
   @IBAction func firstButtonTapped(_ sender: Any) {

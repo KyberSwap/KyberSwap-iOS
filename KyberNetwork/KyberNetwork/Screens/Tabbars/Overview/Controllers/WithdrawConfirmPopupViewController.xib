@@ -4,15 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-Regular.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -36,69 +34,81 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nEK-Yi-tgG">
                     <rect key="frame" x="0.0" y="477" width="375" height="190"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dai" translatesAutoresizingMaskIntoConstraints="NO" id="HNh-Qs-lET">
-                            <rect key="frame" x="37" y="37" width="17" height="17"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HUZ-Rw-PLj">
+                            <rect key="frame" x="18" y="35" width="339" height="42"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dai" translatesAutoresizingMaskIntoConstraints="NO" id="HNh-Qs-lET">
+                                    <rect key="frame" x="15" y="12.5" width="17" height="17"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="17" id="Jxe-eI-Vtd"/>
+                                        <constraint firstAttribute="height" constant="17" id="vTB-WL-jfM"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2,200 Dai 24.35% APY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ows-zA-d1A">
+                                    <rect key="frame" x="36" y="11.5" width="164" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="textColor" name="textWhiteColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$2,210 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUm-ni-6Cj">
+                                    <rect key="frame" x="270.5" y="11.5" width="53.5" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="textColor" name="textWhiteColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" name="innerContainerBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="17" id="Jxe-eI-Vtd"/>
-                                <constraint firstAttribute="height" constant="17" id="vTB-WL-jfM"/>
+                                <constraint firstItem="ows-zA-d1A" firstAttribute="centerY" secondItem="HNh-Qs-lET" secondAttribute="centerY" id="4QN-Cb-5Xd"/>
+                                <constraint firstAttribute="trailing" secondItem="yUm-ni-6Cj" secondAttribute="trailing" constant="15" id="Rpw-g6-NZ0"/>
+                                <constraint firstItem="HNh-Qs-lET" firstAttribute="centerY" secondItem="HUZ-Rw-PLj" secondAttribute="centerY" id="eHd-iV-lv3"/>
+                                <constraint firstItem="HNh-Qs-lET" firstAttribute="leading" secondItem="HUZ-Rw-PLj" secondAttribute="leading" constant="15" id="f2M-SO-9qD"/>
+                                <constraint firstItem="ows-zA-d1A" firstAttribute="leading" secondItem="HNh-Qs-lET" secondAttribute="trailing" constant="4" id="fcz-xW-3uP"/>
+                                <constraint firstAttribute="height" constant="42" id="keW-hR-rf9"/>
+                                <constraint firstItem="yUm-ni-6Cj" firstAttribute="centerY" secondItem="ows-zA-d1A" secondAttribute="centerY" id="m5t-0I-6JS"/>
                             </constraints>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2,200 Dai 24.35% APY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ows-zA-d1A">
-                            <rect key="frame" x="58" y="37" width="143.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$2,210 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUm-ni-6Cj">
-                            <rect key="frame" x="291" y="37" width="47" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVe-cH-HBd">
-                            <rect key="frame" x="37" y="117" width="141.5" height="32"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="37" y="117" width="141.5" height="38"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="32" id="fRC-CM-YEk"/>
+                                <constraint firstAttribute="height" constant="38" id="fRC-CM-YEk"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Withdraw">
-                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="firstButtonTapped:" destination="-1" eventType="touchUpInside" id="1YY-Mj-qit"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rdS-cC-9RQ">
-                            <rect key="frame" x="196.5" y="117" width="141.5" height="32"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="196.5" y="117" width="141.5" height="38"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="32" id="NG8-lq-lbm"/>
+                                <constraint firstAttribute="height" constant="38" id="NG8-lq-lbm"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Deposit More">
-                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="secondButtonTapped:" destination="-1" eventType="touchUpInside" id="40i-rK-w7y"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="popupBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="rdS-cC-9RQ" firstAttribute="leading" secondItem="lVe-cH-HBd" secondAttribute="trailing" constant="18" id="2ZD-JK-Vva"/>
-                        <constraint firstItem="lVe-cH-HBd" firstAttribute="top" secondItem="HNh-Qs-lET" secondAttribute="bottom" constant="63" id="Ctp-AI-B2R"/>
+                        <constraint firstAttribute="trailing" secondItem="HUZ-Rw-PLj" secondAttribute="trailing" constant="18" id="6Zd-bm-XNq"/>
                         <constraint firstItem="lVe-cH-HBd" firstAttribute="leading" secondItem="nEK-Yi-tgG" secondAttribute="leading" constant="37" id="JJ6-ln-5Nm"/>
                         <constraint firstAttribute="trailing" secondItem="rdS-cC-9RQ" secondAttribute="trailing" constant="37" id="MdJ-1F-cli"/>
-                        <constraint firstAttribute="trailing" secondItem="yUm-ni-6Cj" secondAttribute="trailing" constant="37" id="NUe-fd-f8h"/>
-                        <constraint firstItem="ows-zA-d1A" firstAttribute="centerY" secondItem="HNh-Qs-lET" secondAttribute="centerY" id="NuC-Sx-NyL"/>
                         <constraint firstItem="rdS-cC-9RQ" firstAttribute="width" secondItem="lVe-cH-HBd" secondAttribute="width" id="QEH-Ry-tU1"/>
-                        <constraint firstItem="yUm-ni-6Cj" firstAttribute="centerY" secondItem="ows-zA-d1A" secondAttribute="centerY" id="c9V-8p-vDT"/>
-                        <constraint firstItem="HNh-Qs-lET" firstAttribute="leading" secondItem="nEK-Yi-tgG" secondAttribute="leading" constant="37" id="iIm-aC-76S"/>
                         <constraint firstAttribute="height" constant="190" id="iqa-nj-hvP"/>
                         <constraint firstItem="rdS-cC-9RQ" firstAttribute="centerY" secondItem="lVe-cH-HBd" secondAttribute="centerY" id="m5f-yP-vCT"/>
-                        <constraint firstItem="HNh-Qs-lET" firstAttribute="top" secondItem="nEK-Yi-tgG" secondAttribute="top" constant="37" id="qtJ-WN-lIY"/>
-                        <constraint firstItem="ows-zA-d1A" firstAttribute="leading" secondItem="HNh-Qs-lET" secondAttribute="trailing" constant="4" id="uKO-BS-yBC"/>
+                        <constraint firstItem="HUZ-Rw-PLj" firstAttribute="leading" secondItem="nEK-Yi-tgG" secondAttribute="leading" constant="18" id="nXD-X6-zd7"/>
+                        <constraint firstItem="lVe-cH-HBd" firstAttribute="top" secondItem="HUZ-Rw-PLj" secondAttribute="bottom" constant="40" id="wL8-54-pHt"/>
+                        <constraint firstItem="HUZ-Rw-PLj" firstAttribute="top" secondItem="nEK-Yi-tgG" secondAttribute="top" constant="35" id="xwX-GG-lte"/>
                     </constraints>
                 </view>
             </subviews>
@@ -123,5 +133,20 @@
     </objects>
     <resources>
         <image name="dai" width="36" height="36"/>
+        <namedColor name="innerContainerBgColor">
+            <color red="0.10588235294117647" green="0.11372549019607843" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29411764705882354" green="0.30980392156862746" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="popupBackgroundColor">
+            <color red="0.16078431372549021" green="0.17647058823529413" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

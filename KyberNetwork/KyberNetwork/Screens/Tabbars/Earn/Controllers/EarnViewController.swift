@@ -140,7 +140,7 @@ class EarnViewModel {
     default:
       break
     }
-    return "Gas fee: \(feeString) ETH (\(typeString))"
+    return "\(feeString) ETH (\(typeString))"
   }
   //TODO: can be improve with extension
   var gasFeeString: String {
@@ -207,12 +207,12 @@ class EarnViewModel {
   
   var hintSwapNowText: NSAttributedString {
     let normalAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWWhiteTextColor,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 14),
+      NSAttributedStringKey.foregroundColor: UIColor(named: "normalTextColor"),
     ]
     let orangeAttributes: [NSAttributedStringKey: Any] = [
-      NSAttributedStringKey.font: UIFont.Kyber.latoRegular(with: 14),
-      NSAttributedStringKey.foregroundColor: UIColor.Kyber.SWYellow,
+      NSAttributedStringKey.font: UIFont.Kyber.regular(with: 14),
+      NSAttributedStringKey.foregroundColor: UIColor(named: "buttonBackgroundColor"),
     ]
     let text  = String(format: "If you don’t have %@, please ".toBeLocalised(), self.tokenData.symbol.uppercased())
     let attributedText = NSMutableAttributedString()
@@ -305,7 +305,7 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
   @IBOutlet weak var approveButton: UIButton!
   @IBOutlet weak var approveButtonEqualWidthContraint: NSLayoutConstraint!
   @IBOutlet weak var approveButtonWidthContraint: NSLayoutConstraint!
-  @IBOutlet weak var isUseGasTokenIcon: UIImageView!
+  
   @IBOutlet weak var pendingTxIndicatorView: UIView!
   @IBOutlet weak var compInfoLabel: UILabel!
   
@@ -375,7 +375,6 @@ class EarnViewController: KNBaseViewController, AbstractEarnViewControler {
 
   fileprivate func updateGasFeeUI() {
     self.selectedGasFeeLabel.text = self.viewModel.gasFeeString
-    self.isUseGasTokenIcon.isHidden = !self.viewModel.isUseGasToken
   }
 
   fileprivate func updateApproveButton() {

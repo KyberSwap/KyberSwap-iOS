@@ -4,21 +4,22 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-Italic.ttf">
+            <string>Karla-Italic</string>
+        </array>
+        <array key="Karla-Regular.ttf">
+            <string>Karla-Regular</string>
+        </array>
         <array key="Lato-Bold.ttf">
             <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Italic.ttf">
-            <string>Lato-Italic</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
-        </array>
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
         </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
@@ -47,30 +48,30 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FCx-Sw-ble">
                     <rect key="frame" x="37" y="605" width="301" height="42"/>
-                    <color key="backgroundColor" red="0.058823529409999999" green="0.66666666669999997" blue="0.63529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="buttonBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="sLQ-kA-dhN"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
+                    <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="15"/>
                     <state key="normal" title="Next">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" name="mainViewBgColor"/>
                     </state>
                     <connections>
                         <action selector="nextButtonPressed:" destination="-1" eventType="touchUpInside" id="Pok-qq-h1z"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Private Key" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPr-sF-4PB">
-                    <rect key="frame" x="37" y="64" width="103" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="37" y="64" width="118" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7qz-Hf-Jyx">
-                    <rect key="frame" x="37" y="96.5" width="301" height="42"/>
+                    <rect key="frame" x="37" y="97.5" width="301" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gIO-Zo-F0D">
                             <rect key="frame" x="16" y="0.0" width="243" height="42"/>
-                            <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" secureTextEntry="YES"/>
@@ -81,13 +82,13 @@
                                 <constraint firstAttribute="height" constant="24" id="foO-pf-sgg"/>
                                 <constraint firstAttribute="width" constant="24" id="jUP-e8-eKK"/>
                             </constraints>
-                            <state key="normal" image="show_secure_text_blue"/>
+                            <state key="normal" image="show_eye_icon"/>
                             <connections>
                                 <action selector="secureTextButtonPressed:" destination="-1" eventType="touchUpInside" id="0rQ-Z8-tOA"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686274509803" green="0.14901960784313725" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="innerContainerBgColor"/>
                     <constraints>
                         <constraint firstItem="U3Y-4S-pW7" firstAttribute="centerY" secondItem="7qz-Hf-Jyx" secondAttribute="centerY" id="53P-dX-dLt"/>
                         <constraint firstAttribute="height" constant="42" id="6sg-Ka-MeK"/>
@@ -99,14 +100,14 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eMq-0K-qYG">
-                    <rect key="frame" x="307" y="61.5" width="22" height="22"/>
+                    <rect key="frame" x="309" y="62.5" width="20" height="22"/>
                     <state key="normal" image="qr_code_blue_icon"/>
                     <connections>
                         <action selector="qrCodeButtonPressed:" destination="-1" eventType="touchUpInside" id="dj0-VP-d07"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DME-Jx-FUE">
-                    <rect key="frame" x="37" y="190.5" width="301" height="42"/>
+                    <rect key="frame" x="37" y="193.5" width="301" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name of your wallet (optional)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AJn-1q-kYb">
                             <rect key="frame" x="16" y="0.0" width="269" height="42"/>
@@ -116,7 +117,7 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="password"/>
                         </textField>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="innerContainerBgColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="AJn-1q-kYb" secondAttribute="trailing" constant="16" id="1KK-Ql-uRO"/>
                         <constraint firstAttribute="height" constant="42" id="23C-wQ-hmD"/>
@@ -126,28 +127,28 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of your wallet" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYy-mE-m5j">
-                    <rect key="frame" x="37" y="160.5" width="123" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="37" y="161.5" width="143" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Private key has to be 64 characters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uw1-5o-rqh">
-                    <rect key="frame" x="37" y="143.5" width="301" height="12"/>
-                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="10"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="37" y="144.5" width="301" height="12"/>
+                    <fontDescription key="fontDescription" name="Karla-Italic" family="Karla" pointSize="10"/>
+                    <color key="textColor" name="normalTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Paste your Referral Code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4P7-9D-OeH">
-                    <rect key="frame" x="37" y="254.5" width="301" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="37" y="257.5" width="301" height="19"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faw-Xo-Aor">
-                    <rect key="frame" x="37" y="284.5" width="301" height="42"/>
+                    <rect key="frame" x="37" y="289.5" width="301" height="42"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Paste your referral link" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="te6-jn-Nf7">
-                            <rect key="frame" x="16" y="0.0" width="196" height="42"/>
+                            <rect key="frame" x="16" y="0.0" width="195" height="42"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
@@ -165,12 +166,12 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7I-30-Y1D">
-                            <rect key="frame" x="222" y="12" width="35" height="18"/>
-                            <color key="backgroundColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="221" y="12" width="36" height="18"/>
+                            <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="10"/>
                             <inset key="contentEdgeInsets" minX="5" minY="3" maxX="5" maxY="3"/>
                             <state key="normal" title="Paste">
-                                <color key="titleColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="mainViewBgColor"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -183,7 +184,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="innerContainerBgColor"/>
                     <constraints>
                         <constraint firstItem="te6-jn-Nf7" firstAttribute="top" secondItem="faw-Xo-Aor" secondAttribute="top" id="36o-Kx-wjI"/>
                         <constraint firstItem="te6-jn-Nf7" firstAttribute="leading" secondItem="faw-Xo-Aor" secondAttribute="leading" constant="16" id="5FJ-Vf-6SB"/>
@@ -203,14 +204,14 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your wallet details are securely stored on this device. Only you can access them." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtS-Vn-IPm">
-                    <rect key="frame" x="37" y="0.0" width="301" height="29"/>
-                    <fontDescription key="fontDescription" name="Lato-Italic" family="Lato" pointSize="12"/>
-                    <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="37" y="0.0" width="301" height="33"/>
+                    <fontDescription key="fontDescription" name="Karla-Italic" family="Karla" pointSize="14"/>
+                    <color key="textColor" name="normalTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
                 <constraint firstItem="eMq-0K-qYG" firstAttribute="centerY" secondItem="lPr-sF-4PB" secondAttribute="centerY" id="0S2-Ya-xmr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="DME-Jx-FUE" secondAttribute="trailing" constant="37" id="5So-bH-Nwv"/>
@@ -245,7 +246,22 @@
         </view>
     </objects>
     <resources>
-        <image name="qr_code_blue_icon" width="22" height="22"/>
-        <image name="show_secure_text_blue" width="20" height="16"/>
+        <image name="qr_code_blue_icon" width="20" height="20"/>
+        <image name="show_eye_icon" width="24" height="24"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="innerContainerBgColor">
+            <color red="0.10588235294117647" green="0.11372549019607843" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

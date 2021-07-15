@@ -8,32 +8,35 @@ class KNPrettyAlertController: KNBaseViewController {
   @IBOutlet weak var secondButton: UIButton!
   @IBOutlet weak var firstButton: UIButton!
   @IBOutlet weak var containerView: UIView!
+  @IBOutlet weak var contentViewTopContraint: NSLayoutConstraint!
 
   let mainTitle: String?
+  let isWarning: Bool
   let message: String
   let secondButtonTitle: String?
   let firstButtonTitle: String
   let secondButtonAction:  (() -> Void)?
   let firstButtonAction: (() -> Void)?
   var gradientButton: UIButton!
+  let transitor = TransitionDelegate()
+  
   init(title: String?,
+       isWarning: Bool = false,
        message: String,
        secondButtonTitle: String?,
        firstButtonTitle: String = "cancel".toBeLocalised(),
        secondButtonAction: (() -> Void)?,
        firstButtonAction: (() -> Void)?) {
     self.mainTitle = title
+    self.isWarning = isWarning
     self.message = message
     self.secondButtonTitle = secondButtonTitle
     self.firstButtonTitle = firstButtonTitle
     self.secondButtonAction = secondButtonAction
     self.firstButtonAction = firstButtonAction
     super.init(nibName: KNPrettyAlertController.className, bundle: nil)
-    DispatchQueue.main.async {
-      self.modalTransitionStyle = .crossDissolve
-      self.modalPresentationStyle = .overFullScreen
-    }
-    
+    self.modalPresentationStyle = .custom
+    self.transitioningDelegate = transitor
   }
 
   required init?(coder: NSCoder) {
@@ -43,10 +46,21 @@ class KNPrettyAlertController: KNBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.containerView.rounded()
-    self.secondButton.rounded(radius: self.secondButton.frame.size.height / 2)
-    self.firstButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.firstButton.frame.size.height / 2)
+    self.secondButton.rounded(radius: 16)
+    self.firstButton.rounded(radius: 16)
     if let titleTxt = self.mainTitle {
-      self.titleLabel.text = titleTxt
+      if self.isWarning {
+        let fullString = NSMutableAttributedString()
+        let image1Attachment = NSTextAttachment()
+        image1Attachment.image = UIImage(named: "warning_yellow_icon")
+        let image1String = NSAttributedString(attachment: image1Attachment)
+        fullString.append(image1String)
+        fullString.append(NSAttributedString(string: " " + titleTxt))
+        self.titleLabel.attributedText = fullString
+      } else {
+        self.titleLabel.text = titleTxt
+      }
+      
     } else {
       self.titleLabel.removeFromSuperview()
       let messageTopContraint = NSLayoutConstraint(item: self.contentLabel, attribute: .top, relatedBy: .equal, toItem: self.containerView, attribute: .top, multiplier: 1, constant: 33)
@@ -66,13 +80,8 @@ class KNPrettyAlertController: KNBaseViewController {
       self.firstButton.setTitleColor(.white, for: .normal)
       self.gradientButton = firstButton
     }
-    self.gradientButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.gradientButton.removeSublayer(at: 0)
-    self.gradientButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
+    self.gradientButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+    self.gradientButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
   }
 
   @IBAction func yesButtonTapped(_ sender: UIButton) {
@@ -87,5 +96,19 @@ class KNPrettyAlertController: KNBaseViewController {
       action()
     }
     self.dismiss(animated: true, completion: nil)
+  }
+}
+
+extension KNPrettyAlertController: BottomPopUpAbstract {
+  func setTopContrainConstant(value: CGFloat) {
+    self.contentViewTopContraint.constant = value
+  }
+
+  func getPopupHeight() -> CGFloat {
+    return 300
+  }
+
+  func getPopupContentView() -> UIView {
+    return self.containerView
   }
 }

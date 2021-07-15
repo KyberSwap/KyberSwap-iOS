@@ -4,12 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
         <array key="Roboto-Medium.ttf">
             <string>Roboto-Medium</string>
@@ -32,7 +33,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage Custom Tokens" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OG8-hY-ZKX">
-                            <rect key="frame" x="90.5" y="68" width="194" height="21"/>
+                            <rect key="frame" x="90" y="68" width="195.5" height="21"/>
                             <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -50,7 +51,7 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zej-5g-tOw">
                             <rect key="frame" x="330" y="66.5" width="24" height="24"/>
-                            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="24" id="1X5-aX-49e"/>
                                 <constraint firstAttribute="width" constant="24" id="CE6-nN-cE7"/>
@@ -67,7 +68,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="IQb-s7-X4o" firstAttribute="leading" secondItem="e1J-vc-stP" secondAttribute="leading" constant="16" id="5iT-J4-97I"/>
@@ -100,24 +101,26 @@
                             <rect key="frame" x="151" y="60" width="73" height="101"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yj3-eo-5IC">
-                            <rect key="frame" x="99" y="238" width="177" height="40"/>
+                            <rect key="frame" x="103" y="238" width="169" height="37"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                            <color key="tintColor" name="normalTextColor"/>
                             <inset key="contentEdgeInsets" minX="40" minY="9" maxX="40" maxY="9"/>
                             <inset key="imageEdgeInsets" minX="-25" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="Add Token" image="add_blue_icon">
-                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="addTokenButtonTapped:" destination="-1" eventType="touchUpInside" id="tz9-qG-jat"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your custom token list is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpl-w6-rTa">
-                            <rect key="frame" x="93" y="184" width="189.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <rect key="frame" x="89.5" y="184" width="196.5" height="17"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                             <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="Yj3-eo-5IC" firstAttribute="centerX" secondItem="CCY-jY-88N" secondAttribute="centerX" id="F3X-g1-Poh"/>
                         <constraint firstItem="Yj3-eo-5IC" firstAttribute="top" secondItem="Qpl-w6-rTa" secondAttribute="bottom" constant="37" id="t1D-8o-waK"/>
@@ -129,7 +132,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
                 <constraint firstItem="CCY-jY-88N" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="2pC-cW-ewi"/>
                 <constraint firstItem="8cq-sJ-8W7" firstAttribute="top" secondItem="e1J-vc-stP" secondAttribute="bottom" id="3CB-6B-gIH"/>
@@ -148,8 +151,14 @@
     </objects>
     <resources>
         <image name="add_blue_icon" width="12" height="12"/>
-        <image name="add_overview_icon" width="20" height="20"/>
-        <image name="back_blue_icon" width="17" height="14"/>
+        <image name="add_overview_icon" width="26" height="26"/>
+        <image name="back_blue_icon" width="22" height="18"/>
         <image name="empty_token_token" width="73" height="101"/>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -120,7 +120,7 @@ class KNSendTokenViewModel: NSObject {
     default:
       break
     }
-    return "Gas fee: \(feeString) \(sourceToken) (\(typeString))"
+    return "\(feeString) \(sourceToken) (\(typeString))"
   }
 
   var gasFeeString: String {

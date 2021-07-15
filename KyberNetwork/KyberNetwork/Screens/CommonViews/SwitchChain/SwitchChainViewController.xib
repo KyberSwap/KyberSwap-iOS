@@ -4,10 +4,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
         <array key="Lato-Bold.ttf">
             <string>Lato-Bold</string>
         </array>
@@ -19,6 +23,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SwitchChainViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="bscCheckMarkIcon" destination="7Ei-Gi-ZsV" id="zie-TE-pFQ"/>
+                <outlet property="cancelButton" destination="oOn-q0-SjN" id="3OU-PF-h0F"/>
                 <outlet property="contentView" destination="fwm-wF-0kt" id="Gez-OA-H2t"/>
                 <outlet property="contentViewTopContraint" destination="Mpl-9g-hWa" id="LiZ-Li-oHa"/>
                 <outlet property="ethCheckMarkIcon" destination="Nga-Em-0iA" id="5Bj-CT-yCM"/>
@@ -35,13 +40,13 @@
                     <rect key="frame" x="0.0" y="217" width="375" height="450"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Switch Blockchain" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47n-Dk-Lcd">
-                            <rect key="frame" x="114.5" y="51" width="146.5" height="22"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                            <rect key="frame" x="105" y="51" width="165.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="M0x-hU-DEP">
-                            <rect key="frame" x="60" y="118" width="255" height="175"/>
+                            <rect key="frame" x="60" y="119.5" width="255" height="175"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efy-bR-Fof">
                                     <rect key="frame" x="0.0" y="0.0" width="84" height="175"/>
@@ -53,9 +58,9 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ethereum" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GBh-R7-xqW">
-                                            <rect key="frame" x="2.5" y="95" width="79.5" height="80"/>
+                                            <rect key="frame" x="8" y="95" width="68.5" height="80"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -81,7 +86,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chain_checkmark_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Nga-Em-0iA">
-                                            <rect key="frame" x="60" y="64" width="24" height="24"/>
+                                            <rect key="frame" x="60" y="64" width="27" height="26"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -110,11 +115,11 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtD-YC-Ryf">
-                                            <rect key="frame" x="-41.5" y="95" width="167.5" height="80"/>
+                                            <rect key="frame" x="-33.5" y="95" width="151.5" height="80"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <string key="text">Binance Smart Chain
 (BSC)</string>
-                                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="18"/>
+                                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -126,7 +131,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="chain_checkmark_icon" translatesAutoresizingMaskIntoConstraints="NO" id="7Ei-Gi-ZsV">
-                                            <rect key="frame" x="58" y="62" width="24" height="24"/>
+                                            <rect key="frame" x="58" y="62" width="27" height="26"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -148,14 +153,14 @@
                             </subviews>
                         </stackView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivL-dP-f0M">
-                            <rect key="frame" x="37" y="319" width="301" height="42"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="195" y="349.5" width="143" height="38"/>
+                            <color key="backgroundColor" name="buttonBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="42" id="5SE-Qu-z7v"/>
+                                <constraint firstAttribute="height" constant="38" id="5SE-Qu-z7v"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                            <state key="normal" title="Next" backgroundImage="krystal_button_bg">
-                                <color key="titleColor" red="0.96470588239999999" green="0.96862745100000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <state key="normal" title="Next">
+                                <color key="titleColor" name="mainViewBgColor"/>
                             </state>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -168,34 +173,35 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oOn-q0-SjN">
-                            <rect key="frame" x="37" y="371" width="301" height="42"/>
+                            <rect key="frame" x="37" y="349.5" width="143" height="38"/>
+                            <color key="backgroundColor" name="navButtonBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="42" id="aYJ-Tl-Hd2"/>
+                                <constraint firstAttribute="height" constant="38" id="aYJ-Tl-Hd2"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
                             <state key="normal" title="Cancel">
-                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="cancelButtonTapped:" destination="-1" eventType="touchUpInside" id="qY2-rJ-B0A"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="popupBackgroundColor"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstItem="ivL-dP-f0M" firstAttribute="leading" secondItem="fwm-wF-0kt" secondAttribute="leading" constant="37" id="0hH-bL-O4V"/>
-                        <constraint firstAttribute="trailing" secondItem="ivL-dP-f0M" secondAttribute="trailing" constant="37" id="368-6A-AiE"/>
                         <constraint firstItem="M0x-hU-DEP" firstAttribute="leading" secondItem="fwm-wF-0kt" secondAttribute="leading" constant="60" id="3ag-ky-TQO"/>
                         <constraint firstItem="47n-Dk-Lcd" firstAttribute="centerX" secondItem="fwm-wF-0kt" secondAttribute="centerX" id="7My-ph-zb6"/>
-                        <constraint firstItem="oOn-q0-SjN" firstAttribute="top" secondItem="ivL-dP-f0M" secondAttribute="bottom" constant="10" id="8qh-9K-nlS"/>
+                        <constraint firstItem="ivL-dP-f0M" firstAttribute="leading" secondItem="oOn-q0-SjN" secondAttribute="trailing" constant="15" id="HVN-Jw-Ub9"/>
                         <constraint firstAttribute="trailing" secondItem="M0x-hU-DEP" secondAttribute="trailing" constant="60" id="HtZ-lf-wbS"/>
+                        <constraint firstAttribute="trailing" secondItem="ivL-dP-f0M" secondAttribute="trailing" constant="37" id="I43-lQ-qIJ"/>
                         <constraint firstItem="47n-Dk-Lcd" firstAttribute="top" secondItem="fwm-wF-0kt" secondAttribute="top" constant="51" id="MHr-Z2-9Ki"/>
-                        <constraint firstItem="oOn-q0-SjN" firstAttribute="leading" secondItem="fwm-wF-0kt" secondAttribute="leading" constant="37" id="WpQ-9I-hKl"/>
+                        <constraint firstItem="oOn-q0-SjN" firstAttribute="centerY" secondItem="ivL-dP-f0M" secondAttribute="centerY" id="Qo7-Qh-ksh"/>
                         <constraint firstAttribute="height" constant="450" id="cpy-LO-SUg"/>
                         <constraint firstItem="M0x-hU-DEP" firstAttribute="top" secondItem="47n-Dk-Lcd" secondAttribute="bottom" constant="45" id="csL-ji-bbR"/>
-                        <constraint firstItem="ivL-dP-f0M" firstAttribute="top" secondItem="M0x-hU-DEP" secondAttribute="bottom" constant="26" id="fxO-cn-hLk"/>
-                        <constraint firstAttribute="trailing" secondItem="oOn-q0-SjN" secondAttribute="trailing" constant="37" id="jhL-IG-cha"/>
+                        <constraint firstItem="oOn-q0-SjN" firstAttribute="width" secondItem="ivL-dP-f0M" secondAttribute="width" id="eSO-vS-Vz8"/>
+                        <constraint firstItem="oOn-q0-SjN" firstAttribute="leading" secondItem="fwm-wF-0kt" secondAttribute="leading" constant="37" id="oZv-uO-Yjz"/>
+                        <constraint firstItem="ivL-dP-f0M" firstAttribute="top" secondItem="M0x-hU-DEP" secondAttribute="bottom" constant="55" id="s1B-Em-pRW"/>
                     </constraints>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="AcZ-mP-NlR" appends="YES" id="bz7-5I-3ny"/>
@@ -224,8 +230,22 @@
     </objects>
     <resources>
         <image name="chain_bsc_big_icon" width="84" height="84"/>
-        <image name="chain_checkmark_icon" width="24" height="24"/>
+        <image name="chain_checkmark_icon" width="27" height="26"/>
         <image name="chain_eth_big_icon" width="35" height="55"/>
-        <image name="krystal_button_bg" width="300" height="42"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11400000005960464" green="0.91399997472763062" blue="0.71399998664855957" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0040000001899898052" green="0.0040000001899898052" blue="0.0040000001899898052" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29411764705882354" green="0.30980392156862746" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="popupBackgroundColor">
+            <color red="0.16078431372549021" green="0.17647058823529413" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

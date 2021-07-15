@@ -29,7 +29,7 @@ class OverviewAssetsCellViewModel {
   var comparableBalanceBigInt: BigInt {
     return self.balanceBigInt * BigInt(10).power(18) / BigInt(10).power(self.token.decimals)
   }
-  
+
   var displayTokenBalance: String {
     guard !self.hideBalanceStatus else {
       return "********"

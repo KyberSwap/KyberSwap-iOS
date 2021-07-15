@@ -4,15 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -34,16 +35,16 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAf-Nx-GiM">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SETTINGS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BS7-Ut-PSh">
-                            <rect key="frame" x="30" y="68" width="77" height="19"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BS7-Ut-PSh">
+                            <rect key="frame" x="151" y="63.5" width="73.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
-                        <constraint firstItem="BS7-Ut-PSh" firstAttribute="leading" secondItem="LAf-Nx-GiM" secondAttribute="leading" constant="30" id="IRY-YR-vs2"/>
+                        <constraint firstItem="BS7-Ut-PSh" firstAttribute="centerX" secondItem="LAf-Nx-GiM" secondAttribute="centerX" id="FHm-Ee-R42"/>
                         <constraint firstAttribute="height" constant="110" id="XGd-Zo-BPF"/>
                         <constraint firstAttribute="bottom" secondItem="BS7-Ut-PSh" secondAttribute="bottom" constant="23" id="uT6-bf-Usb"/>
                     </constraints>
@@ -61,14 +62,15 @@
                             <rect key="frame" x="15" y="15" width="345" height="118"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCOUNT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jq-H6-lCP">
-                                    <rect key="frame" x="24" y="18" width="59" height="14"/>
-                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                                    <rect key="frame" x="24" y="18" width="78" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XDo-Po-iWz">
-                                    <rect key="frame" x="24" y="76" width="297" height="20"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="81" width="297" height="20"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Contacts" image="settings_contact">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -78,8 +80,9 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OVZ-jU-hlZ">
-                                    <rect key="frame" x="24" y="44" width="297" height="20"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="49" width="297" height="20"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Manage Wallets" image="settings_wallet">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -89,7 +92,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.035294117647058823" green="0.23921568627450979" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="mainViewBgColor"/>
                             <constraints>
                                 <constraint firstItem="XDo-Po-iWz" firstAttribute="top" secondItem="OVZ-jU-hlZ" secondAttribute="bottom" constant="12" id="4HI-cd-P8E"/>
                                 <constraint firstAttribute="trailing" secondItem="OVZ-jU-hlZ" secondAttribute="trailing" constant="24" id="4UH-8H-d5S"/>
@@ -112,14 +115,15 @@
                             <rect key="frame" x="15" y="151" width="345" height="118"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CUSTOM TOKENS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOs-38-ntL">
-                                    <rect key="frame" x="24" y="18" width="103" height="14"/>
-                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                                    <rect key="frame" x="24" y="18" width="137" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkE-jA-LEc">
-                                    <rect key="frame" x="24" y="75" width="297" height="19"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="80" width="297" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Manage Tokens" image="setting_manage_token">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -129,8 +133,9 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NwH-fq-MHe">
-                                    <rect key="frame" x="24" y="44" width="297" height="19"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="49" width="297" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Add Custom Token" image="setting_add_custom_token">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -140,7 +145,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.035294117649999998" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="mainViewBgColor"/>
                             <constraints>
                                 <constraint firstItem="XOs-38-ntL" firstAttribute="top" secondItem="Uha-ah-auB" secondAttribute="top" constant="18" id="3Be-Vb-Jt7"/>
                                 <constraint firstItem="lkE-jA-LEc" firstAttribute="leading" secondItem="Uha-ah-auB" secondAttribute="leading" constant="24" id="Ho2-Dl-qTj"/>
@@ -163,22 +168,24 @@
                             <rect key="frame" x="15" y="287" width="345" height="120"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SECURITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcM-p5-aad">
-                                    <rect key="frame" x="24" y="18" width="58.5" height="14"/>
-                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                                    <rect key="frame" x="24" y="18" width="78" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeT-KP-iDr">
-                                    <rect key="frame" x="24" y="76" width="236" height="22"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="81" width="236" height="22"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Finger Print" image="setting_fingerprint">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YpW-Xe-oUk">
-                                    <rect key="frame" x="24" y="44" width="297" height="20"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="49" width="297" height="20"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Change PIN" image="settings_pin">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -188,15 +195,15 @@
                                     </connections>
                                 </button>
                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bzU-97-rEA">
-                                    <rect key="frame" x="272" y="71.5" width="51" height="31"/>
-                                    <color key="tintColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <color key="onTintColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <rect key="frame" x="272" y="76.5" width="51" height="31"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <color key="onTintColor" name="buttonBackgroundColor"/>
                                     <connections>
                                         <action selector="fingerprintValueChanged:" destination="-1" eventType="valueChanged" id="Qyf-nC-zlJ"/>
                                     </connections>
                                 </switch>
                             </subviews>
-                            <color key="backgroundColor" red="0.035294117649999998" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="mainViewBgColor"/>
                             <constraints>
                                 <constraint firstItem="OcM-p5-aad" firstAttribute="top" secondItem="6Ow-BM-69D" secondAttribute="top" constant="18" id="74T-QL-hu0"/>
                                 <constraint firstAttribute="trailing" secondItem="YpW-Xe-oUk" secondAttribute="trailing" constant="24" id="AsY-Wb-GeK"/>
@@ -221,14 +228,15 @@
                             <rect key="frame" x="15" y="425" width="345" height="118"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUPPORT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cG4-Dx-3rq">
-                                    <rect key="frame" x="24" y="18" width="56.5" height="14"/>
-                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                                    <rect key="frame" x="24" y="18" width="75" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="doi-hG-9g2">
-                                    <rect key="frame" x="24" y="44" width="297" height="24"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="49" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Email" image="setting_email_icon">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -238,8 +246,9 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9e-30-C7r">
-                                    <rect key="frame" x="24" y="80" width="297" height="24"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="85" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Help Center" image="setting_fa0">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -249,7 +258,7 @@
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.035294117649999998" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="mainViewBgColor"/>
                             <constraints>
                                 <constraint firstItem="cG4-Dx-3rq" firstAttribute="top" secondItem="gtu-Tc-Eer" secondAttribute="top" constant="18" id="Brb-A9-6NY"/>
                                 <constraint firstAttribute="height" constant="118" id="G5A-FP-Yif"/>
@@ -269,17 +278,18 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dr4-La-f9X">
-                            <rect key="frame" x="15" y="561" width="345" height="300"/>
+                            <rect key="frame" x="15" y="561" width="345" height="400"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OTHERS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pf-32-VzG">
-                                    <rect key="frame" x="24" y="18" width="48" height="14"/>
-                                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
+                                    <rect key="frame" x="24" y="18" width="64" height="19"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijc-DN-FUu">
-                                    <rect key="frame" x="24" y="153" width="297" height="24"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="194" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Share" image="settings_share">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -289,8 +299,9 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5f-in-QUU">
-                                    <rect key="frame" x="24" y="117" width="297" height="24"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="158" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="19" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Notifications" image="settings_manage_alert">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -299,33 +310,10 @@
                                         <action selector="notificationsButtonPressed:" destination="-1" eventType="touchUpInside" id="YpB-1e-ccF"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i9-8v-ipm">
-                                    <rect key="frame" x="56" y="225" width="19" height="22"/>
-                                    <state key="normal" image="setting_telegram"/>
-                                    <connections>
-                                        <action selector="telegramButtonPressed:" destination="-1" eventType="touchUpInside" id="IZl-U1-MiA"/>
-                                        <action selector="telegramButtonTapped:" destination="-1" eventType="touchUpInside" id="hLy-Yy-imX"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se5-hf-B7q">
-                                    <rect key="frame" x="91" y="225" width="20" height="22"/>
-                                    <state key="normal" image="setting_twitter"/>
-                                    <connections>
-                                        <action selector="twitterButtonPressed:" destination="-1" eventType="touchUpInside" id="Aoc-2f-s5G"/>
-                                        <action selector="twitterButtonTapped:" destination="-1" eventType="touchUpInside" id="pk8-WR-GTp"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-VY-iwf">
-                                    <rect key="frame" x="127" y="225" width="20" height="22"/>
-                                    <state key="normal" image="setting_medium"/>
-                                    <connections>
-                                        <action selector="mediumButtonPressed:" destination="-1" eventType="touchUpInside" id="5Fl-hL-KJf"/>
-                                        <action selector="mediumButtonTapped:" destination="-1" eventType="touchUpInside" id="YUd-T2-oM3"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15o-dz-5Vr">
-                                    <rect key="frame" x="24" y="80" width="297" height="25"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="85" width="297" height="25"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Privacy Policy" image="settings_privacy_icon">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -335,14 +323,15 @@
                                     </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ver 1.0.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzz-dO-flI">
-                                    <rect key="frame" x="8" y="261" width="59" height="18"/>
+                                    <rect key="frame" x="8" y="361" width="59" height="18"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dYZ-MB-rGO">
-                                    <rect key="frame" x="24" y="44" width="297" height="24"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="49" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Terms of Use" image="setting_term">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -352,8 +341,9 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4PM-RB-2d8">
-                                    <rect key="frame" x="24" y="189" width="297" height="24"/>
-                                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                                    <rect key="frame" x="24" y="230" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
                                     <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <state key="normal" title="Rate our App" image="settings_rate_app">
                                         <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -362,34 +352,109 @@
                                         <action selector="rateOurAppButtonPressed:" destination="-1" eventType="touchUpInside" id="5gG-OX-NGi"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1i9-8v-ipm">
+                                    <rect key="frame" x="95.5" y="303.5" width="38" height="39"/>
+                                    <color key="backgroundColor" name="navButtonBgColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="Dy8-8D-Px8"/>
+                                        <constraint firstAttribute="height" constant="39" id="yjc-di-gvP"/>
+                                    </constraints>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <state key="normal" image="setting_telegram"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="19"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="telegramButtonPressed:" destination="-1" eventType="touchUpInside" id="IZl-U1-MiA"/>
+                                        <action selector="telegramButtonTapped:" destination="-1" eventType="touchUpInside" id="hLy-Yy-imX"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="se5-hf-B7q">
+                                    <rect key="frame" x="153.5" y="304" width="38" height="38"/>
+                                    <color key="backgroundColor" name="navButtonBgColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="38" id="I48-gO-TMf"/>
+                                        <constraint firstAttribute="width" constant="38" id="qAv-yn-Xw4"/>
+                                    </constraints>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <state key="normal" image="setting_twitter"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="19"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="twitterButtonPressed:" destination="-1" eventType="touchUpInside" id="Aoc-2f-s5G"/>
+                                        <action selector="twitterButtonTapped:" destination="-1" eventType="touchUpInside" id="pk8-WR-GTp"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHl-VY-iwf">
+                                    <rect key="frame" x="211.5" y="304" width="38" height="38"/>
+                                    <color key="backgroundColor" name="navButtonBgColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="38" id="50w-p6-JOS"/>
+                                        <constraint firstAttribute="height" constant="38" id="FJZ-um-Rcc"/>
+                                    </constraints>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <state key="normal" image="setting_medium"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="19"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="mediumButtonPressed:" destination="-1" eventType="touchUpInside" id="5Fl-hL-KJf"/>
+                                        <action selector="mediumButtonTapped:" destination="-1" eventType="touchUpInside" id="YUd-T2-oM3"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oF6-qz-r8D">
+                                    <rect key="frame" x="24" y="122" width="297" height="24"/>
+                                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                    <color key="tintColor" name="textWhiteColor"/>
+                                    <inset key="titleEdgeInsets" minX="18" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="Referral Policy" image="ref_policy_icon">
+                                        <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="referralPolicyButtonTapped:" destination="-1" eventType="touchUpInside" id="Y58-NN-Kob"/>
+                                    </connections>
+                                </button>
                             </subviews>
-                            <color key="backgroundColor" red="0.035294117649999998" green="0.23921568630000001" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" name="mainViewBgColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="300" id="0Es-2T-Tjk"/>
+                                <constraint firstAttribute="height" constant="400" id="0Es-2T-Tjk"/>
                                 <constraint firstItem="4PM-RB-2d8" firstAttribute="top" secondItem="ijc-DN-FUu" secondAttribute="bottom" constant="12" id="1QN-MU-h2x"/>
                                 <constraint firstAttribute="trailing" secondItem="R5f-in-QUU" secondAttribute="trailing" constant="24" id="1St-vD-Gb6"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="3jS-hE-e1Y"/>
+                                <constraint firstItem="oF6-qz-r8D" firstAttribute="top" secondItem="15o-dz-5Vr" secondAttribute="bottom" constant="12" id="6rR-hR-joS"/>
                                 <constraint firstItem="R5f-in-QUU" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="AAe-sw-0GJ"/>
                                 <constraint firstItem="NHl-VY-iwf" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="BLJ-ML-6bu"/>
                                 <constraint firstItem="2pf-32-VzG" firstAttribute="top" secondItem="Dr4-La-f9X" secondAttribute="top" constant="18" id="Ei2-Z5-ycL"/>
                                 <constraint firstItem="nzz-dO-flI" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="8" id="F1C-9l-hVb"/>
                                 <constraint firstItem="dYZ-MB-rGO" firstAttribute="top" secondItem="2pf-32-VzG" secondAttribute="bottom" constant="12" id="FoA-3u-hSp"/>
                                 <constraint firstItem="se5-hf-B7q" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="GOv-F5-MGe"/>
+                                <constraint firstAttribute="trailing" secondItem="oF6-qz-r8D" secondAttribute="trailing" constant="24" id="Hug-Ky-l7l"/>
+                                <constraint firstItem="R5f-in-QUU" firstAttribute="top" secondItem="oF6-qz-r8D" secondAttribute="bottom" constant="12" id="LWn-wZ-XmI"/>
                                 <constraint firstItem="2pf-32-VzG" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="M08-gz-ggd"/>
                                 <constraint firstItem="ijc-DN-FUu" firstAttribute="top" secondItem="R5f-in-QUU" secondAttribute="bottom" constant="12" id="NeJ-zX-563"/>
-                                <constraint firstItem="1i9-8v-ipm" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="12" id="Nhy-v4-2Tk"/>
                                 <constraint firstAttribute="trailing" secondItem="dYZ-MB-rGO" secondAttribute="trailing" constant="24" id="Nnm-Ti-igv"/>
-                                <constraint firstItem="se5-hf-B7q" firstAttribute="leading" secondItem="1i9-8v-ipm" secondAttribute="trailing" constant="16" id="Nv1-G0-oIY"/>
-                                <constraint firstItem="NHl-VY-iwf" firstAttribute="leading" secondItem="se5-hf-B7q" secondAttribute="trailing" constant="16" id="O7d-fy-0JN"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="leading" secondItem="1i9-8v-ipm" secondAttribute="trailing" constant="20" id="Nv1-G0-oIY"/>
+                                <constraint firstItem="NHl-VY-iwf" firstAttribute="leading" secondItem="se5-hf-B7q" secondAttribute="trailing" constant="20" id="O7d-fy-0JN"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="top" secondItem="4PM-RB-2d8" secondAttribute="bottom" constant="50" id="ONT-yG-0C1"/>
                                 <constraint firstItem="dYZ-MB-rGO" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="VVl-pI-cke"/>
                                 <constraint firstItem="NHl-VY-iwf" firstAttribute="centerY" secondItem="1i9-8v-ipm" secondAttribute="centerY" id="Z84-Qo-KlY"/>
-                                <constraint firstItem="1i9-8v-ipm" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="56" id="b4H-S7-ygA"/>
                                 <constraint firstItem="4PM-RB-2d8" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="ccr-ap-bk3"/>
                                 <constraint firstItem="ijc-DN-FUu" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="e3B-Gc-vcf"/>
+                                <constraint firstItem="oF6-qz-r8D" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="esq-Yg-kSk"/>
                                 <constraint firstAttribute="trailing" secondItem="4PM-RB-2d8" secondAttribute="trailing" constant="24" id="gEr-cm-Dge"/>
                                 <constraint firstAttribute="trailing" secondItem="ijc-DN-FUu" secondAttribute="trailing" constant="24" id="gXM-1u-RnE"/>
-                                <constraint firstItem="R5f-in-QUU" firstAttribute="top" secondItem="15o-dz-5Vr" secondAttribute="bottom" constant="12" id="hWz-rA-shy"/>
                                 <constraint firstAttribute="trailing" secondItem="15o-dz-5Vr" secondAttribute="trailing" constant="24" id="kaI-Lk-5sB"/>
+                                <constraint firstItem="se5-hf-B7q" firstAttribute="centerX" secondItem="Dr4-La-f9X" secondAttribute="centerX" id="nzA-gT-fko"/>
                                 <constraint firstItem="15o-dz-5Vr" firstAttribute="top" secondItem="dYZ-MB-rGO" secondAttribute="bottom" constant="12" id="pd3-3v-2gH"/>
                                 <constraint firstItem="15o-dz-5Vr" firstAttribute="leading" secondItem="Dr4-La-f9X" secondAttribute="leading" constant="24" id="qo7-Ht-EbK"/>
                                 <constraint firstAttribute="bottom" secondItem="nzz-dO-flI" secondAttribute="bottom" constant="21" id="sKN-Wt-cCM"/>
@@ -424,7 +489,7 @@
                 </scrollView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="r2z-gX-MLZ" secondAttribute="bottom" id="5vi-pC-8Dw"/>
                 <constraint firstAttribute="trailing" secondItem="LAf-Nx-GiM" secondAttribute="trailing" id="ECK-0Y-Hux"/>
@@ -439,6 +504,7 @@
         </view>
     </objects>
     <resources>
+        <image name="ref_policy_icon" width="24" height="24"/>
         <image name="setting_add_custom_token" width="19" height="19"/>
         <image name="setting_email_icon" width="24" height="24"/>
         <image name="setting_fa0" width="24" height="24"/>
@@ -455,5 +521,17 @@
         <image name="settings_rate_app" width="24" height="24"/>
         <image name="settings_share" width="24" height="24"/>
         <image name="settings_wallet" width="20" height="20"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navButtonBgColor">
+            <color red="0.29411764705882354" green="0.30980392156862746" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

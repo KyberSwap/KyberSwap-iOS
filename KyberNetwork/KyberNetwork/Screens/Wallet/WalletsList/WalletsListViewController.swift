@@ -55,7 +55,7 @@ class WalletsListViewModel {
       return WalletListTableViewCellViewModel(walletName: object.name, walletAddress: object.address, isCurrentWallet: object.address.lowercased() == self.currentWallet.address.lowercased())
     }
     if !realSectionViewModels.isEmpty {
-      let sectionViewModel = WalletListSectionTableViewCellViewModel(sectionTile: "Imported wallets".toBeLocalised().uppercased(), isFirstSection: true)
+      let sectionViewModel = WalletListSectionTableViewCellViewModel(sectionTile: "Change Wallets", isFirstSection: true)
       data.append(sectionViewModel)
       data.append(contentsOf: realSectionViewModels)
     }
@@ -64,7 +64,7 @@ class WalletsListViewModel {
       return WalletListTableViewCellViewModel(walletName: object.name, walletAddress: object.address, isCurrentWallet: object.address.lowercased() == self.currentWallet.address.lowercased())
     }
     if !watchSectionViewModels.isEmpty {
-      let sectionModel = WalletListSectionTableViewCellViewModel(sectionTile: "Watch wallets".toBeLocalised().uppercased(), isFirstSection: data.isEmpty)
+      let sectionModel = WalletListSectionTableViewCellViewModel(sectionTile: "Watch wallets", isFirstSection: data.isEmpty)
       data.append(sectionModel)
       data.append(contentsOf: watchSectionViewModels)
     }
@@ -73,11 +73,11 @@ class WalletsListViewModel {
   }
 
   var walletCellRowHeight: CGFloat {
-    return 56.0
+    return 60.0
   }
 
   var walletCellSectionRowHeight: CGFloat {
-    return 46.0
+    return 80.0
   }
 
   func getWalletObject(address: String) -> KNWalletObject? {
@@ -102,7 +102,6 @@ class WalletsListViewModel {
 }
 
 class WalletsListViewController: KNBaseViewController {
-  @IBOutlet weak var popupTitle: UILabel!
   @IBOutlet weak var walletTableView: UITableView!
   @IBOutlet weak var manageWalletButton: UIButton!
   @IBOutlet weak var connectWalletButton: UIButton!
@@ -115,7 +114,7 @@ class WalletsListViewController: KNBaseViewController {
   fileprivate let kWalletTableViewCellID: String = "WalletListTableViewCell"
   fileprivate let kWalletSectionTableViewCellID: String = "WalletListSectionTableViewCell"
   let transitor = TransitionDelegate()
-  weak var delegate: WalletsListViewControllerDelegate?
+  var delegate: WalletsListViewControllerDelegate?
 
   init(viewModel: WalletsListViewModel) {
     self.viewModel = viewModel
@@ -199,10 +198,10 @@ extension WalletsListViewController: UITableViewDataSource {
 extension WalletsListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let viewModel = self.viewModel.dataSource[indexPath.row]
-    if viewModel is WalletListSectionTableViewCellViewModel {
-      return 46.0
+    if let sectionModel = viewModel as? WalletListSectionTableViewCellViewModel {
+      return sectionModel.isFirstSection ? 80.0 : 60.0
     } else {
-      return 56.0
+      return 60.0
     }
   }
 }

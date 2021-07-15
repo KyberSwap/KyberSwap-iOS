@@ -33,10 +33,12 @@ class KNTransactionFilterTableViewCell: UITableViewCell {
         $0.isHidden = false
         $0.setTitle(symbols[$0.tag], for: .normal)
         if selectedTokens.contains(symbols[$0.tag]) {
-          $0.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+          $0.backgroundColor = UIColor(named: "buttonBackgroundColor")
+          $0.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
           $0.rounded(radius: 16.0)
         } else {
-          $0.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+          $0.backgroundColor = UIColor(named: "navButtonBgColor")
+          $0.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
           $0.rounded(radius: 16.0)
         }
       }

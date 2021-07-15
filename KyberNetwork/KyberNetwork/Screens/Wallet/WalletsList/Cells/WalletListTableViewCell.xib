@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -32,29 +30,29 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86A-Yl-NIU">
-                        <rect key="frame" x="40" y="12" width="82" height="17"/>
-                        <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
-                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="66" y="12" width="90.5" height="19"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0xb45thu4c…8f6hn" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NeH-ae-lRl">
-                        <rect key="frame" x="40" y="31" width="104.5" height="14"/>
+                        <rect key="frame" x="66" y="33" width="104.5" height="16.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="104.5" id="lCE-Zc-Uga"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                         <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check_icon_green" translatesAutoresizingMaskIntoConstraints="NO" id="juK-dW-ofX">
-                        <rect key="frame" x="10" y="24.5" width="12" height="7.5"/>
+                        <rect key="frame" x="38" y="24.5" width="12" height="7.5"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="12" id="GcO-DP-Lea"/>
                             <constraint firstAttribute="height" constant="7.5" id="QKx-IR-83g"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMS-v8-7wg">
-                        <rect key="frame" x="149.5" y="26" width="24" height="24"/>
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EMS-v8-7wg">
+                        <rect key="frame" x="175.5" y="29.5" width="24" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="fdE-cL-KXS"/>
                             <constraint firstAttribute="width" constant="24" id="hpz-fQ-1nz"/>
@@ -66,7 +64,7 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="86A-Yl-NIU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="01I-A3-v5D"/>
+                    <constraint firstItem="86A-Yl-NIU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="66" id="01I-A3-v5D"/>
                     <constraint firstItem="jda-1l-m4X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="0BO-rH-ubV"/>
                     <constraint firstAttribute="bottom" secondItem="jda-1l-m4X" secondAttribute="bottom" id="5xE-27-vcU"/>
                     <constraint firstItem="86A-Yl-NIU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="9Ke-hh-DLL"/>
@@ -74,16 +72,17 @@
                     <constraint firstItem="EMS-v8-7wg" firstAttribute="centerY" secondItem="NeH-ae-lRl" secondAttribute="centerY" id="aOl-ho-Xi9"/>
                     <constraint firstItem="EMS-v8-7wg" firstAttribute="leading" secondItem="NeH-ae-lRl" secondAttribute="trailing" constant="5" id="cLq-8q-uPi"/>
                     <constraint firstAttribute="trailing" secondItem="jda-1l-m4X" secondAttribute="trailing" id="dLi-ir-rpl"/>
-                    <constraint firstItem="NeH-ae-lRl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="40" id="eLs-5F-iV1"/>
                     <constraint firstItem="juK-dW-ofX" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ggV-Mq-3rA"/>
-                    <constraint firstItem="juK-dW-ofX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="lI7-HG-fOv"/>
+                    <constraint firstItem="juK-dW-ofX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="38" id="lI7-HG-fOv"/>
+                    <constraint firstItem="86A-Yl-NIU" firstAttribute="leading" secondItem="NeH-ae-lRl" secondAttribute="leading" id="lKt-Lr-AjQ"/>
                     <constraint firstItem="jda-1l-m4X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="rKO-2z-naV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="popupBackgroundColor"/>
             <connections>
                 <outlet property="checkIconImage" destination="juK-dW-ofX" id="MgY-kl-vqZ"/>
+                <outlet property="leftPaddingContraint" destination="01I-A3-v5D" id="45Q-VJ-2Py"/>
                 <outlet property="walletAddressLabel" destination="NeH-ae-lRl" id="8Ml-iV-bRz"/>
                 <outlet property="walletNameLabel" destination="86A-Yl-NIU" id="Mxl-Us-1Fe"/>
             </connections>
@@ -93,5 +92,8 @@
     <resources>
         <image name="check_icon_green" width="14" height="10"/>
         <image name="copy_icon_blue" width="14" height="14"/>
+        <namedColor name="popupBackgroundColor">
+            <color red="0.16099999845027924" green="0.17599999904632568" blue="0.17299999296665192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

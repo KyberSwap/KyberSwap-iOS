@@ -22,8 +22,7 @@ class KNTabBarController: UITabBarController {
   override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
 
   override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-    tabBar.tintColor = UIColor.Kyber.SWYellow
-    KNAppTracker.updateShouldOpenLimitOrderAfterSignedIn(false)
+    tabBar.tintColor = UIColor(named: "buttonBackgroundColor")
   }
 }
 

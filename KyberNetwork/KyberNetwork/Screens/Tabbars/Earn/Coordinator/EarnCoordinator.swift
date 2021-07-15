@@ -155,6 +155,7 @@ class EarnCoordinator: NSObject, Coordinator {
     otherTokensBalance.forEach { self.balances[$0.key] = $0.value }
     self.earnViewController?.coordinatorUpdateTokenBalance(self.balances)
     self.earnSwapViewController?.coordinatorUpdateTokenBalance(self.balances)
+    self.rootViewController.coordinatorDidUpdateDidUpdateTokenList()
   }
   
   func appCoordinatorDidUpdateNewSession(_ session: KNSession, resetRoot: Bool = false) {
@@ -226,6 +227,10 @@ class EarnCoordinator: NSObject, Coordinator {
   
   func appCoodinatorDidUpdateHideBalanceStatus(_ status: Bool) {
     self.rootViewController.coordinatorDidUpdateHideBalanceStatus(status)
+  }
+  
+  func appCoordinatorDidUpdateTokenList() {
+    
   }
 }
 

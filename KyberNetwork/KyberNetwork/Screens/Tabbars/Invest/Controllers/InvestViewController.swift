@@ -53,8 +53,8 @@ class InvestViewController: KNBaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.bannerPagerControl.setFillColor(UIColor.Kyber.SWButtonBlueColor, for: .selected)
-    self.bannerPagerControl.setFillColor(UIColor.Kyber.SWWhiteTextColor, for: .normal)
+    self.bannerPagerControl.setFillColor(UIColor(named: "buttonBackgroundColor"), for: .selected)
+    self.bannerPagerControl.setFillColor(UIColor(named: "normalTextColor"), for: .normal)
     self.bannerPagerControl.numberOfPages = 0
     self.bannerPagerControl.numberOfPages = self.viewModel.bannerDataSource.count
     let nib = UINib(nibName: MarketingPartnerCollectionViewCell.className, bundle: nil)

@@ -4,15 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
         </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -31,14 +32,14 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9LT-Ld-QyV">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOTIFICATIONS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixq-UL-TlD">
-                            <rect key="frame" x="122.5" y="68" width="130.5" height="21"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ixq-UL-TlD">
+                            <rect key="frame" x="131.5" y="68" width="112" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XaC-tB-rHF">
-                            <rect key="frame" x="16" y="60.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="62" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="EZZ-ST-2Bk"/>
                                 <constraint firstAttribute="height" constant="36" id="QS7-jo-wwL"/>
@@ -49,7 +50,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686270000001" green="0.29411764709999999" blue="0.3803921569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="Ixq-UL-TlD" firstAttribute="centerX" secondItem="9LT-Ld-QyV" secondAttribute="centerX" id="YYG-eY-9fn"/>
@@ -81,12 +82,12 @@
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No notification yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D3p-12-TIw">
                             <rect key="frame" x="130.5" y="195" width="114" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                             <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="AlN-fW-gxf" firstAttribute="centerX" secondItem="UHZ-QH-MLd" secondAttribute="centerX" id="Nfc-0s-sa8"/>
                         <constraint firstItem="AlN-fW-gxf" firstAttribute="top" secondItem="UHZ-QH-MLd" secondAttribute="top" constant="60" id="W60-cS-zeu"/>
@@ -96,7 +97,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
                 <constraint firstItem="9LT-Ld-QyV" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="31y-e4-3Bu"/>
                 <constraint firstItem="Gyb-Rb-d3U" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Emk-aP-h41"/>
@@ -114,7 +115,10 @@
         </view>
     </objects>
     <resources>
-        <image name="back_blue_icon" width="17" height="14"/>
+        <image name="back_blue_icon" width="22" height="18"/>
         <image name="empty_notification_icon" width="91" height="112"/>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

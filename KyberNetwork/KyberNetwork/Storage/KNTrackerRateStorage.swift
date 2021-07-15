@@ -52,6 +52,20 @@ class KNTrackerRateStorage {
     }
   }
   
+  func getLastPriceWith(address: String, currency: CurrencyMode) -> Double {
+    guard let price = self.getPriceWithAddress(address) else {
+      return 0.0
+    }
+    switch currency {
+    case .usd:
+      return price.usd
+    case .eth:
+      return price.eth
+    case .btc:
+      return price.btc
+    }
+  }
+
   func getETHPrice() -> TokenPrice? {
     if KNGeneralProvider.shared.isEthereum {
       return self.getPriceWithAddress("0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")

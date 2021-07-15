@@ -208,26 +208,22 @@ class KNTransactionFilterViewController: KNBaseViewController {
     super.viewDidLoad()
     self.navTitleLabel.text = "Filter".toBeLocalised()
     self.timeTextLabel.text = "Time".toBeLocalised()
-    self.separatorViews.forEach({ $0.backgroundColor = .clear })
-    self.separatorViews.forEach({ $0.dashLine(width: 1.0, color: UIColor.Kyber.dashLine) })
+    
     self.transactionTypeTextLabel.text = "Transaction Type".toBeLocalised()
     self.sendButton.setTitle(NSLocalizedString("transfer", value: "Transfer", comment: ""), for: .normal)
     self.receiveButton.setTitle(NSLocalizedString("receive", value: "Receive", comment: ""), for: .normal)
     self.swapButton.setTitle(NSLocalizedString("swap", value: "Swap", comment: ""), for: .normal)
     self.tokenTextLabel.text = "Token".toBeLocalised()
     self.resetButton.rounded(
-      color: UIColor.Kyber.SWButtonBlueColor,
-      width: 1.0,
-      radius: self.resetButton.frame.size.height / 2
+      radius: 16
     )
     self.resetButton.setTitle("Reset".toBeLocalised(), for: .normal)
-    self.applyButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.applyButton.setTitle(NSLocalizedString("apply", value: "Apply", comment: ""), for: .normal)
-    self.applyButton.rounded(radius: self.applyButton.frame.size.height / 2)
+    self.applyButton.rounded(radius: 16)
 
     let nib = UINib(nibName: KNTransactionFilterTableViewCell.className, bundle: nil)
     self.tokensTableView.register(nib, forCellReuseIdentifier: kFilterTokensTableViewCellID)
-    self.tokensTableView.rowHeight = 44.0
+    self.tokensTableView.rowHeight = 48.0
     self.tokensTableView.delegate = self
     self.tokensTableView.dataSource = self
     self.tokensTableView.reloadData()
@@ -243,11 +239,6 @@ class KNTransactionFilterViewController: KNBaseViewController {
     self.updateUI()
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.applyButton.removeSublayer(at: 0)
-    self.applyButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
 
   fileprivate func updateUI(isUpdatingTokens: Bool = true) {
     UIView.animate(withDuration: 0.16) {
@@ -263,40 +254,54 @@ class KNTransactionFilterViewController: KNBaseViewController {
         )
       }
       if self.viewModel.isSend {
-        self.sendButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+        self.sendButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+        self.sendButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
       } else {
-        self.sendButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+        self.sendButton.backgroundColor = UIColor(named: "navButtonBgColor")
+        self.sendButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
       }
       if self.viewModel.isReceive {
-        self.receiveButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+        self.receiveButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+        self.receiveButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
       } else {
-        self.receiveButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+        self.receiveButton.backgroundColor = UIColor(named: "navButtonBgColor")
+        self.receiveButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
       }
       if self.viewModel.isSwap {
-        self.swapButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+        self.swapButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+        self.swapButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
       } else {
-        self.swapButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+        self.swapButton.backgroundColor = UIColor(named: "navButtonBgColor")
+        self.swapButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
       }
       if self.viewModel.isApprove {
-        self.approveButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+        self.approveButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+        self.approveButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
       } else {
-        self.approveButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+        self.approveButton.backgroundColor = UIColor(named: "navButtonBgColor")
+        self.approveButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
       }
       if self.viewModel.isWithdraw {
-        self.withdrawButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+        self.withdrawButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+        self.withdrawButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
       } else {
-        self.withdrawButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+        self.withdrawButton.backgroundColor = UIColor(named: "navButtonBgColor")
+        self.withdrawButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
       }
       if self.viewModel.isTrade {
-        self.tradeButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+        self.tradeButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+        self.tradeButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
       } else {
-        self.tradeButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+        self.tradeButton.backgroundColor = UIColor(named: "navButtonBgColor")
+        self.tradeButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
       }
 
       if self.viewModel.isContractInteraction {
-        self.contractInteractionButton.backgroundColor = UIColor.Kyber.SWButtonBlueColor
+        self.contractInteractionButton.backgroundColor = UIColor(named: "buttonBackgroundColor")
+        self.contractInteractionButton.setTitleColor(UIColor(named: "mainViewBgColor"), for: .normal)
       } else {
-        self.contractInteractionButton.backgroundColor = UIColor.Kyber.SWSelectedBlueColor
+        self.contractInteractionButton.backgroundColor = UIColor(named: "navButtonBgColor")
+        self.contractInteractionButton.setTitleColor(UIColor(named: "normalTextColor"), for: .normal)
       }
       
       if let date = self.viewModel.from {

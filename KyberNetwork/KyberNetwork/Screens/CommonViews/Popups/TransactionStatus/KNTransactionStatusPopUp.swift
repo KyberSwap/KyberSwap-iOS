@@ -97,10 +97,10 @@ class KNTransactionStatusPopUp: KNBaseViewController {
 
   fileprivate func commontSetup() {
     self.firstButton.setTitle(NSLocalizedString("transfer", comment: ""), for: .normal)
-    self.firstButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.firstButton.frame.size.height / 2)
+    self.firstButton.rounded(radius: self.firstButton.frame.size.height / 2)
 
     self.secondButton.setTitle(NSLocalizedString("swap", comment: ""), for: .normal)
-    self.secondButton.rounded(color: UIColor.Kyber.SWButtonBlueColor, width: 1, radius: self.secondButton.frame.size.height / 2)
+    self.secondButton.rounded(radius: self.secondButton.frame.size.height / 2)
     self.txHashLabel.text = self.transaction.hash
     self.view.isUserInteractionEnabled = true
   }
@@ -137,7 +137,7 @@ class KNTransactionStatusPopUp: KNBaseViewController {
         } else if self.transaction.type == .transferETH || self.transaction.type == .transferToken {
           return "Transferred successfully".toBeLocalised()
         } else if self.transaction.type == .earn {
-          return "Successfully supplied".toBeLocalised()
+          return "Successfully earned".toBeLocalised()
         } else if self.transaction.type == .withdraw {
           return "Successfully withdraw".toBeLocalised()
         } else if self.transaction.type == .contractInteraction {

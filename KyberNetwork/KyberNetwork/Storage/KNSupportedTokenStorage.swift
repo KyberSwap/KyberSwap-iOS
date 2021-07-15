@@ -191,12 +191,16 @@ class KNSupportedTokenStorage {
       return
     }
     var customTokenCache = self.customTokens
-    customTokenCache.append(contentsOf: unknown)
-    
+    unknown.forEach { (token) in
+      if !customTokenCache.contains(token) {
+        customTokenCache.append(token)
+      }
+    }
+
     //Check duplicate with support token list
     var duplicateToken: [Token] = []
     customTokenCache.forEach { (token) in
-      if all.contains(token) {
+      if self.supportedToken.contains(token) {
         duplicateToken.append(token)
       }
     }
@@ -228,6 +232,25 @@ class KNSupportedTokenStorage {
     self.customTokens.append(contentsOf: add)
     Storage.removeFileAtPath(Constants.customTokenStoreFileName)
     Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
+  }
+  
+  func getAssetTokens() -> [Token] {
+    var result: [Token] = []
+    let tokens = KNSupportedTokenStorage.shared.allTokens
+    let lendingBalances = BalanceStorage.shared.getAllLendingBalances()
+    var lendingSymbols: [String] = []
+    lendingBalances.forEach { (lendingPlatform) in
+      lendingPlatform.balances.forEach { (balance) in
+        lendingSymbols.append(balance.interestBearingTokenSymbol.lowercased())
+      }
+    }
+    tokens.forEach { (token) in
+      guard token.getBalanceBigInt() > BigInt(0), !lendingSymbols.contains(token.symbol.lowercased()) else {
+        return
+      }
+      result.append(token)
+    }
+    return result
   }
   
   func findTokensWithAddresses(addresses: [String]) -> [Token] {

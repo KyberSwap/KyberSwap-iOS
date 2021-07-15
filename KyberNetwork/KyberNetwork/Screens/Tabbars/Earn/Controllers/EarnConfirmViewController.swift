@@ -142,24 +142,17 @@ class EarnConfirmViewController: KNBaseViewController {
     self.setupUI()
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    self.confirmButton.removeSublayer(at: 0)
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
-  }
-  
   fileprivate func setupUI() {
-    self.confirmButton.rounded(radius: self.confirmButton.frame.size.height / 2)
+    self.confirmButton.rounded(radius: 16)
     self.confirmButton.setTitle(
       NSLocalizedString("confirm", value: "Confirm", comment: ""),
       for: .normal
     )
-    self.confirmButton.applyHorizontalGradient(with: UIColor.Kyber.SWButtonColors)
     self.cancelButton.setTitle(
       NSLocalizedString("cancel", value: "Cancel", comment: ""),
       for: .normal
     )
-    self.cancelButton.rounded(color: UIColor(red: 35, green: 167, blue: 181), width: 1, radius: self.cancelButton.frame.size.height / 2)
+    self.cancelButton.rounded(radius: 16)
     self.amountLabel.text = self.viewModel.amountString
     self.platformNameLabel.text = self.viewModel.platform.name
     if self.viewModel.platform.isCompound {

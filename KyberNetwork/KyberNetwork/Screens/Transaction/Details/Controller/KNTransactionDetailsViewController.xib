@@ -4,21 +4,19 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
+        <array key="Karla-Bold.ttf">
+            <string>Karla-Bold</string>
+        </array>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
         <array key="Lato-Regular.ttf">
             <string>Lato-Regular</string>
-        </array>
-        <array key="Roboto-Bold.ttf">
-            <string>Roboto-Bold</string>
-        </array>
-        <array key="Roboto-Medium.ttf">
-            <string>Roboto-Medium</string>
         </array>
     </customFonts>
     <objects>
@@ -54,13 +52,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="113"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Czk-iM-Eaa">
-                            <rect key="frame" x="109.5" y="76" width="156" height="21"/>
-                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="103" y="73.5" width="169.5" height="23.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Bold" family="Karla" pointSize="20"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YH4-ec-cQr">
-                            <rect key="frame" x="16" y="68.5" width="46" height="36"/>
+                            <rect key="frame" x="16" y="67.5" width="46" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="46" id="Ukf-ay-Cxo"/>
                                 <constraint firstAttribute="height" constant="36" id="nRy-PS-bpe"/>
@@ -71,7 +69,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.039215686274509803" green="0.29411764705882354" blue="0.38039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstItem="Czk-iM-Eaa" firstAttribute="centerX" secondItem="Sip-Uk-XhA" secondAttribute="centerX" id="5U6-FT-pge"/>
                         <constraint firstAttribute="bottom" secondItem="Czk-iM-Eaa" secondAttribute="bottom" constant="16" id="bZ0-T8-Qe9"/>
@@ -87,39 +85,39 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SWAP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeI-gk-FZh">
-                    <rect key="frame" x="73" y="135" width="41" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="73" y="135" width="51.5" height="21"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gas fee" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4zG-ff-J0x">
-                    <rect key="frame" x="20" y="305" width="39.5" height="24"/>
+                    <rect key="frame" x="20" y="313" width="55.5" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="0uD-rR-w3Y"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                    <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="normalTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.001245" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ru1-yf-zjf">
-                    <rect key="frame" x="295" y="308.5" width="60" height="17"/>
-                    <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
-                    <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="288" y="315.5" width="67" height="19"/>
+                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="+1000 ETH" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="78P-qm-FQ2">
-                    <rect key="frame" x="73" y="175.5" width="80" height="19"/>
-                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="16"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="73" y="181.5" width="90.5" height="21"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="18"/>
+                    <color key="textColor" name="textWhiteColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pending" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmX-c8-BB2">
-                    <rect key="frame" x="119" y="135" width="37" height="16"/>
+                    <rect key="frame" x="300.5" y="135" width="44.5" height="16"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16" id="ybc-O9-rrn"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="10"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="12"/>
                     <color key="textColor" red="1" green="0.56470588235294117" blue="0.031372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -145,18 +143,18 @@
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2G4-Wi-3zn">
-                    <rect key="frame" x="197.5" y="225" width="157.5" height="60"/>
+                    <rect key="frame" x="197.5" y="233" width="157.5" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Application" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iT1-GV-hGf">
-                            <rect key="frame" x="20" y="12" width="62.5" height="15"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="20" y="12" width="80.5" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                            <color key="textColor" name="normalTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0x00000000000" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMl-fo-icc">
-                            <rect key="frame" x="20" y="32.5" width="94.5" height="15"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
-                            <color key="textColor" red="0.53725490200000003" green="0.56078431370000004" blue="0.62352941179999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="20" y="32" width="94.5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92h-Sv-u0p">
@@ -173,7 +171,7 @@
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686269999999" green="0.15686274510000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="innerContainerBgColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="3CF-sE-0DV"/>
                         <constraint firstItem="92h-Sv-u0p" firstAttribute="leading" secondItem="2G4-Wi-3zn" secondAttribute="leading" id="628-Ww-Wq5"/>
@@ -190,24 +188,24 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday, June 25th 2018, 17:40:19 UTC+07:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOc-Ne-3sf">
-                    <rect key="frame" x="73" y="154" width="246" height="14.5"/>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
+                    <rect key="frame" x="73" y="158" width="292.5" height="16.5"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
                     <color key="textColor" red="0.35294117650000001" green="0.36862745099999999" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VN3-Is-K3F">
-                    <rect key="frame" x="20" y="225" width="157.5" height="60"/>
+                    <rect key="frame" x="20" y="233" width="157.5" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wallet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ya2-7N-gDs">
-                            <rect key="frame" x="20" y="12" width="36" height="14.5"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
-                            <color key="textColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="20" y="12" width="44" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                            <color key="textColor" name="normalTextColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0x00000000000" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWb-dp-ezm">
-                            <rect key="frame" x="20" y="32.5" width="94.5" height="15"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
-                            <color key="textColor" red="0.53725490196078429" green="0.5607843137254902" blue="0.62352941176470589" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="20" y="32" width="94.5" height="16.5"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mj5-h8-qa7">
@@ -224,7 +222,7 @@
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" red="0.0039215686274509803" green="0.15686274509803921" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" name="innerContainerBgColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="26Y-wj-bLp"/>
                         <constraint firstItem="cbn-40-gje" firstAttribute="leading" secondItem="UWb-dp-ezm" secondAttribute="trailing" constant="10" id="FT6-ER-BP8"/>
@@ -241,22 +239,22 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FMD-kw-hmP">
-                    <rect key="frame" x="126.5" y="352.5" width="228.5" height="17"/>
+                    <rect key="frame" x="142" y="360.5" width="213" height="17"/>
                     <subviews>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="200" text="0x6dcca0ef79989ace462ee3607c5f1ca9f17e0bbcf7505964aa8d6426f34d215b" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzi-d9-zoh">
-                            <rect key="frame" x="0.0" y="0.0" width="207.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="12"/>
-                            <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="0.0" y="0.0" width="192" height="17"/>
+                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="16"/>
+                            <color key="textColor" name="textWhiteColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="703-L7-nbT">
-                            <rect key="frame" x="0.0" y="0.0" width="228.5" height="17"/>
+                            <rect key="frame" x="0.0" y="0.0" width="213" height="17"/>
                             <connections>
                                 <action selector="viewOnEtherscanButtonPressed:" destination="-1" eventType="touchUpInside" id="iUc-OY-CMp"/>
                             </connections>
                         </button>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="open_link_icon_blue" translatesAutoresizingMaskIntoConstraints="NO" id="g2R-bC-l9R">
-                            <rect key="frame" x="211.5" y="0.0" width="17" height="17"/>
+                            <rect key="frame" x="196" y="0.0" width="17" height="17"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="17" id="Pqt-l3-H6h"/>
                                 <constraint firstAttribute="height" constant="17" id="Xbk-dj-kRc"/>
@@ -280,16 +278,16 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TxHash" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lb-nd-CTG">
-                    <rect key="frame" x="20" y="349" width="39.5" height="24"/>
+                    <rect key="frame" x="20" y="357" width="55" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="1rb-Iz-rbo"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                    <color key="textColor" red="0.92549019607843142" green="0.92941176470588238" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                    <color key="textColor" name="normalTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUE-W5-etN">
-                    <rect key="frame" x="64.5" y="310" width="25" height="25"/>
+                    <rect key="frame" x="80.5" y="318" width="25" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="25" id="WIZ-7u-8hT"/>
                         <constraint firstAttribute="height" constant="25" id="e3i-Wq-TRe"/>
@@ -302,16 +300,16 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.19607843137254902" blue="0.2627450980392157" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="QOc-Ne-3sf" firstAttribute="leading" secondItem="yeI-gk-FZh" secondAttribute="leading" id="5LS-9W-Ksi"/>
                 <constraint firstItem="8Lb-nd-CTG" firstAttribute="top" secondItem="4zG-ff-J0x" secondAttribute="bottom" constant="20" id="5qA-7d-zlq"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2G4-Wi-3zn" secondAttribute="trailing" constant="20" id="64F-zH-yQY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="nmX-c8-BB2" secondAttribute="trailing" constant="30" id="7xM-3q-WFZ"/>
                 <constraint firstItem="4zG-ff-J0x" firstAttribute="top" secondItem="VN3-Is-K3F" secondAttribute="bottom" constant="20" id="AOB-JL-3A4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Sip-Uk-XhA" secondAttribute="trailing" id="AnC-QU-DRp"/>
                 <constraint firstItem="78P-qm-FQ2" firstAttribute="leading" secondItem="yeI-gk-FZh" secondAttribute="leading" id="DU0-UY-d8F"/>
-                <constraint firstItem="nmX-c8-BB2" firstAttribute="leading" secondItem="yeI-gk-FZh" secondAttribute="trailing" constant="5" id="FWT-XC-HQG"/>
                 <constraint firstItem="78P-qm-FQ2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="Gjc-hF-h1a"/>
                 <constraint firstItem="cUE-W5-etN" firstAttribute="top" secondItem="4zG-ff-J0x" secondAttribute="top" constant="5" id="GkH-WW-wCw"/>
                 <constraint firstItem="vI3-oR-0I3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="41" id="LO4-t4-Cgr"/>
@@ -356,11 +354,23 @@
         </screenEdgePanGestureRecognizer>
     </objects>
     <resources>
-        <image name="back_blue_icon" width="17" height="14"/>
+        <image name="back_blue_icon" width="22" height="18"/>
         <image name="eth" width="32" height="32"/>
         <image name="help_icon_blue" width="14" height="14"/>
         <image name="history_receive_icon" width="20" height="20"/>
         <image name="knc" width="36" height="36"/>
         <image name="open_link_icon_blue" width="14" height="14"/>
+        <namedColor name="innerContainerBgColor">
+            <color red="0.10588235294117647" green="0.11372549019607843" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

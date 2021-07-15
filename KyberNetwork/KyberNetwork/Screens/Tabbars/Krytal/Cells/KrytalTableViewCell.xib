@@ -4,12 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-VariableFont_wght.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -22,82 +23,54 @@
                 <rect key="frame" x="0.0" y="0.0" width="335" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="ABI96666" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dv5-RV-kNN">
-                        <rect key="frame" x="14" y="15" width="63" height="14"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="63" id="40M-m0-ohn"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="ABI96666666666666666666" textAlignment="natural" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dv5-RV-kNN">
+                        <rect key="frame" x="14" y="14" width="100" height="16.5"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                        <color key="textColor" name="buttonBackgroundColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10-10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="WEY-LN-9hd">
-                        <rect key="frame" x="123.5" y="15" width="32.5" height="14"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="119" y="14" width="37" height="16.5"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                        <color key="textColor" name="textWhiteColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2mq-Fn-18I">
-                        <rect key="frame" x="184" y="15" width="14" height="14"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="182" y="14" width="16" height="16.5"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                        <color key="textColor" name="textWhiteColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="993" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylW-HC-fF5">
-                        <rect key="frame" x="234" y="15" width="21" height="14"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="231.5" y="14" width="23.5" height="16.5"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                        <color key="textColor" name="textWhiteColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="429" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESJ-dK-Kn9">
-                        <rect key="frame" x="278" y="15" width="21" height="14"/>
-                        <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                        <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <rect key="frame" x="275.5" y="14" width="23.5" height="16.5"/>
+                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="14"/>
+                        <color key="textColor" name="textWhiteColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KIJ-Fh-sRO">
-                        <rect key="frame" x="80" y="11" width="14" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="fj2-lD-7c9"/>
-                            <constraint firstAttribute="width" constant="14" id="nxE-nL-X0N"/>
-                        </constraints>
-                        <state key="normal" image="copy_icon_blue"/>
-                        <connections>
-                            <action selector="copyButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bwp-Kv-Hv0"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dN-ks-XrC">
-                        <rect key="frame" x="104" y="11" width="12" height="22"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="22" id="2Fa-DJ-iMy"/>
-                            <constraint firstAttribute="width" constant="12" id="eRE-4y-5pW"/>
-                        </constraints>
-                        <state key="normal" image="krytal_share_icon"/>
-                        <connections>
-                            <action selector="shareButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="IyU-Bb-WuA"/>
-                        </connections>
-                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="WEY-LN-9hd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Dv5-RV-kNN" secondAttribute="trailing" constant="5" id="4Sh-Kc-JTL"/>
                     <constraint firstAttribute="trailing" secondItem="2mq-Fn-18I" secondAttribute="trailing" constant="137" id="73l-fE-WmT"/>
                     <constraint firstItem="Dv5-RV-kNN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="HO7-mo-rdd"/>
                     <constraint firstItem="2mq-Fn-18I" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="KfS-jN-Cc7"/>
-                    <constraint firstItem="4dN-ks-XrC" firstAttribute="centerY" secondItem="KIJ-Fh-sRO" secondAttribute="centerY" id="MfX-Fa-Npi"/>
                     <constraint firstItem="Dv5-RV-kNN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="14" id="OwY-53-g4J"/>
                     <constraint firstItem="WEY-LN-9hd" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="R6b-MF-g6Q"/>
-                    <constraint firstItem="KIJ-Fh-sRO" firstAttribute="leading" secondItem="Dv5-RV-kNN" secondAttribute="trailing" constant="3" id="VfG-au-aeb"/>
                     <constraint firstAttribute="trailing" secondItem="WEY-LN-9hd" secondAttribute="trailing" constant="179" id="Yus-iz-DHc"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ESJ-dK-Kn9" secondAttribute="trailing" constant="20" id="bYK-zb-KrG"/>
                     <constraint firstItem="ESJ-dK-Kn9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dyW-jJ-uQV"/>
-                    <constraint firstItem="WEY-LN-9hd" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4dN-ks-XrC" secondAttribute="trailing" constant="5" id="e5J-Y2-fiC"/>
-                    <constraint firstItem="KIJ-Fh-sRO" firstAttribute="centerY" secondItem="Dv5-RV-kNN" secondAttribute="centerY" id="kCb-bw-dyX"/>
-                    <constraint firstItem="4dN-ks-XrC" firstAttribute="leading" secondItem="KIJ-Fh-sRO" secondAttribute="trailing" constant="10" id="oGG-Cp-L3h"/>
                     <constraint firstAttribute="trailing" secondItem="ylW-HC-fF5" secondAttribute="trailing" constant="80" id="wV5-2N-wdU"/>
                     <constraint firstItem="ylW-HC-fF5" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="z2Y-Yc-Cll"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="tintColor" name="textWhiteColor"/>
             <connections>
                 <outlet property="confirmedVolLabel" destination="ESJ-dK-Kn9" id="WNL-xl-f6W"/>
                 <outlet property="friendsLabel" destination="2mq-Fn-18I" id="XSP-UQ-T1b"/>
@@ -109,7 +82,11 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="copy_icon_blue" width="14" height="14"/>
-        <image name="krytal_share_icon" width="12" height="12"/>
+        <namedColor name="buttonBackgroundColor">
+            <color red="0.11372549019607843" green="0.9137254901960784" blue="0.71372549019607845" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textWhiteColor">
+            <color red="1" green="1" blue="1" alpha="0.94999998807907104" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

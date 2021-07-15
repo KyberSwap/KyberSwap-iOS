@@ -4,32 +4,24 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Lato-Bold.ttf">
-            <string>Lato-Bold</string>
-        </array>
-        <array key="Lato-Regular.ttf">
-            <string>Lato-Regular</string>
+        <array key="Karla-Regular.ttf">
+            <string>Karla-Regular</string>
         </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OverviewDepositViewController" customModule="KyberSwap___Crypto_Exchange" customModuleProvider="target">
             <connections>
                 <outlet property="borrowButton" destination="vTA-ba-2fd" id="uUz-RY-yHC"/>
-                <outlet property="btcButton" destination="ORq-BI-4PO" id="knI-ZL-txG"/>
                 <outlet property="emptyView" destination="qxe-2X-Laa" id="1uU-ze-oIf"/>
-                <outlet property="ethButton" destination="liu-Lh-O9r" id="aqe-Id-Y8R"/>
                 <outlet property="supplyButton" destination="efr-Ch-pZj" id="dXl-dt-UHI"/>
                 <outlet property="tableView" destination="oQR-9f-vGM" id="Wu3-hb-uMB"/>
-                <outlet property="totalStringLabel" destination="4SF-2T-qWE" id="Die-70-XaW"/>
-                <outlet property="usdButton" destination="0O4-Zy-R0a" id="2QJ-OX-urM"/>
+                <outlet property="totalStringLabel" destination="yPn-Rv-uNV" id="9Hl-51-xs1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outletCollection property="currencySelectButtons" destination="0O4-Zy-R0a" collectionClass="NSMutableArray" id="s9z-Mf-Zlx"/>
-                <outletCollection property="currencySelectButtons" destination="liu-Lh-O9r" collectionClass="NSMutableArray" id="xfx-Lt-Bq4"/>
-                <outletCollection property="currencySelectButtons" destination="ORq-BI-4PO" collectionClass="NSMutableArray" id="gDu-Qw-KhB"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -38,74 +30,67 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="oQR-9f-vGM">
-                    <rect key="frame" x="18" y="36" width="339" height="631"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <view key="tableHeaderView" contentMode="scaleToFill" id="AI2-kM-yYm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NTa-Wo-fFk">
+                                <rect key="frame" x="12" y="10" width="351" height="40"/>
+                                <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V1P-qn-1Hc">
+                                        <rect key="frame" x="320" y="8" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="den-Is-BRF"/>
+                                            <constraint firstAttribute="width" constant="24" id="eue-Lm-HWi"/>
+                                        </constraints>
+                                        <state key="normal" image="option_overview_icon"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Supply " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qq3-vX-k0l">
+                                        <rect key="frame" x="22" y="10.5" width="54" height="19"/>
+                                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,320.65 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPn-Rv-uNV">
+                                        <rect key="frame" x="85" y="10.5" width="76" height="19"/>
+                                        <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="toolbarBgColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="V1P-qn-1Hc" secondAttribute="trailing" constant="7" id="7tv-c0-Wtw"/>
+                                    <constraint firstItem="Qq3-vX-k0l" firstAttribute="centerY" secondItem="NTa-Wo-fFk" secondAttribute="centerY" id="PZU-Yy-Jvk"/>
+                                    <constraint firstItem="Qq3-vX-k0l" firstAttribute="leading" secondItem="NTa-Wo-fFk" secondAttribute="leading" constant="22" id="ee9-eP-t6V"/>
+                                    <constraint firstItem="V1P-qn-1Hc" firstAttribute="centerY" secondItem="NTa-Wo-fFk" secondAttribute="centerY" id="h17-pr-qnB"/>
+                                    <constraint firstItem="yPn-Rv-uNV" firstAttribute="centerY" secondItem="NTa-Wo-fFk" secondAttribute="centerY" id="hWK-53-Hb6"/>
+                                    <constraint firstItem="yPn-Rv-uNV" firstAttribute="leading" secondItem="Qq3-vX-k0l" secondAttribute="trailing" constant="9" id="mXe-5a-Ggj"/>
+                                    <constraint firstAttribute="height" constant="40" id="rar-n4-YE5"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="4Ce-mS-XD9"/>
+                        <color key="backgroundColor" name="mainViewBgColor"/>
+                        <constraints>
+                            <constraint firstItem="4Ce-mS-XD9" firstAttribute="trailing" secondItem="NTa-Wo-fFk" secondAttribute="trailing" constant="12" id="GG5-Fa-dAR"/>
+                            <constraint firstItem="NTa-Wo-fFk" firstAttribute="leading" secondItem="4Ce-mS-XD9" secondAttribute="leading" constant="12" id="hIh-Jl-iyW"/>
+                            <constraint firstItem="NTa-Wo-fFk" firstAttribute="top" secondItem="4Ce-mS-XD9" secondAttribute="top" constant="10" id="yxQ-hc-Jdq"/>
+                        </constraints>
+                    </view>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="0uf-Gc-CsN"/>
                         <outlet property="delegate" destination="-1" id="G0h-2o-i0d"/>
                     </connections>
                 </tableView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n01-H5-st5">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Supply" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KP0-uo-vmL">
-                            <rect key="frame" x="30" y="8.5" width="50" height="19"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="16"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0O4-Zy-R0a">
-                            <rect key="frame" x="92" y="5" width="30" height="26"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                            <state key="normal" title="USD">
-                                <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="currencyTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="SPs-6K-2Kz"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liu-Lh-O9r">
-                            <rect key="frame" x="132" y="5" width="30" height="26"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                            <state key="normal" title="ETH">
-                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="currencyTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="NYY-Tn-5KS"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1,320.65" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SF-2T-qWE">
-                            <rect key="frame" x="277.5" y="9.5" width="62.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ORq-BI-4PO">
-                            <rect key="frame" x="172" y="5" width="30" height="26"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="12"/>
-                            <state key="normal" title="BTC">
-                                <color key="titleColor" red="0.96078431369999995" green="0.96470588239999999" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="currencyTypeButtonTapped:" destination="-1" eventType="touchUpInside" id="eaw-8l-RNE"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" red="0.090196078430000007" green="0.43921568630000002" blue="0.55294117649999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstItem="4SF-2T-qWE" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="09D-eB-K3S"/>
-                        <constraint firstItem="ORq-BI-4PO" firstAttribute="centerY" secondItem="liu-Lh-O9r" secondAttribute="centerY" id="6Bg-Q3-oDC"/>
-                        <constraint firstItem="0O4-Zy-R0a" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="PQe-Zj-3mc"/>
-                        <constraint firstItem="liu-Lh-O9r" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="bwf-6G-0Zt"/>
-                        <constraint firstItem="KP0-uo-vmL" firstAttribute="centerY" secondItem="n01-H5-st5" secondAttribute="centerY" id="hnG-0J-0nx"/>
-                        <constraint firstAttribute="height" constant="36" id="hqY-NM-5WF"/>
-                        <constraint firstItem="0O4-Zy-R0a" firstAttribute="leading" secondItem="KP0-uo-vmL" secondAttribute="trailing" constant="12" id="iSB-Dc-4CD"/>
-                        <constraint firstAttribute="trailing" secondItem="4SF-2T-qWE" secondAttribute="trailing" constant="35" id="ths-0w-8Yu"/>
-                        <constraint firstItem="ORq-BI-4PO" firstAttribute="leading" secondItem="liu-Lh-O9r" secondAttribute="trailing" constant="10" id="y8Y-LN-8Na"/>
-                        <constraint firstItem="liu-Lh-O9r" firstAttribute="leading" secondItem="0O4-Zy-R0a" secondAttribute="trailing" constant="10" id="yGg-Fc-vli"/>
-                        <constraint firstItem="KP0-uo-vmL" firstAttribute="leading" secondItem="n01-H5-st5" secondAttribute="leading" constant="30" id="yJJ-lD-4Xv"/>
-                    </constraints>
-                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qxe-2X-Laa">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
@@ -113,36 +98,36 @@
                             <rect key="frame" x="142.5" y="45" width="90" height="107"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efr-Ch-pZj">
-                            <rect key="frame" x="37" y="232" width="301" height="36"/>
+                            <rect key="frame" x="37" y="234" width="301" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="bZn-Nk-Vn9"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Supply tokens to earn interest">
-                                <color key="titleColor" red="1" green="0.86274509799999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                             <connections>
                                 <action selector="supplyButtonTapped:" destination="-1" eventType="touchUpInside" id="bmb-4X-Suc"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTA-ba-2fd">
-                            <rect key="frame" x="37" y="300" width="301" height="36"/>
+                            <rect key="frame" x="37" y="302" width="301" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="i8a-fG-srL"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="Lato-Bold" family="Lato" pointSize="14"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <state key="normal" title="Borrow tokens (Coming Soon)">
-                                <color key="titleColor" red="0.13725490200000001" green="0.65490196079999996" blue="0.70980392160000005" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="titleColor" name="normalTextColor"/>
                             </state>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your supply is empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuR-7A-37a">
-                            <rect key="frame" x="122.5" y="175" width="130.5" height="17"/>
-                            <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="14"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You’ve not supplied any token to earn interest." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuR-7A-37a">
+                            <rect key="frame" x="21.5" y="175" width="332" height="19"/>
+                            <fontDescription key="fontDescription" name="Karla-Regular" family="Karla" pointSize="16"/>
                             <color key="textColor" red="0.54117647059999996" green="0.64313725489999995" blue="0.68235294120000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" name="mainViewBgColor"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="efr-Ch-pZj" secondAttribute="trailing" constant="37" id="5sj-ag-LmH"/>
                         <constraint firstItem="vTA-ba-2fd" firstAttribute="top" secondItem="efr-Ch-pZj" secondAttribute="bottom" constant="32" id="Fcc-7L-C7X"/>
@@ -158,17 +143,14 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" red="0.0" green="0.1960784314" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" name="mainViewBgColor"/>
             <constraints>
                 <constraint firstItem="qxe-2X-Laa" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="5wR-8M-bkt"/>
-                <constraint firstItem="oQR-9f-vGM" firstAttribute="top" secondItem="n01-H5-st5" secondAttribute="bottom" id="KPX-ER-4oJ"/>
+                <constraint firstItem="oQR-9f-vGM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="FS8-pk-oGF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="oQR-9f-vGM" secondAttribute="bottom" id="Kci-IB-sak"/>
-                <constraint firstItem="n01-H5-st5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NLs-e5-BgI"/>
-                <constraint firstItem="n01-H5-st5" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="PwJ-2q-cRv"/>
-                <constraint firstItem="n01-H5-st5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ReD-E2-gvn"/>
                 <constraint firstItem="qxe-2X-Laa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="S6i-GL-n7Q"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oQR-9f-vGM" secondAttribute="trailing" constant="18" id="WCz-bF-gaw"/>
-                <constraint firstItem="oQR-9f-vGM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="d3u-gM-jz6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="oQR-9f-vGM" secondAttribute="trailing" id="WCz-bF-gaw"/>
+                <constraint firstItem="oQR-9f-vGM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="d3u-gM-jz6"/>
                 <constraint firstItem="qxe-2X-Laa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="oCM-f3-fdE"/>
                 <constraint firstItem="qxe-2X-Laa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vO0-gc-NJC"/>
             </constraints>
@@ -177,5 +159,15 @@
     </objects>
     <resources>
         <image name="deposit_empty_icon" width="90" height="107"/>
+        <image name="option_overview_icon" width="25" height="25"/>
+        <namedColor name="mainViewBgColor">
+            <color red="0.0039215686274509803" green="0.0039215686274509803" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="normalTextColor">
+            <color red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="toolbarBgColor">
+            <color red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
