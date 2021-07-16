@@ -25,7 +25,6 @@
 		25073D22211AF20D00833C92 /* Montserrat-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25073D0F211AF20B00833C92 /* Montserrat-Italic.ttf */; };
 		25073D23211AF20D00833C92 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25073D10211AF20B00833C92 /* Montserrat-Regular.ttf */; };
 		25073D24211AF20D00833C92 /* Montserrat-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25073D11211AF20B00833C92 /* Montserrat-Thin.ttf */; };
-		25073D25211AF20D00833C92 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 25073D12211AF20C00833C92 /* OFL.txt */; };
 		25073D26211AF20D00833C92 /* Montserrat-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25073D13211AF20C00833C92 /* Montserrat-Light.ttf */; };
 		25073D27211AF20D00833C92 /* Montserrat-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25073D14211AF20C00833C92 /* Montserrat-ThinItalic.ttf */; };
 		25073D28211AF20D00833C92 /* Montserrat-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 25073D15211AF20C00833C92 /* Montserrat-ExtraLight.ttf */; };
@@ -4314,7 +4313,6 @@
 				25929C9D20DA5CC10045CFA3 /* SFCompactDisplay-Ultralight.otf in Resources */,
 				25929C6C20DA5C760045CFA3 /* SF-Pro-Text-SemiboldItalic.otf in Resources */,
 				25BE329D209096E800D760FB /* KNListWalletsViewController.xib in Resources */,
-				25073D25211AF20D00833C92 /* OFL.txt in Resources */,
 				257B84A72074C2B9003DD40E /* KNDebugMenuViewController.xib in Resources */,
 				C3A6911425638DE700F57756 /* Lato-Thin.ttf in Resources */,
 				25929C6720DA5C760045CFA3 /* SF-Pro-Text-Medium.otf in Resources */,
@@ -5397,8 +5395,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "KyberNetwork/KyberSwap - Crypto ExchangeDebug.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Minh Quân Tạ (G52WUM3453)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Minh Quân Tạ (G52WUM3453)";
+				CODE_SIGN_IDENTITY = "Apple Development: Devops Kyber (YKG7A8A764)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Devops Kyber (YKG7A8A764)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
@@ -5429,8 +5427,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "KyberNetwork/KyberSwap - Crypto ExchangeDebug.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				CODE_SIGN_IDENTITY = "Apple Development: Devops Kyber (YKG7A8A764)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Devops Kyber (YKG7A8A764)";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = G9CRYMTLBL;
@@ -5443,7 +5441,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios;
 				PRODUCT_NAME = "KyberSwap - Crypto Exchange";
 				PROVISIONING_PROFILE = "d08d5f84-6398-4202-b037-8e45e693b687";
-				PROVISIONING_PROFILE_SPECIFIER = "Krytal profile production";
+				PROVISIONING_PROFILE_SPECIFIER = "Krytal Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "KyberNetwork/KyberSwap-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.0;
@@ -5536,8 +5534,8 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "Apple Development: Minh Quân Tạ (G52WUM3453)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Minh Quân Tạ (G52WUM3453)";
+				CODE_SIGN_IDENTITY = "Apple Development: Devops Kyber (YKG7A8A764)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Devops Kyber (YKG7A8A764)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 21;
@@ -5566,8 +5564,8 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: KYRD International Limited (G9CRYMTLBL)";
+				CODE_SIGN_IDENTITY = "Apple Development: Devops Kyber (YKG7A8A764)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Devops Kyber (YKG7A8A764)";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 21;
@@ -5580,7 +5578,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kyrd.krystal.ios.KrystalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Krytal Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = dev_profile;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

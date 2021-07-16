@@ -1,0 +1,44 @@
+# set default keychain or not
+default_keychain = false
+if ENV["DEFAULT_KEYCHAIN"] 
+  default_keychain = true
+end 
+
+# this certificate should be p12 format
+# it could be absolute path
+distribute_cert_path = ENV["DISTRIBUTE_CERT_PATH"] 
+distribute_cert_pwd = ENV["DISTRIBUTE_CERT_PASSWORD"] 
+
+# this certificate should be cert format
+# it could be absolute path
+development_cert_path = ENV["DEVELOPMENT_CERT_PATH"]
+
+lane :prepare_keychain do
+  # travis provider is still working with github actions
+  setup_ci(
+    force: true,
+    provider: "travis"
+  )
+
+  # unlock keychain and set as default if env is ci
+  unlock_keychain(
+    path: "fastlane_tmp_keychain",
+    password: "",
+    set_default: default_keychain
+  )
+  
+  import_certificate(
+    certificate_path: distribute_cert_path,
+    certificate_password: distribute_cert_pwd,
+    keychain_name: "fastlane_tmp_keychain",
+    keychain_password: "",
+    log_output: true
+  )
+  import_certificate(
+    certificate_path: development_cert_path,
+    keychain_name: "fastlane_tmp_keychain",
+    keychain_password: "",
+    log_output: true
+  )
+
+end
