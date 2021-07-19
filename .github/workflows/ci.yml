@@ -47,6 +47,13 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCS_SA_CREDENTIAL }}
           export_default_credentials: true
+      
+      - uses: actions/cache@v1
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
 
       - name: Get configuration items
         run: |
@@ -55,11 +62,11 @@ jobs:
 
       - name: Copy secret
         run: cp /Users/runner/privates/knsecret.swift ./KyberNetwork/KyberNetwork/Configurations/Environments
-
+        
       - name: Build IPA
         uses: maierj/fastlane-action@v2.0.1
         with:
           lane: all
 
       - name: Check result
-        run: ls -lah
+        run: ls -lah archives
