@@ -1,6 +1,9 @@
 name: CI Build
 
-on: push
+on: 
+  push:
+    branches:
+      - ci
 
 env:
   LANG: en_US.UTF-8
@@ -28,11 +31,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: "2.7.2"
-      
+          
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
@@ -49,5 +48,6 @@ jobs:
         uses: maierj/fastlane-action@v2.0.1
         with:
           lane: all
+
       - name: Check result
         run: ls -lah 
