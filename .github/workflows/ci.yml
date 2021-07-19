@@ -19,7 +19,7 @@ jobs:
       TMP_KEYCHAIN_NAME: "fastlane_tmp_keychain"
       DISTRIBUTE_CERT_PATH: /Users/runner/privates/distribution.p12
       DISTRIBUTE_CERT_PASSWORD: ${{ secrets.DISTRIBUTE_CERT_PASSWORD }}
-      DEVELOPMENT_CERT_PATH: /Users/runner/private/devops_development.p12
+      DEVELOPMENT_CERT_PATH: /Users/runner/privates/devops_development.p12
       DEVELOPMENT_CERT_PASSWORD: ${{ secrets.DEVELOPMENT_CERT_PASSWORD }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       APPLE_BUNDLE_ID: ${{ secrets.APPLE_BUNDLE_ID }}
@@ -47,7 +47,7 @@ jobs:
       - name: Copy secret
         run: cp /Users/runner/privates/knsecret.swift ./KyberNetwork/KyberNetwork/Configurations/Environments
       
-      - name: Build and Release
+      - name: Build IPA
         uses: maierj/fastlane-action@v2.0.1
         with:
           lane: all
