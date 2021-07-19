@@ -1,17 +1,26 @@
-# set default keychain or not
-default_keychain = false
-if ENV["DEFAULT_KEYCHAIN"] 
-  default_keychain = true
-end 
+# tmp keychain name
+# default is `fastlane_tmp_keychain`
+tmp_keychain = ENV["TMP_KEYCHAIN_NAME"] || "fastlane_tmp_keychain"
 
-# this certificate should be p12 format
 # it could be absolute path
 distribute_cert_path = ENV["DISTRIBUTE_CERT_PATH"] 
 distribute_cert_pwd = ENV["DISTRIBUTE_CERT_PASSWORD"] 
 
-# this certificate should be cert format
 # it could be absolute path
 development_cert_path = ENV["DEVELOPMENT_CERT_PATH"]
+development_cert_pwd = ENV["DEVELOPMENT_CERT_PASSWORD"]
+
+
+# build variables
+team_id = ENV["APPLE_TEAM_ID"]
+bundle_id = ENV["APPLE_BUNDLE_ID"]
+# apple code siging identity
+# e.g: Apple Development: XXXX 
+signing_id = ENV["APPLE_CODE_SIGNING_ID"] 
+dev_profile = ENV["DEV_PROFILE"]
+krystal_dev_profile = ENV["KRYSTAL_DEV_PROFILE"]
+ad_hoc_profile = ENV["AD_HOC_PROFILE"]
+ext_ad_hoc_profile = ENV["EXT_AD_HOC_PROFILE"]
 
 lane :prepare_keychain do
   # travis provider is still working with github actions
@@ -20,25 +29,65 @@ lane :prepare_keychain do
     provider: "travis"
   )
 
-  # unlock keychain and set as default if env is ci
+  # unlock keychain and set as default
   unlock_keychain(
-    path: "fastlane_tmp_keychain",
+    path: tmp_keychain,
     password: "",
-    set_default: default_keychain
+    set_default: true 
   )
-  
+  # import distribution certificate
   import_certificate(
     certificate_path: distribute_cert_path,
     certificate_password: distribute_cert_pwd,
-    keychain_name: "fastlane_tmp_keychain",
+    keychain_name: tmp_keychain,
     keychain_password: "",
     log_output: true
   )
+  # import development certificate
   import_certificate(
     certificate_path: development_cert_path,
-    keychain_name: "fastlane_tmp_keychain",
+    certificate_password: development_cert_pwd,
+    keychain_name: tmp_keychain,
     keychain_password: "",
     log_output: true
   )
+end
 
+lane :update_project do 
+  # update code signing identity for KyberNetwork
+  # ref: https://docs.fastlane.tools/actions/update_code_signing_settings/
+  update_code_signing_settings(
+    team_id: team_id,
+    code_sign_identity: signing_id,
+    targets: "KyberNetwork",
+    profile_name: krystal_dev_profile
+  )
+
+  # update code signing identity for KrystalNotificationServiceExtension
+  update_code_signing_settings(
+    team_id: team_id,
+    code_sign_identity: signing_id,
+    targets: "KrystalNotificationServiceExtension",
+    profile_name: dev_profile
+  )
+end
+
+lane :build do
+  build_app(
+    workspace: "KyberNetwork.xcworkspace",
+    configuration: "Release",
+    scheme: "KyberNetwork",
+    clean: true,
+    output_directory: "archives",
+    output_name: "KyberSwap.ipa",
+    sdk: "iphoneos",
+    export_method: "ad-hoc",
+    export_team_id: team_id,
+    export_options: {
+      provisioningProfiles: { 
+        bundle_id => ad_hoc_profile,
+        bundle_id << ".KrystalNotificationServiceExtension" => ext_ad_hoc_profile
+      }
+    }
+  )
 end

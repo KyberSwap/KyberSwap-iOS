@@ -1,0 +1,31 @@
+name: CI Build
+
+on: push
+
+env:
+  LANG: en_US.UTF-8
+  # base64 service account credentials 
+  GCS_SA_CREDENTIAL: ${{ secrets.GCS_SA_CREDENTIAL }}
+  GCS_PROJECT_ID: ${{ secrets.GCS_PROJECT_ID }}
+  GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCS_SA_CREDENTIAL }}
+          export_default_credentials: true
+      
+      - name: Get configuration items
+        run: |
+          mkdir -p $HOME/.private
+          gutil cp -r gcs://$GCS_BICKET/ios $HOME/.private
+          ls -lah
+      
+      

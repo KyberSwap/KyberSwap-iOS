@@ -20,6 +20,16 @@ or alternatively using `brew install fastlane`
 fastlane prepare_keychain
 ```
 
+### update_project
+```
+fastlane update_project
+```
+
+### build
+```
+fastlane build
+```
+
 
 ----
 
