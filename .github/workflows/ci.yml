@@ -64,11 +64,6 @@ jobs:
       - name: Copy secret
         run: cp /Users/runner/privates/knsecret.swift ./KyberNetwork/KyberNetwork/Configurations/Environments
       
-      # - name: Setup CocoaPods
-      #   run: |
-      #     rm -rf ~/.cocoapods && mkdir -p ~/.cocoapods/repos
-      #     git clone https://github.com/CocoaPods/Specs.git ~/.cocoapods/repos/master
-
       - name: Pods install
         run: pod install
 
