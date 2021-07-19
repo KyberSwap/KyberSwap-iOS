@@ -5,20 +5,17 @@ function cleanup() {
   login_keychain=$(security login-keychain | awk '{ sub(/^[ \t]+/, ""); print }' | tr -d '"')
   security default-keychain -s "$login_keychain"
   # remove tmp keychain
-  TMP_KEYCHAIN_NAME=${TMP_KEYCHAIN_NAME:-"fastlane_tmp_keychain"} 
+  TMP_KEYCHAIN_NAME=${TMP_KEYCHAIN_NAME:-"fastlane_tmp_keychain"}
   tmp_keychain=$(security list-keychains | grep "$TMP_KEYCHAIN_NAME" | awk '{ sub(/^[ \t]+/, ""); print }' | tr -d '"')
-  if [[ -n $tmp_keychain ]]; then 
+  if [[ -n $tmp_keychain ]]; then
     security delete-keychain "$tmp_keychain"
   fi
 }
 
 trap cleanup EXIT SIGTERM SIGINT SIGQUIT
 
-export DEFAULT_KEYCHAIN=1
-export DISTRIBUTE_CERT_PATH=$HOME/.private/distribution.p12
-export DISTRIBUTE_CERT_PASSWORD="" # fill password
-export DEVELOPMENT_CERT_PATH=$HOME/.private/devops_development.p12
-export DEVELOPMENT_CERT_PASSWORD="" # fill password 
-export TMP_KEYCHAIN_NAME="fastlane_tmp_keychain"
+ENV_FILE="./scripts/build.env"
+# shellcheck disable=SC1090
+[[ -f "$ENV_FILE" ]] && source $ENV_FILE
 
-fastlane prepare_keychain
+fastlane all

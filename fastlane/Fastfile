@@ -22,7 +22,7 @@ krystal_dev_profile = ENV["KRYSTAL_DEV_PROFILE"]
 ad_hoc_profile = ENV["AD_HOC_PROFILE"]
 ext_ad_hoc_profile = ENV["EXT_AD_HOC_PROFILE"]
 
-lane: all do
+lane :all do
   prepare_keychain
   update_project
   build
@@ -79,6 +79,7 @@ lane :update_project do
 end
 
 lane :build do
+  @tid = bundle_id + ".KrystalNotificationServiceExtension" 
   build_app(
     workspace: "KyberNetwork.xcworkspace",
     configuration: "Release",
@@ -92,7 +93,7 @@ lane :build do
     export_options: {
       provisioningProfiles: { 
         bundle_id => ad_hoc_profile,
-        bundle_id << ".KrystalNotificationServiceExtension" => ext_ad_hoc_profile
+        @tid => ext_ad_hoc_profile
       }
     }
   )

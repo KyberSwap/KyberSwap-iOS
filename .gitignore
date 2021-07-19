@@ -99,3 +99,4 @@ archives/
 .privates/
 
 Gemfile.lock
+*.env
