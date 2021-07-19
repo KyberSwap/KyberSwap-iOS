@@ -100,10 +100,6 @@ lane :update_project do
 end
 
 lane :build do
-  # pod install
-  cocoapods(
-    repo_update: true
-  )
   @tid = bundle_id + ".KrystalNotificationServiceExtension" 
   build_app(
     workspace: "KyberNetwork.xcworkspace",
