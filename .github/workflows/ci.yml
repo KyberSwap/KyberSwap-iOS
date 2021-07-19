@@ -17,9 +17,9 @@ jobs:
     runs-on: macos-latest
     env:
       TMP_KEYCHAIN_NAME: "fastlane_tmp_keychain"
-      DISTRIBUTE_CERT_PATH: .privates/distribution.p12
+      DISTRIBUTE_CERT_PATH: /Users/runner/privates/distribution.p12
       DISTRIBUTE_CERT_PASSWORD: ${{ secrets.DISTRIBUTE_CERT_PASSWORD }}
-      DEVELOPMENT_CERT_PATH: .private/devops_development.p12
+      DEVELOPMENT_CERT_PATH: /Users/runner/private/devops_development.p12
       DEVELOPMENT_CERT_PASSWORD: ${{ secrets.DEVELOPMENT_CERT_PASSWORD }}
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       APPLE_BUNDLE_ID: ${{ secrets.APPLE_BUNDLE_ID }}
@@ -41,12 +41,11 @@ jobs:
       
       - name: Get configuration items
         run: |
-          mkdir -p /privates
-          chmod -R 755 /privates
-          gsutil cp -r gs://$GCS_BUCKET/ios/* /privates
+          mkdir -p /Users/runner/privates        
+          gsutil cp -r gs://$GCS_BUCKET/ios/* /Users/runner/privates
       
       - name: Copy secret
-        run: cp /privates//knsecret.swift ./KyberNetwork/KyberNetwork/Configurations/Environments
+        run: cp /Users/runner/privates/knsecret.swift ./KyberNetwork/KyberNetwork/Configurations/Environments
       
       - name: Build and Release
         uses: maierj/fastlane-action@v2.0.1
