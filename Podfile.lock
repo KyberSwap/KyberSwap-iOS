@@ -201,7 +201,7 @@ DEPENDENCIES:
   - WalletConnect (from `https://github.com/trustwallet/wallet-connect-swift`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Alamofire
     - APIKit
     - BetterSegmentedControl
@@ -313,6 +313,6 @@ SPEC CHECKSUMS:
   TrustKeystore: ba8a33ccd7b6a46dfe25f209253d6ba13da6655c
   WalletConnect: c5be4e3ed9efbefb8480ab27e1766d4549a92709
 
-PODFILE CHECKSUM: ba90faa21a3e735939c655b4b430b59edd1ea040
+PODFILE CHECKSUM: 072e81dc9e7b37273de5c3691c47d5331d61b7d7
 
 COCOAPODS: 1.10.1

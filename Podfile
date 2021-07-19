@@ -1,6 +1,6 @@
 platform :ios, '11.0'
 inhibit_all_warnings!
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://cdn.cocoapods.org/'
 
 target 'KyberNetwork' do
   use_frameworks!
