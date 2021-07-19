@@ -48,7 +48,8 @@ jobs:
           service_account_key: ${{ secrets.GCS_SA_CREDENTIAL }}
           export_default_credentials: true
       
-      - uses: actions/cache@v1
+      - name: Setup cache 
+        uses: actions/cache@v1
         with:
           path: Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
