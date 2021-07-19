@@ -4,7 +4,7 @@ on: push
 
 env:
   LANG: en_US.UTF-8
-  # base64 service account credentials 
+  # base64 service account credentials
   GCS_SA_CREDENTIAL: ${{ secrets.GCS_SA_CREDENTIAL }}
   GCS_PROJECT_ID: ${{ secrets.GCS_PROJECT_ID }}
   GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
@@ -12,9 +12,27 @@ env:
 jobs:
   build-ios:
     runs-on: macos-latest
+    env:
+      TMP_KEYCHAIN_NAME: "fastlane_tmp_keychain"
+      DISTRIBUTE_CERT_PATH: .privates/distribution.p12
+      DISTRIBUTE_CERT_PASSWORD: ${{ secrets.DISTRIBUTE_CERT_PASSWORD }}
+      DEVELOPMENT_CERT_PATH: .private/devops_development.p12
+      DEVELOPMENT_CERT_PASSWORD: ${{ secrets.DEVELOPMENT_CERT_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      APPLE_BUNDLE_ID: ${{ secrets.APPLE_BUNDLE_ID }}
+      APPLE_CODE_SIGNING_ID: ${{ secrets.APPLE_CODE_SIGNING_ID }}
+      DEV_PROFILE: ${{ secrets.DEV_PROFILE }}
+      KRYSTAL_DEV_PROFILE: ${{ secrets.KRYSTAL_DEV_PROFILE }}
+      AD_HOC_PROFILE: ${{ secrets.AD_HOC_PROFILE }}
+      EXT_AD_HOC_PROFILE: ${{ secrets.EXT_AD_HOC_PROFILE }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.7.2"
+      
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
@@ -24,8 +42,12 @@ jobs:
       
       - name: Get configuration items
         run: |
-          mkdir -p $HOME/.private
-          gsutil cp -r gs://$GCS_BUCKET/ios/* $HOME/.private
-          ls -lah $HOME/.private
+          mkdir -p .privates
+          gsutil cp -r gs://$GCS_BUCKET/ios/* .privates
       
-      
+      - name: Build and Release
+        uses: maierj/fastlane-action@v2.0.1
+        with:
+          lane: all
+      - name: Check result
+        run: ls -lah 

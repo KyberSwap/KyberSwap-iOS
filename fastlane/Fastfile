@@ -22,6 +22,12 @@ krystal_dev_profile = ENV["KRYSTAL_DEV_PROFILE"]
 ad_hoc_profile = ENV["AD_HOC_PROFILE"]
 ext_ad_hoc_profile = ENV["EXT_AD_HOC_PROFILE"]
 
+lane: all do
+  prepare_keychain
+  update_project
+  build
+end
+
 lane :prepare_keychain do
   # travis provider is still working with github actions
   setup_ci(
