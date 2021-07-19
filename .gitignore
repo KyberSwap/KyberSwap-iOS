@@ -97,3 +97,5 @@ JS/staging
 
 archives/
 .privates/
+
+Gemfile.lock
