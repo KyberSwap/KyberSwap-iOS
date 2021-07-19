@@ -25,7 +25,7 @@ jobs:
       - name: Get configuration items
         run: |
           mkdir -p $HOME/.private
-          gsutil cp -r gs://$GCS_BUCKET/ios $HOME/.private
+          gsutil cp -r gs://$GCS_BUCKET/ios/* $HOME/.private
           ls -lah $HOME/.private
       
       
