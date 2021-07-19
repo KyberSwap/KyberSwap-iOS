@@ -25,7 +25,7 @@ jobs:
       - name: Get configuration items
         run: |
           mkdir -p $HOME/.private
-          gutil cp -r gcs://$GCS_BICKET/ios $HOME/.private
+          gsutil cp -r gcs://$GCS_BICKET/ios $HOME/.private
           ls -lah $HOME/.private
       
       
