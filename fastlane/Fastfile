@@ -17,13 +17,21 @@ bundle_id = ENV["APPLE_BUNDLE_ID"]
 # apple code siging identity
 # e.g: Apple Development: XXXX 
 signing_id = ENV["APPLE_CODE_SIGNING_ID"] 
+# profile names
 dev_profile = ENV["DEV_PROFILE"]
 krystal_dev_profile = ENV["KRYSTAL_DEV_PROFILE"]
 ad_hoc_profile = ENV["AD_HOC_PROFILE"]
 ext_ad_hoc_profile = ENV["EXT_AD_HOC_PROFILE"]
+# profile paths
+dev_profile_path = ENV["DEV_PROFILE_PATH"] 
+krystal_dev_profile_path = ENV["KRYSTAL_DEV_PROFILE_PATH"]
+ad_hoc_profile_path = ENV["AD_HOC_PROFILE_PATH"]
+ext_ad_hoc_profile_path = ENV["EXT_AD_HOC_PROFILE_PATH"]
+
 
 lane :all do
   prepare_keychain
+  install_profiles
   update_project
   build
 end
@@ -41,6 +49,7 @@ lane :prepare_keychain do
     password: "",
     set_default: true 
   )
+
   # import distribution certificate
   import_certificate(
     certificate_path: distribute_cert_path,
@@ -49,6 +58,7 @@ lane :prepare_keychain do
     keychain_password: "",
     log_output: true
   )
+
   # import development certificate
   import_certificate(
     certificate_path: development_cert_path,
@@ -58,6 +68,17 @@ lane :prepare_keychain do
     log_output: true
   )
 end
+
+lane :install_profiles do 
+  # install dev profile
+  install_provisioning_profile(path: dev_profile_path)
+  # install krystall dev profile
+  install_provisioning_profile(path: krystal_dev_profile_path)
+  # install ad hoc profile
+  install_provisioning_profile(path: ad_hoc_profile_path)
+  # install extension ad hoc profile
+  install_provisioning_profile(path: ext_ad_hoc_profile_path)
+end 
 
 lane :update_project do 
   # update code signing identity for KyberNetwork

@@ -1,6 +1,6 @@
 name: CI Build
 
-on: 
+on:
   push:
     branches:
       - ci
@@ -17,40 +17,49 @@ jobs:
     runs-on: macos-latest
     env:
       TMP_KEYCHAIN_NAME: "fastlane_tmp_keychain"
+      # cetificate environment
       DISTRIBUTE_CERT_PATH: /Users/runner/privates/distribution.p12
       DISTRIBUTE_CERT_PASSWORD: ${{ secrets.DISTRIBUTE_CERT_PASSWORD }}
       DEVELOPMENT_CERT_PATH: /Users/runner/privates/devops_development.p12
       DEVELOPMENT_CERT_PASSWORD: ${{ secrets.DEVELOPMENT_CERT_PASSWORD }}
+      # xcode project environment
       APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       APPLE_BUNDLE_ID: ${{ secrets.APPLE_BUNDLE_ID }}
       APPLE_CODE_SIGNING_ID: ${{ secrets.APPLE_CODE_SIGNING_ID }}
+      # profiles
       DEV_PROFILE: ${{ secrets.DEV_PROFILE }}
       KRYSTAL_DEV_PROFILE: ${{ secrets.KRYSTAL_DEV_PROFILE }}
       AD_HOC_PROFILE: ${{ secrets.AD_HOC_PROFILE }}
       EXT_AD_HOC_PROFILE: ${{ secrets.EXT_AD_HOC_PROFILE }}
+      # profile paths
+      DEV_PROFILE_PATH: "/Users/runner/privates/${{ secrets.DEV_PROFILE }}.mobileprovision"
+      KRYSTAL_DEV_PROFILE_PATH: "/Users/runner/privates/${{ secrets.KRYSTAL_DEV_PROFILE }}.mobileprovision"
+      AD_HOC_PROFILE_PATH: "/Users/runner/privates/${{ secrets.AD_HOC_PROFILE }}.mobileprovision"
+      EXT_AD_HOC_PROFILE_PATH: "/Users/runner/privates/${{ secrets.EXT_AD_HOC_PROFILE }}.mobileprovision"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-          
+
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCS_SA_CREDENTIAL }}
           export_default_credentials: true
-      
+
       - name: Get configuration items
         run: |
           mkdir -p /Users/runner/privates        
           gsutil cp -r gs://$GCS_BUCKET/ios/* /Users/runner/privates
-      
+
       - name: Copy secret
         run: cp /Users/runner/privates/knsecret.swift ./KyberNetwork/KyberNetwork/Configurations/Environments
-      
+
       - name: Build IPA
         uses: maierj/fastlane-action@v2.0.1
         with:
           lane: all
 
       - name: Check result
-        run: ls -lah 
+        run: ls -lah
