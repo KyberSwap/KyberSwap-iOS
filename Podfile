@@ -1,4 +1,4 @@
-platform :ios, '10.0'
+platform :ios, '11.0'
 inhibit_all_warnings!
 source 'https://github.com/CocoaPods/Specs.git'
 
@@ -19,7 +19,7 @@ target 'KyberNetwork' do
   pod 'Lokalise', '~> 0.8.1'
   pod 'Moya', '~> 10.0.1'
   pod 'JavaScriptKit', '~> 1.0.0'
-  pod 'CryptoSwift', '~> 0.10.0'
+  pod 'CryptoSwift'
   pod 'Kingfisher', '~> 5.13'
   pod 'TrustCore', '~> 0.0.7'
   pod 'TrustKeystore', '~> 0.4.2'
