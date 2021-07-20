@@ -25,6 +25,11 @@ fastlane all
 fastlane prepare_keychain
 ```
 
+### install_profiles
+```
+fastlane install_profiles
+```
+
 ### update_project
 ```
 fastlane update_project

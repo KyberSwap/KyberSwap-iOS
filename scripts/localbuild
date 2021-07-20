@@ -12,6 +12,7 @@ function cleanup() {
   fi
 }
 
+# make sure cleanup function always called after the script finished
 trap cleanup EXIT SIGTERM SIGINT SIGQUIT
 
 ENV_FILE="./scripts/build.env"
