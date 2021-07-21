@@ -152,7 +152,7 @@ extension KNTransactionCoordinator {
       }
     )
     group.notify(queue: .global()) {
-      KNSupportedTokenStorage.shared.checkAddCustomTokenIfNeeded()
+//      KNSupportedTokenStorage.shared.checkAddCustomTokenIfNeeded()
       EtherscanTransactionStorage.shared.generateKrytalTransactionModel()
     }
   }

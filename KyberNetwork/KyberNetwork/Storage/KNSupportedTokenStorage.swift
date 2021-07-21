@@ -214,6 +214,24 @@ class KNSupportedTokenStorage {
     Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
   }
   
+  func checkAddCustomTokenIfNeeded(_ tokens: [Token]) {
+    let all = self.allTokens
+    guard !all.isEmpty else {
+      return
+    }
+    var unknown: [Token] = []
+    tokens.forEach { token in
+      if !all.contains(token) {
+        unknown.append(token)
+      }
+    }
+    guard !unknown.isEmpty else {
+      return
+    }
+    self.customTokens.append(contentsOf: unknown)
+    Storage.store(self.customTokens, as: KNEnvironment.default.envPrefix + Constants.customTokenStoreFileName)
+  }
+
   func migrationCustomTokenIfNeeded() {
     guard KNGeneralProvider.shared.isEthereum, Storage.isFileExistAtPath(Constants.customTokenStoreFileName) else {
       return

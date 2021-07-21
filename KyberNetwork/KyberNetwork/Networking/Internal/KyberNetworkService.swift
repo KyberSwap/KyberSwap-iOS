@@ -871,6 +871,7 @@ enum KrytalService {
   case login(address: String, timestamp: Int, signature: String)
   case getClaimHistory(address: String, accessToken: String)
   case claimReward(address: String, amount: Double, accessToken: String)
+  case getBalances(address: String)
 }
 
 extension KrytalService: TargetType {
@@ -945,6 +946,8 @@ extension KrytalService: TargetType {
       return "/v1/account/claimHistory"
     case .claimReward:
       return "/v1/account/claimReward"
+    case .getBalances:
+      return "/v1/account/balances"
     }
   }
 
@@ -1119,6 +1122,11 @@ extension KrytalService: TargetType {
         "amount": amount
       ]
       return .requestParameters(parameters: json, encoding: JSONEncoding.default)
+    case .getBalances(address: let address):
+      let json: JSONDictionary = [
+        "address": address
+      ]
+      return .requestParameters(parameters: json, encoding: URLEncoding.queryString)
     }
   }
 

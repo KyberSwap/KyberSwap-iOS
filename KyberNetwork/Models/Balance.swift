@@ -23,3 +23,14 @@ struct Balance: BalanceProtocol {
         return EtherNumberFormatter.full.string(from: value)
     }
 }
+
+struct BalancesResponse: Codable {
+    let timestamp: Int
+    let balances: [BalanceData]
+}
+
+struct BalanceData: Codable {
+    let token: Token
+    let balance: String
+    let quote, quoteRate: Double
+}

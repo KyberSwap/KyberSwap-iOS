@@ -39,10 +39,11 @@ class KNLoadBalanceCoordinator {
   }
 
   func loadAllBalances() {
-    self.loadAllTokenBalance()
+//    self.loadAllTokenBalance()
     self.loadLendingBalances()
     self.loadLendingDistributionBalance()
-    self.loadBalanceForCustomToken()
+//    self.loadBalanceForCustomToken()
+    self.loadTokenBalancesFromApi()
   }
 
   func resume() {
@@ -255,25 +256,53 @@ class KNLoadBalanceCoordinator {
   }
 
   func loadBalanceForCustomToken() {
-    let tokens = KNSupportedTokenStorage.shared.getCustomToken()
-    let addresses = tokens.map { (token) -> String in
-      return token.address
-    }
-    let group = DispatchGroup()
-    addresses.forEach { (addressString) in
-      guard let address = Address(string: addressString) else { return }
-      group.enter()
-      KNGeneralProvider.shared.getTokenBalance(for: self.session.wallet.address, contract: address) { result in
-        if case .success(let bigInt) = result {
-          let balance = TokenBalance(address: addressString, balance: bigInt.description)
-          BalanceStorage.shared.setCustomTokenBalance(balance)
+//    let tokens = KNSupportedTokenStorage.shared.getCustomToken()
+//    let addresses = tokens.map { (token) -> String in
+//      return token.address
+//    }
+//    let group = DispatchGroup()
+//    addresses.forEach { (addressString) in
+//      guard let address = Address(string: addressString) else { return }
+//      group.enter()
+//      KNGeneralProvider.shared.getTokenBalance(for: self.session.wallet.address, contract: address) { result in
+//        if case .success(let bigInt) = result {
+//          let balance = TokenBalance(address: addressString, balance: bigInt.description)
+//          BalanceStorage.shared.setCustomTokenBalance(balance)
+//        }
+//        group.leave()
+//      }
+//    }
+//    group.notify(queue: .main) {
+//      BalanceStorage.shared.saveCustomTokenBalance()
+//      KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
+//    }
+  }
+  
+  func loadTokenBalancesFromApi() {
+    let provider = MoyaProvider<KrytalService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    provider.request(.getBalances(address: self.session.wallet.address.description)) { (result) in
+      switch result {
+      case .success(let resp):
+        let decoder = JSONDecoder()
+        do {
+          let data = try decoder.decode(BalancesResponse.self, from: resp.data)
+          print("[LoadBalance] \(data)")
+          let balances = data.balances.map { (data) -> TokenBalance in
+            return TokenBalance(address: data.token.address, balance: data.balance)
+          }
+          let tokens = data.balances.map { data -> Token in
+            return data.token
+          }
+          BalanceStorage.shared.setBalances(balances)
+          KNSupportedTokenStorage.shared.checkAddCustomTokenIfNeeded(tokens)
+          KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
+
+        } catch let error {
+          print("[LoadBalance] \(error.localizedDescription)")
         }
-        group.leave()
+      case .failure(let error):
+        print("[LoadBalance] \(error.localizedDescription)")
       }
-    }
-    group.notify(queue: .main) {
-      BalanceStorage.shared.saveCustomTokenBalance()
-      KNNotificationUtil.postNotification(for: kOtherBalanceDidUpdateNotificationKey)
     }
   }
 

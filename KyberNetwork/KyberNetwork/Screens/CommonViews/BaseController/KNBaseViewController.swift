@@ -16,6 +16,10 @@ class KNBaseViewController: UIViewController {
     NSLog("Did dismiss: \(self.className)")
     self.dismissTutorialOverlayer()
   }
+  
+  var isVisible: Bool {
+    return self.viewIfLoaded?.window != nil
+  }
 }
 
 class KNTabBarController: UITabBarController {
